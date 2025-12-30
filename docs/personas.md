@@ -183,6 +183,38 @@ Lead with white-label and revenue opportunity. They care about adding capabiliti
 
 ---
 
+## Government Agency Administrator
+
+### Profile
+| Attribute | Details |
+|-----------|---------|
+| **Titles** | Director of Benefits Administration, Eligibility Program Manager, Director of Social Services, Chief Operations Officer |
+| **Industry** | Federal, State, and Local Government Agencies |
+| **Reports to** | Agency Director, Commissioner, Deputy Secretary |
+| **Focus** | Improper payment reduction, processing efficiency, compliance |
+
+### Pain Points (In Their Words)
+
+| Pain Point | Details |
+|------------|---------|
+| "Verification takes weeks" | 2-4 weeks for manual income verification delays benefits |
+| "Improper payments are a budget crisis" | Billions lost annually to overpayments and fraud |
+| "Staff drowning in paperwork" | Manual document review consumes 60-80% of staff time |
+| "Applicants abandon the process" | Long wait times cause eligible citizens to give up |
+| "Fraud is hard to detect" | Fake documents slip through manual review |
+
+### Success Metrics
+- Processing time (30 seconds vs. 2-4 weeks target)
+- Improper payment rate reduction
+- Staff time on verification (60-80% reduction target)
+- Application completion rate
+- Fraud detection rate
+
+### Messaging Angle
+Lead with speed and improper payment reduction. They care about serving citizens faster while protecting taxpayer dollars. Use language like "30-second verification" and "reduce improper payments."
+
+---
+
 ## Deal Size by Persona/Segment
 
 ### Mortgage Lending
