@@ -70,12 +70,12 @@ export function LeadModal({ isOpen, onClose, onSubmit }: LeadModalProps) {
         animate={{ scale: 1, opacity: 1 }}
         exit={{ scale: 0.95, opacity: 0 }}
         onClick={(e) => e.stopPropagation()}
-        className="bg-white rounded-2xl shadow-2xl w-full max-w-md overflow-hidden"
+        className="bg-white rounded-[20px] shadow-2xl w-full max-w-[520px] overflow-hidden"
       >
         {/* Header */}
-        <div className="p-6 border-b border-border">
+        <div className="p-8 border-b border-border">
           <div className="flex items-center justify-between mb-4">
-            <h2 className="text-xl font-bold text-dark">Unlock Your Full Report</h2>
+            <h2 className="text-[32px] font-bold text-dark tracking-tight">Unlock Your Full Report</h2>
             <button
               onClick={onClose}
               className="text-gray hover:text-dark transition-colors"
@@ -216,21 +216,13 @@ export function LeadModal({ isOpen, onClose, onSubmit }: LeadModalProps) {
         </div>
 
         {/* Footer */}
-        <div className="p-6 border-t border-border flex gap-3">
-          {step === 2 && (
-            <button
-              onClick={() => setStep(1)}
-              className="px-6 py-3 rounded-xl border border-border text-gray hover:bg-gray-50 transition-colors"
-            >
-              Back
-            </button>
-          )}
+        <div className="p-8 border-t border-border flex flex-col gap-4">
           <motion.button
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
+            whileHover={{ scale: 1.01 }}
+            whileTap={{ scale: 0.99 }}
             onClick={handleNext}
             disabled={step === 1 ? !isStep1Valid : !isStep2Valid}
-            className={`flex-1 py-3 rounded-xl font-semibold transition-all ${
+            className={`w-full py-[18px] rounded-full font-semibold transition-all ${
               (step === 1 ? isStep1Valid : isStep2Valid)
                 ? 'bg-truv-blue text-white hover:bg-truv-blue-dark'
                 : 'bg-gray-200 text-gray-400 cursor-not-allowed'
@@ -238,6 +230,15 @@ export function LeadModal({ isOpen, onClose, onSubmit }: LeadModalProps) {
           >
             {step === 1 ? 'Continue' : 'Get My Report'}
           </motion.button>
+          {step === 2 && (
+            <button
+              type="button"
+              onClick={() => setStep(1)}
+              className="w-full text-truv-blue font-medium text-base hover:underline"
+            >
+              Back
+            </button>
+          )}
         </div>
       </motion.div>
     </motion.div>

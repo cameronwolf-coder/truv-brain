@@ -7,7 +7,7 @@ import { ResultsStep } from './components/ResultsStep';
 import { LeadModal } from './components/LeadModal';
 import { CalculatingSpinner } from './components/CalculatingSpinner';
 import { calculateROI, DEFAULT_ADVANCED_INPUTS } from './utils/calculations';
-import type { FormData, CostMethod, Step, CalculationResults, LeadFormData } from './types';
+import type { FormData, CostMethod, Step, CalculationResults, LeadFormData, AdvancedInputs } from './types';
 
 function App() {
   const [step, setStep] = useState<Step>(0);
@@ -22,8 +22,21 @@ function App() {
 
   const [costMethod, setCostMethod] = useState<CostMethod['id']>('benchmark');
   const [customCost, setCustomCost] = useState<number | undefined>();
+  const [advancedInputs, setAdvancedInputs] = useState<AdvancedInputs>(DEFAULT_ADVANCED_INPUTS);
 
   const [results, setResults] = useState<CalculationResults | null>(null);
+
+  // Recalculate when advanced inputs change
+  const handleAdvancedInputsChange = (newInputs: AdvancedInputs) => {
+    setAdvancedInputs(newInputs);
+    const calculatedResults = calculateROI(
+      formData,
+      newInputs,
+      costMethod,
+      customCost
+    );
+    setResults(calculatedResults);
+  };
 
   const handleCalculate = () => {
     setIsCalculating(true);
@@ -41,7 +54,7 @@ function App() {
     setTimeout(() => {
       const calculatedResults = calculateROI(
         formData,
-        DEFAULT_ADVANCED_INPUTS,
+        advancedInputs,
         costMethod,
         customCost
       );
@@ -62,11 +75,11 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-white">
       <Header />
 
-      <main className="max-w-2xl mx-auto px-6 py-16">
-        <div className="bg-white rounded-3xl shadow-xl shadow-black/5 p-8 md:p-12">
+      <main className="max-w-[680px] mx-auto px-6 py-5 pb-0">
+        <div className="bg-white p-0">
           <AnimatePresence mode="wait">
             {step === 0 && (
               <InputStep
@@ -94,27 +107,25 @@ function App() {
                 results={results}
                 isGated={isGated}
                 onUnlock={handleUnlock}
+                advancedInputs={advancedInputs}
+                onAdvancedInputsChange={handleAdvancedInputsChange}
               />
             )}
           </AnimatePresence>
         </div>
-
-        {/* Step Progress */}
-        <div className="flex justify-center mt-8 gap-2">
-          {[0, 1, 2].map((s) => (
-            <div
-              key={s}
-              className={`w-2 h-2 rounded-full transition-all ${
-                s === step
-                  ? 'bg-truv-blue w-6'
-                  : s < step
-                  ? 'bg-truv-blue'
-                  : 'bg-gray-300'
-              }`}
-            />
-          ))}
-        </div>
       </main>
+
+      {/* Partner Logos Footer */}
+      <footer className="partner-logos">
+        <span className="partner-logo-text">accurate.</span>
+        <span className="partner-logo-text green">Associated Bank</span>
+        <span className="partner-logo-text red">AFN</span>
+        <span className="partner-logo-text">Happy Money</span>
+        <span className="partner-logo-text blue">Compass Mortgage</span>
+      </footer>
+      <div className="privacy-notice">
+        By clicking "Continue" you agree to Truv's <a href="#">Privacy Notice</a>.
+      </div>
 
       <AnimatePresence>
         <CalculatingSpinner isVisible={isCalculating} />

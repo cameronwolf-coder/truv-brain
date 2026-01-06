@@ -12,27 +12,27 @@ interface CostMethodStepProps {
 const costMethods: CostMethod[] = [
   {
     id: 'benchmark',
-    label: 'Industry Benchmark',
-    description: 'Use average costs for your industry',
-    icon: '📊'
+    label: 'Use industry benchmarks',
+    description: '$10/VOA, $62/TWN verification',
+    icon: ''
   },
   {
     id: 'per_loan',
-    label: 'Cost per Loan',
-    description: 'Enter your cost per funded loan',
-    icon: '💵'
+    label: 'I know my cost per funded loan',
+    description: 'Total verification cost per loan',
+    icon: ''
   },
   {
     id: 'total_spend',
-    label: 'Total Annual Spend',
-    description: 'Enter your total verification budget',
-    icon: '📈'
+    label: 'I know my total annual spend',
+    description: 'Total verification budget per year',
+    icon: ''
   },
   {
     id: 'per_verification',
-    label: 'Cost per Verification',
-    description: 'Enter your average verification cost',
-    icon: '🔍'
+    label: 'I know my cost per verification',
+    description: 'What you pay TWN or similar',
+    icon: ''
   }
 ];
 
@@ -59,34 +59,53 @@ export function CostMethodStep({
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -20 }}
       transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
-      className="space-y-8"
+      className="space-y-10"
     >
-      <div className="text-center space-y-2">
-        <h2 className="text-2xl font-bold text-dark">
-          How do you track verification costs?
+      <div className="text-center space-y-3">
+        <h2 className="text-[42px] font-bold text-dark tracking-tight leading-tight">
+          Your Current Costs
         </h2>
-        <p className="text-gray">
-          Choose how you'd like to input your current costs
+        <p className="text-gray text-lg">
+          Choose how you'd like to input your verification costs
         </p>
       </div>
 
-      <div className="grid grid-cols-2 gap-4">
+      <div className="flex flex-col gap-3">
         {costMethods.map((method, index) => (
           <motion.button
             key={method.id}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: index * 0.1, duration: 0.3 }}
+            transition={{ delay: index * 0.05, duration: 0.3 }}
             onClick={() => onSelectMethod(method.id)}
-            className={`p-5 rounded-xl border-2 text-left transition-all ${
+            className={`relative p-5 rounded-xl border text-left transition-all overflow-hidden ${
               selectedMethod === method.id
-                ? 'border-truv-blue bg-truv-blue-light shadow-lg shadow-truv-blue/10'
-                : 'border-border hover:border-gray-300 hover:shadow-md'
+                ? 'border-truv-blue bg-white'
+                : 'border-border hover:border-gray-300'
             }`}
           >
-            <div className="text-2xl mb-2">{method.icon}</div>
-            <div className="font-semibold text-dark mb-1">{method.label}</div>
-            <div className="text-sm text-gray">{method.description}</div>
+            {/* Left accent bar */}
+            <div className={`absolute left-0 top-0 bottom-0 w-1 transition-colors ${
+              selectedMethod === method.id ? 'bg-truv-blue' : 'bg-transparent'
+            }`} />
+
+            <div className="flex items-center gap-4">
+              {/* Radio button */}
+              <div className={`w-[22px] h-[22px] rounded-full border-2 flex items-center justify-center flex-shrink-0 transition-all ${
+                selectedMethod === method.id
+                  ? 'border-truv-blue bg-truv-blue'
+                  : 'border-gray-300'
+              }`}>
+                {selectedMethod === method.id && (
+                  <div className="w-2 h-2 rounded-full bg-white" />
+                )}
+              </div>
+
+              <div className="flex-1">
+                <div className="font-medium text-dark text-base">{method.label}</div>
+                <div className="text-sm text-gray-light">{method.description}</div>
+              </div>
+            </div>
           </motion.button>
         ))}
       </div>
@@ -98,32 +117,42 @@ export function CostMethodStep({
           exit={{ opacity: 0, height: 0 }}
           className="space-y-2"
         >
-          <label className="block text-sm font-medium text-dark">
-            Enter your {costMethods.find(m => m.id === selectedMethod)?.label.toLowerCase()}
+          <label className="block text-[15px] font-medium text-dark">
+            Enter amount
           </label>
           <input
             type="number"
             value={customCost || ''}
             onChange={(e) => onCustomCostChange(parseInt(e.target.value) || 0)}
             placeholder={placeholders[selectedMethod]}
-            className="w-full px-4 py-3 text-lg border border-border rounded-xl focus:border-truv-blue focus:ring-2 focus:ring-truv-blue-glow outline-none transition-all font-mono"
+            className="w-full px-5 py-4 text-base border border-border rounded-xl focus:border-truv-blue focus:ring-2 focus:ring-truv-blue-glow outline-none transition-all"
           />
         </motion.div>
       )}
 
-      <motion.button
-        whileHover={{ scale: 1.02 }}
-        whileTap={{ scale: 0.98 }}
-        onClick={onContinue}
-        disabled={!isValid}
-        className={`w-full py-4 rounded-xl text-lg font-semibold transition-all ${
-          isValid
-            ? 'bg-truv-blue text-white hover:bg-truv-blue-dark shadow-lg shadow-truv-blue/25'
-            : 'bg-gray-200 text-gray-400 cursor-not-allowed'
-        }`}
-      >
-        See My Results
-      </motion.button>
+      <div className="space-y-4">
+        <motion.button
+          whileHover={{ scale: 1.01 }}
+          whileTap={{ scale: 0.99 }}
+          onClick={onContinue}
+          disabled={!isValid}
+          className={`w-full py-[18px] rounded-full text-base font-semibold transition-all ${
+            isValid
+              ? 'bg-truv-blue text-white hover:bg-truv-blue-dark'
+              : 'bg-gray-200 text-gray-400 cursor-not-allowed'
+          }`}
+        >
+          Continue
+        </motion.button>
+
+        <button
+          type="button"
+          onClick={() => window.history.back()}
+          className="w-full text-truv-blue font-medium text-base hover:underline"
+        >
+          Back
+        </button>
+      </div>
     </motion.div>
   );
 }
