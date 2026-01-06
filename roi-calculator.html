@@ -6,7 +6,7 @@
     <title>ROI Calculator | Truv</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <style>
         * {
@@ -19,11 +19,12 @@
             --truv-blue: #2C64E3;
             --truv-blue-dark: #1e4bb8;
             --truv-blue-light: #e8effc;
+            --truv-blue-glow: rgba(44, 100, 227, 0.15);
             --dark: #171717;
             --gray: #3C3C43;
             --gray-light: #6b6b70;
-            --border: #e5e5e5;
-            --background: #f8f9fa;
+            --border: #e5e7eb;
+            --background: #f8fafc;
             --white: #ffffff;
             --success: #10b981;
             --success-light: #d1fae5;
@@ -39,9 +40,15 @@
             min-height: 100vh;
         }
 
+        /* Monospace for numbers */
+        .mono {
+            font-family: 'JetBrains Mono', monospace;
+        }
+
         /* Header */
         .header {
-            background: var(--white);
+            background: rgba(255,255,255,0.8);
+            backdrop-filter: blur(12px);
             border-bottom: 1px solid var(--border);
             padding: 16px 24px;
             position: sticky;
@@ -71,7 +78,7 @@
             width: 32px;
             height: 32px;
             background: var(--truv-blue);
-            border-radius: 6px;
+            border-radius: 8px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -91,273 +98,373 @@
             font-weight: 500;
         }
 
-        .header-cta a:hover {
-            text-decoration: underline;
-        }
-
         /* Main Container */
         .container {
-            max-width: 900px;
+            max-width: 720px;
             margin: 0 auto;
-            padding: 40px 24px;
+            padding: 60px 24px;
         }
 
-        /* Cards */
+        /* Card */
         .card {
             background: var(--white);
-            border-radius: 16px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1), 0 4px 12px rgba(0,0,0,0.05);
-            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+            padding: 48px;
+            overflow: hidden;
         }
 
-        .card-header {
+        /* Step Sections */
+        .step-section {
+            opacity: 0;
+            transform: translateY(20px);
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .step-section.visible {
+            opacity: 1;
+            transform: translateY(0);
+            max-height: 2000px;
+        }
+
+        .step-section.instant {
+            transition: none;
+        }
+
+        /* Step 0: Hero Inputs */
+        .hero-section {
             text-align: center;
-            margin-bottom: 32px;
+            padding-bottom: 32px;
         }
 
-        .card-title {
-            font-size: 28px;
+        .hero-title {
+            font-size: 32px;
             font-weight: 700;
             color: var(--dark);
             margin-bottom: 8px;
+            letter-spacing: -0.5px;
         }
 
-        .card-subtitle {
+        .hero-subtitle {
             font-size: 16px;
-            color: var(--gray);
-        }
-
-        /* Form Elements */
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-label {
-            display: block;
-            font-size: 14px;
-            font-weight: 500;
-            color: var(--dark);
-            margin-bottom: 6px;
-        }
-
-        .form-input, .form-select {
-            width: 100%;
-            padding: 12px 16px;
-            font-size: 15px;
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            background: var(--white);
-            color: var(--dark);
-            transition: border-color 0.2s, box-shadow 0.2s;
-        }
-
-        .form-input:focus, .form-select:focus {
-            outline: none;
-            border-color: var(--truv-blue);
-            box-shadow: 0 0 0 3px var(--truv-blue-light);
-        }
-
-        .form-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 16px;
-        }
-
-        @media (max-width: 600px) {
-            .form-row {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        /* Calculator Section */
-        .calculator-section {
-            margin-bottom: 32px;
-        }
-
-        .section-label {
-            font-size: 12px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
             color: var(--gray-light);
-            margin-bottom: 16px;
+            margin-bottom: 40px;
         }
 
-        .input-grid {
+        .hero-inputs {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 16px;
+            gap: 20px;
+            max-width: 500px;
+            margin: 0 auto;
         }
 
         @media (max-width: 600px) {
-            .input-grid {
+            .hero-inputs {
                 grid-template-columns: 1fr;
             }
         }
 
         .input-group {
-            display: flex;
-            flex-direction: column;
+            text-align: left;
         }
 
-        .input-group label {
-            font-size: 14px;
+        .input-label {
+            display: block;
+            font-size: 13px;
             font-weight: 500;
-            color: var(--dark);
+            color: var(--gray);
             margin-bottom: 8px;
         }
 
-        .input-large {
+        .input-field {
+            width: 100%;
             padding: 16px 20px;
             font-size: 18px;
             font-weight: 500;
-            border: 2px solid var(--border);
+            font-family: 'JetBrains Mono', monospace;
+            border: none;
             border-radius: 12px;
-            transition: all 0.2s;
-        }
-
-        .input-large:focus {
-            border-color: var(--truv-blue);
-            box-shadow: 0 0 0 4px var(--truv-blue-light);
-        }
-
-        /* Cost Input Options */
-        .cost-input-section {
             background: var(--background);
-            border-radius: 12px;
-            padding: 24px;
-            margin-bottom: 32px;
+            color: var(--dark);
+            transition: all 0.2s;
+            outline: none;
         }
 
-        .cost-input-header {
+        .input-field:focus {
+            background: var(--white);
+            box-shadow: 0 0 0 3px var(--truv-blue-glow), 0 0 0 1px var(--truv-blue);
+        }
+
+        .input-field::placeholder {
+            color: var(--gray-light);
+            font-family: 'Inter', sans-serif;
+        }
+
+        select.input-field {
+            font-family: 'Inter', sans-serif;
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%236b6b70' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 16px center;
+            padding-right: 48px;
+        }
+
+        /* Step 1: Cost Selection Cards */
+        .cost-section {
+            padding: 32px 0;
+            border-top: 1px solid var(--border);
+            margin-top: 8px;
+        }
+
+        .section-header {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: 16px;
+            margin-bottom: 20px;
         }
 
-        .cost-input-title {
-            font-size: 16px;
+        .section-title {
+            font-size: 14px;
             font-weight: 600;
-            color: var(--dark);
+            color: var(--gray);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
-        .cost-input-toggle {
-            font-size: 13px;
-            color: var(--truv-blue);
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 4px;
-        }
-
-        .cost-input-toggle:hover {
-            text-decoration: underline;
-        }
-
-        .cost-options {
-            display: flex;
-            flex-direction: column;
+        .cost-cards {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
             gap: 12px;
         }
 
-        .cost-option {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 16px;
+        @media (max-width: 600px) {
+            .cost-cards {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .cost-card {
+            padding: 20px;
             background: var(--white);
             border: 2px solid var(--border);
-            border-radius: 10px;
+            border-radius: 14px;
             cursor: pointer;
-            transition: all 0.2s;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
         }
 
-        .cost-option:hover {
+        .cost-card:hover {
             border-color: var(--truv-blue-light);
+            background: var(--background);
         }
 
-        .cost-option.selected {
+        .cost-card.selected {
             border-color: var(--truv-blue);
             background: var(--truv-blue-light);
+            transform: scale(1.02);
+            box-shadow: 0 8px 24px var(--truv-blue-glow);
         }
 
-        .cost-option-radio {
-            width: 20px;
-            height: 20px;
-            border: 2px solid var(--border);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-        }
-
-        .cost-option.selected .cost-option-radio {
-            border-color: var(--truv-blue);
-        }
-
-        .cost-option.selected .cost-option-radio::after {
-            content: '';
-            width: 10px;
-            height: 10px;
-            background: var(--truv-blue);
-            border-radius: 50%;
-        }
-
-        .cost-option-content {
-            flex: 1;
-        }
-
-        .cost-option-label {
+        .cost-card-title {
             font-size: 14px;
-            font-weight: 500;
+            font-weight: 600;
             color: var(--dark);
-            margin-bottom: 2px;
+            margin-bottom: 4px;
         }
 
-        .cost-option-desc {
+        .cost-card-desc {
             font-size: 12px;
             color: var(--gray-light);
         }
 
-        .cost-option-input {
-            width: 140px;
+        .cost-card-input {
+            margin-top: 12px;
+            width: 100%;
             padding: 10px 14px;
             font-size: 16px;
+            font-family: 'JetBrains Mono', monospace;
             font-weight: 600;
-            border: 2px solid var(--border);
+            border: 1px solid var(--border);
             border-radius: 8px;
-            text-align: right;
+            background: var(--white);
+            display: none;
         }
 
-        .cost-option-input:focus {
+        .cost-card.selected .cost-card-input {
+            display: block;
+        }
+
+        .cost-card-input:focus {
             outline: none;
             border-color: var(--truv-blue);
         }
 
-        .cost-option-input:disabled {
-            background: var(--background);
-            color: var(--gray-light);
+        /* Step 2: Results Reveal */
+        .results-section {
+            padding-top: 32px;
         }
 
-        /* Assumptions Badge */
-        .assumptions-badge {
-            display: inline-flex;
+        /* Calculating Animation */
+        .calculating-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255,255,255,0.9);
+            backdrop-filter: blur(4px);
+            z-index: 200;
             align-items: center;
-            gap: 6px;
-            padding: 8px 12px;
-            background: var(--warning-light);
-            color: var(--warning);
-            font-size: 12px;
-            font-weight: 500;
-            border-radius: 6px;
-            margin-top: 12px;
+            justify-content: center;
+            flex-direction: column;
+            gap: 16px;
         }
 
-        .assumptions-badge.custom {
-            background: var(--success-light);
-            color: var(--success);
+        .calculating-overlay.active {
+            display: flex;
+        }
+
+        .calculating-spinner {
+            width: 48px;
+            height: 48px;
+            border: 3px solid var(--border);
+            border-top-color: var(--truv-blue);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .calculating-text {
+            font-size: 16px;
+            font-weight: 500;
+            color: var(--gray);
+        }
+
+        /* Hero Number */
+        .hero-result {
+            text-align: center;
+            padding: 40px 0;
+            background: linear-gradient(135deg, var(--truv-blue) 0%, var(--truv-blue-dark) 100%);
+            border-radius: 20px;
+            color: white;
+            margin-bottom: 24px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-result::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 60%);
+            animation: pulse-glow 3s ease-in-out infinite;
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+        }
+
+        .hero-result-label {
+            font-size: 14px;
+            opacity: 0.9;
+            margin-bottom: 8px;
+            position: relative;
+        }
+
+        .hero-result-value {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 56px;
+            font-weight: 700;
+            letter-spacing: -2px;
+            margin-bottom: 8px;
+            position: relative;
+        }
+
+        .hero-result-context {
+            font-size: 15px;
+            opacity: 0.85;
+            position: relative;
+        }
+
+        /* Secondary Stats */
+        .stats-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 32px;
+        }
+
+        .stat-card {
+            background: var(--background);
+            border-radius: 14px;
+            padding: 24px;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--truv-blue);
+            margin-bottom: 4px;
+        }
+
+        .stat-label {
+            font-size: 13px;
+            color: var(--gray);
+        }
+
+        /* Blurred Gate Section */
+        .gated-preview {
+            position: relative;
+            margin-top: 32px;
+        }
+
+        .gated-content {
+            filter: blur(8px);
+            opacity: 0.6;
+            pointer-events: none;
+            user-select: none;
+        }
+
+        .gated-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to bottom, transparent 0%, rgba(255,255,255,0.9) 30%, var(--white) 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .gated-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 8px;
+        }
+
+        .gated-subtitle {
+            font-size: 14px;
+            color: var(--gray);
+            margin-bottom: 24px;
         }
 
         /* Buttons */
@@ -366,10 +473,10 @@
             align-items: center;
             justify-content: center;
             gap: 8px;
-            padding: 14px 28px;
+            padding: 16px 32px;
             font-size: 15px;
             font-weight: 600;
-            border-radius: 8px;
+            border-radius: 12px;
             border: none;
             cursor: pointer;
             transition: all 0.2s;
@@ -378,17 +485,19 @@
         .btn-primary {
             background: var(--truv-blue);
             color: white;
+            box-shadow: 0 4px 14px var(--truv-blue-glow);
         }
 
         .btn-primary:hover {
             background: var(--truv-blue-dark);
-            transform: translateY(-1px);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px var(--truv-blue-glow);
         }
 
         .btn-secondary {
             background: var(--white);
             color: var(--truv-blue);
-            border: 1px solid var(--truv-blue);
+            border: 2px solid var(--truv-blue);
         }
 
         .btn-secondary:hover {
@@ -405,149 +514,266 @@
             color: var(--dark);
         }
 
-        /* Results Section */
-        .results-preview {
-            background: linear-gradient(135deg, var(--truv-blue) 0%, #1e4bb8 100%);
-            border-radius: 16px;
-            padding: 40px;
-            text-align: center;
-            color: white;
-            margin-bottom: 24px;
-        }
-
-        .results-preview-label {
-            font-size: 14px;
-            opacity: 0.9;
-            margin-bottom: 8px;
-        }
-
-        .results-preview-value {
-            font-size: 56px;
-            font-weight: 700;
-            margin-bottom: 8px;
-            line-height: 1.1;
-        }
-
-        .results-preview-sublabel {
-            font-size: 16px;
-            opacity: 0.85;
-        }
-
-        .results-secondary {
+        /* Mini comparison preview */
+        .comparison-preview {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 16px;
-            margin-bottom: 32px;
+            padding: 20px;
+            background: var(--background);
+            border-radius: 14px;
         }
 
-        .result-card {
-            background: var(--truv-blue-light);
-            border-radius: 12px;
-            padding: 24px;
+        .comparison-box {
             text-align: center;
         }
 
-        .result-value {
-            font-size: 28px;
-            font-weight: 700;
-            color: var(--truv-blue);
-            margin-bottom: 4px;
+        .comparison-label {
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--gray-light);
+            margin-bottom: 6px;
         }
 
-        .result-label {
+        .comparison-value {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--dark);
+        }
+
+        .comparison-value.savings {
+            color: var(--success);
+        }
+
+        /* Detailed Results (Post-unlock) */
+        .detailed-results {
+            display: none;
+        }
+
+        .detailed-results.active {
+            display: block;
+        }
+
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .user-greeting {
+            font-size: 14px;
+            color: var(--gray);
+        }
+
+        /* Funnel Visualization */
+        .funnel-section {
+            margin: 32px 0;
+        }
+
+        .funnel-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .funnel-bars {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .funnel-row {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .funnel-label {
+            width: 100px;
             font-size: 13px;
             color: var(--gray);
         }
 
-        /* Current vs Truv comparison mini */
-        .cost-comparison-mini {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 16px;
-            margin-bottom: 24px;
-        }
-
-        .cost-box {
-            padding: 20px;
-            border-radius: 12px;
-            text-align: center;
-        }
-
-        .cost-box.current {
+        .funnel-bar-container {
+            flex: 1;
+            height: 36px;
             background: var(--background);
-            border: 1px solid var(--border);
+            border-radius: 8px;
+            overflow: hidden;
         }
 
-        .cost-box.truv {
-            background: var(--success-light);
-            border: 1px solid var(--success);
+        .funnel-bar {
+            height: 100%;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 12px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 13px;
+            font-weight: 600;
+            color: white;
+            transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        .cost-box-label {
-            font-size: 12px;
-            font-weight: 500;
+        .funnel-bar.apps { background: var(--truv-blue); }
+        .funnel-bar.submitted { background: #5b8def; }
+        .funnel-bar.funded { background: var(--success); }
+
+        /* Cost Table */
+        .cost-table-section {
+            margin: 32px 0;
+        }
+
+        .cost-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .cost-table th,
+        .cost-table td {
+            padding: 14px 16px;
+            text-align: left;
+            font-size: 14px;
+        }
+
+        .cost-table th {
+            font-size: 11px;
+            font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 0.5px;
             color: var(--gray-light);
-            margin-bottom: 8px;
+            background: var(--background);
+            border-radius: 8px 8px 0 0;
         }
 
-        .cost-box.truv .cost-box-label {
+        .cost-table td {
+            border-bottom: 1px solid var(--border);
+        }
+
+        .cost-table .mono {
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 500;
+        }
+
+        .cost-table .total-row {
+            font-weight: 600;
+            background: var(--background);
+        }
+
+        .cost-table .savings-row {
+            background: var(--success-light);
             color: var(--success);
+            font-weight: 600;
         }
 
-        .cost-box-value {
-            font-size: 24px;
-            font-weight: 700;
-            color: var(--dark);
+        .cost-table .savings-row td {
+            border-bottom: none;
+            border-radius: 0 0 8px 8px;
         }
 
-        .cost-box.truv .cost-box-value {
-            color: var(--success);
+        /* Sliders Section */
+        .sliders-section {
+            margin: 32px 0;
+            padding: 24px;
+            background: var(--background);
+            border-radius: 14px;
         }
 
-        /* Gate Section */
-        .gate-section {
-            border-top: 1px solid var(--border);
-            padding-top: 32px;
-            margin-top: 8px;
-        }
-
-        .gate-header {
-            text-align: center;
-            margin-bottom: 24px;
-        }
-
-        .gate-title {
-            font-size: 20px;
+        .sliders-title {
+            font-size: 14px;
             font-weight: 600;
             color: var(--dark);
+            margin-bottom: 20px;
+        }
+
+        .slider-group {
+            margin-bottom: 20px;
+        }
+
+        .slider-group:last-child {
+            margin-bottom: 0;
+        }
+
+        .slider-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             margin-bottom: 8px;
         }
 
-        .gate-subtitle {
-            font-size: 14px;
+        .slider-label {
+            font-size: 13px;
             color: var(--gray);
         }
 
-        .gate-features {
-            display: flex;
-            justify-content: center;
-            gap: 24px;
-            margin-bottom: 24px;
-            flex-wrap: wrap;
-        }
-
-        .gate-feature {
-            display: flex;
-            align-items: center;
-            gap: 8px;
+        .slider-value {
+            font-family: 'JetBrains Mono', monospace;
             font-size: 14px;
-            color: var(--gray);
+            font-weight: 600;
+            color: var(--truv-blue);
         }
 
-        .gate-feature svg {
-            color: var(--success);
+        .slider {
+            width: 100%;
+            height: 6px;
+            border-radius: 3px;
+            background: var(--border);
+            outline: none;
+            -webkit-appearance: none;
+        }
+
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: var(--truv-blue);
+            cursor: pointer;
+            border: 3px solid white;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        }
+
+        /* Quote */
+        .quote-section {
+            margin: 32px 0;
+            padding: 24px;
+            background: var(--background);
+            border-radius: 14px;
+            border-left: 4px solid var(--truv-blue);
+        }
+
+        .quote-text {
+            font-size: 15px;
+            font-style: italic;
+            color: var(--gray);
+            margin-bottom: 12px;
+            line-height: 1.7;
+        }
+
+        .quote-author {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .quote-role {
+            font-size: 13px;
+            color: var(--gray-light);
+        }
+
+        /* CTA Section */
+        .cta-section {
+            margin-top: 32px;
+            text-align: center;
         }
 
         /* Modal */
@@ -558,7 +784,8 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(0,0,0,0.5);
+            background: rgba(0,0,0,0.4);
+            backdrop-filter: blur(4px);
             z-index: 200;
             align-items: center;
             justify-content: center;
@@ -571,33 +798,49 @@
 
         .modal {
             background: var(--white);
-            border-radius: 16px;
+            border-radius: 20px;
             padding: 40px;
             max-width: 480px;
             width: 100%;
             max-height: 90vh;
             overflow-y: auto;
             position: relative;
+            box-shadow: 0 24px 48px rgba(0,0,0,0.2);
+            animation: modal-in 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @keyframes modal-in {
+            from {
+                opacity: 0;
+                transform: scale(0.95) translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
         }
 
         .modal-close {
             position: absolute;
             top: 16px;
             right: 16px;
-            background: none;
+            background: var(--background);
             border: none;
+            border-radius: 8px;
             cursor: pointer;
             color: var(--gray-light);
             padding: 8px;
+            transition: all 0.2s;
         }
 
         .modal-close:hover {
+            background: var(--border);
             color: var(--dark);
         }
 
         .modal-header {
             text-align: center;
-            margin-bottom: 24px;
+            margin-bottom: 32px;
         }
 
         .modal-title {
@@ -609,6 +852,104 @@
         .modal-subtitle {
             font-size: 14px;
             color: var(--gray);
+        }
+
+        /* Form Steps */
+        .form-step {
+            display: none;
+        }
+
+        .form-step.active {
+            display: block;
+            animation: step-in 0.3s ease;
+        }
+
+        @keyframes step-in {
+            from {
+                opacity: 0;
+                transform: translateX(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        @media (max-width: 500px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--dark);
+            margin-bottom: 6px;
+        }
+
+        .form-input,
+        .form-select {
+            width: 100%;
+            padding: 14px 16px;
+            font-size: 15px;
+            border: none;
+            border-radius: 10px;
+            background: var(--background);
+            color: var(--dark);
+            transition: all 0.2s;
+        }
+
+        .form-input:focus,
+        .form-select:focus {
+            outline: none;
+            background: var(--white);
+            box-shadow: 0 0 0 3px var(--truv-blue-glow), 0 0 0 1px var(--truv-blue);
+        }
+
+        .form-divider {
+            border-top: 1px solid var(--border);
+            margin: 24px 0;
+            padding-top: 24px;
+        }
+
+        .form-divider-text {
+            font-size: 13px;
+            color: var(--gray-light);
+            margin-bottom: 16px;
+        }
+
+        .step-dots {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 24px;
+        }
+
+        .step-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--border);
+            transition: all 0.2s;
+        }
+
+        .step-dot.active {
+            background: var(--truv-blue);
+            width: 24px;
+            border-radius: 4px;
         }
 
         /* Success Modal */
@@ -634,18 +975,14 @@
             margin-top: 24px;
         }
 
-        .success-actions .btn {
-            width: 100%;
-        }
-
         .action-card {
             display: flex;
             align-items: center;
             gap: 16px;
             padding: 20px;
             background: var(--background);
-            border: 2px solid var(--border);
-            border-radius: 12px;
+            border: 2px solid transparent;
+            border-radius: 14px;
             cursor: pointer;
             transition: all 0.2s;
             text-align: left;
@@ -659,15 +996,12 @@
         .action-card-icon {
             width: 48px;
             height: 48px;
-            background: var(--truv-blue-light);
-            border-radius: 10px;
+            background: var(--white);
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
             flex-shrink: 0;
-        }
-
-        .action-card-icon svg {
             color: var(--truv-blue);
         }
 
@@ -676,13 +1010,45 @@
         }
 
         .action-card-title {
-            font-size: 16px;
+            font-size: 15px;
             font-weight: 600;
             color: var(--dark);
-            margin-bottom: 4px;
+            margin-bottom: 2px;
         }
 
         .action-card-desc {
+            font-size: 13px;
+            color: var(--gray);
+        }
+
+        /* Integration Badge */
+        .integration-badge {
+            display: none;
+            margin-bottom: 20px;
+            padding: 16px;
+            background: var(--success-light);
+            border-radius: 12px;
+            border: 1px solid var(--success);
+        }
+
+        .integration-badge.visible {
+            display: block;
+        }
+
+        .integration-badge-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 6px;
+        }
+
+        .integration-badge-title {
+            font-weight: 600;
+            color: var(--success);
+            font-size: 14px;
+        }
+
+        .integration-badge-text {
             font-size: 13px;
             color: var(--gray);
         }
@@ -707,7 +1073,7 @@
 
         .calendar-mock {
             background: var(--background);
-            border-radius: 12px;
+            border-radius: 14px;
             padding: 24px;
             margin: 20px 0;
         }
@@ -734,7 +1100,7 @@
             height: 32px;
             border: 1px solid var(--border);
             background: var(--white);
-            border-radius: 6px;
+            border-radius: 8px;
             cursor: pointer;
             display: flex;
             align-items: center;
@@ -758,7 +1124,7 @@
         .calendar-day {
             padding: 10px;
             font-size: 14px;
-            border-radius: 6px;
+            border-radius: 8px;
             cursor: pointer;
         }
 
@@ -792,7 +1158,7 @@
             text-align: center;
             font-size: 13px;
             border: 1px solid var(--border);
-            border-radius: 6px;
+            border-radius: 8px;
             cursor: pointer;
             transition: all 0.2s;
         }
@@ -808,261 +1174,15 @@
             border-color: var(--truv-blue);
         }
 
-        /* Detailed Results Section */
-        .detailed-results {
-            display: none;
-        }
-
-        .detailed-results.active {
-            display: block;
-        }
-
-        .results-summary {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 16px;
-            margin-bottom: 32px;
-        }
-
-        @media (max-width: 600px) {
-            .results-summary {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .result-card-small {
-            background: var(--truv-blue-light);
-            border-radius: 12px;
-            padding: 20px;
+        .schedule-footer {
             text-align: center;
-        }
-
-        .result-card-small.highlight {
-            background: var(--truv-blue);
-            color: white;
-        }
-
-        .result-card-small .result-value {
-            font-size: 24px;
-            color: inherit;
-        }
-
-        .result-card-small.highlight .result-value {
-            color: white;
-        }
-
-        /* Section Title */
-        .section-title {
-            font-size: 18px;
-            font-weight: 600;
-            margin-bottom: 16px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        /* Comparison Table */
-        .comparison-section {
-            margin-top: 32px;
-        }
-
-        .comparison-table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        .comparison-table th,
-        .comparison-table td {
-            padding: 12px 16px;
-            text-align: left;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .comparison-table th {
-            font-size: 12px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            color: var(--gray-light);
-            background: var(--background);
-        }
-
-        .comparison-table td {
-            font-size: 14px;
-        }
-
-        .comparison-table .total-row {
-            font-weight: 600;
-            background: var(--background);
-        }
-
-        .comparison-table .savings-row {
-            background: var(--success-light);
-            color: var(--success);
-            font-weight: 600;
-        }
-
-        /* Collapsible Sections */
-        .collapsible {
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            margin-top: 24px;
-            overflow: hidden;
-        }
-
-        .collapsible-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 16px 20px;
-            background: var(--background);
-            cursor: pointer;
-            font-weight: 500;
-            transition: background 0.2s;
-        }
-
-        .collapsible-header:hover {
-            background: var(--border);
-        }
-
-        .collapsible-icon {
-            transition: transform 0.3s;
-        }
-
-        .collapsible.open .collapsible-icon {
-            transform: rotate(180deg);
-        }
-
-        .collapsible-content {
-            padding: 20px;
-            display: none;
-        }
-
-        .collapsible.open .collapsible-content {
-            display: block;
-        }
-
-        /* Quote Section */
-        .quote-section {
-            margin-top: 32px;
-            padding: 24px;
-            background: var(--background);
-            border-radius: 12px;
-            border-left: 4px solid var(--truv-blue);
-        }
-
-        .quote-text {
-            font-size: 16px;
-            font-style: italic;
-            color: var(--gray);
-            margin-bottom: 12px;
-        }
-
-        .quote-author {
-            font-size: 14px;
-            font-weight: 500;
-            color: var(--dark);
-        }
-
-        .quote-role {
+            margin-top: 16px;
             font-size: 13px;
             color: var(--gray-light);
         }
 
-        /* CTA Section */
-        .cta-section {
-            margin-top: 32px;
-            text-align: center;
-        }
-
-        /* Slider */
-        .slider-group {
-            margin-bottom: 24px;
-        }
-
-        .slider-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 8px;
-        }
-
-        .slider-value {
-            font-weight: 600;
+        .schedule-footer strong {
             color: var(--truv-blue);
-        }
-
-        .slider {
-            width: 100%;
-            height: 6px;
-            border-radius: 3px;
-            background: var(--border);
-            outline: none;
-            -webkit-appearance: none;
-        }
-
-        .slider::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            background: var(--truv-blue);
-            cursor: pointer;
-            border: 3px solid white;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-        }
-
-        /* Funnel Visualization */
-        .funnel {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            margin: 24px 0;
-        }
-
-        .funnel-stage {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-        }
-
-        .funnel-bar {
-            height: 40px;
-            background: var(--truv-blue);
-            border-radius: 4px;
-            display: flex;
-            align-items: center;
-            justify-content: flex-end;
-            padding-right: 12px;
-            color: white;
-            font-weight: 600;
-            font-size: 14px;
-            transition: width 0.5s ease;
-            min-width: 60px;
-        }
-
-        .funnel-label {
-            width: 120px;
-            font-size: 13px;
-            color: var(--gray);
-        }
-
-        /* Nav buttons */
-        .nav-buttons {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 24px;
-        }
-
-        /* Animation */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .animate-in {
-            animation: fadeIn 0.3s ease;
         }
 
         /* Footer */
@@ -1071,6 +1191,15 @@
             padding: 24px;
             color: var(--gray-light);
             font-size: 13px;
+        }
+
+        /* Simple Calculator View */
+        #simpleCalculator {
+            display: block;
+        }
+
+        #simpleCalculator.hidden {
+            display: none;
         }
     </style>
 </head>
@@ -1088,158 +1217,119 @@
         </div>
     </header>
 
+    <!-- Calculating Overlay -->
+    <div class="calculating-overlay" id="calculatingOverlay">
+        <div class="calculating-spinner"></div>
+        <div class="calculating-text">Calculating your savings...</div>
+    </div>
+
     <main class="container">
-        <!-- Step 1: Simple Calculator (Ungated) -->
-        <div id="simpleCalculator" class="card">
-            <div class="card-header">
-                <h1 class="card-title">Calculate Your Savings</h1>
-                <p class="card-subtitle">See how much you could save with Truv's verification platform</p>
-            </div>
+        <!-- Simple Calculator -->
+        <div id="simpleCalculator">
+            <div class="card">
+                <!-- Step 0: Hero Inputs -->
+                <div class="hero-section step-section visible instant" id="step0">
+                    <h1 class="hero-title">Calculate Your Savings</h1>
+                    <p class="hero-subtitle">See how much you could save with Truv</p>
 
-            <!-- Basic Inputs -->
-            <div class="calculator-section">
-                <div class="section-label">Your Volume</div>
-                <div class="input-grid">
-                    <div class="input-group">
-                        <label for="fundedLoans">Annual Funded Loans</label>
-                        <input type="number" class="form-input input-large" id="fundedLoans" placeholder="e.g., 2000" min="100" value="2000" oninput="updateSimpleCalculation()">
-                    </div>
-                    <div class="input-group">
-                        <label for="industry">Industry</label>
-                        <select class="form-select input-large" id="industry" onchange="updateSimpleCalculation()">
-                            <option value="mortgage">Mortgage Lending</option>
-                            <option value="credit_union">Credit Union</option>
-                            <option value="consumer">Consumer Lending</option>
-                            <option value="auto">Auto Lending</option>
-                        </select>
+                    <div class="hero-inputs">
+                        <div class="input-group">
+                            <label class="input-label">Annual Funded Loans</label>
+                            <input type="text" class="input-field" id="fundedLoans" placeholder="e.g., 2,000" oninput="handleLoansInput(this)">
+                        </div>
+                        <div class="input-group">
+                            <label class="input-label">Industry</label>
+                            <select class="input-field" id="industry" onchange="checkStep1()">
+                                <option value="">Select industry</option>
+                                <option value="mortgage">Mortgage Lending</option>
+                                <option value="credit_union">Credit Union</option>
+                                <option value="consumer">Consumer Lending</option>
+                                <option value="auto">Auto Lending</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Cost Input Options -->
-            <div class="cost-input-section">
-                <div class="cost-input-header">
-                    <div class="cost-input-title">Your Current Costs</div>
+                <!-- Step 1: Cost Selection -->
+                <div class="cost-section step-section" id="step1">
+                    <div class="section-header">
+                        <span class="section-title">Your Current Costs</span>
+                    </div>
+
+                    <div class="cost-cards">
+                        <div class="cost-card selected" onclick="selectCostCard('default')" id="card-default">
+                            <div class="cost-card-title">Industry Benchmarks</div>
+                            <div class="cost-card-desc">$10/VOA, $62/TWN</div>
+                        </div>
+                        <div class="cost-card" onclick="selectCostCard('perLoan')" id="card-perLoan">
+                            <div class="cost-card-title">Cost Per Loan</div>
+                            <div class="cost-card-desc">Your verification cost per funded loan</div>
+                            <input type="text" class="cost-card-input" id="input-perLoan" placeholder="$85" oninput="updateCalculations()">
+                        </div>
+                        <div class="cost-card" onclick="selectCostCard('totalSpend')" id="card-totalSpend">
+                            <div class="cost-card-title">Total Annual Spend</div>
+                            <div class="cost-card-desc">Your total verification budget</div>
+                            <input type="text" class="cost-card-input" id="input-totalSpend" placeholder="$180,000" oninput="updateCalculations()">
+                        </div>
+                        <div class="cost-card" onclick="selectCostCard('perVerification')" id="card-perVerification">
+                            <div class="cost-card-title">Cost Per Verification</div>
+                            <div class="cost-card-desc">What you pay TWN</div>
+                            <input type="text" class="cost-card-input" id="input-perVerification" placeholder="$62" oninput="updateCalculations()">
+                        </div>
+                    </div>
                 </div>
 
-                <div class="cost-options">
-                    <div class="cost-option selected" onclick="selectCostOption('default')" id="option-default">
-                        <div class="cost-option-radio"></div>
-                        <div class="cost-option-content">
-                            <div class="cost-option-label">Use industry benchmarks</div>
-                            <div class="cost-option-desc">$10/VOA, $62/TWN verification</div>
+                <!-- Step 2: Results -->
+                <div class="results-section step-section" id="step2">
+                    <div class="hero-result">
+                        <div class="hero-result-label">Estimated Annual Savings</div>
+                        <div class="hero-result-value mono" id="heroSavings">$92,101</div>
+                        <div class="hero-result-context">based on <span id="heroLoans" class="mono">2,000</span> funded loans per year</div>
+                    </div>
+
+                    <div class="stats-row">
+                        <div class="stat-card">
+                            <div class="stat-value" id="statPerLoan">$46</div>
+                            <div class="stat-label">Per Funded Loan</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value" id="statPercent">51%</div>
+                            <div class="stat-label">Cost Reduction</div>
                         </div>
                     </div>
 
-                    <div class="cost-option" onclick="selectCostOption('perLoan')" id="option-perLoan">
-                        <div class="cost-option-radio"></div>
-                        <div class="cost-option-content">
-                            <div class="cost-option-label">I know my cost per funded loan</div>
-                            <div class="cost-option-desc">Total verification cost per loan</div>
+                    <!-- Blurred Preview Gate -->
+                    <div class="gated-preview">
+                        <div class="gated-content">
+                            <div class="comparison-preview">
+                                <div class="comparison-box">
+                                    <div class="comparison-label">Current Cost</div>
+                                    <div class="comparison-value mono" id="previewCurrent">$180,374</div>
+                                </div>
+                                <div class="comparison-box">
+                                    <div class="comparison-label">With Truv</div>
+                                    <div class="comparison-value mono savings" id="previewTruv">$88,273</div>
+                                </div>
+                            </div>
+                            <div style="height: 120px; background: var(--background); border-radius: 12px; margin-top: 16px;"></div>
                         </div>
-                        <input type="text" class="cost-option-input" id="input-perLoan" placeholder="$85" disabled oninput="updateSimpleCalculation()">
-                    </div>
-
-                    <div class="cost-option" onclick="selectCostOption('totalSpend')" id="option-totalSpend">
-                        <div class="cost-option-radio"></div>
-                        <div class="cost-option-content">
-                            <div class="cost-option-label">I know my total annual spend</div>
-                            <div class="cost-option-desc">Total verification budget per year</div>
+                        <div class="gated-overlay">
+                            <div class="gated-title">See the full breakdown</div>
+                            <div class="gated-subtitle">Line-by-line costs, funnel visualization & more</div>
+                            <button class="btn btn-primary" onclick="openGateModal()">
+                                Unlock Full Report
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                                    <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                                </svg>
+                            </button>
                         </div>
-                        <input type="text" class="cost-option-input" id="input-totalSpend" placeholder="$180,000" disabled oninput="updateSimpleCalculation()">
-                    </div>
-
-                    <div class="cost-option" onclick="selectCostOption('perVerification')" id="option-perVerification">
-                        <div class="cost-option-radio"></div>
-                        <div class="cost-option-content">
-                            <div class="cost-option-label">I know my cost per verification</div>
-                            <div class="cost-option-desc">What you pay TWN or similar</div>
-                        </div>
-                        <input type="text" class="cost-option-input" id="input-perVerification" placeholder="$62" disabled oninput="updateSimpleCalculation()">
                     </div>
                 </div>
-
-                <div class="assumptions-badge" id="assumptionsBadge">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <circle cx="12" cy="12" r="10"/>
-                        <path d="M12 16v-4M12 8h.01"/>
-                    </svg>
-                    Using industry benchmark costs
-                </div>
-            </div>
-
-            <!-- Current vs Future Comparison -->
-            <div class="cost-comparison-mini">
-                <div class="cost-box current">
-                    <div class="cost-box-label">Your Current Cost</div>
-                    <div class="cost-box-value" id="previewCurrentCost">$180,374</div>
-                </div>
-                <div class="cost-box truv">
-                    <div class="cost-box-label">With Truv</div>
-                    <div class="cost-box-value" id="previewTruvCost">$88,273</div>
-                </div>
-            </div>
-
-            <!-- Big Savings Number -->
-            <div class="results-preview animate-in">
-                <div class="results-preview-label">Estimated Annual Savings</div>
-                <div class="results-preview-value" id="previewSavings">$92,101</div>
-                <div class="results-preview-sublabel">based on <span id="previewLoans">2,000</span> funded loans per year</div>
-            </div>
-
-            <div class="results-secondary">
-                <div class="result-card">
-                    <div class="result-value" id="previewPerLoan">$46</div>
-                    <div class="result-label">Savings Per Funded Loan</div>
-                </div>
-                <div class="result-card">
-                    <div class="result-value" id="previewPercent">51%</div>
-                    <div class="result-label">Cost Reduction</div>
-                </div>
-            </div>
-
-            <!-- Gate for Full Breakdown -->
-            <div class="gate-section">
-                <div class="gate-header">
-                    <h2 class="gate-title">Want the full breakdown?</h2>
-                    <p class="gate-subtitle">See exactly where your savings come from</p>
-                </div>
-
-                <div class="gate-features">
-                    <div class="gate-feature">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
-                            <polyline points="22 4 12 14.01 9 11.01"/>
-                        </svg>
-                        Line-by-line cost breakdown
-                    </div>
-                    <div class="gate-feature">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
-                            <polyline points="22 4 12 14.01 9 11.01"/>
-                        </svg>
-                        Funnel visualization
-                    </div>
-                    <div class="gate-feature">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
-                            <polyline points="22 4 12 14.01 9 11.01"/>
-                        </svg>
-                        Customizable assumptions
-                    </div>
-                </div>
-
-                <button class="btn btn-primary" style="width: 100%;" onclick="openGateModal()">
-                    Unlock Full Report
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
-                        <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
-                    </svg>
-                </button>
             </div>
         </div>
 
-        <!-- Step 2: Detailed Breakdown (After Gate) -->
+        <!-- Detailed Results (Post-unlock) -->
         <div id="detailedResults" class="detailed-results">
             <div class="card">
                 <div class="nav-buttons">
@@ -1249,197 +1339,124 @@
                         </svg>
                         Start Over
                     </button>
-                    <span style="font-size: 14px; color: var(--gray);">Welcome, <span id="userName">there</span></span>
+                    <span class="user-greeting">Welcome, <span id="userName">there</span></span>
                 </div>
 
-                <div class="card-header" style="margin-bottom: 24px;">
-                    <h1 class="card-title">Your Detailed ROI Breakdown</h1>
-                    <p class="card-subtitle">Adjust inputs below to refine your estimate</p>
+                <div class="hero-section" style="padding-bottom: 24px;">
+                    <h1 class="hero-title">Your ROI Breakdown</h1>
                 </div>
 
-                <!-- Summary Cards -->
-                <div class="results-summary">
-                    <div class="result-card-small highlight">
-                        <div class="result-value" id="detailSavings">$92,101</div>
-                        <div class="result-label">Annual Savings</div>
+                <!-- Summary Stats -->
+                <div class="hero-result">
+                    <div class="hero-result-label">Estimated Annual Savings</div>
+                    <div class="hero-result-value mono" id="detailSavings">$92,101</div>
+                    <div class="hero-result-context">based on <span id="detailLoans" class="mono">2,000</span> funded loans</div>
+                </div>
+
+                <div class="stats-row">
+                    <div class="stat-card">
+                        <div class="stat-value" id="detailPerLoan">$46</div>
+                        <div class="stat-label">Per Funded Loan</div>
                     </div>
-                    <div class="result-card-small">
-                        <div class="result-value" id="detailPerLoan">$46</div>
-                        <div class="result-label">Per Funded Loan</div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="detailPercent">51%</div>
+                        <div class="stat-label">Cost Reduction</div>
                     </div>
-                    <div class="result-card-small">
-                        <div class="result-value" id="detailPercent">51%</div>
-                        <div class="result-label">Cost Reduction</div>
+                </div>
+
+                <!-- Sliders at top for "playing" -->
+                <div class="sliders-section">
+                    <div class="sliders-title">Adjust Your Numbers</div>
+                    <div class="slider-group">
+                        <div class="slider-header">
+                            <span class="slider-label">Funded Loans</span>
+                            <span class="slider-value" id="loansValue">2,000</span>
+                        </div>
+                        <input type="range" class="slider" id="loansSlider" min="500" max="50000" value="2000" oninput="updateDetailedCalculations()">
+                    </div>
+                    <div class="slider-group">
+                        <div class="slider-header">
+                            <span class="slider-label">TWN Cost</span>
+                            <span class="slider-value" id="twnValue">$62</span>
+                        </div>
+                        <input type="range" class="slider" id="twnSlider" min="40" max="100" value="62" oninput="updateDetailedCalculations()">
                     </div>
                 </div>
 
                 <!-- Funnel Visualization -->
-                <div class="section-title">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--truv-blue)" stroke-width="2">
-                        <path d="M22 3H2l8 9.46V19l4 2v-8.54L22 3z"/>
-                    </svg>
-                    Verification Funnel
-                </div>
-                <div class="funnel">
-                    <div class="funnel-stage">
-                        <span class="funnel-label">Apps Started</span>
-                        <div class="funnel-bar" id="funnelApps" style="width: 100%;">6,667</div>
+                <div class="funnel-section">
+                    <div class="funnel-title">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--truv-blue)" stroke-width="2">
+                            <path d="M22 3H2l8 9.46V19l4 2v-8.54L22 3z"/>
+                        </svg>
+                        Verification Funnel
                     </div>
-                    <div class="funnel-stage">
-                        <span class="funnel-label">Apps Submitted</span>
-                        <div class="funnel-bar" id="funnelSubmitted" style="width: 50%; background: #5b8def;">3,333</div>
-                    </div>
-                    <div class="funnel-stage">
-                        <span class="funnel-label">Funded</span>
-                        <div class="funnel-bar" id="funnelFunded" style="width: 30%; background: #10b981;">2,000</div>
+                    <div class="funnel-bars">
+                        <div class="funnel-row">
+                            <span class="funnel-label">Apps Started</span>
+                            <div class="funnel-bar-container">
+                                <div class="funnel-bar apps" id="funnelApps" style="width: 100%;">6,667</div>
+                            </div>
+                        </div>
+                        <div class="funnel-row">
+                            <span class="funnel-label">Submitted</span>
+                            <div class="funnel-bar-container">
+                                <div class="funnel-bar submitted" id="funnelSubmitted" style="width: 50%;">3,333</div>
+                            </div>
+                        </div>
+                        <div class="funnel-row">
+                            <span class="funnel-label">Funded</span>
+                            <div class="funnel-bar-container">
+                                <div class="funnel-bar funded" id="funnelFunded" style="width: 30%;">2,000</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Comparison Table -->
-                <div class="comparison-section">
-                    <div class="section-title">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--truv-blue)" stroke-width="2">
+                <!-- Cost Table -->
+                <div class="cost-table-section">
+                    <div class="funnel-title">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--truv-blue)" stroke-width="2">
                             <rect x="3" y="3" width="18" height="18" rx="2"/>
                             <path d="M3 9h18M9 21V9"/>
                         </svg>
                         Cost Comparison
                     </div>
-                    <table class="comparison-table">
+                    <table class="cost-table">
                         <thead>
                             <tr>
                                 <th>Item</th>
-                                <th>Current State</th>
+                                <th>Current</th>
                                 <th>With Truv</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
                                 <td>VOA Checks</td>
-                                <td id="currentVOA">5,000 × $10 = $50,000</td>
-                                <td id="truvVOA">6,000 × $6 = $36,000</td>
+                                <td class="mono" id="currentVOA">$35,000</td>
+                                <td class="mono" id="truvVOA">$25,200</td>
                             </tr>
                             <tr>
                                 <td>VOIE Checks</td>
-                                <td id="currentVOIE">—</td>
-                                <td id="truvVOIE">2,800 × $10 = $28,000</td>
+                                <td class="mono" id="currentVOIE">—</td>
+                                <td class="mono" id="truvVOIE">$23,520</td>
                             </tr>
                             <tr>
                                 <td>TWN Verifications</td>
-                                <td id="currentTWN">3,024 × $62 = $187,488</td>
-                                <td id="truvTWN">1,382 × $62 = $85,684</td>
+                                <td class="mono" id="currentTWN">$145,374</td>
+                                <td class="mono" id="truvTWN">$39,553</td>
                             </tr>
                             <tr class="total-row">
                                 <td>Total Annual Cost</td>
-                                <td id="currentTotal">$180,374</td>
-                                <td id="truvTotal">$88,273</td>
+                                <td class="mono" id="currentTotal">$180,374</td>
+                                <td class="mono" id="truvTotal">$88,273</td>
                             </tr>
                             <tr class="savings-row">
                                 <td colspan="2">Your Annual Savings</td>
-                                <td id="tableSavings">$92,101</td>
+                                <td class="mono" id="tableSavings">$92,101</td>
                             </tr>
                         </tbody>
                     </table>
-                </div>
-
-                <!-- Refinement Panels -->
-                <div class="collapsible" id="volumePanel">
-                    <div class="collapsible-header" onclick="togglePanel('volumePanel')">
-                        <span>Volume & Mix</span>
-                        <svg class="collapsible-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M6 9l6 6 6-6"/>
-                        </svg>
-                    </div>
-                    <div class="collapsible-content">
-                        <div class="slider-group">
-                            <div class="slider-header">
-                                <label class="form-label">Funded Loans (Annual)</label>
-                                <span class="slider-value" id="loansValue">2,000</span>
-                            </div>
-                            <input type="range" class="slider" id="loansSlider" min="500" max="50000" value="2000" oninput="updateDetailedCalculations()">
-                        </div>
-                        <div class="slider-group">
-                            <div class="slider-header">
-                                <label class="form-label">Retail Channel %</label>
-                                <span class="slider-value" id="retailValue">70%</span>
-                            </div>
-                            <input type="range" class="slider" id="retailSlider" min="0" max="100" value="70" oninput="updateDetailedCalculations()">
-                        </div>
-                        <div class="slider-group">
-                            <div class="slider-header">
-                                <label class="form-label">Borrowers per Application</label>
-                                <span class="slider-value" id="borrowersValue">1.5</span>
-                            </div>
-                            <input type="range" class="slider" id="borrowersSlider" min="1" max="2" step="0.1" value="1.5" oninput="updateDetailedCalculations()">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="collapsible" id="funnelPanel">
-                    <div class="collapsible-header" onclick="togglePanel('funnelPanel')">
-                        <span>Funnel Efficiency</span>
-                        <svg class="collapsible-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M6 9l6 6 6-6"/>
-                        </svg>
-                    </div>
-                    <div class="collapsible-content">
-                        <div class="slider-group">
-                            <div class="slider-header">
-                                <label class="form-label">End-to-End Conversion Rate</label>
-                                <span class="slider-value" id="e2eValue">30%</span>
-                            </div>
-                            <input type="range" class="slider" id="e2eSlider" min="10" max="60" value="30" oninput="updateDetailedCalculations()">
-                        </div>
-                        <div class="slider-group">
-                            <div class="slider-header">
-                                <label class="form-label">Pull-Through Rate</label>
-                                <span class="slider-value" id="pullThroughValue">60%</span>
-                            </div>
-                            <input type="range" class="slider" id="pullThroughSlider" min="30" max="90" value="60" oninput="updateDetailedCalculations()">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="collapsible" id="incomePanel">
-                    <div class="collapsible-header" onclick="togglePanel('incomePanel')">
-                        <span>Income Mix</span>
-                        <svg class="collapsible-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M6 9l6 6 6-6"/>
-                        </svg>
-                    </div>
-                    <div class="collapsible-content">
-                        <div class="slider-group">
-                            <div class="slider-header">
-                                <label class="form-label">W-2 Borrower Rate</label>
-                                <span class="slider-value" id="w2Value">80%</span>
-                            </div>
-                            <input type="range" class="slider" id="w2Slider" min="50" max="95" value="80" oninput="updateDetailedCalculations()">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="collapsible" id="costPanel">
-                    <div class="collapsible-header" onclick="togglePanel('costPanel')">
-                        <span>Cost Assumptions</span>
-                        <svg class="collapsible-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M6 9l6 6 6-6"/>
-                        </svg>
-                    </div>
-                    <div class="collapsible-content">
-                        <div class="slider-group">
-                            <div class="slider-header">
-                                <label class="form-label">Current VOA Cost</label>
-                                <span class="slider-value" id="voaCostValue">$10</span>
-                            </div>
-                            <input type="range" class="slider" id="voaCostSlider" min="5" max="25" value="10" oninput="updateDetailedCalculations()">
-                        </div>
-                        <div class="slider-group">
-                            <div class="slider-header">
-                                <label class="form-label">Current TWN/VOIE Cost</label>
-                                <span class="slider-value" id="twnCostValue">$62</span>
-                            </div>
-                            <input type="range" class="slider" id="twnCostSlider" min="40" max="100" value="62" oninput="updateDetailedCalculations()">
-                        </div>
-                    </div>
                 </div>
 
                 <!-- Quote -->
@@ -1451,9 +1468,9 @@
 
                 <!-- CTA -->
                 <div class="cta-section">
-                    <button class="btn btn-primary" onclick="alert('Demo: This would open a calendar booking link')">
-                        Talk to Sales
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <button class="btn btn-primary" onclick="openScheduleModal()">
+                        Schedule a Demo
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <path d="M5 12h14M12 5l7 7-7 7"/>
                         </svg>
                     </button>
@@ -1462,94 +1479,112 @@
         </div>
     </main>
 
-    <!-- Lead Capture Modal -->
+    <!-- Lead Capture Modal (2-step) -->
     <div class="modal-overlay" id="gateModal">
         <div class="modal">
-            <button class="modal-close" onclick="closeGateModal()">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <button class="modal-close" onclick="closeGateModal()" type="button">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M18 6L6 18M6 6l12 12"/>
                 </svg>
             </button>
 
-            <div class="modal-header">
-                <h2 class="modal-title">Unlock Your Full Report</h2>
-                <p class="modal-subtitle">Get the detailed breakdown plus a personalized savings analysis</p>
+            <div class="step-dots">
+                <div class="step-dot active" id="dot1"></div>
+                <div class="step-dot" id="dot2"></div>
             </div>
 
             <form id="leadForm" onsubmit="submitLeadForm(event)">
-                <div class="form-row">
-                    <div class="form-group">
-                        <label class="form-label" for="name">Full Name</label>
-                        <input type="text" class="form-input" id="name" placeholder="John Smith" required>
+                <!-- Step 1: Who are you -->
+                <div class="form-step active" id="formStep1">
+                    <div class="modal-header">
+                        <h2 class="modal-title">Who are you?</h2>
+                        <p class="modal-subtitle">Get your personalized ROI report</p>
                     </div>
-                    <div class="form-group">
-                        <label class="form-label" for="title">Job Title</label>
-                        <input type="text" class="form-input" id="title" placeholder="VP of Operations" required>
-                    </div>
-                </div>
-
-                <div class="form-row">
-                    <div class="form-group">
-                        <label class="form-label" for="company">Company</label>
-                        <input type="text" class="form-input" id="company" placeholder="Acme Lending" required>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label" for="email">Work Email</label>
-                        <input type="email" class="form-input" id="email" placeholder="john@acmelending.com" required>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label" for="phone">Phone</label>
-                    <input type="tel" class="form-input" id="phone" placeholder="(555) 123-4567" required>
-                </div>
-
-                <div style="border-top: 1px solid var(--border); margin: 20px 0; padding-top: 20px;">
-                    <p style="font-size: 13px; color: var(--gray); margin-bottom: 12px;">Optional: Help us personalize your report</p>
 
                     <div class="form-row">
-                        <div class="form-group" style="margin-bottom: 12px;">
-                            <label class="form-label" for="los">Loan Origination System (LOS)</label>
+                        <div class="form-group">
+                            <label class="form-label" for="name">Full Name</label>
+                            <input type="text" class="form-input" id="name" placeholder="John Smith" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="email">Work Email</label>
+                            <input type="email" class="form-input" id="email" placeholder="john@company.com" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label" for="title">Job Title</label>
+                            <input type="text" class="form-input" id="title" placeholder="VP of Operations" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="phone">Phone</label>
+                            <input type="tel" class="form-input" id="phone" placeholder="(555) 123-4567" required>
+                        </div>
+                    </div>
+
+                    <button type="button" class="btn btn-primary" style="width: 100%;" onclick="nextFormStep()">
+                        Continue
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- Step 2: Company details -->
+                <div class="form-step" id="formStep2">
+                    <div class="modal-header">
+                        <h2 class="modal-title">Company Details</h2>
+                        <p class="modal-subtitle">Help us personalize your analysis</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="company">Company Name</label>
+                        <input type="text" class="form-input" id="company" placeholder="Acme Lending" required>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label" for="los">LOS System</label>
                             <select class="form-select" id="los">
-                                <option value="">Select your LOS</option>
+                                <option value="">Select LOS</option>
                                 <option value="encompass">Encompass (ICE)</option>
                                 <option value="bytepro">Byte Pro</option>
                                 <option value="meridianlink">MeridianLink</option>
-                                <option value="blackknight">Black Knight Empower</option>
-                                <option value="blueskyloan">Blue Sky Loan</option>
+                                <option value="blackknight">Black Knight</option>
                                 <option value="other">Other</option>
                             </select>
                         </div>
-                        <div class="form-group" style="margin-bottom: 12px;">
-                            <label class="form-label" for="pos">Point of Sale (POS)</label>
+                        <div class="form-group">
+                            <label class="form-label" for="pos">POS System</label>
                             <select class="form-select" id="pos">
-                                <option value="">Select your POS</option>
+                                <option value="">Select POS</option>
                                 <option value="blend">Blend</option>
-                                <option value="encompassconsumerconnect">Encompass Consumer Connect</option>
-                                <option value="mortgage-flex">MortgageFlex</option>
+                                <option value="encompassconsumerconnect">Encompass CC</option>
                                 <option value="floify">Floify</option>
                                 <option value="simplenexus">SimpleNexus</option>
                                 <option value="other">Other</option>
                             </select>
                         </div>
                     </div>
-                </div>
 
-                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 8px;">
-                    Get My Full Report
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M5 12h14M12 5l7 7-7 7"/>
-                    </svg>
-                </button>
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">
+                        Get My Report
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                            <polyline points="22 4 12 14.01 9 11.01"/>
+                        </svg>
+                    </button>
+                </div>
             </form>
         </div>
     </div>
 
-    <!-- Success Modal (after form submission) -->
+    <!-- Success Modal -->
     <div class="modal-overlay" id="successModal">
         <div class="modal">
-            <button class="modal-close" onclick="closeSuccessModal()">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <button class="modal-close" onclick="closeSuccessModal()" type="button">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M18 6L6 18M6 6l12 12"/>
                 </svg>
             </button>
@@ -1563,19 +1598,18 @@
 
             <div class="modal-header">
                 <h2 class="modal-title">Your Report is Ready!</h2>
-                <p class="modal-subtitle">Thanks, <span id="successName">there</span>. Here's what you can do next:</p>
+                <p class="modal-subtitle">Thanks, <span id="successName">there</span></p>
             </div>
 
-            <!-- Integration Status (shown if LOS/POS selected) -->
-            <div id="integrationStatus" style="display: none; margin-bottom: 20px; padding: 16px; background: var(--success-light); border-radius: 10px; border: 1px solid var(--success);">
-                <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--success)" stroke-width="2">
+            <div class="integration-badge" id="integrationBadge">
+                <div class="integration-badge-header">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--success)" stroke-width="2">
                         <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
                         <polyline points="22 4 12 14.01 9 11.01"/>
                     </svg>
-                    <span style="font-weight: 600; color: var(--success);">Great news!</span>
+                    <span class="integration-badge-title">Great news!</span>
                 </div>
-                <p id="integrationMessage" style="font-size: 14px; color: var(--gray); margin: 0;">Truv has native integrations with your systems.</p>
+                <p class="integration-badge-text" id="integrationText">Truv has native integrations with your systems.</p>
             </div>
 
             <div class="success-actions">
@@ -1589,7 +1623,7 @@
                     </div>
                     <div class="action-card-content">
                         <div class="action-card-title">Download PDF Report</div>
-                        <div class="action-card-desc">Save your personalized ROI analysis</div>
+                        <div class="action-card-desc">Save your personalized analysis</div>
                     </div>
                 </div>
 
@@ -1603,26 +1637,23 @@
                         </svg>
                     </div>
                     <div class="action-card-content">
-                        <div class="action-card-title">Schedule a Call with Sales</div>
-                        <div class="action-card-desc">Get a personalized walkthrough of your savings</div>
+                        <div class="action-card-title">Schedule a Call</div>
+                        <div class="action-card-desc">Walk through your savings with sales</div>
                     </div>
                 </div>
 
-                <button class="btn btn-secondary" onclick="closeSuccessModal(); showDetailedResults();">
-                    View Detailed Breakdown
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M5 12h14M12 5l7 7-7 7"/>
-                    </svg>
+                <button class="btn btn-secondary" style="width: 100%;" onclick="closeSuccessModal(); showDetailedResults();">
+                    View Full Breakdown
                 </button>
             </div>
         </div>
     </div>
 
-    <!-- Schedule Call Modal (Mock) -->
+    <!-- Schedule Modal -->
     <div class="modal-overlay" id="scheduleModal">
         <div class="modal schedule-modal">
-            <button class="modal-close" onclick="closeScheduleModal()">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <button class="modal-close" onclick="closeScheduleModal()" type="button">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M18 6L6 18M6 6l12 12"/>
                 </svg>
             </button>
@@ -1632,10 +1663,10 @@
                     <circle cx="12" cy="12" r="10"/>
                     <path d="M12 16v-4M12 8h.01"/>
                 </svg>
-                DEMO MODE — This would link to your real scheduling form
+                DEMO MODE
             </div>
 
-            <div class="modal-header" style="margin-bottom: 16px;">
+            <div class="modal-header">
                 <h2 class="modal-title">Schedule a Call</h2>
                 <p class="modal-subtitle">Pick a time that works for you</p>
             </div>
@@ -1657,13 +1688,13 @@
                     </div>
                 </div>
                 <div class="calendar-grid">
-                    <div class="calendar-day-header">Sun</div>
-                    <div class="calendar-day-header">Mon</div>
-                    <div class="calendar-day-header">Tue</div>
-                    <div class="calendar-day-header">Wed</div>
-                    <div class="calendar-day-header">Thu</div>
-                    <div class="calendar-day-header">Fri</div>
-                    <div class="calendar-day-header">Sat</div>
+                    <div class="calendar-day-header">Su</div>
+                    <div class="calendar-day-header">Mo</div>
+                    <div class="calendar-day-header">Tu</div>
+                    <div class="calendar-day-header">We</div>
+                    <div class="calendar-day-header">Th</div>
+                    <div class="calendar-day-header">Fr</div>
+                    <div class="calendar-day-header">Sa</div>
                     <div class="calendar-day disabled"></div>
                     <div class="calendar-day disabled"></div>
                     <div class="calendar-day disabled"></div>
@@ -1696,17 +1727,12 @@
                 </div>
             </div>
 
-            <button class="btn btn-primary" style="width: 100%;" onclick="confirmSchedule()">
+            <button class="btn btn-primary" style="width: 100%;" onclick="confirmSchedule()" type="button">
                 Confirm: Wed, Jan 8 at 10:30 AM
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
-                    <polyline points="22 4 12 14.01 9 11.01"/>
-                </svg>
             </button>
 
-            <p style="text-align: center; margin-top: 16px; font-size: 13px; color: var(--gray-light);">
-                In production, this would redirect to:<br>
-                <strong style="color: var(--truv-blue);">truv.com/demo</strong> or your Calendly/HubSpot booking link
+            <p class="schedule-footer">
+                In production: redirects to <strong>truv.com/demo</strong>
             </p>
         </div>
     </div>
@@ -1717,34 +1743,13 @@
 
     <script>
         // State
-        let leadData = {};
+        let currentStep = 0;
         let selectedCostOption = 'default';
+        let leadData = {};
+        let calculatedResults = {};
+        let formStep = 1;
 
-        // Industry quotes
-        const quotes = {
-            mortgage: {
-                text: "Truv provides the most seamless borrower experience. We've seen a 65%+ conversion rate and significant cost savings.",
-                author: "CrossCountry Mortgage",
-                role: "Top 5 Retail Lender"
-            },
-            credit_union: {
-                text: "Borrowers try Truv first because it has proven most reliable.",
-                author: "Austin Coleman",
-                role: "SVP, America First Credit Union"
-            },
-            consumer: {
-                text: "Truv's real-time verification transformed our approval process. We went from days to seconds.",
-                author: "HFS Financial",
-                role: "Consumer Lending Leader"
-            },
-            auto: {
-                text: "Same-day funding is now our standard thanks to instant income verification.",
-                author: "TurboPass",
-                role: "Auto Lending Partner"
-            }
-        };
-
-        // Default costs
+        // Defaults
         const defaults = {
             voaCost: 10,
             twnCost: 62,
@@ -1752,83 +1757,111 @@
             truvVoieCost: 10
         };
 
-        // Format currency
+        // Quotes
+        const quotes = {
+            mortgage: { text: "Truv provides the most seamless borrower experience. We've seen a 65%+ conversion rate.", author: "CrossCountry Mortgage", role: "Top 5 Retail Lender" },
+            credit_union: { text: "Borrowers try Truv first because it has proven most reliable.", author: "Austin Coleman", role: "SVP, America First Credit Union" },
+            consumer: { text: "Truv's real-time verification transformed our approval process.", author: "HFS Financial", role: "Consumer Lending" },
+            auto: { text: "Same-day funding is now our standard thanks to instant verification.", author: "TurboPass", role: "Auto Lending Partner" }
+        };
+
+        // Native integrations
+        const nativeIntegrations = {
+            los: ['encompass', 'bytepro', 'meridianlink'],
+            pos: ['blend', 'encompassconsumerconnect', 'floify']
+        };
+
+        // Format helpers
         function formatCurrency(num) {
             return '$' + Math.round(num).toLocaleString();
         }
 
-        // Format number
         function formatNumber(num) {
             return Math.round(num).toLocaleString();
         }
 
-        // Parse currency input
         function parseCurrency(str) {
             if (!str) return 0;
             return parseFloat(str.replace(/[$,]/g, '')) || 0;
         }
 
-        // Select cost option
-        function selectCostOption(option) {
-            selectedCostOption = option;
-
-            // Update UI
-            document.querySelectorAll('.cost-option').forEach(el => el.classList.remove('selected'));
-            document.getElementById('option-' + option).classList.add('selected');
-
-            // Enable/disable inputs
-            document.getElementById('input-perLoan').disabled = option !== 'perLoan';
-            document.getElementById('input-totalSpend').disabled = option !== 'totalSpend';
-            document.getElementById('input-perVerification').disabled = option !== 'perVerification';
-
-            // Update assumptions badge
-            const badge = document.getElementById('assumptionsBadge');
-            if (option === 'default') {
-                badge.className = 'assumptions-badge';
-                badge.innerHTML = `
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <circle cx="12" cy="12" r="10"/>
-                        <path d="M12 16v-4M12 8h.01"/>
-                    </svg>
-                    Using industry benchmark costs
-                `;
-            } else {
-                badge.className = 'assumptions-badge custom';
-                badge.innerHTML = `
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
-                        <polyline points="22 4 12 14.01 9 11.01"/>
-                    </svg>
-                    Using your custom costs
-                `;
-            }
-
-            updateSimpleCalculation();
+        function parseLoans(str) {
+            if (!str) return 0;
+            return parseInt(str.replace(/,/g, '')) || 0;
         }
 
-        // Calculate current costs based on user input
-        function getCurrentCosts(fundedLoans) {
-            // Derive verification volume from funded loans (using defaults)
-            const e2eCR = 0.3;
-            const pullThrough = 0.6;
-            const retailPct = 0.7;
-            const borrowersPerApp = 1.5;
-            const w2Rate = 0.8;
+        // Handle loans input (format with commas)
+        function handleLoansInput(el) {
+            let val = el.value.replace(/[^0-9]/g, '');
+            if (val) {
+                el.value = parseInt(val).toLocaleString();
+            }
+            checkStep1();
+        }
 
+        // Check if we should show step 1
+        function checkStep1() {
+            const loans = parseLoans(document.getElementById('fundedLoans').value);
+            const industry = document.getElementById('industry').value;
+
+            if (loans > 0 && industry) {
+                showStep(1);
+                updateCalculations();
+            }
+        }
+
+        // Show step with animation
+        function showStep(step) {
+            if (step <= currentStep) return;
+
+            const stepEl = document.getElementById('step' + step);
+            if (stepEl && !stepEl.classList.contains('visible')) {
+                stepEl.classList.add('visible');
+                currentStep = step;
+
+                // If showing step 1, auto-trigger step 2 after selection
+                if (step === 1) {
+                    setTimeout(() => {
+                        showCalculating();
+                    }, 500);
+                }
+            }
+        }
+
+        // Show calculating overlay
+        function showCalculating() {
+            const overlay = document.getElementById('calculatingOverlay');
+            overlay.classList.add('active');
+
+            setTimeout(() => {
+                overlay.classList.remove('active');
+                showStep(2);
+            }, 1200);
+        }
+
+        // Select cost card
+        function selectCostCard(option) {
+            selectedCostOption = option;
+
+            document.querySelectorAll('.cost-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+            document.getElementById('card-' + option).classList.add('selected');
+
+            updateCalculations();
+        }
+
+        // Get current costs based on selection
+        function getCurrentCosts(fundedLoans) {
+            const e2eCR = 0.3, pullThrough = 0.6, retailPct = 0.7, borrowersPerApp = 1.5, w2Rate = 0.8;
             const appsStarted = fundedLoans / e2eCR;
             const appsSubmitted = fundedLoans / pullThrough;
             const appSubmitCR = e2eCR / pullThrough;
-
             const voasDuringApp = appsStarted * borrowersPerApp * retailPct;
-            const voiesDuringApp = appsStarted * w2Rate * borrowersPerApp * retailPct;
             const w2AppsSubmitted = appsSubmitted * w2Rate;
             const voiesAfterSubmit = w2AppsSubmitted * borrowersPerApp * retailPct;
 
-            // Current state conversion rates
-            const voaConvCurrent = 0.50;
-            const ssvConvCurrent = 0.20;
-            const twnConvCurrent = 0.60;
-
+            const voaConvCurrent = 0.50, ssvConvCurrent = 0.20, twnConvCurrent = 0.60;
             const currentVOAs = voasDuringApp * voaConvCurrent;
             const currentSSV = currentVOAs * ssvConvCurrent;
             const voiesNeededAfterSSV = voiesAfterSubmit - (currentSSV * appSubmitCR);
@@ -1836,45 +1869,34 @@
             const currentTWNReverify = currentTWNInitial * pullThrough;
             const totalTWN = currentTWNInitial + currentTWNReverify;
 
-            // Get costs based on selected option
             let voaCost = defaults.voaCost;
             let twnCost = defaults.twnCost;
 
             if (selectedCostOption === 'perLoan') {
                 const costPerLoan = parseCurrency(document.getElementById('input-perLoan').value);
                 if (costPerLoan > 0) {
-                    // Derive TWN cost from per-loan cost
-                    // Assume VOA cost stays at default, derive TWN from the difference
                     const impliedTotalCost = costPerLoan * fundedLoans;
                     const voaCostTotal = currentVOAs * defaults.voaCost;
                     const impliedTwnTotal = impliedTotalCost - voaCostTotal;
-                    if (totalTWN > 0) {
-                        twnCost = Math.max(40, impliedTwnTotal / totalTWN);
-                    }
+                    if (totalTWN > 0) twnCost = Math.max(40, impliedTwnTotal / totalTWN);
                 }
             } else if (selectedCostOption === 'totalSpend') {
                 const totalSpend = parseCurrency(document.getElementById('input-totalSpend').value);
                 if (totalSpend > 0) {
-                    // Derive TWN cost from total spend
                     const voaCostTotal = currentVOAs * defaults.voaCost;
                     const impliedTwnTotal = totalSpend - voaCostTotal;
-                    if (totalTWN > 0) {
-                        twnCost = Math.max(40, impliedTwnTotal / totalTWN);
-                    }
+                    if (totalTWN > 0) twnCost = Math.max(40, impliedTwnTotal / totalTWN);
                 }
             } else if (selectedCostOption === 'perVerification') {
                 const perVerif = parseCurrency(document.getElementById('input-perVerification').value);
-                if (perVerif > 0) {
-                    twnCost = perVerif;
-                }
+                if (perVerif > 0) twnCost = perVerif;
             }
 
             return { voaCost, twnCost, currentVOAs, totalTWN };
         }
 
-        // Calculate savings (shared logic)
+        // Calculate savings
         function calculateSavings(fundedLoans, voaCostOverride = null, twnCostOverride = null, retailPct = 0.7, borrowersPerApp = 1.5, e2eCR = 0.3, pullThrough = 0.6, w2Rate = 0.8) {
-            // Layer 1: Funnel Reconstruction
             const appsStarted = Math.round(fundedLoans / e2eCR);
             const appsSubmitted = Math.round(fundedLoans / pullThrough);
             const appSubmitCR = e2eCR / pullThrough;
@@ -1883,15 +1905,10 @@
             const voiesDuringApp = appsStarted * w2Rate * borrowersPerApp * retailPct;
             const voiesAfterSubmit = w2AppsSubmitted * borrowersPerApp * retailPct;
 
-            // Get costs
             const voaCost = voaCostOverride !== null ? voaCostOverride : defaults.voaCost;
             const twnCost = twnCostOverride !== null ? twnCostOverride : defaults.twnCost;
 
-            // Layer 2: Current State
-            const voaConvCurrent = 0.50;
-            const ssvConvCurrent = 0.20;
-            const twnConvCurrent = 0.60;
-
+            const voaConvCurrent = 0.50, ssvConvCurrent = 0.20, twnConvCurrent = 0.60;
             const currentVOAs = voasDuringApp * voaConvCurrent;
             const currentSSV = currentVOAs * ssvConvCurrent;
             const voiesNeededAfterSSV = voiesAfterSubmit - (currentSSV * appSubmitCR);
@@ -1902,12 +1919,7 @@
             const currentTWNCost = (currentTWNInitial + currentTWNReverify) * twnCost;
             const totalCurrentCost = currentVOACost + currentTWNCost;
 
-            // Layer 3: Future State with Truv
-            const voaConvTruv = 0.60;
-            const ssvConvTruv = 0.24;
-            const voieConvTruv = 0.42;
-            const twnConvReduced = 0.36;
-
+            const voaConvTruv = 0.60, ssvConvTruv = 0.24, voieConvTruv = 0.42, twnConvReduced = 0.36;
             const truvVOAs = voasDuringApp * voaConvTruv;
             const truvSSV = truvVOAs * ssvConvTruv;
             const truvVOIEs = voiesDuringApp * voieConvTruv;
@@ -1920,108 +1932,75 @@
             const truvTWNCost = (truvTWNInitial + truvTWNReverify) * twnCost;
             const totalTruvCost = truvVOACost + truvVOIECost + truvTWNCost;
 
-            // Layer 4: Savings
             const annualSavings = totalCurrentCost - totalTruvCost;
             const savingsPercent = totalCurrentCost > 0 ? (annualSavings / totalCurrentCost) * 100 : 0;
             const savingsPerLoan = fundedLoans > 0 ? annualSavings / fundedLoans : 0;
 
             return {
-                annualSavings,
-                savingsPercent,
-                savingsPerLoan,
-                appsStarted,
-                appsSubmitted,
-                fundedLoans,
-                currentVOAs,
-                currentVOACost,
-                voaCost,
-                twnCost,
-                currentTWNTotal: currentTWNInitial + currentTWNReverify,
-                currentTWNCost,
-                totalCurrentCost,
-                truvVOAs,
-                truvVOACost,
-                truvVOIEs,
-                truvVOIECost,
-                truvTWNTotal: truvTWNInitial + truvTWNReverify,
-                truvTWNCost,
-                totalTruvCost
+                annualSavings, savingsPercent, savingsPerLoan, appsStarted, appsSubmitted, fundedLoans,
+                currentVOAs, currentVOACost, voaCost, twnCost, currentTWNTotal: currentTWNInitial + currentTWNReverify,
+                currentTWNCost, totalCurrentCost, truvVOAs, truvVOACost, truvVOIEs, truvVOIECost,
+                truvTWNTotal: truvTWNInitial + truvTWNReverify, truvTWNCost, totalTruvCost
             };
         }
 
-        // Update simple calculator (ungated)
-        function updateSimpleCalculation() {
-            const fundedLoans = parseInt(document.getElementById('fundedLoans').value) || 2000;
-
-            // Get current costs based on user selection
+        // Update calculations for simple view
+        function updateCalculations() {
+            const fundedLoans = parseLoans(document.getElementById('fundedLoans').value) || 2000;
             const costs = getCurrentCosts(fundedLoans);
-            const results = calculateSavings(fundedLoans, costs.voaCost, costs.twnCost);
+            calculatedResults = calculateSavings(fundedLoans, costs.voaCost, costs.twnCost);
 
-            // Update displays
-            document.getElementById('previewCurrentCost').textContent = formatCurrency(results.totalCurrentCost);
-            document.getElementById('previewTruvCost').textContent = formatCurrency(results.totalTruvCost);
-            document.getElementById('previewSavings').textContent = formatCurrency(results.annualSavings);
-            document.getElementById('previewLoans').textContent = formatNumber(fundedLoans);
-            document.getElementById('previewPerLoan').textContent = formatCurrency(results.savingsPerLoan);
-            document.getElementById('previewPercent').textContent = Math.round(results.savingsPercent) + '%';
+            document.getElementById('heroSavings').textContent = formatCurrency(calculatedResults.annualSavings);
+            document.getElementById('heroLoans').textContent = formatNumber(fundedLoans);
+            document.getElementById('statPerLoan').textContent = formatCurrency(calculatedResults.savingsPerLoan);
+            document.getElementById('statPercent').textContent = Math.round(calculatedResults.savingsPercent) + '%';
+            document.getElementById('previewCurrent').textContent = formatCurrency(calculatedResults.totalCurrentCost);
+            document.getElementById('previewTruv').textContent = formatCurrency(calculatedResults.totalTruvCost);
         }
 
-        // Update detailed calculations
+        // Update detailed view calculations
         function updateDetailedCalculations() {
             const fundedLoans = parseInt(document.getElementById('loansSlider').value);
-            const retailPct = parseInt(document.getElementById('retailSlider').value) / 100;
-            const borrowersPerApp = parseFloat(document.getElementById('borrowersSlider').value);
-            const e2eCR = parseInt(document.getElementById('e2eSlider').value) / 100;
-            const pullThrough = parseInt(document.getElementById('pullThroughSlider').value) / 100;
-            const w2Rate = parseInt(document.getElementById('w2Slider').value) / 100;
-            const voaCost = parseInt(document.getElementById('voaCostSlider').value);
-            const twnCost = parseInt(document.getElementById('twnCostSlider').value);
+            const twnCost = parseInt(document.getElementById('twnSlider').value);
 
-            // Update slider displays
             document.getElementById('loansValue').textContent = formatNumber(fundedLoans);
-            document.getElementById('retailValue').textContent = Math.round(retailPct * 100) + '%';
-            document.getElementById('borrowersValue').textContent = borrowersPerApp.toFixed(1);
-            document.getElementById('e2eValue').textContent = Math.round(e2eCR * 100) + '%';
-            document.getElementById('pullThroughValue').textContent = Math.round(pullThrough * 100) + '%';
-            document.getElementById('w2Value').textContent = Math.round(w2Rate * 100) + '%';
-            document.getElementById('voaCostValue').textContent = formatCurrency(voaCost);
-            document.getElementById('twnCostValue').textContent = formatCurrency(twnCost);
+            document.getElementById('twnValue').textContent = formatCurrency(twnCost);
 
-            const results = calculateSavings(fundedLoans, voaCost, twnCost, retailPct, borrowersPerApp, e2eCR, pullThrough, w2Rate);
+            const results = calculateSavings(fundedLoans, defaults.voaCost, twnCost);
 
-            // Update summary
             document.getElementById('detailSavings').textContent = formatCurrency(results.annualSavings);
+            document.getElementById('detailLoans').textContent = formatNumber(fundedLoans);
             document.getElementById('detailPerLoan').textContent = formatCurrency(results.savingsPerLoan);
             document.getElementById('detailPercent').textContent = Math.round(results.savingsPercent) + '%';
 
-            // Update funnel
-            const maxWidth = 100;
-            document.getElementById('funnelApps').style.width = maxWidth + '%';
+            // Funnel
             document.getElementById('funnelApps').textContent = formatNumber(results.appsStarted);
-            document.getElementById('funnelSubmitted').style.width = Math.max(15, (results.appsSubmitted / results.appsStarted * maxWidth)) + '%';
+            document.getElementById('funnelApps').style.width = '100%';
             document.getElementById('funnelSubmitted').textContent = formatNumber(results.appsSubmitted);
-            document.getElementById('funnelFunded').style.width = Math.max(10, (fundedLoans / results.appsStarted * maxWidth)) + '%';
+            document.getElementById('funnelSubmitted').style.width = Math.max(15, (results.appsSubmitted / results.appsStarted * 100)) + '%';
             document.getElementById('funnelFunded').textContent = formatNumber(fundedLoans);
+            document.getElementById('funnelFunded').style.width = Math.max(10, (fundedLoans / results.appsStarted * 100)) + '%';
 
-            // Update comparison table
-            document.getElementById('currentVOA').textContent = `${formatNumber(results.currentVOAs)} × ${formatCurrency(voaCost)} = ${formatCurrency(results.currentVOACost)}`;
-            document.getElementById('truvVOA').textContent = `${formatNumber(results.truvVOAs)} × $6 = ${formatCurrency(results.truvVOACost)}`;
+            // Table
+            document.getElementById('currentVOA').textContent = formatCurrency(results.currentVOACost);
+            document.getElementById('truvVOA').textContent = formatCurrency(results.truvVOACost);
             document.getElementById('currentVOIE').textContent = '—';
-            document.getElementById('truvVOIE').textContent = `${formatNumber(results.truvVOIEs)} × $10 = ${formatCurrency(results.truvVOIECost)}`;
-            document.getElementById('currentTWN').textContent = `${formatNumber(results.currentTWNTotal)} × ${formatCurrency(twnCost)} = ${formatCurrency(results.currentTWNCost)}`;
-            document.getElementById('truvTWN').textContent = `${formatNumber(results.truvTWNTotal)} × ${formatCurrency(twnCost)} = ${formatCurrency(results.truvTWNCost)}`;
+            document.getElementById('truvVOIE').textContent = formatCurrency(results.truvVOIECost);
+            document.getElementById('currentTWN').textContent = formatCurrency(results.currentTWNCost);
+            document.getElementById('truvTWN').textContent = formatCurrency(results.truvTWNCost);
             document.getElementById('currentTotal').textContent = formatCurrency(results.totalCurrentCost);
             document.getElementById('truvTotal').textContent = formatCurrency(results.totalTruvCost);
             document.getElementById('tableSavings').textContent = formatCurrency(results.annualSavings);
-        }
 
-        // Store calculated results for PDF
-        let calculatedResults = {};
+            calculatedResults = results;
+        }
 
         // Modal functions
         function openGateModal() {
             document.getElementById('gateModal').classList.add('active');
             document.body.style.overflow = 'hidden';
+            formStep = 1;
+            updateFormSteps();
         }
 
         function closeGateModal() {
@@ -2031,7 +2010,6 @@
 
         function openSuccessModal() {
             document.getElementById('successModal').classList.add('active');
-            document.body.style.overflow = 'hidden';
         }
 
         function closeSuccessModal() {
@@ -2042,7 +2020,6 @@
         function openScheduleModal() {
             closeSuccessModal();
             document.getElementById('scheduleModal').classList.add('active');
-            document.body.style.overflow = 'hidden';
         }
 
         function closeScheduleModal() {
@@ -2051,48 +2028,40 @@
         }
 
         function confirmSchedule() {
-            alert('Demo: Meeting scheduled!\n\nIn production, this would:\n1. Create a calendar event\n2. Send confirmation emails\n3. Redirect to a thank you page');
+            alert('Demo: Meeting scheduled!\n\nIn production, this redirects to truv.com/demo');
             closeScheduleModal();
             showDetailedResults();
         }
 
-        function showDetailedResults() {
-            document.getElementById('simpleCalculator').style.display = 'none';
-            document.getElementById('detailedResults').classList.add('active');
-            updateDetailedCalculations();
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+        // Form step navigation
+        function nextFormStep() {
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const title = document.getElementById('title').value;
+            const phone = document.getElementById('phone').value;
+
+            if (!name || !email || !title || !phone) {
+                alert('Please fill in all fields');
+                return;
+            }
+
+            formStep = 2;
+            updateFormSteps();
         }
 
-        // Integration partners (Truv native integrations)
-        const nativeIntegrations = {
-            los: ['encompass', 'bytepro', 'meridianlink'],
-            pos: ['blend', 'encompassconsumerconnect', 'floify']
-        };
-
-        // Check if system has native integration
-        function checkIntegrations(los, pos) {
-            const losIntegrated = los && nativeIntegrations.los.includes(los);
-            const posIntegrated = pos && nativeIntegrations.pos.includes(pos);
-
-            const losName = los ? document.querySelector(`#los option[value="${los}"]`)?.textContent : '';
-            const posName = pos ? document.querySelector(`#pos option[value="${pos}"]`)?.textContent : '';
-
-            return {
-                hasIntegration: losIntegrated || posIntegrated,
-                losIntegrated,
-                posIntegrated,
-                losName,
-                posName
-            };
+        function updateFormSteps() {
+            document.getElementById('formStep1').classList.toggle('active', formStep === 1);
+            document.getElementById('formStep2').classList.toggle('active', formStep === 2);
+            document.getElementById('dot1').classList.toggle('active', formStep === 1);
+            document.getElementById('dot2').classList.toggle('active', formStep === 2);
         }
 
         // Submit lead form
         function submitLeadForm(e) {
             e.preventDefault();
 
-            const fundedLoans = parseInt(document.getElementById('fundedLoans').value) || 2000;
+            const fundedLoans = parseLoans(document.getElementById('fundedLoans').value) || 2000;
             const costs = getCurrentCosts(fundedLoans);
-
             const los = document.getElementById('los').value;
             const pos = document.getElementById('pos').value;
 
@@ -2103,110 +2072,124 @@
                 email: document.getElementById('email').value,
                 phone: document.getElementById('phone').value,
                 industry: document.getElementById('industry').value,
-                los: los,
-                pos: pos,
-                fundedLoans: fundedLoans,
-                costOption: selectedCostOption,
+                los, pos, fundedLoans,
                 derivedTwnCost: costs.twnCost
             };
 
-            // Calculate results for PDF
             calculatedResults = calculateSavings(fundedLoans, costs.voaCost, costs.twnCost);
 
-            // Set sliders to match inputs
-            document.getElementById('loansSlider').value = leadData.fundedLoans;
-            document.getElementById('twnCostSlider').value = Math.round(costs.twnCost);
+            document.getElementById('loansSlider').value = fundedLoans;
+            document.getElementById('twnSlider').value = Math.round(costs.twnCost);
 
             // Update quote
-            updateQuote(leadData.industry);
+            const quote = quotes[leadData.industry] || quotes.mortgage;
+            document.querySelector('#quoteSection .quote-text').textContent = `"${quote.text}"`;
+            document.querySelector('#quoteSection .quote-author').textContent = quote.author;
+            document.querySelector('#quoteSection .quote-role').textContent = quote.role;
 
-            // Show user name in modals and detailed view
             document.getElementById('userName').textContent = leadData.name.split(' ')[0];
             document.getElementById('successName').textContent = leadData.name.split(' ')[0];
 
-            // Check and display integration status
-            const integration = checkIntegrations(los, pos);
-            const statusEl = document.getElementById('integrationStatus');
-            const messageEl = document.getElementById('integrationMessage');
+            // Check integrations
+            const losIntegrated = los && nativeIntegrations.los.includes(los);
+            const posIntegrated = pos && nativeIntegrations.pos.includes(pos);
+            const badge = document.getElementById('integrationBadge');
 
-            if (integration.hasIntegration) {
-                let message = 'Truv has native integrations with ';
+            if (losIntegrated || posIntegrated) {
                 const systems = [];
-                if (integration.losIntegrated) systems.push(integration.losName);
-                if (integration.posIntegrated) systems.push(integration.posName);
-                message += systems.join(' and ') + '. Implementation is fast and seamless!';
-                messageEl.textContent = message;
-                statusEl.style.display = 'block';
+                if (losIntegrated) systems.push(document.querySelector(`#los option[value="${los}"]`)?.textContent);
+                if (posIntegrated) systems.push(document.querySelector(`#pos option[value="${pos}"]`)?.textContent);
+                document.getElementById('integrationText').textContent = `Truv has native integrations with ${systems.join(' and ')}.`;
+                badge.classList.add('visible');
             } else {
-                statusEl.style.display = 'none';
+                badge.classList.remove('visible');
             }
 
-            // Close gate modal and show success modal
             closeGateModal();
             openSuccessModal();
         }
 
-        // Generate and download PDF
+        // Show detailed results
+        function showDetailedResults() {
+            document.getElementById('simpleCalculator').classList.add('hidden');
+            document.getElementById('detailedResults').classList.add('active');
+            updateDetailedCalculations();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Reset
+        function resetCalculator() {
+            document.getElementById('simpleCalculator').classList.remove('hidden');
+            document.getElementById('detailedResults').classList.remove('active');
+            document.getElementById('leadForm').reset();
+            document.getElementById('fundedLoans').value = '';
+            document.getElementById('industry').value = '';
+
+            // Reset steps
+            currentStep = 0;
+            document.getElementById('step1').classList.remove('visible');
+            document.getElementById('step2').classList.remove('visible');
+
+            selectCostCard('default');
+            document.getElementById('input-perLoan').value = '';
+            document.getElementById('input-totalSpend').value = '';
+            document.getElementById('input-perVerification').value = '';
+
+            formStep = 1;
+            updateFormSteps();
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // PDF Generation
         function downloadPDF() {
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF();
-
             const pageWidth = doc.internal.pageSize.getWidth();
             let y = 20;
-
-            // Helper function
-            const addText = (text, x, size = 12, style = 'normal', color = [0, 0, 0]) => {
-                doc.setFontSize(size);
-                doc.setFont('helvetica', style);
-                doc.setTextColor(...color);
-                doc.text(text, x, y);
-            };
 
             // Header
             doc.setFillColor(44, 100, 227);
             doc.rect(0, 0, pageWidth, 40, 'F');
-
             doc.setTextColor(255, 255, 255);
             doc.setFontSize(24);
             doc.setFont('helvetica', 'bold');
             doc.text('truv', 20, 25);
-
             doc.setFontSize(12);
             doc.setFont('helvetica', 'normal');
             doc.text('ROI Analysis Report', pageWidth - 20, 25, { align: 'right' });
 
             y = 55;
-
-            // Company info
-            addText('Prepared for:', 20, 10, 'normal', [107, 107, 112]);
+            doc.setTextColor(107, 107, 112);
+            doc.setFontSize(10);
+            doc.text('Prepared for:', 20, y);
             y += 6;
-            addText(leadData.company, 20, 16, 'bold', [23, 23, 23]);
+            doc.setTextColor(23, 23, 23);
+            doc.setFontSize(16);
+            doc.setFont('helvetica', 'bold');
+            doc.text(leadData.company || 'Your Company', 20, y);
             y += 8;
-            addText(`${leadData.name} | ${leadData.email}`, 20, 10, 'normal', [107, 107, 112]);
+            doc.setFontSize(10);
+            doc.setFont('helvetica', 'normal');
+            doc.setTextColor(107, 107, 112);
+            doc.text(`${leadData.name} | ${leadData.email}`, 20, y);
             y += 5;
-            addText(`Generated: ${new Date().toLocaleDateString()}`, 20, 10, 'normal', [107, 107, 112]);
+            doc.text(`Generated: ${new Date().toLocaleDateString()}`, 20, y);
 
             y += 20;
-
-            // Main savings highlight
             doc.setFillColor(232, 239, 252);
             doc.roundedRect(20, y, pageWidth - 40, 45, 3, 3, 'F');
-
             y += 15;
-            addText('Estimated Annual Savings', pageWidth / 2, 12, 'normal', [44, 100, 227]);
+            doc.setTextColor(44, 100, 227);
+            doc.setFontSize(12);
             doc.text('Estimated Annual Savings', pageWidth / 2, y, { align: 'center' });
-
             y += 18;
             doc.setFontSize(32);
             doc.setFont('helvetica', 'bold');
-            doc.setTextColor(44, 100, 227);
             doc.text(formatCurrency(calculatedResults.annualSavings), pageWidth / 2, y, { align: 'center' });
 
             y += 30;
-
-            // Key metrics row
             const colWidth = (pageWidth - 40) / 3;
-
             doc.setFillColor(248, 249, 250);
             doc.roundedRect(20, y, colWidth - 5, 35, 2, 2, 'F');
             doc.roundedRect(20 + colWidth, y, colWidth - 5, 35, 2, 2, 'F');
@@ -2218,7 +2201,7 @@
             doc.setTextColor(107, 107, 112);
             doc.text('Per Funded Loan', 20 + (colWidth - 5) / 2, y, { align: 'center' });
             doc.text('Cost Reduction', 20 + colWidth + (colWidth - 5) / 2, y, { align: 'center' });
-            doc.text('Funded Loans/Year', 20 + colWidth * 2 + (colWidth - 5) / 2, y, { align: 'center' });
+            doc.text('Funded Loans', 20 + colWidth * 2 + (colWidth - 5) / 2, y, { align: 'center' });
 
             y += 12;
             doc.setFontSize(18);
@@ -2229,29 +2212,21 @@
             doc.text(formatNumber(calculatedResults.fundedLoans), 20 + colWidth * 2 + (colWidth - 5) / 2, y, { align: 'center' });
 
             y += 30;
-
-            // Cost comparison table
             doc.setFontSize(14);
-            doc.setFont('helvetica', 'bold');
             doc.setTextColor(23, 23, 23);
             doc.text('Cost Comparison', 20, y);
-
             y += 10;
 
-            // Table header
             doc.setFillColor(248, 249, 250);
             doc.rect(20, y, pageWidth - 40, 10, 'F');
-
             doc.setFontSize(9);
             doc.setFont('helvetica', 'bold');
             doc.setTextColor(107, 107, 112);
             doc.text('ITEM', 25, y + 7);
-            doc.text('CURRENT STATE', 100, y + 7);
+            doc.text('CURRENT', 100, y + 7);
             doc.text('WITH TRUV', 160, y + 7);
 
             y += 15;
-
-            // Table rows
             const tableData = [
                 ['VOA Checks', formatCurrency(calculatedResults.currentVOACost), formatCurrency(calculatedResults.truvVOACost)],
                 ['VOIE Checks', '—', formatCurrency(calculatedResults.truvVOIECost)],
@@ -2260,7 +2235,6 @@
 
             doc.setFont('helvetica', 'normal');
             doc.setTextColor(23, 23, 23);
-
             tableData.forEach(row => {
                 doc.setFontSize(10);
                 doc.text(row[0], 25, y);
@@ -2269,98 +2243,49 @@
                 y += 10;
             });
 
-            // Total row
             doc.setFillColor(248, 249, 250);
             doc.rect(20, y - 5, pageWidth - 40, 12, 'F');
             doc.setFont('helvetica', 'bold');
-            doc.text('Total Annual Cost', 25, y + 3);
+            doc.text('Total', 25, y + 3);
             doc.text(formatCurrency(calculatedResults.totalCurrentCost), 100, y + 3);
             doc.text(formatCurrency(calculatedResults.totalTruvCost), 160, y + 3);
 
             y += 15;
-
-            // Savings row
             doc.setFillColor(209, 250, 229);
             doc.rect(20, y - 5, pageWidth - 40, 12, 'F');
             doc.setTextColor(16, 185, 129);
-            doc.text('Your Annual Savings', 25, y + 3);
+            doc.text('Annual Savings', 25, y + 3);
             doc.text(formatCurrency(calculatedResults.annualSavings), 160, y + 3);
 
             y += 25;
-
-            // Footer CTA
             doc.setFillColor(44, 100, 227);
             doc.roundedRect(20, y, pageWidth - 40, 30, 3, 3, 'F');
-
             doc.setTextColor(255, 255, 255);
             doc.setFontSize(12);
-            doc.setFont('helvetica', 'bold');
             doc.text('Ready to start saving?', pageWidth / 2, y + 12, { align: 'center' });
             doc.setFontSize(10);
             doc.setFont('helvetica', 'normal');
-            doc.text('Contact us at truv.com/demo to schedule a personalized walkthrough', pageWidth / 2, y + 22, { align: 'center' });
+            doc.text('Schedule a demo at truv.com/demo', pageWidth / 2, y + 22, { align: 'center' });
 
-            // Footer
             y = doc.internal.pageSize.getHeight() - 15;
             doc.setTextColor(107, 107, 112);
             doc.setFontSize(8);
-            doc.text('© 2025 Truv. All rights reserved. | truv.com', pageWidth / 2, y, { align: 'center' });
+            doc.text('© 2025 Truv. All rights reserved.', pageWidth / 2, y, { align: 'center' });
 
-            // Save the PDF
-            doc.save(`Truv_ROI_Report_${leadData.company.replace(/\s+/g, '_')}.pdf`);
+            doc.save(`Truv_ROI_Report_${(leadData.company || 'Company').replace(/\s+/g, '_')}.pdf`);
         }
 
-        // Update quote based on industry
-        function updateQuote(industry) {
-            const quote = quotes[industry] || quotes.mortgage;
-            document.querySelector('#quoteSection .quote-text').textContent = `"${quote.text}"`;
-            document.querySelector('#quoteSection .quote-author').textContent = quote.author;
-            document.querySelector('#quoteSection .quote-role').textContent = quote.role;
-        }
-
-        // Toggle collapsible panels
-        function togglePanel(panelId) {
-            document.getElementById(panelId).classList.toggle('open');
-        }
-
-        // Reset calculator
-        function resetCalculator() {
-            document.getElementById('simpleCalculator').style.display = 'block';
-            document.getElementById('detailedResults').classList.remove('active');
-            document.getElementById('leadForm').reset();
-            document.getElementById('fundedLoans').value = 2000;
-            document.getElementById('industry').value = 'mortgage';
-
-            // Reset cost options
-            selectCostOption('default');
-            document.getElementById('input-perLoan').value = '';
-            document.getElementById('input-totalSpend').value = '';
-            document.getElementById('input-perVerification').value = '';
-
-            updateSimpleCalculation();
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        // Close modal on overlay click
-        document.getElementById('gateModal').addEventListener('click', function(e) {
-            if (e.target === this) {
-                closeGateModal();
-            }
+        // Modal click-outside handlers
+        ['gateModal', 'successModal', 'scheduleModal'].forEach(id => {
+            document.getElementById(id).addEventListener('click', function(e) {
+                if (e.target === this) {
+                    this.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
+            });
         });
 
-        document.getElementById('successModal').addEventListener('click', function(e) {
-            if (e.target === this) {
-                closeSuccessModal();
-            }
-        });
-
-        document.getElementById('scheduleModal').addEventListener('click', function(e) {
-            if (e.target === this) {
-                closeScheduleModal();
-            }
-        });
-
-        // Close modal on escape key
+        // Escape key
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape') {
                 closeGateModal();
@@ -2368,9 +2293,6 @@
                 closeScheduleModal();
             }
         });
-
-        // Initialize
-        updateSimpleCalculation();
     </script>
 </body>
 </html>
