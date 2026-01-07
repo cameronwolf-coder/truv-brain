@@ -171,24 +171,46 @@ export function ResultsStep({
                         </p>
 
                         <div className="space-y-3 text-sm">
-                            <div className="flex justify-between items-start">
-                                <div>
-                                    <span className="text-gray-900 font-medium">Income verified by Truv</span>
-                                    <p className="text-xs text-gray-500">Direct payroll connections (VOIE)</p>
+                            <div className="flex justify-between items-start p-3 bg-white rounded-lg border border-truv-blue/20">
+                                <div className="flex items-start gap-3">
+                                    <div className="w-8 h-8 rounded-full bg-truv-blue/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2c64e3" strokeWidth="2">
+                                            <path d="M20 6L9 17l-5-5"/>
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <span className="text-gray-900 font-medium">Income verified by Truv</span>
+                                        <p className="text-xs text-gray-500">Direct payroll connections via 1,700+ employers</p>
+                                    </div>
                                 </div>
                                 <span className="font-semibold text-truv-blue">{formatNumber(results.truvVOIEs)}</span>
                             </div>
-                            <div className="flex justify-between items-start">
-                                <div>
-                                    <span className="text-gray-900 font-medium">Assets verified by Truv</span>
-                                    <p className="text-xs text-gray-500">Bank account connections (VOA)</p>
+                            <div className="flex justify-between items-start p-3 bg-white rounded-lg border border-truv-blue/20">
+                                <div className="flex items-start gap-3">
+                                    <div className="w-8 h-8 rounded-full bg-truv-blue/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2c64e3" strokeWidth="2">
+                                            <path d="M20 6L9 17l-5-5"/>
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <span className="text-gray-900 font-medium">Assets verified by Truv</span>
+                                        <p className="text-xs text-gray-500">Direct bank connections via 16,000+ institutions</p>
+                                    </div>
                                 </div>
                                 <span className="font-semibold text-truv-blue">{formatNumber(results.truvVOAs)}</span>
                             </div>
-                            <div className="flex justify-between items-start border-t border-gray-200 pt-3 mt-3">
-                                <div>
-                                    <span className="text-gray-900 font-medium">TWN fallback required</span>
-                                    <p className="text-xs text-gray-500">When direct verification isn't available</p>
+                            <div className="flex justify-between items-start p-3 bg-gray-100 rounded-lg">
+                                <div className="flex items-start gap-3">
+                                    <div className="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center flex-shrink-0 mt-0.5">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6b7280" strokeWidth="2">
+                                            <circle cx="12" cy="12" r="10"/>
+                                            <path d="M12 6v6l4 2"/>
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <span className="text-gray-700 font-medium">TWN fallback required</span>
+                                        <p className="text-xs text-gray-500">Manual process when direct isn't available</p>
+                                    </div>
                                 </div>
                                 <span className="font-medium text-gray-600">{formatNumber(results.remainingTWNs)}</span>
                             </div>
