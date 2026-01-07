@@ -3,6 +3,7 @@ import { useState } from 'react';
 import type { CalculationResults, AdvancedInputs } from '../types';
 import { formatCurrency, formatNumber, formatPercent } from '../utils/calculations';
 import { generateROIReport } from '../utils/pdfGenerator';
+import { ScheduleModal } from './ScheduleModal';
 
 interface ResultsStepProps {
     results: CalculationResults;
@@ -25,6 +26,7 @@ export function ResultsStep({
 }: ResultsStepProps) {
     const [showAdvanced, setShowAdvanced] = useState(false);
     const [showCalculationDetails, setShowCalculationDetails] = useState(false);
+    const [showScheduleModal, setShowScheduleModal] = useState(false);
 
     // Calculate per-loan costs for explanation
     const currentCostPerLoan = fundedLoans > 0 ? results.currentCost / fundedLoans : 0;
@@ -355,14 +357,12 @@ export function ResultsStep({
                         >
                             Download Full Report
                         </button>
-                        <a
-                            href="https://www.truv.com/contact"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="block w-full bg-white text-truv-blue font-semibold py-4 rounded-full border-2 border-truv-blue hover:bg-truv-blue-light transition-all text-center"
+                        <button
+                            onClick={() => setShowScheduleModal(true)}
+                            className="w-full bg-white text-truv-blue font-semibold py-4 rounded-full border-2 border-truv-blue hover:bg-truv-blue-light transition-all"
                         >
                             Talk to Sales
-                        </a>
+                        </button>
                         <button
                             onClick={() => window.location.reload()}
                             className="w-full text-gray-500 hover:text-gray-900 font-medium py-2"
@@ -372,6 +372,12 @@ export function ResultsStep({
                     </div>
                 </>
             )}
+
+            {/* Schedule Modal */}
+            <ScheduleModal
+                isOpen={showScheduleModal}
+                onClose={() => setShowScheduleModal(false)}
+            />
         </motion.div>
     );
 }

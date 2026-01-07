@@ -1,265 +1,400 @@
-import jsPDF from 'jspdf';
+import html2pdf from 'html2pdf.js';
 import type { CalculationResults, AdvancedInputs } from '../types';
 import { formatCurrency, formatNumber, formatPercent } from './calculations';
-
-// Truv Brand Colors
-const TRUV_BLUE = '#2C64E3';
-const TRUV_DARK_BLUE = '#0F1C47';
-const TRUV_BLACK = '#171717';
-const TRUV_LIGHT_BLUE = '#C5D9F7';
 
 export function generateROIReport(
     results: CalculationResults,
     fundedLoans: number,
     advancedInputs: AdvancedInputs
 ): void {
-    const doc = new jsPDF({
-        orientation: 'portrait',
-        unit: 'mm',
-        format: 'a4'
-    });
+    // Create container element
+    const container = document.createElement('div');
+    container.style.position = 'absolute';
+    container.style.left = '-9999px';
+    container.style.top = '0';
 
-    const pageWidth = doc.internal.pageSize.getWidth();
-    const pageHeight = doc.internal.pageSize.getHeight();
-    const margin = 20;
-    let y = margin;
+    // Build the PDF content
+    container.innerHTML = `
+        <div style="
+            width: 210mm;
+            min-height: 297mm;
+            background: #ffffff;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            color: #171717;
+            line-height: 1.5;
+        ">
+            <!-- Header with dark gradient -->
+            <div style="
+                background: linear-gradient(135deg, #020617 0%, #0F1C47 40%, #172554 100%);
+                padding: 32px 40px;
+                color: white;
+            ">
+                <div style="font-size: 28px; font-weight: 700; margin-bottom: 24px;">truv</div>
+                <div style="font-size: 32px; font-weight: 700; margin-bottom: 8px;">ROI Analysis Report</div>
+                <div style="font-size: 16px; opacity: 0.8;">Your personalized savings breakdown</div>
+                <div style="position: absolute; top: 32px; right: 40px; font-size: 13px; opacity: 0.7; color: white;">
+                    ${new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+                </div>
+            </div>
 
-    // Helper functions
-    const drawLine = (yPos: number, color = '#e5e5e5') => {
-        doc.setDrawColor(color);
-        doc.setLineWidth(0.3);
-        doc.line(margin, yPos, pageWidth - margin, yPos);
+            <!-- Content -->
+            <div style="padding: 40px;">
+                <!-- Hero savings card -->
+                <div style="
+                    background: linear-gradient(135deg, #2C64E3 0%, #0F1C47 100%);
+                    border-radius: 16px;
+                    padding: 32px;
+                    color: white;
+                    text-align: center;
+                    margin-bottom: 32px;
+                ">
+                    <div style="font-size: 14px; opacity: 0.9; margin-bottom: 8px;">Estimated Annual Savings</div>
+                    <div style="font-size: 48px; font-weight: 700; letter-spacing: -2px; margin-bottom: 8px;">
+                        ${formatCurrency(results.annualSavings)}
+                    </div>
+                    <div style="font-size: 14px; opacity: 0.85;">
+                        Based on ${formatNumber(fundedLoans)} funded loans per year
+                    </div>
+                </div>
+
+                <!-- ROI pills -->
+                <div style="display: flex; gap: 12px; margin-bottom: 32px;">
+                    <div style="
+                        flex: 1;
+                        background: linear-gradient(135deg, #dcfce7 0%, #f0fdf4 100%);
+                        border: 1px solid #86efac;
+                        border-radius: 12px;
+                        padding: 20px;
+                        text-align: center;
+                    ">
+                        <div style="font-size: 24px; font-weight: 700; color: #16a34a; margin-bottom: 4px;">
+                            ${formatCurrency(results.savingsPerLoan)}
+                        </div>
+                        <div style="font-size: 12px; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px;">
+                            Per Funded Loan
+                        </div>
+                    </div>
+                    <div style="
+                        flex: 1;
+                        background: #f8fafc;
+                        border: 1px solid #e2e8f0;
+                        border-radius: 12px;
+                        padding: 20px;
+                        text-align: center;
+                    ">
+                        <div style="font-size: 24px; font-weight: 700; color: #171717; margin-bottom: 4px;">
+                            ${formatPercent(results.manualReduction)}
+                        </div>
+                        <div style="font-size: 12px; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px;">
+                            TWN Reduction
+                        </div>
+                    </div>
+                    <div style="
+                        flex: 1;
+                        background: #f8fafc;
+                        border: 1px solid #e2e8f0;
+                        border-radius: 12px;
+                        padding: 20px;
+                        text-align: center;
+                    ">
+                        <div style="font-size: 24px; font-weight: 700; color: #171717; margin-bottom: 4px;">
+                            ${formatNumber(results.truvVOIEs + results.truvVOAs)}
+                        </div>
+                        <div style="font-size: 12px; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px;">
+                            Truv Verifications
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Cost comparison section title -->
+                <div style="
+                    font-size: 18px;
+                    font-weight: 600;
+                    color: #171717;
+                    margin-bottom: 16px;
+                    display: flex;
+                    align-items: center;
+                    gap: 8px;
+                ">
+                    <span style="width: 4px; height: 20px; background: #2C64E3; border-radius: 2px; display: inline-block;"></span>
+                    Cost Comparison
+                </div>
+
+                <!-- Cost comparison cards -->
+                <div style="display: flex; gap: 16px; margin-bottom: 32px;">
+                    <div style="
+                        flex: 1;
+                        background: #f8fafc;
+                        border-radius: 12px;
+                        padding: 24px;
+                        border: 1px solid #e2e8f0;
+                    ">
+                        <div style="font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; color: #64748b; margin-bottom: 12px;">
+                            Current Cost
+                        </div>
+                        <div style="font-size: 28px; font-weight: 700; color: #171717; margin-bottom: 4px;">
+                            ${formatCurrency(results.currentCost)}
+                        </div>
+                        <div style="font-size: 13px; color: #64748b;">Legacy verification process</div>
+                    </div>
+                    <div style="
+                        flex: 1;
+                        background: linear-gradient(135deg, #eff6ff 0%, #f8fafc 100%);
+                        border-radius: 12px;
+                        padding: 24px;
+                        border: 1px solid #93c5fd;
+                        border-top: 3px solid #2C64E3;
+                    ">
+                        <div style="font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; color: #2C64E3; margin-bottom: 12px;">
+                            With Truv
+                        </div>
+                        <div style="font-size: 28px; font-weight: 700; color: #171717; margin-bottom: 4px;">
+                            ${formatCurrency(results.futureCost)}
+                        </div>
+                        <div style="font-size: 13px; color: #64748b;">PFL Bundle + Fallback</div>
+                    </div>
+                </div>
+
+                <!-- Verification breakdown header -->
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                    <div style="
+                        font-size: 18px;
+                        font-weight: 600;
+                        color: #171717;
+                        display: flex;
+                        align-items: center;
+                        gap: 8px;
+                    ">
+                        <span style="width: 4px; height: 20px; background: #2C64E3; border-radius: 2px; display: inline-block;"></span>
+                        How Truv Handles Your Verifications
+                    </div>
+                    <div style="
+                        background: #dcfce7;
+                        color: #16a34a;
+                        font-size: 12px;
+                        font-weight: 600;
+                        padding: 6px 12px;
+                        border-radius: 20px;
+                    ">
+                        ${formatPercent(results.manualReduction)} less TWN usage
+                    </div>
+                </div>
+
+                <!-- Verification items -->
+                <div style="
+                    display: flex;
+                    align-items: center;
+                    padding: 16px;
+                    border-radius: 10px;
+                    margin-bottom: 8px;
+                    background: #ffffff;
+                    border: 1px solid #C5D9F7;
+                ">
+                    <div style="
+                        width: 32px;
+                        height: 32px;
+                        border-radius: 50%;
+                        background: #C5D9F7;
+                        color: #2C64E3;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        margin-right: 16px;
+                        font-size: 14px;
+                        font-weight: bold;
+                    ">✓</div>
+                    <div style="flex: 1;">
+                        <div style="font-size: 14px; font-weight: 600; color: #171717; margin-bottom: 2px;">
+                            Income verified by Truv
+                        </div>
+                        <div style="font-size: 12px; color: #64748b;">
+                            Direct payroll connections via 1,700+ employers
+                        </div>
+                    </div>
+                    <div style="font-size: 16px; font-weight: 700; color: #2C64E3;">
+                        ${formatNumber(results.truvVOIEs)}
+                    </div>
+                </div>
+
+                <div style="
+                    display: flex;
+                    align-items: center;
+                    padding: 16px;
+                    border-radius: 10px;
+                    margin-bottom: 8px;
+                    background: #ffffff;
+                    border: 1px solid #C5D9F7;
+                ">
+                    <div style="
+                        width: 32px;
+                        height: 32px;
+                        border-radius: 50%;
+                        background: #C5D9F7;
+                        color: #2C64E3;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        margin-right: 16px;
+                        font-size: 14px;
+                        font-weight: bold;
+                    ">✓</div>
+                    <div style="flex: 1;">
+                        <div style="font-size: 14px; font-weight: 600; color: #171717; margin-bottom: 2px;">
+                            Assets verified by Truv
+                        </div>
+                        <div style="font-size: 12px; color: #64748b;">
+                            Direct bank connections via 16,000+ institutions
+                        </div>
+                    </div>
+                    <div style="font-size: 16px; font-weight: 700; color: #2C64E3;">
+                        ${formatNumber(results.truvVOAs)}
+                    </div>
+                </div>
+
+                <div style="
+                    display: flex;
+                    align-items: center;
+                    padding: 16px;
+                    border-radius: 10px;
+                    margin-bottom: 32px;
+                    background: #f3f4f6;
+                ">
+                    <div style="
+                        width: 32px;
+                        height: 32px;
+                        border-radius: 50%;
+                        background: #e5e7eb;
+                        color: #6b7280;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        margin-right: 16px;
+                        font-size: 14px;
+                    ">↻</div>
+                    <div style="flex: 1;">
+                        <div style="font-size: 14px; font-weight: 600; color: #171717; margin-bottom: 2px;">
+                            TWN fallback required
+                        </div>
+                        <div style="font-size: 12px; color: #64748b;">
+                            Manual process when direct isn't available
+                        </div>
+                    </div>
+                    <div style="font-size: 16px; font-weight: 700; color: #6b7280;">
+                        ${formatNumber(results.remainingTWNs)}
+                    </div>
+                </div>
+
+                <!-- Specs section -->
+                <div style="
+                    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+                    border-radius: 16px;
+                    padding: 28px;
+                    color: white;
+                ">
+                    <div style="font-size: 14px; font-weight: 600; margin-bottom: 20px; opacity: 0.9;">
+                        Calculation Assumptions
+                    </div>
+                    <div style="display: flex; gap: 16px;">
+                        <div style="flex: 1; text-align: center;">
+                            <div style="font-size: 11px; opacity: 0.6; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.5px;">
+                                Funded Loans
+                            </div>
+                            <div style="font-size: 15px; font-weight: 600;">
+                                ${formatNumber(fundedLoans)}/year
+                            </div>
+                        </div>
+                        <div style="flex: 1; text-align: center;">
+                            <div style="font-size: 11px; opacity: 0.6; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.5px;">
+                                Retail / Wholesale
+                            </div>
+                            <div style="font-size: 15px; font-weight: 600;">
+                                ${advancedInputs.retailPercent}% / ${advancedInputs.wholesalePercent}%
+                            </div>
+                        </div>
+                        <div style="flex: 1; text-align: center;">
+                            <div style="font-size: 11px; opacity: 0.6; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.5px;">
+                                Borrowers per App
+                            </div>
+                            <div style="font-size: 15px; font-weight: 600;">
+                                ${advancedInputs.borrowersPerApp.toFixed(1)}
+                            </div>
+                        </div>
+                    </div>
+                    <div style="display: flex; gap: 16px; margin-top: 16px;">
+                        <div style="flex: 1; text-align: center;">
+                            <div style="font-size: 11px; opacity: 0.6; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.5px;">
+                                End-to-End CR
+                            </div>
+                            <div style="font-size: 15px; font-weight: 600;">
+                                ${advancedInputs.endToEndCR}%
+                            </div>
+                        </div>
+                        <div style="flex: 1; text-align: center;">
+                            <div style="font-size: 11px; opacity: 0.6; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.5px;">
+                                Pull-Through Rate
+                            </div>
+                            <div style="font-size: 15px; font-weight: 600;">
+                                ${advancedInputs.pullThroughRate}%
+                            </div>
+                        </div>
+                        <div style="flex: 1; text-align: center;">
+                            <div style="font-size: 11px; opacity: 0.6; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.5px;">
+                                W-2 Borrower Rate
+                            </div>
+                            <div style="font-size: 15px; font-weight: 600;">
+                                ${advancedInputs.w2Rate}%
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <div style="
+                border-top: 1px solid #e2e8f0;
+                padding: 24px 40px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                background: #f8fafc;
+            ">
+                <div style="font-size: 20px; font-weight: 700; color: #171717;">truv</div>
+                <div style="font-size: 12px; color: #64748b;">Ready to start saving? Visit truv.com/demo</div>
+                <div style="font-size: 13px; color: #2C64E3; font-weight: 500;">truv.com</div>
+            </div>
+        </div>
+    `;
+
+    document.body.appendChild(container);
+
+    const pageElement = container.firstElementChild as HTMLElement;
+
+    const opt = {
+        margin: 0,
+        filename: `truv-roi-report-${new Date().toISOString().split('T')[0]}.pdf`,
+        image: { type: 'jpeg' as const, quality: 0.98 },
+        html2canvas: {
+            scale: 2,
+            useCORS: true,
+            letterRendering: true,
+            logging: false
+        },
+        jsPDF: {
+            unit: 'mm' as const,
+            format: 'a4' as const,
+            orientation: 'portrait' as const
+        }
     };
 
-    const centerText = (text: string, yPos: number, fontSize: number, color: string, fontStyle: 'normal' | 'bold' = 'normal') => {
-        doc.setFontSize(fontSize);
-        doc.setTextColor(color);
-        doc.setFont('helvetica', fontStyle);
-        doc.text(text, pageWidth / 2, yPos, { align: 'center' });
-    };
-
-    // Header with Truv branding
-    doc.setFillColor(TRUV_DARK_BLUE);
-    doc.rect(0, 0, pageWidth, 40, 'F');
-
-    // Truv logo text (simplified since we can't embed SVG easily)
-    doc.setFontSize(28);
-    doc.setTextColor('#FFFFFF');
-    doc.setFont('helvetica', 'bold');
-    doc.text('truv', margin, 26);
-
-    // Report title
-    doc.setFontSize(12);
-    doc.setFont('helvetica', 'normal');
-    doc.text('ROI Calculator Report', pageWidth - margin, 26, { align: 'right' });
-
-    y = 55;
-
-    // Main headline
-    centerText('Your Potential Savings', y, 24, TRUV_BLACK, 'bold');
-    y += 15;
-
-    // Big savings number
-    centerText(formatCurrency(results.annualSavings), y, 42, TRUV_BLUE, 'bold');
-    y += 10;
-    centerText('per year', y, 12, '#6b7280');
-    y += 12;
-
-    // Subtitle
-    doc.setFontSize(11);
-    doc.setTextColor('#374151');
-    doc.setFont('helvetica', 'normal');
-    const subtitle = `Based on a ${formatCurrency(results.savingsPerLoan)} cost reduction per loan at ${formatNumber(fundedLoans)} loans/year`;
-    doc.text(subtitle, pageWidth / 2, y, { align: 'center' });
-    y += 20;
-
-    drawLine(y);
-    y += 15;
-
-    // Cost Comparison Section
-    doc.setFontSize(14);
-    doc.setTextColor(TRUV_BLACK);
-    doc.setFont('helvetica', 'bold');
-    doc.text('Cost Comparison', margin, y);
-    y += 12;
-
-    // Current Cost Box
-    doc.setFillColor('#f9fafb');
-    doc.roundedRect(margin, y, (pageWidth - margin * 2 - 10) / 2, 35, 3, 3, 'F');
-
-    doc.setFontSize(10);
-    doc.setTextColor('#6b7280');
-    doc.setFont('helvetica', 'normal');
-    doc.text('CURRENT COST', margin + 10, y + 10);
-
-    doc.setFontSize(20);
-    doc.setTextColor(TRUV_BLACK);
-    doc.setFont('helvetica', 'bold');
-    doc.text(formatCurrency(results.currentCost), margin + 10, y + 24);
-
-    doc.setFontSize(9);
-    doc.setTextColor('#9ca3af');
-    doc.setFont('helvetica', 'normal');
-    doc.text('Legacy Process', margin + 10, y + 31);
-
-    // Truv Cost Box
-    const truvBoxX = margin + (pageWidth - margin * 2 - 10) / 2 + 10;
-    doc.setFillColor('#EFF6FF');
-    doc.roundedRect(truvBoxX, y, (pageWidth - margin * 2 - 10) / 2, 35, 3, 3, 'F');
-
-    // Blue accent line
-    doc.setFillColor(TRUV_BLUE);
-    doc.rect(truvBoxX, y, (pageWidth - margin * 2 - 10) / 2, 2, 'F');
-
-    doc.setFontSize(10);
-    doc.setTextColor(TRUV_BLUE);
-    doc.setFont('helvetica', 'normal');
-    doc.text('TRUV COST', truvBoxX + 10, y + 12);
-
-    doc.setFontSize(20);
-    doc.setFont('helvetica', 'bold');
-    doc.text(formatCurrency(results.futureCost), truvBoxX + 10, y + 26);
-
-    doc.setFontSize(9);
-    doc.setTextColor('#9ca3af');
-    doc.setFont('helvetica', 'normal');
-    doc.text('PFL Bundle + Fallback', truvBoxX + 10, y + 33);
-
-    y += 50;
-
-    // Verification Breakdown Section
-    doc.setFontSize(14);
-    doc.setTextColor(TRUV_BLACK);
-    doc.setFont('helvetica', 'bold');
-    doc.text('How Truv Handles Your Verifications', margin, y);
-
-    // Less TWN badge
-    doc.setFillColor('#DCFCE7');
-    const badgeText = `${formatPercent(results.manualReduction)} less TWN usage`;
-    const badgeWidth = doc.getTextWidth(badgeText) + 10;
-    doc.roundedRect(pageWidth - margin - badgeWidth - 5, y - 5, badgeWidth + 10, 8, 2, 2, 'F');
-    doc.setFontSize(9);
-    doc.setTextColor('#166534');
-    doc.setFont('helvetica', 'bold');
-    doc.text(badgeText, pageWidth - margin - 5, y, { align: 'right' });
-
-    y += 15;
-
-    // Verification items
-    const verificationItems = [
-        {
-            title: 'Income verified by Truv',
-            description: 'Direct payroll connections via 1,700+ employers',
-            value: formatNumber(results.truvVOIEs),
-            isTruv: true
-        },
-        {
-            title: 'Assets verified by Truv',
-            description: 'Direct bank connections via 16,000+ institutions',
-            value: formatNumber(results.truvVOAs),
-            isTruv: true
-        },
-        {
-            title: 'TWN fallback required',
-            description: 'Manual process when direct isn\'t available',
-            value: formatNumber(results.remainingTWNs),
-            isTruv: false
-        }
-    ];
-
-    verificationItems.forEach((item) => {
-        const boxHeight = 18;
-
-        if (item.isTruv) {
-            doc.setFillColor('#FFFFFF');
-            doc.setDrawColor(TRUV_LIGHT_BLUE);
-            doc.roundedRect(margin, y, pageWidth - margin * 2, boxHeight, 2, 2, 'FD');
-        } else {
-            doc.setFillColor('#f3f4f6');
-            doc.roundedRect(margin, y, pageWidth - margin * 2, boxHeight, 2, 2, 'F');
-        }
-
-        // Checkmark or clock icon indicator
-        const iconX = margin + 6;
-        const iconY = y + 5;
-        if (item.isTruv) {
-            doc.setFillColor(TRUV_LIGHT_BLUE);
-            doc.circle(iconX + 4, iconY + 4, 4, 'F');
-            doc.setDrawColor(TRUV_BLUE);
-            doc.setLineWidth(0.8);
-            doc.line(iconX + 2, iconY + 4, iconX + 4, iconY + 6);
-            doc.line(iconX + 4, iconY + 6, iconX + 7, iconY + 2);
-        } else {
-            doc.setFillColor('#e5e7eb');
-            doc.circle(iconX + 4, iconY + 4, 4, 'F');
-            doc.setDrawColor('#9ca3af');
-            doc.setLineWidth(0.5);
-            doc.circle(iconX + 4, iconY + 4, 3, 'S');
-        }
-
-        // Title
-        doc.setFontSize(11);
-        doc.setTextColor(item.isTruv ? TRUV_BLACK : '#374151');
-        doc.setFont('helvetica', 'bold');
-        doc.text(item.title, margin + 18, y + 7);
-
-        // Description
-        doc.setFontSize(8);
-        doc.setTextColor('#6b7280');
-        doc.setFont('helvetica', 'normal');
-        doc.text(item.description, margin + 18, y + 13);
-
-        // Value
-        doc.setFontSize(12);
-        doc.setTextColor(item.isTruv ? TRUV_BLUE : '#6b7280');
-        doc.setFont('helvetica', 'bold');
-        doc.text(item.value, pageWidth - margin - 5, y + 10, { align: 'right' });
-
-        y += boxHeight + 4;
-    });
-
-    y += 10;
-    drawLine(y);
-    y += 15;
-
-    // Assumptions Section
-    doc.setFontSize(14);
-    doc.setTextColor(TRUV_BLACK);
-    doc.setFont('helvetica', 'bold');
-    doc.text('Calculation Assumptions', margin, y);
-    y += 10;
-
-    doc.setFontSize(10);
-    doc.setTextColor('#374151');
-    doc.setFont('helvetica', 'normal');
-
-    const assumptions = [
-        ['Funded Loans', formatNumber(fundedLoans) + '/year'],
-        ['Retail vs Wholesale', `${advancedInputs.retailPercent}% / ${advancedInputs.wholesalePercent}%`],
-        ['Borrowers per Application', advancedInputs.borrowersPerApp.toFixed(1)],
-        ['End-to-End Conversion Rate', `${advancedInputs.endToEndCR}%`],
-        ['Pull-Through Rate', `${advancedInputs.pullThroughRate}%`],
-        ['W-2 Borrower Rate', `${advancedInputs.w2Rate}%`]
-    ];
-
-    assumptions.forEach(([label, value]) => {
-        doc.setTextColor('#6b7280');
-        doc.text(label, margin, y);
-        doc.setTextColor(TRUV_BLACK);
-        doc.text(value, pageWidth - margin, y, { align: 'right' });
-        y += 7;
-    });
-
-    // Footer
-    y = pageHeight - 20;
-    drawLine(y - 5);
-
-    doc.setFontSize(9);
-    doc.setTextColor('#9ca3af');
-    doc.setFont('helvetica', 'normal');
-    doc.text(`Generated on ${new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}`, margin, y);
-    doc.text('truv.com', pageWidth - margin, y, { align: 'right' });
-
-    // Download the PDF
-    doc.save(`truv-roi-report-${new Date().toISOString().split('T')[0]}.pdf`);
+    html2pdf()
+        .set(opt)
+        .from(pageElement)
+        .save()
+        .then(() => {
+            document.body.removeChild(container);
+        })
+        .catch((err: Error) => {
+            console.error('PDF generation error:', err);
+            document.body.removeChild(container);
+        });
 }
