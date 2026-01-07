@@ -100,6 +100,7 @@ function App() {
                 formData={formData}
                 onChange={setFormData}
                 onCalculate={handleCalculate}
+                onBack={() => setStep(0)}
               />
             )}
 
@@ -111,6 +112,7 @@ function App() {
                 onSelectMethod={setCostMethod}
                 onCustomCostChange={setCustomCost}
                 onContinue={handleCostMethodContinue}
+                onBack={() => setStep(1)}
               />
             )}
 
