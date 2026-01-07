@@ -59,14 +59,30 @@ export function ResultsStep({
 
             {/* Always visible: Headline savings */}
             <div className="text-center space-y-3">
-                <h2 className="text-3xl font-bold text-dark">Your Potential Savings</h2>
-                <div className="text-5xl font-bold text-truv-blue tracking-tight py-4">
-                    {formatCurrency(results.annualSavings)}
+                <h2 className="text-3xl font-bold text-dark">
+                    {results.annualSavings >= 0 ? 'Your Potential Savings' : 'Cost Comparison'}
+                </h2>
+                <div className={`text-5xl font-bold tracking-tight py-4 ${results.annualSavings >= 0 ? 'text-truv-blue' : 'text-amber-600'}`}>
+                    {results.annualSavings >= 0
+                        ? formatCurrency(results.annualSavings)
+                        : `+${formatCurrency(Math.abs(results.annualSavings))}`
+                    }
                     <span className="text-lg text-gray-500 font-normal ml-2">/ year</span>
                 </div>
-                <p className="text-gray-600">
-                    Based on a <span className="font-semibold text-gray-900">{formatCurrency(results.savingsPerLoan)}</span> cost reduction per loan at <span className="font-semibold text-gray-900">{formatNumber(fundedLoans)}</span> loans/year
-                </p>
+                {results.annualSavings >= 0 ? (
+                    <p className="text-gray-600">
+                        Based on a <span className="font-semibold text-gray-900">{formatCurrency(results.savingsPerLoan)}</span> cost reduction per loan at <span className="font-semibold text-gray-900">{formatNumber(fundedLoans)}</span> loans/year
+                    </p>
+                ) : (
+                    <div className="space-y-2">
+                        <p className="text-gray-600">
+                            At <span className="font-semibold text-gray-900">{formatNumber(fundedLoans)}</span> loans/year, Truv costs <span className="font-semibold text-amber-600">{formatCurrency(Math.abs(results.savingsPerLoan))}</span> more per loan
+                        </p>
+                        <p className="text-sm text-amber-700 bg-amber-50 rounded-lg px-4 py-2 inline-block">
+                            Higher volume unlocks better pricing — talk to sales about volume discounts
+                        </p>
+                    </div>
+                )}
 
                 {/* Expandable calculation explanation */}
                 <div className="pt-2">
@@ -105,8 +121,15 @@ export function ResultsStep({
                                     <span className="font-medium text-truv-blue">{formatCurrency(Math.round(truvCostPerLoan))}</span>
                                 </div>
                                 <div className="border-t border-gray-200 pt-3 flex justify-between items-center">
-                                    <span className="font-medium text-gray-900">Savings per loan</span>
-                                    <span className="font-bold text-green-600">{formatCurrency(results.savingsPerLoan)}</span>
+                                    <span className="font-medium text-gray-900">
+                                        {results.savingsPerLoan >= 0 ? 'Savings per loan' : 'Additional cost per loan'}
+                                    </span>
+                                    <span className={`font-bold ${results.savingsPerLoan >= 0 ? 'text-green-600' : 'text-amber-600'}`}>
+                                        {results.savingsPerLoan >= 0
+                                            ? formatCurrency(results.savingsPerLoan)
+                                            : `+${formatCurrency(Math.abs(results.savingsPerLoan))}`
+                                        }
+                                    </span>
                                 </div>
                                 <p className="text-xs text-gray-500 pt-2">
                                     Current costs include VOA fees ($10/each) and TWN fees ($62/each) based on industry conversion rates.

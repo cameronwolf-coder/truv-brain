@@ -394,18 +394,14 @@ export function generateROIReport(
                             Our platform is built for speed and security, ensuring that every data point retrieved is verified directly from the source—eliminating the risk of manipulated documents.
                         </p>
 
-                        <div class="stat-block">
-                            <div class="stat-row">
-                                <span class="stat-label">Cost Savings</span>
-                                <span class="stat-val">Up to 80%</span>
+                        <div style="display: flex; gap: 12px; margin-top: 24px;">
+                            <div style="flex: 1; background: #F0F9FF; padding: 16px; border-radius: 8px; text-align: center;">
+                                <div style="font-size: 24px; font-weight: 700; color: #2C64E3;">96%</div>
+                                <div style="font-size: 11px; color: #64748B; text-transform: uppercase;">Workforce Coverage</div>
                             </div>
-                            <div class="stat-row">
-                                <span class="stat-label">Margin Increase</span>
-                                <span class="stat-val">$350 / Loan</span>
-                            </div>
-                            <div class="stat-row">
-                                <span class="stat-label">Workforce Coverage</span>
-                                <span class="stat-val">96%</span>
+                            <div style="flex: 1; background: #F0F9FF; padding: 16px; border-radius: 8px; text-align: center;">
+                                <div style="font-size: 24px; font-weight: 700; color: #2C64E3;">80%</div>
+                                <div style="font-size: 11px; color: #64748B; text-transform: uppercase;">Cost Savings</div>
                             </div>
                         </div>
                     </div>
