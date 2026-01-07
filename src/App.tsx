@@ -121,6 +121,7 @@ function App() {
                 fundedLoans={formData.fundedLoans}
                 isGated={isGated}
                 onUnlock={handleUnlock}
+                onBack={() => setStep(1)}
                 advancedInputs={advancedInputs}
                 onAdvancedInputsChange={handleAdvancedInputsChange}
               />
