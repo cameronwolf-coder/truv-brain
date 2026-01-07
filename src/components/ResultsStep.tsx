@@ -147,25 +147,37 @@ export function ResultsStep({
                     </div>
 
                     <div className="bg-gray-50 rounded-2xl p-6">
-                        <div className="flex justify-between items-center mb-4">
-                            <h3 className="font-semibold text-gray-900">Verification Breakdown</h3>
+                        <div className="flex justify-between items-center mb-2">
+                            <h3 className="font-semibold text-gray-900">How Truv Handles Your Verifications</h3>
                             <span className="text-sm text-green-600 font-medium bg-green-50 px-3 py-1 rounded-full">
-                                {formatPercent(results.manualReduction)} less manual work
+                                {formatPercent(results.manualReduction)} less TWN usage
                             </span>
                         </div>
+                        <p className="text-xs text-gray-500 mb-4">
+                            Estimated annual verification volume based on your loan count
+                        </p>
 
                         <div className="space-y-3 text-sm">
-                            <div className="flex justify-between">
-                                <span className="text-gray-600">Truv Verified Income (42%)</span>
-                                <span className="font-medium">{formatNumber(results.truvVOIEs)}</span>
+                            <div className="flex justify-between items-start">
+                                <div>
+                                    <span className="text-gray-900 font-medium">Income verified by Truv</span>
+                                    <p className="text-xs text-gray-500">Direct payroll connections (VOIE)</p>
+                                </div>
+                                <span className="font-semibold text-truv-blue">{formatNumber(results.truvVOIEs)}</span>
                             </div>
-                            <div className="flex justify-between">
-                                <span className="text-gray-600">Truv Verified Employment (Assets/History)</span>
-                                <span className="font-medium">{formatNumber(results.truvVOAs)}</span>
+                            <div className="flex justify-between items-start">
+                                <div>
+                                    <span className="text-gray-900 font-medium">Assets verified by Truv</span>
+                                    <p className="text-xs text-gray-500">Bank account connections (VOA)</p>
+                                </div>
+                                <span className="font-semibold text-truv-blue">{formatNumber(results.truvVOAs)}</span>
                             </div>
-                            <div className="flex justify-between border-t border-gray-200 pt-2 mt-2">
-                                <span className="text-gray-600">Remaining TWN (Fallback)</span>
-                                <span className="font-medium text-gray-900">{formatNumber(results.remainingTWNs)}</span>
+                            <div className="flex justify-between items-start border-t border-gray-200 pt-3 mt-3">
+                                <div>
+                                    <span className="text-gray-900 font-medium">TWN fallback required</span>
+                                    <p className="text-xs text-gray-500">When direct verification isn't available</p>
+                                </div>
+                                <span className="font-medium text-gray-600">{formatNumber(results.remainingTWNs)}</span>
                             </div>
                         </div>
                     </div>
