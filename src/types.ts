@@ -20,11 +20,14 @@ export interface AdvancedInputs {
 }
 
 export interface LeadFormData {
-  name: string;
-  company: string;
+  firstName: string;
+  lastName: string;
   email: string;
   phone: string;
-  jobTitle: string;
+  role: string;
+  jobFunction: string;
+  comments: string;
+  // Keep these for HubSpot but we'll collect them differently
   losSystem: string;
   posSystem: string;
 }
