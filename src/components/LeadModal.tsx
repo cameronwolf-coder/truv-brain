@@ -11,7 +11,7 @@ interface LeadModalProps {
 
 // Systems that Truv has native integrations with
 const INTEGRATED_LOS = ['encompass', 'bytepro', 'meridianlink', 'blackknight'];
-const INTEGRATED_POS = ['blend', 'encompassconsumerconnect', 'floify', 'simplenexus'];
+const INTEGRATED_POS = ['blend', 'encompassconsumerconnect', 'floify', 'ncino'];
 
 const LOS_NAMES: Record<string, string> = {
     encompass: 'Encompass',
@@ -24,7 +24,7 @@ const POS_NAMES: Record<string, string> = {
     blend: 'Blend',
     encompassconsumerconnect: 'Encompass Consumer Connect',
     floify: 'Floify',
-    simplenexus: 'SimpleNexus'
+    ncino: 'nCino'
 };
 
 export function LeadModal({ isOpen, onClose, onSubmit }: LeadModalProps) {
@@ -268,7 +268,7 @@ export function LeadModal({ isOpen, onClose, onSubmit }: LeadModalProps) {
                                         <option value="blend">Blend</option>
                                         <option value="encompassconsumerconnect">Encompass CC</option>
                                         <option value="floify">Floify</option>
-                                        <option value="simplenexus">SimpleNexus</option>
+                                        <option value="ncino">nCino</option>
                                         <option value="other">Other</option>
                                     </select>
                                 </div>

@@ -74,13 +74,50 @@ export function ResultsStep({
                         Based on a <span className="font-semibold text-gray-900">{formatCurrency(results.savingsPerLoan)}</span> cost reduction per loan at <span className="font-semibold text-gray-900">{formatNumber(fundedLoans)}</span> loans/year
                     </p>
                 ) : (
-                    <div className="space-y-2">
+                    <div className="space-y-4">
                         <p className="text-gray-600">
-                            At <span className="font-semibold text-gray-900">{formatNumber(fundedLoans)}</span> loans/year, Truv costs <span className="font-semibold text-amber-600">{formatCurrency(Math.abs(results.savingsPerLoan))}</span> more per loan
+                            At <span className="font-semibold text-gray-900">{formatNumber(fundedLoans)}</span> loans/year, standard pricing shows <span className="font-semibold text-amber-600">{formatCurrency(Math.abs(results.savingsPerLoan))}</span> additional cost per loan
                         </p>
-                        <p className="text-sm text-amber-700 bg-amber-50 rounded-lg px-4 py-2 inline-block">
-                            Higher volume unlocks better pricing — talk to sales about volume discounts
-                        </p>
+
+                        {/* Sales CTA - prominent */}
+                        <div className="bg-truv-blue text-white rounded-xl p-5 text-left space-y-3">
+                            <div className="flex items-start gap-3">
+                                <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center flex-shrink-0">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <p className="font-semibold text-lg">Talk to Sales for Custom Pricing</p>
+                                    <p className="text-white/80 text-sm">Volume discounts can significantly reduce your per-loan cost. Our team can build a pricing package tailored to your business.</p>
+                                </div>
+                            </div>
+                            <button
+                                onClick={() => setShowScheduleModal(true)}
+                                className="w-full bg-white text-truv-blue font-semibold py-3 rounded-lg hover:bg-gray-100 transition-colors"
+                            >
+                                Schedule a Call
+                            </button>
+                        </div>
+
+                        {/* Efficiency benefits */}
+                        <div className="bg-gray-50 rounded-xl p-4 text-left">
+                            <p className="text-sm font-semibold text-gray-900 mb-2">Even at standard pricing, Truv delivers:</p>
+                            <ul className="text-sm text-gray-600 space-y-1">
+                                <li className="flex items-center gap-2">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2c64e3" strokeWidth="2"><path d="M20 6L9 17l-5-5"/></svg>
+                                    <span><strong>{formatPercent(results.manualReduction)}</strong> reduction in TWN (manual) verifications</span>
+                                </li>
+                                <li className="flex items-center gap-2">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2c64e3" strokeWidth="2"><path d="M20 6L9 17l-5-5"/></svg>
+                                    <span>Instant verifications vs. 24-48hr manual turnaround</span>
+                                </li>
+                                <li className="flex items-center gap-2">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2c64e3" strokeWidth="2"><path d="M20 6L9 17l-5-5"/></svg>
+                                    <span>100% fraud-proof, direct-from-source data</span>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                 )}
 
