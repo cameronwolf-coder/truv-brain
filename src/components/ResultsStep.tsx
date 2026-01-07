@@ -349,15 +349,19 @@ export function ResultsStep({
 
                     <div className="pt-4 space-y-3">
                         <button
+                            onClick={() => window.print()}
                             className="w-full bg-truv-blue text-white font-semibold py-4 rounded-full shadow-lg hover:bg-truv-blue-dark transition-all transform hover:scale-[1.02]"
                         >
                             Download Full Report
                         </button>
-                        <button
-                            className="w-full bg-white text-truv-blue font-semibold py-4 rounded-full border-2 border-truv-blue hover:bg-truv-blue-light transition-all"
+                        <a
+                            href="https://www.truv.com/contact"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="block w-full bg-white text-truv-blue font-semibold py-4 rounded-full border-2 border-truv-blue hover:bg-truv-blue-light transition-all text-center"
                         >
                             Talk to Sales
-                        </button>
+                        </a>
                         <button
                             onClick={() => window.location.reload()}
                             className="w-full text-gray-500 hover:text-gray-900 font-medium py-2"

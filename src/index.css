@@ -71,3 +71,33 @@ body {
 .privacy-notice a:hover {
   text-decoration: underline;
 }
+
+/* Print styles for PDF export */
+@media print {
+  body {
+    background: white !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  .partner-logos,
+  .privacy-notice,
+  button,
+  a[href*="contact"] {
+    display: none !important;
+  }
+
+  main {
+    max-width: 100% !important;
+    padding: 20px !important;
+  }
+
+  /* Ensure colors print correctly */
+  .bg-truv-blue\/10,
+  .bg-green-50,
+  .bg-gray-50,
+  .bg-gray-100 {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+}
