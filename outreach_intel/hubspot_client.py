@@ -75,3 +75,77 @@ class HubSpotClient:
     ) -> dict[str, Any]:
         """Make POST request."""
         return self._request("POST", endpoint, json_data=json_data)
+
+    def get_contacts(
+        self,
+        limit: int = 100,
+        properties: Optional[list[str]] = None,
+        after: Optional[str] = None,
+    ) -> list[dict[str, Any]]:
+        """Get contacts from HubSpot.
+
+        Args:
+            limit: Maximum contacts to return (max 100 per request)
+            properties: Contact properties to include
+            after: Pagination cursor
+
+        Returns:
+            List of contact records
+        """
+        if properties is None:
+            properties = [
+                "firstname", "lastname", "email", "jobtitle",
+                "company", "lifecyclestage", "hs_lead_status",
+            ]
+
+        params = {
+            "limit": min(limit, 100),
+            "properties": ",".join(properties),
+        }
+        if after:
+            params["after"] = after
+
+        response = self.get("/crm/v3/objects/contacts", params=params)
+        return response.get("results", [])
+
+    def search_contacts(
+        self,
+        filters: Optional[list[dict]] = None,
+        sorts: Optional[list[dict]] = None,
+        properties: Optional[list[str]] = None,
+        limit: int = 100,
+        after: Optional[str] = None,
+    ) -> list[dict[str, Any]]:
+        """Search contacts with filters.
+
+        Args:
+            filters: List of filter objects with propertyName, operator, value(s)
+            sorts: List of sort objects with propertyName, direction
+            properties: Properties to include in results
+            limit: Maximum results to return
+            after: Pagination cursor
+
+        Returns:
+            List of matching contact records
+        """
+        if properties is None:
+            properties = [
+                "firstname", "lastname", "email", "jobtitle",
+                "company", "lifecyclestage", "hs_lead_status",
+                "industry", "sales_vertical",
+            ]
+
+        body: dict[str, Any] = {
+            "limit": min(limit, 100),
+            "properties": properties,
+        }
+
+        if filters:
+            body["filterGroups"] = [{"filters": filters}]
+        if sorts:
+            body["sorts"] = sorts
+        if after:
+            body["after"] = after
+
+        response = self.post("/crm/v3/objects/contacts/search", json_data=body)
+        return response.get("results", [])
