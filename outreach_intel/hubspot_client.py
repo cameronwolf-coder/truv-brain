@@ -64,6 +64,10 @@ class HubSpotClient:
             json=json_data,
         )
         response.raise_for_status()
+
+        # DELETE requests may return empty response
+        if response.status_code == 204 or not response.content:
+            return {}
         return response.json()
 
     def get(self, endpoint: str, params: Optional[dict] = None) -> dict[str, Any]:
@@ -149,3 +153,66 @@ class HubSpotClient:
 
         response = self.post("/crm/v3/objects/contacts/search", json_data=body)
         return response.get("results", [])
+
+    def get_lists(self, limit: int = 100) -> list[dict[str, Any]]:
+        """Get contact lists from HubSpot.
+
+        Args:
+            limit: Maximum lists to return
+
+        Returns:
+            List of list records
+        """
+        params = {"count": min(limit, 250)}
+        response = self.get("/contacts/v1/lists", params=params)
+        return response.get("lists", [])
+
+    def create_list(
+        self,
+        name: str,
+        object_type: str = "CONTACT",
+    ) -> dict[str, Any]:
+        """Create a static list in HubSpot.
+
+        Args:
+            name: Name for the new list
+            object_type: Object type (CONTACT, COMPANY, etc.)
+
+        Returns:
+            Created list record
+        """
+        body = {
+            "name": name,
+            "objectTypeId": "0-1" if object_type == "CONTACT" else object_type,
+            "processingType": "MANUAL",
+        }
+        return self.post("/crm/v3/lists", json_data=body)
+
+    def delete_list(self, list_id: str) -> None:
+        """Delete a list.
+
+        Args:
+            list_id: ID of list to delete
+        """
+        self._request("DELETE", f"/crm/v3/lists/{list_id}")
+
+    def add_contacts_to_list(
+        self,
+        list_id: str,
+        contact_ids: list[str],
+    ) -> dict[str, Any]:
+        """Add contacts to a static list.
+
+        Args:
+            list_id: ID of the list
+            contact_ids: List of contact IDs to add
+
+        Returns:
+            Response with update status
+        """
+        body = {"recordIdsToAdd": contact_ids}
+        return self._request(
+            "PUT",
+            f"/crm/v3/lists/{list_id}/memberships/add",
+            json_data=body,
+        )

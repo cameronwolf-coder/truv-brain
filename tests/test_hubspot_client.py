@@ -61,3 +61,38 @@ def test_search_contacts_with_filters():
     )
 
     assert isinstance(contacts, list)
+
+
+def test_get_lists():
+    """get_lists returns available lists."""
+    if not os.getenv("HUBSPOT_API_TOKEN"):
+        pytest.skip("No API token available")
+
+    client = HubSpotClient()
+    lists = client.get_lists(limit=5)
+
+    assert isinstance(lists, list)
+
+
+def test_create_and_delete_list():
+    """Can create and delete a static list."""
+    if not os.getenv("HUBSPOT_API_TOKEN"):
+        pytest.skip("No API token available")
+
+    client = HubSpotClient()
+
+    # Create test list
+    test_name = "TEST_DELETE_ME_outreach_intel"
+    new_list = client.create_list(
+        name=test_name,
+        object_type="CONTACT",
+    )
+
+    assert new_list is not None
+    # Response may have listId at top level or nested in "list"
+    list_data = new_list.get("list", new_list)
+    assert "listId" in list_data or "id" in list_data
+
+    # Clean up - delete the list
+    list_id = list_data.get("listId") or list_data.get("id")
+    client.delete_list(list_id)
