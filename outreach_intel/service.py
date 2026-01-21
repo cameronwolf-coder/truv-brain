@@ -161,4 +161,4 @@ class OutreachService:
         if contact_ids:
             self.client.add_contacts_to_list(list_id, contact_ids)
 
-        return new_list
+        return list_data
