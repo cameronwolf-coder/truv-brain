@@ -22,3 +22,14 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Python
+__pycache__/
+*.pyc
+.pytest_cache/
+venv/
+
+# Other
+.worktrees/
+.vercel
+.env
