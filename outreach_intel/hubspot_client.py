@@ -210,9 +210,9 @@ class HubSpotClient:
         Returns:
             Response with update status
         """
-        body = {"recordIdsToAdd": contact_ids}
+        # HubSpot v3 API expects just the list of IDs, not wrapped in an object
         return self._request(
             "PUT",
             f"/crm/v3/lists/{list_id}/memberships/add",
-            json_data=body,
+            json_data=contact_ids,
         )

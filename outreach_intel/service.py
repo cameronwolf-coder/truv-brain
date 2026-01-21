@@ -152,7 +152,9 @@ class OutreachService:
         """
         # Create the list
         new_list = self.client.create_list(name=name)
-        list_id = new_list.get("listId") or new_list.get("id")
+        # HubSpot v3 API returns nested structure: {"list": {"listId": ...}}
+        list_data = new_list.get("list", new_list)
+        list_id = list_data.get("listId") or list_data.get("id")
 
         # Add contacts to list
         contact_ids = [c.contact_id for c in contacts]
