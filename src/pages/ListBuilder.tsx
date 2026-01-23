@@ -1,5 +1,4 @@
 import { useState, useMemo, useCallback } from 'react';
-import { parsePrompt, generateListName, type ParsedFilters } from '../utils/promptParser';
 import segments from '../data/segments.json';
 
 interface Contact {
@@ -9,19 +8,35 @@ interface Contact {
   email: string;
   jobtitle: string;
   company: string;
+  companyId: string;
   lifecyclestage: string;
-  lastActivity: string | null;
   vertical: string;
+  employees: number | null;
+  matchedPersona?: string | null;
+  lastActivity?: string | null;
 }
 
-interface SearchResult {
-  success: boolean;
+interface CompanyGroup {
+  id: string;
+  name: string;
+  vertical: string;
+  contactCount: number;
+  employees: number | null;
   contacts: Contact[];
-  total: number;
-  companies: number;
-  personaBreakdown: Record<string, number>;
-  error?: string;
 }
+
+// Persona job title patterns for matching
+const PERSONA_PATTERNS: Record<string, string[]> = {
+  coo: ['COO', 'Chief Operating Officer', 'Chief Operating'],
+  cfo: ['CFO', 'Chief Financial', 'VP Finance', 'Controller', 'Finance Director'],
+  other_exec: ['EVP', 'SVP', 'Senior Vice President', 'Executive Vice President'],
+  cto: ['CTO', 'Chief Technology', 'VP Engineering', 'CIO', 'IT Director', 'VP Technology'],
+  manager: ['Manager', 'Director', 'Team Lead', 'Supervisor'],
+  ceo: ['CEO', 'Chief Executive', 'Founder', 'President', 'Owner', 'Principal'],
+  vp_product: ['VP Product', 'Head of Product', 'Product Director', 'Chief Product'],
+  vp_underwriting: ['VP Underwriting', 'Chief Credit', 'Underwriting Director', 'Head of Underwriting'],
+  vp_lending: ['VP Lending', 'VP Mortgage', 'Lending Director', 'Mortgage Director', 'Head of Lending'],
+};
 
 // Persona labels for display
 const PERSONA_LABELS: Record<string, string> = {
@@ -34,159 +49,216 @@ const PERSONA_LABELS: Record<string, string> = {
   vp_product: 'VP Product',
   manager: 'Manager/Director',
   other_exec: 'Other Executive',
-  other: 'Other',
+  other: 'Other Title',
+  no_title: 'No Title',
 };
 
-// Default excluded stages
-const DEFAULT_EXCLUDE_STAGES = [
-  'opportunity',
-  'customer',
-  '268636562', // Live Customer
-  '268636561', // Indirect Customer
-  '268798101', // Advocate
-  '268636560', // Disqualified
-];
+// Industries from Truv's verticals
+const VERTICALS = segments.verticals.map((v) => ({
+  id: v.id,
+  label: v.label,
+  count: v.contacts,
+}));
+
+type Step = 'vertical' | 'company' | 'persona' | 'review';
+
+// Match persona from job title
+function matchPersona(jobtitle: string | undefined): string {
+  if (!jobtitle || jobtitle.trim() === '') return 'no_title';
+
+  const lowerTitle = jobtitle.toLowerCase();
+
+  for (const [persona, patterns] of Object.entries(PERSONA_PATTERNS)) {
+    for (const pattern of patterns) {
+      if (lowerTitle.includes(pattern.toLowerCase())) {
+        return persona;
+      }
+    }
+  }
+
+  return 'other';
+}
 
 export function ListBuilder() {
-  // Prompt input
-  const [prompt, setPrompt] = useState('');
-  const [parsedFilters, setParsedFilters] = useState<ParsedFilters | null>(null);
+  // Current step in the filter pipeline
+  const [currentStep, setCurrentStep] = useState<Step>('vertical');
 
-  // Manual filters
-  const [selectedPersonas, setSelectedPersonas] = useState<string[]>([]);
+  // Step 1: Vertical filter
   const [selectedVerticals, setSelectedVerticals] = useState<string[]>([]);
-  const [excludeStages, setExcludeStages] = useState<string[]>(DEFAULT_EXCLUDE_STAGES);
 
-  // Advanced filters
-  const [showAdvanced, setShowAdvanced] = useState(false);
-  const [emailOpensWithin, setEmailOpensWithin] = useState<number | undefined>();
-  const [noActivityDays, setNoActivityDays] = useState<number | undefined>();
-  const [createdWithinDays, setCreatedWithinDays] = useState<number | undefined>();
-  const [companySizeMin, setCompanySizeMin] = useState<number | undefined>();
-  const [companySizeMax, setCompanySizeMax] = useState<number | undefined>();
-  const [contactLimit, setContactLimit] = useState(500);
+  // Step 2: Companies (grouped from contacts)
+  const [companies, setCompanies] = useState<CompanyGroup[]>([]);
+  const [selectedCompanyNames, setSelectedCompanyNames] = useState<Set<string>>(new Set());
+  const [employeesMin, setEmployeesMin] = useState<number | undefined>();
+  const [employeesMax, setEmployeesMax] = useState<number | undefined>();
+  const [isLoadingCompanies, setIsLoadingCompanies] = useState(false);
+  const [totalContacts, setTotalContacts] = useState(0);
+
+  // Step 3: Persona filters
+  const [selectedPersonas, setSelectedPersonas] = useState<string[]>([]);
   const [requireTitle, setRequireTitle] = useState(true);
 
-  // Search state
-  const [isSearching, setIsSearching] = useState(false);
-  const [searchResult, setSearchResult] = useState<SearchResult | null>(null);
+  // Step 4: Review
   const [excludedContactIds, setExcludedContactIds] = useState<Set<string>>(new Set());
-  const [excludedCompanies, setExcludedCompanies] = useState<Set<string>>(new Set());
-
-  // List creation state
   const [listName, setListName] = useState('');
   const [isCreating, setIsCreating] = useState(false);
-  const [createResult, setCreateResult] = useState<{ success: boolean; listId?: string; count?: number; error?: string } | null>(null);
+  const [createResult, setCreateResult] = useState<{
+    success: boolean;
+    listId?: string;
+    count?: number;
+    error?: string;
+  } | null>(null);
 
-  // Parse prompt and populate filters
-  const handleParsePrompt = useCallback(() => {
-    if (!prompt.trim()) return;
+  // Computed: Filtered companies based on employee size
+  const filteredCompanies = useMemo(() => {
+    return companies.filter((c) => {
+      if (employeesMin && (c.employees === null || c.employees < employeesMin)) return false;
+      if (employeesMax && (c.employees === null || c.employees > employeesMax)) return false;
+      return true;
+    });
+  }, [companies, employeesMin, employeesMax]);
 
-    const parsed = parsePrompt(prompt);
-    setParsedFilters(parsed);
+  // Computed: Selected companies (or all if none selected)
+  const activeCompanies = useMemo(() => {
+    if (selectedCompanyNames.size === 0) return filteredCompanies;
+    return filteredCompanies.filter((c) => selectedCompanyNames.has(c.name));
+  }, [filteredCompanies, selectedCompanyNames]);
 
-    // Populate filters from parsed result
-    if (parsed.personas.length > 0) {
-      setSelectedPersonas(parsed.personas);
+  // Computed: All contacts from active companies with persona matching
+  const allContactsWithPersona = useMemo(() => {
+    const contacts: (Contact & { matchedPersona: string })[] = [];
+    for (const company of activeCompanies) {
+      for (const contact of company.contacts) {
+        contacts.push({
+          ...contact,
+          matchedPersona: matchPersona(contact.jobtitle),
+        });
+      }
     }
-    if (parsed.verticals.length > 0) {
-      setSelectedVerticals(parsed.verticals);
-    }
-    if (parsed.excludeStages.length > 0) {
-      setExcludeStages(parsed.excludeStages);
-    }
-    if (parsed.engagement.emailOpensWithin) {
-      setEmailOpensWithin(parsed.engagement.emailOpensWithin);
-      setShowAdvanced(true);
-    }
-    if (parsed.engagement.noActivityDays) {
-      setNoActivityDays(parsed.engagement.noActivityDays);
-      setShowAdvanced(true);
-    }
-    if (parsed.timeFilters.createdWithinDays) {
-      setCreatedWithinDays(parsed.timeFilters.createdWithinDays);
-      setShowAdvanced(true);
-    }
-    if (parsed.firmographic.companySizeMin) {
-      setCompanySizeMin(parsed.firmographic.companySizeMin);
-      setShowAdvanced(true);
-    }
+    return contacts;
+  }, [activeCompanies]);
 
-    // Auto-generate list name
-    setListName(generateListName(parsed));
-  }, [prompt]);
+  // Computed: Contacts filtered by persona and title requirement
+  const filteredContacts = useMemo(() => {
+    return allContactsWithPersona.filter((c) => {
+      // Filter by title requirement
+      if (requireTitle && c.matchedPersona === 'no_title') return false;
 
-  // Build filters object for API
-  const buildFilters = useCallback(() => {
-    return {
-      personas: selectedPersonas,
-      verticals: selectedVerticals,
-      excludeStages,
-      engagement: {
-        emailOpensWithin,
-        noActivityDays,
-      },
-      firmographic: {
-        companySizeMin,
-        companySizeMax,
-      },
-      timeFilters: {
-        createdWithinDays,
-      },
-      limit: contactLimit,
-      requireTitle,
-    };
-  }, [selectedPersonas, selectedVerticals, excludeStages, emailOpensWithin, noActivityDays, createdWithinDays, companySizeMin, companySizeMax, contactLimit, requireTitle]);
+      // Filter by selected personas
+      if (selectedPersonas.length > 0 && !selectedPersonas.includes(c.matchedPersona)) {
+        return false;
+      }
 
-  // Search contacts
-  const handleSearch = useCallback(async () => {
-    setIsSearching(true);
-    setSearchResult(null);
-    setExcludedContactIds(new Set());
-    setExcludedCompanies(new Set());
-    setCreateResult(null);
+      return true;
+    });
+  }, [allContactsWithPersona, selectedPersonas, requireTitle]);
+
+  // Computed: Final contacts (after exclusions)
+  const finalContacts = useMemo(() => {
+    return filteredContacts.filter((c) => !excludedContactIds.has(c.id));
+  }, [filteredContacts, excludedContactIds]);
+
+  // Computed: Persona breakdown from all contacts
+  const personaBreakdown = useMemo(() => {
+    const breakdown: Record<string, number> = {};
+    for (const contact of allContactsWithPersona) {
+      breakdown[contact.matchedPersona] = (breakdown[contact.matchedPersona] || 0) + 1;
+    }
+    return breakdown;
+  }, [allContactsWithPersona]);
+
+  // Step 1: Load companies by vertical
+  const loadCompanies = useCallback(async () => {
+    if (selectedVerticals.length === 0) return;
+
+    setIsLoadingCompanies(true);
+    setCompanies([]);
+    setSelectedCompanyNames(new Set());
 
     try {
-      const response = await fetch('/api/search-contacts', {
+      const response = await fetch('/api/search-by-vertical', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(buildFilters()),
+        body: JSON.stringify({
+          verticals: selectedVerticals,
+          limit: 1000,
+        }),
       });
 
       const data = await response.json();
-      setSearchResult(data);
-
-      // Generate list name if not set
-      if (!listName && parsedFilters) {
-        setListName(generateListName(parsedFilters));
-      } else if (!listName) {
-        const date = new Date().toISOString().split('T')[0];
-        setListName(`List - ${date}`);
+      if (data.success) {
+        setCompanies(data.companies);
+        setTotalContacts(data.totalContacts);
+        setCurrentStep('company');
       }
     } catch (err) {
-      setSearchResult({
-        success: false,
-        contacts: [],
-        total: 0,
-        companies: 0,
-        personaBreakdown: {},
-        error: err instanceof Error ? err.message : 'Network error',
-      });
+      console.error('Error loading companies:', err);
     } finally {
-      setIsSearching(false);
+      setIsLoadingCompanies(false);
     }
-  }, [buildFilters, listName, parsedFilters]);
+  }, [selectedVerticals]);
 
-  // Handle prompt submit
-  const handlePromptSubmit = useCallback((e: React.FormEvent) => {
-    e.preventDefault();
-    handleParsePrompt();
-    handleSearch();
-  }, [handleParsePrompt, handleSearch]);
+  // Move to persona step
+  const goToPersona = () => {
+    setSelectedPersonas([]);
+    setCurrentStep('persona');
+  };
+
+  // Move to review step
+  const goToReview = useCallback(() => {
+    setExcludedContactIds(new Set());
+    // Generate default list name
+    const date = new Date().toISOString().split('T')[0];
+    const verticalLabel =
+      selectedVerticals.length === 1 ? selectedVerticals[0] : 'Multi-Vertical';
+    const personaLabel =
+      selectedPersonas.length === 1
+        ? PERSONA_LABELS[selectedPersonas[0]] || selectedPersonas[0]
+        : selectedPersonas.length > 1
+          ? 'Multi-Persona'
+          : 'All Personas';
+    setListName(`${verticalLabel} - ${personaLabel} - ${date}`);
+    setCurrentStep('review');
+  }, [selectedVerticals, selectedPersonas]);
+
+  // Toggle vertical selection
+  const toggleVertical = (verticalId: string) => {
+    setSelectedVerticals((prev) =>
+      prev.includes(verticalId) ? prev.filter((v) => v !== verticalId) : [...prev, verticalId]
+    );
+  };
+
+  // Toggle company selection
+  const toggleCompany = (companyName: string) => {
+    setSelectedCompanyNames((prev) => {
+      const next = new Set(prev);
+      if (next.has(companyName)) {
+        next.delete(companyName);
+      } else {
+        next.add(companyName);
+      }
+      return next;
+    });
+  };
+
+  // Select all / none companies
+  const selectAllCompanies = () => {
+    setSelectedCompanyNames(new Set(filteredCompanies.map((c) => c.name)));
+  };
+  const selectNoCompanies = () => {
+    setSelectedCompanyNames(new Set());
+  };
+
+  // Toggle persona selection
+  const togglePersona = (personaId: string) => {
+    setSelectedPersonas((prev) =>
+      prev.includes(personaId) ? prev.filter((p) => p !== personaId) : [...prev, personaId]
+    );
+  };
 
   // Toggle contact exclusion
-  const toggleContactExclusion = useCallback((contactId: string) => {
-    setExcludedContactIds(prev => {
+  const toggleContactExclusion = (contactId: string) => {
+    setExcludedContactIds((prev) => {
       const next = new Set(prev);
       if (next.has(contactId)) {
         next.delete(contactId);
@@ -195,62 +267,11 @@ export function ListBuilder() {
       }
       return next;
     });
-  }, []);
-
-  // Exclude all contacts from a company
-  const excludeCompany = useCallback((company: string) => {
-    if (!searchResult) return;
-
-    setExcludedCompanies(prev => new Set(prev).add(company));
-
-    const companyContactIds = searchResult.contacts
-      .filter(c => c.company === company)
-      .map(c => c.id);
-
-    setExcludedContactIds(prev => {
-      const next = new Set(prev);
-      companyContactIds.forEach(id => next.add(id));
-      return next;
-    });
-  }, [searchResult]);
-
-  // Re-include company
-  const includeCompany = useCallback((company: string) => {
-    if (!searchResult) return;
-
-    setExcludedCompanies(prev => {
-      const next = new Set(prev);
-      next.delete(company);
-      return next;
-    });
-
-    const companyContactIds = searchResult.contacts
-      .filter(c => c.company === company)
-      .map(c => c.id);
-
-    setExcludedContactIds(prev => {
-      const next = new Set(prev);
-      companyContactIds.forEach(id => next.delete(id));
-      return next;
-    });
-  }, [searchResult]);
-
-  // Get included contacts
-  const includedContacts = useMemo(() => {
-    if (!searchResult) return [];
-    return searchResult.contacts.filter(c => !excludedContactIds.has(c.id));
-  }, [searchResult, excludedContactIds]);
-
-  // Get unique companies for exclusion dropdown
-  const uniqueCompanies = useMemo(() => {
-    if (!searchResult) return [];
-    const companies = [...new Set(searchResult.contacts.map(c => c.company).filter(Boolean))];
-    return companies.sort();
-  }, [searchResult]);
+  };
 
   // Create HubSpot list
   const handleCreateList = useCallback(async () => {
-    if (!listName.trim() || includedContacts.length === 0) return;
+    if (!listName.trim() || finalContacts.length === 0) return;
 
     setIsCreating(true);
     setCreateResult(null);
@@ -261,7 +282,7 @@ export function ListBuilder() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           name: listName,
-          contactIds: includedContacts.map(c => c.id),
+          contactIds: finalContacts.map((c) => c.id),
         }),
       });
 
@@ -275,377 +296,588 @@ export function ListBuilder() {
     } finally {
       setIsCreating(false);
     }
-  }, [listName, includedContacts]);
+  }, [listName, finalContacts]);
 
-  // Clear all filters
-  const handleClearFilters = useCallback(() => {
-    setPrompt('');
-    setParsedFilters(null);
-    setSelectedPersonas([]);
+  // Reset all
+  const handleReset = () => {
+    setCurrentStep('vertical');
     setSelectedVerticals([]);
-    setExcludeStages(DEFAULT_EXCLUDE_STAGES);
-    setEmailOpensWithin(undefined);
-    setNoActivityDays(undefined);
-    setCreatedWithinDays(undefined);
-    setCompanySizeMin(undefined);
-    setCompanySizeMax(undefined);
-    setContactLimit(500);
+    setCompanies([]);
+    setSelectedCompanyNames(new Set());
+    setEmployeesMin(undefined);
+    setEmployeesMax(undefined);
+    setTotalContacts(0);
+    setSelectedPersonas([]);
     setRequireTitle(true);
-    setSearchResult(null);
+    setExcludedContactIds(new Set());
     setListName('');
     setCreateResult(null);
-  }, []);
+  };
 
-  // Toggle persona selection
-  const togglePersona = (personaId: string) => {
-    setSelectedPersonas(prev =>
-      prev.includes(personaId)
-        ? prev.filter(p => p !== personaId)
-        : [...prev, personaId]
+  // Step indicator component
+  const StepIndicator = () => {
+    const steps = [
+      { key: 'vertical', label: 'Vertical', num: 1 },
+      { key: 'company', label: 'Companies', num: 2 },
+      { key: 'persona', label: 'Personas', num: 3 },
+      { key: 'review', label: 'Review', num: 4 },
+    ];
+
+    const currentIdx = steps.findIndex((s) => s.key === currentStep);
+
+    return (
+      <div className="flex items-center gap-2 mb-6">
+        {steps.map((step, idx) => {
+          const isActive = currentStep === step.key;
+          const isPast = idx < currentIdx;
+          const canClick = isPast;
+
+          return (
+            <div key={step.key} className="flex items-center">
+              {idx > 0 && (
+                <div
+                  className={`w-8 h-0.5 ${isPast || isActive ? 'bg-blue-500' : 'bg-gray-200'}`}
+                />
+              )}
+              <button
+                onClick={() => canClick && setCurrentStep(step.key as Step)}
+                disabled={!canClick}
+                className={`flex items-center gap-2 px-3 py-1.5 rounded-full text-sm font-medium transition-colors ${
+                  isActive
+                    ? 'bg-blue-600 text-white'
+                    : isPast
+                      ? 'bg-blue-100 text-blue-700 hover:bg-blue-200 cursor-pointer'
+                      : 'bg-gray-100 text-gray-400 cursor-not-allowed'
+                }`}
+              >
+                <span
+                  className={`w-5 h-5 rounded-full flex items-center justify-center text-xs ${
+                    isActive
+                      ? 'bg-white text-blue-600'
+                      : isPast
+                        ? 'bg-blue-500 text-white'
+                        : 'bg-gray-300 text-gray-500'
+                  }`}
+                >
+                  {isPast ? '✓' : step.num}
+                </span>
+                {step.label}
+              </button>
+            </div>
+          );
+        })}
+      </div>
     );
   };
 
-  // Toggle vertical selection
-  const toggleVertical = (verticalId: string) => {
-    setSelectedVerticals(prev =>
-      prev.includes(verticalId)
-        ? prev.filter(v => v !== verticalId)
-        : [...prev, verticalId]
-    );
-  };
+  // Live count badge
+  const CountBadge = ({ count, label }: { count: number; label: string }) => (
+    <div className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-blue-50 border border-blue-200 rounded-full">
+      <span className="text-lg font-bold text-blue-700">{count.toLocaleString()}</span>
+      <span className="text-sm text-blue-600">{label}</span>
+    </div>
+  );
+
+  // Filter summary sidebar
+  const FilterSummary = () => (
+    <div className="bg-gray-50 rounded-lg p-4 mb-4">
+      <p className="text-xs font-medium text-gray-500 uppercase tracking-wide mb-3">
+        Current Filters
+      </p>
+      <div className="space-y-2 text-sm">
+        <div className="flex items-center justify-between">
+          <span className="text-gray-600">Verticals:</span>
+          <span className="font-medium text-gray-900">
+            {selectedVerticals.length === 0
+              ? 'None'
+              : selectedVerticals.length === 1
+                ? selectedVerticals[0]
+                : `${selectedVerticals.length} selected`}
+          </span>
+        </div>
+        {currentStep !== 'vertical' && (
+          <div className="flex items-center justify-between">
+            <span className="text-gray-600">Companies:</span>
+            <span className="font-medium text-gray-900">
+              {selectedCompanyNames.size === 0
+                ? `All ${filteredCompanies.length}`
+                : `${selectedCompanyNames.size} of ${filteredCompanies.length}`}
+            </span>
+          </div>
+        )}
+        {(currentStep === 'persona' || currentStep === 'review') && (
+          <>
+            <div className="flex items-center justify-between">
+              <span className="text-gray-600">Personas:</span>
+              <span className="font-medium text-gray-900">
+                {selectedPersonas.length === 0
+                  ? 'All'
+                  : `${selectedPersonas.length} selected`}
+              </span>
+            </div>
+            <div className="flex items-center justify-between">
+              <span className="text-gray-600">Require title:</span>
+              <span className="font-medium text-gray-900">{requireTitle ? 'Yes' : 'No'}</span>
+            </div>
+          </>
+        )}
+        <div className="pt-2 border-t border-gray-200 mt-2">
+          <div className="flex items-center justify-between">
+            <span className="text-gray-600 font-medium">Contacts:</span>
+            <span className="font-bold text-blue-600">
+              {currentStep === 'vertical'
+                ? '—'
+                : currentStep === 'company'
+                  ? allContactsWithPersona.length.toLocaleString()
+                  : filteredContacts.length.toLocaleString()}
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 
   return (
-    <div className="p-8">
+    <div className="p-8 max-w-6xl mx-auto">
       {/* Header */}
       <div className="mb-6">
-        <h1 className="text-2xl font-semibold text-gray-900">List Builder</h1>
-        <p className="text-gray-500 mt-1">
-          Build targeted HubSpot lists with natural language or manual filters
-        </p>
-      </div>
-
-      {/* Natural Language Input */}
-      <form onSubmit={handlePromptSubmit} className="mb-6">
-        <div className="flex gap-3">
-          <div className="flex-1 relative">
-            <input
-              type="text"
-              value={prompt}
-              onChange={(e) => setPrompt(e.target.value)}
-              placeholder="e.g., mortgage webinar audience, decision makers"
-              className="w-full px-4 py-3 bg-white border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-            />
-            {parsedFilters && (
-              <div className="absolute left-0 right-0 top-full mt-1 px-3 py-1.5 bg-blue-50 border border-blue-200 rounded text-xs text-blue-700">
-                Interpreted as: <span className="font-medium">{parsedFilters.interpretedAs}</span>
-                {parsedFilters.confidence < 0.7 && (
-                  <span className="ml-2 text-amber-600">(low confidence - adjust filters if needed)</span>
-                )}
-              </div>
-            )}
+        <div className="flex items-center justify-between">
+          <div>
+            <h1 className="text-2xl font-semibold text-gray-900">List Builder</h1>
+            <p className="text-gray-500 mt-1">
+              Build targeted HubSpot lists with visible filter logic
+            </p>
           </div>
           <button
-            type="submit"
-            disabled={isSearching}
-            className="px-6 py-3 bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 text-white font-medium rounded-lg transition-colors"
+            onClick={handleReset}
+            className="px-4 py-2 text-gray-600 hover:text-gray-800 hover:bg-gray-100 rounded-lg transition-colors"
           >
-            {isSearching ? 'Searching...' : 'Build List'}
+            Start Over
           </button>
         </div>
-      </form>
+      </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* Left: Filters */}
-        <div className="space-y-4">
-          {/* Quick Segments */}
-          <div className="bg-white border border-gray-200 rounded-xl p-5">
-            <h2 className="font-medium text-gray-900 mb-4">Quick Segments</h2>
+      {/* Step Indicator */}
+      <StepIndicator />
 
-            {/* Personas */}
-            <div className="mb-4">
-              <label className="block text-sm text-gray-600 mb-2">Personas</label>
-              <div className="flex flex-wrap gap-2">
-                {segments.personas.map((p) => (
-                  <button
-                    key={p.id}
-                    onClick={() => togglePersona(p.id)}
-                    className={`px-3 py-1.5 text-xs font-medium rounded-full transition-colors ${
-                      selectedPersonas.includes(p.id)
-                        ? 'bg-blue-100 text-blue-800 border border-blue-300'
-                        : 'bg-gray-100 text-gray-700 border border-gray-200 hover:bg-gray-200'
-                    }`}
-                  >
-                    {p.label}
-                  </button>
-                ))}
-              </div>
-            </div>
+      {/* Filter Summary - shown on all steps after first */}
+      {currentStep !== 'vertical' && <FilterSummary />}
 
-            {/* Verticals */}
-            <div className="mb-4">
-              <label className="block text-sm text-gray-600 mb-2">Verticals</label>
-              <div className="flex flex-wrap gap-2">
-                {segments.verticals.map((v) => (
-                  <button
-                    key={v.id}
-                    onClick={() => toggleVertical(v.id)}
-                    className={`px-3 py-1.5 text-xs font-medium rounded-full transition-colors ${
-                      selectedVerticals.includes(v.id)
-                        ? 'bg-green-100 text-green-800 border border-green-300'
-                        : 'bg-gray-100 text-gray-700 border border-gray-200 hover:bg-gray-200'
-                    }`}
-                  >
-                    {v.label}
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            {/* Exclusions */}
+      {/* Step 1: Vertical Selection */}
+      {currentStep === 'vertical' && (
+        <div className="bg-white border border-gray-200 rounded-xl p-6">
+          <div className="flex items-center justify-between mb-4">
             <div>
-              <label className="block text-sm text-gray-600 mb-2">Exclude Lifecycle Stages</label>
-              <div className="flex flex-wrap gap-2">
-                {[
-                  { id: 'opportunity', label: 'Opportunity' },
-                  { id: 'customer', label: 'Customer' },
-                  { id: '268636560', label: 'Disqualified' },
-                ].map((stage) => (
-                  <label key={stage.id} className="flex items-center gap-1.5 text-xs text-gray-700">
-                    <input
-                      type="checkbox"
-                      checked={excludeStages.includes(stage.id)}
-                      onChange={(e) => {
-                        if (e.target.checked) {
-                          setExcludeStages(prev => [...prev, stage.id]);
-                        } else {
-                          setExcludeStages(prev => prev.filter(s => s !== stage.id));
-                        }
-                      }}
-                      className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
-                    />
-                    {stage.label}
-                  </label>
-                ))}
-              </div>
+              <h2 className="text-lg font-medium text-gray-900">Step 1: Select Verticals</h2>
+              <p className="text-sm text-gray-500">
+                Choose one or more verticals (industries) to target
+              </p>
             </div>
-
-            {/* Settings */}
-            <div className="pt-4 border-t border-gray-100">
-              <div className="flex items-center justify-between gap-4">
-                <div className="flex-1">
-                  <label className="block text-sm text-gray-600 mb-1">Max Contacts</label>
-                  <select
-                    value={contactLimit}
-                    onChange={(e) => setContactLimit(parseInt(e.target.value))}
-                    className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  >
-                    <option value={100}>100</option>
-                    <option value={250}>250</option>
-                    <option value={500}>500</option>
-                    <option value={750}>750</option>
-                    <option value={1000}>1,000</option>
-                  </select>
-                </div>
-                <div className="flex-1">
-                  <label className="flex items-center gap-2 text-sm text-gray-700 cursor-pointer">
-                    <input
-                      type="checkbox"
-                      checked={requireTitle}
-                      onChange={(e) => setRequireTitle(e.target.checked)}
-                      className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
-                    />
-                    <span>Require job title</span>
-                  </label>
-                  <p className="text-xs text-gray-500 mt-1">Exclude contacts without titles</p>
-                </div>
-              </div>
-            </div>
+            <CountBadge count={selectedVerticals.length} label="selected" />
           </div>
 
-          {/* Advanced Filters */}
-          <div className="bg-white border border-gray-200 rounded-xl overflow-hidden">
-            <button
-              onClick={() => setShowAdvanced(!showAdvanced)}
-              className="w-full px-5 py-3 flex items-center justify-between text-left hover:bg-gray-50 transition-colors"
-            >
-              <span className="font-medium text-gray-900">Advanced Filters</span>
-              <span className="text-gray-500">{showAdvanced ? '−' : '+'}</span>
-            </button>
-
-            {showAdvanced && (
-              <div className="px-5 pb-5 space-y-4 border-t border-gray-100">
-                {/* Time-Based */}
-                <div className="pt-4">
-                  <p className="text-xs font-medium text-gray-500 uppercase tracking-wide mb-3">Time-Based</p>
-                  <div className="grid grid-cols-2 gap-3">
-                    <div>
-                      <label className="block text-xs text-gray-600 mb-1">Created within (days)</label>
-                      <input
-                        type="number"
-                        value={createdWithinDays || ''}
-                        onChange={(e) => setCreatedWithinDays(e.target.value ? parseInt(e.target.value) : undefined)}
-                        placeholder="e.g., 30"
-                        className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                      />
-                    </div>
-                  </div>
-                </div>
-
-                {/* Engagement */}
-                <div>
-                  <p className="text-xs font-medium text-gray-500 uppercase tracking-wide mb-3">Engagement</p>
-                  <div className="grid grid-cols-2 gap-3">
-                    <div>
-                      <label className="block text-xs text-gray-600 mb-1">Email opened within (days)</label>
-                      <input
-                        type="number"
-                        value={emailOpensWithin || ''}
-                        onChange={(e) => setEmailOpensWithin(e.target.value ? parseInt(e.target.value) : undefined)}
-                        placeholder="e.g., 60"
-                        className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-xs text-gray-600 mb-1">No activity for (days)</label>
-                      <input
-                        type="number"
-                        value={noActivityDays || ''}
-                        onChange={(e) => setNoActivityDays(e.target.value ? parseInt(e.target.value) : undefined)}
-                        placeholder="e.g., 90"
-                        className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                      />
-                    </div>
-                  </div>
-                </div>
-
-                {/* Firmographic */}
-                <div>
-                  <p className="text-xs font-medium text-gray-500 uppercase tracking-wide mb-3">Firmographic</p>
-                  <div className="grid grid-cols-2 gap-3">
-                    <div>
-                      <label className="block text-xs text-gray-600 mb-1">Company size (min)</label>
-                      <input
-                        type="number"
-                        value={companySizeMin || ''}
-                        onChange={(e) => setCompanySizeMin(e.target.value ? parseInt(e.target.value) : undefined)}
-                        placeholder="e.g., 50"
-                        className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-xs text-gray-600 mb-1">Company size (max)</label>
-                      <input
-                        type="number"
-                        value={companySizeMax || ''}
-                        onChange={(e) => setCompanySizeMax(e.target.value ? parseInt(e.target.value) : undefined)}
-                        placeholder="e.g., 1000"
-                        className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                      />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            )}
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-3 mb-6">
+            {VERTICALS.map((vertical) => {
+              const isSelected = selectedVerticals.includes(vertical.id);
+              return (
+                <button
+                  key={vertical.id}
+                  onClick={() => toggleVertical(vertical.id)}
+                  className={`p-4 text-left rounded-lg border-2 transition-colors ${
+                    isSelected
+                      ? 'border-blue-500 bg-blue-50'
+                      : 'border-gray-200 bg-white hover:border-gray-300'
+                  }`}
+                >
+                  <p className={`font-medium ${isSelected ? 'text-blue-700' : 'text-gray-900'}`}>
+                    {vertical.label}
+                  </p>
+                  <p className="text-sm text-gray-500">
+                    ~{vertical.count.toLocaleString()} contacts
+                  </p>
+                </button>
+              );
+            })}
           </div>
 
-          {/* Action Buttons */}
-          <div className="flex gap-3">
+          <div className="flex justify-end">
             <button
-              onClick={handleClearFilters}
-              className="flex-1 px-4 py-2 text-gray-700 bg-gray-100 hover:bg-gray-200 font-medium rounded-lg transition-colors"
+              onClick={loadCompanies}
+              disabled={selectedVerticals.length === 0 || isLoadingCompanies}
+              className="px-6 py-3 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-300 text-white font-medium rounded-lg transition-colors"
             >
-              Clear
-            </button>
-            <button
-              onClick={handleSearch}
-              disabled={isSearching}
-              className="flex-1 px-4 py-2 bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 text-white font-medium rounded-lg transition-colors"
-            >
-              {isSearching ? 'Searching...' : 'Search'}
+              {isLoadingCompanies ? 'Loading...' : 'Next: Filter Companies'}
             </button>
           </div>
         </div>
+      )}
 
-        {/* Right: Preview */}
-        <div className="space-y-4">
-          {/* Results Header */}
-          {searchResult && searchResult.success && (
-            <div className="bg-white border border-gray-200 rounded-xl p-5">
-              <div className="flex items-center justify-between mb-3">
-                <div>
-                  <p className="text-2xl font-bold text-gray-900">
-                    {searchResult.total} <span className="text-lg font-normal text-gray-500">contacts</span>
-                  </p>
-                  <p className="text-sm text-gray-500">from {searchResult.companies} companies</p>
-                </div>
-                <div className="text-right">
-                  <p className="text-sm text-gray-500">{excludedContactIds.size} excluded</p>
-                  <p className="text-sm font-medium text-blue-600">{includedContacts.length} selected</p>
-                </div>
-              </div>
+      {/* Step 2: Company Selection */}
+      {currentStep === 'company' && (
+        <div className="bg-white border border-gray-200 rounded-xl p-6">
+          <div className="flex items-center justify-between mb-4">
+            <div>
+              <h2 className="text-lg font-medium text-gray-900">Step 2: Filter Companies</h2>
+              <p className="text-sm text-gray-500">
+                {totalContacts.toLocaleString()} contacts from {companies.length} companies
+              </p>
+            </div>
+            <div className="flex items-center gap-3">
+              <CountBadge count={activeCompanies.length} label="companies" />
+              <CountBadge count={allContactsWithPersona.length} label="contacts" />
+            </div>
+          </div>
 
-              {/* Persona Breakdown */}
-              <div className="flex flex-wrap gap-2 mb-4">
-                {Object.entries(searchResult.personaBreakdown)
-                  .sort(([, a], [, b]) => b - a)
-                  .slice(0, 5)
-                  .map(([persona, count]) => (
-                    <span key={persona} className="px-2 py-1 bg-gray-100 text-gray-700 rounded text-xs">
-                      {PERSONA_LABELS[persona] || persona}: {count}
-                    </span>
-                  ))}
-              </div>
+          {/* Filters */}
+          <div className="flex items-center gap-4 mb-4 p-4 bg-gray-50 rounded-lg">
+            <div className="flex-1">
+              <label className="block text-xs text-gray-600 mb-1">Min Employees</label>
+              <input
+                type="number"
+                value={employeesMin || ''}
+                onChange={(e) =>
+                  setEmployeesMin(e.target.value ? parseInt(e.target.value) : undefined)
+                }
+                placeholder="e.g., 50"
+                className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
+            <div className="flex-1">
+              <label className="block text-xs text-gray-600 mb-1">Max Employees</label>
+              <input
+                type="number"
+                value={employeesMax || ''}
+                onChange={(e) =>
+                  setEmployeesMax(e.target.value ? parseInt(e.target.value) : undefined)
+                }
+                placeholder="e.g., 5000"
+                className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
+            <div className="pt-5">
+              <span className="text-sm text-gray-500">{filteredCompanies.length} matching</span>
+            </div>
+          </div>
 
-              {/* Exclude by Company */}
-              <div className="flex items-center gap-2">
-                <select
-                  onChange={(e) => {
-                    if (e.target.value) {
-                      excludeCompany(e.target.value);
-                      e.target.value = '';
-                    }
-                  }}
-                  className="flex-1 px-3 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          {/* Company List */}
+          <div className="mb-4">
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-sm text-gray-600">
+                {selectedCompanyNames.size === 0
+                  ? `All ${filteredCompanies.length} companies selected`
+                  : `${selectedCompanyNames.size} of ${filteredCompanies.length} companies selected`}
+              </span>
+              <div className="flex gap-2">
+                <button
+                  onClick={selectAllCompanies}
+                  className="text-xs text-blue-600 hover:text-blue-800"
                 >
-                  <option value="">Exclude by company...</option>
-                  {uniqueCompanies
-                    .filter(c => !excludedCompanies.has(c))
-                    .map(company => (
-                      <option key={company} value={company}>{company}</option>
-                    ))}
-                </select>
+                  Select All
+                </button>
+                <button
+                  onClick={selectNoCompanies}
+                  className="text-xs text-gray-600 hover:text-gray-800"
+                >
+                  Clear Selection
+                </button>
               </div>
+            </div>
 
-              {/* Excluded Companies */}
-              {excludedCompanies.size > 0 && (
-                <div className="mt-3 flex flex-wrap gap-2">
-                  {[...excludedCompanies].map(company => (
-                    <span
-                      key={company}
-                      className="inline-flex items-center gap-1 px-2 py-1 bg-red-50 text-red-700 rounded text-xs"
-                    >
-                      {company}
-                      <button
-                        onClick={() => includeCompany(company)}
-                        className="hover:text-red-900"
+            <div className="max-h-72 overflow-y-auto border border-gray-200 rounded-lg">
+              <table className="w-full">
+                <thead className="bg-gray-50 sticky top-0">
+                  <tr>
+                    <th className="w-10 px-3 py-2 text-left">
+                      <input
+                        type="checkbox"
+                        checked={
+                          selectedCompanyNames.size === 0 ||
+                          selectedCompanyNames.size === filteredCompanies.length
+                        }
+                        onChange={(e) =>
+                          e.target.checked ? selectNoCompanies() : selectAllCompanies()
+                        }
+                        className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                      />
+                    </th>
+                    <th className="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase">
+                      Company
+                    </th>
+                    <th className="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase">
+                      Vertical
+                    </th>
+                    <th className="px-3 py-2 text-right text-xs font-medium text-gray-500 uppercase">
+                      Contacts
+                    </th>
+                    <th className="px-3 py-2 text-right text-xs font-medium text-gray-500 uppercase">
+                      Employees
+                    </th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-gray-100">
+                  {filteredCompanies.slice(0, 100).map((company) => {
+                    const isSelected =
+                      selectedCompanyNames.size === 0 || selectedCompanyNames.has(company.name);
+                    return (
+                      <tr
+                        key={company.name}
+                        onClick={() => toggleCompany(company.name)}
+                        className={`cursor-pointer ${isSelected ? 'bg-blue-50' : 'hover:bg-gray-50'}`}
                       >
-                        ×
-                      </button>
-                    </span>
-                  ))}
+                        <td className="px-3 py-2">
+                          <input
+                            type="checkbox"
+                            checked={isSelected}
+                            onChange={() => toggleCompany(company.name)}
+                            onClick={(e) => e.stopPropagation()}
+                            className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                          />
+                        </td>
+                        <td className="px-3 py-2 text-sm font-medium text-gray-900">
+                          {company.name}
+                        </td>
+                        <td className="px-3 py-2 text-sm text-gray-600">{company.vertical}</td>
+                        <td className="px-3 py-2 text-sm text-gray-900 text-right font-medium">
+                          {company.contactCount}
+                        </td>
+                        <td className="px-3 py-2 text-sm text-gray-600 text-right">
+                          {company.employees?.toLocaleString() || '—'}
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+              {filteredCompanies.length > 100 && (
+                <div className="p-2 text-center text-xs text-gray-500 bg-gray-50">
+                  Showing 100 of {filteredCompanies.length} companies
                 </div>
               )}
             </div>
-          )}
+          </div>
 
-          {/* Contact List */}
-          {searchResult && searchResult.success && searchResult.contacts.length > 0 && (
-            <div className="bg-white border border-gray-200 rounded-xl overflow-hidden">
-              <div className="max-h-96 overflow-y-auto">
+          <div className="flex justify-between mt-6">
+            <button
+              onClick={() => setCurrentStep('vertical')}
+              className="px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors"
+            >
+              Back
+            </button>
+            <button
+              onClick={goToPersona}
+              disabled={activeCompanies.length === 0}
+              className="px-6 py-3 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-300 text-white font-medium rounded-lg transition-colors"
+            >
+              Next: Filter by Persona
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* Step 3: Persona Selection */}
+      {currentStep === 'persona' && (
+        <div className="bg-white border border-gray-200 rounded-xl p-6">
+          <div className="flex items-center justify-between mb-4">
+            <div>
+              <h2 className="text-lg font-medium text-gray-900">Step 3: Filter by Persona</h2>
+              <p className="text-sm text-gray-500">
+                {allContactsWithPersona.length.toLocaleString()} contacts from{' '}
+                {activeCompanies.length} companies
+              </p>
+            </div>
+            <CountBadge count={filteredContacts.length} label="contacts" />
+          </div>
+
+          {/* Title requirement toggle */}
+          <div className="mb-4 p-4 bg-gray-50 rounded-lg">
+            <label className="flex items-center gap-2 text-sm text-gray-700 cursor-pointer">
+              <input
+                type="checkbox"
+                checked={requireTitle}
+                onChange={(e) => setRequireTitle(e.target.checked)}
+                className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+              />
+              <span className="font-medium">Only include contacts with job titles</span>
+              <span className="text-gray-500">
+                ({personaBreakdown['no_title'] || 0} without titles)
+              </span>
+            </label>
+          </div>
+
+          {/* Persona breakdown */}
+          <div className="mb-6">
+            <p className="text-sm text-gray-600 mb-3">
+              {selectedPersonas.length === 0
+                ? 'All personas included. Click to filter:'
+                : `Filtering by ${selectedPersonas.length} persona(s):`}
+            </p>
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
+              {Object.entries(personaBreakdown)
+                .filter(([persona]) => persona !== 'no_title' || !requireTitle)
+                .sort(([, a], [, b]) => b - a)
+                .map(([persona, count]) => {
+                  const isSelected =
+                    selectedPersonas.length === 0 || selectedPersonas.includes(persona);
+                  const isFiltered = selectedPersonas.length > 0 && !isSelected;
+
+                  return (
+                    <button
+                      key={persona}
+                      onClick={() => togglePersona(persona)}
+                      disabled={persona === 'no_title' && requireTitle}
+                      className={`p-3 rounded-lg text-left transition-colors ${
+                        isFiltered
+                          ? 'bg-gray-100 opacity-50'
+                          : isSelected && selectedPersonas.length > 0
+                            ? 'bg-blue-100 border-2 border-blue-300'
+                            : 'bg-gray-100 hover:bg-gray-200'
+                      } ${persona === 'no_title' && requireTitle ? 'cursor-not-allowed' : ''}`}
+                    >
+                      <p
+                        className={`text-sm font-medium ${
+                          isFiltered ? 'text-gray-400 line-through' : 'text-gray-900'
+                        }`}
+                      >
+                        {PERSONA_LABELS[persona] || persona}
+                      </p>
+                      <p className="text-xs text-gray-500">{count.toLocaleString()} contacts</p>
+                    </button>
+                  );
+                })}
+            </div>
+          </div>
+
+          {/* Sample contacts preview */}
+          <div className="mb-4">
+            <p className="text-sm text-gray-600 mb-2">Sample contacts ({filteredContacts.length}):</p>
+            <div className="max-h-48 overflow-y-auto border border-gray-200 rounded-lg">
+              <table className="w-full">
+                <thead className="bg-gray-50 sticky top-0">
+                  <tr>
+                    <th className="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase">
+                      Name
+                    </th>
+                    <th className="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase">
+                      Title
+                    </th>
+                    <th className="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase">
+                      Company
+                    </th>
+                    <th className="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase">
+                      Persona
+                    </th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-gray-100">
+                  {filteredContacts.slice(0, 20).map((contact) => (
+                    <tr key={contact.id} className="hover:bg-gray-50">
+                      <td className="px-3 py-2">
+                        <p className="text-sm font-medium text-gray-900">
+                          {contact.firstname} {contact.lastname}
+                        </p>
+                        <p className="text-xs text-gray-500">{contact.email}</p>
+                      </td>
+                      <td className="px-3 py-2 text-sm text-gray-600">
+                        {contact.jobtitle || '—'}
+                      </td>
+                      <td className="px-3 py-2 text-sm text-gray-600">{contact.company || '—'}</td>
+                      <td className="px-3 py-2">
+                        <span className="px-2 py-0.5 bg-gray-100 text-gray-700 rounded text-xs">
+                          {PERSONA_LABELS[contact.matchedPersona] || contact.matchedPersona}
+                        </span>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div className="flex justify-between mt-6">
+            <button
+              onClick={() => setCurrentStep('company')}
+              className="px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors"
+            >
+              Back
+            </button>
+            <button
+              onClick={goToReview}
+              disabled={filteredContacts.length === 0}
+              className="px-6 py-3 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-300 text-white font-medium rounded-lg transition-colors"
+            >
+              Next: Review & Create List
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* Step 4: Review & Create */}
+      {currentStep === 'review' && (
+        <div className="space-y-4">
+          {/* Summary Card */}
+          <div className="bg-white border border-gray-200 rounded-xl p-6">
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="text-lg font-medium text-gray-900">Step 4: Review & Create List</h2>
+              <CountBadge count={finalContacts.length} label="final contacts" />
+            </div>
+
+            {/* Filter Summary */}
+            <div className="bg-gray-50 rounded-lg p-4 mb-4">
+              <p className="text-sm font-medium text-gray-700 mb-2">Filter Logic Applied:</p>
+              <div className="space-y-1 text-sm text-gray-600">
+                <p>
+                  <span className="font-medium">1. Verticals:</span>{' '}
+                  {selectedVerticals.join(', ')}
+                </p>
+                <p>
+                  <span className="font-medium">2. Companies:</span>{' '}
+                  {selectedCompanyNames.size === 0
+                    ? `All ${filteredCompanies.length}`
+                    : `${selectedCompanyNames.size} of ${filteredCompanies.length}`}
+                  {employeesMin || employeesMax
+                    ? ` (${employeesMin || 0}–${employeesMax || '∞'} employees)`
+                    : ''}
+                </p>
+                <p>
+                  <span className="font-medium">3. Personas:</span>{' '}
+                  {selectedPersonas.length === 0
+                    ? 'All'
+                    : selectedPersonas.map((p) => PERSONA_LABELS[p] || p).join(', ')}
+                </p>
+                <p>
+                  <span className="font-medium">4. Job title required:</span>{' '}
+                  {requireTitle ? 'Yes' : 'No'}
+                </p>
+                <p>
+                  <span className="font-medium">5. Excluded stages:</span> Opportunity, Customer,
+                  Disqualified
+                </p>
+              </div>
+            </div>
+
+            {/* Excluded contacts */}
+            {excludedContactIds.size > 0 && (
+              <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg">
+                <p className="text-sm text-red-700">
+                  {excludedContactIds.size} contacts manually excluded
+                  <button
+                    onClick={() => setExcludedContactIds(new Set())}
+                    className="ml-2 text-red-600 hover:text-red-800 underline"
+                  >
+                    Clear exclusions
+                  </button>
+                </p>
+              </div>
+            )}
+
+            {/* Final contact list */}
+            <div className="mb-4">
+              <p className="text-sm text-gray-600 mb-2">Final contacts (click to exclude):</p>
+              <div className="max-h-64 overflow-y-auto border border-gray-200 rounded-lg">
                 <table className="w-full">
                   <thead className="bg-gray-50 sticky top-0">
                     <tr>
-                      <th className="w-10 px-4 py-3 text-left">
+                      <th className="w-10 px-3 py-2 text-left">
                         <input
                           type="checkbox"
                           checked={excludedContactIds.size === 0}
@@ -653,43 +885,65 @@ export function ListBuilder() {
                             if (e.target.checked) {
                               setExcludedContactIds(new Set());
                             } else {
-                              setExcludedContactIds(new Set(searchResult.contacts.map(c => c.id)));
+                              setExcludedContactIds(new Set(filteredContacts.map((c) => c.id)));
                             }
                           }}
                           className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
                         />
                       </th>
-                      <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Name</th>
-                      <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Title</th>
-                      <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Company</th>
-                      <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Activity</th>
+                      <th className="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase">
+                        Name
+                      </th>
+                      <th className="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase">
+                        Title
+                      </th>
+                      <th className="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase">
+                        Company
+                      </th>
+                      <th className="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase">
+                        Vertical
+                      </th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-gray-100">
-                    {searchResult.contacts.map((contact) => {
+                    {filteredContacts.map((contact) => {
                       const isExcluded = excludedContactIds.has(contact.id);
                       return (
                         <tr
                           key={contact.id}
-                          className={isExcluded ? 'bg-gray-50 opacity-50' : 'hover:bg-gray-50'}
+                          onClick={() => toggleContactExclusion(contact.id)}
+                          className={`cursor-pointer ${
+                            isExcluded ? 'bg-gray-50 opacity-50' : 'hover:bg-gray-50'
+                          }`}
                         >
-                          <td className="px-4 py-3">
+                          <td className="px-3 py-2">
                             <input
                               type="checkbox"
                               checked={!isExcluded}
                               onChange={() => toggleContactExclusion(contact.id)}
+                              onClick={(e) => e.stopPropagation()}
                               className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
                             />
                           </td>
-                          <td className="px-4 py-3">
-                            <p className={`text-sm font-medium ${isExcluded ? 'text-gray-400 line-through' : 'text-gray-900'}`}>
+                          <td className="px-3 py-2">
+                            <p
+                              className={`text-sm font-medium ${
+                                isExcluded ? 'text-gray-400 line-through' : 'text-gray-900'
+                              }`}
+                            >
                               {contact.firstname} {contact.lastname}
                             </p>
                             <p className="text-xs text-gray-500">{contact.email}</p>
                           </td>
-                          <td className="px-4 py-3 text-sm text-gray-700">{contact.jobtitle || '—'}</td>
-                          <td className="px-4 py-3 text-sm text-gray-700">{contact.company || '—'}</td>
-                          <td className="px-4 py-3 text-xs text-gray-500">{contact.lastActivity || 'No activity'}</td>
+                          <td className="px-3 py-2 text-sm text-gray-600">
+                            {contact.jobtitle || '—'}
+                          </td>
+                          <td className="px-3 py-2 text-sm text-gray-600">
+                            {contact.company || '—'}
+                          </td>
+                          <td className="px-3 py-2 text-sm text-gray-600">
+                            {contact.vertical || '—'}
+                          </td>
                         </tr>
                       );
                     })}
@@ -697,87 +951,69 @@ export function ListBuilder() {
                 </table>
               </div>
             </div>
-          )}
+          </div>
 
-          {/* No Results */}
-          {searchResult && searchResult.success && searchResult.contacts.length === 0 && (
-            <div className="bg-white border border-gray-200 rounded-xl p-8 text-center">
-              <p className="text-gray-500">No contacts match these criteria.</p>
-              <p className="text-sm text-gray-400 mt-1">Try broadening your filters.</p>
+          {/* Create List Card */}
+          <div className="bg-white border border-gray-200 rounded-xl p-6">
+            <h3 className="font-medium text-gray-900 mb-4">Create HubSpot List</h3>
+
+            <div className="mb-4">
+              <label className="block text-sm text-gray-600 mb-1">List Name</label>
+              <input
+                type="text"
+                value={listName}
+                onChange={(e) => setListName(e.target.value)}
+                placeholder="Enter list name..."
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
             </div>
-          )}
 
-          {/* Error */}
-          {searchResult && !searchResult.success && (
-            <div className="bg-red-50 border border-red-200 rounded-xl p-5">
-              <p className="text-red-800 font-medium">Error searching contacts</p>
-              <p className="text-sm text-red-600 mt-1">{searchResult.error}</p>
-            </div>
-          )}
-
-          {/* Create List */}
-          {searchResult && searchResult.success && includedContacts.length > 0 && (
-            <div className="bg-white border border-gray-200 rounded-xl p-5">
-              <h3 className="font-medium text-gray-900 mb-3">Create HubSpot List</h3>
-
-              <div className="mb-4">
-                <label className="block text-sm text-gray-600 mb-1">List Name</label>
-                <input
-                  type="text"
-                  value={listName}
-                  onChange={(e) => setListName(e.target.value)}
-                  placeholder="Enter list name..."
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-                />
+            {/* Success */}
+            {createResult?.success && (
+              <div className="mb-4 p-4 bg-green-50 border border-green-200 rounded-lg">
+                <p className="font-medium text-green-900">List Created!</p>
+                <p className="text-sm text-green-700 mt-1">
+                  {createResult.count} contacts added to "{listName}"
+                </p>
+                <a
+                  href={`https://app.hubspot.com/contacts/lists/${createResult.listId}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1 mt-2 text-sm font-medium text-green-700 hover:text-green-800"
+                >
+                  Open in HubSpot →
+                </a>
               </div>
+            )}
 
-              {/* Success */}
-              {createResult?.success && (
-                <div className="mb-4 p-4 bg-green-50 border border-green-200 rounded-lg">
-                  <p className="font-medium text-green-900">List Created!</p>
-                  <p className="text-sm text-green-700 mt-1">
-                    {createResult.count} contacts added to "{listName}"
-                  </p>
-                  <a
-                    href={`https://app.hubspot.com/contacts/lists/${createResult.listId}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 mt-2 text-sm font-medium text-green-700 hover:text-green-800"
-                  >
-                    Open in HubSpot →
-                  </a>
-                </div>
-              )}
+            {/* Error */}
+            {createResult && !createResult.success && (
+              <div className="mb-4 p-4 bg-red-50 border border-red-200 rounded-lg">
+                <p className="font-medium text-red-900">Failed to create list</p>
+                <p className="text-sm text-red-600 mt-1">{createResult.error}</p>
+              </div>
+            )}
 
-              {/* Error */}
-              {createResult && !createResult.success && (
-                <div className="mb-4 p-4 bg-red-50 border border-red-200 rounded-lg">
-                  <p className="font-medium text-red-900">Failed to create list</p>
-                  <p className="text-sm text-red-600 mt-1">{createResult.error}</p>
-                </div>
-              )}
-
+            <div className="flex justify-between">
+              <button
+                onClick={() => setCurrentStep('persona')}
+                className="px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors"
+              >
+                Back
+              </button>
               <button
                 onClick={handleCreateList}
-                disabled={isCreating || !listName.trim()}
-                className="w-full px-4 py-3 bg-orange-500 hover:bg-orange-600 disabled:bg-gray-400 text-white font-medium rounded-lg transition-colors"
+                disabled={isCreating || !listName.trim() || finalContacts.length === 0}
+                className="px-6 py-3 bg-orange-500 hover:bg-orange-600 disabled:bg-gray-300 text-white font-medium rounded-lg transition-colors"
               >
-                {isCreating ? 'Creating...' : `Create List with ${includedContacts.length} Contacts`}
+                {isCreating
+                  ? 'Creating...'
+                  : `Create List with ${finalContacts.length} Contacts`}
               </button>
             </div>
-          )}
-
-          {/* Empty State */}
-          {!searchResult && (
-            <div className="bg-gray-50 border border-gray-200 border-dashed rounded-xl p-8 text-center">
-              <p className="text-gray-500">Enter a prompt or select filters to preview contacts</p>
-              <p className="text-sm text-gray-400 mt-1">
-                Try: "mortgage webinar audience, decision makers"
-              </p>
-            </div>
-          )}
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }
