@@ -1,5 +1,6 @@
-import { useMemo } from 'react';
+import { useState, useMemo } from 'react';
 import segments from '../data/segments.json';
+import personaAnalysis from '../../outreach_intel/persona_analysis_results.json';
 
 type Persona = {
   id: string;
@@ -9,6 +10,55 @@ type Persona = {
   conversionScore?: number;
   priority?: number;
 };
+
+type EngagementData = {
+  count: number;
+  opens: number;
+  clicks: number;
+  replies: number;
+  open_rate: number;
+  click_rate: number;
+  reply_rate: number;
+};
+
+type LifecycleData = {
+  total: number;
+  by_persona: Record<string, number>;
+};
+
+type PersonaScore = {
+  conversion_score: number;
+  engagement_score: number;
+  deal_score: number;
+  sample_size: {
+    leads: number;
+    customers: number;
+    engaged_contacts: number;
+  };
+};
+
+// Aggregate deal data by persona
+const calculateDealMetrics = () => {
+  const dealData = personaAnalysis.deal_data as Record<string, { count: number; total_amount: number; personas: Record<string, number> }>;
+  const personaDealMetrics: Record<string, { dealCount: number; totalValue: number; contactsInDeals: number }> = {};
+
+  Object.values(dealData).forEach((deal) => {
+    if (deal.personas) {
+      Object.entries(deal.personas).forEach(([persona, count]) => {
+        if (!personaDealMetrics[persona]) {
+          personaDealMetrics[persona] = { dealCount: 0, totalValue: 0, contactsInDeals: 0 };
+        }
+        personaDealMetrics[persona].dealCount += 1;
+        personaDealMetrics[persona].totalValue += deal.total_amount;
+        personaDealMetrics[persona].contactsInDeals += count;
+      });
+    }
+  });
+
+  return personaDealMetrics;
+};
+
+const DEAL_METRICS = calculateDealMetrics();
 
 const PERSONA_DETAILS: Record<string, {
   title: string;
@@ -209,8 +259,28 @@ const PERSONA_DETAILS: Record<string, {
 };
 
 export function Personas() {
+  const [expandedPersona, setExpandedPersona] = useState<string | null>(null);
   const personas = segments.personas as Persona[];
   const totalContacts = (segments as { totalTargetable?: number }).totalTargetable || 134796;
+
+  // Get detailed metrics for a persona
+  const getPersonaMetrics = (personaId: string) => {
+    const engagement = (personaAnalysis.engagement_data as Record<string, EngagementData>)[personaId];
+    const scores = (personaAnalysis.persona_scores as Record<string, PersonaScore>)[personaId];
+    const lifecycle = personaAnalysis.lifecycle_data as Record<string, LifecycleData>;
+    const deals = DEAL_METRICS[personaId];
+
+    // Calculate funnel progression
+    const funnel = {
+      lead: lifecycle.lead?.by_persona?.[personaId] || 0,
+      mql: lifecycle.marketingqualifiedlead?.by_persona?.[personaId] || 0,
+      sql: lifecycle.salesqualifiedlead?.by_persona?.[personaId] || 0,
+      opportunity: lifecycle.opportunity?.by_persona?.[personaId] || 0,
+      customer: lifecycle.customer?.by_persona?.[personaId] || 0,
+    };
+
+    return { engagement, scores, funnel, deals };
+  };
 
   // Calculate engagement scores and rank personas
   const rankedPersonas = useMemo(() => {
@@ -355,8 +425,201 @@ export function Personas() {
                   </div>
                 </div>
 
+                {/* Expand/Collapse Button */}
+                <button
+                  onClick={() => setExpandedPersona(expandedPersona === persona.id ? null : persona.id)}
+                  className={`mt-3 flex items-center gap-2 text-sm font-medium transition-colors ${
+                    isTopPerformer ? 'text-green-700 hover:text-green-900' :
+                    isHighPerformer ? 'text-blue-700 hover:text-blue-900' :
+                    'text-gray-600 hover:text-gray-900'
+                  }`}
+                >
+                  <svg
+                    className={`w-4 h-4 transition-transform ${expandedPersona === persona.id ? 'rotate-180' : ''}`}
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
+                  {expandedPersona === persona.id ? 'Hide Details' : 'View Engagement & Deal Data'}
+                </button>
+
+                {/* Expanded Details Dropdown */}
+                {expandedPersona === persona.id && (() => {
+                  const metrics = getPersonaMetrics(persona.id);
+                  return (
+                    <div className={`mt-4 pt-4 border-t ${
+                      isTopPerformer ? 'border-green-200' : isHighPerformer ? 'border-blue-200' : 'border-gray-200'
+                    }`}>
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        {/* Response Metrics */}
+                        <div className={`p-4 rounded-lg ${
+                          isTopPerformer ? 'bg-green-100/50' : isHighPerformer ? 'bg-blue-100/50' : 'bg-white'
+                        }`}>
+                          <h4 className={`text-sm font-semibold mb-3 ${
+                            isTopPerformer ? 'text-green-900' : isHighPerformer ? 'text-blue-900' : 'text-gray-900'
+                          }`}>
+                            Response Metrics
+                          </h4>
+                          {metrics.engagement ? (
+                            <div className="space-y-2">
+                              <div className="flex justify-between text-sm">
+                                <span className="text-gray-600">Sample Size</span>
+                                <span className="font-medium">{metrics.engagement.count} contacts</span>
+                              </div>
+                              <div className="flex justify-between text-sm">
+                                <span className="text-gray-600">Total Opens</span>
+                                <span className="font-medium">{metrics.engagement.opens}</span>
+                              </div>
+                              <div className="flex justify-between text-sm">
+                                <span className="text-gray-600">Total Clicks</span>
+                                <span className="font-medium">{metrics.engagement.clicks}</span>
+                              </div>
+                              <div className="flex justify-between text-sm">
+                                <span className="text-gray-600">Total Replies</span>
+                                <span className="font-medium text-green-600">{metrics.engagement.replies}</span>
+                              </div>
+                              <div className="pt-2 mt-2 border-t border-gray-200">
+                                <div className="flex justify-between text-sm">
+                                  <span className="text-gray-600">Open Rate</span>
+                                  <span className="font-medium">{metrics.engagement.open_rate.toFixed(1)}x</span>
+                                </div>
+                                <div className="flex justify-between text-sm">
+                                  <span className="text-gray-600">Click Rate</span>
+                                  <span className="font-medium">{(metrics.engagement.click_rate * 100).toFixed(0)}%</span>
+                                </div>
+                              </div>
+                            </div>
+                          ) : (
+                            <p className="text-sm text-gray-500">No engagement data available</p>
+                          )}
+                        </div>
+
+                        {/* Deal Involvement */}
+                        <div className={`p-4 rounded-lg ${
+                          isTopPerformer ? 'bg-green-100/50' : isHighPerformer ? 'bg-blue-100/50' : 'bg-white'
+                        }`}>
+                          <h4 className={`text-sm font-semibold mb-3 ${
+                            isTopPerformer ? 'text-green-900' : isHighPerformer ? 'text-blue-900' : 'text-gray-900'
+                          }`}>
+                            Deal Involvement
+                          </h4>
+                          {metrics.deals ? (
+                            <div className="space-y-2">
+                              <div className="flex justify-between text-sm">
+                                <span className="text-gray-600">Deals Involved In</span>
+                                <span className="font-medium">{metrics.deals.dealCount}</span>
+                              </div>
+                              <div className="flex justify-between text-sm">
+                                <span className="text-gray-600">Contacts in Deals</span>
+                                <span className="font-medium">{metrics.deals.contactsInDeals}</span>
+                              </div>
+                              <div className="flex justify-between text-sm">
+                                <span className="text-gray-600">Total Deal Value</span>
+                                <span className="font-medium text-green-600">
+                                  ${(metrics.deals.totalValue / 1000).toFixed(0)}K
+                                </span>
+                              </div>
+                              <div className="pt-2 mt-2 border-t border-gray-200">
+                                <div className="flex justify-between text-sm">
+                                  <span className="text-gray-600">Avg Value/Deal</span>
+                                  <span className="font-medium">
+                                    ${Math.round(metrics.deals.totalValue / metrics.deals.dealCount / 1000)}K
+                                  </span>
+                                </div>
+                              </div>
+                            </div>
+                          ) : (
+                            <p className="text-sm text-gray-500">No deal data available</p>
+                          )}
+                        </div>
+
+                        {/* Funnel Progression */}
+                        <div className={`p-4 rounded-lg ${
+                          isTopPerformer ? 'bg-green-100/50' : isHighPerformer ? 'bg-blue-100/50' : 'bg-white'
+                        }`}>
+                          <h4 className={`text-sm font-semibold mb-3 ${
+                            isTopPerformer ? 'text-green-900' : isHighPerformer ? 'text-blue-900' : 'text-gray-900'
+                          }`}>
+                            Funnel Progression
+                          </h4>
+                          <div className="space-y-2">
+                            <div className="flex items-center gap-2">
+                              <div className="w-16 text-xs text-gray-500">Lead</div>
+                              <div className="flex-1 h-4 bg-gray-200 rounded-full overflow-hidden">
+                                <div
+                                  className="h-full bg-gray-400 rounded-full"
+                                  style={{ width: `${Math.min(metrics.funnel.lead, 100)}%` }}
+                                />
+                              </div>
+                              <div className="w-8 text-xs font-medium text-right">{metrics.funnel.lead}%</div>
+                            </div>
+                            <div className="flex items-center gap-2">
+                              <div className="w-16 text-xs text-gray-500">MQL</div>
+                              <div className="flex-1 h-4 bg-gray-200 rounded-full overflow-hidden">
+                                <div
+                                  className="h-full bg-blue-400 rounded-full"
+                                  style={{ width: `${Math.min(metrics.funnel.mql, 100)}%` }}
+                                />
+                              </div>
+                              <div className="w-8 text-xs font-medium text-right">{metrics.funnel.mql}%</div>
+                            </div>
+                            <div className="flex items-center gap-2">
+                              <div className="w-16 text-xs text-gray-500">SQL</div>
+                              <div className="flex-1 h-4 bg-gray-200 rounded-full overflow-hidden">
+                                <div
+                                  className="h-full bg-purple-400 rounded-full"
+                                  style={{ width: `${Math.min(metrics.funnel.sql, 100)}%` }}
+                                />
+                              </div>
+                              <div className="w-8 text-xs font-medium text-right">{metrics.funnel.sql}%</div>
+                            </div>
+                            <div className="flex items-center gap-2">
+                              <div className="w-16 text-xs text-gray-500">Opp</div>
+                              <div className="flex-1 h-4 bg-gray-200 rounded-full overflow-hidden">
+                                <div
+                                  className="h-full bg-orange-400 rounded-full"
+                                  style={{ width: `${Math.min(metrics.funnel.opportunity, 100)}%` }}
+                                />
+                              </div>
+                              <div className="w-8 text-xs font-medium text-right">{metrics.funnel.opportunity}%</div>
+                            </div>
+                            <div className="flex items-center gap-2">
+                              <div className="w-16 text-xs text-gray-500">Customer</div>
+                              <div className="flex-1 h-4 bg-gray-200 rounded-full overflow-hidden">
+                                <div
+                                  className="h-full bg-green-500 rounded-full"
+                                  style={{ width: `${Math.min(metrics.funnel.customer, 100)}%` }}
+                                />
+                              </div>
+                              <div className="w-8 text-xs font-medium text-right">{metrics.funnel.customer}%</div>
+                            </div>
+                          </div>
+                          <p className="text-xs text-gray-500 mt-2">% of total in each stage</p>
+                        </div>
+                      </div>
+
+                      {/* Key Insight for this persona */}
+                      {metrics.scores && (
+                        <div className={`mt-4 p-3 rounded-lg ${
+                          isTopPerformer ? 'bg-green-100' : isHighPerformer ? 'bg-blue-100' : 'bg-gray-100'
+                        }`}>
+                          <p className={`text-sm ${
+                            isTopPerformer ? 'text-green-800' : isHighPerformer ? 'text-blue-800' : 'text-gray-700'
+                          }`}>
+                            <strong>Sample Size:</strong> {metrics.scores.sample_size.leads} leads, {' '}
+                            {metrics.scores.sample_size.customers} customers, {' '}
+                            {metrics.scores.sample_size.engaged_contacts} engaged contacts
+                          </p>
+                        </div>
+                      )}
+                    </div>
+                  );
+                })()}
+
                 {/* Recommendation for top performer */}
-                {isTopPerformer && (
+                {isTopPerformer && expandedPersona !== persona.id && (
                   <div className="mt-3 pt-3 border-t border-green-200">
                     <p className="text-sm text-green-800">
                       <strong>Recommendation:</strong> Prioritize {persona.label} in outreach campaigns.
