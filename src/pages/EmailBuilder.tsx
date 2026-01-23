@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useCallback } from 'react';
 import segments from '../data/segments.json';
 import templates from '../data/templates.json';
 import painPointMapping from '../data/painPointMapping.json';
@@ -42,6 +42,8 @@ export function EmailBuilder() {
   const [touch, setTouch] = useState(1);
   const [expandedZone, setExpandedZone] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
+  const [listCreating, setListCreating] = useState(false);
+  const [listResult, setListResult] = useState<{ success: boolean; listId?: string; listName?: string; count?: number; error?: string } | null>(null);
 
   // Get relevant proof points for selected segment
   const relevantProofPointIds = useMemo(() => {
@@ -169,23 +171,60 @@ export function EmailBuilder() {
     return personasWithScores.sort((a, b) => b.score - a.score);
   }, []);
 
-  // Generate CLI command for HubSpot list creation
-  const generateListCommand = useMemo(() => {
-    const listName = `${campaignType.replace('_', ' ').replace(/\b\w/g, l => l.toUpperCase())} - ${
+  // Generate list name
+  const listName = useMemo(() => {
+    return `${campaignType.replace('_', ' ').replace(/\b\w/g, l => l.toUpperCase())} - ${
       segments.personas.find(p => p.id === persona)?.label || persona
     }${vertical && campaignType !== 'persona' ? ` - ${segments.verticals.find(v => v.id === vertical)?.label || vertical}` : ''
     } - ${new Date().toISOString().split('T')[0]}`;
+  }, [campaignType, persona, vertical]);
 
-    let cmd = `python -m outreach_intel.cli campaign-list "${listName}"`;
-    cmd += ` -t ${campaignType}`;
-    if (persona) cmd += ` -p ${persona}`;
-    if (vertical && (campaignType === 'closed_loss' || campaignType === 'vertical')) {
-      cmd += ` -v "${vertical}"`;
+  // Create HubSpot list via API
+  const createHubSpotList = useCallback(async () => {
+    setListCreating(true);
+    setListResult(null);
+
+    try {
+      const payload = {
+        name: listName,
+        campaignType,
+        persona,
+        vertical: campaignType === 'closed_loss' || campaignType === 'vertical' ? vertical : undefined,
+        objection: campaignType === 'closed_loss' ? objection : undefined,
+        product: campaignType === 'product' ? product : undefined,
+        limit: Math.min(estimatedAudience > 0 ? estimatedAudience : 100, 500),
+      };
+
+      const response = await fetch('/api/create-list', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+
+      const data = await response.json();
+
+      if (data.success && data.listId) {
+        setListResult({
+          success: true,
+          listId: data.listId,
+          listName: data.listName || listName,
+          count: data.count || 0,
+        });
+      } else {
+        setListResult({
+          success: false,
+          error: data.error || 'Failed to create list',
+        });
+      }
+    } catch (err) {
+      setListResult({
+        success: false,
+        error: err instanceof Error ? err.message : 'Network error',
+      });
+    } finally {
+      setListCreating(false);
     }
-    cmd += ` -l ${estimatedAudience > 0 ? Math.min(estimatedAudience, 500) : 100}`;
-
-    return cmd;
-  }, [campaignType, persona, vertical, estimatedAudience]);
+  }, [listName, campaignType, persona, vertical, objection, product, estimatedAudience]);
 
   // Build the email preview
   const buildEmailPreview = () => {
@@ -627,25 +666,91 @@ export function EmailBuilder() {
             <h2 className="font-medium text-gray-900 mb-3">
               Create HubSpot List
             </h2>
-            <p className="text-xs text-gray-500 mb-3">
-              Generate a targeted list in HubSpot based on your segment
-            </p>
-            <div className="bg-gray-900 rounded-lg p-3 mb-3">
-              <code className="text-xs text-green-400 break-all">
-                {generateListCommand}
-              </code>
+
+            {/* List Preview */}
+            <div className="p-3 bg-gray-50 rounded-lg mb-4">
+              <p className="text-xs text-gray-500 mb-1">List Name</p>
+              <p className="text-sm font-medium text-gray-900">{listName}</p>
+              <p className="text-xs text-gray-500 mt-2">
+                ~{Math.min(estimatedAudience > 0 ? estimatedAudience : 100, 500).toLocaleString()} contacts
+              </p>
             </div>
+
+            {/* Success State */}
+            {listResult?.success && (
+              <div className="p-4 bg-green-50 border border-green-200 rounded-lg mb-4">
+                <div className="flex items-start gap-3">
+                  <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
+                    <svg className="w-5 h-5 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                    </svg>
+                  </div>
+                  <div className="flex-1">
+                    <p className="font-medium text-green-900">List Created</p>
+                    <p className="text-sm text-green-700 mt-1">
+                      {listResult.count?.toLocaleString()} contacts added to "{listResult.listName}"
+                    </p>
+                    <a
+                      href={`https://app.hubspot.com/contacts/lists/${listResult.listId}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1 mt-2 text-sm font-medium text-green-700 hover:text-green-800"
+                    >
+                      Open in HubSpot
+                      <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                      </svg>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* Error State */}
+            {listResult && !listResult.success && (
+              <div className="p-4 bg-red-50 border border-red-200 rounded-lg mb-4">
+                <div className="flex items-start gap-3">
+                  <div className="w-8 h-8 bg-red-100 rounded-full flex items-center justify-center flex-shrink-0">
+                    <svg className="w-5 h-5 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                  </div>
+                  <div>
+                    <p className="font-medium text-red-900">Failed to create list</p>
+                    <p className="text-sm text-red-700 mt-1">{listResult.error}</p>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* Create Button */}
             <button
-              onClick={() => {
-                navigator.clipboard.writeText(generateListCommand);
-              }}
-              className="w-full px-4 py-2 bg-gray-900 hover:bg-gray-800 text-white text-sm font-medium rounded-lg transition-colors"
+              onClick={createHubSpotList}
+              disabled={listCreating || estimatedAudience === 0}
+              className={`w-full px-4 py-3 text-white text-sm font-medium rounded-lg transition-colors flex items-center justify-center gap-2 ${
+                listCreating || estimatedAudience === 0
+                  ? 'bg-gray-400 cursor-not-allowed'
+                  : 'bg-orange-500 hover:bg-orange-600'
+              }`}
             >
-              Copy Command
+              {listCreating ? (
+                <>
+                  <svg className="animate-spin w-4 h-4" fill="none" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+                  </svg>
+                  Creating List...
+                </>
+              ) : (
+                <>
+                  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                  </svg>
+                  Create HubSpot List
+                </>
+              )}
             </button>
-            <p className="text-xs text-gray-400 mt-2 text-center">
-              Run in terminal from truv-brain directory
-            </p>
+
           </div>
         </div>
 
