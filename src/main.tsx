@@ -2,10 +2,13 @@ import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { Layout } from './components/Layout';
+import { Home } from './pages/Home';
 import { ProofPoints } from './pages/ProofPoints';
 import { Products } from './pages/Products';
+import { Personas } from './pages/Personas';
+import { Brand } from './pages/Brand';
+import { Campaigns } from './pages/Campaigns';
 import { EmailBuilder } from './pages/EmailBuilder';
-import { About } from './pages/About';
 import './index.css';
 
 const router = createBrowserRouter([
@@ -15,6 +18,10 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
+        element: <Home />,
+      },
+      {
+        path: 'proof-points',
         element: <ProofPoints />,
       },
       {
@@ -22,12 +29,20 @@ const router = createBrowserRouter([
         element: <Products />,
       },
       {
-        path: 'email-builder',
-        element: <EmailBuilder />,
+        path: 'personas',
+        element: <Personas />,
       },
       {
-        path: 'about',
-        element: <About />,
+        path: 'brand',
+        element: <Brand />,
+      },
+      {
+        path: 'campaigns',
+        element: <Campaigns />,
+      },
+      {
+        path: 'email-builder',
+        element: <EmailBuilder />,
       },
     ],
   },
