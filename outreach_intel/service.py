@@ -162,3 +162,107 @@ class OutreachService:
             self.client.add_contacts_to_list(list_id, contact_ids)
 
         return list_data
+
+    def get_campaign_contacts(
+        self,
+        campaign_type: str,
+        vertical: Optional[str] = None,
+        persona: Optional[str] = None,
+        objection: Optional[str] = None,
+        limit: int = 100,
+    ) -> list[ScoredContact]:
+        """Get contacts for a specific campaign type with filters.
+
+        Args:
+            campaign_type: Type of campaign (closed_loss, vertical, persona, product, case_study)
+            vertical: Industry/vertical filter
+            persona: Job title persona filter
+            objection: Objection/closed-lost reason filter
+            limit: Maximum contacts to return
+
+        Returns:
+            List of ScoredContacts sorted by score
+        """
+        filters = get_exclusion_filters()
+
+        # Apply vertical filter
+        if vertical and vertical != "all":
+            filters.append({
+                "propertyName": "sales_vertical",
+                "operator": "CONTAINS_TOKEN",
+                "value": vertical,
+            })
+
+        # Apply persona filter based on job title patterns
+        persona_patterns = {
+            "coo_ops": ["COO", "Chief Operating", "VP Operations", "VP of Operations"],
+            "cfo": ["CFO", "Chief Financial", "VP Finance", "Controller"],
+            "cto": ["CTO", "Chief Technology", "VP Engineering", "CIO"],
+            "ceo": ["CEO", "Chief Executive", "Founder", "President", "Owner"],
+            "vp_ops": ["VP", "Director", "SVP", "EVP"],
+        }
+
+        if persona and persona in persona_patterns:
+            # Use OR logic for persona patterns - search for any matching title
+            pattern = persona_patterns[persona][0]  # Use primary pattern
+            filters.append({
+                "propertyName": "jobtitle",
+                "operator": "CONTAINS_TOKEN",
+                "value": pattern,
+            })
+
+        # Apply campaign-specific filters
+        if campaign_type == "closed_loss":
+            filters.append({
+                "propertyName": "lifecyclestage",
+                "operator": "EQ",
+                "value": "268636563",  # Closed Lost stage ID
+            })
+
+        contacts = self.client.search_contacts(
+            filters=filters,
+            properties=DEFAULT_CONTACT_PROPERTIES,
+            limit=limit,
+        )
+
+        return self.scorer.score_contacts(contacts)
+
+    def create_campaign_list_from_filters(
+        self,
+        name: str,
+        campaign_type: str,
+        vertical: Optional[str] = None,
+        persona: Optional[str] = None,
+        objection: Optional[str] = None,
+        limit: int = 100,
+    ) -> dict:
+        """Create a HubSpot list from campaign filters.
+
+        Args:
+            name: Name for the new list
+            campaign_type: Type of campaign
+            vertical: Industry/vertical filter
+            persona: Job title persona filter
+            objection: Objection reason filter
+            limit: Maximum contacts to include
+
+        Returns:
+            Dict with list info and contact count
+        """
+        # Get contacts matching criteria
+        contacts = self.get_campaign_contacts(
+            campaign_type=campaign_type,
+            vertical=vertical,
+            persona=persona,
+            objection=objection,
+            limit=limit,
+        )
+
+        if not contacts:
+            return {"error": "No contacts found matching criteria", "count": 0}
+
+        # Create the list
+        list_data = self.create_campaign_list(contacts, name)
+        list_data["contact_count"] = len(contacts)
+
+        return list_data

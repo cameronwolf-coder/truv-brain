@@ -130,6 +130,75 @@ def cmd_create_list(args: argparse.Namespace) -> None:
     print(f"List ID: {list_id}")
 
 
+def cmd_campaign_list(args: argparse.Namespace) -> None:
+    """Create a HubSpot list from campaign criteria."""
+    service = OutreachService()
+
+    print(f"\nCreating campaign list...")
+    print(f"  Campaign Type: {args.campaign_type}")
+    print(f"  Vertical: {args.vertical or 'All'}")
+    print(f"  Persona: {args.persona or 'All'}")
+    print(f"  Limit: {args.limit}")
+
+    result = service.create_campaign_list_from_filters(
+        name=args.name,
+        campaign_type=args.campaign_type,
+        vertical=args.vertical,
+        persona=args.persona,
+        limit=args.limit,
+    )
+
+    if result.get("error"):
+        print(f"\nError: {result['error']}")
+        sys.exit(1)
+
+    list_id = result.get("listId") or result.get("id")
+    count = result.get("contact_count", 0)
+
+    print(f"\n✓ Created list '{args.name}'")
+    print(f"  Contacts: {count}")
+    print(f"  List ID: {list_id}")
+    print(f"\nView in HubSpot: https://app.hubspot.com/contacts/lists/{list_id}")
+
+
+def cmd_recommend(args: argparse.Namespace) -> None:
+    """Recommend best segments for a campaign type."""
+    # Persona scores from HubSpot data
+    personas = [
+        {"id": "coo_ops", "label": "COO/VP Ops", "replyRate": 0.60, "conversionScore": 7.2, "priority": 1},
+        {"id": "cfo", "label": "CFO/Finance", "replyRate": 0.50, "conversionScore": 9.3, "priority": 2},
+        {"id": "cto", "label": "CTO/VP Engineering", "replyRate": 0.35, "conversionScore": 11.7, "priority": 3},
+        {"id": "ceo", "label": "CEO/Founder", "replyRate": 0.29, "conversionScore": 5.8, "priority": 4},
+        {"id": "vp_ops", "label": "VP/Director Ops", "replyRate": 0.33, "conversionScore": 8.1, "priority": 5},
+    ]
+
+    # Calculate combined score
+    for p in personas:
+        p["score"] = (p["replyRate"] * 40) + (min(p["conversionScore"] * 8, 100) * 0.4) + ((6 - p["priority"]) / 5 * 20)
+
+    # Sort by score
+    personas.sort(key=lambda x: -x["score"])
+
+    print(f"\n{'='*60}")
+    print(f"RECOMMENDED SEGMENTS FOR: {args.campaign_type.upper().replace('_', ' ')}")
+    print(f"{'='*60}")
+
+    print("\nTop Personas (by response likelihood):\n")
+    for i, p in enumerate(personas[:3], 1):
+        print(f"  {i}. {p['label']}")
+        print(f"     Reply Rate: {p['replyRate']*100:.0f}% | Conversion: {p['conversionScore']:.1f}x | Score: {p['score']:.0f}/100")
+        print()
+
+    # Generate CLI command
+    best = personas[0]
+    print(f"\nQuick Create Command:")
+    print(f"  python -m outreach_intel.cli campaign-list \\")
+    print(f"    --campaign-type {args.campaign_type} \\")
+    print(f"    --persona {best['id']} \\")
+    print(f"    --limit 100 \\")
+    print(f'    "Campaign - {best["label"]} - {args.campaign_type.replace("_", " ").title()}"')
+
+
 def main(argv: Optional[list[str]] = None) -> None:
     """Main CLI entry point."""
     parser = argparse.ArgumentParser(
@@ -194,6 +263,43 @@ def main(argv: Optional[list[str]] = None) -> None:
         "-l", "--limit", type=int, default=50, help="Number of contacts"
     )
     list_parser.set_defaults(func=cmd_create_list)
+
+    # Campaign list command (with persona/vertical filters)
+    campaign_parser = subparsers.add_parser(
+        "campaign-list", help="Create HubSpot list from campaign criteria"
+    )
+    campaign_parser.add_argument(
+        "name", help="Name for the new list"
+    )
+    campaign_parser.add_argument(
+        "-t", "--campaign-type",
+        choices=["closed_loss", "vertical", "persona", "product", "case_study"],
+        default="closed_loss",
+        help="Campaign type"
+    )
+    campaign_parser.add_argument(
+        "-v", "--vertical", help="Vertical/industry filter"
+    )
+    campaign_parser.add_argument(
+        "-p", "--persona",
+        choices=["coo_ops", "cfo", "cto", "ceo", "vp_ops"],
+        help="Persona filter"
+    )
+    campaign_parser.add_argument(
+        "-l", "--limit", type=int, default=100, help="Number of contacts"
+    )
+    campaign_parser.set_defaults(func=cmd_campaign_list)
+
+    # Recommend command
+    recommend_parser = subparsers.add_parser(
+        "recommend", help="Get recommended segments for a campaign type"
+    )
+    recommend_parser.add_argument(
+        "campaign_type",
+        choices=["closed_loss", "vertical", "persona", "product", "case_study"],
+        help="Campaign type to get recommendations for"
+    )
+    recommend_parser.set_defaults(func=cmd_recommend)
 
     args = parser.parse_args(argv)
 
