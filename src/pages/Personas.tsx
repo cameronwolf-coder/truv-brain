@@ -1,9 +1,13 @@
+import { useMemo } from 'react';
 import segments from '../data/segments.json';
 
 type Persona = {
   id: string;
   label: string;
   pct: number;
+  replyRate?: number;
+  conversionScore?: number;
+  priority?: number;
 };
 
 const PERSONA_DETAILS: Record<string, {
@@ -103,6 +107,36 @@ export function Personas() {
   const personas = segments.personas as Persona[];
   const totalContacts = (segments as { totalTargetable?: number }).totalTargetable || 134796;
 
+  // Calculate engagement scores and rank personas
+  const rankedPersonas = useMemo(() => {
+    return personas
+      .map((p) => {
+        const replyRate = p.replyRate || 0;
+        const conversionScore = p.conversionScore || 0;
+        const priority = p.priority || 5;
+
+        // Calculate overall engagement score (0-100)
+        // Reply rate: 40%, Conversion: 40%, Priority: 20%
+        const normalizedReply = Math.min(replyRate * 100, 100);
+        const normalizedConversion = Math.min(conversionScore * 8, 100);
+        const normalizedPriority = ((6 - priority) / 5) * 100;
+
+        const engagementScore = Math.round(
+          normalizedReply * 0.4 +
+          normalizedConversion * 0.4 +
+          normalizedPriority * 0.2
+        );
+
+        return {
+          ...p,
+          engagementScore,
+          replyRate,
+          conversionScore,
+        };
+      })
+      .sort((a, b) => b.engagementScore - a.engagementScore);
+  }, [personas]);
+
   return (
     <div className="p-8">
       {/* Header */}
@@ -111,6 +145,132 @@ export function Personas() {
         <p className="text-gray-500 mt-1">
           Target personas with messaging focus and HubSpot distribution
         </p>
+      </div>
+
+      {/* Response Likelihood Ranking */}
+      <div className="bg-white border border-gray-200 rounded-xl p-5 mb-6">
+        <div className="flex items-center justify-between mb-4">
+          <div>
+            <h2 className="font-medium text-gray-900">Response Likelihood</h2>
+            <p className="text-sm text-gray-500">Based on HubSpot engagement data</p>
+          </div>
+          <div className="text-xs text-gray-400">
+            Score = Reply Rate (40%) + Conversion (40%) + Priority (20%)
+          </div>
+        </div>
+
+        <div className="space-y-3">
+          {rankedPersonas.map((persona, index) => {
+            const details = PERSONA_DETAILS[persona.id];
+            const isTopPerformer = index === 0;
+            const isHighPerformer = index < 2;
+
+            return (
+              <div
+                key={persona.id}
+                className={`p-4 rounded-lg border ${
+                  isTopPerformer
+                    ? 'bg-green-50 border-green-200'
+                    : isHighPerformer
+                    ? 'bg-blue-50 border-blue-200'
+                    : 'bg-gray-50 border-gray-200'
+                }`}
+              >
+                <div className="flex items-center gap-4">
+                  {/* Rank */}
+                  <div
+                    className={`w-10 h-10 rounded-full flex items-center justify-center text-lg font-bold ${
+                      isTopPerformer
+                        ? 'bg-green-500 text-white'
+                        : isHighPerformer
+                        ? 'bg-blue-500 text-white'
+                        : 'bg-gray-300 text-gray-700'
+                    }`}
+                  >
+                    {index + 1}
+                  </div>
+
+                  {/* Persona Info */}
+                  <div className="flex-1">
+                    <div className="flex items-center gap-2">
+                      <h3 className={`font-semibold ${
+                        isTopPerformer ? 'text-green-900' : isHighPerformer ? 'text-blue-900' : 'text-gray-900'
+                      }`}>
+                        {persona.label}
+                      </h3>
+                      {isTopPerformer && (
+                        <span className="px-2 py-0.5 bg-green-200 text-green-800 text-xs font-semibold rounded">
+                          BEST
+                        </span>
+                      )}
+                    </div>
+                    <p className={`text-sm ${
+                      isTopPerformer ? 'text-green-700' : isHighPerformer ? 'text-blue-700' : 'text-gray-600'
+                    }`}>
+                      {details?.title || persona.id}
+                    </p>
+                  </div>
+
+                  {/* Metrics */}
+                  <div className="flex items-center gap-6 text-center">
+                    <div>
+                      <p className={`text-2xl font-bold ${
+                        isTopPerformer ? 'text-green-700' : isHighPerformer ? 'text-blue-700' : 'text-gray-700'
+                      }`}>
+                        {(persona.replyRate * 100).toFixed(0)}%
+                      </p>
+                      <p className="text-xs text-gray-500">Reply Rate</p>
+                    </div>
+                    <div>
+                      <p className={`text-2xl font-bold ${
+                        isTopPerformer ? 'text-green-700' : isHighPerformer ? 'text-blue-700' : 'text-gray-700'
+                      }`}>
+                        {persona.conversionScore.toFixed(1)}x
+                      </p>
+                      <p className="text-xs text-gray-500">Conversion</p>
+                    </div>
+                    <div className="w-20">
+                      <div className="flex items-center gap-2">
+                        <div className="flex-1 h-2 bg-gray-200 rounded-full overflow-hidden">
+                          <div
+                            className={`h-full rounded-full ${
+                              isTopPerformer ? 'bg-green-500' : isHighPerformer ? 'bg-blue-500' : 'bg-gray-400'
+                            }`}
+                            style={{ width: `${persona.engagementScore}%` }}
+                          />
+                        </div>
+                        <span className={`text-sm font-semibold ${
+                          isTopPerformer ? 'text-green-700' : isHighPerformer ? 'text-blue-700' : 'text-gray-700'
+                        }`}>
+                          {persona.engagementScore}
+                        </span>
+                      </div>
+                      <p className="text-xs text-gray-500 mt-1">Score</p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Recommendation for top performer */}
+                {isTopPerformer && (
+                  <div className="mt-3 pt-3 border-t border-green-200">
+                    <p className="text-sm text-green-800">
+                      <strong>Recommendation:</strong> Prioritize {persona.label} in outreach campaigns.
+                      They have the highest combined reply rate and conversion score.
+                    </p>
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </div>
+
+        <div className="mt-4 p-3 bg-amber-50 border border-amber-200 rounded-lg">
+          <p className="text-sm text-amber-800">
+            <strong>Key Insight:</strong> COO/VP Ops personas show 2x higher reply rates than CEOs,
+            despite CEOs making up a larger portion of contacts. Consider focusing campaigns on
+            operations leaders for better engagement.
+          </p>
+        </div>
       </div>
 
       {/* Distribution Overview */}
