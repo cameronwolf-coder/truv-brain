@@ -47,3 +47,77 @@ export interface CalculationResults {
 }
 
 export type Step = 0 | 1 | 2 | 3;
+
+// ABM Campaign Builder Types
+export interface ROIData {
+  companyName: string;
+  annualSavings: number;
+  savingsPerLoan: number;
+  manualReduction: number;
+  currentCost: number;
+  futureCost: number;
+  fundedLoans: number;
+  truvVOIEs: number;
+  truvVOAs: number;
+  remainingTWNs: number;
+}
+
+export interface HubSpotCompany {
+  id: string;
+  name: string;
+  domain: string;
+  industry: string;
+  contactCount: number;
+}
+
+export interface HubSpotContact {
+  id: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  persona: string;
+  lastOpenDate: string | null;
+  lastClickDate: string | null;
+  lastReplyDate: string | null;
+  openCount: number;
+  clickCount: number;
+  replyCount: number;
+  associatedDeals: AssociatedDeal[];
+}
+
+export interface AssociatedDeal {
+  id: string;
+  name: string;
+  stage: string;
+  amount: number;
+  isClosed: boolean;
+  isWon: boolean;
+}
+
+export interface ScoredContact extends HubSpotContact {
+  championScore: number;
+  recencyScore: number;
+  depthScore: number;
+  dealScore: number;
+  personaScore: number;
+  isChampion: boolean;
+  lastActivityDate: string | null;
+  lastActivityType: string | null;
+}
+
+export interface PersonaGroup {
+  personaId: string;
+  personaLabel: string;
+  contacts: ScoredContact[];
+  selected: boolean;
+}
+
+export interface GeneratedEmail {
+  id: string;
+  type: 'champion' | 'sequence';
+  sequenceNumber?: number;
+  persona?: string;
+  contactName?: string;
+  subject: string;
+  body: string;
+}
