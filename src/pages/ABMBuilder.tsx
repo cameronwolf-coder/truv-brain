@@ -334,35 +334,41 @@ export function ABMBuilder() {
                 {champions.some((c) => c.isChampion) ? 'Champions' : 'Best Bets'} ({champions.length})
               </h2>
               <div className="space-y-3">
-                {champions.map((contact) => (
-                  <div key={contact.id} className="border border-gray-200 rounded-lg p-4">
-                    <div className="flex items-start justify-between">
-                      <div>
-                        <div className="flex items-center gap-2">
-                          <span className="text-yellow-500">★</span>
-                          <span className="font-medium text-gray-900">
-                            {contact.firstName} {contact.lastName}
-                          </span>
+                {champions.map((contact) => {
+                  const displayName = contact.firstName || contact.lastName
+                    ? `${contact.firstName} ${contact.lastName}`.trim()
+                    : contact.email || 'Unknown Contact';
+                  return (
+                    <div key={contact.id} className="border border-gray-200 rounded-lg p-4">
+                      <div className="flex items-start justify-between">
+                        <div>
+                          <div className="flex items-center gap-2">
+                            <span className="text-yellow-500">★</span>
+                            <span className="font-medium text-gray-900">{displayName}</span>
+                          </div>
+                          {contact.jobTitle && (
+                            <p className="text-sm text-gray-600 mt-0.5">{contact.jobTitle}</p>
+                          )}
+                          <p className="text-sm text-gray-500 mt-1">
+                            {PERSONA_LABELS[contact.persona] || contact.persona} • Score: {contact.championScore}
+                          </p>
                         </div>
-                        <p className="text-sm text-gray-500 mt-1">
-                          {PERSONA_LABELS[contact.persona] || contact.persona} • Score: {contact.championScore}
+                      </div>
+                      <div className="mt-2 text-xs text-gray-500 space-y-1">
+                        <p>
+                          {contact.lastActivityType
+                            ? `${contact.lastActivityType.charAt(0).toUpperCase() + contact.lastActivityType.slice(1)} ${formatTimeAgo(contact.lastActivityDate)}`
+                            : 'No recent activity'}
+                        </p>
+                        <p>
+                          {contact.associatedDeals.length > 0
+                            ? `Open deal: ${formatCurrency(contact.associatedDeals[0].amount)}`
+                            : 'No active deals'}
                         </p>
                       </div>
                     </div>
-                    <div className="mt-2 text-xs text-gray-500 space-y-1">
-                      <p>
-                        {contact.lastActivityType
-                          ? `${contact.lastActivityType.charAt(0).toUpperCase() + contact.lastActivityType.slice(1)} ${formatTimeAgo(contact.lastActivityDate)}`
-                          : 'No recent activity'}
-                      </p>
-                      <p>
-                        {contact.associatedDeals.length > 0
-                          ? `Open deal: ${formatCurrency(contact.associatedDeals[0].amount)}`
-                          : 'No active deals'}
-                      </p>
-                    </div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
             </div>
           )}

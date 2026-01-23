@@ -135,31 +135,36 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   }
 
   try {
-    // Search contacts associated with this company
-    const body = {
-      filterGroups: [
-        {
-          filters: [
-            {
-              propertyName: 'associatedcompanyid',
-              operator: 'EQ',
-              value: companyId,
-            },
-          ],
-        },
-      ],
-      properties: CONTACT_PROPERTIES,
-      limit: 100,
+    // Get contacts associated with this company using the associations API
+    const associationsResponse = (await hubspotRequest(
+      'GET',
+      `/crm/v4/objects/companies/${companyId}/associations/contacts`
+    )) as {
+      results?: Array<{ toObjectId: string }>;
     };
 
-    const response = (await hubspotRequest('POST', '/crm/v3/objects/contacts/search', body)) as {
+    const contactIds = (associationsResponse.results || []).map((r) => r.toObjectId);
+
+    if (contactIds.length === 0) {
+      return res.status(200).json({
+        companyId,
+        contactCount: 0,
+        contacts: [],
+      });
+    }
+
+    // Batch read contact details
+    const contactsResponse = (await hubspotRequest('POST', '/crm/v3/objects/contacts/batch/read', {
+      inputs: contactIds.map((id) => ({ id })),
+      properties: CONTACT_PROPERTIES,
+    })) as {
       results?: Array<{
         id: string;
         properties: Record<string, string>;
       }>;
     };
 
-    const contactsRaw = response.results || [];
+    const contactsRaw = contactsResponse.results || [];
 
     // Fetch deals for each contact (in parallel, but limit concurrency)
     const contacts = await Promise.all(

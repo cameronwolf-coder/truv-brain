@@ -75,6 +75,7 @@ export interface HubSpotContact {
   firstName: string;
   lastName: string;
   email: string;
+  jobTitle: string;
   persona: string;
   lastOpenDate: string | null;
   lastClickDate: string | null;
