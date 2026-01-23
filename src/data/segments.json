@@ -1,10 +1,14 @@
 {
   "verticals": [
-    { "id": "mortgage", "label": "Mortgage", "contacts": 2450 },
-    { "id": "consumer", "label": "Consumer Lending", "contacts": 1820 },
-    { "id": "auto", "label": "Auto Lending", "contacts": 980 },
-    { "id": "background", "label": "Background Screening", "contacts": 640 },
-    { "id": "tenant", "label": "Tenant Screening", "contacts": 520 }
+    { "id": "Bank", "label": "Bank", "contacts": 36362 },
+    { "id": "Credit Union", "label": "Credit Union", "contacts": 15244 },
+    { "id": "IMB", "label": "IMB (Independent Mortgage Bank)", "contacts": 6966 },
+    { "id": "Background Screening", "label": "Background Screening", "contacts": 5054 },
+    { "id": "Lending", "label": "Lending", "contacts": 3196 },
+    { "id": "Fintech", "label": "Fintech", "contacts": 2486 },
+    { "id": "Auto Lending", "label": "Auto Lending", "contacts": 1038 },
+    { "id": "Tenant Screening", "label": "Tenant Screening", "contacts": 218 },
+    { "id": "Other", "label": "Other", "contacts": 59447 }
   ],
   "objections": [
     { "id": "price", "label": "Price/Budget", "summary": "budget", "pct": 0.28 },
@@ -14,10 +18,20 @@
     { "id": "no_decision", "label": "No Decision", "summary": "other priorities", "pct": 0.17 }
   ],
   "personas": [
-    { "id": "vp_ops", "label": "VP/Director Ops", "pct": 0.35 },
-    { "id": "cto", "label": "CTO/VP Engineering", "pct": 0.25 },
-    { "id": "cfo", "label": "CFO/Finance", "pct": 0.22 },
-    { "id": "ceo", "label": "CEO/Founder", "pct": 0.18 }
+    { "id": "vp_ops", "label": "VP/Director Ops", "pct": 0.498 },
+    { "id": "ceo", "label": "CEO/Founder", "pct": 0.393 },
+    { "id": "cfo", "label": "CFO/Finance", "pct": 0.059 },
+    { "id": "cto", "label": "CTO/VP Engineering", "pct": 0.050 }
   ],
-  "audienceNote": "Estimates based on HubSpot segment analysis. Excludes: Opportunity, Customer, Live Customer, Indirect Customer, Advocate, Disqualified."
+  "lifecycleStats": {
+    "lead": 74025,
+    "subscriber": 29775,
+    "marketingqualifiedlead": 15978,
+    "salesqualifiedlead": 3583,
+    "churned": 3116,
+    "closed_lost": 3028
+  },
+  "totalTargetable": 134796,
+  "audienceNote": "Live HubSpot data. Excludes: Opportunity, Customer, Live Customer, Indirect Customer, Advocate, Disqualified.",
+  "lastUpdated": "2026-01-23"
 }
