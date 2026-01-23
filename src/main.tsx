@@ -10,6 +10,7 @@ import { Brand } from './pages/Brand';
 import { Campaigns } from './pages/Campaigns';
 import { EmailBuilder } from './pages/EmailBuilder';
 import { ROIGenerator } from './pages/ROIGenerator';
+import { ABMBuilder } from './pages/ABMBuilder';
 import './index.css';
 
 const router = createBrowserRouter([
@@ -48,6 +49,10 @@ const router = createBrowserRouter([
       {
         path: 'roi-generator',
         element: <ROIGenerator />,
+      },
+      {
+        path: 'abm-builder',
+        element: <ABMBuilder />,
       },
     ],
   },
