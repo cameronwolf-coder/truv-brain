@@ -1,0 +1,297 @@
+import { useState, useMemo } from 'react';
+import segments from '../data/segments.json';
+import templates from '../data/templates.json';
+import painPointMapping from '../data/painPointMapping.json';
+import proofPoints from '../data/proofPoints.json';
+
+type ProofPoint = {
+  id: string;
+  customer: string;
+  vertical: string;
+  metrics: { value: string; label: string; type: string }[];
+  quotes: { text: string; author: string; title: string }[];
+};
+
+type ZoneConfig = { placeholder: string; prompt: string };
+
+type Template = {
+  touch: number;
+  day: number;
+  subject: string;
+  body: string;
+  zones: Record<string, ZoneConfig>;
+};
+
+export function EmailBuilder() {
+  const [vertical, setVertical] = useState(segments.verticals[0].id);
+  const [objection, setObjection] = useState(segments.objections[0].id);
+  const [persona, setPersona] = useState(segments.personas[0].id);
+  const [touch, setTouch] = useState(1);
+  const [expandedZone, setExpandedZone] = useState<string | null>(null);
+  const [copied, setCopied] = useState(false);
+
+  // Get relevant proof points for selected segment
+  const relevantProofPointIds = useMemo(() => {
+    const mapping = painPointMapping as Record<string, Record<string, string[]>>;
+    return mapping[objection]?.[vertical] || [];
+  }, [vertical, objection]);
+
+  const relevantProofPoints = useMemo(() => {
+    return (proofPoints as ProofPoint[]).filter((pp) =>
+      relevantProofPointIds.includes(pp.id)
+    );
+  }, [relevantProofPointIds]);
+
+  // Get the best proof point for this segment
+  const bestProofPoint = relevantProofPoints[0];
+
+  // Get selected template
+  const selectedTemplate = (templates.touches as Template[]).find(
+    (t) => t.touch === touch
+  );
+
+  // Get objection summary
+  const objectionSummary =
+    segments.objections.find((o) => o.id === objection)?.summary || objection;
+
+  // Build the email preview
+  const buildEmailPreview = () => {
+    if (!selectedTemplate) return { subject: '', body: '' };
+
+    let subject = selectedTemplate.subject
+      .replace('{{vertical}}', segments.verticals.find((v) => v.id === vertical)?.label.toLowerCase() || vertical);
+
+    let body = selectedTemplate.body
+      .replace('{{objection_summary}}', objectionSummary)
+      .replace('{{proof_company}}', bestProofPoint?.customer || '[Customer]')
+      .replace('{{proof_metric}}', bestProofPoint?.metrics[0]
+        ? `${bestProofPoint.metrics[0].value} ${bestProofPoint.metrics[0].label}`
+        : '[metric]');
+
+    return { subject, body };
+  };
+
+  const { subject, body } = buildEmailPreview();
+
+  const copyAll = async () => {
+    const fullEmail = `Subject: ${subject}\n\n${body}`;
+    await navigator.clipboard.writeText(fullEmail);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
+  const copyPrompt = async (prompt: string) => {
+    await navigator.clipboard.writeText(prompt);
+  };
+
+  // Render body with clickable zones
+  const renderBody = () => {
+    if (!selectedTemplate) return null;
+
+    const parts = body.split(/({{clay\.[^}]+}})/g);
+
+    return parts.map((part, index) => {
+      const zoneMatch = part.match(/{{clay\.([^}]+)}}/);
+      if (zoneMatch) {
+        const zoneName = zoneMatch[1];
+        const zoneKey = zoneName.replace('clay.', '');
+        const zoneConfig = selectedTemplate.zones[zoneKey];
+        const isExpanded = expandedZone === zoneKey;
+
+        return (
+          <span key={index} className="inline">
+            <button
+              onClick={() => setExpandedZone(isExpanded ? null : zoneKey)}
+              className="inline-flex items-center gap-1 px-2 py-0.5 bg-amber-100 text-amber-800 rounded text-sm font-mono hover:bg-amber-200 transition-colors"
+            >
+              {part}
+              <span className="text-amber-600 text-xs">?</span>
+            </button>
+            {isExpanded && zoneConfig && (
+              <div className="block my-2 p-3 bg-amber-50 border border-amber-200 rounded-lg text-sm">
+                <div className="flex items-start justify-between gap-2">
+                  <div>
+                    <p className="font-medium text-amber-900 mb-1">Clay Prompt:</p>
+                    <p className="text-amber-800">{zoneConfig.prompt}</p>
+                  </div>
+                  <button
+                    onClick={() => copyPrompt(zoneConfig.prompt)}
+                    className="px-2 py-1 text-xs bg-amber-200 hover:bg-amber-300 text-amber-900 rounded transition-colors whitespace-nowrap"
+                  >
+                    Copy
+                  </button>
+                </div>
+              </div>
+            )}
+          </span>
+        );
+      }
+      return <span key={index}>{part}</span>;
+    });
+  };
+
+  return (
+    <div className="p-8">
+      {/* Header */}
+      <div className="mb-6">
+        <h1 className="text-2xl font-semibold text-gray-900">Email Builder</h1>
+        <p className="text-gray-500 mt-1">
+          Generate segment-specific email templates for Clay
+        </p>
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        {/* Left: Selectors */}
+        <div>
+          {/* Step 1: Segment */}
+          <div className="bg-white border border-gray-200 rounded-xl p-5 mb-4">
+            <h2 className="font-medium text-gray-900 mb-4">
+              Step 1: Select Segment
+            </h2>
+            <div className="space-y-3">
+              <div>
+                <label className="block text-sm text-gray-600 mb-1">
+                  Vertical
+                </label>
+                <select
+                  value={vertical}
+                  onChange={(e) => setVertical(e.target.value)}
+                  className="w-full px-3 py-2 bg-white border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                >
+                  {segments.verticals.map((v) => (
+                    <option key={v.id} value={v.id}>
+                      {v.label}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <div>
+                <label className="block text-sm text-gray-600 mb-1">
+                  Objection
+                </label>
+                <select
+                  value={objection}
+                  onChange={(e) => setObjection(e.target.value)}
+                  className="w-full px-3 py-2 bg-white border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                >
+                  {segments.objections.map((o) => (
+                    <option key={o.id} value={o.id}>
+                      {o.label}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <div>
+                <label className="block text-sm text-gray-600 mb-1">
+                  Persona
+                </label>
+                <select
+                  value={persona}
+                  onChange={(e) => setPersona(e.target.value)}
+                  className="w-full px-3 py-2 bg-white border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                >
+                  {segments.personas.map((p) => (
+                    <option key={p.id} value={p.id}>
+                      {p.label}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
+          </div>
+
+          {/* Step 2: Touch */}
+          <div className="bg-white border border-gray-200 rounded-xl p-5 mb-4">
+            <h2 className="font-medium text-gray-900 mb-4">
+              Step 2: Select Touch
+            </h2>
+            <div className="flex gap-2">
+              {(templates.touches as Template[]).map((t) => (
+                <button
+                  key={t.touch}
+                  onClick={() => setTouch(t.touch)}
+                  className={`flex-1 px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+                    touch === t.touch
+                      ? 'bg-blue-600 text-white'
+                      : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                  }`}
+                >
+                  Touch {t.touch}
+                  <span className="block text-xs opacity-75">Day {t.day}</span>
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Matched Proof Points */}
+          <div className="bg-white border border-gray-200 rounded-xl p-5">
+            <h2 className="font-medium text-gray-900 mb-3">
+              Matched Proof Points
+            </h2>
+            {relevantProofPoints.length > 0 ? (
+              <div className="space-y-2">
+                {relevantProofPoints.map((pp) => (
+                  <div
+                    key={pp.id}
+                    className="p-3 bg-gray-50 rounded-lg text-sm"
+                  >
+                    <p className="font-medium text-gray-900">{pp.customer}</p>
+                    <p className="text-gray-600">
+                      {pp.metrics.map((m) => `${m.value} ${m.label}`).join(' · ')}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <p className="text-sm text-gray-500">
+                No specific proof points for this segment. Use general Truv stats.
+              </p>
+            )}
+          </div>
+        </div>
+
+        {/* Right: Preview */}
+        <div>
+          <div className="bg-white border border-gray-200 rounded-xl p-5 sticky top-8">
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="font-medium text-gray-900">Preview</h2>
+              <button
+                onClick={copyAll}
+                className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-lg transition-colors"
+              >
+                {copied ? 'Copied!' : 'Copy All'}
+              </button>
+            </div>
+
+            {/* Subject */}
+            <div className="mb-4">
+              <label className="block text-xs text-gray-500 mb-1">Subject</label>
+              <p className="text-gray-900 font-medium">{subject}</p>
+            </div>
+
+            {/* Body */}
+            <div>
+              <label className="block text-xs text-gray-500 mb-1">Body</label>
+              <div className="text-gray-700 whitespace-pre-wrap leading-relaxed">
+                {renderBody()}
+              </div>
+            </div>
+
+            {/* Tip */}
+            <div className="mt-4 p-3 bg-blue-50 rounded-lg">
+              <p className="text-sm text-blue-800">
+                <strong>Tip:</strong> Click any{' '}
+                <span className="px-1 py-0.5 bg-amber-100 text-amber-800 rounded font-mono text-xs">
+                  {'{{clay.zone}}'}
+                </span>{' '}
+                to see the Clay prompt suggestion.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}

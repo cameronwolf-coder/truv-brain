@@ -1,0 +1,37 @@
+{
+  "price": {
+    "mortgage": ["amerisave", "crosscountry", "mortgageright", "compass", "mig", "revolution", "thelender", "orion"],
+    "consumer": ["hfs"],
+    "auto": ["turbopass"],
+    "background": [],
+    "tenant": []
+  },
+  "timing": {
+    "mortgage": ["crosscountry", "firstcontinental", "nftydoor"],
+    "consumer": ["piedmont"],
+    "auto": [],
+    "background": [],
+    "tenant": []
+  },
+  "competitor": {
+    "mortgage": ["amerisave", "mortgageright", "afcu"],
+    "consumer": ["hfs"],
+    "auto": [],
+    "background": [],
+    "tenant": []
+  },
+  "bandwidth": {
+    "mortgage": ["firstcontinental", "crosscountry", "nftydoor"],
+    "consumer": ["piedmont"],
+    "auto": [],
+    "background": [],
+    "tenant": []
+  },
+  "no_decision": {
+    "mortgage": ["crosscountry", "compass", "orion"],
+    "consumer": ["hfs", "b9"],
+    "auto": ["turbopass"],
+    "background": [],
+    "tenant": []
+  }
+}
