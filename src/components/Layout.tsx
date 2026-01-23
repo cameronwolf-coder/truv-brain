@@ -125,16 +125,19 @@ export function Layout() {
           </p>
           <ul className="space-y-1">
             <li>
-              <a
-                href="https://roi-calc-internal-gamma.vercel.app"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-100 transition-colors"
+              <NavLink
+                to="/roi-generator"
+                className={({ isActive }) =>
+                  `flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
+                    isActive
+                      ? 'bg-blue-50 text-blue-700'
+                      : 'text-gray-700 hover:bg-gray-100'
+                  }`
+                }
               >
                 <span className="text-lg">🧮</span>
-                ROI Calculator
-                <span className="text-xs text-gray-400 ml-auto">↗</span>
-              </a>
+                ROI Generator
+              </NavLink>
             </li>
             <li>
               <a
