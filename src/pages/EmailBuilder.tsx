@@ -22,7 +22,16 @@ type Template = {
   zones: Record<string, ZoneConfig>;
 };
 
+type CampaignType = 'closed_loss' | 'vertical' | 'persona';
+
+const campaignTypes = [
+  { id: 'closed_loss' as const, label: 'Closed Loss Re-engagement', description: 'Target contacts by objection reason' },
+  { id: 'vertical' as const, label: 'Vertical Campaign', description: 'Target an entire industry segment' },
+  { id: 'persona' as const, label: 'Persona Campaign', description: 'Target by job role across verticals' },
+];
+
 export function EmailBuilder() {
+  const [campaignType, setCampaignType] = useState<CampaignType>('closed_loss');
   const [vertical, setVertical] = useState(segments.verticals[0].id);
   const [objection, setObjection] = useState(segments.objections[0].id);
   const [persona, setPersona] = useState(segments.personas[0].id);
@@ -54,16 +63,25 @@ export function EmailBuilder() {
   const objectionSummary =
     segments.objections.find((o) => o.id === objection)?.summary || objection;
 
-  // Calculate estimated audience size
+  // Calculate estimated audience size based on campaign type
   const estimatedAudience = useMemo(() => {
     const verticalData = segments.verticals.find((v) => v.id === vertical) as { contacts: number } | undefined;
     const objectionData = segments.objections.find((o) => o.id === objection) as { pct: number } | undefined;
     const personaData = segments.personas.find((p) => p.id === persona) as { pct: number } | undefined;
 
-    if (!verticalData || !objectionData || !personaData) return 0;
-
-    return Math.round(verticalData.contacts * objectionData.pct * personaData.pct);
-  }, [vertical, objection, persona]);
+    if (campaignType === 'closed_loss') {
+      if (!verticalData || !objectionData || !personaData) return 0;
+      return Math.round(verticalData.contacts * objectionData.pct * personaData.pct);
+    } else if (campaignType === 'vertical') {
+      if (!verticalData || !personaData) return 0;
+      return Math.round(verticalData.contacts * personaData.pct);
+    } else {
+      // persona campaign - across all verticals
+      if (!personaData) return 0;
+      const totalContacts = segments.verticals.reduce((sum, v) => sum + (v as { contacts: number }).contacts, 0);
+      return Math.round(totalContacts * personaData.pct);
+    }
+  }, [vertical, objection, persona, campaignType]);
 
   // Build the email preview
   const buildEmailPreview = () => {
@@ -154,46 +172,80 @@ export function EmailBuilder() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {/* Left: Selectors */}
         <div>
-          {/* Step 1: Segment */}
+          {/* Step 1: Campaign Type */}
           <div className="bg-white border border-gray-200 rounded-xl p-5 mb-4">
             <h2 className="font-medium text-gray-900 mb-4">
-              Step 1: Select Segment
+              Step 1: Campaign Type
+            </h2>
+            <div className="space-y-2">
+              {campaignTypes.map((ct) => (
+                <button
+                  key={ct.id}
+                  onClick={() => setCampaignType(ct.id)}
+                  className={`w-full text-left px-4 py-3 rounded-lg border transition-colors ${
+                    campaignType === ct.id
+                      ? 'border-blue-500 bg-blue-50'
+                      : 'border-gray-200 hover:border-gray-300 hover:bg-gray-50'
+                  }`}
+                >
+                  <p className={`font-medium ${campaignType === ct.id ? 'text-blue-900' : 'text-gray-900'}`}>
+                    {ct.label}
+                  </p>
+                  <p className={`text-sm ${campaignType === ct.id ? 'text-blue-700' : 'text-gray-500'}`}>
+                    {ct.description}
+                  </p>
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Step 2: Segment */}
+          <div className="bg-white border border-gray-200 rounded-xl p-5 mb-4">
+            <h2 className="font-medium text-gray-900 mb-4">
+              Step 2: Select Segment
             </h2>
             <div className="space-y-3">
-              <div>
-                <label className="block text-sm text-gray-600 mb-1">
-                  Vertical
-                </label>
-                <select
-                  value={vertical}
-                  onChange={(e) => setVertical(e.target.value)}
-                  className="w-full px-3 py-2 bg-white border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-                >
-                  {segments.verticals.map((v) => (
-                    <option key={v.id} value={v.id}>
-                      {v.label}
-                    </option>
-                  ))}
-                </select>
-              </div>
+              {/* Vertical - shown for closed_loss and vertical campaigns */}
+              {(campaignType === 'closed_loss' || campaignType === 'vertical') && (
+                <div>
+                  <label className="block text-sm text-gray-600 mb-1">
+                    Vertical
+                  </label>
+                  <select
+                    value={vertical}
+                    onChange={(e) => setVertical(e.target.value)}
+                    className="w-full px-3 py-2 bg-white border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  >
+                    {segments.verticals.map((v) => (
+                      <option key={v.id} value={v.id}>
+                        {v.label}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              )}
 
-              <div>
-                <label className="block text-sm text-gray-600 mb-1">
-                  Objection
-                </label>
-                <select
-                  value={objection}
-                  onChange={(e) => setObjection(e.target.value)}
-                  className="w-full px-3 py-2 bg-white border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-                >
-                  {segments.objections.map((o) => (
-                    <option key={o.id} value={o.id}>
-                      {o.label}
-                    </option>
-                  ))}
-                </select>
-              </div>
+              {/* Objection - only shown for closed_loss campaigns */}
+              {campaignType === 'closed_loss' && (
+                <div>
+                  <label className="block text-sm text-gray-600 mb-1">
+                    Objection
+                  </label>
+                  <select
+                    value={objection}
+                    onChange={(e) => setObjection(e.target.value)}
+                    className="w-full px-3 py-2 bg-white border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  >
+                    {segments.objections.map((o) => (
+                      <option key={o.id} value={o.id}>
+                        {o.label}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              )}
 
+              {/* Persona - shown for all campaign types */}
               <div>
                 <label className="block text-sm text-gray-600 mb-1">
                   Persona
@@ -224,15 +276,23 @@ export function EmailBuilder() {
                 {estimatedAudience.toLocaleString()} <span className="text-lg font-normal">contacts</span>
               </p>
               <p className="text-xs text-blue-700">
-                {segments.verticals.find((v) => v.id === vertical)?.label} × {segments.objections.find((o) => o.id === objection)?.label} × {segments.personas.find((p) => p.id === persona)?.label}
+                {campaignType === 'closed_loss' && (
+                  <>{segments.verticals.find((v) => v.id === vertical)?.label} × {segments.objections.find((o) => o.id === objection)?.label} × {segments.personas.find((p) => p.id === persona)?.label}</>
+                )}
+                {campaignType === 'vertical' && (
+                  <>{segments.verticals.find((v) => v.id === vertical)?.label} × {segments.personas.find((p) => p.id === persona)?.label}</>
+                )}
+                {campaignType === 'persona' && (
+                  <>All verticals × {segments.personas.find((p) => p.id === persona)?.label}</>
+                )}
               </p>
             </div>
           </div>
 
-          {/* Step 2: Touch */}
+          {/* Step 3: Touch */}
           <div className="bg-white border border-gray-200 rounded-xl p-5 mb-4">
             <h2 className="font-medium text-gray-900 mb-4">
-              Step 2: Select Touch
+              Step 3: Select Touch
             </h2>
             <div className="flex gap-2">
               {(templates.touches as Template[]).map((t) => (
