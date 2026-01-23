@@ -74,19 +74,60 @@ See `docs/plans/2026-01-22-cold-email-framework-design.md` for full framework.
 
 ## Brand Knowledge Base
 
-Scraped from truv.com and maintained for consistent messaging.
+Extracted from truv.com using [Firecrawl](https://firecrawl.dev) and maintained for consistent messaging.
+
+### How It Was Built
+
+**Firecrawl Scrape Process:**
+```
+truv.com → Firecrawl Map (discover URLs) → Firecrawl Scrape (extract content) → Structured Docs
+```
+
+**Pages Scraped:**
+| Section | URLs | Output |
+|---------|------|--------|
+| Homepage + Product pages | ~15 pages | Brand voice, messaging pillars, value props |
+| Customer Stories | 15 stories | Metrics, quotes, use cases by vertical |
+| Blog Posts | 10 posts | Product updates, thought leadership |
+| Pricing page | 1 page | Tier structure, feature comparison |
+
+**Extraction Method:**
+1. `firecrawl_map` to discover all indexed URLs on truv.com
+2. `firecrawl_scrape` with `formats: ["markdown"]` for each page
+3. Manual curation into structured documentation
+4. Cross-referenced metrics against multiple sources for accuracy
+
+### Output Documents
 
 | Document | Contents |
 |----------|----------|
-| `docs/brand-guidelines.md` | Voice, tone, colors, typography, messaging pillars |
-| `docs/content-reference.md` | 15 customer stories with metrics and quotes |
+| `docs/brand-guidelines.md` | Voice, tone, colors, typography, messaging pillars, email structure |
+| `docs/content-reference.md` | 15 customer stories with verified metrics and quotes |
 
-**Key Proof Points:**
-- 80% cost savings vs The Work Number (AmeriSave, AFCU, MortgageRight)
-- $10M/year savings (CrossCountry Mortgage)
-- 4-hour support response time (First Continental)
-- 96% US workforce coverage
-- Fannie Mae & Freddie Mac approved
+### Key Proof Points (Verified)
+
+| Metric | Source | Customer |
+|--------|--------|----------|
+| 80% cost savings vs TWN | Customer story | AmeriSave, AFCU, MortgageRight |
+| $10M/year savings | Customer story | CrossCountry Mortgage |
+| 4-hour support response | Customer story | First Continental |
+| 96% US workforce coverage | Product page | — |
+| Fannie Mae & Freddie Mac approved | Product page | — |
+| 65-70% conversion rates | Customer stories | Multiple |
+
+### Refreshing the Content
+
+To update when truv.com content changes:
+```bash
+# Via Firecrawl MCP in Claude Code
+# 1. Map site for new URLs
+firecrawl_map(url="https://truv.com")
+
+# 2. Scrape specific pages
+firecrawl_scrape(url="https://truv.com/customers/new-story", formats=["markdown"])
+
+# 3. Update docs manually with new content
+```
 
 ---
 
@@ -113,6 +154,7 @@ truv-brain/
 
 | Service | Purpose |
 |---------|---------|
+| **Firecrawl** | Website scraping for brand content extraction |
 | **HubSpot** | Contact/deal data, list creation |
 | **Slack** | Notifications to #outreach-intelligence |
 | **Pipedream** | Workflow automation |
