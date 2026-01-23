@@ -1,0 +1,402 @@
+{
+  "lifecycle_data": {
+    "subscriber": {
+      "total": 100,
+      "by_persona": {
+        "ceo": 39,
+        "other": 38,
+        "manager": 10,
+        "other_exec": 7,
+        "cto": 3,
+        "coo": 2,
+        "unknown": 1
+      }
+    },
+    "lead": {
+      "total": 100,
+      "by_persona": {
+        "vp_underwriting": 2,
+        "vp_product": 3,
+        "ceo": 18,
+        "other": 69,
+        "cfo": 1,
+        "manager": 4,
+        "cto": 2,
+        "coo": 1
+      }
+    },
+    "marketingqualifiedlead": {
+      "total": 100,
+      "by_persona": {
+        "other": 3,
+        "ceo": 47,
+        "cto": 23,
+        "manager": 4,
+        "vp_product": 6,
+        "coo": 2,
+        "other_exec": 10,
+        "vp_lending": 1,
+        "vp_underwriting": 3,
+        "cfo": 1
+      }
+    },
+    "salesqualifiedlead": {
+      "total": 100,
+      "by_persona": {
+        "other": 23,
+        "ceo": 37,
+        "manager": 28,
+        "other_exec": 5,
+        "cto": 4,
+        "vp_product": 3
+      }
+    },
+    "opportunity": {
+      "total": 100,
+      "by_persona": {
+        "cfo": 4,
+        "ceo": 45,
+        "other": 16,
+        "coo": 2,
+        "other_exec": 6,
+        "vp_product": 6,
+        "cto": 15,
+        "manager": 6
+      }
+    },
+    "customer": {
+      "total": 100,
+      "by_persona": {
+        "other": 19,
+        "ceo": 32,
+        "vp_product": 3,
+        "manager": 2,
+        "cto": 17,
+        "cfo": 7,
+        "unknown": 1,
+        "vp_underwriting": 2,
+        "other_exec": 11,
+        "coo": 6
+      }
+    }
+  },
+  "deal_data": {
+    "1127227474": {
+      "count": 33,
+      "total_amount": 527119.0,
+      "personas": {
+        "manager": 5,
+        "unknown": 6,
+        "other_exec": 1,
+        "cto": 3,
+        "other": 2,
+        "ceo": 6
+      }
+    },
+    "5e6a0b8d-dbd7-4ede-83f7-985909809bf0": {
+      "count": 2,
+      "total_amount": 115000.0,
+      "personas": {
+        "unknown": 4,
+        "other": 1,
+        "other_exec": 1
+      }
+    },
+    "eb0d2401-d09e-4459-8542-eeb45e94268a": {
+      "count": 8,
+      "total_amount": 1101000.0,
+      "personas": {
+        "unknown": 3,
+        "cto": 5,
+        "other_exec": 4,
+        "ceo": 4,
+        "coo": 1,
+        "manager": 4,
+        "vp_underwriting": 1
+      }
+    },
+    "1092340354": {
+      "count": 4,
+      "total_amount": 2500.0,
+      "personas": {
+        "manager": 5,
+        "ceo": 1,
+        "other": 2,
+        "unknown": 1
+      }
+    },
+    "539d903e-288f-4549-978e-29548945b1f8": {
+      "count": 18,
+      "total_amount": 136014.0,
+      "personas": {
+        "ceo": 3,
+        "cto": 1,
+        "manager": 5,
+        "unknown": 2,
+        "other_exec": 3
+      }
+    },
+    "1092340351": {
+      "count": 4,
+      "total_amount": 1200.0,
+      "personas": {
+        "manager": 1,
+        "other": 1,
+        "ceo": 1,
+        "unknown": 1,
+        "other_exec": 1
+      }
+    },
+    "1092340356": {
+      "count": 6,
+      "total_amount": 2050.0,
+      "personas": {
+        "other": 5,
+        "cto": 1,
+        "unknown": 2,
+        "manager": 1
+      }
+    },
+    "e3785027-7960-4901-9538-115a7a9f756a": {
+      "count": 3,
+      "total_amount": 65000.0,
+      "personas": {
+        "other": 3,
+        "cto": 5,
+        "other_exec": 1,
+        "vp_lending": 1,
+        "coo": 1
+      }
+    },
+    "null": {
+      "count": 3,
+      "total_amount": 0.0,
+      "personas": {}
+    },
+    "979907381": {
+      "count": 2,
+      "total_amount": 2.0,
+      "personas": {
+        "cto": 1,
+        "coo": 1
+      }
+    },
+    "1092340357": {
+      "count": 8,
+      "total_amount": 1904.0,
+      "personas": {
+        "manager": 1,
+        "unknown": 1
+      }
+    },
+    "979907376": {
+      "count": 1,
+      "total_amount": 10000.0,
+      "personas": {
+        "manager": 1
+      }
+    },
+    "1f7d22d8-b3fd-4918-82c3-ddaa9bdb8a52": {
+      "count": 5,
+      "total_amount": 103501.0,
+      "personas": {
+        "manager": 3,
+        "ceo": 7,
+        "other": 2,
+        "unknown": 2
+      }
+    },
+    "1092340352": {
+      "count": 2,
+      "total_amount": 18000.0,
+      "personas": {
+        "other": 1,
+        "manager": 2,
+        "ceo": 2,
+        "cto": 1
+      }
+    },
+    "1043377183": {
+      "count": 1,
+      "total_amount": 77456.0,
+      "personas": {
+        "ceo": 2
+      }
+    }
+  },
+  "engagement_data": {
+    "other": {
+      "count": 9,
+      "opens": 21,
+      "clicks": 0,
+      "replies": 2,
+      "open_rate": 2.33,
+      "click_rate": 0.0,
+      "reply_rate": 0.22
+    },
+    "ceo": {
+      "count": 56,
+      "opens": 311,
+      "clicks": 27,
+      "replies": 16,
+      "open_rate": 5.55,
+      "click_rate": 0.48,
+      "reply_rate": 0.29
+    },
+    "vp_lending": {
+      "count": 1,
+      "opens": 4,
+      "clicks": 1,
+      "replies": 0,
+      "open_rate": 4.0,
+      "click_rate": 1.0,
+      "reply_rate": 0.0
+    },
+    "coo": {
+      "count": 5,
+      "opens": 12,
+      "clicks": 4,
+      "replies": 3,
+      "open_rate": 2.4,
+      "click_rate": 0.8,
+      "reply_rate": 0.6
+    },
+    "other_exec": {
+      "count": 2,
+      "opens": 33,
+      "clicks": 0,
+      "replies": 1,
+      "open_rate": 16.5,
+      "click_rate": 0.0,
+      "reply_rate": 0.5
+    },
+    "cto": {
+      "count": 17,
+      "opens": 56,
+      "clicks": 3,
+      "replies": 6,
+      "open_rate": 3.29,
+      "click_rate": 0.18,
+      "reply_rate": 0.35
+    },
+    "manager": {
+      "count": 3,
+      "opens": 5,
+      "clicks": 0,
+      "replies": 1,
+      "open_rate": 1.67,
+      "click_rate": 0.0,
+      "reply_rate": 0.33
+    },
+    "cfo": {
+      "count": 2,
+      "opens": 9,
+      "clicks": 5,
+      "replies": 1,
+      "open_rate": 4.5,
+      "click_rate": 2.5,
+      "reply_rate": 0.5
+    },
+    "vp_product": {
+      "count": 5,
+      "opens": 39,
+      "clicks": 4,
+      "replies": 1,
+      "open_rate": 7.8,
+      "click_rate": 0.8,
+      "reply_rate": 0.2
+    }
+  },
+  "persona_scores": {
+    "cto": {
+      "conversion_score": 10.5,
+      "engagement_score": 1.181,
+      "deal_score": 0,
+      "sample_size": {
+        "leads": 2,
+        "customers": 17,
+        "engaged_contacts": 17
+      }
+    },
+    "manager": {
+      "conversion_score": 7.5,
+      "engagement_score": 0.633,
+      "deal_score": 0,
+      "sample_size": {
+        "leads": 4,
+        "customers": 2,
+        "engaged_contacts": 3
+      }
+    },
+    "coo": {
+      "conversion_score": 6.0,
+      "engagement_score": 1.2,
+      "deal_score": 0,
+      "sample_size": {
+        "leads": 1,
+        "customers": 6,
+        "engaged_contacts": 5
+      }
+    },
+    "vp_underwriting": {
+      "conversion_score": 1.0,
+      "engagement_score": 0.0,
+      "deal_score": 0,
+      "sample_size": {
+        "leads": 2,
+        "customers": 2,
+        "engaged_contacts": 0
+      }
+    },
+    "vp_product": {
+      "conversion_score": 2.0,
+      "engagement_score": 2.66,
+      "deal_score": 0,
+      "sample_size": {
+        "leads": 3,
+        "customers": 3,
+        "engaged_contacts": 5
+      }
+    },
+    "ceo": {
+      "conversion_score": 3.833,
+      "engagement_score": 1.925,
+      "deal_score": 0,
+      "sample_size": {
+        "leads": 18,
+        "customers": 32,
+        "engaged_contacts": 56
+      }
+    },
+    "other_exec": {
+      "conversion_score": 0,
+      "engagement_score": 5.15,
+      "deal_score": 0,
+      "sample_size": {
+        "leads": 0,
+        "customers": 11,
+        "engaged_contacts": 2
+      }
+    },
+    "cfo": {
+      "conversion_score": 7.0,
+      "engagement_score": 2.3,
+      "deal_score": 0,
+      "sample_size": {
+        "leads": 1,
+        "customers": 7,
+        "engaged_contacts": 2
+      }
+    },
+    "vp_lending": {
+      "conversion_score": 0,
+      "engagement_score": 1.5,
+      "deal_score": 0,
+      "sample_size": {
+        "leads": 0,
+        "customers": 0,
+        "engaged_contacts": 1
+      }
+    }
+  }
+}
