@@ -1,52 +1,250 @@
 {
-  "touches": [
-    {
-      "touch": 1,
-      "day": 1,
-      "subject": "{{vertical}} verification costs eating your margins?",
-      "body": "{{clay.opening_hook}}\n\nWhen we last spoke, {{objection_summary}} was the main blocker. Since then, Truv has helped companies like {{proof_company}} achieve {{proof_metric}}.\n\n{{clay.pain_reference}}\n\nWorth a 15-minute call to see if things have changed on your end?\n\n{{clay.cta}}",
-      "zones": {
-        "opening_hook": {
-          "placeholder": "{{clay.opening_hook}}",
-          "prompt": "Write 1 sentence referencing the contact's company, role, or recent news. Conversational, not salesy. Example: 'Saw {company} just expanded into {state}...' or 'Congrats on the recent {milestone}...'"
-        },
-        "pain_reference": {
-          "placeholder": "{{clay.pain_reference}}",
-          "prompt": "Write 1-2 sentences connecting their role ({jobtitle}) to the pain point: {objection}. Use 'you' language, focus on their daily frustrations. Example for VP Ops + price: 'I imagine you're still fielding questions about verification costs eating into margins...'"
-        },
-        "cta": {
-          "placeholder": "{{clay.cta}}",
-          "prompt": "Write a soft CTA asking for 15 minutes. Match tone to {persona} seniority — casual for VPs ('Quick call?'), more formal for C-suite ('Would welcome the chance to reconnect')."
+  "closed_loss": {
+    "touches": [
+      {
+        "touch": 1,
+        "day": 1,
+        "subject": "{{vertical}} verification costs eating your margins?",
+        "body": "{{clay.opening_hook}}\n\nWhen we last spoke, {{objection_summary}} was the main blocker. Since then, Truv has helped companies like {{proof_company}} achieve {{proof_metric}}.\n\n{{clay.pain_reference}}\n\nWorth a 15-minute call to see if things have changed on your end?\n\n{{clay.cta}}",
+        "zones": {
+          "opening_hook": {
+            "placeholder": "{{clay.opening_hook}}",
+            "prompt": "Write 1 sentence referencing the contact's company, role, or recent news. Conversational, not salesy. Example: 'Saw {company} just expanded into {state}...' or 'Congrats on the recent {milestone}...'"
+          },
+          "pain_reference": {
+            "placeholder": "{{clay.pain_reference}}",
+            "prompt": "Write 1-2 sentences connecting their role ({jobtitle}) to the pain point: {objection}. Use 'you' language, focus on their daily frustrations. Example for VP Ops + price: 'I imagine you're still fielding questions about verification costs eating into margins...'"
+          },
+          "cta": {
+            "placeholder": "{{clay.cta}}",
+            "prompt": "Write a soft CTA asking for 15 minutes. Match tone to {persona} seniority — casual for VPs ('Quick call?'), more formal for C-suite ('Would welcome the chance to reconnect')."
+          }
+        }
+      },
+      {
+        "touch": 2,
+        "day": 4,
+        "subject": "how {{proof_company}} cut verification costs",
+        "body": "Quick follow-up with a specific example.\n\n{{proof_company}} faced similar challenges with {{objection_summary}}. After switching to Truv:\n• {{proof_metric}}\n• Faster turnaround times\n• Better borrower experience\n\n{{clay.pain_reference}}\n\nHappy to share how this could apply to {{company}}.\n\n{{clay.cta}}",
+        "zones": {
+          "pain_reference": {
+            "placeholder": "{{clay.pain_reference}}",
+            "prompt": "Write 1 sentence that ties the proof points above to their specific situation. Reference their vertical or a known pain point. Example: 'Given {company}'s volume, you'd likely see similar results on the cost side.'"
+          },
+          "cta": {
+            "placeholder": "{{clay.cta}}",
+            "prompt": "Write a casual CTA offering to share more details. Keep it low-pressure. Example: 'Happy to walk through the numbers if helpful.' or 'Let me know if you'd like the full case study.'"
+          }
+        }
+      },
+      {
+        "touch": 3,
+        "day": 9,
+        "subject": "closing the loop on truv",
+        "body": "Last note on this.\n\nIf {{objection_summary}} is still the concern, I'd point to {{proof_metric}} that {{proof_company}} achieved.\n\nIf priorities have shifted entirely, no worries — just let me know and I'll update my notes.\n\nEither way, appreciate your time.\n\n{{clay.cta}}",
+        "zones": {
+          "cta": {
+            "placeholder": "{{clay.cta}}",
+            "prompt": "Write a final, respectful CTA that gives them an easy out. Example: 'Either way, appreciate you reading this far.' or 'Just a quick yes/no works — I'll take either.'"
+          }
         }
       }
-    },
-    {
-      "touch": 2,
-      "day": 4,
-      "subject": "how {{proof_company}} saved {{proof_metric}}",
-      "body": "Quick follow-up with a specific example.\n\n{{proof_company}} faced similar challenges — {{proof_context}}. After switching to Truv:\n• {{proof_point_1}}\n• {{proof_point_2}}\n• {{proof_point_3}}\n\n{{clay.pain_reference}}\n\nHappy to share how this could apply to {{company}}.\n\n{{clay.cta}}",
-      "zones": {
-        "pain_reference": {
-          "placeholder": "{{clay.pain_reference}}",
-          "prompt": "Write 1 sentence that ties the proof points above to their specific situation. Reference their vertical or a known pain point. Example: 'Given {company}'s volume, you'd likely see similar results on the cost side.'"
-        },
-        "cta": {
-          "placeholder": "{{clay.cta}}",
-          "prompt": "Write a casual CTA offering to share more details. Keep it low-pressure. Example: 'Happy to walk through the numbers if helpful.' or 'Let me know if you'd like the full case study.'"
+    ]
+  },
+  "vertical": {
+    "touches": [
+      {
+        "touch": 1,
+        "day": 1,
+        "subject": "verification for {{vertical}} lenders",
+        "body": "{{clay.opening_hook}}\n\nTruv works with several {{vertical}} lenders to streamline income and employment verification — typically cutting costs by 50%+ while improving conversion rates.\n\n{{clay.pain_reference}}\n\nWould it make sense to show you what we're doing with other {{vertical}} companies?\n\n{{clay.cta}}",
+        "zones": {
+          "opening_hook": {
+            "placeholder": "{{clay.opening_hook}}",
+            "prompt": "Write 1 sentence referencing the contact's company, role, or recent news in their industry. Example: 'Noticed {company} has been expanding your {{vertical}} lending...' or 'With all the changes in {{vertical}} lately...'"
+          },
+          "pain_reference": {
+            "placeholder": "{{clay.pain_reference}}",
+            "prompt": "Write 1-2 sentences about common {{vertical}} verification challenges. Reference their role. Example: 'I imagine managing verification costs across your {{vertical}} portfolio is a constant balancing act...'"
+          },
+          "cta": {
+            "placeholder": "{{clay.cta}}",
+            "prompt": "Write a soft CTA focused on sharing industry insights. Example: 'Happy to share what's working for other {{vertical}} lenders.' or 'Let me know if you'd like to see the comparison.'"
+          }
+        }
+      },
+      {
+        "touch": 2,
+        "day": 4,
+        "subject": "{{vertical}} verification benchmark data",
+        "body": "Following up with some data you might find useful.\n\nAcross our {{vertical}} customers, we're seeing:\n• 50-80% cost reduction vs traditional methods\n• 70%+ instant verification rates\n• 2-3x faster loan processing\n\n{{clay.pain_reference}}\n\nWant me to send over the full benchmark report?\n\n{{clay.cta}}",
+        "zones": {
+          "pain_reference": {
+            "placeholder": "{{clay.pain_reference}}",
+            "prompt": "Write 1 sentence connecting these benchmarks to their situation. Example: 'Given {company}'s {{vertical}} volume, even a 10% improvement would be significant.'"
+          },
+          "cta": {
+            "placeholder": "{{clay.cta}}",
+            "prompt": "Write a casual CTA offering the benchmark report or a quick call. Example: 'Happy to walk through how these numbers might apply to {company}.'"
+          }
+        }
+      },
+      {
+        "touch": 3,
+        "day": 9,
+        "subject": "quick question about {{vertical}} verification",
+        "body": "Last note on this.\n\nJust curious — is verification something on your radar right now, or is the current setup working well enough?\n\nEither way, happy to be a resource if questions come up down the road.\n\n{{clay.cta}}",
+        "zones": {
+          "cta": {
+            "placeholder": "{{clay.cta}}",
+            "prompt": "Write a low-pressure closing. Example: 'No worries either way — just wanted to check in.' or 'Feel free to reach out whenever timing is better.'"
+          }
         }
       }
-    },
-    {
-      "touch": 3,
-      "day": 9,
-      "subject": "closing the loop on truv",
-      "body": "Last note on this.\n\nIf {{objection_type}} is still the concern, I'd point to {{proof_metric}} that {{proof_company}} achieved.\n\nIf priorities have shifted entirely, no worries — just let me know and I'll update my notes.\n\nEither way, appreciate your time.\n\n{{clay.cta}}",
-      "zones": {
-        "cta": {
-          "placeholder": "{{clay.cta}}",
-          "prompt": "Write a final, respectful CTA that gives them an easy out. Example: 'Either way, appreciate you reading this far.' or 'Just a quick yes/no works — I'll take either.'"
+    ]
+  },
+  "persona": {
+    "touches": [
+      {
+        "touch": 1,
+        "day": 1,
+        "subject": "quick question for {{persona}}s",
+        "body": "{{clay.opening_hook}}\n\nI work with a lot of {{persona}}s in lending, and verification costs keep coming up as a pain point — especially balancing speed, cost, and compliance.\n\n{{clay.pain_reference}}\n\nWould it be helpful to see how other {{persona}}s are handling this?\n\n{{clay.cta}}",
+        "zones": {
+          "opening_hook": {
+            "placeholder": "{{clay.opening_hook}}",
+            "prompt": "Write 1 sentence referencing their role or company. Example: 'Saw you're heading up operations at {company}...' or 'Given your role overseeing {department}...'"
+          },
+          "pain_reference": {
+            "placeholder": "{{clay.pain_reference}}",
+            "prompt": "Write 1-2 sentences about challenges specific to {{persona}} role. Focus on what keeps them up at night. Example for COO: 'I imagine you're juggling cost control with maintaining quality and speed...'"
+          },
+          "cta": {
+            "placeholder": "{{clay.cta}}",
+            "prompt": "Write a CTA that offers peer insights. Example: 'Happy to share what I'm hearing from other {{persona}}s.' or 'Would a 15-minute call be useful?'"
+          }
+        }
+      },
+      {
+        "touch": 2,
+        "day": 4,
+        "subject": "what other {{persona}}s are doing",
+        "body": "Quick follow-up with something I thought you'd find relevant.\n\nMost {{persona}}s I talk to are focused on:\n• Reducing verification costs without sacrificing quality\n• Speeding up loan processing times\n• Improving the borrower experience\n\nTruv helps with all three — we've helped companies achieve {{proof_metric}}.\n\n{{clay.cta}}",
+        "zones": {
+          "cta": {
+            "placeholder": "{{clay.cta}}",
+            "prompt": "Write a CTA offering specifics. Example: 'Want me to share the case study?' or 'Happy to show you what this looks like in practice.'"
+          }
+        }
+      },
+      {
+        "touch": 3,
+        "day": 9,
+        "subject": "still relevant?",
+        "body": "Last note on this.\n\nIs verification optimization something you're thinking about right now, or should I check back in a few months?\n\nEither way, happy to be a resource.\n\n{{clay.cta}}",
+        "zones": {
+          "cta": {
+            "placeholder": "{{clay.cta}}",
+            "prompt": "Write a respectful closing that gives them an easy out. Example: 'Just a quick yes/no works.' or 'No pressure either way.'"
+          }
         }
       }
-    }
-  ]
+    ]
+  },
+  "product": {
+    "touches": [
+      {
+        "touch": 1,
+        "day": 1,
+        "subject": "{{product}} for {{company}}",
+        "body": "{{clay.opening_hook}}\n\nI wanted to reach out about {{product}} — it's helping lenders like {{proof_company}} achieve {{proof_metric}}.\n\n{{clay.pain_reference}}\n\nWould it make sense to show you how {{product}} could work for {{company}}?\n\n{{clay.cta}}",
+        "zones": {
+          "opening_hook": {
+            "placeholder": "{{clay.opening_hook}}",
+            "prompt": "Write 1 sentence connecting to their company or a recent development. Example: 'With {company} growing your lending volume...' or 'Noticed {company} has been focused on improving borrower experience...'"
+          },
+          "pain_reference": {
+            "placeholder": "{{clay.pain_reference}}",
+            "prompt": "Write 1-2 sentences about the problem {{product}} solves. Be specific to their role and company. Example for VOIE: 'Manual income verification is probably eating into your margins and slowing down closings...'"
+          },
+          "cta": {
+            "placeholder": "{{clay.cta}}",
+            "prompt": "Write a CTA focused on showing the product. Example: 'Happy to do a quick demo.' or 'Would 15 minutes to walk through it be useful?'"
+          }
+        }
+      },
+      {
+        "touch": 2,
+        "day": 4,
+        "subject": "{{product}} in action",
+        "body": "Following up with a quick example.\n\n{{proof_company}} implemented {{product}} and saw:\n• {{proof_metric}}\n• Faster processing times\n• Better borrower satisfaction\n\nThe setup is straightforward and most customers are live within a few weeks.\n\n{{clay.cta}}",
+        "zones": {
+          "cta": {
+            "placeholder": "{{clay.cta}}",
+            "prompt": "Write a CTA offering a demo or more info. Example: 'Want me to walk you through how it works?' or 'Happy to share more details on implementation.'"
+          }
+        }
+      },
+      {
+        "touch": 3,
+        "day": 9,
+        "subject": "{{product}} — worth exploring?",
+        "body": "Last note on this.\n\nJust curious if {{product}} is something worth exploring for {{company}}, or if the current setup is working well.\n\nHappy to be a resource whenever timing makes sense.\n\n{{clay.cta}}",
+        "zones": {
+          "cta": {
+            "placeholder": "{{clay.cta}}",
+            "prompt": "Write a low-pressure closing. Example: 'No worries if now isn't the right time.' or 'Feel free to reach out whenever.'"
+          }
+        }
+      }
+    ]
+  },
+  "case_study": {
+    "touches": [
+      {
+        "touch": 1,
+        "day": 1,
+        "subject": "how {{proof_company}} achieved {{proof_metric}}",
+        "body": "{{clay.opening_hook}}\n\nWanted to share a recent case study that might be relevant for {{company}}.\n\n{{proof_company}} ({{vertical}}) was dealing with high verification costs and slow turnaround times. After implementing Truv, they achieved:\n• {{proof_metric}}\n• Faster loan processing\n• Better borrower experience\n\n{{clay.pain_reference}}\n\nWould it be helpful to see the full case study?\n\n{{clay.cta}}",
+        "zones": {
+          "opening_hook": {
+            "placeholder": "{{clay.opening_hook}}",
+            "prompt": "Write 1 sentence connecting to their company or situation. Example: 'Given {company}'s focus on {{vertical}}...' or 'Thought this might resonate given what you're working on...'"
+          },
+          "pain_reference": {
+            "placeholder": "{{clay.pain_reference}}",
+            "prompt": "Write 1 sentence connecting the case study results to their situation. Example: 'Given {company}'s volume, you'd probably see similar results.' or 'The {{vertical}} challenges they faced sound familiar to what I've heard from others in the space.'"
+          },
+          "cta": {
+            "placeholder": "{{clay.cta}}",
+            "prompt": "Write a CTA offering the full case study or a call. Example: 'Happy to send over the full write-up.' or 'Would a quick call to walk through it be useful?'"
+          }
+        }
+      },
+      {
+        "touch": 2,
+        "day": 4,
+        "subject": "{{proof_company}}'s results in detail",
+        "body": "Following up on the {{proof_company}} case study.\n\nA few more details that stood out:\n• {{proof_metric}}\n• Implementation took just a few weeks\n• ROI was positive within the first quarter\n\n{{quote}}\n\nWant me to connect you with their team, or share more about how this could work for {{company}}?\n\n{{clay.cta}}",
+        "zones": {
+          "cta": {
+            "placeholder": "{{clay.cta}}",
+            "prompt": "Write a CTA offering a reference call or more details. Example: 'Happy to set up a call with their team if that would help.' or 'Let me know if you'd like to dig into the numbers.'"
+          }
+        }
+      },
+      {
+        "touch": 3,
+        "day": 9,
+        "subject": "{{proof_company}} case study — helpful?",
+        "body": "Last note on the {{proof_company}} story.\n\nIf the timing isn't right, totally understand. But if you'd like the full case study or want to hear directly from their team, happy to make that happen.\n\nEither way, appreciate you taking a look.\n\n{{clay.cta}}",
+        "zones": {
+          "cta": {
+            "placeholder": "{{clay.cta}}",
+            "prompt": "Write a respectful closing. Example: 'Just let me know either way.' or 'No pressure — happy to reconnect whenever makes sense.'"
+          }
+        }
+      }
+    ]
+  }
 }
