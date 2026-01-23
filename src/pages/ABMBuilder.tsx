@@ -5,65 +5,17 @@ import { scoreContacts, getChampions, groupByPersona } from '../utils/championSc
 import { generateAllEmails } from '../utils/abmEmailGenerator';
 import segments from '../data/segments.json';
 
-// Mock HubSpot data for now - will be replaced with actual API calls
-const MOCK_CONTACTS: HubSpotContact[] = [
-  {
-    id: '1',
-    firstName: 'John',
-    lastName: 'Smith',
-    email: 'john.smith@example.com',
-    persona: 'cfo',
-    lastOpenDate: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000).toISOString(),
-    lastClickDate: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString(),
-    lastReplyDate: null,
-    openCount: 8,
-    clickCount: 3,
-    replyCount: 0,
-    associatedDeals: [{ id: 'd1', name: 'Enterprise Deal', stage: 'negotiation', amount: 50000, isClosed: false, isWon: false }],
-  },
-  {
-    id: '2',
-    firstName: 'Sarah',
-    lastName: 'Chen',
-    email: 'sarah.chen@example.com',
-    persona: 'coo',
-    lastOpenDate: new Date(Date.now() - 14 * 24 * 60 * 60 * 1000).toISOString(),
-    lastClickDate: null,
-    lastReplyDate: new Date(Date.now() - 10 * 24 * 60 * 60 * 1000).toISOString(),
-    openCount: 5,
-    clickCount: 1,
-    replyCount: 1,
-    associatedDeals: [],
-  },
-  {
-    id: '3',
-    firstName: 'Mike',
-    lastName: 'Johnson',
-    email: 'mike.johnson@example.com',
-    persona: 'cto',
-    lastOpenDate: new Date(Date.now() - 45 * 24 * 60 * 60 * 1000).toISOString(),
-    lastClickDate: null,
-    lastReplyDate: null,
-    openCount: 2,
-    clickCount: 0,
-    replyCount: 0,
-    associatedDeals: [],
-  },
-  {
-    id: '4',
-    firstName: 'Lisa',
-    lastName: 'Wong',
-    email: 'lisa.wong@example.com',
-    persona: 'manager',
-    lastOpenDate: null,
-    lastClickDate: null,
-    lastReplyDate: null,
-    openCount: 0,
-    clickCount: 0,
-    replyCount: 0,
-    associatedDeals: [],
-  },
-];
+// API base URL - uses relative path for Vercel deployment
+const API_BASE = '/api';
+
+interface HubSpotCompany {
+  id: string;
+  name: string;
+  domain: string;
+  industry: string;
+  employees: string;
+  location: string;
+}
 
 const PERSONA_LABELS: Record<string, string> = {};
 segments.personas.forEach((p) => {
@@ -93,6 +45,9 @@ export function ABMBuilder() {
 
   const [companySearch, setCompanySearch] = useState(roiData?.companyName || '');
   const [isSearching, setIsSearching] = useState(false);
+  const [searchResults, setSearchResults] = useState<HubSpotCompany[]>([]);
+  const [selectedCompany, setSelectedCompany] = useState<HubSpotCompany | null>(null);
+  const [isLoadingContacts, setIsLoadingContacts] = useState(false);
   const [contacts, setContacts] = useState<ScoredContact[]>([]);
   const [selectedPersonas, setSelectedPersonas] = useState<Set<string>>(new Set());
   const [generatedEmails, setGeneratedEmails] = useState<GeneratedEmail[]>([]);
@@ -100,6 +55,8 @@ export function ABMBuilder() {
   const [copiedId, setCopiedId] = useState<string | null>(null);
   const [isCreatingList, setIsCreatingList] = useState(false);
   const [listCreated, setListCreated] = useState(false);
+  const [listId, setListId] = useState<number | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
   // Redirect if no ROI data
   useEffect(() => {
@@ -126,11 +83,56 @@ export function ABMBuilder() {
   }, [scoredContacts, selectedPersonas]);
 
   const handleSearch = async () => {
+    if (!companySearch.trim()) return;
+
     setIsSearching(true);
-    // Simulate API call - will be replaced with actual HubSpot integration
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-    setContacts(scoreContacts(MOCK_CONTACTS));
-    setIsSearching(false);
+    setError(null);
+    setSearchResults([]);
+    setSelectedCompany(null);
+    setContacts([]);
+
+    try {
+      const response = await fetch(`${API_BASE}/search-company?q=${encodeURIComponent(companySearch)}`);
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to search companies');
+      }
+
+      setSearchResults(data.companies || []);
+
+      // Auto-select if only one result
+      if (data.companies?.length === 1) {
+        handleSelectCompany(data.companies[0]);
+      }
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Search failed');
+    } finally {
+      setIsSearching(false);
+    }
+  };
+
+  const handleSelectCompany = async (company: HubSpotCompany) => {
+    setSelectedCompany(company);
+    setSearchResults([]);
+    setIsLoadingContacts(true);
+    setError(null);
+
+    try {
+      const response = await fetch(`${API_BASE}/company-contacts?companyId=${company.id}`);
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to fetch contacts');
+      }
+
+      const hubspotContacts: HubSpotContact[] = data.contacts || [];
+      setContacts(scoreContacts(hubspotContacts));
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Failed to load contacts');
+    } finally {
+      setIsLoadingContacts(false);
+    }
   };
 
   const togglePersona = (personaId: string) => {
@@ -175,11 +177,43 @@ export function ABMBuilder() {
   };
 
   const handleCreateList = async () => {
+    if (!selectedCompany || selectedPersonas.size === 0) return;
+
     setIsCreatingList(true);
-    // Simulate API call - will be replaced with actual HubSpot integration
-    await new Promise((resolve) => setTimeout(resolve, 1500));
-    setIsCreatingList(false);
-    setListCreated(true);
+    setError(null);
+
+    // Get all contacts from selected personas
+    const selectedContacts = personaGroups
+      .filter((g) => selectedPersonas.has(g.personaId))
+      .flatMap((g) => g.contacts);
+
+    const contactIds = selectedContacts.map((c) => c.id);
+    const listName = `ABM - ${selectedCompany.name} - ${new Date().toLocaleDateString()}`;
+
+    try {
+      const response = await fetch(`${API_BASE}/abm-create-list`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          listName,
+          contactIds,
+          companyName: selectedCompany.name,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to create list');
+      }
+
+      setListId(data.listId);
+      setListCreated(true);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Failed to create list');
+    } finally {
+      setIsCreatingList(false);
+    }
   };
 
   if (!roiData) return null;
@@ -206,6 +240,13 @@ export function ABMBuilder() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Left Column */}
         <div className="space-y-6">
+          {/* Error Display */}
+          {error && (
+            <div className="bg-red-50 border border-red-200 text-red-700 rounded-xl p-4 text-sm">
+              {error}
+            </div>
+          )}
+
           {/* Company Search */}
           <div className="bg-white border border-gray-200 rounded-xl p-5">
             <h2 className="font-medium text-gray-900 mb-4">Company Lookup</h2>
@@ -214,6 +255,7 @@ export function ABMBuilder() {
                 type="text"
                 value={companySearch}
                 onChange={(e) => setCompanySearch(e.target.value)}
+                onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
                 placeholder="Search HubSpot company..."
                 className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
               />
@@ -225,6 +267,61 @@ export function ABMBuilder() {
                 {isSearching ? 'Searching...' : 'Search'}
               </button>
             </div>
+
+            {/* Search Results */}
+            {searchResults.length > 0 && (
+              <div className="mt-3 border border-gray-200 rounded-lg overflow-hidden">
+                {searchResults.map((company) => (
+                  <button
+                    key={company.id}
+                    onClick={() => handleSelectCompany(company)}
+                    className="w-full px-4 py-3 text-left hover:bg-blue-50 border-b border-gray-100 last:border-b-0"
+                  >
+                    <p className="font-medium text-gray-900">{company.name}</p>
+                    <p className="text-sm text-gray-500">
+                      {[company.industry, company.location, company.employees && `${company.employees} employees`]
+                        .filter(Boolean)
+                        .join(' • ')}
+                    </p>
+                  </button>
+                ))}
+              </div>
+            )}
+
+            {/* Selected Company */}
+            {selectedCompany && (
+              <div className="mt-3 bg-blue-50 border border-blue-200 rounded-lg p-3">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="font-medium text-blue-900">{selectedCompany.name}</p>
+                    <p className="text-sm text-blue-700">
+                      {[selectedCompany.industry, selectedCompany.location].filter(Boolean).join(' • ')}
+                    </p>
+                  </div>
+                  <button
+                    onClick={() => {
+                      setSelectedCompany(null);
+                      setContacts([]);
+                      setSearchResults([]);
+                    }}
+                    className="text-blue-600 hover:text-blue-800"
+                  >
+                    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            )}
+
+            {/* Loading Contacts */}
+            {isLoadingContacts && (
+              <div className="mt-3 text-center py-4">
+                <div className="inline-block w-6 h-6 border-2 border-blue-600 border-t-transparent rounded-full animate-spin" />
+                <p className="text-sm text-gray-500 mt-2">Loading contacts...</p>
+              </div>
+            )}
+
             <p className="text-xs text-gray-500 mt-2">
               Search for the company in HubSpot to fetch contacts
             </p>
@@ -317,29 +414,44 @@ export function ABMBuilder() {
                   </svg>
                   Generate Emails
                 </button>
-                <button
-                  onClick={handleCreateList}
-                  disabled={selectedPersonas.size === 0 || isCreatingList || listCreated}
-                  className="w-full py-3 px-4 bg-white border-2 border-blue-600 text-blue-600 rounded-lg font-medium hover:bg-blue-50 disabled:border-gray-300 disabled:text-gray-400 disabled:cursor-not-allowed flex items-center justify-center gap-2"
-                >
-                  {isCreatingList ? (
-                    'Creating List...'
-                  ) : listCreated ? (
-                    <>
-                      <svg className="w-5 h-5 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                      </svg>
-                      List Created!
-                    </>
-                  ) : (
-                    <>
-                      <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
-                      </svg>
-                      Create HubSpot List
-                    </>
-                  )}
-                </button>
+                {listCreated ? (
+                  <div className="w-full py-3 px-4 bg-green-50 border-2 border-green-500 text-green-700 rounded-lg font-medium flex items-center justify-center gap-2">
+                    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                    </svg>
+                    List Created!
+                    {listId && (
+                      <a
+                        href={`https://app.hubspot.com/contacts/lists/${listId}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="ml-2 underline hover:no-underline"
+                      >
+                        Open in HubSpot
+                      </a>
+                    )}
+                  </div>
+                ) : (
+                  <button
+                    onClick={handleCreateList}
+                    disabled={selectedPersonas.size === 0 || isCreatingList || !selectedCompany}
+                    className="w-full py-3 px-4 bg-white border-2 border-blue-600 text-blue-600 rounded-lg font-medium hover:bg-blue-50 disabled:border-gray-300 disabled:text-gray-400 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                  >
+                    {isCreatingList ? (
+                      <>
+                        <div className="w-5 h-5 border-2 border-blue-600 border-t-transparent rounded-full animate-spin" />
+                        Creating List...
+                      </>
+                    ) : (
+                      <>
+                        <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                        </svg>
+                        Create HubSpot List
+                      </>
+                    )}
+                  </button>
+                )}
               </div>
               {selectedPersonas.size === 0 && (
                 <p className="text-xs text-gray-500 mt-2 text-center">Select at least one persona to continue</p>
