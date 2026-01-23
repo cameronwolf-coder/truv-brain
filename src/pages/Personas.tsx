@@ -457,16 +457,17 @@ export function Personas() {
                         <div className={`p-4 rounded-lg ${
                           isTopPerformer ? 'bg-green-100/50' : isHighPerformer ? 'bg-blue-100/50' : 'bg-white'
                         }`}>
-                          <h4 className={`text-sm font-semibold mb-3 ${
+                          <h4 className={`text-sm font-semibold mb-1 ${
                             isTopPerformer ? 'text-green-900' : isHighPerformer ? 'text-blue-900' : 'text-gray-900'
                           }`}>
-                            Response Metrics
+                            Email Engagement
                           </h4>
+                          <p className="text-xs text-gray-500 mb-3">From HubSpot email tracking</p>
                           {metrics.engagement ? (
                             <div className="space-y-2">
                               <div className="flex justify-between text-sm">
-                                <span className="text-gray-600">Sample Size</span>
-                                <span className="font-medium">{metrics.engagement.count} contacts</span>
+                                <span className="text-gray-600">Contacts Tracked</span>
+                                <span className="font-medium">{metrics.engagement.count.toLocaleString()}</span>
                               </div>
                               <div className="flex justify-between text-sm">
                                 <span className="text-gray-600">Total Opens</span>
@@ -482,12 +483,12 @@ export function Personas() {
                               </div>
                               <div className="pt-2 mt-2 border-t border-gray-200">
                                 <div className="flex justify-between text-sm">
-                                  <span className="text-gray-600">Open Rate</span>
-                                  <span className="font-medium">{metrics.engagement.open_rate.toFixed(1)}x</span>
+                                  <span className="text-gray-600">Avg Opens/Contact</span>
+                                  <span className="font-medium">{metrics.engagement.open_rate.toFixed(1)}</span>
                                 </div>
                                 <div className="flex justify-between text-sm">
-                                  <span className="text-gray-600">Click Rate</span>
-                                  <span className="font-medium">{(metrics.engagement.click_rate * 100).toFixed(0)}%</span>
+                                  <span className="text-gray-600">Avg Clicks/Contact</span>
+                                  <span className="font-medium">{metrics.engagement.click_rate.toFixed(2)}</span>
                                 </div>
                               </div>
                             </div>
@@ -500,20 +501,21 @@ export function Personas() {
                         <div className={`p-4 rounded-lg ${
                           isTopPerformer ? 'bg-green-100/50' : isHighPerformer ? 'bg-blue-100/50' : 'bg-white'
                         }`}>
-                          <h4 className={`text-sm font-semibold mb-3 ${
+                          <h4 className={`text-sm font-semibold mb-1 ${
                             isTopPerformer ? 'text-green-900' : isHighPerformer ? 'text-blue-900' : 'text-gray-900'
                           }`}>
-                            Deal Involvement
+                            Deal Presence
                           </h4>
+                          <p className="text-xs text-gray-500 mb-3">All HubSpot deals (any stage)</p>
                           {metrics.deals ? (
                             <div className="space-y-2">
                               <div className="flex justify-between text-sm">
-                                <span className="text-gray-600">Deals Involved In</span>
+                                <span className="text-gray-600">Deal Stages Present</span>
                                 <span className="font-medium">{metrics.deals.dealCount}</span>
                               </div>
                               <div className="flex justify-between text-sm">
-                                <span className="text-gray-600">Contacts in Deals</span>
-                                <span className="font-medium">{metrics.deals.contactsInDeals}</span>
+                                <span className="text-gray-600">Total Contacts</span>
+                                <span className="font-medium">{metrics.deals.contactsInDeals.toLocaleString()}</span>
                               </div>
                               <div className="flex justify-between text-sm">
                                 <span className="text-gray-600">Total Deal Value</span>
@@ -539,64 +541,83 @@ export function Personas() {
                         <div className={`p-4 rounded-lg ${
                           isTopPerformer ? 'bg-green-100/50' : isHighPerformer ? 'bg-blue-100/50' : 'bg-white'
                         }`}>
-                          <h4 className={`text-sm font-semibold mb-3 ${
+                          <h4 className={`text-sm font-semibold mb-1 ${
                             isTopPerformer ? 'text-green-900' : isHighPerformer ? 'text-blue-900' : 'text-gray-900'
                           }`}>
-                            Funnel Progression
+                            Lifecycle Stage Counts
                           </h4>
-                          <div className="space-y-2">
-                            <div className="flex items-center gap-2">
-                              <div className="w-16 text-xs text-gray-500">Lead</div>
-                              <div className="flex-1 h-4 bg-gray-200 rounded-full overflow-hidden">
-                                <div
-                                  className="h-full bg-gray-400 rounded-full"
-                                  style={{ width: `${Math.min(metrics.funnel.lead, 100)}%` }}
-                                />
-                              </div>
-                              <div className="w-8 text-xs font-medium text-right">{metrics.funnel.lead}%</div>
-                            </div>
-                            <div className="flex items-center gap-2">
-                              <div className="w-16 text-xs text-gray-500">MQL</div>
-                              <div className="flex-1 h-4 bg-gray-200 rounded-full overflow-hidden">
-                                <div
-                                  className="h-full bg-blue-400 rounded-full"
-                                  style={{ width: `${Math.min(metrics.funnel.mql, 100)}%` }}
-                                />
-                              </div>
-                              <div className="w-8 text-xs font-medium text-right">{metrics.funnel.mql}%</div>
-                            </div>
-                            <div className="flex items-center gap-2">
-                              <div className="w-16 text-xs text-gray-500">SQL</div>
-                              <div className="flex-1 h-4 bg-gray-200 rounded-full overflow-hidden">
-                                <div
-                                  className="h-full bg-purple-400 rounded-full"
-                                  style={{ width: `${Math.min(metrics.funnel.sql, 100)}%` }}
-                                />
-                              </div>
-                              <div className="w-8 text-xs font-medium text-right">{metrics.funnel.sql}%</div>
-                            </div>
-                            <div className="flex items-center gap-2">
-                              <div className="w-16 text-xs text-gray-500">Opp</div>
-                              <div className="flex-1 h-4 bg-gray-200 rounded-full overflow-hidden">
-                                <div
-                                  className="h-full bg-orange-400 rounded-full"
-                                  style={{ width: `${Math.min(metrics.funnel.opportunity, 100)}%` }}
-                                />
-                              </div>
-                              <div className="w-8 text-xs font-medium text-right">{metrics.funnel.opportunity}%</div>
-                            </div>
-                            <div className="flex items-center gap-2">
-                              <div className="w-16 text-xs text-gray-500">Customer</div>
-                              <div className="flex-1 h-4 bg-gray-200 rounded-full overflow-hidden">
-                                <div
-                                  className="h-full bg-green-500 rounded-full"
-                                  style={{ width: `${Math.min(metrics.funnel.customer, 100)}%` }}
-                                />
-                              </div>
-                              <div className="w-8 text-xs font-medium text-right">{metrics.funnel.customer}%</div>
-                            </div>
-                          </div>
-                          <p className="text-xs text-gray-500 mt-2">% of total in each stage</p>
+                          <p className="text-xs text-gray-500 mb-3">How many at each stage</p>
+                          {(() => {
+                            const maxCount = Math.max(
+                              metrics.funnel.lead,
+                              metrics.funnel.mql,
+                              metrics.funnel.sql,
+                              metrics.funnel.opportunity,
+                              metrics.funnel.customer
+                            );
+                            const conversionRate = metrics.funnel.lead > 0
+                              ? ((metrics.funnel.customer / metrics.funnel.lead) * 100).toFixed(1)
+                              : '0';
+                            return (
+                              <>
+                                <div className="space-y-2">
+                                  <div className="flex items-center gap-2">
+                                    <div className="w-16 text-xs text-gray-500">Lead</div>
+                                    <div className="flex-1 h-4 bg-gray-200 rounded-full overflow-hidden">
+                                      <div
+                                        className="h-full bg-gray-400 rounded-full"
+                                        style={{ width: `${(metrics.funnel.lead / maxCount) * 100}%` }}
+                                      />
+                                    </div>
+                                    <div className="w-12 text-xs font-medium text-right">{metrics.funnel.lead.toLocaleString()}</div>
+                                  </div>
+                                  <div className="flex items-center gap-2">
+                                    <div className="w-16 text-xs text-gray-500">MQL</div>
+                                    <div className="flex-1 h-4 bg-gray-200 rounded-full overflow-hidden">
+                                      <div
+                                        className="h-full bg-blue-400 rounded-full"
+                                        style={{ width: `${(metrics.funnel.mql / maxCount) * 100}%` }}
+                                      />
+                                    </div>
+                                    <div className="w-12 text-xs font-medium text-right">{metrics.funnel.mql.toLocaleString()}</div>
+                                  </div>
+                                  <div className="flex items-center gap-2">
+                                    <div className="w-16 text-xs text-gray-500">SQL</div>
+                                    <div className="flex-1 h-4 bg-gray-200 rounded-full overflow-hidden">
+                                      <div
+                                        className="h-full bg-purple-400 rounded-full"
+                                        style={{ width: `${(metrics.funnel.sql / maxCount) * 100}%` }}
+                                      />
+                                    </div>
+                                    <div className="w-12 text-xs font-medium text-right">{metrics.funnel.sql.toLocaleString()}</div>
+                                  </div>
+                                  <div className="flex items-center gap-2">
+                                    <div className="w-16 text-xs text-gray-500">Opp</div>
+                                    <div className="flex-1 h-4 bg-gray-200 rounded-full overflow-hidden">
+                                      <div
+                                        className="h-full bg-orange-400 rounded-full"
+                                        style={{ width: `${(metrics.funnel.opportunity / maxCount) * 100}%` }}
+                                      />
+                                    </div>
+                                    <div className="w-12 text-xs font-medium text-right">{metrics.funnel.opportunity.toLocaleString()}</div>
+                                  </div>
+                                  <div className="flex items-center gap-2">
+                                    <div className="w-16 text-xs text-gray-500">Customer</div>
+                                    <div className="flex-1 h-4 bg-gray-200 rounded-full overflow-hidden">
+                                      <div
+                                        className="h-full bg-green-500 rounded-full"
+                                        style={{ width: `${(metrics.funnel.customer / maxCount) * 100}%` }}
+                                      />
+                                    </div>
+                                    <div className="w-12 text-xs font-medium text-right">{metrics.funnel.customer.toLocaleString()}</div>
+                                  </div>
+                                </div>
+                                <p className="text-xs text-gray-500 mt-2">
+                                  Lead → Customer: <span className="font-semibold text-green-600">{conversionRate}%</span> conversion
+                                </p>
+                              </>
+                            );
+                          })()}
                         </div>
                       </div>
 
