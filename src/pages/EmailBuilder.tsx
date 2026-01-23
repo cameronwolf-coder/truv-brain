@@ -22,12 +22,13 @@ type Template = {
   zones: Record<string, ZoneConfig>;
 };
 
-type CampaignType = 'closed_loss' | 'vertical' | 'persona';
+type CampaignType = 'closed_loss' | 'vertical' | 'persona' | 'product';
 
 const campaignTypes = [
   { id: 'closed_loss' as const, label: 'Closed Loss Re-engagement', description: 'Target contacts by objection reason' },
   { id: 'vertical' as const, label: 'Vertical Campaign', description: 'Target an entire industry segment' },
   { id: 'persona' as const, label: 'Persona Campaign', description: 'Target by job role across verticals' },
+  { id: 'product' as const, label: 'Product-Led Campaign', description: 'Target by product interest' },
 ];
 
 export function EmailBuilder() {
@@ -35,6 +36,7 @@ export function EmailBuilder() {
   const [vertical, setVertical] = useState(segments.verticals[0].id);
   const [objection, setObjection] = useState(segments.objections[0].id);
   const [persona, setPersona] = useState(segments.personas[0].id);
+  const [product, setProduct] = useState((segments as { products: { id: string }[] }).products[0].id);
   const [touch, setTouch] = useState(1);
   const [expandedZone, setExpandedZone] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
@@ -68,6 +70,8 @@ export function EmailBuilder() {
     const verticalData = segments.verticals.find((v) => v.id === vertical) as { contacts: number } | undefined;
     const objectionData = segments.objections.find((o) => o.id === objection) as { pct: number } | undefined;
     const personaData = segments.personas.find((p) => p.id === persona) as { pct: number } | undefined;
+    const productData = (segments as { products: { id: string; pct: number }[] }).products.find((p) => p.id === product);
+    const totalContacts = segments.verticals.reduce((sum, v) => sum + (v as { contacts: number }).contacts, 0);
 
     if (campaignType === 'closed_loss') {
       if (!verticalData || !objectionData || !personaData) return 0;
@@ -75,13 +79,15 @@ export function EmailBuilder() {
     } else if (campaignType === 'vertical') {
       if (!verticalData || !personaData) return 0;
       return Math.round(verticalData.contacts * personaData.pct);
-    } else {
-      // persona campaign - across all verticals
+    } else if (campaignType === 'persona') {
       if (!personaData) return 0;
-      const totalContacts = segments.verticals.reduce((sum, v) => sum + (v as { contacts: number }).contacts, 0);
       return Math.round(totalContacts * personaData.pct);
+    } else {
+      // product campaign - by product interest across all contacts
+      if (!productData || !personaData) return 0;
+      return Math.round(totalContacts * productData.pct * personaData.pct);
     }
-  }, [vertical, objection, persona, campaignType]);
+  }, [vertical, objection, persona, product, campaignType]);
 
   // Build the email preview
   const buildEmailPreview = () => {
@@ -245,6 +251,26 @@ export function EmailBuilder() {
                 </div>
               )}
 
+              {/* Product - only shown for product campaigns */}
+              {campaignType === 'product' && (
+                <div>
+                  <label className="block text-sm text-gray-600 mb-1">
+                    Product
+                  </label>
+                  <select
+                    value={product}
+                    onChange={(e) => setProduct(e.target.value)}
+                    className="w-full px-3 py-2 bg-white border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  >
+                    {(segments as { products: { id: string; label: string }[] }).products.map((p) => (
+                      <option key={p.id} value={p.id}>
+                        {p.label}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              )}
+
               {/* Persona - shown for all campaign types */}
               <div>
                 <label className="block text-sm text-gray-600 mb-1">
@@ -284,6 +310,9 @@ export function EmailBuilder() {
                 )}
                 {campaignType === 'persona' && (
                   <>All verticals × {segments.personas.find((p) => p.id === persona)?.label}</>
+                )}
+                {campaignType === 'product' && (
+                  <>{(segments as { products: { id: string; label: string }[] }).products.find((p) => p.id === product)?.label} × {segments.personas.find((p) => p.id === persona)?.label}</>
                 )}
               </p>
             </div>

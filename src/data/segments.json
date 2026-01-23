@@ -1,4 +1,12 @@
 {
+  "products": [
+    { "id": "voie", "label": "Income & Employment (VOIE)", "pct": 0.45 },
+    { "id": "voa", "label": "Assets Verification (VOA)", "pct": 0.25 },
+    { "id": "dds", "label": "Direct Deposit Switch", "pct": 0.15 },
+    { "id": "vohi", "label": "Insurance Verification (VOHI)", "pct": 0.08 },
+    { "id": "paycheck_pay", "label": "Paycheck Pay", "pct": 0.05 },
+    { "id": "insights", "label": "Scoring Attributes", "pct": 0.02 }
+  ],
   "verticals": [
     { "id": "Bank", "label": "Bank", "contacts": 36362 },
     { "id": "Credit Union", "label": "Credit Union", "contacts": 15244 },
