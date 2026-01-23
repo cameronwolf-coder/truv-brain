@@ -4,6 +4,7 @@
     "customer": "CrossCountry Mortgage",
     "vertical": "mortgage",
     "metricTypes": ["cost", "conversion", "speed"],
+    "caseStudyUrl": "https://truv.com/customer-stories/crosscountry-mortgage",
     "metrics": [
       { "value": "$10M/year", "label": "savings", "type": "cost" },
       { "value": "70%+", "label": "post-login conversion", "type": "conversion" },
@@ -23,6 +24,7 @@
     "customer": "First Continental Mortgage",
     "vertical": "mortgage",
     "metricTypes": ["cost", "conversion", "support"],
+    "caseStudyUrl": "https://truv.com/customer-stories/first-continental-mortgage",
     "metrics": [
       { "value": "$745K/year", "label": "savings", "type": "cost" },
       { "value": "64%", "label": "VOIE conversion", "type": "conversion" },
@@ -42,6 +44,7 @@
     "customer": "AmeriSave",
     "vertical": "mortgage",
     "metricTypes": ["cost", "conversion"],
+    "caseStudyUrl": "https://truv.com/customer-stories/how-amerisave-achieved-long-term-gains-beyond-verification-optimization",
     "metrics": [
       { "value": "80%", "label": "savings vs TWN", "type": "cost" },
       { "value": "3/5", "label": "loans receive R&W relief", "type": "conversion" },
@@ -61,6 +64,7 @@
     "customer": "America First Credit Union",
     "vertical": "credit_union",
     "metricTypes": ["cost", "conversion"],
+    "caseStudyUrl": "https://truv.com/customer-stories/afcu-achieves-65-conversion-and-saves-80-on-verifications",
     "metrics": [
       { "value": "80%", "label": "savings on verifications", "type": "cost" },
       { "value": "65%", "label": "mortgage conversion", "type": "conversion" },
@@ -79,6 +83,7 @@
     "customer": "MortgageRight",
     "vertical": "mortgage",
     "metricTypes": ["cost", "conversion"],
+    "caseStudyUrl": "https://truv.com/customer-stories/mortgageright-reduces-dependency-on-the-incumbent-by-40",
     "metrics": [
       { "value": "80%", "label": "cost savings", "type": "cost" },
       { "value": "50%+", "label": "conversion", "type": "conversion" },
@@ -97,6 +102,7 @@
     "customer": "The Lender",
     "vertical": "mortgage",
     "metricTypes": ["cost", "conversion"],
+    "caseStudyUrl": "https://truv.com/customer-stories/the-lender-saves-75-on-verifications",
     "metrics": [
       { "value": "75%", "label": "cost savings", "type": "cost" },
       { "value": "+10%", "label": "conversion improvement", "type": "conversion" }
@@ -114,6 +120,7 @@
     "customer": "Mortgage Investors Group",
     "vertical": "mortgage",
     "metricTypes": ["cost", "conversion"],
+    "caseStudyUrl": "https://truv.com/customer-stories/mig",
     "metrics": [
       { "value": "100%", "label": "conversion improvement (25% to 50%)", "type": "conversion" },
       { "value": "50-80%", "label": "savings", "type": "cost" },
@@ -132,6 +139,7 @@
     "customer": "Revolution Mortgage",
     "vertical": "mortgage",
     "metricTypes": ["cost"],
+    "caseStudyUrl": "https://truv.com/customer-stories/revolution-mortgage-saves-70-on-verifications",
     "metrics": [
       { "value": "+5 BPS", "label": "savings per loan", "type": "cost" },
       { "value": "8 to 3", "label": "basis points reduction", "type": "cost" }
@@ -149,6 +157,7 @@
     "customer": "Compass Mortgage",
     "vertical": "mortgage",
     "metricTypes": ["cost", "speed"],
+    "caseStudyUrl": "https://truv.com/customer-stories/compass-mortgage",
     "metrics": [
       { "value": "60-80%", "label": "savings on verifications", "type": "cost" },
       { "value": "Faster", "label": "loan approvals", "type": "speed" }
@@ -166,6 +175,7 @@
     "customer": "TurboPass",
     "vertical": "auto",
     "metricTypes": ["speed", "fraud", "cost"],
+    "caseStudyUrl": "https://truv.com/customer-stories/turbopass",
     "metrics": [
       { "value": "1.5 days", "label": "faster funding", "type": "speed" },
       { "value": "38%", "label": "reduction in loan losses", "type": "fraud" },
@@ -184,6 +194,7 @@
     "customer": "NFTYDoor",
     "vertical": "mortgage",
     "metricTypes": ["conversion", "speed"],
+    "caseStudyUrl": "https://truv.com/customer-stories/nftydoor",
     "metrics": [
       { "value": "45%+", "label": "VOIE conversion", "type": "conversion" },
       { "value": "70%", "label": "VOHI conversion", "type": "conversion" },
@@ -202,6 +213,7 @@
     "customer": "Piedmont Payment Services",
     "vertical": "payments",
     "metricTypes": ["support", "speed"],
+    "caseStudyUrl": "https://truv.com/customer-stories/piedmont-transforms-payment-services",
     "metrics": [
       { "value": "80%", "label": "reduction in support calls", "type": "support" },
       { "value": "90%", "label": "reduction in manual tasks", "type": "speed" },
@@ -221,6 +233,7 @@
     "customer": "B9",
     "vertical": "fintech",
     "metricTypes": ["conversion"],
+    "caseStudyUrl": "https://truv.com/customer-stories/b9-realizes-12-improvement-in-total-funds-deposited",
     "metrics": [
       { "value": "+12%", "label": "improvement in funds deposited", "type": "conversion" }
     ],
@@ -237,6 +250,7 @@
     "customer": "Orion Lending",
     "vertical": "mortgage",
     "metricTypes": ["cost", "conversion", "speed"],
+    "caseStudyUrl": "https://truv.com/customer-stories/orion-lending",
     "metrics": [
       { "value": "$300K", "label": "annual savings", "type": "cost" },
       { "value": "32%", "label": "end-to-end conversion", "type": "conversion" },
@@ -256,6 +270,7 @@
     "customer": "HFS Financial",
     "vertical": "consumer",
     "metricTypes": ["fraud", "conversion", "speed"],
+    "caseStudyUrl": "https://truv.com/customer-stories/hfs-financial",
     "metrics": [
       { "value": "+15%", "label": "fraud detection improvement", "type": "fraud" },
       { "value": "65%", "label": "conversion rate", "type": "conversion" },
