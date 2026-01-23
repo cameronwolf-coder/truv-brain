@@ -60,6 +60,29 @@ const VERTICALS = segments.verticals.map((v) => ({
   count: v.contacts,
 }));
 
+// Lifecycle stages with labels and counts
+const LIFECYCLE_STAGES = [
+  { id: 'lead', label: 'Lead', count: segments.lifecycleStats.lead },
+  { id: 'subscriber', label: 'Subscriber', count: segments.lifecycleStats.subscriber },
+  { id: 'marketingqualifiedlead', label: 'MQL', count: segments.lifecycleStats.marketingqualifiedlead },
+  { id: 'salesqualifiedlead', label: 'SQL', count: segments.lifecycleStats.salesqualifiedlead },
+  { id: 'churned', label: 'Churned', count: segments.lifecycleStats.churned },
+  { id: 'closed_lost', label: 'Closed Lost', count: segments.lifecycleStats.closed_lost },
+];
+
+// Stages to always exclude (customers, disqualified, etc.)
+const ALWAYS_EXCLUDED_STAGES = [
+  'opportunity',
+  'customer',
+  '268636562', // Live Customer
+  '268636561', // Indirect Customer
+  '268798101', // Advocate
+  '268636560', // Disqualified
+];
+
+// Default included stages (all marketable stages)
+const DEFAULT_INCLUDED_STAGES = ['lead', 'subscriber', 'marketingqualifiedlead', 'salesqualifiedlead'];
+
 type Step = 'vertical' | 'company' | 'persona' | 'review';
 
 // Match persona from job title
@@ -83,8 +106,9 @@ export function ListBuilder() {
   // Current step in the filter pipeline
   const [currentStep, setCurrentStep] = useState<Step>('vertical');
 
-  // Step 1: Vertical filter
+  // Step 1: Vertical and lifecycle stage filters
   const [selectedVerticals, setSelectedVerticals] = useState<string[]>([]);
+  const [selectedLifecycleStages, setSelectedLifecycleStages] = useState<string[]>(DEFAULT_INCLUDED_STAGES);
 
   // Step 2: Companies (grouped from contacts)
   const [companies, setCompanies] = useState<CompanyGroup[]>([]);
@@ -167,6 +191,13 @@ export function ListBuilder() {
     return breakdown;
   }, [allContactsWithPersona]);
 
+  // Compute excluded stages: always excluded + any unselected stages
+  const excludeStages = useMemo(() => {
+    const allStageIds = LIFECYCLE_STAGES.map((s) => s.id);
+    const unselectedStages = allStageIds.filter((id) => !selectedLifecycleStages.includes(id));
+    return [...ALWAYS_EXCLUDED_STAGES, ...unselectedStages];
+  }, [selectedLifecycleStages]);
+
   // Step 1: Load companies by vertical
   const loadCompanies = useCallback(async () => {
     if (selectedVerticals.length === 0) return;
@@ -181,6 +212,7 @@ export function ListBuilder() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           verticals: selectedVerticals,
+          excludeStages,
           limit: 1000,
         }),
       });
@@ -196,7 +228,7 @@ export function ListBuilder() {
     } finally {
       setIsLoadingCompanies(false);
     }
-  }, [selectedVerticals]);
+  }, [selectedVerticals, excludeStages]);
 
   // Move to persona step
   const goToPersona = () => {
@@ -225,6 +257,13 @@ export function ListBuilder() {
   const toggleVertical = (verticalId: string) => {
     setSelectedVerticals((prev) =>
       prev.includes(verticalId) ? prev.filter((v) => v !== verticalId) : [...prev, verticalId]
+    );
+  };
+
+  // Toggle lifecycle stage selection
+  const toggleLifecycleStage = (stageId: string) => {
+    setSelectedLifecycleStages((prev) =>
+      prev.includes(stageId) ? prev.filter((s) => s !== stageId) : [...prev, stageId]
     );
   };
 
@@ -302,6 +341,7 @@ export function ListBuilder() {
   const handleReset = () => {
     setCurrentStep('vertical');
     setSelectedVerticals([]);
+    setSelectedLifecycleStages(DEFAULT_INCLUDED_STAGES);
     setCompanies([]);
     setSelectedCompanyNames(new Set());
     setEmployeesMin(undefined);
@@ -395,6 +435,14 @@ export function ListBuilder() {
                 : `${selectedVerticals.length} selected`}
           </span>
         </div>
+        <div className="flex items-center justify-between">
+          <span className="text-gray-600">Lifecycle:</span>
+          <span className="font-medium text-gray-900">
+            {selectedLifecycleStages.length === LIFECYCLE_STAGES.length
+              ? 'All stages'
+              : `${selectedLifecycleStages.length} of ${LIFECYCLE_STAGES.length}`}
+          </span>
+        </div>
         {currentStep !== 'vertical' && (
           <div className="flex items-center justify-between">
             <span className="text-gray-600">Companies:</span>
@@ -468,42 +516,80 @@ export function ListBuilder() {
         <div className="bg-white border border-gray-200 rounded-xl p-6">
           <div className="flex items-center justify-between mb-4">
             <div>
-              <h2 className="text-lg font-medium text-gray-900">Step 1: Select Verticals</h2>
+              <h2 className="text-lg font-medium text-gray-900">Step 1: Select Verticals & Lifecycle</h2>
               <p className="text-sm text-gray-500">
-                Choose one or more verticals (industries) to target
+                Choose verticals and lifecycle stages to target
               </p>
             </div>
-            <CountBadge count={selectedVerticals.length} label="selected" />
+            <CountBadge count={selectedVerticals.length} label="verticals" />
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-3 mb-6">
-            {VERTICALS.map((vertical) => {
-              const isSelected = selectedVerticals.includes(vertical.id);
-              return (
-                <button
-                  key={vertical.id}
-                  onClick={() => toggleVertical(vertical.id)}
-                  className={`p-4 text-left rounded-lg border-2 transition-colors ${
-                    isSelected
-                      ? 'border-blue-500 bg-blue-50'
-                      : 'border-gray-200 bg-white hover:border-gray-300'
-                  }`}
-                >
-                  <p className={`font-medium ${isSelected ? 'text-blue-700' : 'text-gray-900'}`}>
-                    {vertical.label}
-                  </p>
-                  <p className="text-sm text-gray-500">
-                    ~{vertical.count.toLocaleString()} contacts
-                  </p>
-                </button>
-              );
-            })}
+          {/* Verticals */}
+          <div className="mb-6">
+            <p className="text-sm font-medium text-gray-700 mb-3">Verticals (Industries)</p>
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+              {VERTICALS.map((vertical) => {
+                const isSelected = selectedVerticals.includes(vertical.id);
+                return (
+                  <button
+                    key={vertical.id}
+                    onClick={() => toggleVertical(vertical.id)}
+                    className={`p-4 text-left rounded-lg border-2 transition-colors ${
+                      isSelected
+                        ? 'border-blue-500 bg-blue-50'
+                        : 'border-gray-200 bg-white hover:border-gray-300'
+                    }`}
+                  >
+                    <p className={`font-medium ${isSelected ? 'text-blue-700' : 'text-gray-900'}`}>
+                      {vertical.label}
+                    </p>
+                    <p className="text-sm text-gray-500">
+                      ~{vertical.count.toLocaleString()} contacts
+                    </p>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Lifecycle Stages */}
+          <div className="mb-6 p-4 bg-gray-50 rounded-lg">
+            <div className="flex items-center justify-between mb-3">
+              <p className="text-sm font-medium text-gray-700">Lifecycle Stages</p>
+              <span className="text-xs text-gray-500">
+                {selectedLifecycleStages.length} of {LIFECYCLE_STAGES.length} selected
+              </span>
+            </div>
+            <div className="flex flex-wrap gap-2">
+              {LIFECYCLE_STAGES.map((stage) => {
+                const isSelected = selectedLifecycleStages.includes(stage.id);
+                return (
+                  <button
+                    key={stage.id}
+                    onClick={() => toggleLifecycleStage(stage.id)}
+                    className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
+                      isSelected
+                        ? 'bg-green-100 text-green-800 border border-green-300'
+                        : 'bg-white text-gray-500 border border-gray-200 hover:border-gray-300'
+                    }`}
+                  >
+                    {stage.label}
+                    <span className="ml-1.5 text-xs opacity-70">
+                      ({stage.count.toLocaleString()})
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+            <p className="text-xs text-gray-500 mt-2">
+              Note: Customers, Opportunities, and Disqualified contacts are always excluded.
+            </p>
           </div>
 
           <div className="flex justify-end">
             <button
               onClick={loadCompanies}
-              disabled={selectedVerticals.length === 0 || isLoadingCompanies}
+              disabled={selectedVerticals.length === 0 || selectedLifecycleStages.length === 0 || isLoadingCompanies}
               className="px-6 py-3 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-300 text-white font-medium rounded-lg transition-colors"
             >
               {isLoadingCompanies ? 'Loading...' : 'Next: Filter Companies'}
@@ -830,7 +916,15 @@ export function ListBuilder() {
                   {selectedVerticals.join(', ')}
                 </p>
                 <p>
-                  <span className="font-medium">2. Companies:</span>{' '}
+                  <span className="font-medium">2. Lifecycle Stages:</span>{' '}
+                  {selectedLifecycleStages.length === LIFECYCLE_STAGES.length
+                    ? 'All marketable stages'
+                    : LIFECYCLE_STAGES.filter((s) => selectedLifecycleStages.includes(s.id))
+                        .map((s) => s.label)
+                        .join(', ')}
+                </p>
+                <p>
+                  <span className="font-medium">3. Companies:</span>{' '}
                   {selectedCompanyNames.size === 0
                     ? `All ${filteredCompanies.length}`
                     : `${selectedCompanyNames.size} of ${filteredCompanies.length}`}
@@ -839,18 +933,17 @@ export function ListBuilder() {
                     : ''}
                 </p>
                 <p>
-                  <span className="font-medium">3. Personas:</span>{' '}
+                  <span className="font-medium">4. Personas:</span>{' '}
                   {selectedPersonas.length === 0
                     ? 'All'
                     : selectedPersonas.map((p) => PERSONA_LABELS[p] || p).join(', ')}
                 </p>
                 <p>
-                  <span className="font-medium">4. Job title required:</span>{' '}
+                  <span className="font-medium">5. Job title required:</span>{' '}
                   {requireTitle ? 'Yes' : 'No'}
                 </p>
-                <p>
-                  <span className="font-medium">5. Excluded stages:</span> Opportunity, Customer,
-                  Disqualified
+                <p className="text-gray-500 text-xs mt-2">
+                  Note: Customers, Opportunities, and Disqualified are always excluded.
                 </p>
               </div>
             </div>
