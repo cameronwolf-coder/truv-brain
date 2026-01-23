@@ -22,13 +22,14 @@ type Template = {
   zones: Record<string, ZoneConfig>;
 };
 
-type CampaignType = 'closed_loss' | 'vertical' | 'persona' | 'product';
+type CampaignType = 'closed_loss' | 'vertical' | 'persona' | 'product' | 'case_study';
 
 const campaignTypes = [
   { id: 'closed_loss' as const, label: 'Closed Loss Re-engagement', description: 'Target contacts by objection reason' },
   { id: 'vertical' as const, label: 'Vertical Campaign', description: 'Target an entire industry segment' },
   { id: 'persona' as const, label: 'Persona Campaign', description: 'Target by job role across verticals' },
   { id: 'product' as const, label: 'Product-Led Campaign', description: 'Target by product interest' },
+  { id: 'case_study' as const, label: 'Case Study Campaign', description: 'Share a specific customer story' },
 ];
 
 export function EmailBuilder() {
@@ -37,6 +38,7 @@ export function EmailBuilder() {
   const [objection, setObjection] = useState(segments.objections[0].id);
   const [persona, setPersona] = useState(segments.personas[0].id);
   const [product, setProduct] = useState((segments as { products: { id: string }[] }).products[0].id);
+  const [caseStudy, setCaseStudy] = useState((proofPoints as ProofPoint[])[0].id);
   const [touch, setTouch] = useState(1);
   const [expandedZone, setExpandedZone] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
@@ -55,6 +57,11 @@ export function EmailBuilder() {
 
   // Get the best proof point for this segment
   const bestProofPoint = relevantProofPoints[0];
+
+  // Get selected case study
+  const selectedCaseStudy = useMemo(() => {
+    return (proofPoints as ProofPoint[]).find((pp) => pp.id === caseStudy);
+  }, [caseStudy]);
 
   // Get selected template
   const selectedTemplate = (templates.touches as Template[]).find(
@@ -82,12 +89,23 @@ export function EmailBuilder() {
     } else if (campaignType === 'persona') {
       if (!personaData) return 0;
       return Math.round(totalContacts * personaData.pct);
-    } else {
+    } else if (campaignType === 'product') {
       // product campaign - by product interest across all contacts
       if (!productData || !personaData) return 0;
       return Math.round(totalContacts * productData.pct * personaData.pct);
+    } else {
+      // case_study campaign - target by vertical matching the case study
+      if (!personaData) return 0;
+      // For case studies, we target all contacts in matching vertical or all if no match
+      const caseStudyVertical = selectedCaseStudy?.vertical;
+      const matchingVertical = segments.verticals.find(
+        (v) => v.id.toLowerCase() === caseStudyVertical?.toLowerCase() ||
+               v.label.toLowerCase().includes(caseStudyVertical?.toLowerCase() || '')
+      ) as { contacts: number } | undefined;
+      const baseContacts = matchingVertical?.contacts || totalContacts;
+      return Math.round(baseContacts * personaData.pct);
     }
-  }, [vertical, objection, persona, product, campaignType]);
+  }, [vertical, objection, persona, product, caseStudy, campaignType, selectedCaseStudy]);
 
   // Build the email preview
   const buildEmailPreview = () => {
@@ -271,6 +289,26 @@ export function EmailBuilder() {
                 </div>
               )}
 
+              {/* Case Study - only shown for case_study campaigns */}
+              {campaignType === 'case_study' && (
+                <div>
+                  <label className="block text-sm text-gray-600 mb-1">
+                    Case Study
+                  </label>
+                  <select
+                    value={caseStudy}
+                    onChange={(e) => setCaseStudy(e.target.value)}
+                    className="w-full px-3 py-2 bg-white border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  >
+                    {(proofPoints as ProofPoint[]).map((pp) => (
+                      <option key={pp.id} value={pp.id}>
+                        {pp.customer}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              )}
+
               {/* Persona - shown for all campaign types */}
               <div>
                 <label className="block text-sm text-gray-600 mb-1">
@@ -314,6 +352,9 @@ export function EmailBuilder() {
                 {campaignType === 'product' && (
                   <>{(segments as { products: { id: string; label: string }[] }).products.find((p) => p.id === product)?.label} × {segments.personas.find((p) => p.id === persona)?.label}</>
                 )}
+                {campaignType === 'case_study' && (
+                  <>{selectedCaseStudy?.customer} ({selectedCaseStudy?.vertical}) × {segments.personas.find((p) => p.id === persona)?.label}</>
+                )}
               </p>
             </div>
           </div>
@@ -341,12 +382,35 @@ export function EmailBuilder() {
             </div>
           </div>
 
-          {/* Matched Proof Points */}
+          {/* Matched Proof Points / Selected Case Study */}
           <div className="bg-white border border-gray-200 rounded-xl p-5">
             <h2 className="font-medium text-gray-900 mb-3">
-              Matched Proof Points
+              {campaignType === 'case_study' ? 'Selected Case Study' : 'Matched Proof Points'}
             </h2>
-            {relevantProofPoints.length > 0 ? (
+            {campaignType === 'case_study' && selectedCaseStudy ? (
+              <div className="space-y-3">
+                <div className="p-4 bg-green-50 border border-green-200 rounded-lg">
+                  <p className="font-semibold text-green-900 text-lg">{selectedCaseStudy.customer}</p>
+                  <p className="text-sm text-green-700 capitalize mb-3">{selectedCaseStudy.vertical}</p>
+                  <div className="grid grid-cols-2 gap-2 mb-3">
+                    {selectedCaseStudy.metrics.map((m, idx) => (
+                      <div key={idx} className="bg-white p-2 rounded border border-green-100">
+                        <p className="text-lg font-bold text-green-800">{m.value}</p>
+                        <p className="text-xs text-green-600">{m.label}</p>
+                      </div>
+                    ))}
+                  </div>
+                  {selectedCaseStudy.quotes[0] && (
+                    <div className="border-t border-green-200 pt-3 mt-3">
+                      <p className="text-sm text-green-800 italic">"{selectedCaseStudy.quotes[0].text}"</p>
+                      <p className="text-xs text-green-600 mt-1">
+                        — {selectedCaseStudy.quotes[0].author}, {selectedCaseStudy.quotes[0].title}
+                      </p>
+                    </div>
+                  )}
+                </div>
+              </div>
+            ) : relevantProofPoints.length > 0 ? (
               <div className="space-y-2">
                 {relevantProofPoints.map((pp) => (
                   <div
