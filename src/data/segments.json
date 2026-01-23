@@ -26,10 +26,11 @@
     { "id": "no_decision", "label": "No Decision", "summary": "other priorities", "pct": 0.17 }
   ],
   "personas": [
-    { "id": "vp_ops", "label": "VP/Director Ops", "pct": 0.498 },
-    { "id": "ceo", "label": "CEO/Founder", "pct": 0.393 },
-    { "id": "cfo", "label": "CFO/Finance", "pct": 0.059 },
-    { "id": "cto", "label": "CTO/VP Engineering", "pct": 0.050 }
+    { "id": "coo_ops", "label": "COO/VP Ops", "pct": 0.15, "replyRate": 0.60, "conversionScore": 7.2, "priority": 1 },
+    { "id": "cfo", "label": "CFO/Finance", "pct": 0.06, "replyRate": 0.50, "conversionScore": 9.3, "priority": 2 },
+    { "id": "cto", "label": "CTO/VP Engineering", "pct": 0.05, "replyRate": 0.35, "conversionScore": 11.7, "priority": 3 },
+    { "id": "ceo", "label": "CEO/Founder", "pct": 0.39, "replyRate": 0.29, "conversionScore": 5.8, "priority": 4 },
+    { "id": "vp_ops", "label": "VP/Director Ops", "pct": 0.35, "replyRate": 0.33, "conversionScore": 8.1, "priority": 5 }
   ],
   "lifecycleStats": {
     "lead": 74025,

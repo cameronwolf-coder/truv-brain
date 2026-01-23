@@ -107,6 +107,48 @@ export function EmailBuilder() {
     }
   }, [vertical, objection, persona, product, caseStudy, campaignType, selectedCaseStudy]);
 
+  // Calculate segment quality score based on persona performance data
+  const segmentQuality = useMemo(() => {
+    const personaData = segments.personas.find((p) => p.id === persona) as {
+      replyRate?: number;
+      conversionScore?: number;
+      priority?: number;
+    } | undefined;
+
+    if (!personaData) return { score: 0, label: 'Unknown', color: 'gray' };
+
+    const replyRate = personaData.replyRate || 0;
+    const conversionScore = personaData.conversionScore || 0;
+    const priority = personaData.priority || 5;
+
+    // Calculate weighted score (0-100)
+    // Reply rate contributes 40%, conversion score 40%, priority 20%
+    const normalizedReply = Math.min(replyRate * 100, 100); // 0-100
+    const normalizedConversion = Math.min(conversionScore * 8, 100); // Scale to 0-100
+    const normalizedPriority = ((6 - priority) / 5) * 100; // Priority 1 = 100, Priority 5 = 20
+
+    const score = Math.round(
+      normalizedReply * 0.4 +
+      normalizedConversion * 0.4 +
+      normalizedPriority * 0.2
+    );
+
+    let label = 'Low';
+    let color = 'red';
+    if (score >= 70) {
+      label = 'Excellent';
+      color = 'green';
+    } else if (score >= 50) {
+      label = 'Good';
+      color = 'blue';
+    } else if (score >= 30) {
+      label = 'Fair';
+      color = 'yellow';
+    }
+
+    return { score, label, color, replyRate, conversionScore, priority };
+  }, [persona]);
+
   // Build the email preview
   const buildEmailPreview = () => {
     if (!selectedTemplate) return { subject: '', body: '' };
@@ -356,6 +398,72 @@ export function EmailBuilder() {
                   <>{selectedCaseStudy?.customer} ({selectedCaseStudy?.vertical}) × {segments.personas.find((p) => p.id === persona)?.label}</>
                 )}
               </p>
+            </div>
+
+            {/* Segment Quality Score */}
+            <div className={`mt-3 p-4 rounded-lg border ${
+              segmentQuality.color === 'green' ? 'bg-green-50 border-green-200' :
+              segmentQuality.color === 'blue' ? 'bg-blue-50 border-blue-200' :
+              segmentQuality.color === 'yellow' ? 'bg-yellow-50 border-yellow-200' :
+              'bg-red-50 border-red-200'
+            }`}>
+              <div className="flex items-center justify-between mb-2">
+                <p className={`text-sm font-medium ${
+                  segmentQuality.color === 'green' ? 'text-green-900' :
+                  segmentQuality.color === 'blue' ? 'text-blue-900' :
+                  segmentQuality.color === 'yellow' ? 'text-yellow-900' :
+                  'text-red-900'
+                }`}>Segment Quality</p>
+                <span className={`px-2 py-0.5 rounded text-xs font-semibold ${
+                  segmentQuality.color === 'green' ? 'bg-green-200 text-green-800' :
+                  segmentQuality.color === 'blue' ? 'bg-blue-200 text-blue-800' :
+                  segmentQuality.color === 'yellow' ? 'bg-yellow-200 text-yellow-800' :
+                  'bg-red-200 text-red-800'
+                }`}>
+                  {segmentQuality.label}
+                </span>
+              </div>
+              <div className="flex items-end gap-4">
+                <div>
+                  <p className={`text-3xl font-bold ${
+                    segmentQuality.color === 'green' ? 'text-green-900' :
+                    segmentQuality.color === 'blue' ? 'text-blue-900' :
+                    segmentQuality.color === 'yellow' ? 'text-yellow-900' :
+                    'text-red-900'
+                  }`}>
+                    {segmentQuality.score}<span className="text-lg font-normal">/100</span>
+                  </p>
+                </div>
+                <div className="flex-1 grid grid-cols-3 gap-2 text-xs">
+                  <div className={`${
+                    segmentQuality.color === 'green' ? 'text-green-700' :
+                    segmentQuality.color === 'blue' ? 'text-blue-700' :
+                    segmentQuality.color === 'yellow' ? 'text-yellow-700' :
+                    'text-red-700'
+                  }`}>
+                    <p className="font-semibold">{((segmentQuality.replyRate || 0) * 100).toFixed(0)}%</p>
+                    <p className="opacity-75">Reply Rate</p>
+                  </div>
+                  <div className={`${
+                    segmentQuality.color === 'green' ? 'text-green-700' :
+                    segmentQuality.color === 'blue' ? 'text-blue-700' :
+                    segmentQuality.color === 'yellow' ? 'text-yellow-700' :
+                    'text-red-700'
+                  }`}>
+                    <p className="font-semibold">{(segmentQuality.conversionScore || 0).toFixed(1)}x</p>
+                    <p className="opacity-75">Conversion</p>
+                  </div>
+                  <div className={`${
+                    segmentQuality.color === 'green' ? 'text-green-700' :
+                    segmentQuality.color === 'blue' ? 'text-blue-700' :
+                    segmentQuality.color === 'yellow' ? 'text-yellow-700' :
+                    'text-red-700'
+                  }`}>
+                    <p className="font-semibold">#{segmentQuality.priority || '-'}</p>
+                    <p className="opacity-75">Priority</p>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
 
