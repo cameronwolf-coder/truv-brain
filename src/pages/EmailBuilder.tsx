@@ -226,19 +226,96 @@ export function EmailBuilder() {
     }
   }, [listName, campaignType, persona, vertical, objection, product, estimatedAudience]);
 
-  // Build the email preview
+  // Build the email preview based on campaign type
   const buildEmailPreview = () => {
     if (!selectedTemplate) return { subject: '', body: '' };
 
-    let subject = selectedTemplate.subject
-      .replace('{{vertical}}', segments.verticals.find((v) => v.id === vertical)?.label.toLowerCase() || vertical);
+    let subject = selectedTemplate.subject;
+    let body = selectedTemplate.body;
 
-    let body = selectedTemplate.body
-      .replace('{{objection_summary}}', objectionSummary)
-      .replace('{{proof_company}}', bestProofPoint?.customer || '[Customer]')
-      .replace('{{proof_metric}}', bestProofPoint?.metrics[0]
-        ? `${bestProofPoint.metrics[0].value} ${bestProofPoint.metrics[0].label}`
-        : '[metric]');
+    // Get the proof point source based on campaign type
+    const proofSource = campaignType === 'case_study' ? selectedCaseStudy : bestProofPoint;
+    const proofCompany = proofSource?.customer || '[Customer]';
+    const proofMetric = proofSource?.metrics[0]
+      ? `${proofSource.metrics[0].value} ${proofSource.metrics[0].label}`
+      : '[metric]';
+
+    // Build subject line
+    if (campaignType === 'case_study') {
+      // For case studies, mention the customer story
+      subject = subject
+        .replace('{{vertical}}', selectedCaseStudy?.vertical?.toLowerCase() || 'your')
+        .replace('{{proof_company}}', proofCompany)
+        .replace('{{proof_metric}}', proofMetric);
+    } else if (campaignType === 'product') {
+      // For product campaigns, use product name
+      const productLabel = (segments as { products: { id: string; label: string }[] }).products.find((p) => p.id === product)?.label || product;
+      subject = subject
+        .replace('{{vertical}}', productLabel.toLowerCase())
+        .replace('{{proof_company}}', proofCompany)
+        .replace('{{proof_metric}}', proofMetric);
+    } else if (campaignType === 'persona') {
+      // For persona campaigns, use persona label
+      const personaLabel = segments.personas.find((p) => p.id === persona)?.label || persona;
+      subject = subject
+        .replace('{{vertical}}', personaLabel.toLowerCase())
+        .replace('{{proof_company}}', proofCompany)
+        .replace('{{proof_metric}}', proofMetric);
+    } else {
+      // For closed_loss and vertical campaigns, use vertical
+      subject = subject
+        .replace('{{vertical}}', segments.verticals.find((v) => v.id === vertical)?.label.toLowerCase() || vertical)
+        .replace('{{proof_company}}', proofCompany)
+        .replace('{{proof_metric}}', proofMetric);
+    }
+
+    // Build body based on campaign type
+    if (campaignType === 'case_study') {
+      // For case studies, replace objection references with case study context
+      const caseStudyContext = selectedCaseStudy
+        ? `sharing ${selectedCaseStudy.customer}'s story`
+        : 'sharing a relevant customer story';
+      body = body
+        .replace('{{objection_summary}}', caseStudyContext)
+        .replace('{{objection_type}}', 'finding the right fit')
+        .replace('{{proof_company}}', proofCompany)
+        .replace('{{proof_metric}}', proofMetric)
+        .replace('{{proof_context}}', selectedCaseStudy?.vertical ? `similar challenges in ${selectedCaseStudy.vertical}` : 'similar challenges');
+    } else if (campaignType === 'product') {
+      // For product campaigns
+      const productLabel = (segments as { products: { id: string; label: string }[] }).products.find((p) => p.id === product)?.label || product;
+      body = body
+        .replace('{{objection_summary}}', `exploring ${productLabel}`)
+        .replace('{{objection_type}}', productLabel.toLowerCase())
+        .replace('{{proof_company}}', proofCompany)
+        .replace('{{proof_metric}}', proofMetric)
+        .replace('{{proof_context}}', 'similar needs');
+    } else if (campaignType === 'persona') {
+      // For persona campaigns
+      body = body
+        .replace('{{objection_summary}}', 'evaluating verification solutions')
+        .replace('{{objection_type}}', 'verification efficiency')
+        .replace('{{proof_company}}', proofCompany)
+        .replace('{{proof_metric}}', proofMetric)
+        .replace('{{proof_context}}', 'similar operational challenges');
+    } else if (campaignType === 'vertical') {
+      // For vertical campaigns (without specific objection)
+      const verticalLabel = segments.verticals.find((v) => v.id === vertical)?.label || vertical;
+      body = body
+        .replace('{{objection_summary}}', `exploring verification for ${verticalLabel}`)
+        .replace('{{objection_type}}', 'verification fit')
+        .replace('{{proof_company}}', proofCompany)
+        .replace('{{proof_metric}}', proofMetric)
+        .replace('{{proof_context}}', `challenges in ${verticalLabel}`);
+    } else {
+      // For closed_loss campaigns (default)
+      body = body
+        .replace('{{objection_summary}}', objectionSummary)
+        .replace('{{objection_type}}', objectionSummary)
+        .replace('{{proof_company}}', proofCompany)
+        .replace('{{proof_metric}}', proofMetric)
+        .replace('{{proof_context}}', 'similar challenges');
+    }
 
     return { subject, body };
   };
