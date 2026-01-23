@@ -2,7 +2,7 @@
 
 The central knowledge base and automation hub for Truv's go-to-market teams.
 
-**What's inside:** Brand guidelines, customer proof points, competitive positioning, campaign frameworks, and automation tools — all in one place.
+**What's inside:** Brand guidelines, customer proof points, competitive positioning, campaign frameworks, and automation tools.
 
 ---
 
