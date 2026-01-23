@@ -1,22 +1,23 @@
 {
   "verticals": [
-    { "id": "mortgage", "label": "Mortgage" },
-    { "id": "consumer", "label": "Consumer Lending" },
-    { "id": "auto", "label": "Auto Lending" },
-    { "id": "background", "label": "Background Screening" },
-    { "id": "tenant", "label": "Tenant Screening" }
+    { "id": "mortgage", "label": "Mortgage", "contacts": 2450 },
+    { "id": "consumer", "label": "Consumer Lending", "contacts": 1820 },
+    { "id": "auto", "label": "Auto Lending", "contacts": 980 },
+    { "id": "background", "label": "Background Screening", "contacts": 640 },
+    { "id": "tenant", "label": "Tenant Screening", "contacts": 520 }
   ],
   "objections": [
-    { "id": "price", "label": "Price/Budget", "summary": "budget" },
-    { "id": "timing", "label": "Timing/Roadmap", "summary": "timing" },
-    { "id": "competitor", "label": "Competitor Chosen", "summary": "going with another provider" },
-    { "id": "bandwidth", "label": "Internal Bandwidth", "summary": "internal bandwidth" },
-    { "id": "no_decision", "label": "No Decision", "summary": "other priorities" }
+    { "id": "price", "label": "Price/Budget", "summary": "budget", "pct": 0.28 },
+    { "id": "timing", "label": "Timing/Roadmap", "summary": "timing", "pct": 0.22 },
+    { "id": "competitor", "label": "Competitor Chosen", "summary": "going with another provider", "pct": 0.18 },
+    { "id": "bandwidth", "label": "Internal Bandwidth", "summary": "internal bandwidth", "pct": 0.15 },
+    { "id": "no_decision", "label": "No Decision", "summary": "other priorities", "pct": 0.17 }
   ],
   "personas": [
-    { "id": "vp_ops", "label": "VP/Director Ops" },
-    { "id": "cto", "label": "CTO/VP Engineering" },
-    { "id": "cfo", "label": "CFO/Finance" },
-    { "id": "ceo", "label": "CEO/Founder" }
-  ]
+    { "id": "vp_ops", "label": "VP/Director Ops", "pct": 0.35 },
+    { "id": "cto", "label": "CTO/VP Engineering", "pct": 0.25 },
+    { "id": "cfo", "label": "CFO/Finance", "pct": 0.22 },
+    { "id": "ceo", "label": "CEO/Founder", "pct": 0.18 }
+  ],
+  "audienceNote": "Estimates based on HubSpot segment analysis. Excludes: Opportunity, Customer, Live Customer, Indirect Customer, Advocate, Disqualified."
 }
