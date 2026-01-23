@@ -39,6 +39,44 @@ def classify_persona(job_title: str) -> str:
     return "other"
 
 
+def fetch_all_contacts(client: HubSpotClient, filters: list, properties: list, max_results: int = 10000) -> list:
+    """Fetch contacts matching filters using pagination (up to HubSpot's 10k limit)."""
+    all_contacts = []
+    after = None
+    page = 0
+
+    while len(all_contacts) < max_results:
+        page += 1
+        try:
+            response = client.post(
+                "/crm/v3/objects/contacts/search",
+                json_data={
+                    "filterGroups": [{"filters": filters}],
+                    "properties": properties,
+                    "limit": 100,
+                    **({"after": after} if after else {})
+                }
+            )
+        except Exception as e:
+            # HubSpot returns 400 when exceeding 10k limit
+            print(f"    Reached HubSpot limit at {len(all_contacts)} contacts")
+            break
+
+        contacts = response.get("results", [])
+        all_contacts.extend(contacts)
+
+        paging = response.get("paging", {})
+        after = paging.get("next", {}).get("after")
+
+        if page % 10 == 0:
+            print(f"    Fetched {len(all_contacts)} contacts...")
+
+        if not after or not contacts:
+            break
+
+    return all_contacts
+
+
 def analyze_contacts_by_lifecycle(client: HubSpotClient) -> dict[str, Any]:
     """Analyze contact personas by lifecycle stage."""
 
@@ -56,14 +94,14 @@ def analyze_contacts_by_lifecycle(client: HubSpotClient) -> dict[str, Any]:
     for stage in lifecycle_stages:
         print(f"Fetching {stage} contacts...")
 
-        contacts = client.search_contacts(
+        contacts = fetch_all_contacts(
+            client,
             filters=[{
                 "propertyName": "lifecyclestage",
                 "operator": "EQ",
                 "value": stage
             }],
-            properties=["jobtitle", "email", "firstname", "lastname", "company"],
-            limit=100
+            properties=["jobtitle", "email", "firstname", "lastname", "company"]
         )
 
         persona_counts = defaultdict(int)
@@ -77,26 +115,54 @@ def analyze_contacts_by_lifecycle(client: HubSpotClient) -> dict[str, Any]:
             "total": len(contacts),
             "by_persona": dict(persona_counts)
         }
+        print(f"  Found {len(contacts)} {stage} contacts")
 
     return results
+
+
+def fetch_all_deals(client: HubSpotClient, max_results: int = 10000) -> list:
+    """Fetch deals using pagination (up to HubSpot's 10k limit)."""
+    all_deals = []
+    after = None
+    page = 0
+
+    while len(all_deals) < max_results:
+        page += 1
+        try:
+            response = client.post(
+                "/crm/v3/objects/deals/search",
+                json_data={
+                    "limit": 100,
+                    "properties": ["dealname", "dealstage", "amount", "closedate", "pipeline"],
+                    "sorts": [{"propertyName": "createdate", "direction": "DESCENDING"}],
+                    **({"after": after} if after else {})
+                }
+            )
+        except Exception as e:
+            print(f"    Reached HubSpot limit at {len(all_deals)} deals")
+            break
+
+        deals = response.get("results", [])
+        all_deals.extend(deals)
+
+        paging = response.get("paging", {})
+        after = paging.get("next", {}).get("after")
+
+        if page % 10 == 0:
+            print(f"    Fetched {len(all_deals)} deals...")
+
+        if not after or not deals:
+            break
+
+    return all_deals
 
 
 def analyze_deals_by_stage(client: HubSpotClient) -> dict[str, Any]:
     """Analyze deals and their associated contact personas."""
 
-    print("Fetching deals...")
+    print("Fetching all deals...")
 
-    # Get deals with associations
-    response = client.post(
-        "/crm/v3/objects/deals/search",
-        json_data={
-            "limit": 100,
-            "properties": ["dealname", "dealstage", "amount", "closedate", "pipeline"],
-            "sorts": [{"propertyName": "createdate", "direction": "DESCENDING"}]
-        }
-    )
-
-    deals = response.get("results", [])
+    deals = fetch_all_deals(client)
     print(f"Found {len(deals)} deals")
 
     # Get unique deal stages
@@ -138,10 +204,11 @@ def analyze_deals_by_stage(client: HubSpotClient) -> dict[str, Any]:
 def analyze_email_engagement(client: HubSpotClient) -> dict[str, Any]:
     """Analyze email engagement by persona."""
 
-    print("Fetching contacts with email engagement data...")
+    print("Fetching all contacts with email engagement data...")
 
     # Get contacts with engagement properties
-    contacts = client.search_contacts(
+    contacts = fetch_all_contacts(
+        client,
         filters=[{
             "propertyName": "hs_email_open",
             "operator": "HAS_PROPERTY"
@@ -150,8 +217,7 @@ def analyze_email_engagement(client: HubSpotClient) -> dict[str, Any]:
             "jobtitle", "email", "firstname", "lastname",
             "hs_email_open", "hs_email_click", "hs_email_replied",
             "hs_sales_email_last_replied", "num_contacted_notes"
-        ],
-        limit=100
+        ]
     )
 
     print(f"Found {len(contacts)} contacts with email engagement")

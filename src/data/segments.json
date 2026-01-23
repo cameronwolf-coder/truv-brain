@@ -26,15 +26,15 @@
     { "id": "no_decision", "label": "No Decision", "summary": "other priorities", "pct": 0.17 }
   ],
   "personas": [
-    { "id": "coo", "label": "COO/Chief Operating", "pct": 0.04, "replyRate": 0.60, "conversionScore": 6.0, "priority": 1 },
-    { "id": "cfo", "label": "CFO/Finance", "pct": 0.06, "replyRate": 0.50, "conversionScore": 7.0, "priority": 2 },
-    { "id": "other_exec", "label": "Other Executive", "pct": 0.08, "replyRate": 0.50, "conversionScore": 5.15, "priority": 3 },
-    { "id": "cto", "label": "CTO/VP Engineering", "pct": 0.12, "replyRate": 0.35, "conversionScore": 10.5, "priority": 4 },
-    { "id": "manager", "label": "Manager/Director", "pct": 0.10, "replyRate": 0.33, "conversionScore": 7.5, "priority": 5 },
-    { "id": "ceo", "label": "CEO/Founder", "pct": 0.32, "replyRate": 0.29, "conversionScore": 3.8, "priority": 6 },
-    { "id": "vp_product", "label": "VP Product", "pct": 0.05, "replyRate": 0.20, "conversionScore": 2.0, "priority": 7 },
-    { "id": "vp_underwriting", "label": "VP Underwriting", "pct": 0.03, "replyRate": 0.10, "conversionScore": 1.0, "priority": 8 },
-    { "id": "vp_lending", "label": "VP Lending", "pct": 0.02, "replyRate": 0.05, "conversionScore": 1.5, "priority": 9 }
+    { "id": "manager", "label": "Manager/Director", "pct": 0.17, "replyRate": 0.14, "conversionScore": 1.008, "engagementScore": 1.022, "totalScore": 2.030, "sampleSize": { "leads": 1161, "customers": 605, "engaged": 1444 }, "priority": 1 },
+    { "id": "ceo", "label": "CEO/Founder", "pct": 0.34, "replyRate": 0.14, "conversionScore": 0.741, "engagementScore": 0.992, "totalScore": 1.733, "sampleSize": { "leads": 2280, "customers": 521, "engaged": 2565 }, "priority": 2 },
+    { "id": "vp_product", "label": "VP Product", "pct": 0.01, "replyRate": 0.24, "conversionScore": 0.325, "engagementScore": 1.347, "totalScore": 1.672, "sampleSize": { "leads": 80, "customers": 12, "engaged": 74 }, "priority": 3 },
+    { "id": "cto", "label": "CTO/VP Engineering", "pct": 0.20, "replyRate": 0.12, "conversionScore": 0.662, "engagementScore": 0.900, "totalScore": 1.562, "sampleSize": { "leads": 1324, "customers": 440, "engaged": 1249 }, "priority": 4 },
+    { "id": "vp_underwriting", "label": "VP Underwriting", "pct": 0.02, "replyRate": 0.16, "conversionScore": 0.643, "engagementScore": 0.907, "totalScore": 1.550, "sampleSize": { "leads": 112, "customers": 43, "engaged": 106 }, "priority": 5 },
+    { "id": "coo", "label": "COO/Chief Operating", "pct": 0.08, "replyRate": 0.26, "conversionScore": 0.297, "engagementScore": 1.208, "totalScore": 1.505, "sampleSize": { "leads": 516, "customers": 56, "engaged": 278 }, "priority": 6 },
+    { "id": "other_exec", "label": "Other Executive", "pct": 0.15, "replyRate": 0.14, "conversionScore": 0.395, "engagementScore": 1.025, "totalScore": 1.420, "sampleSize": { "leads": 986, "customers": 191, "engaged": 943 }, "priority": 7 },
+    { "id": "cfo", "label": "CFO/Finance", "pct": 0.03, "replyRate": 0.09, "conversionScore": 0.490, "engagementScore": 0.909, "totalScore": 1.399, "sampleSize": { "leads": 194, "customers": 59, "engaged": 202 }, "priority": 8 },
+    { "id": "vp_lending", "label": "VP Lending", "pct": 0.01, "replyRate": 0.12, "conversionScore": 0.115, "engagementScore": 0.948, "totalScore": 1.063, "sampleSize": { "leads": 104, "customers": 4, "engaged": 52 }, "priority": 9 }
   ],
   "lifecycleStats": {
     "lead": 74025,

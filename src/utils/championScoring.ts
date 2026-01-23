@@ -126,7 +126,7 @@ export function getChampions(scoredContacts: ScoredContact[], maxCount = 2): Sco
 
 export function groupByPersona(
   scoredContacts: ScoredContact[],
-  personaLabels: Record<string, string>
+  _personaLabels: Record<string, string>
 ): Map<string, ScoredContact[]> {
   const groups = new Map<string, ScoredContact[]>();
 
