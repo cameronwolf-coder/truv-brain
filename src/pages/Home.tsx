@@ -110,16 +110,14 @@ export function Home() {
       {/* Tools Section */}
       <h2 className="text-lg font-semibold text-gray-900 mb-4">Tools & Resources</h2>
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-        <a
-          href="https://roi-calc-internal-gamma.vercel.app"
-          target="_blank"
-          rel="noopener noreferrer"
+        <Link
+          to="/roi-generator"
           className="p-4 bg-white border border-gray-200 rounded-xl hover:border-blue-300 hover:shadow-md transition-all group"
         >
           <span className="text-xl">🧮</span>
-          <h3 className="font-medium text-gray-900 mt-2 group-hover:text-blue-600">ROI Calculator</h3>
-          <p className="text-xs text-gray-500 mt-1">For sales demos</p>
-        </a>
+          <h3 className="font-medium text-gray-900 mt-2 group-hover:text-blue-600">ROI Generator</h3>
+          <p className="text-xs text-gray-500 mt-1">Generate PDF reports</p>
+        </Link>
 
         <a
           href="https://github.com/cameronwolf-coder/truv-brain"

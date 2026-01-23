@@ -1,12 +1,12 @@
 import { useState, useEffect, useMemo } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import type { ROIData, ScoredContact, GeneratedEmail, PersonaGroup } from '../types';
+import type { ROIData, ScoredContact, GeneratedEmail, PersonaGroup, HubSpotContact } from '../types';
 import { scoreContacts, getChampions, groupByPersona } from '../utils/championScoring';
 import { generateAllEmails } from '../utils/abmEmailGenerator';
 import segments from '../data/segments.json';
 
 // Mock HubSpot data for now - will be replaced with actual API calls
-const MOCK_CONTACTS = [
+const MOCK_CONTACTS: HubSpotContact[] = [
   {
     id: '1',
     firstName: 'John',
@@ -129,7 +129,7 @@ export function ABMBuilder() {
     setIsSearching(true);
     // Simulate API call - will be replaced with actual HubSpot integration
     await new Promise((resolve) => setTimeout(resolve, 1000));
-    setContacts(MOCK_CONTACTS as any);
+    setContacts(scoreContacts(MOCK_CONTACTS));
     setIsSearching(false);
   };
 
