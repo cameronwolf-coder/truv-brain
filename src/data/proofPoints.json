@@ -1,0 +1,272 @@
+[
+  {
+    "id": "crosscountry",
+    "customer": "CrossCountry Mortgage",
+    "vertical": "mortgage",
+    "metricTypes": ["cost", "conversion", "speed"],
+    "metrics": [
+      { "value": "$10M/year", "label": "savings", "type": "cost" },
+      { "value": "70%+", "label": "post-login conversion", "type": "conversion" },
+      { "value": "8%", "label": "R&W relief uplift", "type": "conversion" },
+      { "value": "<1 month", "label": "implementation", "type": "speed" }
+    ],
+    "quotes": [
+      {
+        "text": "Truv has redefined what partnership means — delivering accurate, trustworthy data, rapid implementation, and the agility to help us close loans faster and more confidently.",
+        "author": "Tom Durney",
+        "title": "EVP of Corporate Operations Support"
+      }
+    ]
+  },
+  {
+    "id": "firstcontinental",
+    "customer": "First Continental Mortgage",
+    "vertical": "mortgage",
+    "metricTypes": ["cost", "conversion", "support"],
+    "metrics": [
+      { "value": "$745K/year", "label": "savings", "type": "cost" },
+      { "value": "64%", "label": "VOIE conversion", "type": "conversion" },
+      { "value": "85%", "label": "VOA conversion", "type": "conversion" },
+      { "value": "4-hour", "label": "support response", "type": "support" }
+    ],
+    "quotes": [
+      {
+        "text": "Our processors love that we can get ahold of someone at Truv within 4 hours. Compare that to other vendors, where our team couldn't reach a human for 2 years - it's night and day.",
+        "author": "Jessica Kipnis",
+        "title": "COO"
+      }
+    ]
+  },
+  {
+    "id": "amerisave",
+    "customer": "AmeriSave",
+    "vertical": "mortgage",
+    "metricTypes": ["cost", "conversion"],
+    "metrics": [
+      { "value": "80%", "label": "savings vs TWN", "type": "cost" },
+      { "value": "3/5", "label": "loans receive R&W relief", "type": "conversion" },
+      { "value": "2/3", "label": "borrowers successfully login", "type": "conversion" },
+      { "value": "99%", "label": "platform uptime", "type": "speed" }
+    ],
+    "quotes": [
+      {
+        "text": "Truv delivers on every front. Cost savings, product innovation, reliable technology, and most importantly, a partnership approach that keeps our success at the center of everything they do.",
+        "author": "Magesh Sarma",
+        "title": "Chief Information and Strategy Officer"
+      }
+    ]
+  },
+  {
+    "id": "afcu",
+    "customer": "America First Credit Union",
+    "vertical": "credit_union",
+    "metricTypes": ["cost", "conversion"],
+    "metrics": [
+      { "value": "80%", "label": "savings on verifications", "type": "cost" },
+      { "value": "65%", "label": "mortgage conversion", "type": "conversion" },
+      { "value": "30%+", "label": "home equity conversion", "type": "conversion" }
+    ],
+    "quotes": [
+      {
+        "text": "We have borrowers try Truv first because it has proven most reliable. We now rely less on manual VOIEs and instant databases, saving us 80% on verifications and hours in processing.",
+        "author": "Austin Coleman",
+        "title": "SVP of Mortgage Lending"
+      }
+    ]
+  },
+  {
+    "id": "mortgageright",
+    "customer": "MortgageRight",
+    "vertical": "mortgage",
+    "metricTypes": ["cost", "conversion"],
+    "metrics": [
+      { "value": "80%", "label": "cost savings", "type": "cost" },
+      { "value": "50%+", "label": "conversion", "type": "conversion" },
+      { "value": "40%", "label": "reduction of TWN", "type": "cost" }
+    ],
+    "quotes": [
+      {
+        "text": "We prefer having a Truv report over other verification providers because the data is more granular, comprehensive, broken down by income source, and includes paystubs & W-2s.",
+        "author": "Tanner Allen",
+        "title": "Partner"
+      }
+    ]
+  },
+  {
+    "id": "thelender",
+    "customer": "The Lender",
+    "vertical": "mortgage",
+    "metricTypes": ["cost", "conversion"],
+    "metrics": [
+      { "value": "75%", "label": "cost savings", "type": "cost" },
+      { "value": "+10%", "label": "conversion improvement", "type": "conversion" }
+    ],
+    "quotes": [
+      {
+        "text": "The cost of the Truv's VOIE is the most important reason to use Truv. It is saving us thousands of dollars.",
+        "author": "Mary Rodgers",
+        "title": "EVP of Corporate Strategy"
+      }
+    ]
+  },
+  {
+    "id": "mig",
+    "customer": "Mortgage Investors Group",
+    "vertical": "mortgage",
+    "metricTypes": ["cost", "conversion"],
+    "metrics": [
+      { "value": "100%", "label": "conversion improvement (25% to 50%)", "type": "conversion" },
+      { "value": "50-80%", "label": "savings", "type": "cost" },
+      { "value": "$150", "label": "savings per loan", "type": "cost" }
+    ],
+    "quotes": [
+      {
+        "text": "We went from 25% conversion to 50%. Right now, in the VOE space, that's a really good percentage.",
+        "author": "J.R. Huber",
+        "title": "EVP Sales & Production"
+      }
+    ]
+  },
+  {
+    "id": "revolution",
+    "customer": "Revolution Mortgage",
+    "vertical": "mortgage",
+    "metricTypes": ["cost"],
+    "metrics": [
+      { "value": "+5 BPS", "label": "savings per loan", "type": "cost" },
+      { "value": "8 to 3", "label": "basis points reduction", "type": "cost" }
+    ],
+    "quotes": [
+      {
+        "text": "Since we started our partnership, we've taken our costs for verifications from 8 basis points per loan down to 3 basis points per loan.",
+        "author": "Femi Ayi",
+        "title": "EVP Operations"
+      }
+    ]
+  },
+  {
+    "id": "compass",
+    "customer": "Compass Mortgage",
+    "vertical": "mortgage",
+    "metricTypes": ["cost", "speed"],
+    "metrics": [
+      { "value": "60-80%", "label": "savings on verifications", "type": "cost" },
+      { "value": "Faster", "label": "loan approvals", "type": "speed" }
+    ],
+    "quotes": [
+      {
+        "text": "There's no excuse for lenders to not look at a product like Truv. It works, it's easy for the borrower, the data set is superior, you benefit from GSE approvals, and the price is more competitive. It's a no-brainer.",
+        "author": "Justin Venhousen",
+        "title": "COO"
+      }
+    ]
+  },
+  {
+    "id": "turbopass",
+    "customer": "TurboPass",
+    "vertical": "auto",
+    "metricTypes": ["speed", "fraud", "cost"],
+    "metrics": [
+      { "value": "1.5 days", "label": "faster funding", "type": "speed" },
+      { "value": "38%", "label": "reduction in loan losses", "type": "fraud" },
+      { "value": "49%", "label": "reduction in bank fees", "type": "cost" }
+    ],
+    "quotes": [
+      {
+        "text": "As folks that have spent their entire 30-year+ career in auto, we believe that with the help of Truv, we've built the greatest pay stub report that the industry has ever seen.",
+        "author": "Lou Loquasto",
+        "title": "CRO"
+      }
+    ]
+  },
+  {
+    "id": "nftydoor",
+    "customer": "NFTYDoor",
+    "vertical": "mortgage",
+    "metricTypes": ["conversion", "speed"],
+    "metrics": [
+      { "value": "45%+", "label": "VOIE conversion", "type": "conversion" },
+      { "value": "70%", "label": "VOHI conversion", "type": "conversion" },
+      { "value": "<1 month", "label": "implementation", "type": "speed" }
+    ],
+    "quotes": [
+      {
+        "text": "What truly set Truv apart was the team's hands-on approach to customer service, from development to implementation to post go-live.",
+        "author": "Jonathan Spinetto",
+        "title": "COO & Co-Founder"
+      }
+    ]
+  },
+  {
+    "id": "piedmont",
+    "customer": "Piedmont Payment Services",
+    "vertical": "payments",
+    "metricTypes": ["support", "speed"],
+    "metrics": [
+      { "value": "80%", "label": "reduction in support calls", "type": "support" },
+      { "value": "90%", "label": "reduction in manual tasks", "type": "speed" },
+      { "value": "1 step", "label": "replaced 14-step process", "type": "speed" },
+      { "value": "50%+", "label": "increase in resource efficiency", "type": "speed" }
+    ],
+    "quotes": [
+      {
+        "text": "The relationship feels more important than transactions, and that's important to us. There's a hands-on approach that's hard to find in vendors.",
+        "author": "Darrell Tadley",
+        "title": "CEO"
+      }
+    ]
+  },
+  {
+    "id": "b9",
+    "customer": "B9",
+    "vertical": "fintech",
+    "metricTypes": ["conversion"],
+    "metrics": [
+      { "value": "+12%", "label": "improvement in funds deposited", "type": "conversion" }
+    ],
+    "quotes": [
+      {
+        "text": "The responsiveness and agility of the team was instrumental in the decision to partner with Truv. It was teamwork from the start.",
+        "author": "Sergio Terentev",
+        "title": "Founder & CEO"
+      }
+    ]
+  },
+  {
+    "id": "orion",
+    "customer": "Orion Lending",
+    "vertical": "mortgage",
+    "metricTypes": ["cost", "conversion", "speed"],
+    "metrics": [
+      { "value": "$300K", "label": "annual savings", "type": "cost" },
+      { "value": "32%", "label": "end-to-end conversion", "type": "conversion" },
+      { "value": "$100", "label": "savings per application", "type": "cost" },
+      { "value": "Several days", "label": "reduced processing time", "type": "speed" }
+    ],
+    "quotes": [
+      {
+        "text": "When we started looking at other providers, we were looking for a more holistic approach to increase the coverage of borrowers we could verify while decreasing cost. Truv helped us accomplish this objective.",
+        "author": "Richard Plummer",
+        "title": "EVP of Operations"
+      }
+    ]
+  },
+  {
+    "id": "hfs",
+    "customer": "HFS Financial",
+    "vertical": "consumer",
+    "metricTypes": ["fraud", "conversion", "speed"],
+    "metrics": [
+      { "value": "+15%", "label": "fraud detection improvement", "type": "fraud" },
+      { "value": "65%", "label": "conversion rate", "type": "conversion" },
+      { "value": "+10-15%", "label": "team efficiency improvement", "type": "speed" }
+    ],
+    "quotes": [
+      {
+        "text": "We had a choice: Go with a more expensive, legacy option like The Work Number, or go with Truv, a nimble team ready to work with us, move with us, and grow with us.",
+        "author": "Andrew Collins",
+        "title": "CEO"
+      }
+    ]
+  }
+]

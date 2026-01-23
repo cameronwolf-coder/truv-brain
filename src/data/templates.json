@@ -1,0 +1,52 @@
+{
+  "touches": [
+    {
+      "touch": 1,
+      "day": 1,
+      "subject": "{{vertical}} verification costs eating your margins?",
+      "body": "{{clay.opening_hook}}\n\nWhen we last spoke, {{objection_summary}} was the main blocker. Since then, Truv has helped companies like {{proof_company}} achieve {{proof_metric}}.\n\n{{clay.pain_reference}}\n\nWorth a 15-minute call to see if things have changed on your end?\n\n{{clay.cta}}",
+      "zones": {
+        "opening_hook": {
+          "placeholder": "{{clay.opening_hook}}",
+          "prompt": "Write 1 sentence referencing the contact's company, role, or recent news. Conversational, not salesy. Example: 'Saw {company} just expanded into {state}...' or 'Congrats on the recent {milestone}...'"
+        },
+        "pain_reference": {
+          "placeholder": "{{clay.pain_reference}}",
+          "prompt": "Write 1-2 sentences connecting their role ({jobtitle}) to the pain point: {objection}. Use 'you' language, focus on their daily frustrations. Example for VP Ops + price: 'I imagine you're still fielding questions about verification costs eating into margins...'"
+        },
+        "cta": {
+          "placeholder": "{{clay.cta}}",
+          "prompt": "Write a soft CTA asking for 15 minutes. Match tone to {persona} seniority — casual for VPs ('Quick call?'), more formal for C-suite ('Would welcome the chance to reconnect')."
+        }
+      }
+    },
+    {
+      "touch": 2,
+      "day": 4,
+      "subject": "how {{proof_company}} saved {{proof_metric}}",
+      "body": "Quick follow-up with a specific example.\n\n{{proof_company}} faced similar challenges — {{proof_context}}. After switching to Truv:\n• {{proof_point_1}}\n• {{proof_point_2}}\n• {{proof_point_3}}\n\n{{clay.pain_reference}}\n\nHappy to share how this could apply to {{company}}.\n\n{{clay.cta}}",
+      "zones": {
+        "pain_reference": {
+          "placeholder": "{{clay.pain_reference}}",
+          "prompt": "Write 1 sentence that ties the proof points above to their specific situation. Reference their vertical or a known pain point. Example: 'Given {company}'s volume, you'd likely see similar results on the cost side.'"
+        },
+        "cta": {
+          "placeholder": "{{clay.cta}}",
+          "prompt": "Write a casual CTA offering to share more details. Keep it low-pressure. Example: 'Happy to walk through the numbers if helpful.' or 'Let me know if you'd like the full case study.'"
+        }
+      }
+    },
+    {
+      "touch": 3,
+      "day": 9,
+      "subject": "closing the loop on truv",
+      "body": "Last note on this.\n\nIf {{objection_type}} is still the concern, I'd point to {{proof_metric}} that {{proof_company}} achieved.\n\nIf priorities have shifted entirely, no worries — just let me know and I'll update my notes.\n\nEither way, appreciate your time.\n\n{{clay.cta}}",
+      "zones": {
+        "cta": {
+          "placeholder": "{{clay.cta}}",
+          "prompt": "Write a final, respectful CTA that gives them an easy out. Example: 'Either way, appreciate you reading this far.' or 'Just a quick yes/no works — I'll take either.'"
+        }
+      }
+    }
+  ]
+}
