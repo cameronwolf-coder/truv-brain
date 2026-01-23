@@ -105,18 +105,8 @@ function buildHubSpotFilters(filters: SearchFilters): Array<{ propertyName: stri
     });
   }
 
-  // Vertical filter
-  if (filters.verticals && filters.verticals.length > 0) {
-    // For single vertical, use CONTAINS_TOKEN
-    if (filters.verticals.length === 1) {
-      hubspotFilters.push({
-        propertyName: 'sales_vertical',
-        operator: 'CONTAINS_TOKEN',
-        value: filters.verticals[0],
-      });
-    }
-    // For multiple, we'd need separate filter groups (OR logic) - simplified here
-  }
+  // Note: Vertical filtering is done locally for more accurate matching
+  // and to handle multiple verticals with OR logic
 
   // Time filters - created within days
   if (filters.timeFilters?.createdWithinDays) {
@@ -214,6 +204,75 @@ function matchesPersona(jobtitle: string | undefined, personas: string[], requir
   return false;
 }
 
+// Vertical matching patterns - more specific matching
+const VERTICAL_PATTERNS: Record<string, string[]> = {
+  'Bank': ['bank', 'banking'],
+  'Credit Union': ['credit union', 'cu '],
+  'IMB': ['mortgage', 'imb', 'independent mortgage'],
+  'Background Screening': ['background', 'screening', 'hr tech'],
+  'Lending': ['lending', 'lender', 'loan'],
+  'Fintech': ['fintech', 'neobank'],
+  'Auto Lending': ['auto', 'car loan', 'vehicle'],
+  'Tenant Screening': ['tenant', 'rental', 'property'],
+};
+
+// Domains that indicate government/public sector (should be excluded from commercial lists)
+const GOVERNMENT_DOMAINS = ['.gov', '.mil', '.edu', 'state.', 'county.', 'city.'];
+
+function matchesVertical(vertical: string | undefined, company: string | undefined, email: string | undefined, verticals: string[]): boolean {
+  // If no verticals selected, allow all
+  if (verticals.length === 0) return true;
+
+  // Check if it's a government email (usually not target for commercial lending)
+  if (email) {
+    const lowerEmail = email.toLowerCase();
+    for (const govDomain of GOVERNMENT_DOMAINS) {
+      if (lowerEmail.includes(govDomain)) {
+        return false; // Exclude government contacts
+      }
+    }
+  }
+
+  // If contact has a vertical set, check if it matches
+  if (vertical && vertical.trim() !== '') {
+    const lowerVertical = vertical.toLowerCase();
+    for (const selectedVertical of verticals) {
+      // Direct match
+      if (lowerVertical.includes(selectedVertical.toLowerCase())) {
+        return true;
+      }
+      // Pattern match
+      const patterns = VERTICAL_PATTERNS[selectedVertical];
+      if (patterns) {
+        for (const pattern of patterns) {
+          if (lowerVertical.includes(pattern)) {
+            return true;
+          }
+        }
+      }
+    }
+    return false; // Has vertical but doesn't match
+  }
+
+  // If no vertical set, try to match by company name
+  if (company && company.trim() !== '') {
+    const lowerCompany = company.toLowerCase();
+    for (const selectedVertical of verticals) {
+      const patterns = VERTICAL_PATTERNS[selectedVertical];
+      if (patterns) {
+        for (const pattern of patterns) {
+          if (lowerCompany.includes(pattern)) {
+            return true;
+          }
+        }
+      }
+    }
+  }
+
+  // No vertical set and company doesn't match - exclude
+  return false;
+}
+
 function getLastActivity(props: Record<string, string>): string | null {
   const dates = [
     props.hs_email_last_open_date,
@@ -258,6 +317,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     const limit = Math.min(filters.limit || 500, 1000); // Increased default and max
     const requireTitle = filters.requireTitle ?? true; // Default to requiring titles
     const personas = filters.personas || [];
+    const verticals = filters.verticals || [];
 
     // Build HubSpot filters
     const hubspotFilters = buildHubSpotFilters(filters);
@@ -271,10 +331,12 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     };
 
     // Paginate to get more results - fetch more from HubSpot since we filter locally
+    // When verticals are selected, we need to fetch even more since most won't match
     const allContacts: Contact[] = [];
     let after: string | undefined;
     let iterations = 0;
-    const maxIterations = Math.ceil(limit * 3 / 100); // Fetch 3x more to account for filtering
+    const fetchMultiplier = verticals.length > 0 ? 10 : 3; // Fetch more when filtering by vertical
+    const maxIterations = Math.ceil(limit * fetchMultiplier / 100);
 
     while (iterations < maxIterations && allContacts.length < limit) {
       const body = after ? { ...searchBody, after } : searchBody;
@@ -286,10 +348,20 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       const results = response.results || [];
       if (results.length === 0) break;
 
-      // Filter by persona and title requirement
+      // Filter by persona, vertical, and title requirement
       for (const contact of results) {
         // Check persona match (includes title requirement check)
         if (!matchesPersona(contact.properties.jobtitle, personas, requireTitle)) {
+          continue;
+        }
+
+        // Check vertical match (includes government email exclusion)
+        if (!matchesVertical(
+          contact.properties.sales_vertical,
+          contact.properties.company,
+          contact.properties.email,
+          verticals
+        )) {
           continue;
         }
 
