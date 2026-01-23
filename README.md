@@ -1,73 +1,149 @@
-# React + TypeScript + Vite
+# Truv Brain
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Marketing automation toolkit for [Truv](https://truv.com) — the consumer-permissioned data platform for income, employment, and asset verification.
 
-Currently, two official plugins are available:
+## What This Is
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Internal tools and knowledge base for Truv's marketing team to:
 
-## React Compiler
+1. **Re-engage closed-lost deals** — Score dormant HubSpot contacts and run targeted outreach campaigns
+2. **Maintain brand consistency** — Centralized brand guidelines and customer proof points
+3. **Automate outreach workflows** — Pipedream integrations for HubSpot and Slack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## Outreach Intelligence
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+Python tool that identifies and scores HubSpot contacts for re-engagement campaigns.
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+**How it works:**
+```
+HubSpot Contacts → Scoring Engine → Ranked List → Slack Notification
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+**Scoring Dimensions:**
+| Dimension | Weight | Signals |
+|-----------|--------|---------|
+| Engagement | 25% | Email opens, clicks, recency |
+| Timing | 25% | Days since last activity |
+| Deal Context | 30% | Lifecycle stage, deal history |
+| External Triggers | 20% | Job changes, company news |
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+**Usage:**
+```bash
+# Activate environment
+source venv/bin/activate
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+# Get top 25 dormant contacts
+python -m outreach_intel.cli dormant --limit 25
+
+# Get closed-lost contacts
+python -m outreach_intel.cli closed-lost --limit 25
+
+# Create HubSpot list for campaign
+python -m outreach_intel.cli create-list dormant "Q1 Re-engagement" --limit 50
 ```
+
+**Automation:**
+Pipedream workflow runs weekly (Fridays 7:30 AM CST) and posts top contacts to `#outreach-intelligence` Slack channel.
+
+---
+
+## Cold Email Framework
+
+Segmentation system for closed-lost re-engagement campaigns.
+
+**Segmentation Matrix:** Vertical × Objection × Persona
+
+| Verticals | Objection Types | Personas |
+|-----------|-----------------|----------|
+| Mortgage | Price/Budget | VP/Director Ops |
+| Consumer Lending | Timing/Roadmap | CTO/VP Engineering |
+| Auto Lending | Competitor Chosen | CFO/Finance |
+| Background Screening | Internal Bandwidth | CEO/Founder |
+| Tenant Screening | No Decision | |
+
+**Workflow:**
+```
+HubSpot Closed-Lost → Segment Tags → Clay Personalization → 3-Touch Sequence
+```
+
+See `docs/plans/2026-01-22-cold-email-framework-design.md` for full framework.
+
+---
+
+## Brand Knowledge Base
+
+Scraped from truv.com and maintained for consistent messaging.
+
+| Document | Contents |
+|----------|----------|
+| `docs/brand-guidelines.md` | Voice, tone, colors, typography, messaging pillars |
+| `docs/content-reference.md` | 15 customer stories with metrics and quotes |
+
+**Key Proof Points:**
+- 80% cost savings vs The Work Number (AmeriSave, AFCU, MortgageRight)
+- $10M/year savings (CrossCountry Mortgage)
+- 4-hour support response time (First Continental)
+- 96% US workforce coverage
+- Fannie Mae & Freddie Mac approved
+
+---
+
+## Project Structure
+
+```
+truv-brain/
+├── outreach_intel/          # Contact scoring tool
+│   ├── cli.py               # Command line interface
+│   ├── service.py           # Main query interface
+│   ├── scorer.py            # Scoring engine
+│   └── hubspot_client.py    # HubSpot API client
+├── docs/
+│   ├── brand-guidelines.md  # Brand voice & visual identity
+│   ├── content-reference.md # Customer stories & proof points
+│   └── plans/               # Design documents
+├── tests/                   # Test suite
+└── branding/                # Brand assets
+```
+
+---
+
+## Integrations
+
+| Service | Purpose |
+|---------|---------|
+| **HubSpot** | Contact/deal data, list creation |
+| **Slack** | Notifications to #outreach-intelligence |
+| **Pipedream** | Workflow automation |
+| **Clay** | Email personalization at scale |
+| **Knock/Sendgrid** | Email delivery |
+
+---
+
+## Setup
+
+```bash
+# Clone
+git clone https://github.com/cameronwolf-coder/truv-brain.git
+cd truv-brain
+
+# Create virtual environment
+python -m venv venv
+source venv/bin/activate
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Set environment variables
+export HUBSPOT_ACCESS_TOKEN=your_token
+
+# Run tests
+pytest tests/ -v
+```
+
+---
+
+## Owner
+
+**Cameron Wolf** — Sr. Marketing Manager, Truv
