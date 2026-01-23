@@ -6,7 +6,7 @@
       "tagline": "Verify income and employment in seconds, not days",
       "description": "Consumer-permissioned payroll data direct from the source. Borrowers connect their payroll provider and Truv pulls verified income, employment history, and pay details instantly.",
       "painPoints": ["price", "timing", "competitor"],
-      "verticals": ["mortgage", "consumer", "auto", "tenant", "background"],
+      "verticals": ["Bank", "Credit Union", "IMB", "Lending", "Fintech", "Auto Lending", "Tenant Screening", "Background Screening"],
       "benefits": [
         { "icon": "💰", "title": "80% cost savings", "detail": "vs The Work Number and instant databases" },
         { "icon": "⚡", "title": "45-second verification", "detail": "Real-time data, no waiting for employer callbacks" },
@@ -22,7 +22,7 @@
       "tagline": "Instant bank account and asset verification",
       "description": "Verify assets and account balances by connecting directly to financial institutions. Get real-time account data for underwriting decisions.",
       "painPoints": ["timing", "bandwidth"],
-      "verticals": ["mortgage", "consumer"],
+      "verticals": ["Bank", "Credit Union", "IMB", "Lending", "Fintech"],
       "benefits": [
         { "icon": "🏦", "title": "10,000+ FIs covered", "detail": "Banks, credit unions, investment accounts" },
         { "icon": "📈", "title": "85% conversion", "detail": "Best-in-class user experience" },
@@ -38,7 +38,7 @@
       "tagline": "Switch direct deposits without employer involvement",
       "description": "Let customers switch their direct deposit to your institution in minutes. No forms, no HR calls, no friction.",
       "painPoints": ["bandwidth", "no_decision"],
-      "verticals": ["mortgage", "consumer"],
+      "verticals": ["Bank", "Credit Union", "Fintech"],
       "benefits": [
         { "icon": "🎯", "title": "Drive primacy", "detail": "Capture paycheck deposits automatically" },
         { "icon": "⏱️", "title": "2-minute setup", "detail": "Customer completes in-app, no employer needed" },
@@ -54,7 +54,7 @@
       "tagline": "Verify insurance coverage in under 60 seconds",
       "description": "Borrowers connect to their insurance provider to verify home or auto coverage. Get policy details, coverage limits, and premium information instantly.",
       "painPoints": ["timing", "bandwidth"],
-      "verticals": ["mortgage", "auto"],
+      "verticals": ["Bank", "Credit Union", "IMB", "Auto Lending"],
       "benefits": [
         { "icon": "🏠", "title": "90% coverage", "detail": "US insurance policy holders" },
         { "icon": "📋", "title": "100+ data fields", "detail": "Coverage, deductibles, premiums, policy dates" },
@@ -70,7 +70,7 @@
       "tagline": "Maximize verification success with intelligent fallbacks",
       "description": "Automatic multi-method verification flow. Start with payroll connection, fall back to bank data or document upload if needed. One integration, multiple verification paths.",
       "painPoints": ["competitor", "no_decision"],
-      "verticals": ["mortgage", "consumer", "auto"],
+      "verticals": ["Bank", "Credit Union", "IMB", "Lending", "Fintech", "Auto Lending"],
       "benefits": [
         { "icon": "📈", "title": "Higher conversion", "detail": "Multiple paths to successful verification" },
         { "icon": "🔀", "title": "Smart routing", "detail": "Automatically tries best method first" },
@@ -86,7 +86,7 @@
       "tagline": "Beautiful, conversion-optimized verification widget",
       "description": "Drop-in UI component for your web or mobile app. Handles the entire verification flow with best-in-class UX that maximizes conversion.",
       "painPoints": ["bandwidth", "timing"],
-      "verticals": ["mortgage", "consumer", "auto", "tenant", "background"],
+      "verticals": ["Bank", "Credit Union", "IMB", "Lending", "Fintech", "Auto Lending", "Tenant Screening", "Background Screening"],
       "benefits": [
         { "icon": "🎨", "title": "White-label ready", "detail": "Match your brand colors and styling" },
         { "icon": "📱", "title": "Mobile optimized", "detail": "Works on any device" },

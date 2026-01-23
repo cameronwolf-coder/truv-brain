@@ -31,11 +31,14 @@ const PAIN_POINTS = [
 
 const VERTICALS = [
   { id: 'all', label: 'All Verticals' },
-  { id: 'mortgage', label: 'Mortgage' },
-  { id: 'consumer', label: 'Consumer Lending' },
-  { id: 'auto', label: 'Auto Lending' },
-  { id: 'tenant', label: 'Tenant Screening' },
-  { id: 'background', label: 'Background Screening' },
+  { id: 'Bank', label: 'Bank' },
+  { id: 'Credit Union', label: 'Credit Union' },
+  { id: 'IMB', label: 'IMB (Independent Mortgage Bank)' },
+  { id: 'Lending', label: 'Lending' },
+  { id: 'Fintech', label: 'Fintech' },
+  { id: 'Auto Lending', label: 'Auto Lending' },
+  { id: 'Tenant Screening', label: 'Tenant Screening' },
+  { id: 'Background Screening', label: 'Background Screening' },
 ];
 
 export function Products() {

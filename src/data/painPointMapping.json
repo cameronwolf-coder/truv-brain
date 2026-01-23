@@ -1,37 +1,57 @@
 {
   "price": {
-    "mortgage": ["amerisave", "crosscountry", "mortgageright", "compass", "mig", "revolution", "thelender", "orion"],
-    "consumer": ["hfs"],
-    "auto": ["turbopass"],
-    "background": [],
-    "tenant": []
+    "Bank": ["amerisave", "crosscountry", "mortgageright", "compass", "mig", "revolution", "thelender", "orion"],
+    "Credit Union": ["afcu", "mig"],
+    "IMB": ["amerisave", "crosscountry", "mortgageright", "compass", "revolution", "thelender", "orion"],
+    "Lending": ["hfs"],
+    "Fintech": ["hfs", "b9"],
+    "Auto Lending": ["turbopass"],
+    "Background Screening": [],
+    "Tenant Screening": [],
+    "Other": ["hfs", "amerisave"]
   },
   "timing": {
-    "mortgage": ["crosscountry", "firstcontinental", "nftydoor"],
-    "consumer": ["piedmont"],
-    "auto": [],
-    "background": [],
-    "tenant": []
+    "Bank": ["crosscountry", "firstcontinental", "nftydoor"],
+    "Credit Union": ["afcu"],
+    "IMB": ["crosscountry", "firstcontinental", "nftydoor"],
+    "Lending": ["piedmont"],
+    "Fintech": ["piedmont"],
+    "Auto Lending": [],
+    "Background Screening": [],
+    "Tenant Screening": [],
+    "Other": ["crosscountry", "piedmont"]
   },
   "competitor": {
-    "mortgage": ["amerisave", "mortgageright", "afcu"],
-    "consumer": ["hfs"],
-    "auto": [],
-    "background": [],
-    "tenant": []
+    "Bank": ["amerisave", "mortgageright", "afcu"],
+    "Credit Union": ["afcu"],
+    "IMB": ["amerisave", "mortgageright"],
+    "Lending": ["hfs"],
+    "Fintech": ["hfs"],
+    "Auto Lending": [],
+    "Background Screening": [],
+    "Tenant Screening": [],
+    "Other": ["amerisave", "hfs"]
   },
   "bandwidth": {
-    "mortgage": ["firstcontinental", "crosscountry", "nftydoor"],
-    "consumer": ["piedmont"],
-    "auto": [],
-    "background": [],
-    "tenant": []
+    "Bank": ["firstcontinental", "crosscountry", "nftydoor"],
+    "Credit Union": [],
+    "IMB": ["firstcontinental", "crosscountry", "nftydoor"],
+    "Lending": ["piedmont"],
+    "Fintech": ["piedmont"],
+    "Auto Lending": [],
+    "Background Screening": [],
+    "Tenant Screening": [],
+    "Other": ["crosscountry", "piedmont"]
   },
   "no_decision": {
-    "mortgage": ["crosscountry", "compass", "orion"],
-    "consumer": ["hfs", "b9"],
-    "auto": ["turbopass"],
-    "background": [],
-    "tenant": []
+    "Bank": ["crosscountry", "compass", "orion"],
+    "Credit Union": ["mig"],
+    "IMB": ["crosscountry", "compass", "orion"],
+    "Lending": ["hfs", "b9"],
+    "Fintech": ["hfs", "b9"],
+    "Auto Lending": ["turbopass"],
+    "Background Screening": [],
+    "Tenant Screening": [],
+    "Other": ["crosscountry", "hfs", "b9"]
   }
 }

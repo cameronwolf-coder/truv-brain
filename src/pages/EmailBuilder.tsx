@@ -213,22 +213,19 @@ export function EmailBuilder() {
             </div>
 
             {/* Audience Estimate */}
-            <div className="mt-4 p-3 bg-gray-50 border border-gray-200 rounded-lg">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm text-gray-600">Estimated Audience</p>
-                  <p className="text-2xl font-semibold text-gray-900">
-                    {estimatedAudience.toLocaleString()} contacts
-                  </p>
-                </div>
-                <div className="text-right">
-                  <p className="text-xs text-gray-500">
-                    {segments.verticals.find((v) => v.id === vertical)?.label} ×{' '}
-                    {segments.objections.find((o) => o.id === objection)?.label} ×{' '}
-                    {segments.personas.find((p) => p.id === persona)?.label}
-                  </p>
-                </div>
+            <div className="mt-4 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+              <div className="flex items-center justify-between mb-2">
+                <p className="text-sm font-medium text-blue-900">Estimated Audience</p>
+                <p className="text-xs text-blue-600">
+                  of {(segments as { totalTargetable?: number }).totalTargetable?.toLocaleString() || '134,796'} targetable
+                </p>
               </div>
+              <p className="text-3xl font-bold text-blue-900 mb-1">
+                {estimatedAudience.toLocaleString()} <span className="text-lg font-normal">contacts</span>
+              </p>
+              <p className="text-xs text-blue-700">
+                {segments.verticals.find((v) => v.id === vertical)?.label} × {segments.objections.find((o) => o.id === objection)?.label} × {segments.personas.find((p) => p.id === persona)?.label}
+              </p>
             </div>
           </div>
 
