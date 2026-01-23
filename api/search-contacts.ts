@@ -55,6 +55,7 @@ interface SearchFilters {
     lastActivityWithinDays?: number;
   };
   limit?: number;
+  requireTitle?: boolean; // Only include contacts with job titles
 }
 
 interface Contact {
@@ -187,8 +188,16 @@ function buildHubSpotFilters(filters: SearchFilters): Array<{ propertyName: stri
   return hubspotFilters;
 }
 
-function matchesPersona(jobtitle: string | undefined, personas: string[]): boolean {
-  if (!jobtitle || personas.length === 0) return true;
+function matchesPersona(jobtitle: string | undefined, personas: string[], requireTitle: boolean): boolean {
+  // If no personas selected and not requiring title, allow all
+  if (personas.length === 0 && !requireTitle) return true;
+
+  // If requiring title or personas selected, must have a job title
+  if (!jobtitle || jobtitle.trim() === '') return false;
+
+  // If no personas selected but requiring title, allow any with title
+  if (personas.length === 0) return true;
+
   const lowerTitle = jobtitle.toLowerCase();
 
   for (const persona of personas) {
@@ -246,7 +255,9 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
   try {
     const filters: SearchFilters = req.body;
-    const limit = Math.min(filters.limit || 200, 500);
+    const limit = Math.min(filters.limit || 500, 1000); // Increased default and max
+    const requireTitle = filters.requireTitle ?? true; // Default to requiring titles
+    const personas = filters.personas || [];
 
     // Build HubSpot filters
     const hubspotFilters = buildHubSpotFilters(filters);
@@ -259,13 +270,13 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       sorts: [{ propertyName: 'hs_last_sales_activity_date', direction: 'DESCENDING' }],
     };
 
-    // Paginate to get more results
+    // Paginate to get more results - fetch more from HubSpot since we filter locally
     const allContacts: Contact[] = [];
     let after: string | undefined;
     let iterations = 0;
-    const maxIterations = Math.ceil(limit / 100);
+    const maxIterations = Math.ceil(limit * 3 / 100); // Fetch 3x more to account for filtering
 
-    while (iterations < maxIterations) {
+    while (iterations < maxIterations && allContacts.length < limit) {
       const body = after ? { ...searchBody, after } : searchBody;
       const response = (await hubspotRequest('POST', '/crm/v3/objects/contacts/search', body)) as {
         results?: Array<{ id: string; properties: Record<string, string> }>;
@@ -275,12 +286,11 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       const results = response.results || [];
       if (results.length === 0) break;
 
-      // Filter by persona (HubSpot can't do complex job title matching)
+      // Filter by persona and title requirement
       for (const contact of results) {
-        if (filters.personas && filters.personas.length > 0) {
-          if (!matchesPersona(contact.properties.jobtitle, filters.personas)) {
-            continue;
-          }
+        // Check persona match (includes title requirement check)
+        if (!matchesPersona(contact.properties.jobtitle, personas, requireTitle)) {
+          continue;
         }
 
         allContacts.push({

@@ -64,6 +64,8 @@ export function ListBuilder() {
   const [createdWithinDays, setCreatedWithinDays] = useState<number | undefined>();
   const [companySizeMin, setCompanySizeMin] = useState<number | undefined>();
   const [companySizeMax, setCompanySizeMax] = useState<number | undefined>();
+  const [contactLimit, setContactLimit] = useState(500);
+  const [requireTitle, setRequireTitle] = useState(true);
 
   // Search state
   const [isSearching, setIsSearching] = useState(false);
@@ -131,9 +133,10 @@ export function ListBuilder() {
       timeFilters: {
         createdWithinDays,
       },
-      limit: 200,
+      limit: contactLimit,
+      requireTitle,
     };
-  }, [selectedPersonas, selectedVerticals, excludeStages, emailOpensWithin, noActivityDays, createdWithinDays, companySizeMin, companySizeMax]);
+  }, [selectedPersonas, selectedVerticals, excludeStages, emailOpensWithin, noActivityDays, createdWithinDays, companySizeMin, companySizeMax, contactLimit, requireTitle]);
 
   // Search contacts
   const handleSearch = useCallback(async () => {
@@ -286,6 +289,8 @@ export function ListBuilder() {
     setCreatedWithinDays(undefined);
     setCompanySizeMin(undefined);
     setCompanySizeMax(undefined);
+    setContactLimit(500);
+    setRequireTitle(true);
     setSearchResult(null);
     setListName('');
     setCreateResult(null);
@@ -421,6 +426,38 @@ export function ListBuilder() {
                     {stage.label}
                   </label>
                 ))}
+              </div>
+            </div>
+
+            {/* Settings */}
+            <div className="pt-4 border-t border-gray-100">
+              <div className="flex items-center justify-between gap-4">
+                <div className="flex-1">
+                  <label className="block text-sm text-gray-600 mb-1">Max Contacts</label>
+                  <select
+                    value={contactLimit}
+                    onChange={(e) => setContactLimit(parseInt(e.target.value))}
+                    className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  >
+                    <option value={100}>100</option>
+                    <option value={250}>250</option>
+                    <option value={500}>500</option>
+                    <option value={750}>750</option>
+                    <option value={1000}>1,000</option>
+                  </select>
+                </div>
+                <div className="flex-1">
+                  <label className="flex items-center gap-2 text-sm text-gray-700 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={requireTitle}
+                      onChange={(e) => setRequireTitle(e.target.checked)}
+                      className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                    />
+                    <span>Require job title</span>
+                  </label>
+                  <p className="text-xs text-gray-500 mt-1">Exclude contacts without titles</p>
+                </div>
               </div>
             </div>
           </div>
