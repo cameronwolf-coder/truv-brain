@@ -115,54 +115,62 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   }
 
   try {
-    const { name, campaignType, persona, vertical, objection, limit = 100 } = req.body;
+    const { name, campaignType, persona, vertical, objection, limit = 100, contactIds: directContactIds } = req.body;
 
     if (!name) {
       return res.status(400).json({ error: 'List name is required' });
     }
 
-    // Build filters
-    const filters: Array<{ propertyName: string; operator: string; value?: string; values?: string[] }> = [];
+    let contactIds: string[] = [];
 
-    // Exclude certain lifecycle stages
-    filters.push({
-      propertyName: 'lifecyclestage',
-      operator: 'NOT_IN',
-      values: EXCLUDED_STAGES,
-    });
+    // If direct contact IDs provided (from List Builder), use them
+    if (directContactIds && Array.isArray(directContactIds) && directContactIds.length > 0) {
+      contactIds = directContactIds;
+    } else {
+      // Otherwise, search for contacts using filters (Email Builder flow)
+      const filters: Array<{ propertyName: string; operator: string; value?: string; values?: string[] }> = [];
 
-    // Apply vertical filter
-    if (vertical && vertical !== 'all' && (campaignType === 'closed_loss' || campaignType === 'vertical')) {
-      filters.push({
-        propertyName: 'sales_vertical',
-        operator: 'CONTAINS_TOKEN',
-        value: vertical,
-      });
-    }
-
-    // Apply persona filter
-    if (persona && PERSONA_PATTERNS[persona]) {
-      const pattern = PERSONA_PATTERNS[persona][0];
-      filters.push({
-        propertyName: 'jobtitle',
-        operator: 'CONTAINS_TOKEN',
-        value: pattern,
-      });
-    }
-
-    // Apply campaign-specific filters
-    if (campaignType === 'closed_loss') {
+      // Exclude certain lifecycle stages
       filters.push({
         propertyName: 'lifecyclestage',
-        operator: 'EQ',
-        value: '268636563', // Closed Lost stage ID
+        operator: 'NOT_IN',
+        values: EXCLUDED_STAGES,
       });
+
+      // Apply vertical filter
+      if (vertical && vertical !== 'all' && (campaignType === 'closed_loss' || campaignType === 'vertical')) {
+        filters.push({
+          propertyName: 'sales_vertical',
+          operator: 'CONTAINS_TOKEN',
+          value: vertical,
+        });
+      }
+
+      // Apply persona filter
+      if (persona && PERSONA_PATTERNS[persona]) {
+        const pattern = PERSONA_PATTERNS[persona][0];
+        filters.push({
+          propertyName: 'jobtitle',
+          operator: 'CONTAINS_TOKEN',
+          value: pattern,
+        });
+      }
+
+      // Apply campaign-specific filters
+      if (campaignType === 'closed_lost') {
+        filters.push({
+          propertyName: 'lifecyclestage',
+          operator: 'EQ',
+          value: '268636563', // Closed Lost stage ID
+        });
+      }
+
+      // Search contacts
+      const contacts = await searchContacts(filters, Math.min(limit, 500));
+      contactIds = contacts.map((c) => c.id);
     }
 
-    // Search contacts
-    const contacts = await searchContacts(filters, Math.min(limit, 500));
-
-    if (contacts.length === 0) {
+    if (contactIds.length === 0) {
       return res.status(200).json({
         success: false,
         error: 'No contacts found matching criteria',
@@ -174,14 +182,13 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     const { listId } = await createList(name);
 
     // Add contacts to list
-    const contactIds = contacts.map((c) => c.id);
     await addContactsToList(listId, contactIds);
 
     return res.status(200).json({
       success: true,
       listId,
       listName: name,
-      count: contacts.length,
+      count: contactIds.length,
     });
   } catch (error) {
     console.error('Error creating list:', error);

@@ -9,6 +9,7 @@ import { Personas } from './pages/Personas';
 import { Brand } from './pages/Brand';
 import { Campaigns } from './pages/Campaigns';
 import { EmailBuilder } from './pages/EmailBuilder';
+import { ListBuilder } from './pages/ListBuilder';
 import { ROIGenerator } from './pages/ROIGenerator';
 import { ABMBuilder } from './pages/ABMBuilder';
 import './index.css';
@@ -45,6 +46,10 @@ const router = createBrowserRouter([
       {
         path: 'email-builder',
         element: <EmailBuilder />,
+      },
+      {
+        path: 'list-builder',
+        element: <ListBuilder />,
       },
       {
         path: 'roi-generator',
