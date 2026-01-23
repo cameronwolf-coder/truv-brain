@@ -111,7 +111,7 @@ export function Home() {
       <h2 className="text-lg font-semibold text-gray-900 mb-4">Tools & Resources</h2>
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
         <a
-          href="https://roi-calc-internal.vercel.app"
+          href="https://roi-calc-internal-gamma.vercel.app"
           target="_blank"
           rel="noopener noreferrer"
           className="p-4 bg-white border border-gray-200 rounded-xl hover:border-blue-300 hover:shadow-md transition-all group"
