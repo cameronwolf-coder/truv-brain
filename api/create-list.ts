@@ -5,11 +5,15 @@ const HUBSPOT_BASE_URL = 'https://api.hubapi.com';
 
 // Persona job title patterns for filtering
 const PERSONA_PATTERNS: Record<string, string[]> = {
-  coo_ops: ['COO', 'Chief Operating', 'VP Operations', 'VP of Operations'],
-  cfo: ['CFO', 'Chief Financial', 'VP Finance', 'Controller'],
-  cto: ['CTO', 'Chief Technology', 'VP Engineering', 'CIO'],
-  ceo: ['CEO', 'Chief Executive', 'Founder', 'President', 'Owner'],
-  vp_ops: ['VP', 'Director', 'SVP', 'EVP'],
+  coo: ['COO', 'Chief Operating Officer', 'Chief Operating'],
+  cfo: ['CFO', 'Chief Financial', 'VP Finance', 'Controller', 'Finance Director'],
+  other_exec: ['EVP', 'SVP', 'Senior Vice President', 'Executive Vice President'],
+  cto: ['CTO', 'Chief Technology', 'VP Engineering', 'CIO', 'IT Director', 'VP Technology'],
+  manager: ['Manager', 'Director', 'Team Lead', 'Supervisor'],
+  ceo: ['CEO', 'Chief Executive', 'Founder', 'President', 'Owner', 'Principal'],
+  vp_product: ['VP Product', 'Head of Product', 'Product Director', 'Chief Product'],
+  vp_underwriting: ['VP Underwriting', 'Chief Credit', 'Underwriting Director', 'Head of Underwriting'],
+  vp_lending: ['VP Lending', 'VP Mortgage', 'Lending Director', 'Mortgage Director', 'Head of Lending'],
 };
 
 // Excluded lifecycle stages (opportunity, customer, etc.)
