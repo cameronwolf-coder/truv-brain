@@ -1,0 +1,132 @@
+{
+  "products": [
+    {
+      "id": "voie",
+      "name": "Income & Employment Verification (VOIE)",
+      "tagline": "Verify income and employment in seconds, not days",
+      "description": "Consumer-permissioned payroll data direct from the source. Borrowers connect their payroll provider and Truv pulls verified income, employment history, and pay details instantly.",
+      "painPoints": ["price", "timing", "competitor"],
+      "verticals": ["mortgage", "consumer", "auto", "tenant", "background"],
+      "benefits": [
+        { "icon": "💰", "title": "80% cost savings", "detail": "vs The Work Number and instant databases" },
+        { "icon": "⚡", "title": "45-second verification", "detail": "Real-time data, no waiting for employer callbacks" },
+        { "icon": "✅", "title": "GSE approved", "detail": "Fannie Mae Day 1 Certainty & Freddie Mac AIM eligible" },
+        { "icon": "📊", "title": "200+ data fields", "detail": "Income, employer, tenure, pay frequency, YTD earnings" }
+      ],
+      "dataFields": ["Employer name & address", "Job title & status", "Hire date & tenure", "Pay rate & frequency", "YTD gross income", "Paystubs & W-2s"],
+      "integrations": ["Encompass", "nCino", "Byte", "Empower", "Floify", "BeSmartee"]
+    },
+    {
+      "id": "voa",
+      "name": "Asset Verification (VOA)",
+      "tagline": "Instant bank account and asset verification",
+      "description": "Verify assets and account balances by connecting directly to financial institutions. Get real-time account data for underwriting decisions.",
+      "painPoints": ["timing", "bandwidth"],
+      "verticals": ["mortgage", "consumer"],
+      "benefits": [
+        { "icon": "🏦", "title": "10,000+ FIs covered", "detail": "Banks, credit unions, investment accounts" },
+        { "icon": "📈", "title": "85% conversion", "detail": "Best-in-class user experience" },
+        { "icon": "🔒", "title": "Direct-to-source", "detail": "No stale database data" },
+        { "icon": "📄", "title": "Full statements", "detail": "Account history for cash flow analysis" }
+      ],
+      "dataFields": ["Account type & number", "Current balance", "Available balance", "Transaction history", "Account owner name"],
+      "integrations": ["Encompass", "nCino", "Byte", "Empower"]
+    },
+    {
+      "id": "dds",
+      "name": "Direct Deposit Switch (DDS)",
+      "tagline": "Switch direct deposits without employer involvement",
+      "description": "Let customers switch their direct deposit to your institution in minutes. No forms, no HR calls, no friction.",
+      "painPoints": ["bandwidth", "no_decision"],
+      "verticals": ["mortgage", "consumer"],
+      "benefits": [
+        { "icon": "🎯", "title": "Drive primacy", "detail": "Capture paycheck deposits automatically" },
+        { "icon": "⏱️", "title": "2-minute setup", "detail": "Customer completes in-app, no employer needed" },
+        { "icon": "💳", "title": "Increase deposits", "detail": "B9 saw +12% improvement in funds deposited" },
+        { "icon": "🔄", "title": "Full or split", "detail": "Support percentage or fixed amount splits" }
+      ],
+      "dataFields": ["Routing number", "Account number", "Deposit allocation", "Employer payroll system"],
+      "integrations": ["API", "Truv Bridge widget"]
+    },
+    {
+      "id": "insurance",
+      "name": "Insurance Verification (VOHI)",
+      "tagline": "Verify insurance coverage in under 60 seconds",
+      "description": "Borrowers connect to their insurance provider to verify home or auto coverage. Get policy details, coverage limits, and premium information instantly.",
+      "painPoints": ["timing", "bandwidth"],
+      "verticals": ["mortgage", "auto"],
+      "benefits": [
+        { "icon": "🏠", "title": "90% coverage", "detail": "US insurance policy holders" },
+        { "icon": "📋", "title": "100+ data fields", "detail": "Coverage, deductibles, premiums, policy dates" },
+        { "icon": "⚡", "title": "<60 seconds", "detail": "Instant verification, no agent calls" },
+        { "icon": "🔍", "title": "Fraud detection", "detail": "Verify active coverage, catch gaps" }
+      ],
+      "dataFields": ["Policy number", "Coverage types", "Coverage limits", "Deductibles", "Premium amount", "Effective dates"],
+      "integrations": ["Encompass", "LOS systems"]
+    },
+    {
+      "id": "waterfall",
+      "name": "Truv Waterfall",
+      "tagline": "Maximize verification success with intelligent fallbacks",
+      "description": "Automatic multi-method verification flow. Start with payroll connection, fall back to bank data or document upload if needed. One integration, multiple verification paths.",
+      "painPoints": ["competitor", "no_decision"],
+      "verticals": ["mortgage", "consumer", "auto"],
+      "benefits": [
+        { "icon": "📈", "title": "Higher conversion", "detail": "Multiple paths to successful verification" },
+        { "icon": "🔀", "title": "Smart routing", "detail": "Automatically tries best method first" },
+        { "icon": "🎛️", "title": "Configurable", "detail": "Set your own fallback rules" },
+        { "icon": "📊", "title": "Single report", "detail": "Unified output regardless of method" }
+      ],
+      "dataFields": ["Payroll data", "Bank income", "Uploaded documents", "Verification method used"],
+      "integrations": ["All LOS/POS platforms"]
+    },
+    {
+      "id": "bridge",
+      "name": "Truv Bridge",
+      "tagline": "Beautiful, conversion-optimized verification widget",
+      "description": "Drop-in UI component for your web or mobile app. Handles the entire verification flow with best-in-class UX that maximizes conversion.",
+      "painPoints": ["bandwidth", "timing"],
+      "verticals": ["mortgage", "consumer", "auto", "tenant", "background"],
+      "benefits": [
+        { "icon": "🎨", "title": "White-label ready", "detail": "Match your brand colors and styling" },
+        { "icon": "📱", "title": "Mobile optimized", "detail": "Works on any device" },
+        { "icon": "🚀", "title": "Fast integration", "detail": "Go live in days with SDK" },
+        { "icon": "💬", "title": "Built-in support", "detail": "Help text and error handling included" }
+      ],
+      "dataFields": ["All verification types supported"],
+      "integrations": ["Web SDK", "iOS SDK", "Android SDK", "React Native"]
+    }
+  ],
+  "painPointSolutions": {
+    "price": {
+      "headline": "Cut verification costs by 80%",
+      "description": "Consumer-permissioned data costs a fraction of instant databases like The Work Number. Free re-verifications for 90 days.",
+      "products": ["voie", "voa"],
+      "keyStats": ["80% savings vs TWN", "$350 savings per loan", "Free re-verifications"]
+    },
+    "timing": {
+      "headline": "Verify in seconds, go live in days",
+      "description": "Real-time data direct from source. No waiting for employer callbacks or database updates. Implementation in under a month.",
+      "products": ["voie", "voa", "insurance", "bridge"],
+      "keyStats": ["45-second verifications", "<1 month implementation", "99.99% uptime"]
+    },
+    "competitor": {
+      "headline": "Better data, better price, better support",
+      "description": "More granular data than TWN, includes paystubs and W-2s. GSE approved. Dedicated support with 4-hour response time.",
+      "products": ["voie", "waterfall"],
+      "keyStats": ["40% reduction in TWN usage", "GSE approved", "4-hour support response"]
+    },
+    "bandwidth": {
+      "headline": "Reduce manual work by 90%",
+      "description": "Automated verification replaces manual processes. One integration handles multiple verification types. White-glove implementation support.",
+      "products": ["bridge", "waterfall", "dds", "insurance"],
+      "keyStats": ["90% reduction in manual tasks", "14-step process → 1 step", "Dedicated solutions engineer"]
+    },
+    "no_decision": {
+      "headline": "Proven ROI with measurable results",
+      "description": "Customers see $10M+ annual savings, 100% conversion improvements, and faster loan closings. GSE approved for reduced repurchase risk.",
+      "products": ["voie", "waterfall", "dds"],
+      "keyStats": ["$10M/year savings (CrossCountry)", "100% conversion improvement (MIG)", "R&W relief eligible"]
+    }
+  }
+}
