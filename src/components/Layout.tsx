@@ -31,6 +31,21 @@ export function Layout() {
             </li>
             <li>
               <NavLink
+                to="/products"
+                className={({ isActive }) =>
+                  `flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
+                    isActive
+                      ? 'bg-blue-50 text-blue-700'
+                      : 'text-gray-700 hover:bg-gray-100'
+                  }`
+                }
+              >
+                <span className="text-lg">📦</span>
+                Products
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
                 to="/email-builder"
                 className={({ isActive }) =>
                   `flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${

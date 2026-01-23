@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { Layout } from './components/Layout';
 import { ProofPoints } from './pages/ProofPoints';
+import { Products } from './pages/Products';
 import { EmailBuilder } from './pages/EmailBuilder';
 import { About } from './pages/About';
 import './index.css';
@@ -15,6 +16,10 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <ProofPoints />,
+      },
+      {
+        path: 'products',
+        element: <Products />,
       },
       {
         path: 'email-builder',
