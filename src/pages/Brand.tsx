@@ -1,5 +1,14 @@
 import { useState } from 'react';
 
+const LOGOS = [
+  { name: 'Primary Logo', file: 'logo-truv.svg', bg: 'bg-white' },
+  { name: 'Dark Logo', file: 'logo-truv-dark.svg', bg: 'bg-white' },
+  { name: 'White Logo', file: 'logo-truv-white.svg', bg: 'bg-gray-800' },
+  { name: 'Logomark', file: 'logomark.svg', bg: 'bg-white' },
+  { name: 'Logomark Dark', file: 'logomark-dark.svg', bg: 'bg-white' },
+  { name: 'Logomark White', file: 'logomark-white.svg', bg: 'bg-gray-800' },
+];
+
 const COLORS = [
   { name: 'Truv Blue (Primary)', hex: '#2C64E3', usage: 'CTAs, buttons, links, key highlights' },
   { name: 'Accent Blue', hex: '#2A5FD8', usage: 'Secondary buttons, hover states' },
@@ -160,6 +169,36 @@ export function Brand() {
       {/* Tab Content */}
       {activeTab === 'visual' && (
         <div className="space-y-6">
+          {/* Logos */}
+          <div className="bg-white border border-gray-200 rounded-xl p-5">
+            <h3 className="font-medium text-gray-900 mb-4">Logo Files</h3>
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+              {LOGOS.map((logo) => (
+                <div key={logo.file} className="group">
+                  <div
+                    className={`${logo.bg} h-24 rounded-lg border border-gray-200 flex items-center justify-center p-4 mb-2`}
+                  >
+                    <img
+                      src={`/logos/${logo.file}`}
+                      alt={logo.name}
+                      className="max-h-full max-w-full object-contain"
+                    />
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <p className="text-sm font-medium text-gray-900">{logo.name}</p>
+                    <a
+                      href={`/logos/${logo.file}`}
+                      download={logo.file}
+                      className="text-xs text-blue-600 hover:text-blue-800"
+                    >
+                      Download
+                    </a>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
           {/* Colors */}
           <div className="bg-white border border-gray-200 rounded-xl p-5">
             <h3 className="font-medium text-gray-900 mb-4">Color Palette</h3>
