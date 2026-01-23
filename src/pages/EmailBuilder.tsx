@@ -54,6 +54,17 @@ export function EmailBuilder() {
   const objectionSummary =
     segments.objections.find((o) => o.id === objection)?.summary || objection;
 
+  // Calculate estimated audience size
+  const estimatedAudience = useMemo(() => {
+    const verticalData = segments.verticals.find((v) => v.id === vertical) as { contacts: number } | undefined;
+    const objectionData = segments.objections.find((o) => o.id === objection) as { pct: number } | undefined;
+    const personaData = segments.personas.find((p) => p.id === persona) as { pct: number } | undefined;
+
+    if (!verticalData || !objectionData || !personaData) return 0;
+
+    return Math.round(verticalData.contacts * objectionData.pct * personaData.pct);
+  }, [vertical, objection, persona]);
+
   // Build the email preview
   const buildEmailPreview = () => {
     if (!selectedTemplate) return { subject: '', body: '' };
@@ -198,6 +209,25 @@ export function EmailBuilder() {
                     </option>
                   ))}
                 </select>
+              </div>
+            </div>
+
+            {/* Audience Estimate */}
+            <div className="mt-4 p-3 bg-gray-50 border border-gray-200 rounded-lg">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm text-gray-600">Estimated Audience</p>
+                  <p className="text-2xl font-semibold text-gray-900">
+                    {estimatedAudience.toLocaleString()} contacts
+                  </p>
+                </div>
+                <div className="text-right">
+                  <p className="text-xs text-gray-500">
+                    {segments.verticals.find((v) => v.id === vertical)?.label} ×{' '}
+                    {segments.objections.find((o) => o.id === objection)?.label} ×{' '}
+                    {segments.personas.find((p) => p.id === persona)?.label}
+                  </p>
+                </div>
               </div>
             </div>
           </div>
