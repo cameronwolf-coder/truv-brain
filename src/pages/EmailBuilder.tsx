@@ -149,6 +149,44 @@ export function EmailBuilder() {
     return { score, label, color, replyRate, conversionScore, priority };
   }, [persona]);
 
+  // Generate recommended personas based on scores
+  const recommendedPersonas = useMemo(() => {
+    const personasWithScores = segments.personas.map((p) => {
+      const data = p as { id: string; label: string; replyRate?: number; conversionScore?: number; priority?: number };
+      const replyRate = data.replyRate || 0;
+      const conversionScore = data.conversionScore || 0;
+      const priority = data.priority || 5;
+
+      const score = Math.round(
+        (replyRate * 100) * 0.4 +
+        Math.min(conversionScore * 8, 100) * 0.4 +
+        ((6 - priority) / 5) * 100 * 0.2
+      );
+
+      return { ...data, score };
+    });
+
+    return personasWithScores.sort((a, b) => b.score - a.score);
+  }, []);
+
+  // Generate CLI command for HubSpot list creation
+  const generateListCommand = useMemo(() => {
+    const listName = `${campaignType.replace('_', ' ').replace(/\b\w/g, l => l.toUpperCase())} - ${
+      segments.personas.find(p => p.id === persona)?.label || persona
+    }${vertical && campaignType !== 'persona' ? ` - ${segments.verticals.find(v => v.id === vertical)?.label || vertical}` : ''
+    } - ${new Date().toISOString().split('T')[0]}`;
+
+    let cmd = `python -m outreach_intel.cli campaign-list "${listName}"`;
+    cmd += ` -t ${campaignType}`;
+    if (persona) cmd += ` -p ${persona}`;
+    if (vertical && (campaignType === 'closed_loss' || campaignType === 'vertical')) {
+      cmd += ` -v "${vertical}"`;
+    }
+    cmd += ` -l ${estimatedAudience > 0 ? Math.min(estimatedAudience, 500) : 100}`;
+
+    return cmd;
+  }, [campaignType, persona, vertical, estimatedAudience]);
+
   // Build the email preview
   const buildEmailPreview = () => {
     if (!selectedTemplate) return { subject: '', body: '' };
@@ -537,6 +575,77 @@ export function EmailBuilder() {
                 No specific proof points for this segment. Use general Truv stats.
               </p>
             )}
+          </div>
+
+          {/* Recommended Personas */}
+          <div className="bg-white border border-gray-200 rounded-xl p-5 mt-4">
+            <h2 className="font-medium text-gray-900 mb-3">
+              Recommended Personas
+            </h2>
+            <p className="text-xs text-gray-500 mb-3">Based on your HubSpot engagement data</p>
+            <div className="space-y-2">
+              {recommendedPersonas.slice(0, 3).map((p, idx) => (
+                <button
+                  key={p.id}
+                  onClick={() => setPersona(p.id)}
+                  className={`w-full text-left p-3 rounded-lg border transition-colors ${
+                    persona === p.id
+                      ? 'border-blue-500 bg-blue-50'
+                      : 'border-gray-200 hover:border-gray-300'
+                  }`}
+                >
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <span className={`w-5 h-5 rounded-full flex items-center justify-center text-xs font-bold ${
+                        idx === 0 ? 'bg-green-100 text-green-700' :
+                        idx === 1 ? 'bg-blue-100 text-blue-700' :
+                        'bg-gray-100 text-gray-700'
+                      }`}>
+                        {idx + 1}
+                      </span>
+                      <span className="font-medium text-gray-900">{p.label}</span>
+                    </div>
+                    <span className={`text-xs font-semibold px-2 py-0.5 rounded ${
+                      p.score >= 70 ? 'bg-green-100 text-green-700' :
+                      p.score >= 50 ? 'bg-blue-100 text-blue-700' :
+                      'bg-gray-100 text-gray-700'
+                    }`}>
+                      {p.score}/100
+                    </span>
+                  </div>
+                  <div className="flex gap-4 mt-1 text-xs text-gray-500">
+                    <span>{((p.replyRate || 0) * 100).toFixed(0)}% reply</span>
+                    <span>{(p.conversionScore || 0).toFixed(1)}x conversion</span>
+                  </div>
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Create HubSpot List */}
+          <div className="bg-white border border-gray-200 rounded-xl p-5 mt-4">
+            <h2 className="font-medium text-gray-900 mb-3">
+              Create HubSpot List
+            </h2>
+            <p className="text-xs text-gray-500 mb-3">
+              Generate a targeted list in HubSpot based on your segment
+            </p>
+            <div className="bg-gray-900 rounded-lg p-3 mb-3">
+              <code className="text-xs text-green-400 break-all">
+                {generateListCommand}
+              </code>
+            </div>
+            <button
+              onClick={() => {
+                navigator.clipboard.writeText(generateListCommand);
+              }}
+              className="w-full px-4 py-2 bg-gray-900 hover:bg-gray-800 text-white text-sm font-medium rounded-lg transition-colors"
+            >
+              Copy Command
+            </button>
+            <p className="text-xs text-gray-400 mt-2 text-center">
+              Run in terminal from truv-brain directory
+            </p>
           </div>
         </div>
 
