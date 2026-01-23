@@ -17,14 +17,14 @@ const PERSONA_DETAILS: Record<string, {
   messaging: string[];
   proofPoints: string[];
 }> = {
-  vp_ops: {
-    title: 'VP/Director of Operations',
-    focus: ['Efficiency', 'Cost reduction', 'Team productivity', 'Process automation'],
+  coo: {
+    title: 'Chief Operating Officer',
+    focus: ['Operational excellence', 'Process optimization', 'Team efficiency', 'Cost management'],
     painPoints: [
       'Manual verification processes eating up team time',
-      'High per-loan verification costs',
-      'Inconsistent turnaround times',
-      'Staff burnout from repetitive tasks',
+      'High per-loan verification costs impacting margins',
+      'Inconsistent turnaround times affecting customer experience',
+      'Staff burnout from repetitive verification tasks',
     ],
     messaging: [
       'Reduce manual verification tasks by 90%',
@@ -36,27 +36,6 @@ const PERSONA_DETAILS: Record<string, {
       'CrossCountry: $10M/year estimated savings',
       'Piedmont: 90% reduction in manual tasks',
       'First Continental: Dedicated support with 4-hour response',
-    ],
-  },
-  ceo: {
-    title: 'CEO/Founder/President',
-    focus: ['Strategic value', 'Competitive advantage', 'Growth enablement', 'Risk reduction'],
-    painPoints: [
-      'Falling behind competitors using modern verification',
-      'Margin pressure from rising verification costs',
-      'Compliance and audit concerns',
-      'Need to scale without adding headcount',
-    ],
-    messaging: [
-      'GSE approved - reduce repurchase risk',
-      '80% cost savings vs The Work Number',
-      'Industry-leading conversion rates',
-      'Trusted by top mortgage lenders',
-    ],
-    proofPoints: [
-      'AmeriSave: 80% savings vs competitors',
-      'MIG: 100% conversion improvement',
-      'Revolution: Costs dropped from 8 to 3 basis points',
     ],
   },
   cfo: {
@@ -80,6 +59,27 @@ const PERSONA_DETAILS: Record<string, {
       'HFS: 10-15% efficiency improvement quantified',
     ],
   },
+  other_exec: {
+    title: 'Other Executive (EVP/SVP)',
+    focus: ['Strategic initiatives', 'Cross-functional alignment', 'Business growth', 'Vendor management'],
+    painPoints: [
+      'Lack of visibility into verification bottlenecks',
+      'Vendor relationships not delivering promised value',
+      'Difficulty justifying technology investments',
+      'Misalignment between operations and technology',
+    ],
+    messaging: [
+      'Trusted by industry leaders like CrossCountry and AmeriSave',
+      'Dedicated customer success team',
+      'Proven ROI within first quarter',
+      'Executive-level partnership approach',
+    ],
+    proofPoints: [
+      'CrossCountry: Partnership approach praised by EVP',
+      'AmeriSave: Strategic partnership delivering on every front',
+      'Orion: Holistic approach to verification optimization',
+    ],
+  },
   cto: {
     title: 'CTO/VP Engineering/IT Director',
     focus: ['Integration ease', 'API quality', 'Reliability', 'Security'],
@@ -98,7 +98,112 @@ const PERSONA_DETAILS: Record<string, {
     proofPoints: [
       'First Continental: <1 month custom implementation',
       'MortgageRight: Seamless LOS integration',
-      'nFTYDoor: Direct-to-source data quality',
+      'NFTYDoor: Direct-to-source data quality',
+    ],
+  },
+  manager: {
+    title: 'Manager/Director Level',
+    focus: ['Day-to-day operations', 'Team performance', 'Process improvement', 'Tool adoption'],
+    painPoints: [
+      'Team spending too much time on manual verifications',
+      'Dealing with borrower complaints about verification delays',
+      'Managing multiple verification vendors',
+      'Training staff on complex verification processes',
+    ],
+    messaging: [
+      'Simple borrower experience increases team efficiency',
+      'One platform for all verification needs',
+      'Real-time status tracking reduces support calls',
+      'Easy onboarding with dedicated support',
+    ],
+    proofPoints: [
+      'Piedmont: 80% reduction in support calls',
+      'First Continental: 4-hour support response time',
+      'MIG: 100% conversion improvement simplifies workflows',
+    ],
+  },
+  ceo: {
+    title: 'CEO/Founder/President',
+    focus: ['Strategic value', 'Competitive advantage', 'Growth enablement', 'Risk reduction'],
+    painPoints: [
+      'Falling behind competitors using modern verification',
+      'Margin pressure from rising verification costs',
+      'Compliance and audit concerns',
+      'Need to scale without adding headcount',
+    ],
+    messaging: [
+      'GSE approved - reduce repurchase risk',
+      '80% cost savings vs The Work Number',
+      'Industry-leading conversion rates',
+      'Trusted by top mortgage lenders',
+    ],
+    proofPoints: [
+      'AmeriSave: 80% savings vs competitors',
+      'MIG: 100% conversion improvement',
+      'Revolution: Costs dropped from 8 to 3 basis points',
+    ],
+  },
+  vp_product: {
+    title: 'VP Product/Head of Product',
+    focus: ['Product experience', 'Feature roadmap', 'Customer satisfaction', 'Innovation'],
+    painPoints: [
+      'Verification step causes application abandonment',
+      'Poor data quality from existing providers',
+      'Limited visibility into verification success rates',
+      'Difficulty integrating verification into product flow',
+    ],
+    messaging: [
+      '70%+ post-login conversion rate',
+      'White-label solution matches your brand',
+      'Real-time webhooks and analytics',
+      'Comprehensive API for custom implementations',
+    ],
+    proofPoints: [
+      'CrossCountry: 70%+ post-login conversion',
+      'NFTYDoor: 70% VOHI conversion',
+      'B9: 12% improvement in funds deposited',
+    ],
+  },
+  vp_underwriting: {
+    title: 'VP Underwriting/Chief Credit Officer',
+    focus: ['Credit risk', 'Loan quality', 'Compliance', 'Data accuracy'],
+    painPoints: [
+      'Fraudulent income documentation increasing',
+      'Verification delays holding up loan decisions',
+      'Data discrepancies between sources',
+      'Audit and compliance burden',
+    ],
+    messaging: [
+      'Direct-to-source data eliminates fraud risk',
+      'GSE-approved for Day 1 Certainty',
+      'Comprehensive income breakdown by source',
+      'Includes paystubs and W-2s for audit trail',
+    ],
+    proofPoints: [
+      'TurboPass: 38% reduction in loan losses',
+      'HFS: 15% improvement in fraud detection',
+      'MortgageRight: More granular data than competitors',
+    ],
+  },
+  vp_lending: {
+    title: 'VP Lending/Mortgage Operations',
+    focus: ['Loan volume', 'Turnaround time', 'Cost per loan', 'Borrower experience'],
+    painPoints: [
+      'Verification costs eating into margins',
+      'Long verification times delaying closings',
+      'Borrower drop-off during verification',
+      'Inconsistent data quality across providers',
+    ],
+    messaging: [
+      'Close loans faster with instant verification',
+      '45-second average verification time',
+      'Improve borrower experience and pull-through',
+      'R&W relief opportunity with GSE approval',
+    ],
+    proofPoints: [
+      'CrossCountry: 8% R&W relief uplift',
+      'TurboPass: 1.5 days faster funding',
+      'Compass: Faster loan approvals with better data',
     ],
   },
 };
