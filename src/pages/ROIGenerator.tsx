@@ -1,8 +1,16 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useROICalculator } from '../hooks/useROICalculator';
+import type { CostMethodType } from '../hooks/useROICalculator';
 import { generateROIReport } from '../utils/pdfGenerator';
 import { formatCurrency, formatNumber, formatPercent } from '../utils/calculations';
+
+const COST_METHODS: { id: CostMethodType; label: string; description: string; placeholder: string }[] = [
+  { id: 'benchmark', label: 'Industry Benchmarks', description: '$10/VOA, $62/TWN', placeholder: '' },
+  { id: 'per_loan', label: 'Cost Per Loan', description: 'Your verification cost per funded loan', placeholder: '85' },
+  { id: 'total_spend', label: 'Total Annual Spend', description: 'Your total verification budget', placeholder: '180000' },
+  { id: 'per_verification', label: 'Cost Per Verification', description: 'What you pay TWN', placeholder: '62' },
+];
 
 export function ROIGenerator() {
   const {
@@ -102,6 +110,74 @@ export function ROIGenerator() {
                 min={0}
                 className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
               />
+            </div>
+          </div>
+
+          {/* Current Costs */}
+          <div className="bg-white border border-gray-200 rounded-xl p-5">
+            <h2 className="font-medium text-gray-900 mb-4">Current Verification Costs</h2>
+            <div className="grid grid-cols-2 gap-3">
+              {COST_METHODS.map((method) => (
+                <button
+                  key={method.id}
+                  onClick={() => {
+                    updateInput('costMethod', method.id);
+                    if (method.id === 'benchmark') {
+                      updateInput('customCost', null);
+                    }
+                  }}
+                  className={`text-left p-3 rounded-lg border-2 transition-all ${
+                    inputs.costMethod === method.id
+                      ? 'border-blue-500 bg-blue-50'
+                      : 'border-gray-200 hover:border-gray-300'
+                  }`}
+                >
+                  <p className={`font-medium text-sm ${inputs.costMethod === method.id ? 'text-blue-900' : 'text-gray-900'}`}>
+                    {method.label}
+                  </p>
+                  <p className={`text-xs mt-0.5 ${inputs.costMethod === method.id ? 'text-blue-700' : 'text-gray-500'}`}>
+                    {method.description}
+                  </p>
+                </button>
+              ))}
+            </div>
+
+            {/* Custom Cost Input */}
+            {inputs.costMethod !== 'benchmark' && (
+              <div className="mt-4">
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  {inputs.costMethod === 'per_loan' && 'Cost Per Funded Loan ($)'}
+                  {inputs.costMethod === 'total_spend' && 'Total Annual Verification Spend ($)'}
+                  {inputs.costMethod === 'per_verification' && 'Cost Per TWN Verification ($)'}
+                </label>
+                <input
+                  type="number"
+                  value={inputs.customCost ?? ''}
+                  onChange={(e) => updateInput('customCost', e.target.value ? parseFloat(e.target.value) : null)}
+                  placeholder={COST_METHODS.find(m => m.id === inputs.costMethod)?.placeholder}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                />
+              </div>
+            )}
+
+            {/* TWN Cost Slider */}
+            <div className="mt-4 pt-4 border-t border-gray-100">
+              <div className="flex items-center justify-between mb-2">
+                <label className="text-sm font-medium text-gray-700">TWN Cost Override</label>
+                <span className="text-sm font-semibold text-gray-900">${inputs.twnCost}</span>
+              </div>
+              <input
+                type="range"
+                min={40}
+                max={100}
+                value={inputs.twnCost}
+                onChange={(e) => updateInput('twnCost', parseInt(e.target.value))}
+                className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-blue-600"
+              />
+              <div className="flex justify-between text-xs text-gray-500 mt-1">
+                <span>$40</span>
+                <span>$100</span>
+              </div>
             </div>
           </div>
 
