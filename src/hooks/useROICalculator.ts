@@ -2,15 +2,23 @@ import { useState, useMemo } from 'react';
 import { calculateROI, DEFAULT_ADVANCED_INPUTS } from '../utils/calculations';
 import type { AdvancedInputs, CalculationResults } from '../types';
 
+export type CostMethodType = 'benchmark' | 'per_loan' | 'total_spend' | 'per_verification';
+
 export interface ROIFormInputs {
   companyName: string;
   fundedLoans: number;
+  costMethod: CostMethodType;
+  customCost: number | null;
+  twnCost: number;
   advancedInputs: AdvancedInputs;
 }
 
 const DEFAULT_FORM_INPUTS: ROIFormInputs = {
   companyName: '',
   fundedLoans: 5000,
+  costMethod: 'benchmark',
+  customCost: null,
+  twnCost: 62,
   advancedInputs: DEFAULT_ADVANCED_INPUTS,
 };
 
@@ -35,9 +43,12 @@ export function useROICalculator() {
 
     return calculateROI(
       { fundedLoans: inputs.fundedLoans, industry: 'mortgage' },
-      inputs.advancedInputs
+      inputs.advancedInputs,
+      inputs.costMethod,
+      inputs.customCost ?? undefined,
+      inputs.twnCost
     );
-  }, [inputs.fundedLoans, inputs.advancedInputs]);
+  }, [inputs.fundedLoans, inputs.advancedInputs, inputs.costMethod, inputs.customCost, inputs.twnCost]);
 
   const totalApplications = useMemo(() => {
     if (inputs.fundedLoans <= 0) return 0;

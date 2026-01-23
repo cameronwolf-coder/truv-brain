@@ -1,9 +1,9 @@
 
 import type { FormData, AdvancedInputs, CalculationResults } from '../types';
 
-// Pricing / Costs
+// Pricing / Costs (defaults)
 const VOA_COST = 10;
-const TWN_COST = 62; // The Work Number cost per transaction
+const DEFAULT_TWN_COST = 62; // The Work Number cost per transaction
 
 // Conversion rates - Standard / Legacy
 const CURRENT_VOA_CONVERSION = 0.50;
@@ -43,10 +43,12 @@ export function calculateROI(
     formData: FormData,
     advancedInputs: AdvancedInputs = DEFAULT_ADVANCED_INPUTS,
     costMethod: 'benchmark' | 'per_loan' | 'total_spend' | 'per_verification' = 'benchmark',
-    customCost?: number
+    customCost?: number,
+    twnCost: number = DEFAULT_TWN_COST
 ): CalculationResults {
     const { fundedLoans } = formData;
     const { borrowersPerApp, endToEndCR, pullThroughRate, w2Rate } = advancedInputs;
+    const TWN_COST = twnCost;
 
     // Calculate funnel metrics
     const e2eCR = endToEndCR / 100;
