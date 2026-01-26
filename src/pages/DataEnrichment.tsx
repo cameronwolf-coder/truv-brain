@@ -7,7 +7,7 @@ import { SourceModal } from '../components/enrichment/SourceModal';
 import { parseCSV } from '../utils/csvParser';
 import { exportToCSV, downloadCSV, copyToClipboard } from '../utils/csvExporter';
 import { EnrichmentClient } from '../services/enrichmentClient';
-import { EnrichmentResult, StreamEventType } from '../types/enrichment';
+import type { EnrichmentResult, StreamEventType } from '../types/enrichment';
 
 export function DataEnrichment() {
   const [selectedFields, setSelectedFields] = useState<string[]>([]);

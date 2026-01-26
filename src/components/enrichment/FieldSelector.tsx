@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { FIELD_CATEGORIES, FIELD_BUNDLES, FieldBundle } from '../../types/enrichment';
+import { FIELD_CATEGORIES, FIELD_BUNDLES } from '../../types/enrichment';
+import type { FieldBundle } from '../../types/enrichment';
 
 interface FieldSelectorProps {
   selectedFields: string[];
@@ -25,7 +26,7 @@ export function FieldSelector({ selectedFields, onFieldsChange }: FieldSelectorP
   };
 
   const handleSelectAll = () => {
-    onFieldsChange(FIELD_BUNDLES.full);
+    onFieldsChange([...FIELD_BUNDLES.full]);
     setActiveBundle('full');
   };
 

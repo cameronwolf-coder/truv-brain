@@ -1,4 +1,4 @@
-import { EnrichmentResult } from '../../types/enrichment';
+import type { EnrichmentResult } from '../../types/enrichment';
 
 interface EnrichmentTableProps {
   results: EnrichmentResult[];

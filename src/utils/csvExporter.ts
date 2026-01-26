@@ -1,4 +1,4 @@
-import { EnrichmentResult } from '../types/enrichment';
+import type { EnrichmentResult } from '../types/enrichment';
 
 export function exportToCSV(results: EnrichmentResult[]): string {
   if (results.length === 0) return '';
