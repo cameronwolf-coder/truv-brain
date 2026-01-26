@@ -70,11 +70,13 @@ async function searchWithFirecrawl(query: string, apiKey: string): Promise<Firec
   });
 
   if (!response.ok) {
-    console.error('Firecrawl search failed:', response.statusText);
+    const errorText = await response.text();
+    console.error('Firecrawl search failed:', response.status, response.statusText, errorText);
     return [];
   }
 
   const data = await response.json();
+  console.log('Firecrawl search response:', JSON.stringify(data).substring(0, 200));
   return data.data || [];
 }
 
