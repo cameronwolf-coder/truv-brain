@@ -42,6 +42,22 @@ Python tool + Pipedream automation for identifying and scoring dormant HubSpot c
 
 AI-powered B2B lead generation platform with intent signal monitoring.
 
+### 3. Data Enrichment
+**Status:** Complete
+**Location:** `/data-enrichment` route
+
+AI-powered company data enrichment tool using OpenAI and Firecrawl.
+
+**Features:**
+- CSV upload with email detection
+- 4 specialized AI agents (Company, Fundraising, Leadership, Technology)
+- Real-time SSE streaming
+- Field presets (Quick, Sales, Executive, Technical, Full)
+- Source attribution for all data
+- CSV/TSV export
+
+**Cost:** ~$0.05-0.10 per contact for full enrichment
+
 ---
 
 ## Key Integrations
