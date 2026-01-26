@@ -12,6 +12,7 @@ import { EmailBuilder } from './pages/EmailBuilder';
 import { ListBuilder } from './pages/ListBuilder';
 import { ROIGenerator } from './pages/ROIGenerator';
 import { ABMBuilder } from './pages/ABMBuilder';
+import { DataEnrichment } from './pages/DataEnrichment';
 import './index.css';
 
 const router = createBrowserRouter([
@@ -58,6 +59,10 @@ const router = createBrowserRouter([
       {
         path: 'abm-builder',
         element: <ABMBuilder />,
+      },
+      {
+        path: 'data-enrichment',
+        element: <DataEnrichment />,
       },
     ],
   },
