@@ -70,10 +70,12 @@ async function searchWithFirecrawl(query: string, apiKey: string): Promise<Firec
       return [];
     }
 
-    return searchResults.web.map(result => ({
-      url: result.url || '',
-      markdown: result.markdown || '',
-    }));
+    return searchResults.web
+      .filter((result): result is { url: string; markdown?: string } => 'url' in result)
+      .map(result => ({
+        url: result.url || '',
+        markdown: result.markdown || '',
+      }));
   } catch (error) {
     console.error('Firecrawl search error:', error);
     return [];
