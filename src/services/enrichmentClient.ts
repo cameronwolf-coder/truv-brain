@@ -1,4 +1,4 @@
-import { StreamEventType, EnrichmentRequest } from '../types/enrichment';
+import type { StreamEventType, EnrichmentRequest } from '../types/enrichment';
 
 export class EnrichmentClient {
   private eventSource: EventSource | null = null;
