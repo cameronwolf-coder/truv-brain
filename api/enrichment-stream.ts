@@ -1,9 +1,9 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import OpenAI from 'openai';
+import Firecrawl from '@mendable/firecrawl-js';
 
 const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
 const FIRECRAWL_API_KEY = process.env.FIRECRAWL_API_KEY;
-const FIRECRAWL_API_URL = 'https://api.firecrawl.dev/v1';
 
 const FIELD_TO_AGENT: Record<string, string> = {
   company_name: 'company',
@@ -54,30 +54,30 @@ function extractDomain(email: string): string | null {
 }
 
 async function searchWithFirecrawl(query: string, apiKey: string): Promise<FirecrawlSearchResult[]> {
-  const response = await fetch(`${FIRECRAWL_API_URL}/search`, {
-    method: 'POST',
-    headers: {
-      'Authorization': `Bearer ${apiKey}`,
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      query,
+  try {
+    const app = new Firecrawl({ apiKey });
+    const searchResults = await app.search(query, {
       limit: 3,
       scrapeOptions: {
         formats: ['markdown'],
       },
-    }),
-  });
+    });
 
-  if (!response.ok) {
-    const errorText = await response.text();
-    console.error('Firecrawl search failed:', response.status, response.statusText, errorText);
+    console.log('Firecrawl search response:', JSON.stringify(searchResults).substring(0, 200));
+
+    if (!searchResults.web || searchResults.web.length === 0) {
+      console.log('No web results from Firecrawl for query:', query);
+      return [];
+    }
+
+    return searchResults.web.map(result => ({
+      url: result.url || '',
+      markdown: result.markdown || '',
+    }));
+  } catch (error) {
+    console.error('Firecrawl search error:', error);
     return [];
   }
-
-  const data = await response.json();
-  console.log('Firecrawl search response:', JSON.stringify(data).substring(0, 200));
-  return data.data || [];
 }
 
 async function extractWithOpenAI(
