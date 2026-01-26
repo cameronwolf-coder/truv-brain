@@ -13,6 +13,7 @@ import { ListBuilder } from './pages/ListBuilder';
 import { ROIGenerator } from './pages/ROIGenerator';
 import { ABMBuilder } from './pages/ABMBuilder';
 import { DataEnrichment } from './pages/DataEnrichment';
+import { ExpertReview } from './pages/ExpertReview';
 import './index.css';
 
 const router = createBrowserRouter([
@@ -63,6 +64,10 @@ const router = createBrowserRouter([
       {
         path: 'data-enrichment',
         element: <DataEnrichment />,
+      },
+      {
+        path: 'expert-review',
+        element: <ExpertReview />,
       },
     ],
   },
