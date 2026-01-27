@@ -45,12 +45,12 @@ export type ReviewStreamEvent =
   | { type: 'complete'; result: ReviewResult }
   | { type: 'error'; message: string };
 
-// Available models for review
+// Available models for review (Claude)
 export const AVAILABLE_MODELS = [
-  { id: 'gpt-4o', name: 'GPT-4o', description: 'Best quality, slower' },
-  { id: 'gpt-4o-mini', name: 'GPT-4o Mini', description: 'Fast & cheap' },
-  { id: 'gpt-4-turbo', name: 'GPT-4 Turbo', description: 'Previous gen' },
-  { id: 'gpt-3.5-turbo', name: 'GPT-3.5 Turbo', description: 'Fastest, basic' },
+  { id: 'claude-sonnet-4-20250514', name: 'Claude Sonnet 4', description: 'Best balance' },
+  { id: 'claude-3-5-sonnet-20241022', name: 'Claude 3.5 Sonnet', description: 'Fast & capable' },
+  { id: 'claude-3-5-haiku-20241022', name: 'Claude 3.5 Haiku', description: 'Fastest, cheap' },
+  { id: 'claude-3-opus-20240229', name: 'Claude 3 Opus', description: 'Most capable' },
 ] as const;
 
 export type ModelId = typeof AVAILABLE_MODELS[number]['id'];
