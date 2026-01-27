@@ -58,8 +58,8 @@ const EXPERTS = [
 ];
 
 interface ExpertEvaluation {
-  expert: string;
-  focus: string;
+  expertId: string;
+  expertName: string;
   score: number;
   verdict: string;
   strengths: string[];
@@ -67,11 +67,13 @@ interface ExpertEvaluation {
 }
 
 interface ReviewResult {
-  finalContent: string;
+  finalScore: number;
   iterations: number;
-  averageScore: number;
-  evaluations: ExpertEvaluation[];
-  improved: boolean;
+  finalContent: string;
+  originalContent: string;
+  changeSummary: string[];
+  expertBreakdown: ExpertEvaluation[];
+  contentType: 'text' | 'image' | 'pdf';
 }
 
 interface ReviewRequest {
@@ -107,8 +109,8 @@ Return a JSON object with an "evaluations" array containing exactly 10 objects, 
 {
   "evaluations": [
     {
-      "expert": "Expert Name",
-      "focus": "their focus area",
+      "expertId": "expert-name-lowercase-hyphenated",
+      "expertName": "Expert Name",
       "score": 0-100,
       "verdict": "2-3 sentence overall assessment in their voice",
       "strengths": ["specific strength 1", "specific strength 2"],
@@ -155,7 +157,7 @@ async function improveContent(
   openai: OpenAI
 ): Promise<{ improvedContent: string; changes: string[] }> {
   const feedbackSummary = evaluations
-    .map((e) => `${e.name} (${e.score}/100): ${e.improvements.join('; ')}`)
+    .map((e) => `${e.expertName} (${e.score}/100): ${e.improvements.join('; ')}`)
     .join('\n');
 
   const prompt = `You are a world-class creative director improving ${contentType} based on expert feedback.
@@ -259,7 +261,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   let currentContent = content;
   let iteration = 0;
   let lastEvaluations: ExpertEvaluation[] = [];
-  let improved = false;
+  let allChanges: string[] = [];
 
   try {
     while (iteration < maxIterations) {
@@ -308,7 +310,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       );
 
       currentContent = improvedContent;
-      improved = true;
+      allChanges.push(...changes.map(c => `${c} (Round ${iteration})`));
 
       // Stream revision
       res.write(`data: ${JSON.stringify({
@@ -323,11 +325,13 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
     // Send final result
     const finalResult: ReviewResult = {
-      finalContent: currentContent,
+      finalScore: calculateAverageScore(lastEvaluations),
       iterations: iteration,
-      averageScore: calculateAverageScore(lastEvaluations),
-      evaluations: lastEvaluations,
-      improved,
+      finalContent: currentContent,
+      originalContent: content,
+      changeSummary: allChanges,
+      expertBreakdown: lastEvaluations,
+      contentType: contentType as 'text' | 'image' | 'pdf',
     };
 
     res.write(`data: ${JSON.stringify({ type: 'complete', result: finalResult })}\n\n`);
