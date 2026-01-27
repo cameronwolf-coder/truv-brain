@@ -45,11 +45,22 @@ export type ReviewStreamEvent =
   | { type: 'complete'; result: ReviewResult }
   | { type: 'error'; message: string };
 
+// Available models for review
+export const AVAILABLE_MODELS = [
+  { id: 'gpt-4o', name: 'GPT-4o', description: 'Best quality, slower' },
+  { id: 'gpt-4o-mini', name: 'GPT-4o Mini', description: 'Fast & cheap' },
+  { id: 'gpt-4-turbo', name: 'GPT-4 Turbo', description: 'Previous gen' },
+  { id: 'gpt-3.5-turbo', name: 'GPT-3.5 Turbo', description: 'Fastest, basic' },
+] as const;
+
+export type ModelId = typeof AVAILABLE_MODELS[number]['id'];
+
 // API request payload
 export interface ReviewRequest {
   content: string;
   contentType: 'text' | 'image' | 'pdf';
   fileName?: string;
+  model?: ModelId;
 }
 
 // UI state

@@ -5,13 +5,16 @@ import type {
   ReviewResult,
   ReviewStreamEvent,
   ExpertEvaluation,
+  ModelId,
 } from '../types/expertReview';
+import { AVAILABLE_MODELS } from '../types/expertReview';
 
 export function ExpertReview() {
   // Input state
   const [textContent, setTextContent] = useState('');
   const [uploadedFile, setUploadedFile] = useState<File | null>(null);
   const [filePreview, setFilePreview] = useState<string | null>(null);
+  const [selectedModel, setSelectedModel] = useState<ModelId>('gpt-4o-mini');
 
   // Review state
   const [status, setStatus] = useState<ReviewStatus>('idle');
@@ -94,7 +97,7 @@ export function ExpertReview() {
     }
 
     await client.startReview(
-      { content, contentType, fileName },
+      { content, contentType, fileName, model: selectedModel },
       handleStreamEvent,
       (err) => {
         setError(err.message);
@@ -334,6 +337,29 @@ export function ExpertReview() {
             Text content will be automatically improved until it scores 90+. Images and
             PDFs receive detailed feedback only (no auto-improvement).
           </p>
+
+          {/* Model Selector */}
+          <div className="bg-white border rounded-lg p-4">
+            <label className="block text-sm font-medium text-gray-700 mb-3">
+              AI Model
+            </label>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+              {AVAILABLE_MODELS.map((model) => (
+                <button
+                  key={model.id}
+                  onClick={() => setSelectedModel(model.id)}
+                  className={`p-3 rounded-lg border-2 text-left transition-colors ${
+                    selectedModel === model.id
+                      ? 'border-blue-500 bg-blue-50'
+                      : 'border-gray-200 hover:border-gray-300'
+                  }`}
+                >
+                  <div className="font-medium text-gray-900 text-sm">{model.name}</div>
+                  <div className="text-xs text-gray-500 mt-1">{model.description}</div>
+                </button>
+              ))}
+            </div>
+          </div>
 
           {/* Submit Button */}
           <div className="flex justify-center">

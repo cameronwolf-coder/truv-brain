@@ -79,12 +79,14 @@ interface ReviewResult {
 interface ReviewRequest {
   content: string;
   contentType: string;
+  model?: string;
 }
 
 async function evaluateWithExperts(
   content: string,
   contentType: string,
-  openai: OpenAI
+  openai: OpenAI,
+  model: string = 'gpt-4o'
 ): Promise<ExpertEvaluation[]> {
   const expertDescriptions = EXPERTS.map(
     (e) => `- ${e.name} (${e.focus}): ${e.perspective}`
@@ -129,7 +131,7 @@ SCORING GUIDE:
 Be specific and actionable. Each expert should provide unique insights from their perspective.`;
 
   const response = await openai.chat.completions.create({
-    model: 'gpt-4o',
+    model,
     messages: [
       {
         role: 'system',
@@ -154,7 +156,8 @@ async function improveContent(
   originalContent: string,
   contentType: string,
   evaluations: ExpertEvaluation[],
-  openai: OpenAI
+  openai: OpenAI,
+  model: string = 'gpt-4o'
 ): Promise<{ improvedContent: string; changes: string[] }> {
   const feedbackSummary = evaluations
     .map((e) => `${e.expertName} (${e.score}/100): ${e.improvements.join('; ')}`)
@@ -181,7 +184,7 @@ Return a JSON object:
 Make meaningful improvements but don't completely rewrite unless necessary. List 3-5 specific changes made.`;
 
   const response = await openai.chat.completions.create({
-    model: 'gpt-4o',
+    model,
     messages: [
       {
         role: 'system',
@@ -239,7 +242,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     return res.status(500).json({ error: 'OpenAI API key not configured' });
   }
 
-  const { content, contentType } = req.body as ReviewRequest;
+  const { content, contentType, model = 'gpt-4o' } = req.body as ReviewRequest;
 
   if (!content || typeof content !== 'string') {
     return res.status(400).json({ error: 'Content is required' });
@@ -268,7 +271,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       iteration++;
 
       // Evaluate with expert panel
-      const evaluations = await evaluateWithExperts(currentContent, contentType, openai);
+      const evaluations = await evaluateWithExperts(currentContent, contentType, openai, model);
       lastEvaluations = evaluations;
 
       // Stream each expert evaluation
@@ -306,7 +309,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         currentContent,
         contentType,
         evaluations,
-        openai
+        openai,
+        model
       );
 
       currentContent = improvedContent;
