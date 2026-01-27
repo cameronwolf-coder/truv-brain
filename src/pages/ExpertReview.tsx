@@ -14,7 +14,7 @@ export function ExpertReview() {
   const [textContent, setTextContent] = useState('');
   const [uploadedFile, setUploadedFile] = useState<File | null>(null);
   const [filePreview, setFilePreview] = useState<string | null>(null);
-  const [selectedModel, setSelectedModel] = useState<ModelId>('gpt-4o-mini');
+  const [selectedModel, setSelectedModel] = useState<ModelId>('claude-sonnet-4-20250514');
 
   // Review state
   const [status, setStatus] = useState<ReviewStatus>('idle');

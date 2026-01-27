@@ -1,7 +1,7 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import OpenAI from 'openai';
+import Anthropic from '@anthropic-ai/sdk';
 
-const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
+const ANTHROPIC_API_KEY = process.env.ANTHROPIC_API_KEY;
 
 // Expert panel definitions
 const EXPERTS = [
@@ -82,11 +82,20 @@ interface ReviewRequest {
   model?: string;
 }
 
+function extractJSON(text: string): any {
+  // Try to find JSON in the response
+  const jsonMatch = text.match(/\{[\s\S]*\}/);
+  if (jsonMatch) {
+    return JSON.parse(jsonMatch[0]);
+  }
+  throw new Error('No JSON found in response');
+}
+
 async function evaluateWithExperts(
   content: string,
   contentType: string,
-  openai: OpenAI,
-  model: string = 'gpt-4o'
+  anthropic: Anthropic,
+  model: string = 'claude-sonnet-4-20250514'
 ): Promise<ExpertEvaluation[]> {
   const expertDescriptions = EXPERTS.map(
     (e) => `- ${e.name} (${e.focus}): ${e.perspective}`
@@ -106,14 +115,14 @@ ${expertDescriptions}
 
 For each expert, provide their evaluation of this ${contentType}. Each expert should evaluate through their specific lens and expertise.
 
-Return a JSON object with an "evaluations" array containing exactly 10 objects, one for each expert in order:
+Return ONLY a JSON object with an "evaluations" array containing exactly 10 objects, one for each expert in order:
 
 {
   "evaluations": [
     {
-      "expertId": "expert-name-lowercase-hyphenated",
-      "expertName": "Expert Name",
-      "score": 0-100,
+      "expertId": "david-ogilvy",
+      "expertName": "David Ogilvy",
+      "score": 75,
       "verdict": "2-3 sentence overall assessment in their voice",
       "strengths": ["specific strength 1", "specific strength 2"],
       "improvements": ["specific actionable improvement 1", "specific actionable improvement 2"]
@@ -128,27 +137,25 @@ SCORING GUIDE:
 - 60-69: Needs significant work
 - Below 60: Major issues to address
 
-Be specific and actionable. Each expert should provide unique insights from their perspective.`;
+Be specific and actionable. Each expert should provide unique insights from their perspective. Return ONLY valid JSON, no other text.`;
 
-  const response = await openai.chat.completions.create({
+  const response = await anthropic.messages.create({
     model,
+    max_tokens: 4096,
     messages: [
       {
-        role: 'system',
-        content: 'You are a panel simulation engine that channels the perspectives of legendary advertising and marketing experts. Provide honest, specific, and actionable feedback.',
+        role: 'user',
+        content: prompt,
       },
-      { role: 'user', content: prompt },
     ],
-    response_format: { type: 'json_object' },
-    temperature: 0.7,
   });
 
-  const result = response.choices[0]?.message?.content;
-  if (!result) {
-    throw new Error('No response from OpenAI');
+  const textContent = response.content.find(block => block.type === 'text');
+  if (!textContent || textContent.type !== 'text') {
+    throw new Error('No text response from Claude');
   }
 
-  const parsed = JSON.parse(result);
+  const parsed = extractJSON(textContent.text);
   return parsed.evaluations || [];
 }
 
@@ -156,8 +163,8 @@ async function improveContent(
   originalContent: string,
   contentType: string,
   evaluations: ExpertEvaluation[],
-  openai: OpenAI,
-  model: string = 'gpt-4o'
+  anthropic: Anthropic,
+  model: string = 'claude-sonnet-4-20250514'
 ): Promise<{ improvedContent: string; changes: string[] }> {
   const feedbackSummary = evaluations
     .map((e) => `${e.expertName} (${e.score}/100): ${e.improvements.join('; ')}`)
@@ -175,33 +182,31 @@ ${feedbackSummary}
 
 Create an improved version that addresses the key feedback while maintaining the core message and intent.
 
-Return a JSON object:
+Return ONLY a JSON object:
 {
   "improvedContent": "the improved ${contentType}",
   "changes": ["specific change 1", "specific change 2", "specific change 3"]
 }
 
-Make meaningful improvements but don't completely rewrite unless necessary. List 3-5 specific changes made.`;
+Make meaningful improvements but don't completely rewrite unless necessary. List 3-5 specific changes made. Return ONLY valid JSON, no other text.`;
 
-  const response = await openai.chat.completions.create({
+  const response = await anthropic.messages.create({
     model,
+    max_tokens: 4096,
     messages: [
       {
-        role: 'system',
-        content: 'You are an expert creative director who improves marketing content based on specific feedback. Make targeted improvements that address the feedback.',
+        role: 'user',
+        content: prompt,
       },
-      { role: 'user', content: prompt },
     ],
-    response_format: { type: 'json_object' },
-    temperature: 0.7,
   });
 
-  const result = response.choices[0]?.message?.content;
-  if (!result) {
-    throw new Error('No response from OpenAI');
+  const textContent = response.content.find(block => block.type === 'text');
+  if (!textContent || textContent.type !== 'text') {
+    throw new Error('No text response from Claude');
   }
 
-  const parsed = JSON.parse(result);
+  const parsed = extractJSON(textContent.text);
   return {
     improvedContent: parsed.improvedContent || originalContent,
     changes: parsed.changes || [],
@@ -216,6 +221,7 @@ function calculateAverageScore(evaluations: ExpertEvaluation[]): number {
 
 function isTextContent(contentType: string): boolean {
   const textTypes = [
+    'text',
     'headline',
     'tagline',
     'copy',
@@ -238,11 +244,11 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  if (!OPENAI_API_KEY) {
-    return res.status(500).json({ error: 'OpenAI API key not configured' });
+  if (!ANTHROPIC_API_KEY) {
+    return res.status(500).json({ error: 'Anthropic API key not configured. Add ANTHROPIC_API_KEY to your environment variables.' });
   }
 
-  const { content, contentType, model = 'gpt-4o' } = req.body as ReviewRequest;
+  const { content, contentType, model = 'claude-sonnet-4-20250514' } = req.body as ReviewRequest;
 
   if (!content || typeof content !== 'string') {
     return res.status(400).json({ error: 'Content is required' });
@@ -257,7 +263,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   res.setHeader('Cache-Control', 'no-cache');
   res.setHeader('Connection', 'keep-alive');
 
-  const openai = new OpenAI({ apiKey: OPENAI_API_KEY });
+  const anthropic = new Anthropic({ apiKey: ANTHROPIC_API_KEY });
   const maxIterations = 5;
   const targetScore = 90;
 
@@ -271,7 +277,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       iteration++;
 
       // Evaluate with expert panel
-      const evaluations = await evaluateWithExperts(currentContent, contentType, openai, model);
+      const evaluations = await evaluateWithExperts(currentContent, contentType, anthropic, model);
       lastEvaluations = evaluations;
 
       // Stream each expert evaluation
@@ -309,7 +315,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         currentContent,
         contentType,
         evaluations,
-        openai,
+        anthropic,
         model
       );
 
