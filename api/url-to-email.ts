@@ -6,6 +6,7 @@ interface EmailContent {
   subject: string;
   preview_text: string;
   hero_date: string;
+  hero_image: string;
   intro_text: string;
   highlights: string[];
   sections: Array<{
@@ -200,6 +201,7 @@ function extractContentFromMarkdown(markdown: string, images: string[]): EmailCo
     subject,
     preview_text: previewText,
     hero_date: heroDate,
+    hero_image: images[0] || '',
     intro_text: introText,
     highlights: highlights.length > 0 ? highlights : ['New features and improvements', 'Enhanced performance', 'Better user experience'],
     sections,

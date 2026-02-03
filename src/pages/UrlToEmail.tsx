@@ -10,6 +10,7 @@ interface EmailContent {
   subject: string;
   preview_text: string;
   hero_date: string;
+  hero_image: string;
   intro_text: string;
   highlights: string[];
   sections: Section[];
@@ -75,13 +76,18 @@ function generateEmailHtml(content: EmailContent, sourceUrl: string): string {
                 <td align="center" style="padding: 40px 0;">
                     <div style="max-width:660px; width:100%; margin:0 auto;">
                         <!-- HERO -->
-                        <table width="100%" cellpadding="0" cellspacing="0" style="background-image: url(https://truv.com/wp-content/themes/twentytwentyone/assets_truv/images/letter/letter-product-bg.png); background-color: #f6f6f6; background-size: cover; border-radius: 20px 20px 0 0;">
+                        <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #f6f6f6; border-radius: 20px 20px 0 0;">
                             <tr><td style="padding: 20px;">
                                 <a href="https://truv.com"><img src="https://truv.com/wp-content/themes/twentytwentyone/assets_truv/images/logo/logo-truv.png" width="65" alt="Truv"></a>
                             </td></tr>
-                            <tr><td style="padding: 15px 35px 50px;">
+                            <tr><td style="padding: 15px 35px 20px;">
                                 <h1 style="font-size: 38px; margin: 0 0 10px; font-weight: 600;">Product Update</h1>
-                                <p style="font-size: 22px; margin: 0 0 30px; font-weight: 500;">${content.hero_date}</p>
+                                <p style="font-size: 22px; margin: 0 0 20px; font-weight: 500;">${content.hero_date}</p>
+                            </td></tr>
+                            ${content.hero_image ? `<tr><td style="padding: 0 35px 20px;">
+                                <img src="${content.hero_image}" width="100%" alt="" style="border-radius: 12px; max-width: 100%; height: auto;">
+                            </td></tr>` : ''}
+                            <tr><td style="padding: 0 35px 40px;">
                                 <a href="${sourceUrl}" style="display:inline-block; background:#2C64E3; color:#fff; padding:16px 25px; border-radius:50px; text-decoration:none; font-weight:500;">Read Full Article</a>
                             </td></tr>
                         </table>
@@ -302,6 +308,55 @@ export function UrlToEmail() {
                   onChange={(e) => updateContent({ hero_date: e.target.value })}
                   className="w-full px-3 py-2 border border-gray-300 rounded text-sm focus:ring-1 focus:ring-blue-500"
                 />
+              </div>
+
+              {/* Header Image */}
+              <div>
+                <label className="block text-xs font-medium text-gray-500 uppercase mb-1">Header Image</label>
+                {content.images && content.images.length > 0 ? (
+                  <div className="space-y-2">
+                    <div className="grid grid-cols-3 gap-2">
+                      {/* No image option */}
+                      <button
+                        type="button"
+                        onClick={() => updateContent({ hero_image: '' })}
+                        className={`h-16 border-2 rounded flex items-center justify-center text-xs text-gray-500 transition-colors ${
+                          !content.hero_image ? 'border-blue-500 bg-blue-50' : 'border-gray-200 hover:border-gray-300'
+                        }`}
+                      >
+                        No image
+                      </button>
+                      {/* Image thumbnails */}
+                      {content.images.map((img, i) => (
+                        <button
+                          key={i}
+                          type="button"
+                          onClick={() => updateContent({ hero_image: img })}
+                          className={`h-16 border-2 rounded overflow-hidden transition-colors ${
+                            content.hero_image === img ? 'border-blue-500' : 'border-gray-200 hover:border-gray-300'
+                          }`}
+                        >
+                          <img src={img} alt={`Option ${i + 1}`} className="w-full h-full object-cover" />
+                        </button>
+                      ))}
+                    </div>
+                    <input
+                      type="url"
+                      value={content.hero_image}
+                      onChange={(e) => updateContent({ hero_image: e.target.value })}
+                      placeholder="Or paste custom image URL..."
+                      className="w-full px-3 py-1.5 border border-gray-300 rounded text-sm focus:ring-1 focus:ring-blue-500"
+                    />
+                  </div>
+                ) : (
+                  <input
+                    type="url"
+                    value={content.hero_image}
+                    onChange={(e) => updateContent({ hero_image: e.target.value })}
+                    placeholder="Paste image URL..."
+                    className="w-full px-3 py-2 border border-gray-300 rounded text-sm focus:ring-1 focus:ring-blue-500"
+                  />
+                )}
               </div>
 
               {/* Intro */}
