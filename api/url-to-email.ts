@@ -1,8 +1,8 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import Anthropic from '@anthropic-ai/sdk';
+import OpenAI from 'openai';
 import Firecrawl from '@mendable/firecrawl-js';
 
-const ANTHROPIC_API_KEY = process.env.ANTHROPIC_API_KEY;
+const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
 const FIRECRAWL_API_KEY = process.env.FIRECRAWL_API_KEY;
 
 interface ConversionRequest {
@@ -58,19 +58,23 @@ async function scrapeWithFirecrawl(url: string, apiKey: string): Promise<{ markd
   };
 }
 
-async function transformContentWithClaude(
+async function transformContentWithOpenAI(
   markdown: string,
   sourceUrl: string,
   images: string[],
-  anthropic: Anthropic
+  openai: OpenAI
 ): Promise<EmailContent> {
-  const response = await anthropic.messages.create({
-    model: 'claude-sonnet-4-20250514',
-    max_tokens: 4096,
+  const response = await openai.chat.completions.create({
+    model: 'gpt-4o-mini',
+    response_format: { type: 'json_object' },
     messages: [
       {
+        role: 'system',
+        content: 'You are an expert email marketer converting blog posts into professional email newsletters. Always respond with valid JSON.',
+      },
+      {
         role: 'user',
-        content: `You are converting a blog post into an email newsletter format. Analyze this content and extract/restructure it for a professional email.
+        content: `Convert this blog post into an email newsletter format.
 
 SOURCE URL: ${sourceUrl}
 AVAILABLE IMAGES: ${JSON.stringify(images)}
@@ -108,12 +112,12 @@ Guidelines:
     ],
   });
 
-  const text = response.content[0].type === 'text' ? response.content[0].text : '';
+  const text = response.choices[0]?.message?.content || '';
 
   // Extract JSON from the response
   const jsonMatch = text.match(/\{[\s\S]*\}/);
   if (!jsonMatch) {
-    throw new Error('Failed to extract JSON from Claude response');
+    throw new Error('Failed to extract JSON from OpenAI response');
   }
 
   return JSON.parse(jsonMatch[0]);
@@ -481,8 +485,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  if (!ANTHROPIC_API_KEY) {
-    return res.status(500).json({ error: 'ANTHROPIC_API_KEY not configured in Vercel environment' });
+  if (!OPENAI_API_KEY) {
+    return res.status(500).json({ error: 'OPENAI_API_KEY not configured in Vercel environment' });
   }
   if (!FIRECRAWL_API_KEY) {
     return res.status(500).json({ error: 'FIRECRAWL_API_KEY not configured in Vercel environment' });
@@ -509,9 +513,9 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       return res.status(400).json({ error: 'Failed to extract content from URL' });
     }
 
-    // Step 2: Transform content with Claude
-    const anthropic = new Anthropic({ apiKey: ANTHROPIC_API_KEY });
-    const emailContent = await transformContentWithClaude(markdown, url, images, anthropic);
+    // Step 2: Transform content with OpenAI
+    const openai = new OpenAI({ apiKey: OPENAI_API_KEY });
+    const emailContent = await transformContentWithOpenAI(markdown, url, images, openai);
 
     // Step 3: Generate the final HTML
     const html = generateEmailHtml(emailContent, url);
