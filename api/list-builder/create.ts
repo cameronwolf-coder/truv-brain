@@ -81,7 +81,13 @@ function buildFilterBranch(
   propertiesByName: Record<string, HubSpotProperty>
 ): unknown {
   if (filters.length === 0) {
-    return { filterBranchType: 'AND', filterBranches: [], filters: [] };
+    return {
+      filterBranchType: 'OR',
+      filterBranches: [
+        { filterBranchType: 'AND', filterBranches: [], filters: [] },
+      ],
+      filters: [],
+    };
   }
 
   const hubspotFilters = filters.map((f) => {
@@ -119,9 +125,15 @@ function buildFilterBranch(
   });
 
   return {
-    filterBranchType: 'AND',
-    filterBranches: [],
-    filters: hubspotFilters,
+    filterBranchType: 'OR',
+    filterBranches: [
+      {
+        filterBranchType: 'AND',
+        filterBranches: [],
+        filters: hubspotFilters,
+      },
+    ],
+    filters: [],
   };
 }
 
