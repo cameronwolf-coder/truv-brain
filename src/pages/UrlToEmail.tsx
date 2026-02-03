@@ -29,6 +29,7 @@ export function UrlToEmail() {
   const [result, setResult] = useState<ConversionResult | null>(null);
   const [copied, setCopied] = useState(false);
   const [editMode, setEditMode] = useState(false);
+  const [editedHtml, setEditedHtml] = useState<string | null>(null);
   const previewRef = useRef<HTMLDivElement>(null);
 
   const handleConvert = async () => {
@@ -38,6 +39,7 @@ export function UrlToEmail() {
     setError(null);
     setResult(null);
     setEditMode(false);
+    setEditedHtml(null);
 
     try {
       const response = await fetch('/api/url-to-email', {
@@ -60,13 +62,27 @@ export function UrlToEmail() {
     }
   };
 
-  const handleCopyHtml = async () => {
-    let htmlToCopy = result?.html || '';
-
-    // If in edit mode, get the edited content from the preview div
-    if (editMode && previewRef.current) {
-      htmlToCopy = previewRef.current.innerHTML;
+  const saveEdits = () => {
+    if (previewRef.current) {
+      setEditedHtml(previewRef.current.innerHTML);
     }
+  };
+
+  const handleToggleEditMode = () => {
+    if (editMode) {
+      // Exiting edit mode - save the edits
+      saveEdits();
+    }
+    setEditMode(!editMode);
+  };
+
+  const handleCopyHtml = async () => {
+    // Save any current edits first
+    if (editMode && previewRef.current) {
+      saveEdits();
+    }
+
+    const htmlToCopy = previewRef.current?.innerHTML || editedHtml || result?.html || '';
 
     try {
       await navigator.clipboard.writeText(htmlToCopy);
@@ -90,6 +106,7 @@ export function UrlToEmail() {
     setError(null);
     setResult(null);
     setEditMode(false);
+    setEditedHtml(null);
   };
 
   return (
@@ -239,7 +256,7 @@ export function UrlToEmail() {
             <h2 className="font-medium text-gray-900">Email Preview</h2>
             {result && !isLoading && (
               <button
-                onClick={() => setEditMode(!editMode)}
+                onClick={handleToggleEditMode}
                 className={`px-3 py-1.5 text-sm rounded-lg font-medium transition-colors ${
                   editMode
                     ? 'bg-amber-100 text-amber-800 border border-amber-300'
@@ -310,11 +327,11 @@ export function UrlToEmail() {
           {result && !isLoading && (
             <div
               ref={previewRef}
-              className={`bg-white shadow-lg rounded-lg overflow-hidden ${editMode ? 'ring-2 ring-amber-400' : ''}`}
+              className={`bg-white shadow-lg rounded-lg overflow-hidden ${editMode ? 'ring-2 ring-amber-400 cursor-text' : ''}`}
               style={{ width: '700px', maxWidth: '100%' }}
               contentEditable={editMode}
               suppressContentEditableWarning={true}
-              dangerouslySetInnerHTML={{ __html: result.html }}
+              dangerouslySetInnerHTML={{ __html: editedHtml || result.html }}
             />
           )}
         </div>
