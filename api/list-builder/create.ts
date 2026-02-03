@@ -184,11 +184,7 @@ function getObjectTypeId(objectType: string): string {
 }
 
 function getListUrl(objectType: string, listId: string): string {
-  // HubSpot list URL format varies by object type
-  if (objectType === 'contacts') {
-    return `https://app.hubspot.com/contacts/${PORTAL_ID}/lists/${listId}`;
-  }
-  return `https://app.hubspot.com/contacts/${PORTAL_ID}/objects/${getObjectTypeId(objectType)}/views/${listId}/list`;
+  return `https://app.hubspot.com/contacts/${PORTAL_ID}/lists/${listId}`;
 }
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
@@ -221,8 +217,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       return res.status(400).json({ error: 'List name is required' });
     }
 
-    if (listType === 'static' && (!recordIds || recordIds.length === 0)) {
-      return res.status(400).json({ error: 'recordIds required for static list' });
+    if (listType === 'static' && ((!filters || filters.length === 0) && (!recordIds || recordIds.length === 0))) {
+      return res.status(400).json({ error: 'recordIds or filters required for static list' });
     }
 
     if (listType === 'active' && (!filters || filters.length === 0)) {
@@ -234,12 +230,28 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     let listResponse: { listId?: string; list?: { listId?: string } };
 
     if (listType === 'static') {
-      // Create static (manual) list
-      listResponse = await hubspotRequest('POST', '/crm/v3/lists', {
-        name,
-        objectTypeId,
-        processingType: 'MANUAL',
-      }) as typeof listResponse;
+      if (filters && filters.length > 0) {
+        const properties = await fetchProperties(objectType);
+        const propertiesByName = properties.reduce<Record<string, HubSpotProperty>>((acc, prop) => {
+          acc[prop.name] = prop;
+          return acc;
+        }, {});
+        const filterBranch = buildFilterBranch(filters, propertiesByName);
+
+        listResponse = await hubspotRequest('POST', '/crm/v3/lists', {
+          name,
+          objectTypeId,
+          processingType: 'SNAPSHOT',
+          filterBranch,
+        }) as typeof listResponse;
+      } else {
+        // Create static (manual) list
+        listResponse = await hubspotRequest('POST', '/crm/v3/lists', {
+          name,
+          objectTypeId,
+          processingType: 'MANUAL',
+        }) as typeof listResponse;
+      }
 
       const listId = listResponse.listId || listResponse.list?.listId;
 
@@ -247,15 +259,17 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         throw new Error('Failed to get list ID from response');
       }
 
-      // Add members in batches of 500
-      const batchSize = 500;
-      for (let i = 0; i < recordIds!.length; i += batchSize) {
-        const batch = recordIds!.slice(i, i + batchSize);
-        await hubspotRequest('PUT', `/crm/v3/lists/${listId}/memberships/add`, batch);
+      if (!filters || filters.length === 0) {
+        // Add members in batches of 500
+        const batchSize = 500;
+        for (let i = 0; i < recordIds!.length; i += batchSize) {
+          const batch = recordIds!.slice(i, i + batchSize);
+          await hubspotRequest('PUT', `/crm/v3/lists/${listId}/memberships/add`, batch);
 
-        // Rate limiting
-        if (i + batchSize < recordIds!.length) {
-          await new Promise((resolve) => setTimeout(resolve, 110));
+          // Rate limiting
+          if (i + batchSize < recordIds!.length) {
+            await new Promise((resolve) => setTimeout(resolve, 110));
+          }
         }
       }
 
@@ -264,7 +278,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         listId,
         listUrl: getListUrl(objectType, listId),
         listType: 'static',
-        recordCount: recordIds!.length,
+        recordCount: recordIds?.length,
       });
     } else {
       // Create active (dynamic) list
