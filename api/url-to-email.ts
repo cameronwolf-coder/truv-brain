@@ -395,7 +395,7 @@ function generateEmailHtml(content: EmailContent, sourceUrl: string): string {
         img { max-width: 100% !important; }
 
         @media screen and (max-width: 640px) {
-            .mobile-no-bg { background-image: none !important; }
+            .mobile-no-bg { background-image: linear-gradient(180deg, #C5D9F7 0%, #F4F4F2 65%, #FFFFFF 100%) !important; }
             .wdth-mob-100 { width: 100% !important; }
             .mob-center { text-align: center !important; }
             .border-rd-mob-0 { border-radius: 0 !important; }
