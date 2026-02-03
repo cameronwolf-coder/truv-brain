@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import React, { useState, useMemo, useRef } from 'react';
 
 interface Section {
   title: string;
@@ -25,7 +25,7 @@ function formatText(text: string): string {
   return text.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
 }
 
-// Bold button component for text inputs
+// Bold button component for text inputs (markdown mode)
 function BoldButton({ inputId }: { inputId: string }) {
   const handleBold = () => {
     const input = document.getElementById(inputId) as HTMLTextAreaElement | HTMLInputElement;
@@ -62,6 +62,90 @@ function BoldButton({ inputId }: { inputId: string }) {
     </button>
   );
 }
+
+// Convert HTML to markdown-like format
+function htmlToMarkdown(html: string): string {
+  return html
+    .replace(/<strong>|<b>/gi, '**')
+    .replace(/<\/strong>|<\/b>/gi, '**')
+    .replace(/<em>|<i>/gi, '*')
+    .replace(/<\/em>|<\/i>/gi, '*')
+    .replace(/<br\s*\/?>/gi, '\n')
+    .replace(/<[^>]+>/g, '')
+    .replace(/&nbsp;/g, ' ')
+    .replace(/&amp;/g, '&')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>');
+}
+
+// WYSIWYG Rich Text Editor component
+function RichTextEditor({
+  value,
+  onChange,
+  rows = 3,
+  placeholder = ''
+}: {
+  value: string;
+  onChange: (value: string) => void;
+  rows?: number;
+  placeholder?: string;
+}) {
+  const editorRef = useRef<HTMLDivElement>(null);
+  const [isFocused, setIsFocused] = useState(false);
+
+  // Convert markdown to HTML for display
+  const displayHtml = formatText(value).replace(/\n/g, '<br>');
+
+  const handleInput = () => {
+    if (editorRef.current) {
+      const html = editorRef.current.innerHTML;
+      const markdown = htmlToMarkdown(html);
+      onChange(markdown);
+    }
+  };
+
+  const execCommand = (command: string, value?: string) => {
+    document.execCommand(command, false, value);
+    editorRef.current?.focus();
+    handleInput();
+  };
+
+  return (
+    <div className="border border-gray-300 rounded overflow-hidden focus-within:ring-1 focus-within:ring-blue-500 focus-within:border-blue-500">
+      {/* Toolbar */}
+      <div className="flex gap-1 p-1 bg-gray-50 border-b border-gray-200">
+        <button
+          type="button"
+          onClick={() => execCommand('bold')}
+          className="px-2 py-1 text-xs font-bold bg-white hover:bg-gray-100 rounded border border-gray-300"
+          title="Bold"
+        >
+          B
+        </button>
+        <button
+          type="button"
+          onClick={() => execCommand('italic')}
+          className="px-2 py-1 text-xs italic bg-white hover:bg-gray-100 rounded border border-gray-300"
+          title="Italic"
+        >
+          I
+        </button>
+      </div>
+      {/* Editor */}
+      <div
+        ref={editorRef}
+        contentEditable
+        onInput={handleInput}
+        onFocus={() => setIsFocused(true)}
+        onBlur={() => setIsFocused(false)}
+        dangerouslySetInnerHTML={{ __html: displayHtml || `<span class="text-gray-400">${placeholder}</span>` }}
+        className="px-3 py-2 text-sm outline-none"
+        style={{ minHeight: `${rows * 1.5}em` }}
+      />
+    </div>
+  );
+}
+
 
 interface ConversionResult {
   success: boolean;
@@ -513,16 +597,12 @@ export function UrlToEmail() {
 
               {/* Intro */}
               <div>
-                <div className="flex items-center justify-between mb-1">
-                  <label className="text-xs font-medium text-gray-500 uppercase">Intro Text</label>
-                  <BoldButton inputId="intro-text" />
-                </div>
-                <textarea
-                  id="intro-text"
+                <label className="block text-xs font-medium text-gray-500 uppercase mb-1">Intro Text</label>
+                <RichTextEditor
                   value={content.intro_text}
-                  onChange={(e) => updateContent({ intro_text: e.target.value })}
+                  onChange={(value) => updateContent({ intro_text: value })}
                   rows={3}
-                  className="w-full px-3 py-2 border border-gray-300 rounded text-sm focus:ring-1 focus:ring-blue-500"
+                  placeholder="Opening paragraph..."
                 />
               </div>
 
@@ -566,17 +646,12 @@ export function UrlToEmail() {
 
                   {/* Section Intro */}
                   <div className="mb-2">
-                    <div className="flex items-center justify-between mb-1">
-                      <label className="text-xs text-gray-400">Intro (optional)</label>
-                      <BoldButton inputId={`section-intro-${sIdx}`} />
-                    </div>
-                    <textarea
-                      id={`section-intro-${sIdx}`}
+                    <label className="block text-xs text-gray-400 mb-1">Intro (optional)</label>
+                    <RichTextEditor
                       value={section.intro || ''}
-                      onChange={(e) => updateSection(sIdx, { intro: e.target.value || undefined })}
+                      onChange={(value) => updateSection(sIdx, { intro: value || undefined })}
                       rows={2}
-                      className="w-full px-3 py-1.5 border border-gray-200 rounded text-sm focus:ring-1 focus:ring-blue-500"
-                      placeholder="Optional intro paragraph for this section..."
+                      placeholder="Optional intro paragraph..."
                     />
                   </div>
 
@@ -639,16 +714,12 @@ export function UrlToEmail() {
 
               {/* Outro */}
               <div>
-                <div className="flex items-center justify-between mb-1">
-                  <label className="text-xs font-medium text-gray-500 uppercase">Outro Text</label>
-                  <BoldButton inputId="outro-text" />
-                </div>
-                <textarea
-                  id="outro-text"
+                <label className="block text-xs font-medium text-gray-500 uppercase mb-1">Outro Text</label>
+                <RichTextEditor
                   value={content.outro_text}
-                  onChange={(e) => updateContent({ outro_text: e.target.value })}
+                  onChange={(value) => updateContent({ outro_text: value })}
                   rows={2}
-                  className="w-full px-3 py-2 border border-gray-300 rounded text-sm focus:ring-1 focus:ring-blue-500"
+                  placeholder="Closing paragraph..."
                 />
               </div>
             </div>
