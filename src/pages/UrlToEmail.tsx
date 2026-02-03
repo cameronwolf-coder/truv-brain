@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef } from 'react';
 
 interface EmailContent {
   subject: string;
@@ -22,51 +22,24 @@ interface ConversionResult {
   sourceUrl: string;
 }
 
-type ConversionStatus = 'idle' | 'scraping' | 'analyzing' | 'generating' | 'complete' | 'error';
-
 export function UrlToEmail() {
   const [url, setUrl] = useState('');
-  const [status, setStatus] = useState<ConversionStatus>('idle');
+  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [result, setResult] = useState<ConversionResult | null>(null);
   const [copied, setCopied] = useState(false);
   const [editMode, setEditMode] = useState(false);
-  const iframeRef = useRef<HTMLIFrameElement>(null);
-
-  // Enable editing inside iframe when result loads
-  useEffect(() => {
-    if (result && iframeRef.current && editMode) {
-      const iframe = iframeRef.current;
-      const enableEditing = () => {
-        try {
-          const doc = iframe.contentDocument;
-          if (doc && doc.body) {
-            doc.designMode = 'on';
-            doc.body.style.cursor = 'text';
-          }
-        } catch (e) {
-          console.error('Could not enable editing:', e);
-        }
-      };
-
-      iframe.onload = enableEditing;
-      // Also try immediately in case already loaded
-      enableEditing();
-    }
-  }, [result, editMode]);
+  const previewRef = useRef<HTMLDivElement>(null);
 
   const handleConvert = async () => {
     if (!url.trim()) return;
 
-    setStatus('scraping');
+    setIsLoading(true);
     setError(null);
     setResult(null);
     setEditMode(false);
 
     try {
-      setTimeout(() => setStatus('analyzing'), 2000);
-      setTimeout(() => setStatus('generating'), 5000);
-
       const response = await fetch('/api/url-to-email', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -80,26 +53,19 @@ export function UrlToEmail() {
       }
 
       setResult(data);
-      setStatus('complete');
     } catch (err) {
       setError(err instanceof Error ? err.message : 'An error occurred');
-      setStatus('error');
+    } finally {
+      setIsLoading(false);
     }
   };
 
   const handleCopyHtml = async () => {
     let htmlToCopy = result?.html || '';
 
-    // If in edit mode, get the edited content from iframe
-    if (editMode && iframeRef.current) {
-      try {
-        const doc = iframeRef.current.contentDocument;
-        if (doc) {
-          htmlToCopy = '<!DOCTYPE html>\n<html lang="en">\n' + doc.documentElement.innerHTML + '\n</html>';
-        }
-      } catch (e) {
-        console.error('Could not get edited content:', e);
-      }
+    // If in edit mode, get the edited content from the preview div
+    if (editMode && previewRef.current) {
+      htmlToCopy = previewRef.current.innerHTML;
     }
 
     try {
@@ -118,56 +84,13 @@ export function UrlToEmail() {
     }
   };
 
-  const handleToggleEdit = () => {
-    setEditMode(!editMode);
-
-    if (!editMode && iframeRef.current) {
-      // Enabling edit mode
-      try {
-        const doc = iframeRef.current.contentDocument;
-        if (doc) {
-          doc.designMode = 'on';
-          doc.body.style.cursor = 'text';
-        }
-      } catch (e) {
-        console.error('Could not enable editing:', e);
-      }
-    } else if (editMode && iframeRef.current) {
-      // Disabling edit mode
-      try {
-        const doc = iframeRef.current.contentDocument;
-        if (doc) {
-          doc.designMode = 'off';
-          doc.body.style.cursor = 'default';
-        }
-      } catch (e) {
-        console.error('Could not disable editing:', e);
-      }
-    }
-  };
-
   const handleReset = () => {
     setUrl('');
-    setStatus('idle');
+    setIsLoading(false);
     setError(null);
     setResult(null);
     setEditMode(false);
   };
-
-  const getStatusMessage = () => {
-    switch (status) {
-      case 'scraping':
-        return 'Scraping page content...';
-      case 'analyzing':
-        return 'Extracting content...';
-      case 'generating':
-        return 'Generating email HTML...';
-      default:
-        return '';
-    }
-  };
-
-  const isProcessing = ['scraping', 'analyzing', 'generating'].includes(status);
 
   return (
     <div className="h-full flex">
@@ -192,24 +115,25 @@ export function UrlToEmail() {
               value={url}
               onChange={(e) => setUrl(e.target.value)}
               placeholder="https://truv.com/blog/..."
-              disabled={isProcessing}
+              disabled={isLoading}
               className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 disabled:bg-gray-50 disabled:text-gray-500"
+              onKeyDown={(e) => e.key === 'Enter' && handleConvert()}
             />
           </div>
 
           {/* Convert Button */}
           <button
             onClick={handleConvert}
-            disabled={!url.trim() || isProcessing}
+            disabled={!url.trim() || isLoading}
             className="w-full px-4 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors"
           >
-            {isProcessing ? (
+            {isLoading ? (
               <span className="flex items-center justify-center gap-2">
                 <svg className="animate-spin h-5 w-5" viewBox="0 0 24 24">
                   <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
                   <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
                 </svg>
-                {getStatusMessage()}
+                Converting...
               </span>
             ) : (
               'Convert to Email'
@@ -227,7 +151,7 @@ export function UrlToEmail() {
           )}
 
           {/* Extracted Content Summary */}
-          {result && (
+          {result && !isLoading && (
             <div className="mt-6 space-y-4">
               <div className="p-4 bg-green-50 border border-green-200 rounded-lg">
                 <p className="text-sm font-medium text-green-800">Conversion complete!</p>
@@ -313,9 +237,9 @@ export function UrlToEmail() {
         <div className="p-4 bg-white border-b border-gray-200 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <h2 className="font-medium text-gray-900">Email Preview</h2>
-            {result && (
+            {result && !isLoading && (
               <button
-                onClick={handleToggleEdit}
+                onClick={() => setEditMode(!editMode)}
                 className={`px-3 py-1.5 text-sm rounded-lg font-medium transition-colors ${
                   editMode
                     ? 'bg-amber-100 text-amber-800 border border-amber-300'
@@ -326,7 +250,7 @@ export function UrlToEmail() {
               </button>
             )}
           </div>
-          {result && (
+          {result && !isLoading && (
             <button
               onClick={handleCopyHtml}
               className={`px-4 py-2 rounded-lg font-medium transition-colors ${
@@ -350,15 +274,15 @@ export function UrlToEmail() {
         </div>
 
         {/* Edit Mode Banner */}
-        {editMode && result && (
+        {editMode && result && !isLoading && (
           <div className="bg-amber-50 border-b border-amber-200 px-4 py-2 text-sm text-amber-800">
-            <strong>Edit Mode:</strong> Click any text in the preview to edit it. Your changes will be included when you copy the HTML.
+            <strong>Edit Mode:</strong> Click any text below to edit. Changes are saved when you copy.
           </div>
         )}
 
         {/* Preview Content */}
         <div className="flex-1 overflow-auto p-6 flex justify-center">
-          {!result && status === 'idle' && (
+          {!result && !isLoading && (
             <div className="flex items-center justify-center h-full">
               <div className="text-center text-gray-500">
                 <svg className="mx-auto h-16 w-16 text-gray-300 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -370,32 +294,28 @@ export function UrlToEmail() {
             </div>
           )}
 
-          {isProcessing && (
+          {isLoading && (
             <div className="flex items-center justify-center h-full">
               <div className="text-center">
                 <svg className="animate-spin mx-auto h-12 w-12 text-blue-600 mb-4" viewBox="0 0 24 24">
                   <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
                   <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
                 </svg>
-                <p className="text-lg font-medium text-gray-700">{getStatusMessage()}</p>
+                <p className="text-lg font-medium text-gray-700">Converting...</p>
+                <p className="text-sm text-gray-500 mt-1">Scraping and extracting content</p>
               </div>
             </div>
           )}
 
-          {result && (
+          {result && !isLoading && (
             <div
+              ref={previewRef}
               className={`bg-white shadow-lg rounded-lg overflow-hidden ${editMode ? 'ring-2 ring-amber-400' : ''}`}
               style={{ width: '700px', maxWidth: '100%' }}
-            >
-              <iframe
-                ref={iframeRef}
-                srcDoc={result.html}
-                title="Email Preview"
-                className="w-full border-0"
-                style={{ height: '900px' }}
-                sandbox="allow-same-origin allow-scripts"
-              />
-            </div>
+              contentEditable={editMode}
+              suppressContentEditableWarning={true}
+              dangerouslySetInnerHTML={{ __html: result.html }}
+            />
           )}
         </div>
       </div>
