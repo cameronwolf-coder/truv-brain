@@ -4,6 +4,7 @@ interface Section {
   title: string;
   intro?: string;
   image?: string;
+  imagePosition?: 'top' | 'middle' | 'bottom'; // top=after title, middle=after intro, bottom=after bullets
   bullets: string[];
 }
 
@@ -176,7 +177,16 @@ function generateEmailHtml(content: EmailContent, sourceUrl: string): string {
                                 </ul>`
         : '';
 
-      return `<hr>${titleHtml}${introHtml}${imageHtml}${bulletsHtml}`;
+      // Arrange based on image position
+      const pos = section.imagePosition || 'top';
+      if (pos === 'top') {
+        return `<hr>${titleHtml}${imageHtml}${introHtml}${bulletsHtml}`;
+      } else if (pos === 'bottom') {
+        return `<hr>${titleHtml}${introHtml}${bulletsHtml}${imageHtml}`;
+      } else {
+        // middle (after intro, before bullets) - default behavior
+        return `<hr>${titleHtml}${introHtml}${imageHtml}${bulletsHtml}`;
+      }
     })
     .join('\n');
 
@@ -402,7 +412,7 @@ export function UrlToEmail() {
 
   const addSection = () => {
     if (!content) return;
-    updateContent({ sections: [...content.sections, { title: '', intro: '', bullets: [''] }] });
+    updateContent({ sections: [...content.sections, { title: '', intro: '', imagePosition: 'top', bullets: [''] }] });
   };
 
   // Bullet helpers
@@ -669,8 +679,21 @@ export function UrlToEmail() {
 
                   {/* Image */}
                   <div className="mb-2">
-                    <label className="block text-xs text-gray-400 mb-1">Image</label>
-                    <div className="flex gap-1 flex-wrap mb-1">
+                    <div className="flex items-center justify-between mb-1">
+                      <label className="text-xs text-gray-400">Image</label>
+                      {section.image && (
+                        <select
+                          value={section.imagePosition || 'top'}
+                          onChange={(e) => updateSection(sIdx, { imagePosition: e.target.value as 'top' | 'middle' | 'bottom' })}
+                          className="text-xs border border-gray-200 rounded px-1 py-0.5"
+                        >
+                          <option value="top">After Title</option>
+                          <option value="middle">After Intro</option>
+                          <option value="bottom">After Bullets</option>
+                        </select>
+                      )}
+                    </div>
+                    <div className="flex gap-1 flex-wrap">
                       <button
                         type="button"
                         onClick={() => updateSection(sIdx, { image: undefined })}
