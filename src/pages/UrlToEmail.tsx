@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useRef } from 'react';
+import { useState, useMemo, useRef } from 'react';
 
 interface Section {
   title: string;
@@ -91,7 +91,6 @@ function RichTextEditor({
   placeholder?: string;
 }) {
   const editorRef = useRef<HTMLDivElement>(null);
-  const [isFocused, setIsFocused] = useState(false);
 
   // Convert markdown to HTML for display
   const displayHtml = formatText(value).replace(/\n/g, '<br>');
@@ -136,8 +135,6 @@ function RichTextEditor({
         ref={editorRef}
         contentEditable
         onInput={handleInput}
-        onFocus={() => setIsFocused(true)}
-        onBlur={() => setIsFocused(false)}
         dangerouslySetInnerHTML={{ __html: displayHtml || `<span class="text-gray-400">${placeholder}</span>` }}
         className="px-3 py-2 text-sm outline-none"
         style={{ minHeight: `${rows * 1.5}em` }}
@@ -420,6 +417,23 @@ export function UrlToEmail() {
     updateContent({ sections: newSections });
   };
 
+  const deleteSection = (sectionIndex: number) => {
+    if (!content) return;
+    const newSections = content.sections.filter((_, i) => i !== sectionIndex);
+    updateContent({ sections: newSections });
+  };
+
+  const addSection = () => {
+    if (!content) return;
+    const newSection: Section = {
+      title: '',
+      intro: '',
+      image: undefined,
+      bullets: ['', '', ''],
+    };
+    updateContent({ sections: [...content.sections, newSection] });
+  };
+
   return (
     <div className="h-full flex">
       {/* Left Panel */}
@@ -629,7 +643,19 @@ export function UrlToEmail() {
               {/* Sections */}
               {content.sections.map((section, sIdx) => (
                 <div key={sIdx} className="border border-gray-200 rounded-lg p-3">
-                  <label className="block text-xs font-medium text-gray-500 uppercase mb-2">Section {sIdx + 1}</label>
+                  <div className="flex items-center justify-between mb-2">
+                    <label className="text-xs font-medium text-gray-500 uppercase">Section {sIdx + 1}</label>
+                    <button
+                      type="button"
+                      onClick={() => deleteSection(sIdx)}
+                      className="text-gray-400 hover:text-red-500 transition-colors"
+                      title="Delete section"
+                    >
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                      </svg>
+                    </button>
+                  </div>
 
                   {/* Title */}
                   <div className="flex gap-1 mb-2">
@@ -711,6 +737,18 @@ export function UrlToEmail() {
                   </div>
                 </div>
               ))}
+
+              {/* Add Section Button */}
+              <button
+                type="button"
+                onClick={addSection}
+                className="w-full py-2 border-2 border-dashed border-gray-300 rounded-lg text-sm text-gray-500 hover:border-blue-400 hover:text-blue-600 transition-colors flex items-center justify-center gap-2"
+              >
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+                </svg>
+                Add Section
+              </button>
 
               {/* Outro */}
               <div>
