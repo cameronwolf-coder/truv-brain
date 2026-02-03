@@ -307,6 +307,7 @@ export function SmartListBuilder() {
 
       if (type === 'static') {
         body.recordIds = searchResult.records.map((r) => r.id);
+        body.filters = filters;
       } else {
         body.filters = filters;
       }
