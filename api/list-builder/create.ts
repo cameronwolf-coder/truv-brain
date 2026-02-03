@@ -90,49 +90,107 @@ function buildFilterBranch(
     };
   }
 
-  const hubspotFilters = filters.map((f) => {
-    const property = propertiesByName[f.propertyName];
-    const normalized = normalizeFilterOperation(f, property);
-    const filter: {
-      filterType: string;
-      property: string;
-      operation: {
-        operationType: string;
-        operator: string;
-        value?: string;
-        values?: string[];
-        includeObjectsWithNoValueSet?: boolean;
+  const filterSets = expandFilterSets(filters, propertiesByName);
+  const filterBranches = filterSets.map((filterSet) => {
+    const hubspotFilters = filterSet.map((f) => {
+      const property = propertiesByName[f.propertyName];
+      const normalized = normalizeFilterOperation(f, property);
+      const filter: {
+        filterType: string;
+        property: string;
+        operation: {
+          operationType: string;
+          operator: string;
+          value?: string;
+          values?: string[];
+          includeObjectsWithNoValueSet?: boolean;
+        };
+      } = {
+        filterType: 'PROPERTY',
+        property: f.propertyName,
+        operation: {
+          operationType: normalized.operationType,
+          operator: normalized.operator,
+        },
       };
-    } = {
-      filterType: 'PROPERTY',
-      property: f.propertyName,
-      operation: {
-        operationType: normalized.operationType,
-        operator: normalized.operator,
-      },
+
+      if (normalized.value !== undefined) {
+        filter.operation.value = normalized.value;
+      }
+      if (normalized.values !== undefined) {
+        filter.operation.values = normalized.values;
+      }
+
+      return filter;
+    });
+
+    return {
+      filterBranchType: 'AND',
+      filterBranches: [],
+      filters: hubspotFilters,
     };
-
-    if (normalized.value !== undefined) {
-      filter.operation.value = normalized.value;
-    }
-    if (normalized.values !== undefined) {
-      filter.operation.values = normalized.values;
-    }
-
-    return filter;
   });
 
   return {
     filterBranchType: 'OR',
-    filterBranches: [
-      {
-        filterBranchType: 'AND',
-        filterBranches: [],
-        filters: hubspotFilters,
-      },
-    ],
+    filterBranches,
     filters: [],
   };
+}
+
+function expandFilterSets(
+  filters: Filter[],
+  propertiesByName: Record<string, HubSpotProperty>
+): Filter[][] {
+  let branches: Filter[][] = [[]];
+
+  for (const filter of filters) {
+    const property = propertiesByName[filter.propertyName];
+    const isEnumeration = property?.type === 'enumeration';
+    const values = (filter.values || []).filter(Boolean);
+    const value = filter.value?.trim();
+    const allValues = values.length > 0 ? values : value ? [value] : [];
+
+    if (!isEnumeration && filter.operator === 'IN') {
+      if (allValues.length === 0) {
+        throw new Error(`Invalid filter: ${filter.propertyName} IN requires values`);
+      }
+      const nextBranches: Filter[][] = [];
+      for (const branch of branches) {
+        for (const v of allValues) {
+          nextBranches.push([
+            ...branch,
+            {
+              propertyName: filter.propertyName,
+              operator: 'EQ',
+              value: v,
+            },
+          ]);
+        }
+      }
+      branches = nextBranches;
+      continue;
+    }
+
+    if (!isEnumeration && filter.operator === 'NOT_IN') {
+      if (allValues.length === 0) {
+        throw new Error(`Invalid filter: ${filter.propertyName} NOT_IN requires values`);
+      }
+      branches = branches.map((branch) => [
+        ...branch,
+        ...allValues.map((v) => ({
+          propertyName: filter.propertyName,
+          operator: 'NEQ',
+          value: v,
+        })),
+      ]);
+      continue;
+    }
+
+    branches = branches.map((branch) => [...branch, filter]);
+  }
+
+  return branches;
 }
 
 function mapOperator(operator: string, property?: HubSpotProperty): string {
@@ -179,6 +237,9 @@ function normalizeFilterOperation(
 
   if (filter.operator === 'IN' || filter.operator === 'NOT_IN') {
     const values = (filter.values || []).filter(Boolean);
+    if (values.length === 0 && filter.value) {
+      values.push(filter.value);
+    }
     if (values.length === 0) {
       throw new Error(`Invalid filter: ${filter.propertyName} ${filter.operator} requires values`);
     }
@@ -189,17 +250,24 @@ function normalizeFilterOperation(
     };
   }
 
-  const value = filter.value?.trim();
+  let value = filter.value?.trim();
+  if (!value && filter.values && filter.values.length > 0) {
+    value = filter.values[0]?.trim();
+  }
   if (!value) {
     throw new Error(`Invalid filter: ${filter.propertyName} ${filter.operator} requires value`);
   }
 
   if (property?.type === 'enumeration') {
     const operator = filter.operator === 'NEQ' ? 'NOT_IN' : 'IN';
+    const values = (filter.values || []).filter(Boolean);
+    if (!values.includes(value)) {
+      values.push(value);
+    }
     return {
       operationType: mapOperationType(property),
       operator: mapOperator(operator, property),
-      values: [value],
+      values,
     };
   }
 
