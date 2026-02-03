@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect, useMemo } from 'react';
 
 interface Filter {
   propertyName: string;
@@ -11,6 +11,14 @@ interface Clarification {
   id: string;
   question: string;
   options: string[];
+}
+
+interface HubSpotProperty {
+  name: string;
+  label: string;
+  type: string;
+  fieldType: string;
+  options?: Array<{ value: string; label: string }>;
 }
 
 interface HubSpotRecord {
@@ -43,6 +51,15 @@ export function SmartListBuilder() {
   const [clarifications, setClarifications] = useState<Clarification[]>([]);
   const [clarificationResponses, setClarificationResponses] = useState<Record<string, string>>({});
 
+  // Properties for filter editing
+  const [properties, setProperties] = useState<HubSpotProperty[]>([]);
+  const [isLoadingProperties, setIsLoadingProperties] = useState(false);
+  const [propertiesError, setPropertiesError] = useState<string | null>(null);
+
+  // Filter editing state
+  const [isEditingFilters, setIsEditingFilters] = useState(false);
+  const [draftFilters, setDraftFilters] = useState<Filter[]>([]);
+
   // Search results
   const [searchResult, setSearchResult] = useState<SearchResult | null>(null);
 
@@ -54,6 +71,96 @@ export function SmartListBuilder() {
   // Export
   const [isExporting, setIsExporting] = useState(false);
   const [exportedSheet, setExportedSheet] = useState<{ sheetUrl: string } | null>(null);
+
+  const propertyByName = useMemo(() => {
+    return properties.reduce<Record<string, HubSpotProperty>>((acc, prop) => {
+      acc[prop.name] = prop;
+      return acc;
+    }, {});
+  }, [properties]);
+
+  const getPropertyLabel = useCallback((propertyName: string) => {
+    return propertyByName[propertyName]?.label || propertyName;
+  }, [propertyByName]);
+
+  const getDefaultOperator = useCallback((property?: HubSpotProperty) => {
+    if (!property) return 'EQ';
+    if (property.type === 'enumeration') return 'EQ';
+    return 'EQ';
+  }, []);
+
+  const getOperatorOptions = useCallback((property?: HubSpotProperty) => {
+    const base = ['HAS_PROPERTY', 'NOT_HAS_PROPERTY'];
+    if (!property) {
+      return ['EQ', 'NEQ', 'IN', 'NOT_IN', 'CONTAINS', 'NOT_CONTAINS', 'GT', 'GTE', 'LT', 'LTE', ...base];
+    }
+
+    if (property.type === 'enumeration') {
+      return ['EQ', 'NEQ', 'IN', 'NOT_IN', ...base];
+    }
+
+    if (property.type === 'number') {
+      return ['EQ', 'NEQ', 'GT', 'GTE', 'LT', 'LTE', ...base];
+    }
+
+    if (property.type === 'date' || property.fieldType === 'date') {
+      return ['EQ', 'NEQ', 'GT', 'GTE', 'LT', 'LTE', ...base];
+    }
+
+    if (property.type === 'bool' || property.fieldType === 'booleancheckbox') {
+      return ['EQ', 'NEQ', ...base];
+    }
+
+    return ['EQ', 'NEQ', 'CONTAINS', 'NOT_CONTAINS', 'IN', 'NOT_IN', ...base];
+  }, []);
+
+  const formatFilterValue = useCallback((filter: Filter) => {
+    if (filter.operator === 'HAS_PROPERTY') return 'has value';
+    if (filter.operator === 'NOT_HAS_PROPERTY') return 'missing';
+    if (filter.values && filter.values.length > 0) return filter.values.join(', ');
+    if (filter.value !== undefined && filter.value !== '') return filter.value;
+    return '—';
+  }, []);
+
+  const isFilterComplete = useCallback((filter: Filter) => {
+    if (!filter.propertyName || !filter.operator) return false;
+    if (filter.operator === 'HAS_PROPERTY' || filter.operator === 'NOT_HAS_PROPERTY') return true;
+    if (filter.operator === 'IN' || filter.operator === 'NOT_IN') {
+      return (filter.values || []).length > 0;
+    }
+    return !!filter.value;
+  }, []);
+
+  useEffect(() => {
+    let isMounted = true;
+    setIsLoadingProperties(true);
+    setPropertiesError(null);
+
+    fetch(`/api/list-builder/properties?objectType=${objectType}`)
+      .then((response) => response.json())
+      .then((data) => {
+        if (!isMounted) return;
+        if (!data.success) {
+          setPropertiesError(data.error || 'Failed to load properties');
+          setProperties([]);
+          return;
+        }
+        setProperties(data.properties || []);
+      })
+      .catch((err) => {
+        if (!isMounted) return;
+        setPropertiesError(err instanceof Error ? err.message : 'Failed to load properties');
+        setProperties([]);
+      })
+      .finally(() => {
+        if (!isMounted) return;
+        setIsLoadingProperties(false);
+      });
+
+    return () => {
+      isMounted = false;
+    };
+  }, [objectType]);
 
   const handleSearch = useCallback(async (searchFilters: Filter[]) => {
     setIsLoading(true);
@@ -120,6 +227,8 @@ export function SmartListBuilder() {
         setListName(data.suggestedName || '');
         setCanBeActiveList(data.canBeActiveList !== false);
         setClarifications([]);
+        setIsEditingFilters(false);
+        setDraftFilters([]);
 
         // Now search
         await handleSearch(data.filters);
@@ -237,6 +346,8 @@ export function SmartListBuilder() {
     setCreatedList(null);
     setExportedSheet(null);
     setError(null);
+    setIsEditingFilters(false);
+    setDraftFilters([]);
   };
 
   const formatDate = (dateStr: string | null) => {
@@ -402,8 +513,21 @@ export function SmartListBuilder() {
         <div className="space-y-6">
           {/* Summary Card */}
           <div className="bg-white border border-gray-200 rounded-xl p-6">
-            <div className="flex items-center justify-between mb-4">
-              <h2 className="text-lg font-medium text-gray-900">Results Preview</h2>
+            <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
+              <div className="flex items-center gap-3">
+                <h2 className="text-lg font-medium text-gray-900">Results Preview</h2>
+                {!isEditingFilters && (
+                  <button
+                    onClick={() => {
+                      setDraftFilters(filters.map((f) => ({ ...f })));
+                      setIsEditingFilters(true);
+                    }}
+                    className="text-sm text-blue-600 hover:text-blue-700"
+                  >
+                    Edit Filters
+                  </button>
+                )}
+              </div>
               <span className="px-3 py-1.5 bg-blue-100 text-blue-700 rounded-full text-sm font-medium">
                 {searchResult.total.toLocaleString()} {objectType}
               </span>
@@ -411,17 +535,272 @@ export function SmartListBuilder() {
 
             {/* Applied Filters */}
             <div className="mb-4 p-4 bg-gray-50 rounded-lg">
-              <p className="text-sm font-medium text-gray-700 mb-2">Applied Filters:</p>
-              <div className="flex flex-wrap gap-2">
-                {filters.map((f, idx) => (
-                  <span
-                    key={idx}
-                    className="px-3 py-1 bg-white border border-gray-200 rounded text-sm text-gray-700"
+              <div className="flex items-center justify-between mb-2">
+                <p className="text-sm font-medium text-gray-700">Applied Filters:</p>
+                {!isEditingFilters && (
+                  <button
+                    onClick={() => {
+                      setDraftFilters(filters.map((f) => ({ ...f })));
+                      setIsEditingFilters(true);
+                    }}
+                    className="text-sm text-blue-600 hover:text-blue-700"
                   >
-                    {f.propertyName} {f.operator} {f.value || f.values?.join(', ')}
-                  </span>
-                ))}
+                    Edit Filters
+                  </button>
+                )}
               </div>
+
+              {!isEditingFilters && (
+                <div className="flex flex-wrap gap-2">
+                  {filters.map((f, idx) => (
+                    <span
+                      key={idx}
+                      className="px-3 py-1 bg-white border border-gray-200 rounded text-sm text-gray-700"
+                    >
+                      {getPropertyLabel(f.propertyName)} {f.operator} {formatFilterValue(f)}
+                    </span>
+                  ))}
+                </div>
+              )}
+
+              {isEditingFilters && (
+                <div className="space-y-3">
+                  {propertiesError && (
+                    <div className="text-xs text-red-600">{propertiesError}</div>
+                  )}
+                  {isLoadingProperties && (
+                    <div className="text-xs text-gray-500">Loading properties...</div>
+                  )}
+
+                  <div className="space-y-2">
+                    {draftFilters.map((filter, index) => {
+                      const property = propertyByName[filter.propertyName];
+                      const operatorOptions = getOperatorOptions(property);
+                      const isEnum = property?.type === 'enumeration' && (property.options?.length || 0) > 0;
+                      const showMulti = filter.operator === 'IN' || filter.operator === 'NOT_IN';
+                      const needsValue = filter.operator !== 'HAS_PROPERTY' && filter.operator !== 'NOT_HAS_PROPERTY';
+
+                      return (
+                        <div key={`${filter.propertyName}-${index}`} className="grid grid-cols-12 gap-2 items-center">
+                          <select
+                            value={filter.propertyName}
+                            onChange={(event) => {
+                              const nextPropertyName = event.target.value;
+                              const nextProperty = propertyByName[nextPropertyName];
+                              const nextOperator = getDefaultOperator(nextProperty);
+
+                              setDraftFilters((prev) =>
+                                prev.map((item, idx) =>
+                                  idx === index
+                                    ? {
+                                      ...item,
+                                      propertyName: nextPropertyName,
+                                      operator: nextOperator,
+                                      value: undefined,
+                                      values: undefined,
+                                    }
+                                    : item
+                                )
+                              );
+                            }}
+                            className="col-span-4 px-2 py-2 border border-gray-300 rounded text-sm"
+                          >
+                            <option value="">Select property</option>
+                            {properties.map((prop) => (
+                              <option key={prop.name} value={prop.name}>
+                                {prop.label || prop.name}
+                              </option>
+                            ))}
+                          </select>
+
+                          <select
+                            value={filter.operator}
+                            onChange={(event) => {
+                              const nextOperator = event.target.value;
+                              setDraftFilters((prev) =>
+                                prev.map((item, idx) =>
+                                  idx === index
+                                    ? {
+                                      ...item,
+                                      operator: nextOperator,
+                                      value: undefined,
+                                      values: undefined,
+                                    }
+                                    : item
+                                )
+                              );
+                            }}
+                            className="col-span-3 px-2 py-2 border border-gray-300 rounded text-sm"
+                          >
+                            {operatorOptions.map((op) => (
+                              <option key={op} value={op}>
+                                {op}
+                              </option>
+                            ))}
+                          </select>
+
+                          <div className="col-span-4">
+                            {!needsValue && (
+                              <div className="px-2 py-2 text-xs text-gray-500">No value</div>
+                            )}
+
+                            {needsValue && isEnum && !showMulti && (
+                              <select
+                                value={filter.value || ''}
+                                onChange={(event) => {
+                                  const nextValue = event.target.value;
+                                  setDraftFilters((prev) =>
+                                    prev.map((item, idx) =>
+                                      idx === index
+                                        ? { ...item, value: nextValue, values: undefined }
+                                        : item
+                                    )
+                                  );
+                                }}
+                                className="w-full px-2 py-2 border border-gray-300 rounded text-sm"
+                              >
+                                <option value="">Select value</option>
+                                {property?.options?.map((opt) => (
+                                  <option key={opt.value} value={opt.value}>
+                                    {opt.label}
+                                  </option>
+                                ))}
+                              </select>
+                            )}
+
+                            {needsValue && isEnum && showMulti && (
+                              <select
+                                multiple
+                                value={filter.values || []}
+                                onChange={(event) => {
+                                  const selected = Array.from(event.target.selectedOptions).map((opt) => opt.value);
+                                  setDraftFilters((prev) =>
+                                    prev.map((item, idx) =>
+                                      idx === index
+                                        ? { ...item, values: selected, value: undefined }
+                                        : item
+                                    )
+                                  );
+                                }}
+                                className="w-full px-2 py-2 border border-gray-300 rounded text-sm h-24"
+                              >
+                                {property?.options?.map((opt) => (
+                                  <option key={opt.value} value={opt.value}>
+                                    {opt.label}
+                                  </option>
+                                ))}
+                              </select>
+                            )}
+
+                            {needsValue && !isEnum && showMulti && (
+                              <input
+                                type="text"
+                                value={(filter.values || []).join(', ')}
+                                onChange={(event) => {
+                                  const nextValues = event.target.value
+                                    .split(',')
+                                    .map((v) => v.trim())
+                                    .filter(Boolean);
+
+                                  setDraftFilters((prev) =>
+                                    prev.map((item, idx) =>
+                                      idx === index
+                                        ? { ...item, values: nextValues, value: undefined }
+                                        : item
+                                    )
+                                  );
+                                }}
+                                placeholder="Comma-separated values"
+                                className="w-full px-2 py-2 border border-gray-300 rounded text-sm"
+                              />
+                            )}
+
+                            {needsValue && !isEnum && !showMulti && (
+                              <input
+                                type="text"
+                                value={filter.value || ''}
+                                onChange={(event) => {
+                                  const nextValue = event.target.value;
+                                  setDraftFilters((prev) =>
+                                    prev.map((item, idx) =>
+                                      idx === index
+                                        ? { ...item, value: nextValue, values: undefined }
+                                        : item
+                                    )
+                                  );
+                                }}
+                                placeholder="Value"
+                                className="w-full px-2 py-2 border border-gray-300 rounded text-sm"
+                              />
+                            )}
+                          </div>
+
+                          <button
+                            onClick={() =>
+                              setDraftFilters((prev) => prev.filter((_, idx) => idx !== index))
+                            }
+                            className="col-span-1 text-xs text-red-600 hover:text-red-700"
+                          >
+                            Remove
+                          </button>
+                        </div>
+                      );
+                    })}
+                  </div>
+
+                  <div className="flex flex-wrap gap-2">
+                    <button
+                      onClick={() => {
+                        const defaultProperty = properties[0];
+                        setDraftFilters((prev) => [
+                          ...prev,
+                          {
+                            propertyName: defaultProperty?.name || '',
+                            operator: getDefaultOperator(defaultProperty),
+                            value: undefined,
+                            values: undefined,
+                          },
+                        ]);
+                      }}
+                      className="px-3 py-1.5 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg text-sm"
+                    >
+                      Add Filter
+                    </button>
+
+                    <button
+                      onClick={() => {
+                        setIsEditingFilters(false);
+                        setDraftFilters([]);
+                      }}
+                      className="px-3 py-1.5 text-gray-600 hover:text-gray-800 text-sm"
+                    >
+                      Cancel
+                    </button>
+
+                    <button
+                      onClick={async () => {
+                        const nextFilters = draftFilters.map((f) => ({
+                          ...f,
+                          value: f.value?.trim(),
+                          values: f.values?.filter(Boolean),
+                        }));
+
+                        setFilters(nextFilters);
+                        setIsEditingFilters(false);
+                        setDraftFilters([]);
+                        await handleSearch(nextFilters);
+                      }}
+                      disabled={
+                        draftFilters.length === 0 ||
+                        draftFilters.some((filter) => !isFilterComplete(filter))
+                      }
+                      className="px-3 py-1.5 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-300 text-white rounded-lg text-sm"
+                    >
+                      Apply Filters
+                    </button>
+                  </div>
+                </div>
+              )}
             </div>
 
             {/* Summary Stats */}

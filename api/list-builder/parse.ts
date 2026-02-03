@@ -92,15 +92,17 @@ function buildSystemPrompt(properties: HubSpotProperty[], objectType: string): s
 
   return `You are a HubSpot query parser. Given a natural language request and available HubSpot properties, output a JSON structure.
 
-RULES:
-1. Map user terms to actual property names. Common mappings for this HubSpot instance:
-   - "government" or "gov" → sales_vertical = "Government"
-   - "mortgage" or "IMB" → sales_vertical = "Mortgage" or industry patterns
-   - State names should use full names (e.g., "California" not "CA") for the "state" property
-   - "leads" → lifecyclestage = "lead"
-   - "missing" or "empty" → use NOT_HAS_PROPERTY operator
+ RULES:
+ 1. Map user terms to actual property names. Common mappings for this HubSpot instance:
+    - "government" or "gov" → sales_vertical = "Government"
+    - "mortgage" or "IMB" → sales_vertical = "Mortgage" or industry patterns
+    - State names should use full names (e.g., "California" not "CA") for the "state" property
+    - "leads" → lifecyclestage = "lead"
+    - "missing" or "empty" → use NOT_HAS_PROPERTY operator
 
-2. Use the correct operator for each property type:
+  1b. If the user specifies "A or B" for the same property, use a single filter with IN and values.
+
+ 2. Use the correct operator for each property type:
    - Enum: EQ, NEQ, IN, NOT_IN
    - Text: EQ, NEQ, CONTAINS, NOT_CONTAINS
    - Number: EQ, NEQ, GT, GTE, LT, LTE
