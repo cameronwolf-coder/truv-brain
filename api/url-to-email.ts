@@ -406,6 +406,9 @@ function generateEmailHtml(content: EmailContent, sourceUrl: string): string {
             .pd-bot-mob-0 { padding-bottom: 0 !important; }
             .product-main h1 { text-align: center !important; font-size: 32px !important; }
             .product-main p { text-align: center !important; font-size: 20px !important; }
+            .hero-image { display: none !important; max-height: 0 !important; overflow: hidden !important; }
+            .outer-pad { padding-top: 0 !important; padding-bottom: 0 !important; }
+            .outer-table { padding-top: 0 !important; padding-bottom: 0 !important; }
         }
     </style>
 </head>
@@ -416,10 +419,10 @@ function generateEmailHtml(content: EmailContent, sourceUrl: string): string {
     <div style="display:none!important">${content.preview_text}</div>
 
     <div style="background-color:#E0E0E0" bgcolor="#E0E0E0">
-        <table role="presentation" width="100%" bgcolor="#E0E0E0" cellpadding="0" cellspacing="0" border="0" style="border-spacing:0 !important; border-collapse:collapse; margin:0; padding:0; width:100% !important; min-width:320px !important; height:100% !important; background-color:#E0E0E0;" height="100%">
+        <table class="outer-table" role="presentation" width="100%" bgcolor="#E0E0E0" cellpadding="0" cellspacing="0" border="0" style="border-spacing:0 !important; border-collapse:collapse; margin:0; padding:0; width:100% !important; min-width:320px !important; height:100% !important; background-color:#E0E0E0;" height="100%">
             <tbody>
                 <tr>
-                    <td class="pd-top-mob-0 pd-bot-mob-0" align="center" valign="top" style="border-collapse:collapse; font-family:Gilroy, sans-serif; font-size:16px; word-break:break-word; color: #171717; padding-top: 40px; padding-bottom: 40px;">
+                    <td class="outer-pad pd-top-mob-0 pd-bot-mob-0" align="center" valign="top" style="border-collapse:collapse; font-family:Gilroy, sans-serif; font-size:16px; word-break:break-word; color: #171717; padding-top: 40px; padding-bottom: 40px;">
 
                         <!-- ============================================ -->
                         <!-- HERO SECTION -->
