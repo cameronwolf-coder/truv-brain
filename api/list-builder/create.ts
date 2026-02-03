@@ -92,6 +92,7 @@ function buildFilterBranch(
 
   const hubspotFilters = filters.map((f) => {
     const property = propertiesByName[f.propertyName];
+    const normalized = normalizeFilterOperation(f, property);
     const filter: {
       filterType: string;
       property: string;
@@ -106,19 +107,16 @@ function buildFilterBranch(
       filterType: 'PROPERTY',
       property: f.propertyName,
       operation: {
-        operationType: mapOperationType(property),
-        operator: mapOperator(f.operator),
+        operationType: normalized.operationType,
+        operator: normalized.operator,
       },
     };
 
-    if (f.value !== undefined) {
-      filter.operation.value = f.value;
+    if (normalized.value !== undefined) {
+      filter.operation.value = normalized.value;
     }
-    if (f.values !== undefined) {
-      filter.operation.values = f.values;
-    }
-    if (f.operator === 'NOT_HAS_PROPERTY') {
-      filter.operation.includeObjectsWithNoValueSet = true;
+    if (normalized.values !== undefined) {
+      filter.operation.values = normalized.values;
     }
 
     return filter;
@@ -149,10 +147,45 @@ function mapOperator(operator: string): string {
     GTE: 'IS_GREATER_THAN_OR_EQUAL_TO',
     LT: 'IS_LESS_THAN',
     LTE: 'IS_LESS_THAN_OR_EQUAL_TO',
-    HAS_PROPERTY: 'HAS_PROPERTY',
-    NOT_HAS_PROPERTY: 'HAS_PROPERTY', // handled with includeObjectsWithNoValueSet
+    HAS_PROPERTY: 'IS_KNOWN',
+    NOT_HAS_PROPERTY: 'IS_UNKNOWN',
   };
   return mapping[operator] || operator;
+}
+
+function normalizeFilterOperation(
+  filter: Filter,
+  property?: HubSpotProperty
+): { operationType: string; operator: string; value?: string; values?: string[] } {
+  if (filter.operator === 'HAS_PROPERTY' || filter.operator === 'NOT_HAS_PROPERTY') {
+    return {
+      operationType: 'ALL_PROPERTY',
+      operator: mapOperator(filter.operator),
+    };
+  }
+
+  if (filter.operator === 'IN' || filter.operator === 'NOT_IN') {
+    const values = (filter.values || []).filter(Boolean);
+    if (values.length === 0) {
+      throw new Error(`Invalid filter: ${filter.propertyName} ${filter.operator} requires values`);
+    }
+    return {
+      operationType: mapOperationType(property),
+      operator: mapOperator(filter.operator),
+      values,
+    };
+  }
+
+  const value = filter.value?.trim();
+  if (!value) {
+    throw new Error(`Invalid filter: ${filter.propertyName} ${filter.operator} requires value`);
+  }
+
+  return {
+    operationType: mapOperationType(property),
+    operator: mapOperator(filter.operator),
+    value,
+  };
 }
 
 function mapOperationType(property?: HubSpotProperty): string {
