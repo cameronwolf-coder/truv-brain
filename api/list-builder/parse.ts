@@ -1,6 +1,6 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 
-const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
+const GEMINI_API_KEY = process.env.GEMINI_API_KEY ?? process.env.GOOGLE_AI_API_KEY;
 const HUBSPOT_API_TOKEN = process.env.HUBSPOT_API_TOKEN;
 const HUBSPOT_BASE_URL = 'https://api.hubapi.com';
 
@@ -197,7 +197,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   }
 
   if (!GEMINI_API_KEY) {
-    return res.status(500).json({ error: 'Gemini API key not configured' });
+    return res.status(500).json({ error: 'Gemini API key not configured (set GEMINI_API_KEY or GOOGLE_AI_API_KEY)' });
   }
 
   if (!HUBSPOT_API_TOKEN) {
