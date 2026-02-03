@@ -464,6 +464,44 @@ export function UrlToEmail() {
                     className="w-full px-3 py-1.5 border border-gray-300 rounded text-sm font-medium mb-2 focus:ring-1 focus:ring-blue-500"
                     placeholder="Section title"
                   />
+
+                  {/* Section Image */}
+                  <div className="mb-2">
+                    <label className="block text-xs text-gray-400 mb-1">Image</label>
+                    <div className="flex gap-1 flex-wrap mb-1">
+                      <button
+                        type="button"
+                        onClick={() => updateSection(sIdx, { image: undefined })}
+                        className={`h-10 px-2 border rounded text-xs transition-colors ${
+                          !section.image ? 'border-blue-500 bg-blue-50 text-blue-700' : 'border-gray-200 text-gray-500 hover:border-gray-300'
+                        }`}
+                      >
+                        None
+                      </button>
+                      {content.images.map((img, imgIdx) => (
+                        <button
+                          key={imgIdx}
+                          type="button"
+                          onClick={() => updateSection(sIdx, { image: img })}
+                          className={`h-10 w-14 border rounded overflow-hidden transition-colors ${
+                            section.image === img ? 'border-blue-500' : 'border-gray-200 hover:border-gray-300'
+                          }`}
+                        >
+                          <img src={img} alt="" className="w-full h-full object-cover" />
+                        </button>
+                      ))}
+                    </div>
+                    {section.image && (
+                      <input
+                        type="url"
+                        value={section.image}
+                        onChange={(e) => updateSection(sIdx, { image: e.target.value || undefined })}
+                        placeholder="Or paste custom URL..."
+                        className="w-full px-2 py-1 border border-gray-200 rounded text-xs focus:ring-1 focus:ring-blue-500"
+                      />
+                    )}
+                  </div>
+
                   <div className="space-y-1.5">
                     {section.bullets.map((b, bIdx) => (
                       <input
