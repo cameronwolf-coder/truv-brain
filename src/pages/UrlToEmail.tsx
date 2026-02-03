@@ -135,10 +135,19 @@ function generateEmailHtml(content: EmailContent, sourceUrl: string): string {
 </html>`;
 }
 
+const GEMINI_MODELS = [
+  { id: 'gemini-pro', name: 'Gemini Pro' },
+  { id: 'gemini-1.5-pro', name: 'Gemini 1.5 Pro' },
+  { id: 'gemini-1.5-flash', name: 'Gemini 1.5 Flash' },
+  { id: 'gemini-1.0-pro', name: 'Gemini 1.0 Pro' },
+  { id: 'gemini-2.0-flash', name: 'Gemini 2.0 Flash' },
+];
+
 export function UrlToEmail() {
   const [url, setUrl] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [isReparsingWithAI, setIsReparsingWithAI] = useState(false);
+  const [selectedModel, setSelectedModel] = useState('gemini-pro');
   const [error, setError] = useState<string | null>(null);
   const [result, setResult] = useState<ConversionResult | null>(null);
   const [copied, setCopied] = useState(false);
@@ -216,6 +225,7 @@ export function UrlToEmail() {
         body: JSON.stringify({
           url: result.sourceUrl,
           useAI: true,
+          model: selectedModel,
           markdown: result.rawMarkdown,
           images: result.rawImages,
         }),
@@ -332,27 +342,38 @@ export function UrlToEmail() {
               </div>
 
               {/* AI Re-parse Button */}
-              {!result?.usedAI && result?.rawMarkdown && (
-                <button
-                  onClick={handleReparseWithAI}
-                  disabled={isReparsingWithAI}
-                  className="w-full px-4 py-2 bg-purple-600 text-white font-medium rounded-lg hover:bg-purple-700 disabled:bg-purple-300 disabled:cursor-not-allowed flex items-center justify-center gap-2"
-                >
-                  {isReparsingWithAI ? (
-                    <>
-                      <svg className="animate-spin h-4 w-4" viewBox="0 0 24 24">
-                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
-                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
-                      </svg>
-                      Re-parsing with AI...
-                    </>
-                  ) : (
-                    <>
-                      <span>✨</span>
-                      Re-parse with AI
-                    </>
+              {result?.rawMarkdown && (
+                <div className="space-y-2">
+                  <div className="flex gap-2">
+                    <select
+                      value={selectedModel}
+                      onChange={(e) => setSelectedModel(e.target.value)}
+                      className="flex-1 px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-1 focus:ring-purple-500"
+                    >
+                      {GEMINI_MODELS.map((model) => (
+                        <option key={model.id} value={model.id}>{model.name}</option>
+                      ))}
+                    </select>
+                    <button
+                      onClick={handleReparseWithAI}
+                      disabled={isReparsingWithAI}
+                      className="px-4 py-2 bg-purple-600 text-white font-medium rounded-lg hover:bg-purple-700 disabled:bg-purple-300 disabled:cursor-not-allowed flex items-center gap-2"
+                    >
+                      {isReparsingWithAI ? (
+                        <svg className="animate-spin h-4 w-4" viewBox="0 0 24 24">
+                          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
+                          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+                        </svg>
+                      ) : (
+                        <span>✨</span>
+                      )}
+                      {isReparsingWithAI ? 'Parsing...' : 'AI Parse'}
+                    </button>
+                  </div>
+                  {result?.usedAI && (
+                    <p className="text-xs text-purple-600">Last parsed with AI</p>
                   )}
-                </button>
+                </div>
               )}
 
               {/* Subject */}

@@ -85,7 +85,7 @@ function cleanMarkdown(text: string): string {
 }
 
 // Use Gemini AI to extract and structure email content
-async function extractWithGemini(markdown: string, images: string[], apiKey: string): Promise<EmailContent> {
+async function extractWithGemini(markdown: string, images: string[], apiKey: string, model: string): Promise<EmailContent> {
   const prompt = `You are a marketing email content specialist. Analyze this blog post/article content and extract the key information to create a compelling product update email.
 
 CONTENT TO ANALYZE:
@@ -118,7 +118,7 @@ Guidelines:
 Return ONLY valid JSON, no other text.`;
 
   // Try Gemini API first, fall back info in error
-  const geminiEndpoint = `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${apiKey}`;
+  const geminiEndpoint = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
 
   const response = await fetch(
     geminiEndpoint,
@@ -677,12 +677,15 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     return res.status(500).json({ error: 'FIRECRAWL_API_KEY not configured' });
   }
 
-  const { url, useAI, markdown: providedMarkdown, images: providedImages } = req.body as {
+  const { url, useAI, model, markdown: providedMarkdown, images: providedImages } = req.body as {
     url: string;
     useAI?: boolean;
+    model?: string;
     markdown?: string;
     images?: string[];
   };
+
+  const geminiModel = model || 'gemini-pro';
 
   if (!url) {
     return res.status(400).json({ error: 'URL is required' });
@@ -720,8 +723,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
     if (useAI && GOOGLE_AI_API_KEY) {
       try {
-        console.log('Using Gemini AI for content extraction...');
-        emailContent = await extractWithGemini(markdown, images, GOOGLE_AI_API_KEY);
+        console.log(`Using Gemini AI (${geminiModel}) for content extraction...`);
+        emailContent = await extractWithGemini(markdown, images, GOOGLE_AI_API_KEY, geminiModel);
         usedAI = true;
       } catch (aiError) {
         console.error('Gemini extraction failed:', aiError);
