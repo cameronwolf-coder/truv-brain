@@ -1,5 +1,15 @@
 import { useState, useCallback, useEffect, useMemo } from 'react';
 
+async function parseJsonResponse(response: Response): Promise<unknown> {
+  const text = await response.text();
+  if (!text) return {};
+  try {
+    return JSON.parse(text);
+  } catch (error) {
+    throw new Error(`Unexpected response: ${text}`);
+  }
+}
+
 interface Filter {
   propertyName: string;
   operator: string;
@@ -176,7 +186,11 @@ export function SmartListBuilder() {
         }),
       });
 
-      const data = await response.json();
+      const data = await parseJsonResponse(response) as { success?: boolean; error?: string; records?: HubSpotRecord[]; total?: number; summary?: SearchResult['summary'] };
+
+      if (!response.ok) {
+        throw new Error(data?.error || `Search failed (${response.status})`);
+      }
 
       if (!data.success) {
         setError(data.error || 'Search failed');
@@ -213,7 +227,19 @@ export function SmartListBuilder() {
         }),
       });
 
-      const data = await response.json();
+      const data = await parseJsonResponse(response) as {
+        success?: boolean;
+        resolved?: boolean;
+        filters?: Filter[];
+        suggestedName?: string;
+        canBeActiveList?: boolean;
+        clarifications?: Clarification[];
+        error?: string;
+      };
+
+      if (!response.ok) {
+        throw new Error(data?.error || `Parse failed (${response.status})`);
+      }
 
       if (!data.success) {
         setError(data.error || 'Failed to parse query');
@@ -271,7 +297,11 @@ export function SmartListBuilder() {
         }),
       });
 
-      const data = await response.json();
+      const data = await parseJsonResponse(response) as { success?: boolean; error?: string; sheetUrl?: string };
+
+      if (!response.ok) {
+        throw new Error(data?.error || `Export failed (${response.status})`);
+      }
 
       if (!data.success) {
         setError(data.error || 'Export failed');
@@ -318,7 +348,11 @@ export function SmartListBuilder() {
         body: JSON.stringify(body),
       });
 
-      const data = await response.json();
+      const data = await parseJsonResponse(response) as { success?: boolean; error?: string; listId?: string; listUrl?: string; listType?: string };
+
+      if (!response.ok) {
+        throw new Error(data?.error || `Create list failed (${response.status})`);
+      }
 
       if (!data.success) {
         setError(data.error || 'Failed to create list');
