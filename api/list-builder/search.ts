@@ -3,11 +3,23 @@ import type { VercelRequest, VercelResponse } from '@vercel/node';
 const HUBSPOT_API_TOKEN = process.env.HUBSPOT_API_TOKEN;
 const HUBSPOT_BASE_URL = 'https://api.hubapi.com';
 
+// Property cache (shared with list-builder handlers)
+const propertyCache: Record<string, { data: HubSpotProperty[]; timestamp: number }> = {};
+const CACHE_TTL = 60 * 60 * 1000;
+
 interface Filter {
   propertyName: string;
   operator: string;
   value?: string;
   values?: string[];
+}
+
+interface HubSpotProperty {
+  name: string;
+  label: string;
+  type: string;
+  fieldType: string;
+  options?: Array<{ value: string; label: string }>;
 }
 
 interface HubSpotRecord {
@@ -50,11 +62,49 @@ async function hubspotRequest(method: string, endpoint: string, body?: unknown):
   return response.json();
 }
 
-function buildHubSpotFilters(filters: Filter[]): Array<{ propertyName: string; operator: string; value?: string; values?: string[] }> {
+async function fetchProperties(objectType: string): Promise<HubSpotProperty[]> {
+  const cached = propertyCache[objectType];
+  if (cached && Date.now() - cached.timestamp < CACHE_TTL) {
+    return cached.data;
+  }
+
+  const response = await fetch(
+    `${HUBSPOT_BASE_URL}/crm/v3/properties/${objectType}`,
+    {
+      headers: {
+        Authorization: `Bearer ${HUBSPOT_API_TOKEN}`,
+        'Content-Type': 'application/json',
+      },
+    }
+  );
+
+  if (!response.ok) {
+    throw new Error(`HubSpot API error: ${response.status}`);
+  }
+
+  const data = await response.json();
+  const properties = (data.results || []).map((p: HubSpotProperty) => ({
+    name: p.name,
+    label: p.label,
+    type: p.type,
+    fieldType: p.fieldType,
+    options: p.options?.map((o) => ({ value: o.value, label: o.label })),
+  }));
+
+  propertyCache[objectType] = { data: properties, timestamp: Date.now() };
+  return properties;
+}
+
+function buildHubSpotFilters(
+  filters: Filter[],
+  propertiesByName: Record<string, HubSpotProperty>
+): Array<{ propertyName: string; operator: string; value?: string; values?: string[] }> {
   return filters.map((f) => {
+    const property = propertiesByName[f.propertyName];
+    const operator = mapSearchOperator(f.operator, property);
     const filter: { propertyName: string; operator: string; value?: string; values?: string[] } = {
       propertyName: f.propertyName,
-      operator: f.operator,
+      operator,
     };
     if (f.value !== undefined) filter.value = f.value;
     if (f.values !== undefined) filter.values = f.values;
@@ -62,10 +112,32 @@ function buildHubSpotFilters(filters: Filter[]): Array<{ propertyName: string; o
   });
 }
 
+function mapSearchOperator(operator: string, property?: HubSpotProperty): string {
+  if (operator === 'CONTAINS') return 'CONTAINS_TOKEN';
+  if (operator === 'NOT_CONTAINS') return 'NOT_CONTAINS_TOKEN';
+
+  if (property?.type === 'enumeration') {
+    const mapping: Record<string, string> = {
+      EQ: 'EQ',
+      NEQ: 'NEQ',
+      IN: 'IN',
+      NOT_IN: 'NOT_IN',
+      HAS_PROPERTY: 'HAS_PROPERTY',
+      NOT_HAS_PROPERTY: 'NOT_HAS_PROPERTY',
+      CONTAINS: 'CONTAINS_TOKEN',
+      NOT_CONTAINS: 'NOT_CONTAINS_TOKEN',
+    };
+    return mapping[operator] || operator;
+  }
+
+  return operator;
+}
+
 async function searchWithPagination(
   objectType: string,
   filters: Filter[],
   properties: string[],
+  propertiesByName: Record<string, HubSpotProperty>,
   maxResults: number = 10000
 ): Promise<HubSpotRecord[]> {
   const allRecords: HubSpotRecord[] = [];
@@ -74,7 +146,7 @@ async function searchWithPagination(
   let batchCount = 0;
   const maxBatches = Math.ceil(maxResults / 100);
 
-  const hubspotFilters = buildHubSpotFilters(filters);
+  const hubspotFilters = buildHubSpotFilters(filters, propertiesByName);
 
   while (batchCount < maxBatches) {
     const searchBody: {
@@ -129,10 +201,11 @@ async function searchWithPagination(
 async function searchWithBatching(
   objectType: string,
   filters: Filter[],
-  properties: string[]
+  properties: string[],
+  propertiesByName: Record<string, HubSpotProperty>
 ): Promise<HubSpotRecord[]> {
   // First, try regular pagination
-  let allRecords = await searchWithPagination(objectType, filters, properties, 10000);
+  let allRecords = await searchWithPagination(objectType, filters, properties, propertiesByName, 10000);
 
   // If we hit 10k, batch by date ranges
   if (allRecords.length >= 9900) {
@@ -145,7 +218,7 @@ async function searchWithBatching(
         { propertyName: 'lastmodifieddate', operator: 'LT', value: oldestDate },
       ];
 
-      const batchRecords = await searchWithPagination(objectType, batchFilters, properties, 10000);
+      const batchRecords = await searchWithPagination(objectType, batchFilters, properties, propertiesByName, 10000);
 
       if (batchRecords.length === 0) break;
 
@@ -247,8 +320,14 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       }
     }
 
+    const hubspotProperties = await fetchProperties(objectType);
+    const propertiesByName = hubspotProperties.reduce<Record<string, HubSpotProperty>>((acc, prop) => {
+      acc[prop.name] = prop;
+      return acc;
+    }, {});
+
     // Execute search
-    const records = await searchWithBatching(objectType, filters, properties);
+    const records = await searchWithBatching(objectType, filters, properties, propertiesByName);
 
     // Compute summary
     const defaultSummaryProps: Record<string, string[]> = {
