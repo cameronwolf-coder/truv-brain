@@ -24,6 +24,8 @@ interface ConversionResult {
   html: string;
   sourceUrl: string;
   usedAI?: boolean;
+  rawMarkdown?: string;
+  rawImages?: string[];
 }
 
 // Generate email HTML from content
@@ -135,6 +137,7 @@ function generateEmailHtml(content: EmailContent, sourceUrl: string): string {
 export function UrlToEmail() {
   const [url, setUrl] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [isReparsingWithAI, setIsReparsingWithAI] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [result, setResult] = useState<ConversionResult | null>(null);
   const [copied, setCopied] = useState(false);
@@ -196,6 +199,39 @@ export function UrlToEmail() {
       document.body.removeChild(textarea);
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
+    }
+  };
+
+  const handleReparseWithAI = async () => {
+    if (!result?.rawMarkdown || !result?.sourceUrl) return;
+
+    setIsReparsingWithAI(true);
+    setError(null);
+
+    try {
+      const response = await fetch('/api/url-to-email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          url: result.sourceUrl,
+          useAI: true,
+          markdown: result.rawMarkdown,
+          images: result.rawImages,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || 'AI parsing failed');
+      }
+
+      setResult(data);
+      setEditedContent(null);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'AI parsing failed');
+    } finally {
+      setIsReparsingWithAI(false);
     }
   };
 
@@ -293,6 +329,30 @@ export function UrlToEmail() {
                 </div>
                 <button onClick={handleReset} className="text-sm text-gray-500 hover:text-gray-700">Reset</button>
               </div>
+
+              {/* AI Re-parse Button */}
+              {!result?.usedAI && result?.rawMarkdown && (
+                <button
+                  onClick={handleReparseWithAI}
+                  disabled={isReparsingWithAI}
+                  className="w-full px-4 py-2 bg-purple-600 text-white font-medium rounded-lg hover:bg-purple-700 disabled:bg-purple-300 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                >
+                  {isReparsingWithAI ? (
+                    <>
+                      <svg className="animate-spin h-4 w-4" viewBox="0 0 24 24">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+                      </svg>
+                      Re-parsing with AI...
+                    </>
+                  ) : (
+                    <>
+                      <span>✨</span>
+                      Re-parse with AI
+                    </>
+                  )}
+                </button>
+              )}
 
               {/* Subject */}
               <div>

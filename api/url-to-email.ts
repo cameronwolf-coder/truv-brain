@@ -665,7 +665,12 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     return res.status(500).json({ error: 'FIRECRAWL_API_KEY not configured' });
   }
 
-  const { url } = req.body as { url: string };
+  const { url, useAI, markdown: providedMarkdown, images: providedImages } = req.body as {
+    url: string;
+    useAI?: boolean;
+    markdown?: string;
+    images?: string[];
+  };
 
   if (!url) {
     return res.status(400).json({ error: 'URL is required' });
@@ -678,28 +683,43 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   }
 
   try {
-    // Step 1: Scrape the URL with Firecrawl
-    const { markdown, images } = await scrapeWithFirecrawl(url, FIRECRAWL_API_KEY);
+    // Step 1: Get content - either from provided markdown or scrape fresh
+    let markdown: string;
+    let images: string[];
+
+    if (providedMarkdown && providedImages) {
+      // Re-parsing with existing content
+      markdown = providedMarkdown;
+      images = providedImages;
+    } else {
+      // Fresh scrape
+      const scraped = await scrapeWithFirecrawl(url, FIRECRAWL_API_KEY);
+      markdown = scraped.markdown;
+      images = scraped.images;
+    }
 
     if (!markdown) {
       return res.status(400).json({ error: 'Failed to extract content from URL' });
     }
 
-    // Step 2: Extract content - use Gemini AI if available, otherwise rule-based
+    // Step 2: Extract content - use AI only if explicitly requested
     let emailContent: EmailContent;
     let usedAI = false;
 
-    if (GOOGLE_AI_API_KEY) {
+    if (useAI && GOOGLE_AI_API_KEY) {
       try {
         console.log('Using Gemini AI for content extraction...');
         emailContent = await extractWithGemini(markdown, images, GOOGLE_AI_API_KEY);
         usedAI = true;
       } catch (aiError) {
-        console.error('Gemini extraction failed, falling back to rule-based:', aiError);
-        emailContent = extractContentFromMarkdown(markdown, images);
+        console.error('Gemini extraction failed:', aiError);
+        return res.status(500).json({
+          error: `AI parsing failed: ${aiError instanceof Error ? aiError.message : 'Unknown error'}`,
+        });
       }
+    } else if (useAI && !GOOGLE_AI_API_KEY) {
+      return res.status(400).json({ error: 'AI parsing requested but GOOGLE_AI_API_KEY not configured' });
     } else {
-      console.log('No GOOGLE_AI_API_KEY configured, using rule-based extraction');
       emailContent = extractContentFromMarkdown(markdown, images);
     }
 
@@ -712,6 +732,9 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       html,
       sourceUrl: url,
       usedAI,
+      // Include raw data for potential re-parsing
+      rawMarkdown: markdown,
+      rawImages: images,
     });
   } catch (error) {
     console.error('URL to Email conversion error:', error);
