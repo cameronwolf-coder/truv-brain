@@ -86,36 +86,42 @@ function cleanMarkdown(text: string): string {
 
 // Use Gemini AI to extract and structure email content
 async function extractWithGemini(markdown: string, images: string[], apiKey: string, model: string): Promise<EmailContent> {
-  const prompt = `You are a marketing email content specialist. Analyze this blog post/article content and extract the key information to create a compelling product update email.
+  const prompt = `You are an expert B2B email marketing copywriter. Transform this blog/article content into a high-converting product update email.
 
-CONTENT TO ANALYZE:
+SOURCE CONTENT:
 ${markdown.slice(0, 8000)}
 
-Extract and return a JSON object with this exact structure:
+YOUR TASK:
+Rewrite and restructure this content for email. Don't just extract - actively improve the copy for email engagement.
+
+Return a JSON object with this structure:
 {
-  "subject": "A compelling email subject line (max 60 chars)",
-  "preview_text": "Preview text that appears in inbox (max 100 chars)",
-  "hero_date": "The date mentioned in the article, or today's date in format 'Month Day, Year'",
-  "intro_text": "A warm, engaging introduction paragraph (2-3 sentences) that summarizes the key announcement and gets the reader excited",
-  "highlights": ["3-5 key bullet points highlighting the most important takeaways"],
+  "subject": "Subject line (max 50 chars, create curiosity or highlight key benefit)",
+  "preview_text": "Preview text (max 90 chars, complements subject, adds urgency or value)",
+  "hero_title": "Hero headline (short, punchy, benefit-focused - or empty string to hide)",
+  "hero_date": "Date in 'Month Day, Year' format",
+  "intro_text": "Opening paragraph - 2-3 sentences max. Start with 'you' or the reader's pain point, not 'we'. Create immediate relevance.",
+  "highlights": ["3-5 scannable bullet points - each starts with action verb or bold benefit, under 15 words each"],
   "sections": [
     {
-      "title": "Section heading",
-      "bullets": ["2-4 detailed bullet points for this section"]
+      "title": "Section heading (benefit-focused, not feature-focused)",
+      "bullets": ["2-4 bullets per section - lead with the 'so what' for the reader"]
     }
   ],
-  "outro_text": "A brief closing paragraph encouraging the reader to learn more (1-2 sentences)"
+  "outro_text": "Brief CTA paragraph - create urgency or FOMO, 1-2 sentences"
 }
 
-Guidelines:
-- Write in a professional but friendly B2B tone
-- Focus on benefits and value, not just features
-- Keep bullet points concise but informative
-- Create 2-4 sections based on the main topics covered
-- The intro should hook the reader immediately
-- Remove any markdown formatting from the text
+EMAIL COPYWRITING RULES:
+1. **Subject line**: Use numbers, questions, or "How to..." format. Avoid spam words.
+2. **Intro**: Never start with "We're excited" or "We're pleased". Start with reader benefit or problem.
+3. **Bullets**: Start each with strong verb (Reduce, Accelerate, Eliminate, Unlock, etc.) or **bold the key benefit**.
+4. **Tone**: Professional but conversational. Write like a smart colleague, not a press release.
+5. **Formatting**: Use **double asterisks** around words you want bolded for emphasis.
+6. **Length**: Shorter is better. If a sentence doesn't add value, cut it.
+7. **Benefits over features**: Instead of "New API endpoint" → "**Faster integrations** with our new API"
+8. **Specificity**: Keep specific numbers, stats, percentages from the source - they build credibility.
 
-Return ONLY valid JSON, no other text.`;
+Return ONLY valid JSON, no markdown code blocks or other text.`;
 
   // Try Gemini API first, fall back info in error
   const geminiEndpoint = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
