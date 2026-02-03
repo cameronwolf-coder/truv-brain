@@ -134,9 +134,11 @@ function generateEmailHtml(content: EmailContent, sourceUrl: string): string {
                                 <a href="https://truv.com"><img src="https://truv.com/wp-content/themes/twentytwentyone/assets_truv/images/logo/logo-truv.png" width="65" alt="Truv"></a>
                             </td></tr>
                             <tr><td style="padding: 15px 35px 30px;">
-                                ${content.hero_title ? `<h1 style="font-size: 38px; margin: 0 0 10px; font-weight: 600;">${formatText(content.hero_title)}</h1>` : ''}
-                                ${content.hero_date ? `<p style="font-size: 22px; margin: 0 0 30px; font-weight: 500;">${content.hero_date}</p>` : ''}
-                                <a href="${sourceUrl}" style="display:inline-block; background:#2C64E3; color:#fff; padding:16px 25px; border-radius:50px; text-decoration:none; font-weight:500;">Read Full Article</a>
+                                <div style="max-width: 320px;">
+                                    ${content.hero_title ? `<h1 style="font-size: 38px; margin: 0 0 10px; font-weight: 600; line-height: 1.1;">${formatText(content.hero_title).replace(/\n/g, '<br>')}</h1>` : ''}
+                                    ${content.hero_date ? `<p style="font-size: 22px; margin: 0 0 30px; font-weight: 500;">${content.hero_date}</p>` : ''}
+                                    <a href="${sourceUrl}" style="display:inline-block; background:#2C64E3; color:#fff; padding:16px 25px; border-radius:50px; text-decoration:none; font-weight:500;">Read Full Article</a>
+                                </div>
                             </td></tr>
                         </table>
                         <!-- BODY -->
@@ -433,14 +435,19 @@ export function UrlToEmail() {
 
               {/* Hero Title */}
               <div>
-                <label className="block text-xs font-medium text-gray-500 uppercase mb-1">Hero Title</label>
-                <input
-                  type="text"
+                <div className="flex items-center justify-between mb-1">
+                  <label className="text-xs font-medium text-gray-500 uppercase">Hero Title</label>
+                  <BoldButton inputId="hero-title" />
+                </div>
+                <textarea
+                  id="hero-title"
                   value={content.hero_title}
                   onChange={(e) => updateContent({ hero_title: e.target.value })}
-                  placeholder="Leave empty to hide"
+                  placeholder="Leave empty to hide. Use Enter for line breaks."
+                  rows={2}
                   className="w-full px-3 py-2 border border-gray-300 rounded text-sm focus:ring-1 focus:ring-blue-500"
                 />
+                <p className="text-xs text-gray-400 mt-1">Max ~320px width. Press Enter for line breaks.</p>
               </div>
 
               {/* Date */}
