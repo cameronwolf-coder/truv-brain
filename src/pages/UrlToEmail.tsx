@@ -1,4 +1,10 @@
-import { useState, useRef } from 'react';
+import { useState, useMemo } from 'react';
+
+interface Section {
+  title: string;
+  image?: string;
+  bullets: string[];
+}
 
 interface EmailContent {
   subject: string;
@@ -6,11 +12,7 @@ interface EmailContent {
   hero_date: string;
   intro_text: string;
   highlights: string[];
-  sections: Array<{
-    title: string;
-    image?: string;
-    bullets: string[];
-  }>;
+  sections: Section[];
   outro_text: string;
   images: string[];
 }
@@ -22,6 +24,107 @@ interface ConversionResult {
   sourceUrl: string;
 }
 
+// Generate email HTML from content
+function generateEmailHtml(content: EmailContent, sourceUrl: string): string {
+  const highlightsHtml = content.highlights
+    .filter(h => h.trim())
+    .map(h => `<li>${h}</li>`)
+    .join('\n                                                    ');
+
+  const sectionsHtml = content.sections
+    .filter(s => s.title.trim())
+    .map((section, idx) => {
+      const imageHtml = section.image
+        ? `<p style="margin-bottom: 1em;"><img src="${section.image}" width="100%" alt="" style="height: auto; max-width: 100%; border-radius: 8px;"></p>`
+        : '';
+
+      const bulletsHtml = section.bullets
+        .filter(b => b.trim())
+        .map(b => `<li style="margin-bottom: 8px;">${b}</li>`)
+        .join('\n                                                    ');
+
+      return `
+                                                <hr>
+                                                <h3 style="font-family: Gilroy, sans-serif; font-size: 22px; font-weight: 600;">${section.title}</h3>
+                                                ${imageHtml}
+                                                <ul style="font-size: 16px; line-height: 160%; padding-left: 20px;">
+                                                    ${bulletsHtml}
+                                                </ul>`;
+    })
+    .join('\n');
+
+  return `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>${content.subject}</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        @font-face { font-family: 'Gilroy'; src: url('https://hs-19933594.f.hubspotemail.net/hubfs/19933594/Truv/Font%20Gilroy/Gilroy-Medium.woff2') format('woff2'); font-weight: 500; }
+        @font-face { font-family: 'Gilroy'; src: url('https://hs-19933594.f.hubspotemail.net/hubfs/19933594/Truv/Font%20Gilroy/Gilroy-Bold.woff2') format('woff2'); font-weight: 600; }
+        body, * { font-family: Gilroy, sans-serif !important; }
+        p { margin: 0; } a { color: #2c64e3; }
+        hr { margin: 25px 0; border: none; border-top: 1px solid #e0e0e0; }
+    </style>
+</head>
+<body bgcolor="#E0E0E0" style="margin: 0; padding: 0; font-family: Gilroy, sans-serif; background-color: #E0E0E0; font-size:16px; color: #171717;">
+    <div style="display:none!important">${content.preview_text}</div>
+    <div style="background-color:#E0E0E0">
+        <table role="presentation" width="100%" bgcolor="#E0E0E0" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse; padding: 40px 0;">
+            <tr>
+                <td align="center" style="padding: 40px 0;">
+                    <div style="max-width:660px; width:100%; margin:0 auto;">
+                        <!-- HERO -->
+                        <table width="100%" cellpadding="0" cellspacing="0" style="background-image: url(https://truv.com/wp-content/themes/twentytwentyone/assets_truv/images/letter/letter-product-bg.png); background-color: #f6f6f6; background-size: cover; border-radius: 20px 20px 0 0;">
+                            <tr><td style="padding: 20px;">
+                                <a href="https://truv.com"><img src="https://truv.com/wp-content/themes/twentytwentyone/assets_truv/images/logo/logo-truv.png" width="65" alt="Truv"></a>
+                            </td></tr>
+                            <tr><td style="padding: 15px 35px 50px;">
+                                <h1 style="font-size: 38px; margin: 0 0 10px; font-weight: 600;">Product Update</h1>
+                                <p style="font-size: 22px; margin: 0 0 30px; font-weight: 500;">${content.hero_date}</p>
+                                <a href="${sourceUrl}" style="display:inline-block; background:#2C64E3; color:#fff; padding:16px 25px; border-radius:50px; text-decoration:none; font-weight:500;">Read Full Article</a>
+                            </td></tr>
+                        </table>
+                        <!-- BODY -->
+                        <table width="100%" cellpadding="0" cellspacing="0" style="background:#fff;">
+                            <tr><td style="padding: 40px 35px;">
+                                <div style="font-size: 22px; font-weight: 600; margin-bottom: 16px;">Hi there,</div>
+                                <div style="font-size: 16px; line-height: 140%; margin-bottom: 20px;">${content.intro_text}</div>
+                                <h4 style="margin-bottom: 10px;">Key Highlights:</h4>
+                                <ul style="font-size: 16px; line-height: 160%; padding-left: 20px; margin-bottom: 10px;">
+                                    ${highlightsHtml}
+                                </ul>
+                                ${sectionsHtml}
+                                <hr>
+                                <p style="margin-bottom: 1em; font-size: 16px; line-height: 140%;">${content.outro_text}</p>
+                                <a href="${sourceUrl}" style="display:inline-block; background:#2C64E3; color:#fff; padding:16px 25px; border-radius:50px; text-decoration:none; font-weight:500; margin-top:15px;">Read Full Article</a>
+                            </td></tr>
+                        </table>
+                        <!-- FOOTER -->
+                        <table width="100%" cellpadding="0" cellspacing="0" style="background:#F5F5F5; border-radius: 0 0 20px 20px;">
+                            <tr><td style="padding: 30px 35px; text-align:center;">
+                                <p style="font-size: 14px; color:#878A92; margin-bottom:20px;">Stay up to date on the latest Truv features and product updates!</p>
+                                <p style="font-size: 14px; margin-bottom:10px;">
+                                    <a href="https://help.truv.com" style="color:#171717;text-decoration:none;">Help Center</a> |
+                                    <a href="https://docs.truv.com/docs/quickstart-guide" style="color:#171717;text-decoration:none;">Quickstart</a> |
+                                    <a href="https://truv.com/changelog" style="color:#171717;text-decoration:none;">Changelog</a> |
+                                    <a href="https://truv.com/blog" style="color:#171717;text-decoration:none;">Blog</a>
+                                </p>
+                                <p style="font-size: 12px; color:#878A92; margin-top:20px;">Truv Inc., 218 NW 24th Street, Miami, FL 33127</p>
+                                <p style="font-size: 13px; color:#8c9298; margin-top:10px;">
+                                    <a href="{{{unsubscribe}}}" style="color:#8c9298;">Unsubscribe</a>
+                                </p>
+                            </td></tr>
+                        </table>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>`;
+}
+
 export function UrlToEmail() {
   const [url, setUrl] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -29,8 +132,18 @@ export function UrlToEmail() {
   const [result, setResult] = useState<ConversionResult | null>(null);
   const [copied, setCopied] = useState(false);
   const [editMode, setEditMode] = useState(false);
-  const [editedHtml, setEditedHtml] = useState<string | null>(null);
-  const previewRef = useRef<HTMLDivElement>(null);
+
+  // Editable content state
+  const [editedContent, setEditedContent] = useState<EmailContent | null>(null);
+
+  // Use edited content if available, otherwise original
+  const content = editedContent || result?.content;
+
+  // Generate HTML from current content
+  const currentHtml = useMemo(() => {
+    if (!content || !result) return '';
+    return generateEmailHtml(content, result.sourceUrl);
+  }, [content, result]);
 
   const handleConvert = async () => {
     if (!url.trim()) return;
@@ -39,7 +152,7 @@ export function UrlToEmail() {
     setError(null);
     setResult(null);
     setEditMode(false);
-    setEditedHtml(null);
+    setEditedContent(null);
 
     try {
       const response = await fetch('/api/url-to-email', {
@@ -62,35 +175,14 @@ export function UrlToEmail() {
     }
   };
 
-  const saveEdits = () => {
-    if (previewRef.current) {
-      setEditedHtml(previewRef.current.innerHTML);
-    }
-  };
-
-  const handleToggleEditMode = () => {
-    if (editMode) {
-      // Exiting edit mode - save the edits
-      saveEdits();
-    }
-    setEditMode(!editMode);
-  };
-
   const handleCopyHtml = async () => {
-    // Save any current edits first
-    if (editMode && previewRef.current) {
-      saveEdits();
-    }
-
-    const htmlToCopy = previewRef.current?.innerHTML || editedHtml || result?.html || '';
-
     try {
-      await navigator.clipboard.writeText(htmlToCopy);
+      await navigator.clipboard.writeText(currentHtml);
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch {
       const textarea = document.createElement('textarea');
-      textarea.value = htmlToCopy;
+      textarea.value = currentHtml;
       document.body.appendChild(textarea);
       textarea.select();
       document.execCommand('copy');
@@ -106,207 +198,205 @@ export function UrlToEmail() {
     setError(null);
     setResult(null);
     setEditMode(false);
-    setEditedHtml(null);
+    setEditedContent(null);
+  };
+
+  const updateContent = (updates: Partial<EmailContent>) => {
+    const current = editedContent || result?.content;
+    if (current) {
+      setEditedContent({ ...current, ...updates });
+    }
+  };
+
+  const updateHighlight = (index: number, value: string) => {
+    if (!content) return;
+    const newHighlights = [...content.highlights];
+    newHighlights[index] = value;
+    updateContent({ highlights: newHighlights });
+  };
+
+  const updateSection = (sectionIndex: number, updates: Partial<Section>) => {
+    if (!content) return;
+    const newSections = content.sections.map((s, i) =>
+      i === sectionIndex ? { ...s, ...updates } : s
+    );
+    updateContent({ sections: newSections });
+  };
+
+  const updateSectionBullet = (sectionIndex: number, bulletIndex: number, value: string) => {
+    if (!content) return;
+    const newSections = content.sections.map((s, i) => {
+      if (i === sectionIndex) {
+        const newBullets = [...s.bullets];
+        newBullets[bulletIndex] = value;
+        return { ...s, bullets: newBullets };
+      }
+      return s;
+    });
+    updateContent({ sections: newSections });
   };
 
   return (
     <div className="h-full flex">
-      {/* Left Panel - Input & Controls */}
-      <div className="w-96 border-r border-gray-200 bg-white flex flex-col">
+      {/* Left Panel */}
+      <div className="w-[420px] border-r border-gray-200 bg-white flex flex-col">
         <div className="p-6 border-b border-gray-200">
           <h1 className="text-2xl font-bold text-gray-900">URL to Email</h1>
-          <p className="mt-1 text-sm text-gray-600">
-            Convert blog posts into SendGrid-ready email HTML
-          </p>
+          <p className="mt-1 text-sm text-gray-600">Convert blog posts into SendGrid-ready email</p>
         </div>
 
         <div className="p-6 flex-1 overflow-y-auto">
           {/* URL Input */}
-          <div className="mb-6">
-            <label htmlFor="url" className="block text-sm font-medium text-gray-700 mb-2">
-              Blog/Article URL
-            </label>
+          <div className="mb-4">
+            <label className="block text-sm font-medium text-gray-700 mb-2">Blog/Article URL</label>
             <input
               type="url"
-              id="url"
               value={url}
               onChange={(e) => setUrl(e.target.value)}
               placeholder="https://truv.com/blog/..."
               disabled={isLoading}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 disabled:bg-gray-50 disabled:text-gray-500"
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 disabled:bg-gray-50"
               onKeyDown={(e) => e.key === 'Enter' && handleConvert()}
             />
           </div>
 
-          {/* Convert Button */}
           <button
             onClick={handleConvert}
             disabled={!url.trim() || isLoading}
-            className="w-full px-4 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors"
+            className="w-full px-4 py-2.5 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 disabled:bg-gray-300 disabled:cursor-not-allowed mb-4"
           >
-            {isLoading ? (
-              <span className="flex items-center justify-center gap-2">
-                <svg className="animate-spin h-5 w-5" viewBox="0 0 24 24">
-                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
-                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
-                </svg>
-                Converting...
-              </span>
-            ) : (
-              'Convert to Email'
-            )}
+            {isLoading ? 'Converting...' : 'Convert to Email'}
           </button>
 
-          {/* Error Display */}
           {error && (
-            <div className="mt-4 p-4 bg-red-50 border border-red-200 rounded-lg">
+            <div className="p-3 bg-red-50 border border-red-200 rounded-lg mb-4">
               <p className="text-sm text-red-700">{error}</p>
-              <button onClick={handleReset} className="mt-2 text-sm text-red-600 hover:text-red-800 underline">
-                Try again
-              </button>
             </div>
           )}
 
-          {/* Extracted Content Summary */}
-          {result && !isLoading && (
-            <div className="mt-6 space-y-4">
-              <div className="p-4 bg-green-50 border border-green-200 rounded-lg">
-                <p className="text-sm font-medium text-green-800">Conversion complete!</p>
-                <p className="text-xs text-green-600 mt-1">Click "Edit Mode" to make changes directly in the preview</p>
+          {/* Edit Form */}
+          {content && !isLoading && (
+            <div className="space-y-4">
+              <div className="flex items-center justify-between">
+                <span className="text-sm font-medium text-green-700 bg-green-50 px-2 py-1 rounded">Ready to edit</span>
+                <button onClick={handleReset} className="text-sm text-gray-500 hover:text-gray-700">Reset</button>
               </div>
 
-              <div className="space-y-3">
-                <div>
-                  <label className="block text-xs font-medium text-gray-500 uppercase tracking-wide mb-1">
-                    Subject Line
-                  </label>
-                  <p className="text-sm text-gray-900 bg-gray-50 p-2 rounded">
-                    {result.content.subject}
-                  </p>
-                </div>
+              {/* Subject */}
+              <div>
+                <label className="block text-xs font-medium text-gray-500 uppercase mb-1">Subject Line</label>
+                <input
+                  type="text"
+                  value={content.subject}
+                  onChange={(e) => updateContent({ subject: e.target.value })}
+                  className="w-full px-3 py-2 border border-gray-300 rounded text-sm focus:ring-1 focus:ring-blue-500"
+                />
+              </div>
 
-                <div>
-                  <label className="block text-xs font-medium text-gray-500 uppercase tracking-wide mb-1">
-                    Date
-                  </label>
-                  <p className="text-sm text-gray-900 bg-gray-50 p-2 rounded">
-                    {result.content.hero_date}
-                  </p>
-                </div>
+              {/* Date */}
+              <div>
+                <label className="block text-xs font-medium text-gray-500 uppercase mb-1">Date</label>
+                <input
+                  type="text"
+                  value={content.hero_date}
+                  onChange={(e) => updateContent({ hero_date: e.target.value })}
+                  className="w-full px-3 py-2 border border-gray-300 rounded text-sm focus:ring-1 focus:ring-blue-500"
+                />
+              </div>
 
-                <div>
-                  <label className="block text-xs font-medium text-gray-500 uppercase tracking-wide mb-1">
-                    Sections ({result.content.sections.length})
-                  </label>
-                  <ul className="text-sm text-gray-700 bg-gray-50 p-2 rounded space-y-1">
-                    {result.content.sections.map((section, idx) => (
-                      <li key={idx} className="flex items-center gap-2">
-                        <span className="text-gray-400">{idx + 1}.</span>
-                        <span className="truncate">{section.title}</span>
-                        {section.image && (
-                          <span className="text-xs bg-blue-100 text-blue-700 px-1.5 py-0.5 rounded flex-shrink-0">
-                            img
-                          </span>
-                        )}
-                      </li>
+              {/* Intro */}
+              <div>
+                <label className="block text-xs font-medium text-gray-500 uppercase mb-1">Intro Text</label>
+                <textarea
+                  value={content.intro_text}
+                  onChange={(e) => updateContent({ intro_text: e.target.value })}
+                  rows={3}
+                  className="w-full px-3 py-2 border border-gray-300 rounded text-sm focus:ring-1 focus:ring-blue-500"
+                />
+              </div>
+
+              {/* Highlights */}
+              <div>
+                <label className="block text-xs font-medium text-gray-500 uppercase mb-1">Key Highlights</label>
+                <div className="space-y-2">
+                  {content.highlights.map((h, i) => (
+                    <input
+                      key={i}
+                      type="text"
+                      value={h}
+                      onChange={(e) => updateHighlight(i, e.target.value)}
+                      className="w-full px-3 py-1.5 border border-gray-300 rounded text-sm focus:ring-1 focus:ring-blue-500"
+                      placeholder={`Highlight ${i + 1}`}
+                    />
+                  ))}
+                </div>
+              </div>
+
+              {/* Sections */}
+              {content.sections.map((section, sIdx) => (
+                <div key={sIdx} className="border border-gray-200 rounded-lg p-3">
+                  <label className="block text-xs font-medium text-gray-500 uppercase mb-2">Section {sIdx + 1}</label>
+                  <input
+                    type="text"
+                    value={section.title}
+                    onChange={(e) => updateSection(sIdx, { title: e.target.value })}
+                    className="w-full px-3 py-1.5 border border-gray-300 rounded text-sm font-medium mb-2 focus:ring-1 focus:ring-blue-500"
+                    placeholder="Section title"
+                  />
+                  <div className="space-y-1.5">
+                    {section.bullets.map((b, bIdx) => (
+                      <input
+                        key={bIdx}
+                        type="text"
+                        value={b}
+                        onChange={(e) => updateSectionBullet(sIdx, bIdx, e.target.value)}
+                        className="w-full px-3 py-1.5 border border-gray-200 rounded text-sm focus:ring-1 focus:ring-blue-500"
+                        placeholder={`Bullet ${bIdx + 1}`}
+                      />
                     ))}
-                  </ul>
-                </div>
-
-                {result.content.images.length > 0 && (
-                  <div>
-                    <label className="block text-xs font-medium text-gray-500 uppercase tracking-wide mb-1">
-                      Extracted Images ({result.content.images.length})
-                    </label>
-                    <div className="flex flex-wrap gap-2">
-                      {result.content.images.slice(0, 4).map((img, idx) => (
-                        <img
-                          key={idx}
-                          src={img}
-                          alt={`Extracted ${idx + 1}`}
-                          className="w-12 h-12 object-cover rounded border border-gray-200"
-                        />
-                      ))}
-                      {result.content.images.length > 4 && (
-                        <div className="w-12 h-12 flex items-center justify-center bg-gray-100 rounded border border-gray-200 text-xs text-gray-500">
-                          +{result.content.images.length - 4}
-                        </div>
-                      )}
-                    </div>
                   </div>
-                )}
-              </div>
+                </div>
+              ))}
 
-              <button
-                onClick={handleReset}
-                className="w-full px-4 py-2 text-sm text-gray-600 hover:text-gray-800 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
-              >
-                Convert Another URL
-              </button>
+              {/* Outro */}
+              <div>
+                <label className="block text-xs font-medium text-gray-500 uppercase mb-1">Outro Text</label>
+                <textarea
+                  value={content.outro_text}
+                  onChange={(e) => updateContent({ outro_text: e.target.value })}
+                  rows={2}
+                  className="w-full px-3 py-2 border border-gray-300 rounded text-sm focus:ring-1 focus:ring-blue-500"
+                />
+              </div>
             </div>
           )}
         </div>
       </div>
 
-      {/* Right Panel - Email Preview */}
+      {/* Right Panel - Preview */}
       <div className="flex-1 bg-gray-100 flex flex-col">
-        {/* Preview Header */}
         <div className="p-4 bg-white border-b border-gray-200 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <h2 className="font-medium text-gray-900">Email Preview</h2>
-            {result && !isLoading && (
-              <button
-                onClick={handleToggleEditMode}
-                className={`px-3 py-1.5 text-sm rounded-lg font-medium transition-colors ${
-                  editMode
-                    ? 'bg-amber-100 text-amber-800 border border-amber-300'
-                    : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-                }`}
-              >
-                {editMode ? '✏️ Editing' : 'Edit Mode'}
-              </button>
-            )}
-          </div>
-          {result && !isLoading && (
+          <h2 className="font-medium text-gray-900">Email Preview</h2>
+          {content && !isLoading && (
             <button
               onClick={handleCopyHtml}
               className={`px-4 py-2 rounded-lg font-medium transition-colors ${
-                copied
-                  ? 'bg-green-600 text-white'
-                  : 'bg-blue-600 text-white hover:bg-blue-700'
+                copied ? 'bg-green-600 text-white' : 'bg-blue-600 text-white hover:bg-blue-700'
               }`}
             >
-              {copied ? (
-                <span className="flex items-center gap-2">
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                  Copied!
-                </span>
-              ) : (
-                'Copy HTML'
-              )}
+              {copied ? '✓ Copied!' : 'Copy HTML'}
             </button>
           )}
         </div>
 
-        {/* Edit Mode Banner */}
-        {editMode && result && !isLoading && (
-          <div className="bg-amber-50 border-b border-amber-200 px-4 py-2 text-sm text-amber-800">
-            <strong>Edit Mode:</strong> Click any text below to edit. Changes are saved when you copy.
-          </div>
-        )}
-
-        {/* Preview Content */}
         <div className="flex-1 overflow-auto p-6 flex justify-center">
           {!result && !isLoading && (
-            <div className="flex items-center justify-center h-full">
-              <div className="text-center text-gray-500">
+            <div className="flex items-center justify-center h-full text-center text-gray-500">
+              <div>
                 <svg className="mx-auto h-16 w-16 text-gray-300 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                 </svg>
                 <p className="text-lg font-medium">Paste a URL and click Convert</p>
-                <p className="mt-1">to preview your email</p>
               </div>
             </div>
           )}
@@ -316,22 +406,18 @@ export function UrlToEmail() {
               <div className="text-center">
                 <svg className="animate-spin mx-auto h-12 w-12 text-blue-600 mb-4" viewBox="0 0 24 24">
                   <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
-                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
                 </svg>
-                <p className="text-lg font-medium text-gray-700">Converting...</p>
-                <p className="text-sm text-gray-500 mt-1">Scraping and extracting content</p>
+                <p className="text-gray-700">Converting...</p>
               </div>
             </div>
           )}
 
-          {result && !isLoading && (
+          {content && !isLoading && (
             <div
-              ref={previewRef}
-              className={`bg-white shadow-lg rounded-lg overflow-hidden ${editMode ? 'ring-2 ring-amber-400 cursor-text' : ''}`}
+              className="bg-white shadow-lg rounded-lg overflow-hidden"
               style={{ width: '700px', maxWidth: '100%' }}
-              contentEditable={editMode}
-              suppressContentEditableWarning={true}
-              dangerouslySetInnerHTML={{ __html: editedHtml || result.html }}
+              dangerouslySetInnerHTML={{ __html: currentHtml }}
             />
           )}
         </div>
