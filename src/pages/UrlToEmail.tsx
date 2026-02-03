@@ -79,18 +79,13 @@ function generateEmailHtml(content: EmailContent, sourceUrl: string): string {
                 <td align="center" style="padding: 40px 0;">
                     <div style="max-width:660px; width:100%; margin:0 auto;">
                         <!-- HERO -->
-                        <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #f6f6f6; border-radius: 20px 20px 0 0;">
+                        <table width="100%" cellpadding="0" cellspacing="0" style="background-image: url(${content.hero_image || 'https://truv.com/wp-content/themes/twentytwentyone/assets_truv/images/letter/letter-product-bg.png'}); background-color: #f6f6f6; background-size: cover; background-position: center top; background-repeat: no-repeat; border-radius: 20px 20px 0 0;">
                             <tr><td style="padding: 20px;">
                                 <a href="https://truv.com"><img src="https://truv.com/wp-content/themes/twentytwentyone/assets_truv/images/logo/logo-truv.png" width="65" alt="Truv"></a>
                             </td></tr>
-                            <tr><td style="padding: 15px 35px 20px;">
+                            <tr><td style="padding: 15px 35px 30px;">
                                 <h1 style="font-size: 38px; margin: 0 0 10px; font-weight: 600;">Product Update</h1>
-                                <p style="font-size: 22px; margin: 0 0 20px; font-weight: 500;">${content.hero_date}</p>
-                            </td></tr>
-                            ${content.hero_image ? `<tr><td style="padding: 0 35px 20px;">
-                                <img src="${content.hero_image}" width="100%" alt="" style="border-radius: 12px; max-width: 100%; height: auto;">
-                            </td></tr>` : ''}
-                            <tr><td style="padding: 0 35px 40px;">
+                                <p style="font-size: 22px; margin: 0 0 30px; font-weight: 500;">${content.hero_date}</p>
                                 <a href="${sourceUrl}" style="display:inline-block; background:#2C64E3; color:#fff; padding:16px 25px; border-radius:50px; text-decoration:none; font-weight:500;">Read Full Article</a>
                             </td></tr>
                         </table>
