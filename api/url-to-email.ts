@@ -1,6 +1,7 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 
 const FIRECRAWL_API_KEY = process.env.FIRECRAWL_API_KEY;
+const GOOGLE_AI_API_KEY = process.env.GOOGLE_AI_API_KEY;
 
 interface EmailContent {
   subject: string;
@@ -80,6 +81,96 @@ function cleanMarkdown(text: string): string {
     .replace(/^>\s*/gm, '')              // Remove blockquotes
     .replace(/\n{3,}/g, '\n\n')          // Normalize multiple newlines
     .trim();
+}
+
+// Use Gemini AI to extract and structure email content
+async function extractWithGemini(markdown: string, images: string[], apiKey: string): Promise<EmailContent> {
+  const prompt = `You are a marketing email content specialist. Analyze this blog post/article content and extract the key information to create a compelling product update email.
+
+CONTENT TO ANALYZE:
+${markdown.slice(0, 8000)}
+
+Extract and return a JSON object with this exact structure:
+{
+  "subject": "A compelling email subject line (max 60 chars)",
+  "preview_text": "Preview text that appears in inbox (max 100 chars)",
+  "hero_date": "The date mentioned in the article, or today's date in format 'Month Day, Year'",
+  "intro_text": "A warm, engaging introduction paragraph (2-3 sentences) that summarizes the key announcement and gets the reader excited",
+  "highlights": ["3-5 key bullet points highlighting the most important takeaways"],
+  "sections": [
+    {
+      "title": "Section heading",
+      "bullets": ["2-4 detailed bullet points for this section"]
+    }
+  ],
+  "outro_text": "A brief closing paragraph encouraging the reader to learn more (1-2 sentences)"
+}
+
+Guidelines:
+- Write in a professional but friendly B2B tone
+- Focus on benefits and value, not just features
+- Keep bullet points concise but informative
+- Create 2-4 sections based on the main topics covered
+- The intro should hook the reader immediately
+- Remove any markdown formatting from the text
+
+Return ONLY valid JSON, no other text.`;
+
+  const response = await fetch(
+    `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`,
+    {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        contents: [{ parts: [{ text: prompt }] }],
+        generationConfig: {
+          temperature: 0.7,
+          maxOutputTokens: 2048,
+        },
+      }),
+    }
+  );
+
+  if (!response.ok) {
+    const errorText = await response.text();
+    console.error('Gemini API error:', errorText);
+    throw new Error(`Gemini API error: ${response.status}`);
+  }
+
+  const result = await response.json();
+  const textContent = result.candidates?.[0]?.content?.parts?.[0]?.text;
+
+  if (!textContent) {
+    throw new Error('No content returned from Gemini');
+  }
+
+  // Extract JSON from the response (handle potential markdown code blocks)
+  let jsonStr = textContent;
+  const jsonMatch = textContent.match(/```(?:json)?\s*([\s\S]*?)```/);
+  if (jsonMatch) {
+    jsonStr = jsonMatch[1];
+  }
+
+  const parsed = JSON.parse(jsonStr.trim());
+
+  // Add images to sections
+  const sectionsWithImages = (parsed.sections || []).map((section: any, idx: number) => ({
+    ...section,
+    image: images[idx] || undefined,
+    bullets: section.bullets || [],
+  }));
+
+  return {
+    subject: parsed.subject || 'Product Update',
+    preview_text: parsed.preview_text || '',
+    hero_date: parsed.hero_date || new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }),
+    hero_image: images[0] || '',
+    intro_text: parsed.intro_text || '',
+    highlights: parsed.highlights || [],
+    sections: sectionsWithImages,
+    outro_text: parsed.outro_text || '',
+    images,
+  };
 }
 
 function extractContentFromMarkdown(markdown: string, images: string[]): EmailContent {
@@ -594,8 +685,23 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       return res.status(400).json({ error: 'Failed to extract content from URL' });
     }
 
-    // Step 2: Extract content using rule-based parsing (no AI needed)
-    const emailContent = extractContentFromMarkdown(markdown, images);
+    // Step 2: Extract content - use Gemini AI if available, otherwise rule-based
+    let emailContent: EmailContent;
+    let usedAI = false;
+
+    if (GOOGLE_AI_API_KEY) {
+      try {
+        console.log('Using Gemini AI for content extraction...');
+        emailContent = await extractWithGemini(markdown, images, GOOGLE_AI_API_KEY);
+        usedAI = true;
+      } catch (aiError) {
+        console.error('Gemini extraction failed, falling back to rule-based:', aiError);
+        emailContent = extractContentFromMarkdown(markdown, images);
+      }
+    } else {
+      console.log('No GOOGLE_AI_API_KEY configured, using rule-based extraction');
+      emailContent = extractContentFromMarkdown(markdown, images);
+    }
 
     // Step 3: Generate the final HTML
     const html = generateEmailHtml(emailContent, url);
@@ -605,6 +711,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       content: emailContent,
       html,
       sourceUrl: url,
+      usedAI,
     });
   } catch (error) {
     console.error('URL to Email conversion error:', error);

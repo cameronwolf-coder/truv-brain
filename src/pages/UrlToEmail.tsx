@@ -23,6 +23,7 @@ interface ConversionResult {
   content: EmailContent;
   html: string;
   sourceUrl: string;
+  usedAI?: boolean;
 }
 
 // Generate email HTML from content
@@ -284,7 +285,12 @@ export function UrlToEmail() {
           {content && !isLoading && (
             <div className="space-y-4">
               <div className="flex items-center justify-between">
-                <span className="text-sm font-medium text-green-700 bg-green-50 px-2 py-1 rounded">Ready to edit</span>
+                <div className="flex items-center gap-2">
+                  <span className="text-sm font-medium text-green-700 bg-green-50 px-2 py-1 rounded">Ready to edit</span>
+                  {result?.usedAI && (
+                    <span className="text-xs font-medium text-purple-700 bg-purple-50 px-2 py-1 rounded">AI Enhanced</span>
+                  )}
+                </div>
                 <button onClick={handleReset} className="text-sm text-gray-500 hover:text-gray-700">Reset</button>
               </div>
 
