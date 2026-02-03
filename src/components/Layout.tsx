@@ -132,6 +132,21 @@ export function Layout() {
                 List Builder
               </NavLink>
             </li>
+            <li>
+              <NavLink
+                to="/smart-list-builder"
+                className={({ isActive }) =>
+                  `flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
+                    isActive
+                      ? 'bg-blue-50 text-blue-700'
+                      : 'text-gray-700 hover:bg-gray-100'
+                  }`
+                }
+              >
+                <span className="text-lg">🤖</span>
+                Smart List Builder
+              </NavLink>
+            </li>
           </ul>
 
           {/* Tools Section */}
