@@ -2,6 +2,7 @@ import { useState, useMemo } from 'react';
 
 interface Section {
   title: string;
+  intro?: string;
   image?: string;
   bullets: string[];
 }
@@ -24,6 +25,44 @@ function formatText(text: string): string {
   return text.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
 }
 
+// Bold button component for text inputs
+function BoldButton({ inputId }: { inputId: string }) {
+  const handleBold = () => {
+    const input = document.getElementById(inputId) as HTMLTextAreaElement | HTMLInputElement;
+    if (!input) return;
+
+    const start = input.selectionStart || 0;
+    const end = input.selectionEnd || 0;
+    const text = input.value;
+    const selectedText = text.slice(start, end);
+
+    if (selectedText) {
+      const newText = text.slice(0, start) + `**${selectedText}**` + text.slice(end);
+      input.value = newText;
+      input.dispatchEvent(new Event('input', { bubbles: true }));
+      input.focus();
+      input.setSelectionRange(start + 2, end + 2);
+    } else {
+      const newText = text.slice(0, start) + `****` + text.slice(end);
+      input.value = newText;
+      input.dispatchEvent(new Event('input', { bubbles: true }));
+      input.focus();
+      input.setSelectionRange(start + 2, start + 2);
+    }
+  };
+
+  return (
+    <button
+      type="button"
+      onClick={handleBold}
+      className="px-2 py-1 text-xs font-bold bg-gray-100 hover:bg-gray-200 rounded border border-gray-300"
+      title="Bold (select text first)"
+    >
+      B
+    </button>
+  );
+}
+
 interface ConversionResult {
   success: boolean;
   content: EmailContent;
@@ -44,6 +83,10 @@ function generateEmailHtml(content: EmailContent, sourceUrl: string): string {
   const sectionsHtml = content.sections
     .filter(s => s.title.trim())
     .map((section) => {
+      const introHtml = section.intro
+        ? `<p style="font-size: 16px; line-height: 150%; margin-bottom: 1em;">${formatText(section.intro)}</p>`
+        : '';
+
       const imageHtml = section.image
         ? `<p style="margin-bottom: 1em;"><img src="${section.image}" width="100%" alt="" style="height: auto; max-width: 100%; border-radius: 8px;"></p>`
         : '';
@@ -55,11 +98,12 @@ function generateEmailHtml(content: EmailContent, sourceUrl: string): string {
 
       return `
                                                 <hr>
-                                                <h3 style="font-family: Gilroy, sans-serif; font-size: 22px; font-weight: 600;">${section.title}</h3>
+                                                <h3 style="font-family: Gilroy, sans-serif; font-size: 22px; font-weight: 600;">${formatText(section.title)}</h3>
+                                                ${introHtml}
                                                 ${imageHtml}
-                                                <ul style="font-size: 16px; line-height: 160%; padding-left: 20px;">
+                                                ${bulletsHtml ? `<ul style="font-size: 16px; line-height: 160%; padding-left: 20px;">
                                                     ${bulletsHtml}
-                                                </ul>`;
+                                                </ul>` : ''}`;
     })
     .join('\n');
 
@@ -462,8 +506,12 @@ export function UrlToEmail() {
 
               {/* Intro */}
               <div>
-                <label className="block text-xs font-medium text-gray-500 uppercase mb-1">Intro Text</label>
+                <div className="flex items-center justify-between mb-1">
+                  <label className="text-xs font-medium text-gray-500 uppercase">Intro Text</label>
+                  <BoldButton inputId="intro-text" />
+                </div>
                 <textarea
+                  id="intro-text"
                   value={content.intro_text}
                   onChange={(e) => updateContent({ intro_text: e.target.value })}
                   rows={3}
@@ -476,14 +524,17 @@ export function UrlToEmail() {
                 <label className="block text-xs font-medium text-gray-500 uppercase mb-1">Key Highlights</label>
                 <div className="space-y-2">
                   {content.highlights.map((h, i) => (
-                    <input
-                      key={i}
-                      type="text"
-                      value={h}
-                      onChange={(e) => updateHighlight(i, e.target.value)}
-                      className="w-full px-3 py-1.5 border border-gray-300 rounded text-sm focus:ring-1 focus:ring-blue-500"
-                      placeholder={`Highlight ${i + 1}`}
-                    />
+                    <div key={i} className="flex gap-1">
+                      <input
+                        id={`highlight-${i}`}
+                        type="text"
+                        value={h}
+                        onChange={(e) => updateHighlight(i, e.target.value)}
+                        className="flex-1 px-3 py-1.5 border border-gray-300 rounded text-sm focus:ring-1 focus:ring-blue-500"
+                        placeholder={`Highlight ${i + 1}`}
+                      />
+                      <BoldButton inputId={`highlight-${i}`} />
+                    </div>
                   ))}
                 </div>
               </div>
@@ -492,13 +543,35 @@ export function UrlToEmail() {
               {content.sections.map((section, sIdx) => (
                 <div key={sIdx} className="border border-gray-200 rounded-lg p-3">
                   <label className="block text-xs font-medium text-gray-500 uppercase mb-2">Section {sIdx + 1}</label>
-                  <input
-                    type="text"
-                    value={section.title}
-                    onChange={(e) => updateSection(sIdx, { title: e.target.value })}
-                    className="w-full px-3 py-1.5 border border-gray-300 rounded text-sm font-medium mb-2 focus:ring-1 focus:ring-blue-500"
-                    placeholder="Section title"
-                  />
+
+                  {/* Title */}
+                  <div className="flex gap-1 mb-2">
+                    <input
+                      id={`section-title-${sIdx}`}
+                      type="text"
+                      value={section.title}
+                      onChange={(e) => updateSection(sIdx, { title: e.target.value })}
+                      className="flex-1 px-3 py-1.5 border border-gray-300 rounded text-sm font-medium focus:ring-1 focus:ring-blue-500"
+                      placeholder="Section title"
+                    />
+                    <BoldButton inputId={`section-title-${sIdx}`} />
+                  </div>
+
+                  {/* Section Intro */}
+                  <div className="mb-2">
+                    <div className="flex items-center justify-between mb-1">
+                      <label className="text-xs text-gray-400">Intro (optional)</label>
+                      <BoldButton inputId={`section-intro-${sIdx}`} />
+                    </div>
+                    <textarea
+                      id={`section-intro-${sIdx}`}
+                      value={section.intro || ''}
+                      onChange={(e) => updateSection(sIdx, { intro: e.target.value || undefined })}
+                      rows={2}
+                      className="w-full px-3 py-1.5 border border-gray-200 rounded text-sm focus:ring-1 focus:ring-blue-500"
+                      placeholder="Optional intro paragraph for this section..."
+                    />
+                  </div>
 
                   {/* Section Image */}
                   <div className="mb-2">
@@ -537,16 +610,21 @@ export function UrlToEmail() {
                     )}
                   </div>
 
+                  {/* Bullets */}
                   <div className="space-y-1.5">
+                    <label className="text-xs text-gray-400">Bullets</label>
                     {section.bullets.map((b, bIdx) => (
-                      <input
-                        key={bIdx}
-                        type="text"
-                        value={b}
-                        onChange={(e) => updateSectionBullet(sIdx, bIdx, e.target.value)}
-                        className="w-full px-3 py-1.5 border border-gray-200 rounded text-sm focus:ring-1 focus:ring-blue-500"
-                        placeholder={`Bullet ${bIdx + 1}`}
-                      />
+                      <div key={bIdx} className="flex gap-1">
+                        <input
+                          id={`section-${sIdx}-bullet-${bIdx}`}
+                          type="text"
+                          value={b}
+                          onChange={(e) => updateSectionBullet(sIdx, bIdx, e.target.value)}
+                          className="flex-1 px-3 py-1.5 border border-gray-200 rounded text-sm focus:ring-1 focus:ring-blue-500"
+                          placeholder={`Bullet ${bIdx + 1}`}
+                        />
+                        <BoldButton inputId={`section-${sIdx}-bullet-${bIdx}`} />
+                      </div>
                     ))}
                   </div>
                 </div>
@@ -554,8 +632,12 @@ export function UrlToEmail() {
 
               {/* Outro */}
               <div>
-                <label className="block text-xs font-medium text-gray-500 uppercase mb-1">Outro Text</label>
+                <div className="flex items-center justify-between mb-1">
+                  <label className="text-xs font-medium text-gray-500 uppercase">Outro Text</label>
+                  <BoldButton inputId="outro-text" />
+                </div>
                 <textarea
+                  id="outro-text"
                   value={content.outro_text}
                   onChange={(e) => updateContent({ outro_text: e.target.value })}
                   rows={2}
