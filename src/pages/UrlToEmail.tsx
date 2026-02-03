@@ -14,53 +14,29 @@ interface EmailContent {
   hero_date: string;
   hero_image: string;
   intro_text: string;
+  showHighlights: boolean;
   highlights: string[];
   sections: Section[];
   outro_text: string;
   images: string[];
 }
 
+// Icons
+const TrashIcon = () => (
+  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+  </svg>
+);
+
+const PlusIcon = () => (
+  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+  </svg>
+);
+
 // Convert **bold** markdown to <strong> tags
 function formatText(text: string): string {
   return text.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
-}
-
-// Bold button component for text inputs (markdown mode)
-function BoldButton({ inputId }: { inputId: string }) {
-  const handleBold = () => {
-    const input = document.getElementById(inputId) as HTMLTextAreaElement | HTMLInputElement;
-    if (!input) return;
-
-    const start = input.selectionStart || 0;
-    const end = input.selectionEnd || 0;
-    const text = input.value;
-    const selectedText = text.slice(start, end);
-
-    if (selectedText) {
-      const newText = text.slice(0, start) + `**${selectedText}**` + text.slice(end);
-      input.value = newText;
-      input.dispatchEvent(new Event('input', { bubbles: true }));
-      input.focus();
-      input.setSelectionRange(start + 2, end + 2);
-    } else {
-      const newText = text.slice(0, start) + `****` + text.slice(end);
-      input.value = newText;
-      input.dispatchEvent(new Event('input', { bubbles: true }));
-      input.focus();
-      input.setSelectionRange(start + 2, start + 2);
-    }
-  };
-
-  return (
-    <button
-      type="button"
-      onClick={handleBold}
-      className="px-2 py-1 text-xs font-bold bg-gray-100 hover:bg-gray-200 rounded border border-gray-300"
-      title="Bold (select text first)"
-    >
-      B
-    </button>
-  );
 }
 
 // Convert HTML to markdown-like format
@@ -91,8 +67,6 @@ function RichTextEditor({
   placeholder?: string;
 }) {
   const editorRef = useRef<HTMLDivElement>(null);
-
-  // Convert markdown to HTML for display
   const displayHtml = formatText(value).replace(/\n/g, '<br>');
 
   const handleInput = () => {
@@ -103,34 +77,18 @@ function RichTextEditor({
     }
   };
 
-  const execCommand = (command: string, value?: string) => {
-    document.execCommand(command, false, value);
+  const execCommand = (command: string) => {
+    document.execCommand(command, false);
     editorRef.current?.focus();
     handleInput();
   };
 
   return (
-    <div className="border border-gray-300 rounded overflow-hidden focus-within:ring-1 focus-within:ring-blue-500 focus-within:border-blue-500">
-      {/* Toolbar */}
+    <div className="border border-gray-300 rounded overflow-hidden focus-within:ring-1 focus-within:ring-blue-500">
       <div className="flex gap-1 p-1 bg-gray-50 border-b border-gray-200">
-        <button
-          type="button"
-          onClick={() => execCommand('bold')}
-          className="px-2 py-1 text-xs font-bold bg-white hover:bg-gray-100 rounded border border-gray-300"
-          title="Bold"
-        >
-          B
-        </button>
-        <button
-          type="button"
-          onClick={() => execCommand('italic')}
-          className="px-2 py-1 text-xs italic bg-white hover:bg-gray-100 rounded border border-gray-300"
-          title="Italic"
-        >
-          I
-        </button>
+        <button type="button" onClick={() => execCommand('bold')} className="px-2 py-1 text-xs font-bold bg-white hover:bg-gray-100 rounded border border-gray-300" title="Bold">B</button>
+        <button type="button" onClick={() => execCommand('italic')} className="px-2 py-1 text-xs italic bg-white hover:bg-gray-100 rounded border border-gray-300" title="Italic">I</button>
       </div>
-      {/* Editor */}
       <div
         ref={editorRef}
         contentEditable
@@ -143,6 +101,41 @@ function RichTextEditor({
   );
 }
 
+// Inline text input with delete button
+function EditableItem({
+  value,
+  onChange,
+  onDelete,
+  placeholder,
+  id
+}: {
+  value: string;
+  onChange: (value: string) => void;
+  onDelete: () => void;
+  placeholder: string;
+  id: string;
+}) {
+  return (
+    <div className="flex gap-1 group">
+      <input
+        id={id}
+        type="text"
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        className="flex-1 px-3 py-1.5 border border-gray-300 rounded text-sm focus:ring-1 focus:ring-blue-500"
+        placeholder={placeholder}
+      />
+      <button
+        type="button"
+        onClick={onDelete}
+        className="px-2 text-gray-300 hover:text-red-500 transition-colors"
+        title="Delete"
+      >
+        <TrashIcon />
+      </button>
+    </div>
+  );
+}
 
 interface ConversionResult {
   success: boolean;
@@ -156,37 +149,44 @@ interface ConversionResult {
 
 // Generate email HTML from content
 function generateEmailHtml(content: EmailContent, sourceUrl: string): string {
-  const highlightsHtml = content.highlights
-    .filter(h => h.trim())
-    .map(h => `<li>${formatText(h)}</li>`)
-    .join('\n                                                    ');
+  const hasHighlights = content.showHighlights && content.highlights.some(h => h.trim());
+
+  const highlightsHtml = hasHighlights
+    ? `<h4 style="margin-bottom: 10px;">Key Highlights:</h4>
+                                <ul style="font-size: 16px; line-height: 160%; padding-left: 20px; margin-bottom: 10px;">
+                                    ${content.highlights.filter(h => h.trim()).map(h => `<li>${formatText(h)}</li>`).join('\n                                    ')}
+                                </ul>`
+    : '';
 
   const sectionsHtml = content.sections
-    .filter(s => s.title.trim())
+    .filter(s => s.title.trim() || s.intro?.trim() || s.bullets.some(b => b.trim()))
     .map((section) => {
-      const introHtml = section.intro
+      const titleHtml = section.title.trim()
+        ? `<h3 style="font-family: Gilroy, sans-serif; font-size: 22px; font-weight: 600;">${formatText(section.title)}</h3>`
+        : '';
+      const introHtml = section.intro?.trim()
         ? `<p style="font-size: 16px; line-height: 150%; margin-bottom: 1em;">${formatText(section.intro)}</p>`
         : '';
-
       const imageHtml = section.image
         ? `<p style="margin-bottom: 1em;"><img src="${section.image}" width="100%" alt="" style="height: auto; max-width: 100%; border-radius: 8px;"></p>`
         : '';
+      const bulletsHtml = section.bullets.filter(b => b.trim()).length > 0
+        ? `<ul style="font-size: 16px; line-height: 160%; padding-left: 20px;">
+                                    ${section.bullets.filter(b => b.trim()).map(b => `<li style="margin-bottom: 8px;">${formatText(b)}</li>`).join('\n                                    ')}
+                                </ul>`
+        : '';
 
-      const bulletsHtml = section.bullets
-        .filter(b => b.trim())
-        .map(b => `<li style="margin-bottom: 8px;">${formatText(b)}</li>`)
-        .join('\n                                                    ');
-
-      return `
-                                                <hr>
-                                                <h3 style="font-family: Gilroy, sans-serif; font-size: 22px; font-weight: 600;">${formatText(section.title)}</h3>
-                                                ${introHtml}
-                                                ${imageHtml}
-                                                ${bulletsHtml ? `<ul style="font-size: 16px; line-height: 160%; padding-left: 20px;">
-                                                    ${bulletsHtml}
-                                                </ul>` : ''}`;
+      return `<hr>${titleHtml}${introHtml}${imageHtml}${bulletsHtml}`;
     })
     .join('\n');
+
+  const introHtml = content.intro_text.trim()
+    ? `<div style="font-size: 16px; line-height: 140%; margin-bottom: 20px;">${formatText(content.intro_text)}</div>`
+    : '';
+
+  const outroHtml = content.outro_text.trim()
+    ? `<hr><p style="margin-bottom: 1em; font-size: 16px; line-height: 140%;">${formatText(content.outro_text)}</p>`
+    : '';
 
   return `<!DOCTYPE html>
 <html lang="en">
@@ -226,14 +226,10 @@ function generateEmailHtml(content: EmailContent, sourceUrl: string): string {
                         <table width="100%" cellpadding="0" cellspacing="0" style="background:#fff;">
                             <tr><td style="padding: 40px 35px;">
                                 <div style="font-size: 22px; font-weight: 600; margin-bottom: 16px;">Hi there,</div>
-                                <div style="font-size: 16px; line-height: 140%; margin-bottom: 20px;">${formatText(content.intro_text)}</div>
-                                <h4 style="margin-bottom: 10px;">Key Highlights:</h4>
-                                <ul style="font-size: 16px; line-height: 160%; padding-left: 20px; margin-bottom: 10px;">
-                                    ${highlightsHtml}
-                                </ul>
+                                ${introHtml}
+                                ${highlightsHtml}
                                 ${sectionsHtml}
-                                <hr>
-                                <p style="margin-bottom: 1em; font-size: 16px; line-height: 140%;">${formatText(content.outro_text)}</p>
+                                ${outroHtml}
                                 <a href="${sourceUrl}" style="display:inline-block; background:#2C64E3; color:#fff; padding:16px 25px; border-radius:50px; text-decoration:none; font-weight:500; margin-top:15px;">Read Full Article</a>
                             </td></tr>
                         </table>
@@ -263,30 +259,24 @@ function generateEmailHtml(content: EmailContent, sourceUrl: string): string {
 }
 
 const GEMINI_MODELS = [
+  { id: 'gemini-2.0-flash', name: 'Gemini 2.0 Flash' },
   { id: 'gemini-pro', name: 'Gemini Pro' },
   { id: 'gemini-1.5-pro', name: 'Gemini 1.5 Pro' },
   { id: 'gemini-1.5-flash', name: 'Gemini 1.5 Flash' },
-  { id: 'gemini-1.0-pro', name: 'Gemini 1.0 Pro' },
-  { id: 'gemini-2.0-flash', name: 'Gemini 2.0 Flash' },
 ];
 
 export function UrlToEmail() {
   const [url, setUrl] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [isReparsingWithAI, setIsReparsingWithAI] = useState(false);
-  const [selectedModel, setSelectedModel] = useState('gemini-pro');
+  const [selectedModel, setSelectedModel] = useState('gemini-2.0-flash');
   const [error, setError] = useState<string | null>(null);
   const [result, setResult] = useState<ConversionResult | null>(null);
   const [copied, setCopied] = useState(false);
-  const [, setEditMode] = useState(false);
-
-  // Editable content state
   const [editedContent, setEditedContent] = useState<EmailContent | null>(null);
 
-  // Use edited content if available, otherwise original
   const content = editedContent || result?.content;
 
-  // Generate HTML from current content
   const currentHtml = useMemo(() => {
     if (!content || !result) return '';
     return generateEmailHtml(content, result.sourceUrl);
@@ -294,11 +284,9 @@ export function UrlToEmail() {
 
   const handleConvert = async () => {
     if (!url.trim()) return;
-
     setIsLoading(true);
     setError(null);
     setResult(null);
-    setEditMode(false);
     setEditedContent(null);
 
     try {
@@ -307,13 +295,12 @@ export function UrlToEmail() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ url: url.trim() }),
       });
-
       const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.error || 'Conversion failed');
+      if (!response.ok) throw new Error(data.error || 'Conversion failed');
+      // Ensure showHighlights defaults to true for backwards compatibility
+      if (data.content && data.content.showHighlights === undefined) {
+        data.content.showHighlights = true;
       }
-
       setResult(data);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'An error occurred');
@@ -341,7 +328,6 @@ export function UrlToEmail() {
 
   const handleReparseWithAI = async () => {
     if (!result?.rawMarkdown || !result?.sourceUrl) return;
-
     setIsReparsingWithAI(true);
     setError(null);
 
@@ -357,13 +343,11 @@ export function UrlToEmail() {
           images: result.rawImages,
         }),
       });
-
       const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.error || 'AI parsing failed');
+      if (!response.ok) throw new Error(data.error || 'AI parsing failed');
+      if (data.content && data.content.showHighlights === undefined) {
+        data.content.showHighlights = true;
       }
-
       setResult(data);
       setEditedContent(null);
     } catch (err) {
@@ -375,41 +359,59 @@ export function UrlToEmail() {
 
   const handleReset = () => {
     setUrl('');
-    setIsLoading(false);
     setError(null);
     setResult(null);
-    setEditMode(false);
     setEditedContent(null);
   };
 
+  // Content update helpers
   const updateContent = (updates: Partial<EmailContent>) => {
     const current = editedContent || result?.content;
-    if (current) {
-      setEditedContent({ ...current, ...updates });
-    }
+    if (current) setEditedContent({ ...current, ...updates });
   };
 
-  const updateHighlight = (index: number, value: string) => {
+  // Highlight helpers
+  const updateHighlight = (i: number, value: string) => {
     if (!content) return;
     const newHighlights = [...content.highlights];
-    newHighlights[index] = value;
+    newHighlights[i] = value;
     updateContent({ highlights: newHighlights });
   };
 
-  const updateSection = (sectionIndex: number, updates: Partial<Section>) => {
+  const deleteHighlight = (i: number) => {
     if (!content) return;
-    const newSections = content.sections.map((s, i) =>
-      i === sectionIndex ? { ...s, ...updates } : s
-    );
+    updateContent({ highlights: content.highlights.filter((_, idx) => idx !== i) });
+  };
+
+  const addHighlight = () => {
+    if (!content) return;
+    updateContent({ highlights: [...content.highlights, ''] });
+  };
+
+  // Section helpers
+  const updateSection = (i: number, updates: Partial<Section>) => {
+    if (!content) return;
+    const newSections = content.sections.map((s, idx) => idx === i ? { ...s, ...updates } : s);
     updateContent({ sections: newSections });
   };
 
-  const updateSectionBullet = (sectionIndex: number, bulletIndex: number, value: string) => {
+  const deleteSection = (i: number) => {
+    if (!content) return;
+    updateContent({ sections: content.sections.filter((_, idx) => idx !== i) });
+  };
+
+  const addSection = () => {
+    if (!content) return;
+    updateContent({ sections: [...content.sections, { title: '', intro: '', bullets: [''] }] });
+  };
+
+  // Bullet helpers
+  const updateBullet = (sIdx: number, bIdx: number, value: string) => {
     if (!content) return;
     const newSections = content.sections.map((s, i) => {
-      if (i === sectionIndex) {
+      if (i === sIdx) {
         const newBullets = [...s.bullets];
-        newBullets[bulletIndex] = value;
+        newBullets[bIdx] = value;
         return { ...s, bullets: newBullets };
       }
       return s;
@@ -417,26 +419,31 @@ export function UrlToEmail() {
     updateContent({ sections: newSections });
   };
 
-  const deleteSection = (sectionIndex: number) => {
+  const deleteBullet = (sIdx: number, bIdx: number) => {
     if (!content) return;
-    const newSections = content.sections.filter((_, i) => i !== sectionIndex);
+    const newSections = content.sections.map((s, i) => {
+      if (i === sIdx) {
+        return { ...s, bullets: s.bullets.filter((_, idx) => idx !== bIdx) };
+      }
+      return s;
+    });
     updateContent({ sections: newSections });
   };
 
-  const addSection = () => {
+  const addBullet = (sIdx: number) => {
     if (!content) return;
-    const newSection: Section = {
-      title: '',
-      intro: '',
-      image: undefined,
-      bullets: ['', '', ''],
-    };
-    updateContent({ sections: [...content.sections, newSection] });
+    const newSections = content.sections.map((s, i) => {
+      if (i === sIdx) {
+        return { ...s, bullets: [...s.bullets, ''] };
+      }
+      return s;
+    });
+    updateContent({ sections: newSections });
   };
 
   return (
     <div className="h-full flex">
-      {/* Left Panel */}
+      {/* Left Panel - Editor */}
       <div className="w-[420px] border-r border-gray-200 bg-white flex flex-col">
         <div className="p-6 border-b border-gray-200">
           <h1 className="text-2xl font-bold text-gray-900">URL to Email</h1>
@@ -453,7 +460,7 @@ export function UrlToEmail() {
               onChange={(e) => setUrl(e.target.value)}
               placeholder="https://truv.com/blog/..."
               disabled={isLoading}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 disabled:bg-gray-50"
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 disabled:bg-gray-50"
               onKeyDown={(e) => e.key === 'Enter' && handleConvert()}
             />
           </div>
@@ -478,45 +485,28 @@ export function UrlToEmail() {
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
                   <span className="text-sm font-medium text-green-700 bg-green-50 px-2 py-1 rounded">Ready to edit</span>
-                  {result?.usedAI && (
-                    <span className="text-xs font-medium text-purple-700 bg-purple-50 px-2 py-1 rounded">AI Enhanced</span>
-                  )}
+                  {result?.usedAI && <span className="text-xs font-medium text-purple-700 bg-purple-50 px-2 py-1 rounded">AI</span>}
                 </div>
                 <button onClick={handleReset} className="text-sm text-gray-500 hover:text-gray-700">Reset</button>
               </div>
 
-              {/* AI Re-parse Button */}
+              {/* AI Re-parse */}
               {result?.rawMarkdown && (
-                <div className="space-y-2">
-                  <div className="flex gap-2">
-                    <select
-                      value={selectedModel}
-                      onChange={(e) => setSelectedModel(e.target.value)}
-                      className="flex-1 px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-1 focus:ring-purple-500"
-                    >
-                      {GEMINI_MODELS.map((model) => (
-                        <option key={model.id} value={model.id}>{model.name}</option>
-                      ))}
-                    </select>
-                    <button
-                      onClick={handleReparseWithAI}
-                      disabled={isReparsingWithAI}
-                      className="px-4 py-2 bg-purple-600 text-white font-medium rounded-lg hover:bg-purple-700 disabled:bg-purple-300 disabled:cursor-not-allowed flex items-center gap-2"
-                    >
-                      {isReparsingWithAI ? (
-                        <svg className="animate-spin h-4 w-4" viewBox="0 0 24 24">
-                          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
-                          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
-                        </svg>
-                      ) : (
-                        <span>✨</span>
-                      )}
-                      {isReparsingWithAI ? 'Parsing...' : 'AI Parse'}
-                    </button>
-                  </div>
-                  {result?.usedAI && (
-                    <p className="text-xs text-purple-600">Last parsed with AI</p>
-                  )}
+                <div className="flex gap-2">
+                  <select
+                    value={selectedModel}
+                    onChange={(e) => setSelectedModel(e.target.value)}
+                    className="flex-1 px-3 py-2 border border-gray-300 rounded-lg text-sm"
+                  >
+                    {GEMINI_MODELS.map((m) => <option key={m.id} value={m.id}>{m.name}</option>)}
+                  </select>
+                  <button
+                    onClick={handleReparseWithAI}
+                    disabled={isReparsingWithAI}
+                    className="px-4 py-2 bg-purple-600 text-white font-medium rounded-lg hover:bg-purple-700 disabled:bg-purple-300"
+                  >
+                    {isReparsingWithAI ? '...' : '✨ AI Parse'}
+                  </button>
                 </div>
               )}
 
@@ -527,25 +517,33 @@ export function UrlToEmail() {
                   type="text"
                   value={content.subject}
                   onChange={(e) => updateContent({ subject: e.target.value })}
-                  className="w-full px-3 py-2 border border-gray-300 rounded text-sm focus:ring-1 focus:ring-blue-500"
+                  className="w-full px-3 py-2 border border-gray-300 rounded text-sm"
+                />
+              </div>
+
+              {/* Preview Text */}
+              <div>
+                <label className="block text-xs font-medium text-gray-500 uppercase mb-1">Preview Text</label>
+                <input
+                  type="text"
+                  value={content.preview_text}
+                  onChange={(e) => updateContent({ preview_text: e.target.value })}
+                  className="w-full px-3 py-2 border border-gray-300 rounded text-sm"
+                  placeholder="Shows in email client preview..."
                 />
               </div>
 
               {/* Hero Title */}
               <div>
-                <div className="flex items-center justify-between mb-1">
-                  <label className="text-xs font-medium text-gray-500 uppercase">Hero Title</label>
-                  <BoldButton inputId="hero-title" />
-                </div>
+                <label className="block text-xs font-medium text-gray-500 uppercase mb-1">Hero Title</label>
                 <textarea
-                  id="hero-title"
                   value={content.hero_title}
                   onChange={(e) => updateContent({ hero_title: e.target.value })}
-                  placeholder="Leave empty to hide. Use Enter for line breaks."
+                  placeholder="Leave empty to hide"
                   rows={2}
-                  className="w-full px-3 py-2 border border-gray-300 rounded text-sm focus:ring-1 focus:ring-blue-500"
+                  className="w-full px-3 py-2 border border-gray-300 rounded text-sm"
                 />
-                <p className="text-xs text-gray-400 mt-1">Max ~320px width. Press Enter for line breaks.</p>
+                <p className="text-xs text-gray-400 mt-1">Enter for line breaks. Max ~320px width.</p>
               </div>
 
               {/* Date */}
@@ -556,88 +554,87 @@ export function UrlToEmail() {
                   value={content.hero_date}
                   onChange={(e) => updateContent({ hero_date: e.target.value })}
                   placeholder="Leave empty to hide"
-                  className="w-full px-3 py-2 border border-gray-300 rounded text-sm focus:ring-1 focus:ring-blue-500"
+                  className="w-full px-3 py-2 border border-gray-300 rounded text-sm"
                 />
               </div>
 
               {/* Header Image */}
               <div>
                 <label className="block text-xs font-medium text-gray-500 uppercase mb-1">Header Image</label>
-                {content.images && content.images.length > 0 ? (
-                  <div className="space-y-2">
-                    <div className="grid grid-cols-3 gap-2">
-                      {/* No image option */}
-                      <button
-                        type="button"
-                        onClick={() => updateContent({ hero_image: '' })}
-                        className={`h-16 border-2 rounded flex items-center justify-center text-xs text-gray-500 transition-colors ${
-                          !content.hero_image ? 'border-blue-500 bg-blue-50' : 'border-gray-200 hover:border-gray-300'
-                        }`}
-                      >
-                        No image
-                      </button>
-                      {/* Image thumbnails */}
-                      {content.images.map((img, i) => (
-                        <button
-                          key={i}
-                          type="button"
-                          onClick={() => updateContent({ hero_image: img })}
-                          className={`h-16 border-2 rounded overflow-hidden transition-colors ${
-                            content.hero_image === img ? 'border-blue-500' : 'border-gray-200 hover:border-gray-300'
-                          }`}
-                        >
-                          <img src={img} alt={`Option ${i + 1}`} className="w-full h-full object-cover" />
-                        </button>
-                      ))}
-                    </div>
-                    <input
-                      type="url"
-                      value={content.hero_image}
-                      onChange={(e) => updateContent({ hero_image: e.target.value })}
-                      placeholder="Or paste custom image URL..."
-                      className="w-full px-3 py-1.5 border border-gray-300 rounded text-sm focus:ring-1 focus:ring-blue-500"
-                    />
-                  </div>
-                ) : (
-                  <input
-                    type="url"
-                    value={content.hero_image}
-                    onChange={(e) => updateContent({ hero_image: e.target.value })}
-                    placeholder="Paste image URL..."
-                    className="w-full px-3 py-2 border border-gray-300 rounded text-sm focus:ring-1 focus:ring-blue-500"
-                  />
-                )}
+                <div className="grid grid-cols-4 gap-2 mb-2">
+                  <button
+                    type="button"
+                    onClick={() => updateContent({ hero_image: '' })}
+                    className={`h-12 border-2 rounded flex items-center justify-center text-xs ${!content.hero_image ? 'border-blue-500 bg-blue-50' : 'border-gray-200'}`}
+                  >
+                    None
+                  </button>
+                  {content.images?.slice(0, 7).map((img, i) => (
+                    <button
+                      key={i}
+                      type="button"
+                      onClick={() => updateContent({ hero_image: img })}
+                      className={`h-12 border-2 rounded overflow-hidden ${content.hero_image === img ? 'border-blue-500' : 'border-gray-200'}`}
+                    >
+                      <img src={img} alt="" className="w-full h-full object-cover" />
+                    </button>
+                  ))}
+                </div>
+                <input
+                  type="url"
+                  value={content.hero_image}
+                  onChange={(e) => updateContent({ hero_image: e.target.value })}
+                  placeholder="Or paste custom URL..."
+                  className="w-full px-3 py-1.5 border border-gray-300 rounded text-sm"
+                />
               </div>
 
-              {/* Intro */}
+              {/* Intro Text */}
               <div>
                 <label className="block text-xs font-medium text-gray-500 uppercase mb-1">Intro Text</label>
                 <RichTextEditor
                   value={content.intro_text}
                   onChange={(value) => updateContent({ intro_text: value })}
                   rows={3}
-                  placeholder="Opening paragraph..."
+                  placeholder="Opening paragraph (leave empty to hide)..."
                 />
               </div>
 
-              {/* Highlights */}
-              <div>
-                <label className="block text-xs font-medium text-gray-500 uppercase mb-1">Key Highlights</label>
-                <div className="space-y-2">
-                  {content.highlights.map((h, i) => (
-                    <div key={i} className="flex gap-1">
-                      <input
+              {/* Key Highlights */}
+              <div className="border border-gray-200 rounded-lg p-3">
+                <div className="flex items-center justify-between mb-2">
+                  <label className="text-xs font-medium text-gray-500 uppercase">Key Highlights</label>
+                  <label className="flex items-center gap-2 text-xs text-gray-500">
+                    <input
+                      type="checkbox"
+                      checked={content.showHighlights}
+                      onChange={(e) => updateContent({ showHighlights: e.target.checked })}
+                      className="rounded border-gray-300"
+                    />
+                    Show
+                  </label>
+                </div>
+                {content.showHighlights && (
+                  <div className="space-y-2">
+                    {content.highlights.map((h, i) => (
+                      <EditableItem
+                        key={i}
                         id={`highlight-${i}`}
-                        type="text"
                         value={h}
-                        onChange={(e) => updateHighlight(i, e.target.value)}
-                        className="flex-1 px-3 py-1.5 border border-gray-300 rounded text-sm focus:ring-1 focus:ring-blue-500"
+                        onChange={(v) => updateHighlight(i, v)}
+                        onDelete={() => deleteHighlight(i)}
                         placeholder={`Highlight ${i + 1}`}
                       />
-                      <BoldButton inputId={`highlight-${i}`} />
-                    </div>
-                  ))}
-                </div>
+                    ))}
+                    <button
+                      type="button"
+                      onClick={addHighlight}
+                      className="w-full py-1.5 border border-dashed border-gray-300 rounded text-xs text-gray-500 hover:border-blue-400 hover:text-blue-600 flex items-center justify-center gap-1"
+                    >
+                      <PlusIcon /> Add Highlight
+                    </button>
+                  </div>
+                )}
               </div>
 
               {/* Sections */}
@@ -645,109 +642,86 @@ export function UrlToEmail() {
                 <div key={sIdx} className="border border-gray-200 rounded-lg p-3">
                   <div className="flex items-center justify-between mb-2">
                     <label className="text-xs font-medium text-gray-500 uppercase">Section {sIdx + 1}</label>
-                    <button
-                      type="button"
-                      onClick={() => deleteSection(sIdx)}
-                      className="text-gray-400 hover:text-red-500 transition-colors"
-                      title="Delete section"
-                    >
-                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                      </svg>
+                    <button type="button" onClick={() => deleteSection(sIdx)} className="text-gray-300 hover:text-red-500" title="Delete section">
+                      <TrashIcon />
                     </button>
                   </div>
 
                   {/* Title */}
-                  <div className="flex gap-1 mb-2">
-                    <input
-                      id={`section-title-${sIdx}`}
-                      type="text"
-                      value={section.title}
-                      onChange={(e) => updateSection(sIdx, { title: e.target.value })}
-                      className="flex-1 px-3 py-1.5 border border-gray-300 rounded text-sm font-medium focus:ring-1 focus:ring-blue-500"
-                      placeholder="Section title"
-                    />
-                    <BoldButton inputId={`section-title-${sIdx}`} />
-                  </div>
+                  <input
+                    type="text"
+                    value={section.title}
+                    onChange={(e) => updateSection(sIdx, { title: e.target.value })}
+                    className="w-full px-3 py-1.5 border border-gray-300 rounded text-sm font-medium mb-2"
+                    placeholder="Section title"
+                  />
 
-                  {/* Section Intro */}
+                  {/* Intro */}
                   <div className="mb-2">
                     <label className="block text-xs text-gray-400 mb-1">Intro (optional)</label>
                     <RichTextEditor
                       value={section.intro || ''}
-                      onChange={(value) => updateSection(sIdx, { intro: value || undefined })}
+                      onChange={(v) => updateSection(sIdx, { intro: v || undefined })}
                       rows={2}
                       placeholder="Optional intro paragraph..."
                     />
                   </div>
 
-                  {/* Section Image */}
+                  {/* Image */}
                   <div className="mb-2">
                     <label className="block text-xs text-gray-400 mb-1">Image</label>
                     <div className="flex gap-1 flex-wrap mb-1">
                       <button
                         type="button"
                         onClick={() => updateSection(sIdx, { image: undefined })}
-                        className={`h-10 px-2 border rounded text-xs transition-colors ${
-                          !section.image ? 'border-blue-500 bg-blue-50 text-blue-700' : 'border-gray-200 text-gray-500 hover:border-gray-300'
-                        }`}
+                        className={`h-8 px-2 border rounded text-xs ${!section.image ? 'border-blue-500 bg-blue-50' : 'border-gray-200'}`}
                       >
                         None
                       </button>
-                      {content.images.map((img, imgIdx) => (
+                      {content.images?.slice(0, 6).map((img, imgIdx) => (
                         <button
                           key={imgIdx}
                           type="button"
                           onClick={() => updateSection(sIdx, { image: img })}
-                          className={`h-10 w-14 border rounded overflow-hidden transition-colors ${
-                            section.image === img ? 'border-blue-500' : 'border-gray-200 hover:border-gray-300'
-                          }`}
+                          className={`h-8 w-12 border rounded overflow-hidden ${section.image === img ? 'border-blue-500' : 'border-gray-200'}`}
                         >
                           <img src={img} alt="" className="w-full h-full object-cover" />
                         </button>
                       ))}
                     </div>
-                    {section.image && (
-                      <input
-                        type="url"
-                        value={section.image}
-                        onChange={(e) => updateSection(sIdx, { image: e.target.value || undefined })}
-                        placeholder="Or paste custom URL..."
-                        className="w-full px-2 py-1 border border-gray-200 rounded text-xs focus:ring-1 focus:ring-blue-500"
-                      />
-                    )}
                   </div>
 
                   {/* Bullets */}
                   <div className="space-y-1.5">
                     <label className="text-xs text-gray-400">Bullets</label>
                     {section.bullets.map((b, bIdx) => (
-                      <div key={bIdx} className="flex gap-1">
-                        <input
-                          id={`section-${sIdx}-bullet-${bIdx}`}
-                          type="text"
-                          value={b}
-                          onChange={(e) => updateSectionBullet(sIdx, bIdx, e.target.value)}
-                          className="flex-1 px-3 py-1.5 border border-gray-200 rounded text-sm focus:ring-1 focus:ring-blue-500"
-                          placeholder={`Bullet ${bIdx + 1}`}
-                        />
-                        <BoldButton inputId={`section-${sIdx}-bullet-${bIdx}`} />
-                      </div>
+                      <EditableItem
+                        key={bIdx}
+                        id={`section-${sIdx}-bullet-${bIdx}`}
+                        value={b}
+                        onChange={(v) => updateBullet(sIdx, bIdx, v)}
+                        onDelete={() => deleteBullet(sIdx, bIdx)}
+                        placeholder={`Bullet ${bIdx + 1}`}
+                      />
                     ))}
+                    <button
+                      type="button"
+                      onClick={() => addBullet(sIdx)}
+                      className="w-full py-1 border border-dashed border-gray-200 rounded text-xs text-gray-400 hover:border-blue-400 hover:text-blue-600 flex items-center justify-center gap-1"
+                    >
+                      <PlusIcon /> Add Bullet
+                    </button>
                   </div>
                 </div>
               ))}
 
-              {/* Add Section Button */}
+              {/* Add Section */}
               <button
                 type="button"
                 onClick={addSection}
-                className="w-full py-2 border-2 border-dashed border-gray-300 rounded-lg text-sm text-gray-500 hover:border-blue-400 hover:text-blue-600 transition-colors flex items-center justify-center gap-2"
+                className="w-full py-2 border-2 border-dashed border-gray-300 rounded-lg text-sm text-gray-500 hover:border-blue-400 hover:text-blue-600 flex items-center justify-center gap-2"
               >
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
-                </svg>
-                Add Section
+                <PlusIcon /> Add Section
               </button>
 
               {/* Outro */}
@@ -757,7 +731,7 @@ export function UrlToEmail() {
                   value={content.outro_text}
                   onChange={(value) => updateContent({ outro_text: value })}
                   rows={2}
-                  placeholder="Closing paragraph..."
+                  placeholder="Closing paragraph (leave empty to hide)..."
                 />
               </div>
             </div>
@@ -772,9 +746,7 @@ export function UrlToEmail() {
           {content && !isLoading && (
             <button
               onClick={handleCopyHtml}
-              className={`px-4 py-2 rounded-lg font-medium transition-colors ${
-                copied ? 'bg-green-600 text-white' : 'bg-blue-600 text-white hover:bg-blue-700'
-              }`}
+              className={`px-4 py-2 rounded-lg font-medium transition-colors ${copied ? 'bg-green-600 text-white' : 'bg-blue-600 text-white hover:bg-blue-700'}`}
             >
               {copied ? '✓ Copied!' : 'Copy HTML'}
             </button>
@@ -817,4 +789,3 @@ export function UrlToEmail() {
     </div>
   );
 }
-
