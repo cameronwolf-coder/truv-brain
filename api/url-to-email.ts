@@ -66,12 +66,27 @@ async function scrapeWithFirecrawl(url: string, apiKey: string): Promise<{ markd
   };
 }
 
+// Clean markdown formatting from text
+function cleanMarkdown(text: string): string {
+  return text
+    .replace(/\*\*([^*]+)\*\*/g, '$1')  // Remove bold **text**
+    .replace(/\*([^*]+)\*/g, '$1')       // Remove italic *text*
+    .replace(/__([^_]+)__/g, '$1')       // Remove bold __text__
+    .replace(/_([^_]+)_/g, '$1')         // Remove italic _text_
+    .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')  // Remove links [text](url) -> text
+    .replace(/!\[([^\]]*)\]\([^)]+\)/g, '')   // Remove images ![alt](url)
+    .replace(/`([^`]+)`/g, '$1')         // Remove inline code
+    .replace(/^>\s*/gm, '')              // Remove blockquotes
+    .replace(/\n{3,}/g, '\n\n')          // Normalize multiple newlines
+    .trim();
+}
+
 function extractContentFromMarkdown(markdown: string, images: string[]): EmailContent {
   const lines = markdown.split('\n').filter(line => line.trim());
 
   // Extract title (first h1)
   const titleMatch = markdown.match(/^#\s+(.+)$/m);
-  const title = titleMatch ? titleMatch[1].trim() : 'Product Update';
+  const title = titleMatch ? cleanMarkdown(titleMatch[1].trim()) : 'Product Update';
 
   // Extract date - look for common date patterns
   const dateMatch = markdown.match(/(?:January|February|March|April|May|June|July|August|September|October|November|December)\s+\d{1,2},?\s+\d{4}/i);
@@ -82,7 +97,7 @@ function extractContentFromMarkdown(markdown: string, images: string[]): EmailCo
   const headings: string[] = [];
   let h2Match;
   while ((h2Match = h2Regex.exec(markdown)) !== null) {
-    const heading = h2Match[1].trim();
+    const heading = cleanMarkdown(h2Match[1].trim());
     // Skip common non-content headings
     if (!heading.toLowerCase().includes('related') &&
         !heading.toLowerCase().includes('share') &&
@@ -96,21 +111,25 @@ function extractContentFromMarkdown(markdown: string, images: string[]): EmailCo
   const allBullets: string[] = [];
   let bulletMatch;
   while ((bulletMatch = bulletRegex.exec(markdown)) !== null) {
-    const bullet = bulletMatch[1].trim();
+    const bullet = cleanMarkdown(bulletMatch[1].trim());
     if (bullet.length > 10 && bullet.length < 200) {
       allBullets.push(bullet);
     }
   }
 
   // Extract paragraphs for intro/outro
-  const paragraphs = lines.filter(line =>
-    !line.startsWith('#') &&
-    !line.startsWith('-') &&
-    !line.startsWith('*') &&
-    !line.startsWith('|') &&
-    !line.startsWith('[') &&
-    line.length > 50
-  );
+  const paragraphs = lines
+    .filter(line =>
+      !line.startsWith('#') &&
+      !line.startsWith('-') &&
+      !line.startsWith('*') &&
+      !line.startsWith('|') &&
+      !line.startsWith('[') &&
+      !line.startsWith('!') &&
+      !line.includes('](') &&
+      line.length > 50
+    )
+    .map(p => cleanMarkdown(p));
 
   // Build highlights from first few bullets or first sentences
   const highlights = allBullets.slice(0, 5);
@@ -139,7 +158,7 @@ function extractContentFromMarkdown(markdown: string, images: string[]): EmailCo
     const sectionBulletRegex = /^[\-\*]\s+(.+)$/gm;
     let sBulletMatch;
     while ((sBulletMatch = sectionBulletRegex.exec(sectionContent)) !== null) {
-      const bullet = sBulletMatch[1].trim();
+      const bullet = cleanMarkdown(sBulletMatch[1].trim());
       if (bullet.length > 10 && bullet.length < 200) {
         sectionBullets.push(bullet);
       }
