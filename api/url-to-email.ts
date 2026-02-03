@@ -481,8 +481,11 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  if (!ANTHROPIC_API_KEY || !FIRECRAWL_API_KEY) {
-    return res.status(500).json({ error: 'API keys not configured' });
+  if (!ANTHROPIC_API_KEY) {
+    return res.status(500).json({ error: 'ANTHROPIC_API_KEY not configured in Vercel environment' });
+  }
+  if (!FIRECRAWL_API_KEY) {
+    return res.status(500).json({ error: 'FIRECRAWL_API_KEY not configured in Vercel environment' });
   }
 
   const { url } = req.body as ConversionRequest;
