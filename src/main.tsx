@@ -10,6 +10,7 @@ import { Brand } from './pages/Brand';
 import { Campaigns } from './pages/Campaigns';
 import { EmailBuilder } from './pages/EmailBuilder';
 import { ListBuilder } from './pages/ListBuilder';
+import { SmartListBuilder } from './pages/SmartListBuilder';
 import { ROIGenerator } from './pages/ROIGenerator';
 import { ABMBuilder } from './pages/ABMBuilder';
 import { DataEnrichment } from './pages/DataEnrichment';
@@ -53,6 +54,10 @@ const router = createBrowserRouter([
       {
         path: 'list-builder',
         element: <ListBuilder />,
+      },
+      {
+        path: 'smart-list-builder',
+        element: <SmartListBuilder />,
       },
       {
         path: 'roi-generator',
