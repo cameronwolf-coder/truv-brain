@@ -2,6 +2,8 @@ import type { VercelRequest, VercelResponse } from '@vercel/node';
 
 const FIRECRAWL_API_KEY = process.env.FIRECRAWL_API_KEY;
 const GOOGLE_AI_API_KEY = process.env.GOOGLE_AI_API_KEY;
+const VERTEX_PROJECT_ID = process.env.VERTEX_PROJECT_ID || 'knock-486319';
+const VERTEX_REGION = process.env.VERTEX_REGION || 'us-central1';
 
 interface EmailContent {
   subject: string;
@@ -116,11 +118,17 @@ Guidelines:
 
 Return ONLY valid JSON, no other text.`;
 
+  // Use Vertex AI endpoint
+  const vertexEndpoint = `https://${VERTEX_REGION}-aiplatform.googleapis.com/v1/projects/${VERTEX_PROJECT_ID}/locations/${VERTEX_REGION}/publishers/google/models/gemini-1.5-flash:generateContent`;
+
   const response = await fetch(
-    `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`,
+    vertexEndpoint,
     {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        'x-goog-api-key': apiKey,
+      },
       body: JSON.stringify({
         contents: [{ parts: [{ text: prompt }] }],
         generationConfig: {
@@ -133,8 +141,8 @@ Return ONLY valid JSON, no other text.`;
 
   if (!response.ok) {
     const errorText = await response.text();
-    console.error('Gemini API error:', errorText);
-    throw new Error(`Gemini API error: ${response.status}`);
+    console.error('Vertex AI error:', errorText);
+    throw new Error(`Vertex AI error: ${response.status} - ${errorText.slice(0, 200)}`);
   }
 
   const result = await response.json();
