@@ -31,7 +31,6 @@ export function UrlToEmail() {
   const [result, setResult] = useState<ConversionResult | null>(null);
   const [copied, setCopied] = useState(false);
   const [editMode, setEditMode] = useState(false);
-  const editorRef = useRef<HTMLDivElement>(null);
   const iframeRef = useRef<HTMLIFrameElement>(null);
 
   // Enable editing inside iframe when result loads
