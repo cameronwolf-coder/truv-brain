@@ -1,0 +1,528 @@
+import type { VercelRequest, VercelResponse } from '@vercel/node';
+import Anthropic from '@anthropic-ai/sdk';
+import Firecrawl from '@mendable/firecrawl-js';
+
+const ANTHROPIC_API_KEY = process.env.ANTHROPIC_API_KEY;
+const FIRECRAWL_API_KEY = process.env.FIRECRAWL_API_KEY;
+
+interface ConversionRequest {
+  url: string;
+}
+
+interface EmailContent {
+  subject: string;
+  preview_text: string;
+  hero_date: string;
+  intro_text: string;
+  highlights: string[];
+  sections: Array<{
+    title: string;
+    image?: string;
+    bullets: string[];
+  }>;
+  outro_text: string;
+  images: string[];
+}
+
+async function scrapeWithFirecrawl(url: string, apiKey: string): Promise<{ markdown: string; images: string[] }> {
+  const app = new Firecrawl({ apiKey });
+
+  const result = await app.scrapeUrl(url, {
+    formats: ['markdown', 'html'],
+  });
+
+  if (!result.success) {
+    throw new Error('Failed to scrape URL');
+  }
+
+  // Extract images from the HTML
+  const images: string[] = [];
+  const imgRegex = /<img[^>]+src=["']([^"']+)["'][^>]*>/gi;
+  const html = result.html || '';
+  let match;
+  while ((match = imgRegex.exec(html)) !== null) {
+    const src = match[1];
+    // Filter for content images (not icons, logos, etc.)
+    if (src &&
+        (src.includes('ctfassets.net') || src.includes('truv.com/wp-content')) &&
+        !src.includes('logo') &&
+        !src.includes('icon') &&
+        !src.includes('avatar')) {
+      images.push(src);
+    }
+  }
+
+  return {
+    markdown: result.markdown || '',
+    images: [...new Set(images)], // Remove duplicates
+  };
+}
+
+async function transformContentWithClaude(
+  markdown: string,
+  sourceUrl: string,
+  images: string[],
+  anthropic: Anthropic
+): Promise<EmailContent> {
+  const response = await anthropic.messages.create({
+    model: 'claude-sonnet-4-20250514',
+    max_tokens: 4096,
+    messages: [
+      {
+        role: 'user',
+        content: `You are converting a blog post into an email newsletter format. Analyze this content and extract/restructure it for a professional email.
+
+SOURCE URL: ${sourceUrl}
+AVAILABLE IMAGES: ${JSON.stringify(images)}
+
+BLOG CONTENT:
+${markdown}
+
+Return a JSON object with this exact structure:
+{
+  "subject": "compelling email subject line (max 60 chars)",
+  "preview_text": "preview text for email clients (max 100 chars)",
+  "hero_date": "Month DD, YYYY format",
+  "intro_text": "2-3 sentences introducing the topic, personalized greeting style",
+  "highlights": ["3-5 key takeaways as bullet points"],
+  "sections": [
+    {
+      "title": "section heading",
+      "image": "image URL if relevant, or null",
+      "bullets": ["2-4 bullet points summarizing this section"]
+    }
+  ],
+  "outro_text": "1-2 sentences closing with a call to action to read the full article",
+  "images": ["array of all usable image URLs from the content"]
+}
+
+Guidelines:
+- Keep the email concise - aim for 3-4 sections max
+- Write in a professional but friendly B2B tone
+- Highlights should be scannable value propositions
+- Each section should have 2-4 bullets max
+- Preserve any statistics or specific data points
+- The outro should encourage clicking through to the full article
+- Only include high-quality content images, not decorative elements`,
+      },
+    ],
+  });
+
+  const text = response.content[0].type === 'text' ? response.content[0].text : '';
+
+  // Extract JSON from the response
+  const jsonMatch = text.match(/\{[\s\S]*\}/);
+  if (!jsonMatch) {
+    throw new Error('Failed to extract JSON from Claude response');
+  }
+
+  return JSON.parse(jsonMatch[0]);
+}
+
+function generateEmailHtml(content: EmailContent, sourceUrl: string): string {
+  // Generate highlights HTML
+  const highlightsHtml = content.highlights
+    .map(h => `<li>${h}</li>`)
+    .join('\n                                                    ');
+
+  // Generate sections HTML
+  const sectionsHtml = content.sections
+    .map((section, idx) => {
+      const imageHtml = section.image
+        ? `<p style="margin-bottom: 1em;"><img src="${section.image}" width="100%" alt="" style="height: auto; max-width: 100%; border-radius: 8px;"></p>`
+        : '';
+
+      const bulletsHtml = section.bullets
+        .map(b => `<li style="margin-bottom: 8px;">${b}</li>`)
+        .join('\n                                                    ');
+
+      return `
+                                                <!-- ======================== -->
+                                                <!-- SECTION ${idx + 1} -->
+                                                <!-- ======================== -->
+                                                <hr>
+                                                <h3 style="font-family: Gilroy, sans-serif; font-size: 22px; font-weight: 600;">${section.title}</h3>
+
+                                                ${imageHtml}
+
+                                                <ul style="font-size: 16px; line-height: 160%; padding-left: 20px;">
+                                                    ${bulletsHtml}
+                                                </ul>`;
+    })
+    .join('\n');
+
+  return `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>${content.subject}</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="x-apple-disable-message-reformatting">
+
+    <style>
+        @font-face {
+            font-family: 'Gilroy';
+            src: url('https://hs-19933594.f.hubspotemail.net/hubfs/19933594/Truv/Font%20Gilroy/Gilroy-Medium.woff2') format('woff2'),
+                url('https://hs-19933594.f.hubspotemail.net/hubfs/19933594/Truv/Font%20Gilroy/Gilroy-Medium.woff') format('woff');
+            font-weight: 500;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: 'Gilroy';
+            src: url('https://hs-19933594.f.hubspotemail.net/hubfs/19933594/Truv/Font%20Gilroy/Gilroy-Bold.woff2') format('woff2'),
+                url('https://hs-19933594.f.hubspotemail.net/hubfs/19933594/Truv/Font%20Gilroy/Gilroy-Bold.woff') format('woff');
+            font-weight: 600;
+            font-style: normal;
+        }
+
+        body, * {
+            font-family: Gilroy, sans-serif !important;
+            line-height: 120%;
+        }
+
+        p { margin: 0; }
+        a { color: #2c64e3; }
+        hr { margin-top: 25px; margin-bottom: 25px; border: none; border-top: 1px solid #e0e0e0; }
+        .im { color: inherit !important; }
+
+        @media only screen and (min-width:640px) {
+            .hse-column-container {
+                max-width: 660px !important;
+                width: 660px !important;
+            }
+        }
+
+        .footer-links a:hover { color: #2c64e3 !important; }
+        img { max-width: 100% !important; }
+
+        @media screen and (max-width: 640px) {
+            .mobile-no-bg { background-image: none !important; }
+            .wdth-mob-100 { width: 100% !important; }
+            .mob-center { text-align: center !important; }
+            .border-rd-mob-0 { border-radius: 0 !important; }
+            .footer-links { padding-bottom: 0 !important; }
+            .footer-links a { display: block !important; padding-top: 10px; }
+            .footer-links .spr { display: none; }
+            .pd-top-mob-0 { padding-top: 0 !important; }
+            .pd-bot-mob-0 { padding-bottom: 0 !important; }
+            .product-main h1 { text-align: center !important; font-size: 32px !important; }
+            .product-main p { text-align: center !important; font-size: 20px !important; }
+        }
+    </style>
+</head>
+
+<body bgcolor="#E0E0E0" style="margin: 0; padding: 0; font-family: Gilroy, sans-serif; background-color: #E0E0E0; font-size:16px; color: #171717; word-break:break-word;">
+
+    <!-- Preview text -->
+    <div style="display:none!important">${content.preview_text}</div>
+
+    <div style="background-color:#E0E0E0" bgcolor="#E0E0E0">
+        <table role="presentation" width="100%" bgcolor="#E0E0E0" cellpadding="0" cellspacing="0" border="0" style="border-spacing:0 !important; border-collapse:collapse; margin:0; padding:0; width:100% !important; min-width:320px !important; height:100% !important; background-color:#E0E0E0;" height="100%">
+            <tbody>
+                <tr>
+                    <td class="pd-top-mob-0 pd-bot-mob-0" align="center" valign="top" style="border-collapse:collapse; font-family:Gilroy, sans-serif; font-size:16px; word-break:break-word; color: #171717; padding-top: 40px; padding-bottom: 40px;">
+
+                        <!-- ============================================ -->
+                        <!-- HERO SECTION -->
+                        <!-- ============================================ -->
+                        <div style="background-color:#E0E0E0;">
+                            <div class="hse-column-container" style="min-width:280px; max-width:660px; width:100%; Margin-left:auto; Margin-right:auto; border-collapse:collapse; border-spacing:0; background-color:#E0E0E0; font-family: Gilroy,sans-serif;" bgcolor="#E0E0E0">
+                                <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" align="center" style="width:100%; border-spacing:0; border-collapse:collapse;">
+                                    <tbody>
+                                        <tr>
+                                            <td class="mobile-no-bg border-rd-mob-0" align="center" style="color:#171717; background-image: url(https://truv.com/wp-content/themes/twentytwentyone/assets_truv/images/letter/letter-product-bg.png); background-Color: #f6f6f6; background-repeat: no-repeat; background-size: cover; background-position: top; vertical-align: top; border-radius: 20px 20px 0 0;">
+
+                                                <!-- LOGO -->
+                                                <table class="header" role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" align="center" style="width:100%; border-spacing:0; border-collapse:collapse;">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td style="padding:20px 20px">
+                                                                <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0">
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <th width="50%" valign="middle" style="font-weight:normal">
+                                                                                <table cellspacing="0" cellpadding="0" border="0" role="presentation" width="100%" align="left" style="width:100%; border-spacing:0; border-collapse:collapse;">
+                                                                                    <tbody>
+                                                                                        <tr>
+                                                                                            <td align="left">
+                                                                                                <a href="https://truv.com" target="_blank" style="text-decoration: none; display: inline-block; width: 65px;">
+                                                                                                    <img src="https://truv.com/wp-content/themes/twentytwentyone/assets_truv/images/logo/logo-truv.png" width="65" alt="Truv Logo" border="0" style="display:block; max-width:65px; height: auto;">
+                                                                                                </a>
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                    </tbody>
+                                                                                </table>
+                                                                            </th>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+
+                                                <!-- HERO TITLE + DATE + BUTTON -->
+                                                <table class="product-main" role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" align="center" style="width:100%; border-spacing:0; border-collapse:collapse;">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td class="wdth-mob-100" style="width:320px; padding-left: 35px; padding-right: 35px; padding-top: 15px; padding-bottom: 50px; color:#171717;">
+                                                                <table class="wdth-mob-100" cellspacing="0" cellpadding="0" border="0" role="presentation" style="width:320px; border-spacing:0; border-collapse:collapse;">
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td width="100%">
+                                                                                <h1 style="color: #171717; text-align: left; font-size: 38px; margin-top: 0; margin-bottom: 10px; font-weight: 600; font-family: Gilroy,sans-serif;">Product Update</h1>
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td width="100%" style="padding-bottom: 30px;">
+                                                                                <p style="color: #171717; text-align: left; font-size: 22px; margin: 0; font-weight: 500; line-height: 135%; font-family: Gilroy,sans-serif;">${content.hero_date}</p>
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td class="mob-center" align="left" valign="middle" style="color:#171717; width:100%;">
+                                                                                <a href="${sourceUrl}" target="_blank" style="font-style:normal; text-decoration: none; font-weight:500; word-break:break-word; border-style:solid; display:inline-block; background-color:#2C64E3; color:#ffffff; border-radius:50px; border-width:0; font-size:17px; height:17px; padding-left: 15px; padding-right: 15px; padding-bottom:16px; padding-top:16px; min-width: 140px; max-width: 100%; text-align: center; line-height: 100%; font-family: Gilroy,sans-serif;">Read Full Article</a>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <!-- /HERO SECTION -->
+
+                        <!-- ============================================ -->
+                        <!-- BODY SECTION -->
+                        <!-- ============================================ -->
+                        <div style="background-color:#E0E0E0;">
+                            <div class="hse-column-container" style="min-width:280px; max-width:660px; width:100%; Margin-left:auto; Margin-right:auto; border-collapse:collapse; border-spacing:0; background-color:#ffffff; font-family: Gilroy,sans-serif;" bgcolor="#ffffff">
+                                <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" align="center" style="width:100%; border-spacing:0; border-collapse:collapse;">
+                                    <tbody>
+                                        <tr>
+                                            <td style="padding-left: 35px; padding-right: 35px; padding-top: 40px; padding-bottom: 40px; background-color: #ffffff; color:#171717;">
+
+                                                <!-- INTRO -->
+                                                <div style="font-size: 22px; font-weight: 600; margin-bottom: 16px; font-family: Gilroy, sans-serif;">Hi there,</div>
+                                                <div style="font-size: 16px; line-height: 140%; margin-bottom: 20px;">${content.intro_text}</div>
+
+                                                <!-- KEY HIGHLIGHTS -->
+                                                <h4 style="text-align: left; font-family: Gilroy, sans-serif; margin-bottom: 10px;">Key Highlights:</h4>
+                                                <ul style="font-size: 16px; line-height: 160%; padding-left: 20px; margin-bottom: 10px;">
+                                                    ${highlightsHtml}
+                                                </ul>
+
+                                                ${sectionsHtml}
+
+                                                <!-- OUTRO -->
+                                                <hr>
+                                                <p style="margin-bottom: 1em; font-size: 16px; line-height: 140%;">${content.outro_text}</p>
+
+                                                <!-- BOTTOM CTA BUTTON -->
+                                                <table width="100%" cellspacing="0" cellpadding="0" border="0" role="presentation">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td align="left" style="padding-top: 15px; padding-bottom: 0;">
+                                                                <a href="${sourceUrl}" target="_blank" style="font-style:normal; text-decoration: none; font-weight:500; word-break:break-word; border-style:solid; display:inline-block; background-color:#2C64E3; color:#ffffff; border-radius:50px; border-width:0; font-size:17px; height:17px; padding-left: 15px; padding-right: 15px; padding-bottom:16px; padding-top:16px; min-width: 140px; max-width: 100%; text-align: center; line-height: 100%; font-family: Gilroy,sans-serif;">Read Full Article</a>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <!-- /BODY SECTION -->
+
+                        <!-- ============================================ -->
+                        <!-- FOOTER SECTION -->
+                        <!-- ============================================ -->
+                        <div style="background-color:#E0E0E0;">
+                            <div class="hse-column-container" style="min-width:280px; max-width:660px; width:100%; Margin-left:auto; Margin-right:auto; border-collapse:collapse; border-spacing:0; background: #E0E0E0;" bgcolor="#E0E0E0">
+                                <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" align="center" style="width:100%; border-spacing:0; border-collapse:collapse; background-color:#E0E0E0;" bgcolor="#E0E0E0">
+                                    <tbody>
+                                        <tr>
+                                            <td class="border-rd-mob-0" align="center" style="padding-right: 35px; padding-left: 35px; padding-top: 30px; padding-bottom: 30px; background-color: #F5F5F5; color:#171717; border-radius: 0 0 20px 20px;">
+
+                                                <!-- Footer tagline -->
+                                                <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" align="center" style="width:100%; background-color:#F5F5F5;">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td align="center" style="padding-top: 15px; padding-bottom: 20px;">
+                                                                <p style="text-align: center; font-size: 14px; margin: 0; font-family: Gilroy,sans-serif; color:#878A92;">Stay up to date on the latest Truv features, enhancements, and product updates!</p>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+
+                                                <!-- Footer links row 1 -->
+                                                <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" align="center" style="width:100%; background-color:#F5F5F5;">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td align="center" style="padding-bottom: 10px;">
+                                                                <p class="footer-links" style="color: #171717; text-align: center; font-size: 14px; margin: 0; font-weight: 500; line-height: 120%; font-family: Gilroy,sans-serif;">
+                                                                    <a href="https://help.truv.com" style="color:#171717;text-decoration:none; font-weight: 500; font-size:14px;" target="_blank">Help&nbsp;Center</a>
+                                                                    <span class="spr" style="color:#808080; font-size:14px; padding: 0 3px;">|</span>
+                                                                    <a href="https://docs.truv.com/docs/quickstart-guide" style="color:#171717;text-decoration:none; font-weight: 500; font-size:14px;" target="_blank">Quickstart&nbsp;Guide</a>
+                                                                    <span class="spr" style="color:#808080; font-size:14px; padding: 0 3px;">|</span>
+                                                                    <a href="https://truv.com/changelog" style="color:#171717;text-decoration:none; font-weight: 500; font-size:14px;" target="_blank">Changelog</a>
+                                                                    <span class="spr" style="color:#808080; font-size:14px; padding: 0 3px;">|</span>
+                                                                    <a href="https://truv.com/blog" style="color:#171717;text-decoration:none; font-weight: 500; font-size:14px;" target="_blank">Blog</a>
+                                                                </p>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td align="center" style="padding-bottom: 20px;">
+                                                                <p class="footer-links" style="color: #171717; text-align: center; font-size: 14px; margin: 0; font-weight: 500; line-height:120%; font-family: Gilroy,sans-serif;">
+                                                                    <a href="https://truv.com/terms" style="color:#171717; text-decoration:none; font-weight: 500; font-size:14px;" target="_blank">Service&nbsp;Terms</a>
+                                                                    <span class="spr" style="color:#808080; font-size:14px; padding: 0 3px;">|</span>
+                                                                    <a href="https://truv.com/privacy" style="color:#171717; text-decoration:none; font-weight: 500; font-size:14px;" target="_blank">Privacy&nbsp;Policy</a>
+                                                                    <span class="spr" style="color:#808080; font-size:14px; padding: 0 3px;">|</span>
+                                                                    <a href="https://truv.com/request-a-demo" style="color:#171717; text-decoration:none; font-weight: 500; font-size:14px;" target="_blank">Contact&nbsp;Truv</a>
+                                                                </p>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+
+                                                <!-- Social icons -->
+                                                <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" align="center" style="width:100%; background-color:#F5F5F5;">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td align="center" style="padding-top: 5px; padding-bottom: 20px;">
+                                                                <table role="presentation" width="90" cellspacing="0" cellpadding="0" border="0" align="center">
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td align="center" width="30">
+                                                                                <a href="https://www.linkedin.com/company/truvhq" style="display: inline-block; text-decoration:none" target="_blank">
+                                                                                    <img src="https://truv.com/wp-content/themes/twentytwentyone/assets_truv/images/letter/letter-linkedin-icon.png" width="30" border="0" style="display:block; width:30px" alt="LinkedIn">
+                                                                                </a>
+                                                                            </td>
+                                                                            <td width="30">&nbsp;</td>
+                                                                            <td align="center" width="30">
+                                                                                <a href="https://x.com/TruvHQ" style="display: inline-block; text-decoration:none" target="_blank">
+                                                                                    <img src="https://truv.com/wp-content/themes/twentytwentyone/assets_truv/images/letter/letter-x-icon.png" width="30" border="0" style="display:block; width:30px" alt="X">
+                                                                                </a>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+
+                                                <!-- Separator -->
+                                                <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" align="center">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td style="padding-bottom:10px; padding-top:5px;">
+                                                                <div style="border-top: 1px solid #c5c5c5;"></div>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+
+                                                <!-- Company address -->
+                                                <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" align="center" style="background-color:#F5F5F5;">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td align="center" style="padding-top: 15px; padding-bottom: 8px;">
+                                                                <p style="color:#878A92; text-align:center; font-size:12px; margin:0; font-weight: 500;">
+                                                                    Truv Inc., 218 NW 24th Street, 2nd and 3rd Floors Miami, FL 33127, US
+                                                                </p>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+
+                                                <!-- Unsubscribe -->
+                                                <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" align="center" style="background-color:#F5F5F5;">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td align="center">
+                                                                <p style="margin: 0; text-align: center; font-size: 13px; color: #8c9298; font-family: Gilroy,sans-serif;">
+                                                                    If you'd like me to stop sending you emails, please <a href="{{{unsubscribe}}}" style="color: #8c9298;" target="_blank">click here</a>
+                                                                </p>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <!-- /FOOTER SECTION -->
+
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</body>
+</html>`;
+}
+
+export default async function handler(req: VercelRequest, res: VercelResponse) {
+  if (req.method !== 'POST') {
+    return res.status(405).json({ error: 'Method not allowed' });
+  }
+
+  if (!ANTHROPIC_API_KEY || !FIRECRAWL_API_KEY) {
+    return res.status(500).json({ error: 'API keys not configured' });
+  }
+
+  const { url } = req.body as ConversionRequest;
+
+  if (!url) {
+    return res.status(400).json({ error: 'URL is required' });
+  }
+
+  // Validate URL format
+  try {
+    new URL(url);
+  } catch {
+    return res.status(400).json({ error: 'Invalid URL format' });
+  }
+
+  try {
+    // Step 1: Scrape the URL with Firecrawl
+    const { markdown, images } = await scrapeWithFirecrawl(url, FIRECRAWL_API_KEY);
+
+    if (!markdown) {
+      return res.status(400).json({ error: 'Failed to extract content from URL' });
+    }
+
+    // Step 2: Transform content with Claude
+    const anthropic = new Anthropic({ apiKey: ANTHROPIC_API_KEY });
+    const emailContent = await transformContentWithClaude(markdown, url, images, anthropic);
+
+    // Step 3: Generate the final HTML
+    const html = generateEmailHtml(emailContent, url);
+
+    return res.status(200).json({
+      success: true,
+      content: emailContent,
+      html,
+      sourceUrl: url,
+    });
+  } catch (error) {
+    console.error('URL to Email conversion error:', error);
+    return res.status(500).json({
+      error: error instanceof Error ? error.message : 'Conversion failed',
+    });
+  }
+}

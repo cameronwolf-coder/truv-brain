@@ -14,6 +14,7 @@ import { ROIGenerator } from './pages/ROIGenerator';
 import { ABMBuilder } from './pages/ABMBuilder';
 import { DataEnrichment } from './pages/DataEnrichment';
 import { ExpertReview } from './pages/ExpertReview';
+import { UrlToEmail } from './pages/UrlToEmail';
 import './index.css';
 
 const router = createBrowserRouter([
@@ -68,6 +69,10 @@ const router = createBrowserRouter([
       {
         path: 'expert-review',
         element: <ExpertReview />,
+      },
+      {
+        path: 'url-to-email',
+        element: <UrlToEmail />,
       },
     ],
   },
