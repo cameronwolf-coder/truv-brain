@@ -194,6 +194,15 @@ function normalizeFilterOperation(
     throw new Error(`Invalid filter: ${filter.propertyName} ${filter.operator} requires value`);
   }
 
+  if (property?.type === 'enumeration') {
+    const operator = filter.operator === 'NEQ' ? 'NOT_IN' : 'IN';
+    return {
+      operationType: mapOperationType(property),
+      operator: mapOperator(operator, property),
+      values: [value],
+    };
+  }
+
   return {
     operationType: mapOperationType(property),
     operator: mapOperator(filter.operator, property),
