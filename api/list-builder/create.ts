@@ -135,7 +135,22 @@ function buildFilterBranch(
   };
 }
 
-function mapOperator(operator: string): string {
+function mapOperator(operator: string, property?: HubSpotProperty): string {
+  if (operator === 'HAS_PROPERTY') return 'IS_KNOWN';
+  if (operator === 'NOT_HAS_PROPERTY') return 'IS_UNKNOWN';
+
+  if (property?.type === 'enumeration') {
+    const mapping: Record<string, string> = {
+      EQ: 'IS_EXACTLY',
+      NEQ: 'IS_NOT_EXACTLY',
+      IN: 'IS_ANY_OF',
+      NOT_IN: 'IS_NONE_OF',
+      CONTAINS: 'CONTAINS_ALL',
+      NOT_CONTAINS: 'DOES_NOT_CONTAIN_ALL',
+    };
+    return mapping[operator] || operator;
+  }
+
   const mapping: Record<string, string> = {
     EQ: 'IS_EQUAL_TO',
     NEQ: 'IS_NOT_EQUAL_TO',
@@ -147,8 +162,6 @@ function mapOperator(operator: string): string {
     GTE: 'IS_GREATER_THAN_OR_EQUAL_TO',
     LT: 'IS_LESS_THAN',
     LTE: 'IS_LESS_THAN_OR_EQUAL_TO',
-    HAS_PROPERTY: 'IS_KNOWN',
-    NOT_HAS_PROPERTY: 'IS_UNKNOWN',
   };
   return mapping[operator] || operator;
 }
@@ -160,7 +173,7 @@ function normalizeFilterOperation(
   if (filter.operator === 'HAS_PROPERTY' || filter.operator === 'NOT_HAS_PROPERTY') {
     return {
       operationType: 'ALL_PROPERTY',
-      operator: mapOperator(filter.operator),
+      operator: mapOperator(filter.operator, property),
     };
   }
 
@@ -171,7 +184,7 @@ function normalizeFilterOperation(
     }
     return {
       operationType: mapOperationType(property),
-      operator: mapOperator(filter.operator),
+      operator: mapOperator(filter.operator, property),
       values,
     };
   }
@@ -183,7 +196,7 @@ function normalizeFilterOperation(
 
   return {
     operationType: mapOperationType(property),
-    operator: mapOperator(filter.operator),
+    operator: mapOperator(filter.operator, property),
     value,
   };
 }
