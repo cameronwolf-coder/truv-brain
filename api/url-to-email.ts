@@ -1,13 +1,6 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import OpenAI from 'openai';
-import Firecrawl from '@mendable/firecrawl-js';
 
-const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
 const FIRECRAWL_API_KEY = process.env.FIRECRAWL_API_KEY;
-
-interface ConversionRequest {
-  url: string;
-}
 
 interface EmailContent {
   subject: string;
@@ -24,12 +17,26 @@ interface EmailContent {
   images: string[];
 }
 
-async function scrapeWithFirecrawl(url: string, apiKey: string): Promise<{ markdown: string; images: string[] }> {
-  const app = new Firecrawl({ apiKey });
-
-  const result = await app.scrape(url, {
-    formats: ['markdown', 'html'],
+async function scrapeWithFirecrawl(url: string, apiKey: string): Promise<{ markdown: string; html: string; images: string[] }> {
+  // Use Firecrawl REST API directly
+  const response = await fetch('https://api.firecrawl.dev/v1/scrape', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${apiKey}`,
+    },
+    body: JSON.stringify({
+      url,
+      formats: ['markdown', 'html'],
+    }),
   });
+
+  if (!response.ok) {
+    const errorText = await response.text();
+    throw new Error(`Firecrawl error: ${response.status} - ${errorText}`);
+  }
+
+  const result = await response.json();
 
   if (!result.success) {
     throw new Error(result.error || 'Failed to scrape URL');
@@ -38,98 +45,155 @@ async function scrapeWithFirecrawl(url: string, apiKey: string): Promise<{ markd
   // Extract images from the HTML
   const images: string[] = [];
   const imgRegex = /<img[^>]+src=["']([^"']+)["'][^>]*>/gi;
-  const html = result.html || '';
+  const html = result.data?.html || '';
   let match;
   while ((match = imgRegex.exec(html)) !== null) {
     const src = match[1];
-    // Filter for content images (not icons, logos, etc.)
     if (src &&
-        (src.includes('ctfassets.net') || src.includes('truv.com/wp-content')) &&
+        (src.includes('ctfassets.net') || src.includes('truv.com')) &&
         !src.includes('logo') &&
         !src.includes('icon') &&
-        !src.includes('avatar')) {
+        !src.includes('avatar') &&
+        !src.includes('favicon')) {
       images.push(src);
     }
   }
 
   return {
-    markdown: result.markdown || '',
-    images: [...new Set(images)], // Remove duplicates
+    markdown: result.data?.markdown || '',
+    html,
+    images: [...new Set(images)],
   };
 }
 
-async function transformContentWithOpenAI(
-  markdown: string,
-  sourceUrl: string,
-  images: string[],
-  openai: OpenAI
-): Promise<EmailContent> {
-  const response = await openai.chat.completions.create({
-    model: 'gpt-4o-mini',
-    response_format: { type: 'json_object' },
-    messages: [
-      {
-        role: 'system',
-        content: 'You are an expert email marketer converting blog posts into professional email newsletters. Always respond with valid JSON.',
-      },
-      {
-        role: 'user',
-        content: `Convert this blog post into an email newsletter format.
+function extractContentFromMarkdown(markdown: string, images: string[]): EmailContent {
+  const lines = markdown.split('\n').filter(line => line.trim());
 
-SOURCE URL: ${sourceUrl}
-AVAILABLE IMAGES: ${JSON.stringify(images)}
+  // Extract title (first h1)
+  const titleMatch = markdown.match(/^#\s+(.+)$/m);
+  const title = titleMatch ? titleMatch[1].trim() : 'Product Update';
 
-BLOG CONTENT:
-${markdown}
+  // Extract date - look for common date patterns
+  const dateMatch = markdown.match(/(?:January|February|March|April|May|June|July|August|September|October|November|December)\s+\d{1,2},?\s+\d{4}/i);
+  const heroDate = dateMatch ? dateMatch[0] : new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
 
-Return a JSON object with this exact structure:
-{
-  "subject": "compelling email subject line (max 60 chars)",
-  "preview_text": "preview text for email clients (max 100 chars)",
-  "hero_date": "Month DD, YYYY format",
-  "intro_text": "2-3 sentences introducing the topic, personalized greeting style",
-  "highlights": ["3-5 key takeaways as bullet points"],
-  "sections": [
-    {
-      "title": "section heading",
-      "image": "image URL if relevant, or null",
-      "bullets": ["2-4 bullet points summarizing this section"]
+  // Extract headings (h2s) as sections
+  const h2Regex = /^##\s+(.+)$/gm;
+  const headings: string[] = [];
+  let h2Match;
+  while ((h2Match = h2Regex.exec(markdown)) !== null) {
+    const heading = h2Match[1].trim();
+    // Skip common non-content headings
+    if (!heading.toLowerCase().includes('related') &&
+        !heading.toLowerCase().includes('share') &&
+        !heading.toLowerCase().includes('about the author')) {
+      headings.push(heading);
     }
-  ],
-  "outro_text": "1-2 sentences closing with a call to action to read the full article",
-  "images": ["array of all usable image URLs from the content"]
-}
-
-Guidelines:
-- Keep the email concise - aim for 3-4 sections max
-- Write in a professional but friendly B2B tone
-- Highlights should be scannable value propositions
-- Each section should have 2-4 bullets max
-- Preserve any statistics or specific data points
-- The outro should encourage clicking through to the full article
-- Only include high-quality content images, not decorative elements`,
-      },
-    ],
-  });
-
-  const text = response.choices[0]?.message?.content || '';
-
-  // Extract JSON from the response
-  const jsonMatch = text.match(/\{[\s\S]*\}/);
-  if (!jsonMatch) {
-    throw new Error('Failed to extract JSON from OpenAI response');
   }
 
-  return JSON.parse(jsonMatch[0]);
+  // Extract bullet points from markdown
+  const bulletRegex = /^[\-\*]\s+(.+)$/gm;
+  const allBullets: string[] = [];
+  let bulletMatch;
+  while ((bulletMatch = bulletRegex.exec(markdown)) !== null) {
+    const bullet = bulletMatch[1].trim();
+    if (bullet.length > 10 && bullet.length < 200) {
+      allBullets.push(bullet);
+    }
+  }
+
+  // Extract paragraphs for intro/outro
+  const paragraphs = lines.filter(line =>
+    !line.startsWith('#') &&
+    !line.startsWith('-') &&
+    !line.startsWith('*') &&
+    !line.startsWith('|') &&
+    !line.startsWith('[') &&
+    line.length > 50
+  );
+
+  // Build highlights from first few bullets or first sentences
+  const highlights = allBullets.slice(0, 5);
+  if (highlights.length < 3 && paragraphs.length > 0) {
+    // Extract key sentences as highlights
+    const firstPara = paragraphs[0];
+    const sentences = firstPara.split(/\.\s+/).filter(s => s.length > 20);
+    highlights.push(...sentences.slice(0, 3 - highlights.length));
+  }
+
+  // Build sections from headings
+  const sections: EmailContent['sections'] = [];
+  const sectionCount = Math.min(headings.length, 4);
+
+  for (let i = 0; i < sectionCount; i++) {
+    const heading = headings[i];
+    const headingIndex = markdown.indexOf(`## ${heading}`);
+    const nextHeadingIndex = headings[i + 1]
+      ? markdown.indexOf(`## ${headings[i + 1]}`)
+      : markdown.length;
+
+    const sectionContent = markdown.slice(headingIndex, nextHeadingIndex);
+
+    // Get bullets from this section
+    const sectionBullets: string[] = [];
+    const sectionBulletRegex = /^[\-\*]\s+(.+)$/gm;
+    let sBulletMatch;
+    while ((sBulletMatch = sectionBulletRegex.exec(sectionContent)) !== null) {
+      const bullet = sBulletMatch[1].trim();
+      if (bullet.length > 10 && bullet.length < 200) {
+        sectionBullets.push(bullet);
+      }
+    }
+
+    // If no bullets, extract sentences from paragraphs
+    if (sectionBullets.length === 0) {
+      const sectionParas = sectionContent.split('\n').filter(line =>
+        !line.startsWith('#') &&
+        !line.startsWith('-') &&
+        line.length > 30
+      );
+      if (sectionParas.length > 0) {
+        const sentences = sectionParas.join(' ').split(/\.\s+/).filter(s => s.length > 20);
+        sectionBullets.push(...sentences.slice(0, 3).map(s => s.trim() + (s.endsWith('.') ? '' : '.')));
+      }
+    }
+
+    sections.push({
+      title: heading,
+      image: images[i] || undefined,
+      bullets: sectionBullets.slice(0, 4),
+    });
+  }
+
+  // Generate intro text
+  const introText = paragraphs[0]
+    ? paragraphs[0].slice(0, 300) + (paragraphs[0].length > 300 ? '...' : '')
+    : `We're excited to share our latest updates with you. Here's what's new at Truv.`;
+
+  // Generate outro text
+  const outroText = `Want to learn more? Click below to read the full article and discover how these updates can benefit your organization.`;
+
+  // Generate subject and preview
+  const subject = title.length > 60 ? title.slice(0, 57) + '...' : title;
+  const previewText = introText.slice(0, 100);
+
+  return {
+    subject,
+    preview_text: previewText,
+    hero_date: heroDate,
+    intro_text: introText,
+    highlights: highlights.length > 0 ? highlights : ['New features and improvements', 'Enhanced performance', 'Better user experience'],
+    sections,
+    outro_text: outroText,
+    images,
+  };
 }
 
 function generateEmailHtml(content: EmailContent, sourceUrl: string): string {
-  // Generate highlights HTML
   const highlightsHtml = content.highlights
     .map(h => `<li>${h}</li>`)
     .join('\n                                                    ');
 
-  // Generate sections HTML
   const sectionsHtml = content.sections
     .map((section, idx) => {
       const imageHtml = section.image
@@ -485,20 +549,16 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  if (!OPENAI_API_KEY) {
-    return res.status(500).json({ error: 'OPENAI_API_KEY not configured in Vercel environment' });
-  }
   if (!FIRECRAWL_API_KEY) {
-    return res.status(500).json({ error: 'FIRECRAWL_API_KEY not configured in Vercel environment' });
+    return res.status(500).json({ error: 'FIRECRAWL_API_KEY not configured' });
   }
 
-  const { url } = req.body as ConversionRequest;
+  const { url } = req.body as { url: string };
 
   if (!url) {
     return res.status(400).json({ error: 'URL is required' });
   }
 
-  // Validate URL format
   try {
     new URL(url);
   } catch {
@@ -513,9 +573,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       return res.status(400).json({ error: 'Failed to extract content from URL' });
     }
 
-    // Step 2: Transform content with OpenAI
-    const openai = new OpenAI({ apiKey: OPENAI_API_KEY });
-    const emailContent = await transformContentWithOpenAI(markdown, url, images, openai);
+    // Step 2: Extract content using rule-based parsing (no AI needed)
+    const emailContent = extractContentFromMarkdown(markdown, images);
 
     // Step 3: Generate the final HTML
     const html = generateEmailHtml(emailContent, url);
