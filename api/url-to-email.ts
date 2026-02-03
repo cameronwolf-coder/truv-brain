@@ -6,6 +6,7 @@ const GOOGLE_AI_API_KEY = process.env.GOOGLE_AI_API_KEY;
 interface EmailContent {
   subject: string;
   preview_text: string;
+  hero_title: string;
   hero_date: string;
   hero_image: string;
   intro_text: string;
@@ -172,6 +173,7 @@ Return ONLY valid JSON, no other text.`;
   return {
     subject: parsed.subject || 'Product Update',
     preview_text: parsed.preview_text || '',
+    hero_title: parsed.hero_title || 'Product Update',
     hero_date: parsed.hero_date || new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }),
     hero_image: images[0] || '',
     intro_text: parsed.intro_text || '',
@@ -300,6 +302,7 @@ function extractContentFromMarkdown(markdown: string, images: string[]): EmailCo
   return {
     subject,
     preview_text: previewText,
+    hero_title: 'Product Update',
     hero_date: heroDate,
     hero_image: images[0] || '',
     intro_text: introText,

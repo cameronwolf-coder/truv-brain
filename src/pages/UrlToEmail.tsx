@@ -9,6 +9,7 @@ interface Section {
 interface EmailContent {
   subject: string;
   preview_text: string;
+  hero_title: string;
   hero_date: string;
   hero_image: string;
   intro_text: string;
@@ -16,6 +17,11 @@ interface EmailContent {
   sections: Section[];
   outro_text: string;
   images: string[];
+}
+
+// Convert **bold** markdown to <strong> tags
+function formatText(text: string): string {
+  return text.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
 }
 
 interface ConversionResult {
@@ -32,7 +38,7 @@ interface ConversionResult {
 function generateEmailHtml(content: EmailContent, sourceUrl: string): string {
   const highlightsHtml = content.highlights
     .filter(h => h.trim())
-    .map(h => `<li>${h}</li>`)
+    .map(h => `<li>${formatText(h)}</li>`)
     .join('\n                                                    ');
 
   const sectionsHtml = content.sections
@@ -44,7 +50,7 @@ function generateEmailHtml(content: EmailContent, sourceUrl: string): string {
 
       const bulletsHtml = section.bullets
         .filter(b => b.trim())
-        .map(b => `<li style="margin-bottom: 8px;">${b}</li>`)
+        .map(b => `<li style="margin-bottom: 8px;">${formatText(b)}</li>`)
         .join('\n                                                    ');
 
       return `
@@ -84,8 +90,8 @@ function generateEmailHtml(content: EmailContent, sourceUrl: string): string {
                                 <a href="https://truv.com"><img src="https://truv.com/wp-content/themes/twentytwentyone/assets_truv/images/logo/logo-truv.png" width="65" alt="Truv"></a>
                             </td></tr>
                             <tr><td style="padding: 15px 35px 30px;">
-                                <h1 style="font-size: 38px; margin: 0 0 10px; font-weight: 600;">Product Update</h1>
-                                <p style="font-size: 22px; margin: 0 0 30px; font-weight: 500;">${content.hero_date}</p>
+                                ${content.hero_title ? `<h1 style="font-size: 38px; margin: 0 0 10px; font-weight: 600;">${formatText(content.hero_title)}</h1>` : ''}
+                                ${content.hero_date ? `<p style="font-size: 22px; margin: 0 0 30px; font-weight: 500;">${content.hero_date}</p>` : ''}
                                 <a href="${sourceUrl}" style="display:inline-block; background:#2C64E3; color:#fff; padding:16px 25px; border-radius:50px; text-decoration:none; font-weight:500;">Read Full Article</a>
                             </td></tr>
                         </table>
@@ -93,14 +99,14 @@ function generateEmailHtml(content: EmailContent, sourceUrl: string): string {
                         <table width="100%" cellpadding="0" cellspacing="0" style="background:#fff;">
                             <tr><td style="padding: 40px 35px;">
                                 <div style="font-size: 22px; font-weight: 600; margin-bottom: 16px;">Hi there,</div>
-                                <div style="font-size: 16px; line-height: 140%; margin-bottom: 20px;">${content.intro_text}</div>
+                                <div style="font-size: 16px; line-height: 140%; margin-bottom: 20px;">${formatText(content.intro_text)}</div>
                                 <h4 style="margin-bottom: 10px;">Key Highlights:</h4>
                                 <ul style="font-size: 16px; line-height: 160%; padding-left: 20px; margin-bottom: 10px;">
                                     ${highlightsHtml}
                                 </ul>
                                 ${sectionsHtml}
                                 <hr>
-                                <p style="margin-bottom: 1em; font-size: 16px; line-height: 140%;">${content.outro_text}</p>
+                                <p style="margin-bottom: 1em; font-size: 16px; line-height: 140%;">${formatText(content.outro_text)}</p>
                                 <a href="${sourceUrl}" style="display:inline-block; background:#2C64E3; color:#fff; padding:16px 25px; border-radius:50px; text-decoration:none; font-weight:500; margin-top:15px;">Read Full Article</a>
                             </td></tr>
                         </table>
@@ -360,6 +366,18 @@ export function UrlToEmail() {
                 />
               </div>
 
+              {/* Hero Title */}
+              <div>
+                <label className="block text-xs font-medium text-gray-500 uppercase mb-1">Hero Title</label>
+                <input
+                  type="text"
+                  value={content.hero_title}
+                  onChange={(e) => updateContent({ hero_title: e.target.value })}
+                  placeholder="Leave empty to hide"
+                  className="w-full px-3 py-2 border border-gray-300 rounded text-sm focus:ring-1 focus:ring-blue-500"
+                />
+              </div>
+
               {/* Date */}
               <div>
                 <label className="block text-xs font-medium text-gray-500 uppercase mb-1">Date</label>
@@ -367,6 +385,7 @@ export function UrlToEmail() {
                   type="text"
                   value={content.hero_date}
                   onChange={(e) => updateContent({ hero_date: e.target.value })}
+                  placeholder="Leave empty to hide"
                   className="w-full px-3 py-2 border border-gray-300 rounded text-sm focus:ring-1 focus:ring-blue-500"
                 />
               </div>
