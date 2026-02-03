@@ -4,11 +4,23 @@ const HUBSPOT_API_TOKEN = process.env.HUBSPOT_API_TOKEN;
 const HUBSPOT_BASE_URL = 'https://api.hubapi.com';
 const PORTAL_ID = '19933594';
 
+// Property cache (shared with list-builder handlers)
+const propertyCache: Record<string, { data: HubSpotProperty[]; timestamp: number }> = {};
+const CACHE_TTL = 60 * 60 * 1000;
+
 interface Filter {
   propertyName: string;
   operator: string;
   value?: string;
   values?: string[];
+}
+
+interface HubSpotProperty {
+  name: string;
+  label: string;
+  type: string;
+  fieldType: string;
+  options?: Array<{ value: string; label: string }>;
 }
 
 async function hubspotRequest(method: string, endpoint: string, body?: unknown): Promise<unknown> {
@@ -30,22 +42,66 @@ async function hubspotRequest(method: string, endpoint: string, body?: unknown):
   return response.json();
 }
 
+async function fetchProperties(objectType: string): Promise<HubSpotProperty[]> {
+  const cached = propertyCache[objectType];
+  if (cached && Date.now() - cached.timestamp < CACHE_TTL) {
+    return cached.data;
+  }
+
+  const response = await fetch(
+    `${HUBSPOT_BASE_URL}/crm/v3/properties/${objectType}`,
+    {
+      headers: {
+        Authorization: `Bearer ${HUBSPOT_API_TOKEN}`,
+        'Content-Type': 'application/json',
+      },
+    }
+  );
+
+  if (!response.ok) {
+    throw new Error(`HubSpot API error: ${response.status}`);
+  }
+
+  const data = await response.json();
+  const properties = (data.results || []).map((p: HubSpotProperty) => ({
+    name: p.name,
+    label: p.label,
+    type: p.type,
+    fieldType: p.fieldType,
+    options: p.options?.map((o) => ({ value: o.value, label: o.label })),
+  }));
+
+  propertyCache[objectType] = { data: properties, timestamp: Date.now() };
+  return properties;
+}
+
 // Convert our filter format to HubSpot's filterBranch format for active lists
-function buildFilterBranch(filters: Filter[]): unknown {
+function buildFilterBranch(
+  filters: Filter[],
+  propertiesByName: Record<string, HubSpotProperty>
+): unknown {
   if (filters.length === 0) {
     return { filterBranchType: 'AND', filterBranches: [], filters: [] };
   }
 
   const hubspotFilters = filters.map((f) => {
+    const property = propertiesByName[f.propertyName];
     const filter: {
       filterType: string;
       property: string;
-      operation: { operationType: string; value?: string; values?: string[]; includeObjectsWithNoValueSet?: boolean };
+      operation: {
+        operationType: string;
+        operator: string;
+        value?: string;
+        values?: string[];
+        includeObjectsWithNoValueSet?: boolean;
+      };
     } = {
       filterType: 'PROPERTY',
       property: f.propertyName,
       operation: {
-        operationType: mapOperator(f.operator),
+        operationType: mapOperationType(property),
+        operator: mapOperator(f.operator),
       },
     };
 
@@ -85,6 +141,24 @@ function mapOperator(operator: string): string {
     NOT_HAS_PROPERTY: 'HAS_PROPERTY', // handled with includeObjectsWithNoValueSet
   };
   return mapping[operator] || operator;
+}
+
+function mapOperationType(property?: HubSpotProperty): string {
+  if (!property) return 'STRING';
+
+  if (property.type === 'enumeration') {
+    if (property.fieldType === 'checkbox') {
+      return 'MULTISTRING';
+    }
+    return 'ENUMERATION';
+  }
+
+  if (property.type === 'number') return 'NUMBER';
+  if (property.type === 'bool' || property.fieldType === 'booleancheckbox') return 'BOOL';
+  if (property.type === 'datetime' || property.fieldType === 'datetime') return 'DATETIME';
+  if (property.type === 'date' || property.fieldType === 'date') return 'DATE';
+
+  return 'STRING';
 }
 
 function getObjectTypeId(objectType: string): string {
@@ -182,7 +256,12 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       });
     } else {
       // Create active (dynamic) list
-      const filterBranch = buildFilterBranch(filters!);
+      const properties = await fetchProperties(objectType);
+      const propertiesByName = properties.reduce<Record<string, HubSpotProperty>>((acc, prop) => {
+        acc[prop.name] = prop;
+        return acc;
+      }, {});
+      const filterBranch = buildFilterBranch(filters!, propertiesByName);
 
       listResponse = await hubspotRequest('POST', '/crm/v3/lists', {
         name,
