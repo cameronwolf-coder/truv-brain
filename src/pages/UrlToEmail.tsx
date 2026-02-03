@@ -37,7 +37,7 @@ function generateEmailHtml(content: EmailContent, sourceUrl: string): string {
 
   const sectionsHtml = content.sections
     .filter(s => s.title.trim())
-    .map((section, idx) => {
+    .map((section) => {
       const imageHtml = section.image
         ? `<p style="margin-bottom: 1em;"><img src="${section.image}" width="100%" alt="" style="height: auto; max-width: 100%; border-radius: 8px;"></p>`
         : '';
@@ -141,7 +141,7 @@ export function UrlToEmail() {
   const [error, setError] = useState<string | null>(null);
   const [result, setResult] = useState<ConversionResult | null>(null);
   const [copied, setCopied] = useState(false);
-  const [editMode, setEditMode] = useState(false);
+  const [, setEditMode] = useState(false);
 
   // Editable content state
   const [editedContent, setEditedContent] = useState<EmailContent | null>(null);
