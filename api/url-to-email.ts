@@ -27,12 +27,12 @@ interface EmailContent {
 async function scrapeWithFirecrawl(url: string, apiKey: string): Promise<{ markdown: string; images: string[] }> {
   const app = new Firecrawl({ apiKey });
 
-  const result = await app.scrapeUrl(url, {
+  const result = await app.scrape(url, {
     formats: ['markdown', 'html'],
   });
 
   if (!result.success) {
-    throw new Error('Failed to scrape URL');
+    throw new Error(result.error || 'Failed to scrape URL');
   }
 
   // Extract images from the HTML
