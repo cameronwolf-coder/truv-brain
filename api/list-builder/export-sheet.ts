@@ -52,6 +52,10 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       objectType?: string;
     };
 
+    const defaultShareWithEmail = process.env.GOOGLE_SHEETS_SHARE_WITH_EMAIL;
+    const allowPublicShare = process.env.GOOGLE_SHEETS_ALLOW_PUBLIC !== 'false';
+    const resolvedShareWithEmail = shareWithEmail ?? defaultShareWithEmail;
+
     if (!records || !Array.isArray(records) || records.length === 0) {
       return res.status(400).json({ error: 'Records array is required' });
     }
@@ -130,23 +134,32 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     const spreadsheetId = spreadsheet.data.spreadsheetId;
     const spreadsheetUrl = spreadsheet.data.spreadsheetUrl;
 
-    // Make it accessible via link (anyone with link can view)
-    await drive.permissions.create({
-      fileId: spreadsheetId!,
-      requestBody: {
-        role: 'reader',
-        type: 'anyone',
-      },
-    });
+    let publicShareFailed = false;
+
+    if (allowPublicShare) {
+      try {
+        // Make it accessible via link (anyone with link can view)
+        await drive.permissions.create({
+          fileId: spreadsheetId!,
+          requestBody: {
+            role: 'reader',
+            type: 'anyone',
+          },
+        });
+      } catch (permissionError) {
+        publicShareFailed = true;
+        console.warn('Public sharing failed, continuing:', permissionError);
+      }
+    }
 
     // Optionally share with specific email as editor
-    if (shareWithEmail) {
+    if (resolvedShareWithEmail) {
       await drive.permissions.create({
         fileId: spreadsheetId!,
         requestBody: {
           role: 'writer',
           type: 'user',
-          emailAddress: shareWithEmail,
+          emailAddress: resolvedShareWithEmail,
         },
         sendNotificationEmail: false,
       });
@@ -157,6 +170,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       sheetId: spreadsheetId,
       sheetUrl: spreadsheetUrl,
       recordCount: records.length,
+      publicShareFailed,
     });
   } catch (error) {
     console.error('Error creating sheet:', error);
