@@ -5,8 +5,10 @@ async function parseJsonResponse(response: Response): Promise<unknown> {
   if (!text) return {};
   try {
     return JSON.parse(text);
-  } catch (error) {
-    throw new Error(`Unexpected response: ${text}`);
+  } catch {
+    // Truncate long error messages and provide friendly message
+    const preview = text.length > 100 ? text.slice(0, 100) + '...' : text;
+    throw new Error(`Server returned an invalid response: "${preview}"`);
   }
 }
 
@@ -147,15 +149,16 @@ export function SmartListBuilder() {
     setPropertiesError(null);
 
     fetch(`/api/list-builder/properties?objectType=${objectType}`)
-      .then((response) => response.json())
-      .then((data) => {
+      .then((response) => parseJsonResponse(response))
+      .then((data: unknown) => {
+        const result = data as { success?: boolean; error?: string; properties?: HubSpotProperty[] };
         if (!isMounted) return;
-        if (!data.success) {
-          setPropertiesError(data.error || 'Failed to load properties');
+        if (!result.success) {
+          setPropertiesError(result.error || 'Failed to load properties');
           setProperties([]);
           return;
         }
-        setProperties(data.properties || []);
+        setProperties(result.properties || []);
       })
       .catch((err) => {
         if (!isMounted) return;
