@@ -156,7 +156,7 @@ export function UrlToEmail() {
       {/* TinyMCE Editor */}
       <div className="flex-1">
         <Editor
-          apiKey="kbt3o53whdx8njy7i1lufi22p7xdq79qw5qael7i1brzyme87"
+          apiKey="kbt3o53whdx0njy711lufi22p7xdq79qw5qael71ibzyme07"
           onInit={(_evt, editor) => { editorRef.current = editor; }}
           init={{
             height: '100%',
