@@ -30,14 +30,13 @@ const DEFAULT_EXCLUDED_STAGES = [
   '268636560', // Disqualified
 ];
 
-// Government domains to exclude
-const GOVERNMENT_DOMAINS = ['.gov', '.mil', '.edu', 'state.', 'county.', 'city.'];
 
 // Vertical matching patterns
 const VERTICAL_PATTERNS: Record<string, string[]> = {
   Bank: ['bank', 'banking'],
   'Credit Union': ['credit union', 'cu '],
   IMB: ['mortgage', 'imb', 'independent mortgage'],
+  Government: ['government', 'public sector', 'federal', 'state agency', 'municipal'],
   'Background Screening': ['background', 'screening', 'hr tech'],
   Lending: ['lending', 'lender', 'loan'],
   Fintech: ['fintech', 'neobank'],
@@ -142,11 +141,6 @@ function matchesVertical(
   return false;
 }
 
-function isGovernmentEmail(email: string | undefined): boolean {
-  if (!email) return false;
-  const lowerEmail = email.toLowerCase();
-  return GOVERNMENT_DOMAINS.some((domain) => lowerEmail.includes(domain));
-}
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   // CORS headers
@@ -224,11 +218,6 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         const vertical = contact.properties.sales_vertical;
         const company = contact.properties.company;
         const email = contact.properties.email;
-
-        // Skip government emails
-        if (isGovernmentEmail(email)) {
-          continue;
-        }
 
         // Check vertical match
         if (!matchesVertical(vertical, company, verticals)) {

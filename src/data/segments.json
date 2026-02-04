@@ -11,6 +11,7 @@
     { "id": "Bank", "label": "Bank", "contacts": 36362 },
     { "id": "Credit Union", "label": "Credit Union", "contacts": 15244 },
     { "id": "IMB", "label": "IMB (Independent Mortgage Bank)", "contacts": 6966 },
+    { "id": "Government", "label": "Government", "contacts": 11035 },
     { "id": "Background Screening", "label": "Background Screening", "contacts": 5054 },
     { "id": "Lending", "label": "Lending", "contacts": 3196 },
     { "id": "Fintech", "label": "Fintech", "contacts": 2486 },
