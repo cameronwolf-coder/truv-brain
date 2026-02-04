@@ -156,7 +156,7 @@ export function UrlToEmail() {
       {/* TinyMCE Editor */}
       <div className="flex-1">
         <Editor
-          tinymceScriptSrc="/tinymce/tinymce.min.js"
+          apiKey="kbt3o53whdx8njy7i1lufi22p7xdq79qw5qael7i1brzyme87"
           onInit={(_evt, editor) => { editorRef.current = editor; }}
           init={{
             height: '100%',
@@ -164,9 +164,11 @@ export function UrlToEmail() {
             plugins: [
               'lists', 'link', 'image', 'table', 'code',
               'fullscreen', 'help', 'wordcount',
-              'searchreplace', 'visualblocks'
+              'searchreplace', 'visualblocks',
+              'anchor', 'autolink', 'charmap', 'codesample', 'emoticons',
+              'checklist', 'mediaembed', 'casechange', 'formatpainter', 'pageembed',
             ],
-            toolbar: 'undo redo | bold italic underline strikethrough | fontfamily fontsize | forecolor backcolor | alignleft aligncenter alignright alignjustify | bullist numlist | outdent indent | lineheight | link image table | searchreplace | code fullscreen',
+            toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | forecolor backcolor | alignleft aligncenter alignright alignjustify | bullist numlist checklist | outdent indent | lineheight | link image table | searchreplace | casechange formatpainter | code fullscreen',
             valid_elements: '*[*]',
             valid_children: '+body[style],+head[style]',
             extended_valid_elements: '*[*]',
