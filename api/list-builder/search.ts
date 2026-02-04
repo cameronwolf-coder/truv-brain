@@ -38,7 +38,7 @@ interface SearchResult {
 
 // Results cache (30 min TTL)
 const resultsCache: Record<string, { data: SearchResult; timestamp: number }> = {};
-const CACHE_TTL = 30 * 60 * 1000;
+const RESULTS_CACHE_TTL = 30 * 60 * 1000;
 
 function generateCacheKey(objectType: string, filters: Filter[]): string {
   return `${objectType}:${JSON.stringify(filters)}`;
@@ -295,7 +295,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     // Check cache
     const cacheKey = generateCacheKey(objectType, filters);
     const cached = resultsCache[cacheKey];
-    if (cached && Date.now() - cached.timestamp < CACHE_TTL) {
+    if (cached && Date.now() - cached.timestamp < RESULTS_CACHE_TTL) {
       return res.status(200).json({
         success: true,
         ...cached.data,

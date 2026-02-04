@@ -1,7 +1,7 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import { google } from 'googleapis';
 
-interface Record {
+interface HubSpotRecord {
   id: string;
   properties: Record<string, string>;
 }
@@ -45,7 +45,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
   try {
     const { records, name, columns, shareWithEmail, objectType = 'companies' } = req.body as {
-      records: Record[];
+      records: HubSpotRecord[];
       name: string;
       columns?: string[];
       shareWithEmail?: string;
