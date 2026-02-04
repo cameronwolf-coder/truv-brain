@@ -201,9 +201,9 @@ export function SmartListBuilder() {
       }
 
       setSearchResult({
-        records: data.records,
-        total: data.total,
-        summary: data.summary,
+        records: data.records || [],
+        total: data.total || 0,
+        summary: data.summary || { byProperty: {}, dateRange: { oldest: null, newest: null } },
       });
       setStep('preview');
     } catch (err) {
@@ -260,7 +260,7 @@ export function SmartListBuilder() {
         setDraftFilters([]);
 
         // Now search
-        await handleSearch(data.filters);
+        await handleSearch(data.filters || []);
       } else {
         setClarifications(data.clarifications || []);
         setStep('clarify');
@@ -311,7 +311,7 @@ export function SmartListBuilder() {
         return;
       }
 
-      setExportedSheet({ sheetUrl: data.sheetUrl });
+      setExportedSheet({ sheetUrl: data.sheetUrl || '' });
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Network error');
     } finally {
@@ -362,7 +362,7 @@ export function SmartListBuilder() {
         return;
       }
 
-      setCreatedList({ listId: data.listId, listUrl: data.listUrl, listType: data.listType });
+      setCreatedList({ listId: data.listId || '', listUrl: data.listUrl || '', listType: data.listType || '' });
       setStep('complete');
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Network error');
