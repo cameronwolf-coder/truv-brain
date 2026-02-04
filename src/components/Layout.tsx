@@ -211,7 +211,7 @@ export function Layout() {
                 }
               >
                 <span className="text-lg">📧</span>
-                URL to Email
+                HTML Editor
               </NavLink>
             </li>
             <li>

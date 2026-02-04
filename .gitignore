@@ -33,3 +33,5 @@ venv/
 .worktrees/
 .vercel
 .env
+.env*.local
+public/tinymce
