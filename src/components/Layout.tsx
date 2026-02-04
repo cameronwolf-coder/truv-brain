@@ -246,6 +246,22 @@ export function Layout() {
             Home
           </NavLink>
         </div>
+
+        {/* Git Status */}
+        {__GIT_COMMIT_SHA__ !== 'dev' && (
+          <div className="px-4 pb-3">
+            <a
+              href={`https://github.com/cameronwolf-coder/truv-brain/commit/${__GIT_COMMIT_SHA__}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 px-3 py-2 rounded-lg text-xs text-gray-400 hover:text-gray-600 hover:bg-gray-50 transition-colors"
+              title={__GIT_COMMIT_MESSAGE__ || 'View commit on GitHub'}
+            >
+              <span className="w-2 h-2 rounded-full bg-green-400" />
+              <span className="font-mono">{__GIT_COMMIT_SHA__.slice(0, 7)}</span>
+            </a>
+          </div>
+        )}
       </aside>
 
       {/* Main Content */}
