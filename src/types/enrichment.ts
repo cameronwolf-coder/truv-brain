@@ -5,12 +5,21 @@ export interface EnrichmentFieldValue {
   agent: string;
 }
 
+export interface HubSpotStatus {
+  inHubSpot: boolean;
+  lifecycleStage?: string;
+  firstName?: string;
+  lastName?: string;
+  company?: string;
+}
+
 export interface EnrichmentResult {
   email: string;
   original_data: Record<string, any>;
   enriched_data: Record<string, EnrichmentFieldValue>;
   status: 'pending' | 'processing' | 'completed' | 'failed';
   error?: string;
+  hubspot?: HubSpotStatus;
 }
 
 export interface EnrichmentRequest {
@@ -48,11 +57,12 @@ export const FIELD_CATEGORIES = {
   fundraising: ['funding_stage', 'total_funding', 'latest_round', 'investors', 'valuation'],
   leadership: ['ceo_name', 'founders', 'key_executives', 'employee_count'],
   technology: ['tech_stack', 'main_products', 'integrations', 'target_market'],
+  contact: ['work_email'],
 } as const;
 
 export const FIELD_BUNDLES = {
   quick: ['company_name', 'industry', 'company_size', 'funding_stage'],
-  sales: [...FIELD_CATEGORIES.company, ...FIELD_CATEGORIES.fundraising],
+  sales: [...FIELD_CATEGORIES.company, ...FIELD_CATEGORIES.fundraising, 'work_email'],
   executive: [...FIELD_CATEGORIES.leadership, 'company_name', 'industry', 'company_size'],
   technical: [...FIELD_CATEGORIES.technology, 'company_name'],
   full: [
@@ -60,6 +70,7 @@ export const FIELD_BUNDLES = {
     ...FIELD_CATEGORIES.fundraising,
     ...FIELD_CATEGORIES.leadership,
     ...FIELD_CATEGORIES.technology,
+    ...FIELD_CATEGORIES.contact,
   ],
 } as const;
 

@@ -1,12 +1,20 @@
 import type { EnrichmentResult } from '../../types/enrichment';
 
+interface HubSpotMatch {
+  lifecycleStage: string;
+  firstName?: string;
+  lastName?: string;
+  company?: string;
+}
+
 interface EnrichmentTableProps {
   results: EnrichmentResult[];
   selectedFields: string[];
   onSourceClick?: (url: string) => void;
+  hubspotMatches?: Record<string, HubSpotMatch>;
 }
 
-export function EnrichmentTable({ results, selectedFields, onSourceClick }: EnrichmentTableProps) {
+export function EnrichmentTable({ results, selectedFields, onSourceClick, hubspotMatches }: EnrichmentTableProps) {
   if (results.length === 0) {
     return (
       <div className="text-center py-12 text-gray-500">
@@ -37,6 +45,11 @@ export function EnrichmentTable({ results, selectedFields, onSourceClick }: Enri
             <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">
               Status
             </th>
+            {hubspotMatches && (
+              <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                HubSpot
+              </th>
+            )}
             {selectedFields.map(field => (
               <th
                 key={field}
@@ -68,6 +81,17 @@ export function EnrichmentTable({ results, selectedFields, onSourceClick }: Enri
                   {result.status}
                 </span>
               </td>
+              {hubspotMatches && (
+                <td className="px-4 py-3 text-sm">
+                  {hubspotMatches[result.email.toLowerCase()] ? (
+                    <span className="inline-flex px-2 py-1 text-xs font-medium rounded-full bg-purple-100 text-purple-800">
+                      {hubspotMatches[result.email.toLowerCase()].lifecycleStage || 'Unknown'}
+                    </span>
+                  ) : (
+                    <span className="text-gray-400">-</span>
+                  )}
+                </td>
+              )}
               {selectedFields.map(field => {
                 const enrichedField = result.enriched_data[field];
                 const originalValue = result.original_data[field];

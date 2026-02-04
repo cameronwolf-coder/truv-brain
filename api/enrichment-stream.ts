@@ -25,6 +25,7 @@ const FIELD_TO_AGENT: Record<string, string> = {
   main_products: 'technology',
   integrations: 'technology',
   target_market: 'technology',
+  work_email: 'contact',
 };
 
 interface EnrichmentRequest {
@@ -362,6 +363,84 @@ async function technologyAgent(
   return results;
 }
 
+async function emailFinderAgent(
+  contactName: string,
+  companyName: string,
+  fields: string[],
+  openaiKey: string,
+  firecrawlKey: string
+): Promise<AgentResult[]> {
+  const openai = new OpenAI({ apiKey: openaiKey });
+  const results: AgentResult[] = [];
+
+  try {
+    const searchQuery = `"${contactName}" "${companyName}" email contact`;
+    const searchResults = await searchWithFirecrawl(searchQuery, firecrawlKey);
+
+    if (searchResults.length === 0) {
+      fields.forEach(field => {
+        results.push({
+          field,
+          value: null,
+          source_url: '',
+          confidence: 'low',
+          agent: 'Email Finder',
+        });
+      });
+      return results;
+    }
+
+    const content = searchResults.map(r => r.markdown || '').join('\n\n');
+    const sourceUrl = searchResults[0].url;
+
+    const response = await openai.chat.completions.create({
+      model: 'gpt-4o-mini',
+      messages: [
+        {
+          role: 'system',
+          content: 'You find work email addresses for professionals. Extract the most likely work email address from the provided content. Only return verified emails that appear in the content. Return JSON with key "work_email". Use null if no email found.',
+        },
+        {
+          role: 'user',
+          content: `Find the work email for ${contactName} at ${companyName}.\n\nContent:\n${content}\n\nReturn JSON with key: work_email. Use null if not found.`,
+        },
+      ],
+      response_format: { type: 'json_object' },
+      temperature: 0.1,
+    });
+
+    const result = response.choices[0]?.message?.content;
+    let extracted: Record<string, string | null> = {};
+    if (result) {
+      try {
+        extracted = JSON.parse(result);
+      } catch {
+        extracted = {};
+      }
+    }
+
+    const email = extracted.work_email;
+    results.push({
+      field: 'work_email',
+      value: email || null,
+      source_url: email ? sourceUrl : '',
+      confidence: email ? 'medium' : 'low',
+      agent: 'Email Finder',
+    });
+  } catch (error) {
+    console.error('Email finder agent error:', error);
+    results.push({
+      field: 'work_email',
+      value: null,
+      source_url: '',
+      confidence: 'low',
+      agent: 'Email Finder',
+    });
+  }
+
+  return results;
+}
+
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
@@ -411,6 +490,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         fundraising: [],
         leadership: [],
         technology: [],
+        contact: [],
       };
 
       fields.forEach(field => {
@@ -442,6 +522,31 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         agentPromises.push(
           technologyAgent(domain, agentFields.technology, OPENAI_API_KEY, FIRECRAWL_API_KEY)
         );
+      }
+
+      // Email finder agent uses name + company instead of domain
+      if (agentFields.contact.length > 0) {
+        const contactName = contact.name || contact.first_name || contact.firstname || contact.full_name || contact.fullname || contact.contact_name || '';
+        const companyName = contact.company || contact.organization || contact.org || contact.business || contact.account || contact.company_name || '';
+
+        if (contactName && companyName) {
+          agentPromises.push(
+            emailFinderAgent(contactName, companyName, agentFields.contact, OPENAI_API_KEY, FIRECRAWL_API_KEY)
+          );
+        } else {
+          // Can't run email finder without name + company
+          agentFields.contact.forEach(field => {
+            agentPromises.push(
+              Promise.resolve([{
+                field,
+                value: null,
+                source_url: '',
+                confidence: 'low' as const,
+                agent: 'Email Finder',
+              }])
+            );
+          });
+        }
       }
 
       const agentResults = await Promise.all(agentPromises);

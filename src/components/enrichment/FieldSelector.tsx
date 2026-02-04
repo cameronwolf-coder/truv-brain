@@ -5,9 +5,12 @@ import type { FieldBundle } from '../../types/enrichment';
 interface FieldSelectorProps {
   selectedFields: string[];
   onFieldsChange: (fields: string[]) => void;
+  nameColumn?: string | null;
+  companyColumn?: string | null;
 }
 
-export function FieldSelector({ selectedFields, onFieldsChange }: FieldSelectorProps) {
+export function FieldSelector({ selectedFields, onFieldsChange, nameColumn, companyColumn }: FieldSelectorProps) {
+  const canUseEmailFinder = !!nameColumn && !!companyColumn;
   const [activeBundle, setActiveBundle] = useState<FieldBundle | null>(null);
 
   const handleBundleClick = (bundle: FieldBundle) => {
@@ -102,19 +105,30 @@ export function FieldSelector({ selectedFields, onFieldsChange }: FieldSelectorP
               {category.replace('_', ' ')}
             </h4>
             <div className="space-y-1">
-              {fields.map(field => (
-                <label key={field} className="flex items-center space-x-2 cursor-pointer">
-                  <input
-                    type="checkbox"
-                    checked={selectedFields.includes(field)}
-                    onChange={() => handleFieldToggle(field)}
-                    className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
-                  />
-                  <span className="text-sm text-gray-600">
-                    {field.replace(/_/g, ' ')}
-                  </span>
-                </label>
-              ))}
+              {fields.map(field => {
+                const isDisabled = field === 'work_email' && !canUseEmailFinder;
+                return (
+                  <label
+                    key={field}
+                    className={`flex items-center space-x-2 ${isDisabled ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'}`}
+                    title={isDisabled ? 'Requires name and company columns in CSV' : undefined}
+                  >
+                    <input
+                      type="checkbox"
+                      checked={selectedFields.includes(field)}
+                      onChange={() => !isDisabled && handleFieldToggle(field)}
+                      disabled={isDisabled}
+                      className="rounded border-gray-300 text-blue-600 focus:ring-blue-500 disabled:opacity-50"
+                    />
+                    <span className="text-sm text-gray-600">
+                      {field.replace(/_/g, ' ')}
+                    </span>
+                    {isDisabled && (
+                      <span className="text-xs text-gray-400">(needs name + company)</span>
+                    )}
+                  </label>
+                );
+              })}
             </div>
           </div>
         ))}
