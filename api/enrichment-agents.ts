@@ -258,6 +258,84 @@ export async function leadershipAgent(
   return results;
 }
 
+export async function emailFinderAgent(
+  contactName: string,
+  companyName: string,
+  fields: string[],
+  openaiKey: string,
+  firecrawlKey: string
+): Promise<AgentResult[]> {
+  const openai = new OpenAI({ apiKey: openaiKey });
+  const results: AgentResult[] = [];
+
+  try {
+    const searchQuery = `"${contactName}" "${companyName}" email contact`;
+    const searchResults = await searchWithFirecrawl(searchQuery, firecrawlKey);
+
+    if (searchResults.length === 0) {
+      fields.forEach(field => {
+        results.push({
+          field,
+          value: null,
+          source_url: '',
+          confidence: 'low',
+          agent: 'Email Finder',
+        });
+      });
+      return results;
+    }
+
+    const content = searchResults.map(r => r.markdown || '').join('\n\n');
+    const sourceUrl = searchResults[0].url;
+
+    const response = await openai.chat.completions.create({
+      model: 'gpt-4o-mini',
+      messages: [
+        {
+          role: 'system',
+          content: 'You find work email addresses for professionals. Extract the most likely work email address from the provided content. Only return verified emails that appear in the content. Return JSON with key "work_email". Use null if no email found.',
+        },
+        {
+          role: 'user',
+          content: `Find the work email for ${contactName} at ${companyName}.\n\nContent:\n${content}\n\nReturn JSON with key: work_email. Use null if not found.`,
+        },
+      ],
+      response_format: { type: 'json_object' },
+      temperature: 0.1,
+    });
+
+    const result = response.choices[0]?.message?.content;
+    let extracted: Record<string, string | null> = {};
+    if (result) {
+      try {
+        extracted = JSON.parse(result);
+      } catch {
+        extracted = {};
+      }
+    }
+
+    const email = extracted.work_email;
+    results.push({
+      field: 'work_email',
+      value: email || null,
+      source_url: email ? sourceUrl : '',
+      confidence: email ? 'medium' : 'low',
+      agent: 'Email Finder',
+    });
+  } catch (error) {
+    console.error('Email finder agent error:', error);
+    results.push({
+      field: 'work_email',
+      value: null,
+      source_url: '',
+      confidence: 'low',
+      agent: 'Email Finder',
+    });
+  }
+
+  return results;
+}
+
 export async function technologyAgent(
   domain: string,
   fields: string[],

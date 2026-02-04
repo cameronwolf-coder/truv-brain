@@ -3,6 +3,7 @@ import { UploadZone } from '../components/enrichment/UploadZone';
 import { FieldSelector } from '../components/enrichment/FieldSelector';
 import { EnrichmentProgress } from '../components/enrichment/EnrichmentProgress';
 import { EnrichmentTable } from '../components/enrichment/EnrichmentTable';
+import { HubSpotCheckCard } from '../components/enrichment/HubSpotCheckCard';
 import { SourceModal } from '../components/enrichment/SourceModal';
 import { parseCSV } from '../utils/csvParser';
 import { exportToCSV, downloadCSV, copyToClipboard } from '../utils/csvExporter';
@@ -13,10 +14,14 @@ export function DataEnrichment() {
   const [selectedFields, setSelectedFields] = useState<string[]>([]);
   const [csvData, setCsvData] = useState<Record<string, string>[]>([]);
   const [emailColumn, setEmailColumn] = useState<string | null>(null);
+  const [nameColumn, setNameColumn] = useState<string | null>(null);
+  const [companyColumn, setCompanyColumn] = useState<string | null>(null);
   const [results, setResults] = useState<EnrichmentResult[]>([]);
   const [isEnriching, setIsEnriching] = useState(false);
   const [stats, setStats] = useState({ completed: 0, successful: 0, failed: 0 });
   const [sourceModalUrl, setSourceModalUrl] = useState<string | null>(null);
+  const [hubspotMatches, setHubspotMatches] = useState<Record<string, { lifecycleStage: string; firstName: string; lastName: string; company: string }>>({});
+  const [isCheckingHubSpot, setIsCheckingHubSpot] = useState(false);
 
   const handleFileUpload = async (file: File) => {
     const text = await file.text();
@@ -24,8 +29,37 @@ export function DataEnrichment() {
 
     setCsvData(parsed.rows);
     setEmailColumn(parsed.emailColumn);
+    setNameColumn(parsed.nameColumn);
+    setCompanyColumn(parsed.companyColumn);
     setResults([]);
     setStats({ completed: 0, successful: 0, failed: 0 });
+    setHubspotMatches({});
+
+    // Auto-trigger HubSpot check if we have emails
+    if (parsed.emailColumn && parsed.rows.length > 0) {
+      const emails = parsed.rows
+        .map(row => row[parsed.emailColumn!])
+        .filter(Boolean);
+
+      if (emails.length > 0) {
+        setIsCheckingHubSpot(true);
+        try {
+          const response = await fetch('/api/hubspot-check', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ emails }),
+          });
+          if (response.ok) {
+            const data = await response.json();
+            setHubspotMatches(data.matches || {});
+          }
+        } catch (error) {
+          console.error('HubSpot check failed:', error);
+        } finally {
+          setIsCheckingHubSpot(false);
+        }
+      }
+    }
   };
 
   const handleStartEnrichment = async () => {
@@ -165,7 +199,10 @@ export function DataEnrichment() {
                 onClick={() => {
                   setCsvData([]);
                   setEmailColumn(null);
+                  setNameColumn(null);
+                  setCompanyColumn(null);
                   setResults([]);
+                  setHubspotMatches({});
                 }}
                 className="text-sm text-gray-600 hover:text-gray-800"
               >
@@ -174,6 +211,17 @@ export function DataEnrichment() {
             </div>
           </div>
 
+          <HubSpotCheckCard
+            total={csvData.length}
+            matched={Object.keys(hubspotMatches).length}
+            byStage={Object.values(hubspotMatches).reduce<Record<string, number>>((acc, match) => {
+              const stage = match.lifecycleStage || 'other';
+              acc[stage] = (acc[stage] || 0) + 1;
+              return acc;
+            }, {})}
+            isChecking={isCheckingHubSpot}
+          />
+
           <div className="bg-white border rounded-lg p-6">
             <h3 className="text-lg font-medium text-gray-900 mb-4">
               Select Fields to Enrich
@@ -181,6 +229,8 @@ export function DataEnrichment() {
             <FieldSelector
               selectedFields={selectedFields}
               onFieldsChange={setSelectedFields}
+              nameColumn={nameColumn}
+              companyColumn={companyColumn}
             />
           </div>
 
@@ -230,6 +280,7 @@ export function DataEnrichment() {
                   results={results}
                   selectedFields={selectedFields}
                   onSourceClick={setSourceModalUrl}
+                  hubspotMatches={Object.keys(hubspotMatches).length > 0 ? hubspotMatches : undefined}
                 />
               </div>
             </>

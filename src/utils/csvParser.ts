@@ -2,20 +2,24 @@ export interface ParsedCSV {
   headers: string[];
   rows: Record<string, string>[];
   emailColumn: string | null;
+  nameColumn: string | null;
+  companyColumn: string | null;
 }
 
 export function parseCSV(csvContent: string): ParsedCSV {
   const lines = csvContent.split('\n').filter(line => line.trim());
 
   if (lines.length === 0) {
-    return { headers: [], rows: [], emailColumn: null };
+    return { headers: [], rows: [], emailColumn: null, nameColumn: null, companyColumn: null };
   }
 
   // Parse headers
   const headers = lines[0].split(',').map(h => h.trim().replace(/^"|"$/g, ''));
 
-  // Detect email column
+  // Detect columns
   const emailColumn = detectEmailColumn(headers);
+  const nameColumn = detectNameColumn(headers);
+  const companyColumn = detectCompanyColumn(headers);
 
   // Parse rows
   const rows: Record<string, string>[] = [];
@@ -30,7 +34,7 @@ export function parseCSV(csvContent: string): ParsedCSV {
     rows.push(row);
   }
 
-  return { headers, rows, emailColumn };
+  return { headers, rows, emailColumn, nameColumn, companyColumn };
 }
 
 function parseCSVLine(line: string): string[] {
@@ -53,6 +57,32 @@ function parseCSVLine(line: string): string[] {
 
   result.push(current.trim());
   return result;
+}
+
+function detectNameColumn(headers: string[]): string | null {
+  const namePatterns = ['name', 'first_name', 'firstname', 'full_name', 'fullname', 'contact_name', 'first name'];
+
+  for (const header of headers) {
+    const lowerHeader = header.toLowerCase().trim();
+    if (namePatterns.some(pattern => lowerHeader === pattern)) {
+      return header;
+    }
+  }
+
+  return null;
+}
+
+function detectCompanyColumn(headers: string[]): string | null {
+  const companyPatterns = ['company', 'organization', 'org', 'business', 'account', 'company_name'];
+
+  for (const header of headers) {
+    const lowerHeader = header.toLowerCase().trim();
+    if (companyPatterns.some(pattern => lowerHeader === pattern)) {
+      return header;
+    }
+  }
+
+  return null;
 }
 
 function detectEmailColumn(headers: string[]): string | null {
