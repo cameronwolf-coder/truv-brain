@@ -7,11 +7,13 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "postinstall": "cp -r node_modules/tinymce public/tinymce 2>/dev/null || true"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.71.2",
     "@mendable/firecrawl-js": "^4.11.4",
+    "@tinymce/tinymce-react": "^6.3.0",
     "@vercel/node": "^5.5.27",
     "eventsource-parser": "^3.0.6",
     "framer-motion": "^12.24.10",
@@ -20,7 +22,8 @@
     "openai": "^6.16.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
-    "react-router-dom": "^7.12.0"
+    "react-router-dom": "^7.12.0",
+    "tinymce": "^8.3.2"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.1",
