@@ -1,6 +1,8 @@
 import OpenAI from 'openai';
 
 const FIRECRAWL_API_URL = 'https://api.firecrawl.dev/v1';
+const GEMINI_BASE_URL = 'https://generativelanguage.googleapis.com/v1beta/openai/';
+const GEMINI_MODEL = 'gemini-2.0-flash';
 
 interface AgentResult {
   field: string;
@@ -40,16 +42,16 @@ async function searchWithFirecrawl(query: string, apiKey: string): Promise<Firec
   return data.data || [];
 }
 
-async function extractWithOpenAI(
+async function extractWithGemini(
   content: string,
   fields: string[],
   systemPrompt: string,
-  openai: OpenAI
+  client: OpenAI
 ): Promise<Record<string, string | number | null>> {
   const fieldsList = fields.join(', ');
 
-  const response = await openai.chat.completions.create({
-    model: 'gpt-4o-mini',
+  const response = await client.chat.completions.create({
+    model: GEMINI_MODEL,
     messages: [
       { role: 'system', content: systemPrompt },
       {
@@ -74,10 +76,10 @@ async function extractWithOpenAI(
 export async function companyResearchAgent(
   domain: string,
   fields: string[],
-  openaiKey: string,
+  geminiKey: string,
   firecrawlKey: string
 ): Promise<AgentResult[]> {
-  const openai = new OpenAI({ apiKey: openaiKey });
+  const client = new OpenAI({ apiKey: geminiKey, baseURL: GEMINI_BASE_URL });
   const results: AgentResult[] = [];
 
   try {
@@ -100,11 +102,11 @@ export async function companyResearchAgent(
     const content = searchResults.map(r => r.markdown || '').join('\n\n');
     const sourceUrl = searchResults[0].url;
 
-    const extracted = await extractWithOpenAI(
+    const extracted = await extractWithGemini(
       content,
       fields,
       'Extract factual company information. Be concise and accurate. Return only verified information.',
-      openai
+      client
     );
 
     fields.forEach(field => {
@@ -136,10 +138,10 @@ export async function companyResearchAgent(
 export async function fundraisingAgent(
   domain: string,
   fields: string[],
-  openaiKey: string,
+  geminiKey: string,
   firecrawlKey: string
 ): Promise<AgentResult[]> {
-  const openai = new OpenAI({ apiKey: openaiKey });
+  const client = new OpenAI({ apiKey: geminiKey, baseURL: GEMINI_BASE_URL });
   const results: AgentResult[] = [];
 
   try {
@@ -163,11 +165,11 @@ export async function fundraisingAgent(
     const content = searchResults.map(r => r.markdown || '').join('\n\n');
     const sourceUrl = searchResults[0].url;
 
-    const extracted = await extractWithOpenAI(
+    const extracted = await extractWithGemini(
       content,
       fields,
       'Find the most recent funding information with dates. Be precise about amounts and investors.',
-      openai
+      client
     );
 
     fields.forEach(field => {
@@ -199,10 +201,10 @@ export async function fundraisingAgent(
 export async function leadershipAgent(
   domain: string,
   fields: string[],
-  openaiKey: string,
+  geminiKey: string,
   firecrawlKey: string
 ): Promise<AgentResult[]> {
-  const openai = new OpenAI({ apiKey: openaiKey });
+  const client = new OpenAI({ apiKey: geminiKey, baseURL: GEMINI_BASE_URL });
   const results: AgentResult[] = [];
 
   try {
@@ -225,11 +227,11 @@ export async function leadershipAgent(
     const content = searchResults.map(r => r.markdown || '').join('\n\n');
     const sourceUrl = searchResults[0].url;
 
-    const extracted = await extractWithOpenAI(
+    const extracted = await extractWithGemini(
       content,
       fields,
       'Identify key decision makers and their roles. Include full names and titles.',
-      openai
+      client
     );
 
     fields.forEach(field => {
@@ -262,10 +264,10 @@ export async function emailFinderAgent(
   contactName: string,
   companyName: string,
   fields: string[],
-  openaiKey: string,
+  geminiKey: string,
   firecrawlKey: string
 ): Promise<AgentResult[]> {
-  const openai = new OpenAI({ apiKey: openaiKey });
+  const client = new OpenAI({ apiKey: geminiKey, baseURL: GEMINI_BASE_URL });
   const results: AgentResult[] = [];
 
   try {
@@ -288,8 +290,8 @@ export async function emailFinderAgent(
     const content = searchResults.map(r => r.markdown || '').join('\n\n');
     const sourceUrl = searchResults[0].url;
 
-    const response = await openai.chat.completions.create({
-      model: 'gpt-4o-mini',
+    const response = await client.chat.completions.create({
+      model: GEMINI_MODEL,
       messages: [
         {
           role: 'system',
@@ -339,10 +341,10 @@ export async function emailFinderAgent(
 export async function technologyAgent(
   domain: string,
   fields: string[],
-  openaiKey: string,
+  geminiKey: string,
   firecrawlKey: string
 ): Promise<AgentResult[]> {
-  const openai = new OpenAI({ apiKey: openaiKey });
+  const client = new OpenAI({ apiKey: geminiKey, baseURL: GEMINI_BASE_URL });
   const results: AgentResult[] = [];
 
   try {
@@ -365,11 +367,11 @@ export async function technologyAgent(
     const content = searchResults.map(r => r.markdown || '').join('\n\n');
     const sourceUrl = searchResults[0].url;
 
-    const extracted = await extractWithOpenAI(
+    const extracted = await extractWithGemini(
       content,
       fields,
       'Identify technologies used and products offered. Focus on main tech stack and core products.',
-      openai
+      client
     );
 
     fields.forEach(field => {

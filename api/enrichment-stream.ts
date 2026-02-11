@@ -2,8 +2,10 @@ import type { VercelRequest, VercelResponse } from '@vercel/node';
 import OpenAI from 'openai';
 import Firecrawl from '@mendable/firecrawl-js';
 
-const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
+const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
 const FIRECRAWL_API_KEY = process.env.FIRECRAWL_API_KEY;
+const GEMINI_BASE_URL = 'https://generativelanguage.googleapis.com/v1beta/openai/';
+const GEMINI_MODEL = 'gemini-2.0-flash';
 
 const FIELD_TO_AGENT: Record<string, string> = {
   company_name: 'company',
@@ -83,16 +85,16 @@ async function searchWithFirecrawl(query: string, apiKey: string): Promise<Firec
   }
 }
 
-async function extractWithOpenAI(
+async function extractWithGemini(
   content: string,
   fields: string[],
   systemPrompt: string,
-  openai: OpenAI
+  client: OpenAI
 ): Promise<Record<string, string | number | null>> {
   const fieldsList = fields.join(', ');
 
-  const response = await openai.chat.completions.create({
-    model: 'gpt-4o-mini',
+  const response = await client.chat.completions.create({
+    model: GEMINI_MODEL,
     messages: [
       { role: 'system', content: systemPrompt },
       {
@@ -117,10 +119,10 @@ async function extractWithOpenAI(
 async function companyResearchAgent(
   domain: string,
   fields: string[],
-  openaiKey: string,
+  geminiKey: string,
   firecrawlKey: string
 ): Promise<AgentResult[]> {
-  const openai = new OpenAI({ apiKey: openaiKey });
+  const client = new OpenAI({ apiKey: geminiKey, baseURL: GEMINI_BASE_URL });
   const results: AgentResult[] = [];
 
   try {
@@ -143,11 +145,11 @@ async function companyResearchAgent(
     const content = searchResults.map(r => r.markdown || '').join('\n\n');
     const sourceUrl = searchResults[0].url;
 
-    const extracted = await extractWithOpenAI(
+    const extracted = await extractWithGemini(
       content,
       fields,
       'Extract factual company information. Be concise and accurate. Return only verified information.',
-      openai
+      client
     );
 
     fields.forEach(field => {
@@ -179,10 +181,10 @@ async function companyResearchAgent(
 async function fundraisingAgent(
   domain: string,
   fields: string[],
-  openaiKey: string,
+  geminiKey: string,
   firecrawlKey: string
 ): Promise<AgentResult[]> {
-  const openai = new OpenAI({ apiKey: openaiKey });
+  const client = new OpenAI({ apiKey: geminiKey, baseURL: GEMINI_BASE_URL });
   const results: AgentResult[] = [];
 
   try {
@@ -206,11 +208,11 @@ async function fundraisingAgent(
     const content = searchResults.map(r => r.markdown || '').join('\n\n');
     const sourceUrl = searchResults[0].url;
 
-    const extracted = await extractWithOpenAI(
+    const extracted = await extractWithGemini(
       content,
       fields,
       'Find the most recent funding information with dates. Be precise about amounts and investors.',
-      openai
+      client
     );
 
     fields.forEach(field => {
@@ -242,10 +244,10 @@ async function fundraisingAgent(
 async function leadershipAgent(
   domain: string,
   fields: string[],
-  openaiKey: string,
+  geminiKey: string,
   firecrawlKey: string
 ): Promise<AgentResult[]> {
-  const openai = new OpenAI({ apiKey: openaiKey });
+  const client = new OpenAI({ apiKey: geminiKey, baseURL: GEMINI_BASE_URL });
   const results: AgentResult[] = [];
 
   try {
@@ -268,11 +270,11 @@ async function leadershipAgent(
     const content = searchResults.map(r => r.markdown || '').join('\n\n');
     const sourceUrl = searchResults[0].url;
 
-    const extracted = await extractWithOpenAI(
+    const extracted = await extractWithGemini(
       content,
       fields,
       'Identify key decision makers and their roles. Include full names and titles.',
-      openai
+      client
     );
 
     fields.forEach(field => {
@@ -304,10 +306,10 @@ async function leadershipAgent(
 async function technologyAgent(
   domain: string,
   fields: string[],
-  openaiKey: string,
+  geminiKey: string,
   firecrawlKey: string
 ): Promise<AgentResult[]> {
-  const openai = new OpenAI({ apiKey: openaiKey });
+  const client = new OpenAI({ apiKey: geminiKey, baseURL: GEMINI_BASE_URL });
   const results: AgentResult[] = [];
 
   try {
@@ -330,11 +332,11 @@ async function technologyAgent(
     const content = searchResults.map(r => r.markdown || '').join('\n\n');
     const sourceUrl = searchResults[0].url;
 
-    const extracted = await extractWithOpenAI(
+    const extracted = await extractWithGemini(
       content,
       fields,
       'Identify technologies used and products offered. Focus on main tech stack and core products.',
-      openai
+      client
     );
 
     fields.forEach(field => {
@@ -367,10 +369,10 @@ async function emailFinderAgent(
   contactName: string,
   companyName: string,
   fields: string[],
-  openaiKey: string,
+  geminiKey: string,
   firecrawlKey: string
 ): Promise<AgentResult[]> {
-  const openai = new OpenAI({ apiKey: openaiKey });
+  const client = new OpenAI({ apiKey: geminiKey, baseURL: GEMINI_BASE_URL });
   const results: AgentResult[] = [];
 
   try {
@@ -393,8 +395,8 @@ async function emailFinderAgent(
     const content = searchResults.map(r => r.markdown || '').join('\n\n');
     const sourceUrl = searchResults[0].url;
 
-    const response = await openai.chat.completions.create({
-      model: 'gpt-4o-mini',
+    const response = await client.chat.completions.create({
+      model: GEMINI_MODEL,
       messages: [
         {
           role: 'system',
@@ -446,7 +448,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  if (!OPENAI_API_KEY || !FIRECRAWL_API_KEY) {
+  if (!GEMINI_API_KEY || !FIRECRAWL_API_KEY) {
     return res.status(500).json({ error: 'API keys not configured' });
   }
 
@@ -505,22 +507,22 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
       if (agentFields.company.length > 0) {
         agentPromises.push(
-          companyResearchAgent(domain, agentFields.company, OPENAI_API_KEY, FIRECRAWL_API_KEY)
+          companyResearchAgent(domain, agentFields.company, GEMINI_API_KEY, FIRECRAWL_API_KEY)
         );
       }
       if (agentFields.fundraising.length > 0) {
         agentPromises.push(
-          fundraisingAgent(domain, agentFields.fundraising, OPENAI_API_KEY, FIRECRAWL_API_KEY)
+          fundraisingAgent(domain, agentFields.fundraising, GEMINI_API_KEY, FIRECRAWL_API_KEY)
         );
       }
       if (agentFields.leadership.length > 0) {
         agentPromises.push(
-          leadershipAgent(domain, agentFields.leadership, OPENAI_API_KEY, FIRECRAWL_API_KEY)
+          leadershipAgent(domain, agentFields.leadership, GEMINI_API_KEY, FIRECRAWL_API_KEY)
         );
       }
       if (agentFields.technology.length > 0) {
         agentPromises.push(
-          technologyAgent(domain, agentFields.technology, OPENAI_API_KEY, FIRECRAWL_API_KEY)
+          technologyAgent(domain, agentFields.technology, GEMINI_API_KEY, FIRECRAWL_API_KEY)
         );
       }
 
@@ -531,7 +533,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
         if (contactName && companyName) {
           agentPromises.push(
-            emailFinderAgent(contactName, companyName, agentFields.contact, OPENAI_API_KEY, FIRECRAWL_API_KEY)
+            emailFinderAgent(contactName, companyName, agentFields.contact, GEMINI_API_KEY, FIRECRAWL_API_KEY)
           );
         } else {
           // Can't run email finder without name + company
