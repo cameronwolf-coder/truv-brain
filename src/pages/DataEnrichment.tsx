@@ -91,7 +91,7 @@ export function DataEnrichment() {
 
     // Initialize results with pending status
     const initialResults: EnrichmentResult[] = contacts.map(contact => ({
-      email: contact.email || (nameColumn ? contact[nameColumn] : '') || 'Unknown',
+      email: contact.email || (nameColumn ? (contact as Record<string, any>)[nameColumn] : '') || 'Unknown',
       original_data: contact,
       enriched_data: {},
       status: 'pending',
