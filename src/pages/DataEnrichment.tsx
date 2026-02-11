@@ -21,6 +21,7 @@ export function DataEnrichment() {
   const [companyColumn, setCompanyColumn] = useState<string | null>(null);
   const [results, setResults] = useState<EnrichmentResult[]>([]);
   const [isEnriching, setIsEnriching] = useState(false);
+  const [enrichmentError, setEnrichmentError] = useState<string | null>(null);
   const [stats, setStats] = useState({ completed: 0, successful: 0, failed: 0 });
   const [sourceModalUrl, setSourceModalUrl] = useState<string | null>(null);
   const [hubspotMatches, setHubspotMatches] = useState<Record<string, { lifecycleStage: string; firstName: string; lastName: string; company: string }>>({});
@@ -97,6 +98,7 @@ export function DataEnrichment() {
     }
 
     setIsEnriching(true);
+    setEnrichmentError(null);
     setResults([]);
     setStats({ completed: 0, successful: 0, failed: 0 });
 
@@ -134,6 +136,7 @@ export function DataEnrichment() {
       },
       (error) => {
         console.error('Enrichment error:', error);
+        setEnrichmentError(error.message || 'Enrichment failed. Check that GEMINI_API_KEY and FIRECRAWL_API_KEY are configured.');
         setIsEnriching(false);
       }
     );
@@ -295,7 +298,14 @@ export function DataEnrichment() {
                 </div>
               )}
 
-              {(isEnriching || results.length > 0) && (
+              {enrichmentError && (
+                <div className="bg-red-50 border border-red-200 rounded-lg p-4">
+                  <p className="text-sm font-medium text-red-800">Enrichment Failed</p>
+                  <p className="text-sm text-red-700 mt-1">{enrichmentError}</p>
+                </div>
+              )}
+
+              {(isEnriching || (results.length > 0 && !enrichmentError)) && (
                 <>
                   <EnrichmentProgress
                     total={csvData.length}
