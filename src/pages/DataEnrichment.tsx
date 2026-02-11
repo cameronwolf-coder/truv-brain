@@ -17,6 +17,7 @@ export function DataEnrichment() {
   const [csvData, setCsvData] = useState<Record<string, string>[]>([]);
   const [emailColumn, setEmailColumn] = useState<string | null>(null);
   const [nameColumn, setNameColumn] = useState<string | null>(null);
+  const [lastNameColumn, setLastNameColumn] = useState<string | null>(null);
   const [companyColumn, setCompanyColumn] = useState<string | null>(null);
   const [results, setResults] = useState<EnrichmentResult[]>([]);
   const [isEnriching, setIsEnriching] = useState(false);
@@ -55,6 +56,7 @@ export function DataEnrichment() {
     setCsvData(parsed.rows);
     setEmailColumn(parsed.emailColumn);
     setNameColumn(parsed.nameColumn);
+    setLastNameColumn(parsed.lastNameColumn);
     setCompanyColumn(parsed.companyColumn);
     setResults([]);
     setStats({ completed: 0, successful: 0, failed: 0 });
@@ -81,6 +83,7 @@ export function DataEnrichment() {
     setCsvData([]);
     setEmailColumn(null);
     setNameColumn(null);
+    setLastNameColumn(null);
     setCompanyColumn(null);
     setResults([]);
     setSelectedFields([]);
@@ -102,8 +105,12 @@ export function DataEnrichment() {
       const contact: Record<string, any> = { ...row };
       contact.email = emailColumn ? row[emailColumn] : '';
 
-      // Explicitly set name and company from mapped columns so the backend can find them
-      if (nameColumn) contact.name = row[nameColumn];
+      // Combine first + last name and set explicit fields for the backend
+      if (nameColumn) {
+        const firstName = row[nameColumn] || '';
+        const lastName = lastNameColumn ? (row[lastNameColumn] || '') : '';
+        contact.name = [firstName, lastName].filter(Boolean).join(' ');
+      }
       if (companyColumn) contact.company = row[companyColumn];
 
       return contact;
@@ -238,9 +245,11 @@ export function DataEnrichment() {
             rows={csvData}
             emailColumn={emailColumn}
             nameColumn={nameColumn}
+            lastNameColumn={lastNameColumn}
             companyColumn={companyColumn}
             onEmailColumnChange={setEmailColumn}
             onNameColumnChange={setNameColumn}
+            onLastNameColumnChange={setLastNameColumn}
             onCompanyColumnChange={setCompanyColumn}
             onReset={handleReset}
           />
