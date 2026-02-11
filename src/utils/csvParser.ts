@@ -1,3 +1,5 @@
+import * as XLSX from 'xlsx';
+
 export interface ParsedCSV {
   headers: string[];
   rows: Record<string, string>[];
@@ -96,6 +98,40 @@ function detectEmailColumn(headers: string[]): string | null {
   }
 
   return null;
+}
+
+export function parseXLSX(buffer: ArrayBuffer): ParsedCSV {
+  const workbook = XLSX.read(buffer, { type: 'array' });
+  const sheet = workbook.Sheets[workbook.SheetNames[0]];
+  const jsonData = XLSX.utils.sheet_to_json<Record<string, unknown>>(sheet, { defval: '' });
+
+  if (jsonData.length === 0) {
+    return { headers: [], rows: [], emailColumn: null, nameColumn: null, companyColumn: null };
+  }
+
+  const headers = Object.keys(jsonData[0]);
+  const rows = jsonData.map(row => {
+    const stringRow: Record<string, string> = {};
+    headers.forEach(h => {
+      stringRow[h] = String(row[h] ?? '');
+    });
+    return stringRow;
+  });
+
+  const emailColumn = detectEmailColumn(headers);
+  const nameColumn = detectNameColumn(headers);
+  const companyColumn = detectCompanyColumn(headers);
+
+  return { headers, rows, emailColumn, nameColumn, companyColumn };
+}
+
+export async function parseFile(file: File): Promise<ParsedCSV> {
+  if (file.name.endsWith('.csv')) {
+    const text = await file.text();
+    return parseCSV(text);
+  }
+  const buffer = await file.arrayBuffer();
+  return parseXLSX(buffer);
 }
 
 export function validateEmailColumn(rows: Record<string, string>[], columnName: string): boolean {

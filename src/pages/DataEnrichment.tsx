@@ -5,7 +5,7 @@ import { EnrichmentProgress } from '../components/enrichment/EnrichmentProgress'
 import { EnrichmentTable } from '../components/enrichment/EnrichmentTable';
 import { HubSpotCheckCard } from '../components/enrichment/HubSpotCheckCard';
 import { SourceModal } from '../components/enrichment/SourceModal';
-import { parseCSV } from '../utils/csvParser';
+import { parseFile } from '../utils/csvParser';
 import { exportToCSV, downloadCSV, copyToClipboard } from '../utils/csvExporter';
 import { EnrichmentClient } from '../services/enrichmentClient';
 import type { EnrichmentResult, StreamEventType } from '../types/enrichment';
@@ -24,8 +24,7 @@ export function DataEnrichment() {
   const [isCheckingHubSpot, setIsCheckingHubSpot] = useState(false);
 
   const handleFileUpload = async (file: File) => {
-    const text = await file.text();
-    const parsed = parseCSV(text);
+    const parsed = await parseFile(file);
 
     setCsvData(parsed.rows);
     setEmailColumn(parsed.emailColumn);
@@ -178,7 +177,7 @@ export function DataEnrichment() {
       <div className="mb-8">
         <h1 className="text-3xl font-bold text-gray-900">Data Enrichment</h1>
         <p className="mt-2 text-gray-600">
-          Upload a CSV with email addresses and enrich with AI-powered company data
+          Upload a CSV or Excel file with email addresses and enrich with AI-powered company data
         </p>
       </div>
 
@@ -189,7 +188,7 @@ export function DataEnrichment() {
           <div className="bg-white border rounded-lg p-6">
             <div className="flex items-center justify-between mb-4">
               <div>
-                <h3 className="text-lg font-medium text-gray-900">CSV Loaded</h3>
+                <h3 className="text-lg font-medium text-gray-900">File Loaded</h3>
                 <p className="text-sm text-gray-600">
                   {csvData.length} contacts found
                   {emailColumn && ` • Email column: ${emailColumn}`}
