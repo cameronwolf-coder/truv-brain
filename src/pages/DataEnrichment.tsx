@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { UploadZone } from '../components/enrichment/UploadZone';
+import { FilePreview } from '../components/enrichment/FilePreview';
 import { FieldSelector } from '../components/enrichment/FieldSelector';
 import { EnrichmentProgress } from '../components/enrichment/EnrichmentProgress';
 import { EnrichmentTable } from '../components/enrichment/EnrichmentTable';
@@ -12,6 +13,7 @@ import type { EnrichmentResult, StreamEventType } from '../types/enrichment';
 
 export function DataEnrichment() {
   const [selectedFields, setSelectedFields] = useState<string[]>([]);
+  const [headers, setHeaders] = useState<string[]>([]);
   const [csvData, setCsvData] = useState<Record<string, string>[]>([]);
   const [emailColumn, setEmailColumn] = useState<string | null>(null);
   const [nameColumn, setNameColumn] = useState<string | null>(null);
@@ -24,6 +26,7 @@ export function DataEnrichment() {
   const [isCheckingHubSpot, setIsCheckingHubSpot] = useState(false);
 
   const findEmailMode = !emailColumn && !!(nameColumn && companyColumn);
+  const canProceed = !!emailColumn || findEmailMode;
 
   const runHubSpotCheck = async (emails: string[]) => {
     if (emails.length === 0) return;
@@ -48,6 +51,7 @@ export function DataEnrichment() {
   const handleFileUpload = async (file: File) => {
     const parsed = await parseFile(file);
 
+    setHeaders(parsed.headers);
     setCsvData(parsed.rows);
     setEmailColumn(parsed.emailColumn);
     setNameColumn(parsed.nameColumn);
@@ -72,11 +76,20 @@ export function DataEnrichment() {
     }
   };
 
-  const handleStartEnrichment = async () => {
-    const hasEmailMode = !!emailColumn;
-    const hasFindEmailMode = findEmailMode;
+  const handleReset = () => {
+    setHeaders([]);
+    setCsvData([]);
+    setEmailColumn(null);
+    setNameColumn(null);
+    setCompanyColumn(null);
+    setResults([]);
+    setSelectedFields([]);
+    setHubspotMatches({});
+    setStats({ completed: 0, successful: 0, failed: 0 });
+  };
 
-    if ((!hasEmailMode && !hasFindEmailMode) || csvData.length === 0 || selectedFields.length === 0) {
+  const handleStartEnrichment = async () => {
+    if (!canProceed || csvData.length === 0 || selectedFields.length === 0) {
       return;
     }
 
@@ -84,14 +97,21 @@ export function DataEnrichment() {
     setResults([]);
     setStats({ completed: 0, successful: 0, failed: 0 });
 
-    const contacts = csvData.map(row => ({
-      email: emailColumn ? row[emailColumn] : '',
-      ...row,
-    }));
+    // Build contacts with explicit name and company fields for the backend
+    const contacts = csvData.map(row => {
+      const contact: Record<string, any> = { ...row };
+      contact.email = emailColumn ? row[emailColumn] : '';
+
+      // Explicitly set name and company from mapped columns so the backend can find them
+      if (nameColumn) contact.name = row[nameColumn];
+      if (companyColumn) contact.company = row[companyColumn];
+
+      return contact;
+    });
 
     // Initialize results with pending status
     const initialResults: EnrichmentResult[] = contacts.map(contact => ({
-      email: contact.email || (nameColumn ? (contact as Record<string, any>)[nameColumn] : '') || 'Unknown',
+      email: contact.email || contact.name || 'Unknown',
       original_data: contact,
       enriched_data: {},
       status: 'pending',
@@ -118,17 +138,18 @@ export function DataEnrichment() {
     switch (event.type) {
       case 'start':
         setResults(prev =>
-          prev.map(r =>
-            r.email === event.email ? { ...r, status: 'processing' } : r
-          )
+          prev.map((r, idx) => {
+            const contactIdx = parseInt(event.contactId.split('-')[1]);
+            return idx === contactIdx ? { ...r, status: 'processing' } : r;
+          })
         );
         break;
 
       case 'progress':
         setResults(prev =>
-          prev.map(r => {
+          prev.map((r, idx) => {
             const contactIdx = parseInt(event.contactId.split('-')[1]);
-            if (prev.indexOf(r) === contactIdx) {
+            if (idx === contactIdx) {
               return {
                 ...r,
                 enriched_data: {
@@ -149,11 +170,10 @@ export function DataEnrichment() {
 
       case 'complete':
         setResults(prev =>
-          prev.map(r =>
-            r.email === event.data.email
-              ? { ...event.data, status: 'completed' }
-              : r
-          )
+          prev.map((r, idx) => {
+            const contactIdx = parseInt(event.contactId.split('-')[1]);
+            return idx === contactIdx ? { ...event.data, status: 'completed' } : r;
+          })
         );
         setStats(prev => ({ ...prev, completed: prev.completed + 1, successful: prev.successful + 1 }));
         break;
@@ -204,119 +224,107 @@ export function DataEnrichment() {
       <div className="mb-8">
         <h1 className="text-3xl font-bold text-gray-900">Data Enrichment</h1>
         <p className="mt-2 text-gray-600">
-          Upload a CSV or Excel file with email addresses and enrich with AI-powered company data
+          Upload a CSV or Excel file with contacts and enrich with AI-powered company data
         </p>
       </div>
 
       {csvData.length === 0 ? (
         <UploadZone onFileUpload={handleFileUpload} />
       ) : (
-        <div className="space-y-8">
-          <div className="bg-white border rounded-lg p-6">
-            <div className="flex items-center justify-between mb-4">
-              <div>
-                <h3 className="text-lg font-medium text-gray-900">File Loaded</h3>
-                <p className="text-sm text-gray-600">
-                  {csvData.length} contacts found
-                  {emailColumn && ` • Email column: ${emailColumn}`}
-                  {nameColumn && ` • Name column: ${nameColumn}`}
-                  {companyColumn && ` • Company column: ${companyColumn}`}
-                </p>
-                {findEmailMode && (
-                  <p className="text-sm text-blue-600 mt-1 font-medium">
-                    Find Email mode — emails will be discovered from name + company
-                  </p>
-                )}
-              </div>
-              <button
-                onClick={() => {
-                  setCsvData([]);
-                  setEmailColumn(null);
-                  setNameColumn(null);
-                  setCompanyColumn(null);
-                  setResults([]);
-                  setHubspotMatches({});
-                }}
-                className="text-sm text-gray-600 hover:text-gray-800"
-              >
-                Upload Different File
-              </button>
-            </div>
-          </div>
-
-          <HubSpotCheckCard
-            total={csvData.length}
-            matched={Object.keys(hubspotMatches).length}
-            byStage={Object.values(hubspotMatches).reduce<Record<string, number>>((acc, match) => {
-              const stage = match.lifecycleStage || 'other';
-              acc[stage] = (acc[stage] || 0) + 1;
-              return acc;
-            }, {})}
-            isChecking={isCheckingHubSpot}
+        <div className="space-y-6">
+          {/* File preview + column mapping */}
+          <FilePreview
+            headers={headers}
+            rows={csvData}
+            emailColumn={emailColumn}
+            nameColumn={nameColumn}
+            companyColumn={companyColumn}
+            onEmailColumnChange={setEmailColumn}
+            onNameColumnChange={setNameColumn}
+            onCompanyColumnChange={setCompanyColumn}
+            onReset={handleReset}
           />
 
-          <div className="bg-white border rounded-lg p-6">
-            <h3 className="text-lg font-medium text-gray-900 mb-4">
-              Select Fields to Enrich
-            </h3>
-            <FieldSelector
-              selectedFields={selectedFields}
-              onFieldsChange={setSelectedFields}
-              nameColumn={nameColumn}
-              companyColumn={companyColumn}
-              findEmailMode={findEmailMode}
-            />
-          </div>
-
-          {!isEnriching && results.length === 0 && (
-            <div className="flex justify-center">
-              <button
-                onClick={handleStartEnrichment}
-                disabled={selectedFields.length === 0}
-                className="px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 disabled:bg-gray-300 disabled:cursor-not-allowed"
-              >
-                {findEmailMode ? 'Find Emails & Enrich' : 'Start Enrichment'}
-              </button>
-            </div>
-          )}
-
-          {(isEnriching || results.length > 0) && (
+          {canProceed && (
             <>
-              <EnrichmentProgress
-                total={csvData.length}
-                completed={stats.completed}
-                successful={stats.successful}
-                failed={stats.failed}
-                isRunning={isEnriching}
-              />
+              {/* HubSpot check - only when we have emails */}
+              {emailColumn && (
+                <HubSpotCheckCard
+                  total={csvData.length}
+                  matched={Object.keys(hubspotMatches).length}
+                  byStage={Object.values(hubspotMatches).reduce<Record<string, number>>((acc, match) => {
+                    const stage = match.lifecycleStage || 'other';
+                    acc[stage] = (acc[stage] || 0) + 1;
+                    return acc;
+                  }, {})}
+                  isChecking={isCheckingHubSpot}
+                />
+              )}
 
               <div className="bg-white border rounded-lg p-6">
-                <div className="flex items-center justify-between mb-4">
-                  <h3 className="text-lg font-medium text-gray-900">Results</h3>
-                  {results.length > 0 && !isEnriching && (
-                    <div className="space-x-2">
-                      <button
-                        onClick={handleCopyToClipboard}
-                        className="px-4 py-2 text-sm bg-gray-100 text-gray-700 rounded-md hover:bg-gray-200"
-                      >
-                        Copy to Clipboard
-                      </button>
-                      <button
-                        onClick={handleDownloadCSV}
-                        className="px-4 py-2 text-sm bg-blue-600 text-white rounded-md hover:bg-blue-700"
-                      >
-                        Download CSV
-                      </button>
-                    </div>
-                  )}
-                </div>
-                <EnrichmentTable
-                  results={results}
+                <h3 className="text-lg font-medium text-gray-900 mb-4">
+                  Select Fields to Enrich
+                </h3>
+                <FieldSelector
                   selectedFields={selectedFields}
-                  onSourceClick={setSourceModalUrl}
-                  hubspotMatches={Object.keys(hubspotMatches).length > 0 ? hubspotMatches : undefined}
+                  onFieldsChange={setSelectedFields}
+                  nameColumn={nameColumn}
+                  companyColumn={companyColumn}
+                  findEmailMode={findEmailMode}
                 />
               </div>
+
+              {!isEnriching && results.length === 0 && (
+                <div className="flex justify-center">
+                  <button
+                    onClick={handleStartEnrichment}
+                    disabled={selectedFields.length === 0}
+                    className="px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 disabled:bg-gray-300 disabled:cursor-not-allowed"
+                  >
+                    {findEmailMode ? 'Find Emails & Enrich' : 'Start Enrichment'}
+                  </button>
+                </div>
+              )}
+
+              {(isEnriching || results.length > 0) && (
+                <>
+                  <EnrichmentProgress
+                    total={csvData.length}
+                    completed={stats.completed}
+                    successful={stats.successful}
+                    failed={stats.failed}
+                    isRunning={isEnriching}
+                  />
+
+                  <div className="bg-white border rounded-lg p-6">
+                    <div className="flex items-center justify-between mb-4">
+                      <h3 className="text-lg font-medium text-gray-900">Results</h3>
+                      {results.length > 0 && !isEnriching && (
+                        <div className="space-x-2">
+                          <button
+                            onClick={handleCopyToClipboard}
+                            className="px-4 py-2 text-sm bg-gray-100 text-gray-700 rounded-md hover:bg-gray-200"
+                          >
+                            Copy to Clipboard
+                          </button>
+                          <button
+                            onClick={handleDownloadCSV}
+                            className="px-4 py-2 text-sm bg-blue-600 text-white rounded-md hover:bg-blue-700"
+                          >
+                            Download CSV
+                          </button>
+                        </div>
+                      )}
+                    </div>
+                    <EnrichmentTable
+                      results={results}
+                      selectedFields={selectedFields}
+                      onSourceClick={setSourceModalUrl}
+                      hubspotMatches={Object.keys(hubspotMatches).length > 0 ? hubspotMatches : undefined}
+                    />
+                  </div>
+                </>
+              )}
             </>
           )}
         </div>
