@@ -1,13 +1,15 @@
 import type { StreamEventType, EnrichmentRequest } from '../types/enrichment';
 
 export class EnrichmentClient {
-  private eventSource: EventSource | null = null;
+  private abortController: AbortController | null = null;
 
   async startEnrichment(
     request: EnrichmentRequest,
     onEvent: (event: StreamEventType) => void,
     onError: (error: Error) => void
   ): Promise<void> {
+    this.abortController = new AbortController();
+
     try {
       const response = await fetch('/api/enrichment-stream', {
         method: 'POST',
@@ -15,6 +17,7 @@ export class EnrichmentClient {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(request),
+        signal: this.abortController.signal,
       });
 
       if (!response.ok) {
@@ -55,14 +58,19 @@ export class EnrichmentClient {
         }
       }
     } catch (err) {
+      if (err instanceof DOMException && err.name === 'AbortError') {
+        return; // Cancelled by user, not an error
+      }
       onError(err instanceof Error ? err : new Error('Unknown error'));
+    } finally {
+      this.abortController = null;
     }
   }
 
   cancel(): void {
-    if (this.eventSource) {
-      this.eventSource.close();
-      this.eventSource = null;
+    if (this.abortController) {
+      this.abortController.abort();
+      this.abortController = null;
     }
   }
 }

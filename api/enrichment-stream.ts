@@ -580,6 +580,17 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       const agentResults = await Promise.all(agentPromises);
       const allResults = agentResults.flat();
 
+      // Auto-include resolved domain as website when it was derived from company name
+      if (!contact.email && domain) {
+        allResults.push({
+          field: 'website',
+          value: domain,
+          source_url: `https://${domain}`,
+          confidence: 'high' as const,
+          agent: 'Domain Resolver',
+        });
+      }
+
       // Send progress events for each field
       allResults.forEach(result => {
         res.write(`data: ${JSON.stringify({
