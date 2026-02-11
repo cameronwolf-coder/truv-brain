@@ -83,13 +83,19 @@ export function EnrichmentTable({ results, selectedFields, onSourceClick, hubspo
               </td>
               {hubspotMatches && (
                 <td className="px-4 py-3 text-sm">
-                  {hubspotMatches[result.email.toLowerCase()] ? (
-                    <span className="inline-flex px-2 py-1 text-xs font-medium rounded-full bg-purple-100 text-purple-800">
-                      {hubspotMatches[result.email.toLowerCase()].lifecycleStage || 'Unknown'}
-                    </span>
-                  ) : (
-                    <span className="text-gray-400">-</span>
-                  )}
+                  {(() => {
+                    // Check both the original email and any discovered work_email
+                    const emailKey = result.email?.toLowerCase();
+                    const discoveredEmail = result.enriched_data?.work_email?.value?.toString().toLowerCase();
+                    const match = (emailKey && hubspotMatches[emailKey]) || (discoveredEmail && hubspotMatches[discoveredEmail]);
+                    return match ? (
+                      <span className="inline-flex px-2 py-1 text-xs font-medium rounded-full bg-purple-100 text-purple-800">
+                        {match.lifecycleStage || 'Unknown'}
+                      </span>
+                    ) : (
+                      <span className="text-gray-400">-</span>
+                    );
+                  })()}
                 </td>
               )}
               {selectedFields.map(field => {

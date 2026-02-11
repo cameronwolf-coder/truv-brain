@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { UploadZone } from '../components/enrichment/UploadZone';
 import { FilePreview } from '../components/enrichment/FilePreview';
 import { FieldSelector } from '../components/enrichment/FieldSelector';
@@ -26,9 +26,15 @@ export function DataEnrichment() {
   const [sourceModalUrl, setSourceModalUrl] = useState<string | null>(null);
   const [hubspotMatches, setHubspotMatches] = useState<Record<string, { lifecycleStage: string; firstName: string; lastName: string; company: string }>>({});
   const [isCheckingHubSpot, setIsCheckingHubSpot] = useState(false);
+  const enrichmentClientRef = useRef<EnrichmentClient | null>(null);
 
   const findEmailMode = !emailColumn && !!(nameColumn && companyColumn);
   const canProceed = !!emailColumn || findEmailMode;
+
+  // Include 'website' in display when in find-email mode (auto-populated by backend)
+  const displayFields = findEmailMode
+    ? [...new Set([...selectedFields, 'website'])]
+    : selectedFields;
 
   const runHubSpotCheck = async (emails: string[]) => {
     if (emails.length === 0) return;
@@ -128,6 +134,7 @@ export function DataEnrichment() {
     setResults(initialResults);
 
     const client = new EnrichmentClient();
+    enrichmentClientRef.current = client;
 
     await client.startEnrichment(
       { contacts, fields: selectedFields, source: 'csv' },
@@ -141,6 +148,7 @@ export function DataEnrichment() {
       }
     );
 
+    enrichmentClientRef.current = null;
     setIsEnriching(false);
   };
 
@@ -218,6 +226,29 @@ export function DataEnrichment() {
         break;
       }
     }
+  };
+
+  const handleLookupHubSpot = () => {
+    // Collect all emails: original column + discovered work_email
+    const allEmails = new Set<string>();
+    results.forEach(r => {
+      if (emailColumn && r.original_data[emailColumn]) {
+        allEmails.add(r.original_data[emailColumn]);
+      }
+      const discoveredEmail = r.enriched_data?.work_email?.value;
+      if (typeof discoveredEmail === 'string' && discoveredEmail.includes('@')) {
+        allEmails.add(discoveredEmail);
+      }
+    });
+    if (allEmails.size > 0) {
+      runHubSpotCheck([...allEmails]);
+    }
+  };
+
+  const handleCancelEnrichment = () => {
+    enrichmentClientRef.current?.cancel();
+    enrichmentClientRef.current = null;
+    setIsEnriching(false);
   };
 
   const handleDownloadCSV = () => {
@@ -313,13 +344,31 @@ export function DataEnrichment() {
                     successful={stats.successful}
                     failed={stats.failed}
                     isRunning={isEnriching}
+                    onCancel={handleCancelEnrichment}
                   />
 
                   <div className="bg-white border rounded-lg p-6">
                     <div className="flex items-center justify-between mb-4">
                       <h3 className="text-lg font-medium text-gray-900">Results</h3>
                       {results.length > 0 && !isEnriching && (
-                        <div className="space-x-2">
+                        <div className="flex items-center space-x-2">
+                          <button
+                            onClick={() => {
+                              setResults([]);
+                              setStats({ completed: 0, successful: 0, failed: 0 });
+                              setEnrichmentError(null);
+                            }}
+                            className="px-4 py-2 text-sm border border-blue-300 text-blue-700 rounded-md hover:bg-blue-50"
+                          >
+                            Enrich Further
+                          </button>
+                          <button
+                            onClick={handleLookupHubSpot}
+                            disabled={isCheckingHubSpot}
+                            className="px-4 py-2 text-sm border border-purple-300 text-purple-700 rounded-md hover:bg-purple-50 disabled:opacity-50"
+                          >
+                            {isCheckingHubSpot ? 'Checking...' : 'Lookup in HubSpot'}
+                          </button>
                           <button
                             onClick={handleCopyToClipboard}
                             className="px-4 py-2 text-sm bg-gray-100 text-gray-700 rounded-md hover:bg-gray-200"
@@ -337,7 +386,7 @@ export function DataEnrichment() {
                     </div>
                     <EnrichmentTable
                       results={results}
-                      selectedFields={selectedFields}
+                      selectedFields={displayFields}
                       onSourceClick={setSourceModalUrl}
                       hubspotMatches={Object.keys(hubspotMatches).length > 0 ? hubspotMatches : undefined}
                     />
