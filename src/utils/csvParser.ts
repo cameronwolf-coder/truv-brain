@@ -5,6 +5,7 @@ export interface ParsedCSV {
   rows: Record<string, string>[];
   emailColumn: string | null;
   nameColumn: string | null;
+  lastNameColumn: string | null;
   companyColumn: string | null;
 }
 
@@ -12,7 +13,7 @@ export function parseCSV(csvContent: string): ParsedCSV {
   const lines = csvContent.split('\n').filter(line => line.trim());
 
   if (lines.length === 0) {
-    return { headers: [], rows: [], emailColumn: null, nameColumn: null, companyColumn: null };
+    return { headers: [], rows: [], emailColumn: null, nameColumn: null, lastNameColumn: null, companyColumn: null };
   }
 
   // Parse headers
@@ -34,9 +35,10 @@ export function parseCSV(csvContent: string): ParsedCSV {
   // Detect columns (pass rows for content-based email detection fallback)
   const emailColumn = detectEmailColumn(headers, rows);
   const nameColumn = detectNameColumn(headers);
+  const lastNameColumn = detectLastNameColumn(headers);
   const companyColumn = detectCompanyColumn(headers);
 
-  return { headers, rows, emailColumn, nameColumn, companyColumn };
+  return { headers, rows, emailColumn, nameColumn, lastNameColumn, companyColumn };
 }
 
 function parseCSVLine(line: string): string[] {
@@ -67,6 +69,19 @@ function detectNameColumn(headers: string[]): string | null {
   for (const header of headers) {
     const lowerHeader = header.toLowerCase().trim();
     if (namePatterns.some(pattern => lowerHeader === pattern)) {
+      return header;
+    }
+  }
+
+  return null;
+}
+
+function detectLastNameColumn(headers: string[]): string | null {
+  const lastNamePatterns = ['last_name', 'lastname', 'last name', 'surname', 'family_name', 'family name'];
+
+  for (const header of headers) {
+    const lowerHeader = header.toLowerCase().trim();
+    if (lastNamePatterns.some(pattern => lowerHeader === pattern)) {
       return header;
     }
   }
@@ -120,7 +135,7 @@ export function parseXLSX(buffer: ArrayBuffer): ParsedCSV {
   const jsonData = XLSX.utils.sheet_to_json<Record<string, unknown>>(sheet, { defval: '' });
 
   if (jsonData.length === 0) {
-    return { headers: [], rows: [], emailColumn: null, nameColumn: null, companyColumn: null };
+    return { headers: [], rows: [], emailColumn: null, nameColumn: null, lastNameColumn: null, companyColumn: null };
   }
 
   const headers = Object.keys(jsonData[0]);
@@ -134,9 +149,10 @@ export function parseXLSX(buffer: ArrayBuffer): ParsedCSV {
 
   const emailColumn = detectEmailColumn(headers, rows);
   const nameColumn = detectNameColumn(headers);
+  const lastNameColumn = detectLastNameColumn(headers);
   const companyColumn = detectCompanyColumn(headers);
 
-  return { headers, rows, emailColumn, nameColumn, companyColumn };
+  return { headers, rows, emailColumn, nameColumn, lastNameColumn, companyColumn };
 }
 
 export async function parseFile(file: File): Promise<ParsedCSV> {

@@ -3,11 +3,21 @@ interface FilePreviewProps {
   rows: Record<string, string>[];
   emailColumn: string | null;
   nameColumn: string | null;
+  lastNameColumn: string | null;
   companyColumn: string | null;
   onEmailColumnChange: (col: string | null) => void;
   onNameColumnChange: (col: string | null) => void;
+  onLastNameColumnChange: (col: string | null) => void;
   onCompanyColumnChange: (col: string | null) => void;
   onReset: () => void;
+}
+
+function getColumnStyle(h: string, emailColumn: string | null, nameColumn: string | null, lastNameColumn: string | null, companyColumn: string | null) {
+  if (h === emailColumn) return { header: 'text-blue-700 bg-blue-50', cell: 'bg-blue-50/50', tag: '(email)' };
+  if (h === nameColumn) return { header: 'text-green-700 bg-green-50', cell: 'bg-green-50/50', tag: '(first name)' };
+  if (h === lastNameColumn) return { header: 'text-green-700 bg-green-50', cell: 'bg-green-50/50', tag: '(last name)' };
+  if (h === companyColumn) return { header: 'text-purple-700 bg-purple-50', cell: 'bg-purple-50/50', tag: '(company)' };
+  return { header: 'text-gray-500', cell: '', tag: '' };
 }
 
 export function FilePreview({
@@ -15,15 +25,18 @@ export function FilePreview({
   rows,
   emailColumn,
   nameColumn,
+  lastNameColumn,
   companyColumn,
   onEmailColumnChange,
   onNameColumnChange,
+  onLastNameColumnChange,
   onCompanyColumnChange,
   onReset,
 }: FilePreviewProps) {
   const previewRows = rows.slice(0, 5);
-  const findEmailMode = !emailColumn && !!(nameColumn && companyColumn);
-  const canProceed = !!emailColumn || (!!nameColumn && !!companyColumn);
+  const hasName = !!nameColumn;
+  const findEmailMode = !emailColumn && hasName && !!companyColumn;
+  const canProceed = !!emailColumn || (hasName && !!companyColumn);
 
   return (
     <div className="bg-white border rounded-lg p-6 space-y-6">
@@ -45,47 +58,35 @@ export function FilePreview({
         <table className="min-w-full text-sm">
           <thead className="bg-gray-50 sticky top-0">
             <tr>
-              {headers.map(h => (
-                <th
-                  key={h}
-                  className={`px-3 py-2 text-left text-xs font-medium uppercase tracking-wider whitespace-nowrap ${
-                    h === emailColumn
-                      ? 'text-blue-700 bg-blue-50'
-                      : h === nameColumn
-                      ? 'text-green-700 bg-green-50'
-                      : h === companyColumn
-                      ? 'text-purple-700 bg-purple-50'
-                      : 'text-gray-500'
-                  }`}
-                >
-                  {h}
-                  {h === emailColumn && <span className="ml-1 text-[10px] font-normal normal-case">(email)</span>}
-                  {h === nameColumn && <span className="ml-1 text-[10px] font-normal normal-case">(name)</span>}
-                  {h === companyColumn && <span className="ml-1 text-[10px] font-normal normal-case">(company)</span>}
-                </th>
-              ))}
+              {headers.map(h => {
+                const style = getColumnStyle(h, emailColumn, nameColumn, lastNameColumn, companyColumn);
+                return (
+                  <th
+                    key={h}
+                    className={`px-3 py-2 text-left text-xs font-medium uppercase tracking-wider whitespace-nowrap ${style.header}`}
+                  >
+                    {h}
+                    {style.tag && <span className="ml-1 text-[10px] font-normal normal-case">{style.tag}</span>}
+                  </th>
+                );
+              })}
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-100">
             {previewRows.map((row, i) => (
               <tr key={i} className="hover:bg-gray-50">
-                {headers.map(h => (
-                  <td
-                    key={h}
-                    className={`px-3 py-2 whitespace-nowrap text-gray-700 max-w-[200px] truncate ${
-                      h === emailColumn
-                        ? 'bg-blue-50/50'
-                        : h === nameColumn
-                        ? 'bg-green-50/50'
-                        : h === companyColumn
-                        ? 'bg-purple-50/50'
-                        : ''
-                    }`}
-                    title={row[h]}
-                  >
-                    {row[h] || <span className="text-gray-300">—</span>}
-                  </td>
-                ))}
+                {headers.map(h => {
+                  const style = getColumnStyle(h, emailColumn, nameColumn, lastNameColumn, companyColumn);
+                  return (
+                    <td
+                      key={h}
+                      className={`px-3 py-2 whitespace-nowrap text-gray-700 max-w-[200px] truncate ${style.cell}`}
+                      title={row[h]}
+                    >
+                      {row[h] || <span className="text-gray-300">&mdash;</span>}
+                    </td>
+                  );
+                })}
               </tr>
             ))}
           </tbody>
@@ -98,7 +99,7 @@ export function FilePreview({
       {/* Column mapping */}
       <div>
         <h4 className="text-sm font-medium text-gray-700 mb-3">Column Mapping</h4>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           <div>
             <label className="block text-xs font-medium text-blue-700 mb-1">
               Email Column
@@ -116,11 +117,26 @@ export function FilePreview({
           </div>
           <div>
             <label className="block text-xs font-medium text-green-700 mb-1">
-              Name Column
+              First Name Column
             </label>
             <select
               value={nameColumn || ''}
               onChange={e => onNameColumnChange(e.target.value || null)}
+              className="w-full rounded-md border-gray-300 text-sm shadow-sm focus:border-green-500 focus:ring-green-500"
+            >
+              <option value="">Not mapped</option>
+              {headers.map(h => (
+                <option key={h} value={h}>{h}</option>
+              ))}
+            </select>
+          </div>
+          <div>
+            <label className="block text-xs font-medium text-green-700 mb-1">
+              Last Name Column
+            </label>
+            <select
+              value={lastNameColumn || ''}
+              onChange={e => onLastNameColumnChange(e.target.value || null)}
               className="w-full rounded-md border-gray-300 text-sm shadow-sm focus:border-green-500 focus:ring-green-500"
             >
               <option value="">Not mapped</option>
@@ -165,7 +181,7 @@ export function FilePreview({
       ) : (
         <div className="bg-amber-50 border border-amber-200 rounded-md px-4 py-3">
           <p className="text-sm text-amber-800">
-            Map an <strong>email column</strong>, or both <strong>name + company</strong> columns to proceed
+            Map an <strong>email column</strong>, or both <strong>first name + company</strong> columns to proceed
           </p>
         </div>
       )}
