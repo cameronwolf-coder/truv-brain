@@ -7,10 +7,11 @@ interface FieldSelectorProps {
   onFieldsChange: (fields: string[]) => void;
   nameColumn?: string | null;
   companyColumn?: string | null;
+  findEmailMode?: boolean;
 }
 
-export function FieldSelector({ selectedFields, onFieldsChange, nameColumn, companyColumn }: FieldSelectorProps) {
-  const canUseEmailFinder = !!nameColumn && !!companyColumn;
+export function FieldSelector({ selectedFields, onFieldsChange, nameColumn, companyColumn, findEmailMode }: FieldSelectorProps) {
+  const canUseEmailFinder = findEmailMode || (!!nameColumn && !!companyColumn);
   const [activeBundle, setActiveBundle] = useState<FieldBundle | null>(null);
 
   const handleBundleClick = (bundle: FieldBundle) => {

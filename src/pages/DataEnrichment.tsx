@@ -23,6 +23,28 @@ export function DataEnrichment() {
   const [hubspotMatches, setHubspotMatches] = useState<Record<string, { lifecycleStage: string; firstName: string; lastName: string; company: string }>>({});
   const [isCheckingHubSpot, setIsCheckingHubSpot] = useState(false);
 
+  const findEmailMode = !emailColumn && !!(nameColumn && companyColumn);
+
+  const runHubSpotCheck = async (emails: string[]) => {
+    if (emails.length === 0) return;
+    setIsCheckingHubSpot(true);
+    try {
+      const response = await fetch('/api/hubspot-check', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ emails }),
+      });
+      if (response.ok) {
+        const data = await response.json();
+        setHubspotMatches(data.matches || {});
+      }
+    } catch (error) {
+      console.error('HubSpot check failed:', error);
+    } finally {
+      setIsCheckingHubSpot(false);
+    }
+  };
+
   const handleFileUpload = async (file: File) => {
     const parsed = await parseFile(file);
 
@@ -39,30 +61,22 @@ export function DataEnrichment() {
       const emails = parsed.rows
         .map(row => row[parsed.emailColumn!])
         .filter(Boolean);
+      runHubSpotCheck(emails);
+    }
 
-      if (emails.length > 0) {
-        setIsCheckingHubSpot(true);
-        try {
-          const response = await fetch('/api/hubspot-check', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ emails }),
-          });
-          if (response.ok) {
-            const data = await response.json();
-            setHubspotMatches(data.matches || {});
-          }
-        } catch (error) {
-          console.error('HubSpot check failed:', error);
-        } finally {
-          setIsCheckingHubSpot(false);
-        }
-      }
+    // Auto-select work_email when in find-email mode
+    if (!parsed.emailColumn && parsed.nameColumn && parsed.companyColumn) {
+      setSelectedFields(prev =>
+        prev.includes('work_email') ? prev : [...prev, 'work_email']
+      );
     }
   };
 
   const handleStartEnrichment = async () => {
-    if (!emailColumn || csvData.length === 0 || selectedFields.length === 0) {
+    const hasEmailMode = !!emailColumn;
+    const hasFindEmailMode = findEmailMode;
+
+    if ((!hasEmailMode && !hasFindEmailMode) || csvData.length === 0 || selectedFields.length === 0) {
       return;
     }
 
@@ -71,13 +85,13 @@ export function DataEnrichment() {
     setStats({ completed: 0, successful: 0, failed: 0 });
 
     const contacts = csvData.map(row => ({
-      email: row[emailColumn],
+      email: emailColumn ? row[emailColumn] : '',
       ...row,
     }));
 
     // Initialize results with pending status
     const initialResults: EnrichmentResult[] = contacts.map(contact => ({
-      email: contact.email,
+      email: contact.email || (nameColumn ? contact[nameColumn] : '') || 'Unknown',
       original_data: contact,
       enriched_data: {},
       status: 'pending',
@@ -157,9 +171,22 @@ export function DataEnrichment() {
         setStats(prev => ({ ...prev, completed: prev.completed + 1, failed: prev.failed + 1 }));
         break;
 
-      case 'done':
+      case 'done': {
         console.log('Enrichment complete:', event);
+        // If we were in find-email mode, run HubSpot check with discovered emails
+        if (findEmailMode) {
+          setResults(prev => {
+            const foundEmails = prev
+              .map(r => r.enriched_data?.work_email?.value)
+              .filter((v): v is string => typeof v === 'string' && v.includes('@'));
+            if (foundEmails.length > 0) {
+              runHubSpotCheck(foundEmails);
+            }
+            return prev;
+          });
+        }
         break;
+      }
     }
   };
 
@@ -192,7 +219,14 @@ export function DataEnrichment() {
                 <p className="text-sm text-gray-600">
                   {csvData.length} contacts found
                   {emailColumn && ` • Email column: ${emailColumn}`}
+                  {nameColumn && ` • Name column: ${nameColumn}`}
+                  {companyColumn && ` • Company column: ${companyColumn}`}
                 </p>
+                {findEmailMode && (
+                  <p className="text-sm text-blue-600 mt-1 font-medium">
+                    Find Email mode — emails will be discovered from name + company
+                  </p>
+                )}
               </div>
               <button
                 onClick={() => {
@@ -230,6 +264,7 @@ export function DataEnrichment() {
               onFieldsChange={setSelectedFields}
               nameColumn={nameColumn}
               companyColumn={companyColumn}
+              findEmailMode={findEmailMode}
             />
           </div>
 
@@ -240,7 +275,7 @@ export function DataEnrichment() {
                 disabled={selectedFields.length === 0}
                 className="px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 disabled:bg-gray-300 disabled:cursor-not-allowed"
               >
-                Start Enrichment
+                {findEmailMode ? 'Find Emails & Enrich' : 'Start Enrichment'}
               </button>
             </div>
           )}
