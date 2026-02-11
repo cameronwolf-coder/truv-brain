@@ -1,6 +1,7 @@
 import OpenAI from 'openai';
 
 const FIRECRAWL_API_URL = 'https://api.firecrawl.dev/v1';
+const GEMINI_API_KEY = process.env.GEMINI_API_KEY || process.env.GOOGLE_AI_API_KEY;
 const GEMINI_BASE_URL = 'https://generativelanguage.googleapis.com/v1beta/openai/';
 const GEMINI_MODEL = 'gemini-2.0-flash';
 
