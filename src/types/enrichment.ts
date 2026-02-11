@@ -24,7 +24,7 @@ export interface EnrichmentResult {
 
 export interface EnrichmentRequest {
   contacts: Array<{
-    email: string;
+    email?: string;
     [key: string]: any;
   }>;
   fields: string[];

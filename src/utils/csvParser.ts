@@ -18,12 +18,7 @@ export function parseCSV(csvContent: string): ParsedCSV {
   // Parse headers
   const headers = lines[0].split(',').map(h => h.trim().replace(/^"|"$/g, ''));
 
-  // Detect columns
-  const emailColumn = detectEmailColumn(headers);
-  const nameColumn = detectNameColumn(headers);
-  const companyColumn = detectCompanyColumn(headers);
-
-  // Parse rows
+  // Parse rows first so we can use content-based detection
   const rows: Record<string, string>[] = [];
   for (let i = 1; i < lines.length; i++) {
     const values = parseCSVLine(lines[i]);
@@ -35,6 +30,11 @@ export function parseCSV(csvContent: string): ParsedCSV {
     });
     rows.push(row);
   }
+
+  // Detect columns (pass rows for content-based email detection fallback)
+  const emailColumn = detectEmailColumn(headers, rows);
+  const nameColumn = detectNameColumn(headers);
+  const companyColumn = detectCompanyColumn(headers);
 
   return { headers, rows, emailColumn, nameColumn, companyColumn };
 }
@@ -62,7 +62,7 @@ function parseCSVLine(line: string): string[] {
 }
 
 function detectNameColumn(headers: string[]): string | null {
-  const namePatterns = ['name', 'first_name', 'firstname', 'full_name', 'fullname', 'contact_name', 'first name'];
+  const namePatterns = ['name', 'first_name', 'firstname', 'full_name', 'fullname', 'contact_name', 'first name', 'contact', 'person', 'lead name', 'lead_name'];
 
   for (const header of headers) {
     const lowerHeader = header.toLowerCase().trim();
@@ -75,7 +75,7 @@ function detectNameColumn(headers: string[]): string | null {
 }
 
 function detectCompanyColumn(headers: string[]): string | null {
-  const companyPatterns = ['company', 'organization', 'org', 'business', 'account', 'company_name'];
+  const companyPatterns = ['company', 'organization', 'org', 'business', 'account', 'company_name', 'company name', 'employer', 'firm', 'account_name', 'account name'];
 
   for (const header of headers) {
     const lowerHeader = header.toLowerCase().trim();
@@ -87,13 +87,27 @@ function detectCompanyColumn(headers: string[]): string | null {
   return null;
 }
 
-function detectEmailColumn(headers: string[]): string | null {
+function detectEmailColumn(headers: string[], rows?: Record<string, string>[]): string | null {
+  // First try header-based detection
   const emailPatterns = ['email', 'e-mail', 'mail', 'contact'];
 
   for (const header of headers) {
     const lowerHeader = header.toLowerCase();
     if (emailPatterns.some(pattern => lowerHeader.includes(pattern))) {
       return header;
+    }
+  }
+
+  // Fallback: scan first 10 rows for columns containing @ to detect email columns
+  if (rows && rows.length > 0) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const sampleRows = rows.slice(0, 10);
+
+    for (const header of headers) {
+      const matchCount = sampleRows.filter(row => emailRegex.test(row[header] || '')).length;
+      if (matchCount >= sampleRows.length * 0.5) {
+        return header;
+      }
     }
   }
 
@@ -118,7 +132,7 @@ export function parseXLSX(buffer: ArrayBuffer): ParsedCSV {
     return stringRow;
   });
 
-  const emailColumn = detectEmailColumn(headers);
+  const emailColumn = detectEmailColumn(headers, rows);
   const nameColumn = detectNameColumn(headers);
   const companyColumn = detectCompanyColumn(headers);
 

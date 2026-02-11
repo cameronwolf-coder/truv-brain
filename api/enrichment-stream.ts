@@ -443,6 +443,27 @@ async function emailFinderAgent(
   return results;
 }
 
+async function findDomainFromCompany(companyName: string, firecrawlKey: string): Promise<string | null> {
+  try {
+    const searchResults = await searchWithFirecrawl(`${companyName} official website`, firecrawlKey);
+    if (searchResults.length > 0 && searchResults[0].url) {
+      const url = new URL(searchResults[0].url);
+      return url.hostname.replace(/^www\./, '');
+    }
+  } catch {
+    // ignore
+  }
+  return null;
+}
+
+function getContactName(contact: Record<string, any>): string {
+  return contact.name || contact.first_name || contact.firstname || contact.full_name || contact.fullname || contact.contact_name || contact['First Name'] || contact['Name'] || contact['Full Name'] || contact['Contact'] || contact['Lead Name'] || '';
+}
+
+function getCompanyName(contact: Record<string, any>): string {
+  return contact.company || contact.organization || contact.org || contact.business || contact.account || contact.company_name || contact['Company'] || contact['Company Name'] || contact['Organization'] || contact['Account'] || contact['Employer'] || '';
+}
+
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
@@ -474,18 +495,27 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     const contact = contacts[i];
     const contactId = `contact-${i}`;
 
+    const contactName = getContactName(contact);
+    const companyName = getCompanyName(contact);
+    const contactLabel = contact.email || contactName || `Contact ${i + 1}`;
+
     // Send start event
-    res.write(`data: ${JSON.stringify({ type: 'start', contactId, email: contact.email })}\n\n`);
-
-    const domain = extractDomain(contact.email);
-
-    if (!domain) {
-      res.write(`data: ${JSON.stringify({ type: 'error', contactId, error: 'Invalid email format' })}\n\n`);
-      failed++;
-      continue;
-    }
+    res.write(`data: ${JSON.stringify({ type: 'start', contactId, email: contactLabel })}\n\n`);
 
     try {
+      // Resolve domain: from email if available, otherwise from company name
+      let domain = contact.email ? extractDomain(contact.email) : null;
+
+      if (!domain && companyName) {
+        domain = await findDomainFromCompany(companyName, FIRECRAWL_API_KEY);
+      }
+
+      if (!domain) {
+        res.write(`data: ${JSON.stringify({ type: 'error', contactId, error: 'Could not determine company domain' })}\n\n`);
+        failed++;
+        continue;
+      }
+
       // Group fields by agent
       const agentFields: Record<string, string[]> = {
         company: [],
@@ -528,15 +558,11 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
       // Email finder agent uses name + company instead of domain
       if (agentFields.contact.length > 0) {
-        const contactName = contact.name || contact.first_name || contact.firstname || contact.full_name || contact.fullname || contact.contact_name || '';
-        const companyName = contact.company || contact.organization || contact.org || contact.business || contact.account || contact.company_name || '';
-
         if (contactName && companyName) {
           agentPromises.push(
             emailFinderAgent(contactName, companyName, agentFields.contact, GEMINI_API_KEY, FIRECRAWL_API_KEY)
           );
         } else {
-          // Can't run email finder without name + company
           agentFields.contact.forEach(field => {
             agentPromises.push(
               Promise.resolve([{
@@ -583,7 +609,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         type: 'complete',
         contactId,
         data: {
-          email: contact.email,
+          email: contact.email || contactLabel,
           original_data: contact,
           enriched_data: enrichedData,
           status: 'completed',
