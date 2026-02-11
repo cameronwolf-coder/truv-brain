@@ -22,7 +22,7 @@ export function UploadZone({ onFileUpload }: UploadZoneProps) {
     setIsDragging(false);
 
     const file = e.dataTransfer.files[0];
-    if (file && file.name.endsWith('.csv')) {
+    if (file && (file.name.endsWith('.csv') || file.name.endsWith('.xlsx') || file.name.endsWith('.xls'))) {
       onFileUpload(file);
     }
   };
@@ -53,7 +53,7 @@ export function UploadZone({ onFileUpload }: UploadZoneProps) {
       <input
         ref={fileInputRef}
         type="file"
-        accept=".csv"
+        accept=".csv,.xlsx,.xls"
         className="hidden"
         onChange={handleFileChange}
       />
@@ -71,7 +71,7 @@ export function UploadZone({ onFileUpload }: UploadZoneProps) {
             d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
           />
         </svg>
-        <p className="mt-2 text-sm font-medium">Drop your CSV file here</p>
+        <p className="mt-2 text-sm font-medium">Drop your CSV or Excel file here</p>
         <p className="mt-1 text-xs text-gray-500">or click to browse</p>
       </div>
     </div>
