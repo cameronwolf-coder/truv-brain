@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Truv Advantage</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        /* Font Face Definitions */
+        @font-face {
+            font-family: 'Gilroy';
+            src: url('./branding/fonts/Gilroy-Medium.woff2') format('woff2'),
+                url('./branding/fonts/Gilroy-Medium.woff') format('woff');
+            font-weight: 500;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: 'Gilroy';
+            src: url('./branding/fonts/Gilroy-SemiBold.woff2') format('woff2'),
+                url('./branding/fonts/Gilroy-SemiBold.woff') format('woff');
+            font-weight: 700;
+            font-style: normal;
+        }
+
+        :root {
+            --truv-blue: #2C64E3;
+            --truv-dark: #0B0F19;
+            --truv-text: #1E293B;
+            --truv-gray: #64748B;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--truv-text);
+            margin: 0;
+            padding: 0;
+            background-color: #E2E8F0;
+            /* Outer background */
+        }
+
+        /* Strict Letter Size Page */
+        .page {
+            width: 8.5in;
+            height: 11in;
+            background: white;
+            margin: 40px auto;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+        }
+
+        @media print {
+            @page {
+                size: letter portrait;
+                margin: 0;
+            }
+
+            body {
+                background: white;
+                margin: 0;
+            }
+
+            .page {
+                width: 8.5in;
+                height: 11in !important;
+                margin: 0;
+                box-shadow: none;
+            }
+        }
+
+        /* 
+           HEADER ART 
+           Top 30% of the page is the abstract visual.
+        */
+        .header-art {
+            height: 3in;
+            width: 100%;
+            /* Linear Gradient (User Request) */
+            background: linear-gradient(135deg, #0F172A 0%, #1E3A8A 100%);
+            /* Geometric Rounded Bottom - Less Round */
+            border-radius: 0 0 24px 24px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            padding-left: 56px;
+            /* Align with main content */
+            box-sizing: border-box;
+            /* Ensure padding doesn't affect width */
+        }
+
+        .header-title {
+            font-family: 'Gilroy', sans-serif;
+            color: white;
+            font-size: 36px;
+            /* Smaller font as requested */
+            font-weight: 700;
+            margin-top: 0;
+        }
+
+        /* Removed Wave CSS */
+
+        /* Removed Overlay CSS */
+
+        /* LOGO - Floating on top right */
+        .logo-container {
+            position: absolute;
+            top: 40px;
+            right: 40px;
+            z-index: 10;
+        }
+
+        .logo {
+            height: 24px;
+            filter: brightness(0) invert(1);
+            opacity: 0.9;
+        }
+
+        /* 
+           MAIN CONTENT - 2 Column Grid
+        */
+        .main-content {
+            flex: 1;
+            /* Fills remaining space */
+            padding: 40px 56px 60px 56px;
+            display: grid;
+            grid-template-columns: 1fr 1.3fr;
+            /* Left column slightly smaller */
+            gap: 60px;
+        }
+
+        /* LEFT COLUMN: Narrative / High Level */
+        .col-left {
+            display: flex;
+            flex-direction: column;
+        }
+
+        h1 {
+            font-family: 'Gilroy', sans-serif;
+            font-size: 42px;
+            font-weight: 700;
+            color: var(--truv-blue);
+            margin: 0 0 32px 0;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+        }
+
+        .highlight-text {
+            font-family: 'Gilroy', sans-serif;
+            font-size: 18px;
+            line-height: 1.6;
+            color: var(--truv-dark);
+            margin-bottom: 24px;
+            padding-left: 20px;
+            border-left: 3px solid var(--truv-blue);
+        }
+
+        .narrative-p {
+            font-size: 14px;
+            color: var(--truv-gray);
+            line-height: 1.8;
+            margin-bottom: 24px;
+        }
+
+        .stat-block {
+            margin-top: auto;
+            /* Push to bottom of left col */
+        }
+
+        .stat-row {
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px solid #E2E8F0;
+            padding: 12px 0;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--truv-gray);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .stat-val {
+            font-family: 'Gilroy', sans-serif;
+            font-weight: 700;
+            color: var(--truv-blue);
+            font-size: 14px;
+        }
+
+
+        /* RIGHT COLUMN: Detailed Capabilities */
+        .col-right {
+            padding-top: 12px;
+        }
+
+        h2 {
+            font-family: 'Gilroy', sans-serif;
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--truv-gray);
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin: 0 0 32px 0;
+            display: flex;
+            align-items: center;
+        }
+
+        h2::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: #E2E8F0;
+            margin-left: 16px;
+        }
+
+        /* Clean List Design */
+        .capability-group {
+            margin-bottom: 40px;
+        }
+
+        .cap-title {
+            font-family: 'Gilroy', sans-serif;
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--truv-dark);
+            margin: 0 0 12px 0;
+        }
+
+        .cap-desc {
+            font-size: 14px;
+            color: var(--truv-text);
+            line-height: 1.6;
+            margin-bottom: 16px;
+        }
+
+        .feature-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: baseline;
+            gap: 10px;
+            font-size: 13px;
+            color: var(--truv-gray);
+            margin-bottom: 8px;
+        }
+
+        .bullet {
+            color: var(--truv-blue);
+            font-size: 10px;
+        }
+
+        /* Tech Specs Mini-Grid at bottom right */
+        .tech-specs {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin-top: 40px;
+            border-top: 1px solid #E2E8F0;
+            padding-top: 24px;
+        }
+
+        .spec-item strong {
+            display: block;
+            font-size: 11px;
+            color: var(--truv-gray);
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+
+        .spec-item span {
+            font-family: 'Gilroy', sans-serif;
+            font-weight: 600;
+            color: var(--truv-dark);
+            font-size: 13px;
+        }
+
+        /* FOOTER */
+        .footer {
+            padding: 0 56px 40px 56px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 11px;
+            color: #94A3B8;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .page-num {
+            font-weight: 600;
+            color: var(--truv-blue);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="page">
+        <div class="header-art">
+            <div class="logo-container">
+                <img src="./branding/logos/logo-truv.svg" class="logo" alt="Truv">
+            </div>
+            <div class="header-title">Features and Benefits</div>
+        </div>
+
+        <div class="main-content">
+
+            <!-- LEFT: Narrative -->
+            <div class="col-left">
+                <h1>The Truv Advantage</h1>
+
+                <div class="highlight-text">
+                    "The primary goal of this platform is to verify income, employment, and assets with 100% data
+                    integrity."
+                </div>
+
+                <p class="narrative-p">
+                    Traditional verification methods are manual, slow, and prone to fraud. Truv replaces these outdated
+                    waterfalls with a single, direct-to-source connection. By connecting to 45+ payroll providers and
+                    13,000+ financial institutions, we empower lenders to make decisions in seconds, not days.
+                </p>
+
+                <p class="narrative-p">
+                    Our platform is built for speed and security, ensuring that every data point retrieved is verified
+                    directly from the source—eliminating the risk of manipulated documents.
+                </p>
+
+                <div class="stat-block">
+                    <div class="stat-row">
+                        <span class="stat-label">Cost Savings</span>
+                        <span class="stat-val">80%</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Margin Increase</span>
+                        <span class="stat-val">$350 / Loan</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Workforce Coverage</span>
+                        <span class="stat-val">96%</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RIGHT: Capabilities -->
+            <div class="col-right">
+
+                <h2>Capabilities Overview</h2>
+
+                <div class="capability-group">
+                    <h3 class="cap-title">Income & Employment (VOIE)</h3>
+                    <p class="cap-desc">Direct access to payroll data for real-time verification of income, employment
+                        status, and pay history.</p>
+                    <ul class="feature-list">
+                        <li class="feature-item"><span class="bullet">●</span> 45+ Payroll Integrations (ADP, Workday,
+                            etc.)</li>
+                        <li class="feature-item"><span class="bullet">●</span> Live data pull (No 60-day stale records)
+                        </li>
+                        <li class="feature-item"><span class="bullet">●</span> PDF Paystub generation included</li>
+                    </ul>
+                </div>
+
+                <div class="capability-group">
+                    <h3 class="cap-title">Asset Verification (VOA)</h3>
+                    <p class="cap-desc">A complete view of borrower assets, transaction history, and cash flow for
+                        smarter underwriting.</p>
+                    <ul class="feature-list">
+                        <li class="feature-item"><span class="bullet">●</span> 12-24 months of transaction history</li>
+                        <li class="feature-item"><span class="bullet">●</span> Automated Cash Flow Analysis (CFA)</li>
+                        <li class="feature-item"><span class="bullet">●</span> 100% Fraud detection on bank data</li>
+                    </ul>
+                </div>
+
+                <div class="tech-specs">
+                    <div class="spec-item">
+                        <strong>API Speed</strong>
+                        <span>&lt; 2 Seconds</span>
+                    </div>
+                    <div class="spec-item">
+                        <strong>Integrations</strong>
+                        <span>Encompass, nCino</span>
+                    </div>
+                    <div class="spec-item">
+                        <strong>Security</strong>
+                        <span>SOC 2 Type II</span>
+                    </div>
+                    <div class="spec-item">
+                        <strong>Uptime</strong>
+                        <span>99.9% SLA</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="footer">
+            <span>Truv Inc. Confidential</span>
+            <span class="page-num">01 / OVERVIEW</span>
+        </div>
+    </div>
+
+</body>
+
+</html>

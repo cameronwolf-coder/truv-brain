@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Truv Product Specification</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --truv-blue: #2C64E3;
+            --truv-dark: #171717;
+            --truv-gray: #3C3C43;
+            --truv-light-gray: #F5F7FA;
+            --truv-border: #E5E7EB;
+        }
+
+        * {
+            box-sizing: border-box;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--truv-dark);
+            line-height: 1.5;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+
+        .page-container {
+            width: 800px; /* Letter width approx */
+            margin: 40px auto;
+            background: white;
+            padding: 48px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            min-height: 1000px;
+        }
+
+        /* Print Styles */
+        @media print {
+            body {
+                background: white;
+            }
+            .page-container {
+                width: 100%;
+                margin: 0;
+                box-shadow: none;
+                padding: 0;
+            }
+        }
+
+        /* Header */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+            padding-bottom: 24px;
+            border-bottom: 2px solid var(--truv-border);
+        }
+
+        .logo {
+            height: 32px;
+        }
+
+        .doc-label {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--truv-gray);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* Hero */
+        .hero {
+            margin-bottom: 40px;
+        }
+
+        h1 {
+            font-size: 32px;
+            font-weight: 700;
+            margin: 0 0 16px 0;
+            letter-spacing: -0.02em;
+        }
+
+        .tagline {
+            font-size: 18px;
+            color: var(--truv-gray);
+            font-weight: 400;
+            max-width: 90%;
+        }
+
+        /* Metrics Grid */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+            margin-bottom: 48px;
+            background: var(--truv-light-gray);
+            padding: 24px;
+            border-radius: 12px;
+        }
+
+        .metric-card h3 {
+            color: var(--truv-blue);
+            font-size: 28px;
+            font-weight: 700;
+            margin: 0 0 4px 0;
+        }
+
+        .metric-card p {
+            font-size: 13px;
+            color: var(--truv-gray);
+            margin: 0;
+            font-weight: 500;
+        }
+
+        /* Section Styling */
+        .section {
+            margin-bottom: 40px;
+        }
+
+        .section-title {
+            font-size: 14px;
+            color: var(--truv-blue);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 16px;
+            display: block;
+        }
+
+        /* Capabilities Grid */
+        .capabilities-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 32px;
+        }
+
+        .capability-item {
+            margin-bottom: 24px;
+        }
+
+        .capability-item h4 {
+            font-size: 16px;
+            font-weight: 700;
+            margin: 0 0 8px 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .capability-item p {
+            font-size: 14px;
+            color: var(--truv-gray);
+            margin: 0;
+        }
+
+        /* Technical Specs Table */
+        .tech-specs {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .tech-specs td {
+            padding: 12px 0;
+            border-bottom: 1px solid var(--truv-border);
+            font-size: 14px;
+        }
+
+        .tech-specs td:first-child {
+            font-weight: 600;
+            width: 30%;
+            color: var(--truv-dark);
+        }
+
+        .tech-specs td:last-child {
+            color: var(--truv-gray);
+        }
+
+        /* Footer */
+        footer {
+            margin-top: 60px;
+            padding-top: 24px;
+            border-top: 2px solid var(--truv-border);
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            color: var(--truv-gray);
+        }
+
+        .footer-link {
+            color: var(--truv-blue);
+            text-decoration: none;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+
+<div class="page-container">
+    <header>
+        <img src="./branding/logos/logo-truv.svg" alt="Truv Logo" class="logo">
+        <span class="doc-label">Product Specification</span>
+    </header>
+
+    <div class="hero">
+        <h1>Consumer Permissioned Data Platform</h1>
+        <p class="tagline">
+            Truv connects directly to 45+ payroll providers and 13,000+ financial institutions to verify income, employment, and assets in real-time.
+        </p>
+    </div>
+
+    <div class="metrics-grid">
+        <div class="metric-card">
+            <h3>96%</h3>
+            <p>Workforce Coverage</p>
+        </div>
+        <div class="metric-card">
+            <h3>30s</h3>
+            <p>Verification Speed</p>
+        </div>
+        <div class="metric-card">
+            <h3>70%+</h3>
+            <p>Conversion Rate</p>
+        </div>
+        <div class="metric-card">
+            <h3>80%</h3>
+            <p>Cost Savings</p>
+        </div>
+    </div>
+
+    <div class="section">
+        <span class="section-title">Core Capabilities</span>
+        <div class="capabilities-grid">
+            <div>
+                <div class="capability-item">
+                    <h4>Income & Employment (VOIE)</h4>
+                    <p>Real-time verification directly from payroll sources including ADP, Workday, and Gusto. Includes paystub OCR fallback with 99.99% fraud detection.</p>
+                </div>
+                <div class="capability-item">
+                    <h4>Assets (VOA)</h4>
+                    <p>Direct connection to bank accounts for balance checks, transaction history (up to 24mo), and cash flow analysis.</p>
+                </div>
+            </div>
+            <div>
+                <div class="capability-item">
+                    <h4>Insurance (VOHI)</h4>
+                    <p>Automated verification of home and rental insurance policies, extracting declarations pages in minutes.</p>
+                </div>
+                <div class="capability-item">
+                    <h4>Switch (Primacy)</h4>
+                    <p>Automated direct deposit switching to establish primary banking relationships and increase deposit growth.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <span class="section-title">Technical Specifications</span>
+        <table class="tech-specs">
+            <tr>
+                <td>Integration Methods</td>
+                <td>API, Web SDK, Mobile SDK (iOS/Android)</td>
+            </tr>
+            <tr>
+                <td>Security</td>
+                <td>SOC 2 Type II, ISO 27001, FCRA Compliant</td>
+            </tr>
+            <tr>
+                <td>Data Latency</td>
+                <td>Real-time (API response &lt;2 seconds)</td>
+            </tr>
+            <tr>
+                <td>Key Integrations</td>
+                <td>Encompass, nCino, Black Knight, BeSmartee, Fannie Mae DU</td>
+            </tr>
+            <tr>
+                <td>Uptime SLA</td>
+                <td>99.9% Availability</td>
+            </tr>
+        </table>
+    </div>
+
+    <footer>
+        <div>&copy; 2025 Truv. All rights reserved.</div>
+        <div>
+            <a href="https://truv.com" class="footer-link">truv.com</a> &nbsp;|&nbsp; 
+            <a href="mailto:sales@truv.com" class="footer-link">sales@truv.com</a>
+        </div>
+    </footer>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,1248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campaign Launcher — How It Works</title>
+
+    <style>
+        @font-face {
+            font-family: 'Gilroy';
+            src: url('https://hs-19933594.f.hubspotemail.net/hubfs/19933594/Truv/Font%20Gilroy/Gilroy-Medium.woff2') format('woff2'),
+                 url('https://hs-19933594.f.hubspotemail.net/hubfs/19933594/Truv/Font%20Gilroy/Gilroy-Medium.woff') format('woff');
+            font-weight: 500;
+            font-style: normal;
+        }
+        @font-face {
+            font-family: 'Gilroy';
+            src: url('https://hs-19933594.f.hubspotemail.net/hubfs/19933594/Truv/Font%20Gilroy/Gilroy-Bold.woff2') format('woff2'),
+                 url('https://hs-19933594.f.hubspotemail.net/hubfs/19933594/Truv/Font%20Gilroy/Gilroy-Bold.woff') format('woff');
+            font-weight: 700;
+            font-style: normal;
+        }
+    </style>
+
+    <style>
+        /* ===========================================
+           THEME — Truv Brand
+           =========================================== */
+        :root {
+            --truv-blue: #2c64e3;
+            --truv-blue-glow: rgba(44, 100, 227, 0.2);
+            --truv-blue-subtle: rgba(44, 100, 227, 0.07);
+            --truv-navy: #0f1c47;
+            --truv-light-blue: #c5d9f7;
+
+            --bg-primary: #070b1a;
+            --bg-card: rgba(15, 28, 71, 0.45);
+            --text-primary: #ffffff;
+            --text-secondary: #8b9cc7;
+            --text-muted: #4a5a82;
+            --accent: #2c64e3;
+            --accent-green: #34d399;
+            --accent-amber: #fbbf24;
+            --accent-rose: #fb7185;
+            --border-color: rgba(44, 100, 227, 0.15);
+
+            --font-display: 'Gilroy', system-ui, sans-serif;
+            --font-body: 'Gilroy', system-ui, sans-serif;
+            --title-size: clamp(2rem, 5.5vw, 4.5rem);
+            --h2-size: clamp(1.5rem, 3.5vw, 2.75rem);
+            --h3-size: clamp(1.1rem, 2vw, 1.5rem);
+            --body-size: clamp(0.85rem, 1.4vw, 1.1rem);
+            --small-size: clamp(0.7rem, 1vw, 0.875rem);
+
+            --slide-padding: clamp(1.5rem, 5vw, 5rem);
+            --content-gap: clamp(0.75rem, 2vw, 2rem);
+            --element-gap: clamp(0.4rem, 1vw, 0.75rem);
+
+            --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+            --duration: 0.7s;
+        }
+
+        /* ===========================================
+           RESET & BASE
+           =========================================== */
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html {
+            height: 100%;
+            overflow-x: hidden;
+            scroll-snap-type: y mandatory;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            height: 100%;
+            -webkit-font-smoothing: antialiased;
+            font-weight: 500;
+        }
+
+        /* ===========================================
+           SLIDE SYSTEM
+           =========================================== */
+        .slide {
+            width: 100vw;
+            height: 100vh;
+            height: 100dvh;
+            overflow: hidden;
+            scroll-snap-align: start;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .slide-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            max-height: 100%;
+            overflow: hidden;
+            padding: var(--slide-padding);
+            position: relative;
+            z-index: 2;
+        }
+
+        /* ===========================================
+           BACKGROUNDS
+           =========================================== */
+        .bg-grid {
+            position: absolute; inset: 0;
+            background-image:
+                linear-gradient(rgba(44, 100, 227, 0.035) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(44, 100, 227, 0.035) 1px, transparent 1px);
+            background-size: 60px 60px;
+            z-index: 0;
+        }
+
+        .bg-glow {
+            position: absolute; inset: 0;
+            background: radial-gradient(ellipse at 30% 50%, rgba(44, 100, 227, 0.12) 0%, transparent 60%),
+                        radial-gradient(ellipse at 70% 80%, rgba(44, 100, 227, 0.06) 0%, transparent 50%);
+            z-index: 1;
+        }
+
+        .bg-glow-subtle {
+            position: absolute; inset: 0;
+            background: radial-gradient(ellipse at 50% 0%, rgba(44, 100, 227, 0.06) 0%, transparent 70%);
+            z-index: 1;
+        }
+
+        /* ===========================================
+           TYPOGRAPHY
+           =========================================== */
+        h1 {
+            font-family: var(--font-display);
+            font-size: var(--title-size);
+            font-weight: 700;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+        }
+
+        h2 {
+            font-family: var(--font-display);
+            font-size: var(--h2-size);
+            font-weight: 700;
+            line-height: 1.15;
+            letter-spacing: -0.01em;
+        }
+
+        h3 {
+            font-family: var(--font-display);
+            font-size: var(--h3-size);
+            font-weight: 700;
+            line-height: 1.3;
+        }
+
+        .subtitle {
+            font-size: var(--body-size);
+            color: var(--text-secondary);
+            line-height: 1.65;
+            max-width: 640px;
+        }
+
+        .step-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: var(--small-size);
+            font-weight: 700;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: clamp(6px, 1vw, 12px);
+        }
+
+        .step-label .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--accent);
+        }
+
+        /* ===========================================
+           PIPELINE (visual overview)
+           =========================================== */
+        .pipeline {
+            display: flex;
+            align-items: stretch;
+            gap: clamp(6px, 0.8vw, 12px);
+            width: 100%;
+            max-width: 1100px;
+        }
+
+        .pipe-card {
+            flex: 1;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: clamp(10px, 1.2vw, 16px);
+            padding: clamp(12px, 1.8vw, 24px) clamp(10px, 1.2vw, 16px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: clamp(6px, 0.8vw, 10px);
+            transition: border-color 0.3s, background 0.3s, transform 0.3s;
+        }
+
+        .pipe-card:hover {
+            border-color: var(--accent);
+            background: rgba(44, 100, 227, 0.08);
+            transform: translateY(-2px);
+        }
+
+        .pipe-card .pipe-icon {
+            font-size: clamp(1.5rem, 2.5vw, 2.2rem);
+            line-height: 1;
+        }
+
+        .pipe-card .pipe-name {
+            font-size: clamp(0.7rem, 1vw, 0.9rem);
+            font-weight: 700;
+            color: var(--text-primary);
+            line-height: 1.2;
+        }
+
+        .pipe-card .pipe-desc {
+            font-size: clamp(0.6rem, 0.8vw, 0.75rem);
+            color: var(--text-secondary);
+            line-height: 1.4;
+        }
+
+        .pipe-arrow {
+            display: flex;
+            align-items: center;
+            color: var(--text-muted);
+            font-size: clamp(0.8rem, 1vw, 1rem);
+            flex-shrink: 0;
+        }
+
+        /* ===========================================
+           INFO CARDS (friendly data display)
+           =========================================== */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+            gap: clamp(10px, 1.5vw, 18px);
+            width: 100%;
+            max-width: 1000px;
+        }
+
+        .info-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: clamp(10px, 1.2vw, 16px);
+            padding: clamp(16px, 2vw, 28px);
+            display: flex;
+            flex-direction: column;
+            gap: clamp(6px, 0.8vw, 10px);
+            transition: border-color 0.3s, transform 0.3s;
+        }
+
+        .info-card:hover {
+            border-color: rgba(44, 100, 227, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .info-card .card-icon {
+            font-size: clamp(1.3rem, 2vw, 1.8rem);
+        }
+
+        .info-card .card-title {
+            font-size: clamp(0.8rem, 1.1vw, 1rem);
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .info-card .card-body {
+            font-size: var(--small-size);
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .info-card .card-stat {
+            font-size: clamp(1.5rem, 3vw, 2.5rem);
+            font-weight: 700;
+            color: var(--accent);
+            line-height: 1;
+        }
+
+        .info-card .card-stat.green { color: var(--accent-green); }
+
+        /* ===========================================
+           BADGE / TAG
+           =========================================== */
+        .tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: var(--small-size);
+            color: var(--accent);
+            background: var(--truv-blue-subtle);
+            border: 1px solid var(--border-color);
+            border-radius: 100px;
+            padding: 5px 16px;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+        }
+
+        .tag::before {
+            content: '';
+            width: 7px; height: 7px;
+            border-radius: 50%;
+            background: var(--accent);
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            font-size: clamp(0.6rem, 0.8vw, 0.75rem);
+            font-weight: 700;
+            padding: 4px 12px;
+            border-radius: 6px;
+        }
+
+        .badge-green { color: var(--accent-green); background: rgba(52, 211, 153, 0.1); border: 1px solid rgba(52, 211, 153, 0.2); }
+        .badge-blue { color: var(--accent); background: var(--truv-blue-subtle); border: 1px solid var(--border-color); }
+        .badge-amber { color: var(--accent-amber); background: rgba(251, 191, 36, 0.08); border: 1px solid rgba(251, 191, 36, 0.15); }
+
+        /* ===========================================
+           CONTACT CARDS (friendly contact display)
+           =========================================== */
+        .contact-row {
+            display: flex;
+            align-items: center;
+            gap: clamp(10px, 1.5vw, 16px);
+            padding: clamp(8px, 1vw, 12px) clamp(12px, 1.5vw, 18px);
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            transition: border-color 0.2s;
+        }
+
+        .contact-row:hover { border-color: rgba(44, 100, 227, 0.3); }
+
+        .contact-avatar {
+            width: clamp(32px, 3.5vw, 42px);
+            height: clamp(32px, 3.5vw, 42px);
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--truv-navy), var(--accent));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: clamp(0.7rem, 1vw, 0.9rem);
+            font-weight: 700;
+            color: #fff;
+            flex-shrink: 0;
+        }
+
+        .contact-info { flex: 1; min-width: 0; }
+
+        .contact-name {
+            font-size: clamp(0.75rem, 1.1vw, 0.95rem);
+            font-weight: 700;
+            color: var(--text-primary);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .contact-detail {
+            font-size: clamp(0.6rem, 0.85vw, 0.78rem);
+            color: var(--text-secondary);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .contact-engagement {
+            display: flex;
+            gap: clamp(8px, 1.2vw, 14px);
+            flex-shrink: 0;
+        }
+
+        .engagement-stat {
+            text-align: center;
+        }
+
+        .engagement-stat .es-value {
+            font-size: clamp(0.85rem, 1.2vw, 1.1rem);
+            font-weight: 700;
+            color: var(--accent);
+        }
+
+        .engagement-stat .es-label {
+            font-size: clamp(0.5rem, 0.65vw, 0.6rem);
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+        }
+
+        .contact-list {
+            display: flex;
+            flex-direction: column;
+            gap: clamp(6px, 0.8vw, 8px);
+            width: 100%;
+            max-width: 700px;
+        }
+
+        /* ===========================================
+           FLOW DIAGRAM (visual arrows)
+           =========================================== */
+        .flow {
+            display: flex;
+            align-items: center;
+            gap: clamp(10px, 1.5vw, 20px);
+            flex-wrap: wrap;
+        }
+
+        .flow-node {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: clamp(10px, 1.5vw, 16px) clamp(14px, 2vw, 24px);
+            text-align: center;
+        }
+
+        .flow-node .fn-icon { font-size: clamp(1.2rem, 2vw, 1.6rem); margin-bottom: 4px; }
+        .flow-node .fn-label { font-size: clamp(0.65rem, 0.85vw, 0.8rem); font-weight: 700; color: var(--text-primary); }
+        .flow-node .fn-detail { font-size: clamp(0.55rem, 0.7vw, 0.65rem); color: var(--text-secondary); margin-top: 2px; }
+
+        .flow-arrow {
+            color: var(--accent);
+            font-size: clamp(1rem, 1.5vw, 1.3rem);
+            flex-shrink: 0;
+        }
+
+        /* ===========================================
+           EMAIL PREVIEW
+           =========================================== */
+        .email-preview {
+            background: #ffffff;
+            border-radius: 14px;
+            max-width: 300px;
+            overflow: hidden;
+            box-shadow: 0 12px 50px rgba(0,0,0,0.45);
+            flex-shrink: 0;
+        }
+
+        .ep-hero {
+            background: linear-gradient(180deg, #0a1232 0%, #162257 50%, #1e3a6e 100%);
+            padding: clamp(16px, 2.5vw, 28px);
+            text-align: center;
+        }
+
+        .ep-hero .ep-badge {
+            display: inline-block; background: #2c64e3; color: #fff;
+            font-size: 8px; font-weight: 700; letter-spacing: 0.1em;
+            text-transform: uppercase; padding: 3px 10px; border-radius: 50px; margin-bottom: 10px;
+        }
+
+        .ep-hero h4 { color: #fff; font-size: clamp(0.75rem, 1.2vw, 1rem); font-weight: 700; margin-bottom: 6px; }
+        .ep-hero p { color: #c5d9f7; font-size: clamp(0.55rem, 0.75vw, 0.65rem); line-height: 1.5; }
+
+        .ep-body { padding: clamp(14px, 2vw, 22px); }
+        .ep-body .ep-greeting { color: #171717; font-size: clamp(0.65rem, 0.9vw, 0.8rem); font-weight: 700; margin-bottom: 8px; }
+        .ep-body .ep-text { color: #555; font-size: clamp(0.55rem, 0.75vw, 0.65rem); line-height: 1.6; margin-bottom: 12px; }
+        .ep-body .ep-btn {
+            display: inline-block; background: #2c64e3; color: #fff;
+            font-size: clamp(0.55rem, 0.75vw, 0.65rem); font-weight: 700;
+            padding: 8px 20px; border-radius: 50px; text-decoration: none;
+        }
+
+        .ep-footer { background: #f5f5f5; padding: 10px; text-align: center; border-radius: 0 0 14px 14px; }
+        .ep-footer p { color: #878a92; font-size: 7px; }
+
+        /* Two column layout */
+        .two-col { display: flex; align-items: center; gap: clamp(24px, 5vw, 70px); }
+        .two-col .col-text { flex: 1; min-width: 0; }
+        .two-col .col-visual { flex-shrink: 0; }
+
+        @media (max-width: 768px) {
+            .two-col { flex-direction: column; }
+            .two-col .col-visual { display: none; }
+        }
+
+        /* ===========================================
+           BULLET LIST (friendly)
+           =========================================== */
+        .friendly-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: clamp(8px, 1.2vw, 14px);
+            padding: 0;
+        }
+
+        .friendly-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: clamp(8px, 1vw, 12px);
+            font-size: var(--body-size);
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        .friendly-list li .li-icon {
+            font-size: clamp(1rem, 1.4vw, 1.2rem);
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+
+        .friendly-list li strong { color: var(--text-primary); }
+
+        /* ===========================================
+           SUMMARY SECTION
+           =========================================== */
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr));
+            gap: clamp(10px, 1.5vw, 16px);
+            width: 100%;
+            max-width: 900px;
+        }
+
+        .summary-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: clamp(10px, 1.2vw, 14px);
+            padding: clamp(14px, 2vw, 22px);
+            display: flex;
+            flex-direction: column;
+            gap: clamp(4px, 0.6vw, 8px);
+            text-align: center;
+        }
+
+        .summary-card .sc-icon { font-size: clamp(1.4rem, 2.2vw, 1.8rem); }
+        .summary-card .sc-label { font-size: clamp(0.6rem, 0.8vw, 0.72rem); color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; font-weight: 700; }
+        .summary-card .sc-value { font-size: clamp(0.85rem, 1.2vw, 1.05rem); font-weight: 700; color: var(--text-primary); }
+        .summary-card .sc-detail { font-size: clamp(0.55rem, 0.7vw, 0.65rem); color: var(--text-secondary); }
+
+        /* ===========================================
+           ANIMATIONS
+           =========================================== */
+        .reveal {
+            opacity: 0; transform: translateY(20px);
+            transition: opacity var(--duration) var(--ease-out-expo), transform var(--duration) var(--ease-out-expo);
+        }
+        .reveal-scale {
+            opacity: 0; transform: scale(0.95);
+            transition: opacity var(--duration) var(--ease-out-expo), transform var(--duration) var(--ease-out-expo);
+        }
+
+        .slide.visible .reveal, .slide.visible .reveal-scale {
+            opacity: 1; transform: translateY(0) scale(1);
+        }
+
+        .slide.visible .reveal:nth-child(1), .slide.visible .reveal-scale:nth-child(1) { transition-delay: 0.05s; }
+        .slide.visible .reveal:nth-child(2), .slide.visible .reveal-scale:nth-child(2) { transition-delay: 0.12s; }
+        .slide.visible .reveal:nth-child(3), .slide.visible .reveal-scale:nth-child(3) { transition-delay: 0.19s; }
+        .slide.visible .reveal:nth-child(4), .slide.visible .reveal-scale:nth-child(4) { transition-delay: 0.26s; }
+        .slide.visible .reveal:nth-child(5), .slide.visible .reveal-scale:nth-child(5) { transition-delay: 0.33s; }
+        .slide.visible .reveal:nth-child(6), .slide.visible .reveal-scale:nth-child(6) { transition-delay: 0.40s; }
+        .slide.visible .reveal:nth-child(7) { transition-delay: 0.47s; }
+
+        /* ===========================================
+           PROGRESS BAR
+           =========================================== */
+        .progress-bar {
+            position: fixed; top: 0; left: 0; height: 3px;
+            background: var(--accent); z-index: 1000;
+            transition: width 0.3s ease;
+            box-shadow: 0 0 12px var(--truv-blue-glow);
+        }
+
+        /* ===========================================
+           NAV
+           =========================================== */
+        .nav-dots {
+            position: fixed; right: clamp(12px, 2vw, 24px); top: 50%; transform: translateY(-50%);
+            display: flex; flex-direction: column; gap: 10px; z-index: 100;
+        }
+        .nav-dot {
+            width: 9px; height: 9px; border-radius: 50%;
+            background: var(--text-muted); cursor: pointer;
+            transition: all 0.3s ease; border: none; padding: 0;
+        }
+        .nav-dot:hover { background: var(--text-secondary); transform: scale(1.4); }
+        .nav-dot.active { background: var(--accent); box-shadow: 0 0 10px var(--truv-blue-glow); }
+
+        .truv-logo {
+            position: fixed; top: clamp(12px, 2vw, 24px); left: clamp(12px, 2.5vw, 28px);
+            z-index: 100; opacity: 0.5; transition: opacity 0.3s;
+        }
+        .truv-logo:hover { opacity: 1; }
+        .truv-logo img { height: clamp(16px, 2vw, 22px); width: auto; }
+
+        .keyboard-hint {
+            position: fixed; bottom: clamp(12px, 2vw, 24px); left: 50%; transform: translateX(-50%);
+            font-size: clamp(0.6rem, 0.75vw, 0.72rem); color: var(--text-muted); z-index: 100;
+            display: flex; align-items: center; gap: 14px; opacity: 0.4; transition: opacity 0.3s;
+        }
+        .keyboard-hint:hover { opacity: 0.8; }
+        .key {
+            display: inline-flex; align-items: center; justify-content: center;
+            min-width: 24px; height: 22px; padding: 0 7px;
+            background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 5px; font-size: 0.8em;
+        }
+
+        /* ===========================================
+           RESPONSIVE
+           =========================================== */
+        @media (max-height: 700px) {
+            :root {
+                --slide-padding: clamp(1rem, 3.5vw, 3rem);
+                --content-gap: clamp(0.5rem, 1.5vw, 1.25rem);
+                --title-size: clamp(1.5rem, 5vw, 3rem);
+                --h2-size: clamp(1.25rem, 3vw, 2rem);
+            }
+        }
+        @media (max-height: 600px) {
+            :root {
+                --slide-padding: clamp(0.75rem, 3vw, 2rem);
+                --content-gap: clamp(0.4rem, 1vw, 0.75rem);
+                --title-size: clamp(1.25rem, 4.5vw, 2.5rem);
+                --body-size: clamp(0.7rem, 1.1vw, 0.9rem);
+            }
+            .nav-dots, .keyboard-hint { display: none; }
+        }
+        @media (max-height: 500px) {
+            :root {
+                --slide-padding: clamp(0.5rem, 2vw, 1rem);
+                --title-size: clamp(1rem, 3.5vw, 1.75rem);
+                --h2-size: clamp(0.9rem, 2.5vw, 1.25rem);
+                --body-size: clamp(0.65rem, 1vw, 0.8rem);
+            }
+        }
+        @media (max-width: 768px) {
+            .pipeline { flex-wrap: wrap; }
+            .pipe-card { min-width: calc(33% - 12px); }
+            .pipe-arrow { display: none; }
+            .summary-grid { grid-template-columns: 1fr 1fr; }
+        }
+        @media (max-width: 480px) {
+            .pipe-card { min-width: calc(50% - 6px); }
+            .summary-grid { grid-template-columns: 1fr; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.2s !important; }
+            html { scroll-behavior: auto; }
+        }
+
+        /* ===========================================
+           PRINT / PDF EXPORT
+           Forces all content visible, kills animations,
+           prevents clipping
+           =========================================== */
+        @media print {
+            *, *::before, *::after {
+                transition: none !important;
+                animation: none !important;
+            }
+            .reveal, .reveal-scale, .reveal-left,
+            .type-line, [class*="reveal"] {
+                opacity: 1 !important;
+                transform: none !important;
+                filter: none !important;
+            }
+            html {
+                scroll-snap-type: none;
+                height: auto;
+                overflow: visible;
+            }
+            body {
+                height: auto;
+                overflow: visible;
+            }
+            .slide {
+                page-break-after: always;
+                break-after: page;
+                overflow: hidden;
+            }
+            .nav-dots, .keyboard-hint, .progress-bar, .truv-logo {
+                display: none !important;
+            }
+            h1 {
+                font-size: clamp(1.8rem, 5vw, 3.5rem) !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="progress-bar" id="progressBar"></div>
+    <a class="truv-logo" href="https://truv.com" target="_blank">
+        <img src="https://res.cloudinary.com/dc0r5pclf/image/upload/v1768234665/logo-truv-white_s1kr8v.svg" alt="Truv">
+    </a>
+    <nav class="nav-dots" id="navDots"></nav>
+    <div class="keyboard-hint">
+        <span><span class="key">&uarr;</span> <span class="key">&darr;</span> navigate</span>
+        <span><span class="key">Space</span> next</span>
+    </div>
+
+    <!-- =============================================
+         SLIDE 1: TITLE
+         ============================================= -->
+    <section class="slide" data-title="Title">
+        <div class="bg-grid"></div>
+        <div class="bg-glow"></div>
+        <div class="slide-content" style="align-items: center; text-align: center;">
+            <div class="reveal" style="margin-bottom: clamp(10px, 1.5vw, 18px);">
+                <span class="tag">Campaign Launcher</span>
+            </div>
+            <h1 class="reveal" style="margin-bottom: clamp(10px, 1.5vw, 20px);">
+                From Audience to Inbox<br>
+                <span style="color: var(--truv-light-blue);">in One Conversation</span>
+            </h1>
+            <p class="subtitle reveal" style="text-align: center; margin: 0 auto;">
+                Tell the AI who you want to reach and what you want to say. It handles the rest &mdash; finding contacts, building the email, and setting up the send &mdash; with your approval at every step.
+            </p>
+            <div class="reveal" style="margin-top: clamp(14px, 2.5vw, 30px); display: flex; gap: 14px; align-items: center;">
+                <span class="badge badge-green">Live Walkthrough</span>
+                <span style="font-size: var(--small-size); color: var(--text-muted);">Feb 2026</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- =============================================
+         SLIDE 2: THE PROBLEM
+         ============================================= -->
+    <section class="slide" data-title="Problem">
+        <div class="bg-grid"></div>
+        <div class="bg-glow-subtle"></div>
+        <div class="slide-content">
+            <div class="step-label reveal"><div class="dot"></div> The Problem</div>
+            <h2 class="reveal" style="margin-bottom: var(--content-gap);">Launching a campaign takes 5+ tools and hours of manual work</h2>
+
+            <div class="info-grid reveal-scale" style="max-width: 900px; transition-delay: 0.2s;">
+                <div class="info-card">
+                    <div class="card-icon">&#128270;</div>
+                    <div class="card-title">Find the audience</div>
+                    <div class="card-body">Search HubSpot, apply filters, export contacts, clean the list&hellip;</div>
+                </div>
+                <div class="info-card">
+                    <div class="card-icon">&#9993;&#65039;</div>
+                    <div class="card-title">Build the email</div>
+                    <div class="card-body">Design HTML, match brand guidelines, upload to SendGrid&hellip;</div>
+                </div>
+                <div class="info-card">
+                    <div class="card-icon">&#128268;</div>
+                    <div class="card-title">Wire the systems</div>
+                    <div class="card-body">Connect Knock workflow, set up webhook, configure pacing&hellip;</div>
+                </div>
+            </div>
+
+            <p class="subtitle reveal" style="margin-top: clamp(14px, 2vw, 24px); max-width: 700px;">
+                <strong style="color: var(--text-primary);">Campaign Launcher does all of this in a single conversation.</strong> You describe the audience and the email. It orchestrates HubSpot, Knock, and SendGrid &mdash; and asks for your OK before each step.
+            </p>
+        </div>
+    </section>
+
+    <!-- =============================================
+         SLIDE 3: THE PIPELINE (visual)
+         ============================================= -->
+    <section class="slide" data-title="How It Works">
+        <div class="bg-grid"></div>
+        <div class="bg-glow-subtle"></div>
+        <div class="slide-content">
+            <div class="step-label reveal"><div class="dot"></div> How It Works</div>
+            <h2 class="reveal" style="margin-bottom: var(--element-gap);">6 steps, each with a checkpoint</h2>
+            <p class="subtitle reveal" style="margin-bottom: clamp(16px, 3vw, 36px);">Nothing happens without your confirmation. You stay in control at every stage.</p>
+
+            <div class="pipeline reveal-scale" style="transition-delay: 0.25s;">
+                <div class="pipe-card">
+                    <span class="pipe-icon">&#128270;</span>
+                    <span class="pipe-name">Find People</span>
+                    <span class="pipe-desc">Search HubSpot for your target audience</span>
+                </div>
+                <div class="pipe-arrow">&rarr;</div>
+                <div class="pipe-card">
+                    <span class="pipe-icon">&#128203;</span>
+                    <span class="pipe-name">Save List</span>
+                    <span class="pipe-desc">Create a contact list in HubSpot</span>
+                </div>
+                <div class="pipe-arrow">&rarr;</div>
+                <div class="pipe-card">
+                    <span class="pipe-icon">&#128229;</span>
+                    <span class="pipe-name">Sync to Knock</span>
+                    <span class="pipe-desc">Push contacts to our email platform</span>
+                </div>
+                <div class="pipe-arrow">&rarr;</div>
+                <div class="pipe-card">
+                    <span class="pipe-icon">&#127912;</span>
+                    <span class="pipe-name">Design Email</span>
+                    <span class="pipe-desc">Build a branded template in SendGrid</span>
+                </div>
+                <div class="pipe-arrow">&rarr;</div>
+                <div class="pipe-card">
+                    <span class="pipe-icon">&#9881;&#65039;</span>
+                    <span class="pipe-name">Connect</span>
+                    <span class="pipe-desc">Wire the email to the audience</span>
+                </div>
+                <div class="pipe-arrow">&rarr;</div>
+                <div class="pipe-card">
+                    <span class="pipe-icon">&#128640;</span>
+                    <span class="pipe-name">Send</span>
+                    <span class="pipe-desc">Deliver in safe batches</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- =============================================
+         SLIDE 4: STEP 1 — FINDING THE AUDIENCE
+         ============================================= -->
+    <section class="slide" data-title="Find People">
+        <div class="bg-grid"></div>
+        <div class="bg-glow-subtle"></div>
+        <div class="slide-content">
+            <div class="step-label reveal"><div class="dot"></div> Step 1 &mdash; Find People</div>
+            <h2 class="reveal" style="margin-bottom: var(--element-gap);">Describe your audience in plain English</h2>
+            <p class="subtitle reveal" style="margin-bottom: clamp(14px, 2vw, 24px);">
+                We said: <em style="color: var(--text-primary);">&ldquo;Find everyone who filled out the Lead Magnet Form, but exclude customers, government, and anyone who opted out.&rdquo;</em>
+            </p>
+
+            <div class="info-grid reveal-scale" style="max-width: 600px; grid-template-columns: 1fr 1fr; transition-delay: 0.2s;">
+                <div class="info-card" style="text-align: center;">
+                    <div class="card-stat">139</div>
+                    <div class="card-body">Form submissions found in HubSpot</div>
+                </div>
+                <div class="info-card" style="text-align: center;">
+                    <div class="card-stat green">93</div>
+                    <div class="card-body">After removing customers, gov sector &amp; opt-outs</div>
+                </div>
+            </div>
+
+            <p class="subtitle reveal" style="margin-top: clamp(12px, 2vw, 20px);">
+                The AI shows you who's on the list and asks: <strong style="color: var(--accent);">&ldquo;Want to proceed?&rdquo;</strong>
+            </p>
+        </div>
+    </section>
+
+    <!-- =============================================
+         SLIDE 5: TOP CONTACTS
+         ============================================= -->
+    <section class="slide" data-title="Preview">
+        <div class="bg-grid"></div>
+        <div class="bg-glow-subtle"></div>
+        <div class="slide-content">
+            <div class="step-label reveal"><div class="dot"></div> Step 1 &mdash; Preview</div>
+            <h2 class="reveal" style="margin-bottom: clamp(10px, 1.5vw, 20px);">You see who&rsquo;s on the list before anything happens</h2>
+
+            <div class="contact-list">
+                <div class="contact-row reveal">
+                    <div class="contact-avatar">BE</div>
+                    <div class="contact-info">
+                        <div class="contact-name">Bill Egan</div>
+                        <div class="contact-detail">bill@billegan.com</div>
+                    </div>
+                    <div class="contact-engagement">
+                        <div class="engagement-stat"><div class="es-value">12</div><div class="es-label">Clicks</div></div>
+                        <div class="engagement-stat"><div class="es-value">47</div><div class="es-label">Opens</div></div>
+                    </div>
+                </div>
+                <div class="contact-row reveal">
+                    <div class="contact-avatar">GR</div>
+                    <div class="contact-info">
+                        <div class="contact-name">Gary Royal</div>
+                        <div class="contact-detail">gary.royal@migonline.com &bull; MIG</div>
+                    </div>
+                    <div class="contact-engagement">
+                        <div class="engagement-stat"><div class="es-value">8</div><div class="es-label">Clicks</div></div>
+                        <div class="engagement-stat"><div class="es-value">32</div><div class="es-label">Opens</div></div>
+                    </div>
+                </div>
+                <div class="contact-row reveal">
+                    <div class="contact-avatar">DB</div>
+                    <div class="contact-info">
+                        <div class="contact-name">Derek Bartley</div>
+                        <div class="contact-detail">derek.bartley@xactus.com &bull; Xactus</div>
+                    </div>
+                    <div class="contact-engagement">
+                        <div class="engagement-stat"><div class="es-value">7</div><div class="es-label">Clicks</div></div>
+                        <div class="engagement-stat"><div class="es-value">28</div><div class="es-label">Opens</div></div>
+                    </div>
+                </div>
+                <div class="contact-row reveal">
+                    <div class="contact-avatar">JA</div>
+                    <div class="contact-info">
+                        <div class="contact-name">Jennifer Amenell</div>
+                        <div class="contact-detail">jennifer.amenell@nflp.com &bull; NFLP</div>
+                    </div>
+                    <div class="contact-engagement">
+                        <div class="engagement-stat"><div class="es-value">6</div><div class="es-label">Clicks</div></div>
+                        <div class="engagement-stat"><div class="es-value">22</div><div class="es-label">Opens</div></div>
+                    </div>
+                </div>
+                <div class="contact-row reveal">
+                    <div class="contact-avatar">AW</div>
+                    <div class="contact-info">
+                        <div class="contact-name">Alan Wackman</div>
+                        <div class="contact-detail">awackman@catalystmtg.com &bull; Catalyst Mortgage</div>
+                    </div>
+                    <div class="contact-engagement">
+                        <div class="engagement-stat"><div class="es-value">5</div><div class="es-label">Clicks</div></div>
+                        <div class="engagement-stat"><div class="es-value">19</div><div class="es-label">Opens</div></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="reveal" style="margin-top: clamp(10px, 1.5vw, 16px);">
+                <span class="badge badge-green">&#10003; Approved &mdash; proceed to save list</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- =============================================
+         SLIDE 6: STEPS 2 & 3 — LIST + SYNC
+         ============================================= -->
+    <section class="slide" data-title="Save & Sync">
+        <div class="bg-grid"></div>
+        <div class="bg-glow-subtle"></div>
+        <div class="slide-content">
+            <div class="step-label reveal"><div class="dot"></div> Steps 2 &amp; 3 &mdash; Save &amp; Sync</div>
+            <h2 class="reveal" style="margin-bottom: var(--element-gap);">Contacts saved to HubSpot, then synced to our email platform</h2>
+            <p class="subtitle reveal" style="margin-bottom: clamp(16px, 3vw, 32px);">
+                Two steps happen back-to-back with your approval. A permanent list is created in HubSpot, then those contacts are pushed to Knock (our email delivery system) so they're ready to receive the campaign.
+            </p>
+
+            <div class="flow reveal-scale" style="transition-delay: 0.25s;">
+                <div class="flow-node">
+                    <div class="fn-icon">&#128203;</div>
+                    <div class="fn-label">HubSpot List</div>
+                    <div class="fn-detail">93 contacts saved</div>
+                </div>
+                <span class="flow-arrow">&rarr;</span>
+                <div class="flow-node">
+                    <div class="fn-icon">&#128229;</div>
+                    <div class="fn-label">Knock Audience</div>
+                    <div class="fn-detail">93 members synced</div>
+                </div>
+                <span class="flow-arrow">&rarr;</span>
+                <div class="flow-node" style="border-color: var(--accent-green);">
+                    <div class="fn-icon">&#9989;</div>
+                    <div class="fn-label" style="color: var(--accent-green);">Ready for Email</div>
+                    <div class="fn-detail">Audience locked in</div>
+                </div>
+            </div>
+
+            <ul class="friendly-list reveal" style="margin-top: clamp(16px, 2.5vw, 28px); max-width: 650px;">
+                <li>
+                    <span class="li-icon">&#128274;</span>
+                    <span>The <strong>HubSpot list is permanent</strong> &mdash; you can reference it later for reporting or re-use</span>
+                </li>
+                <li>
+                    <span class="li-icon">&#128231;</span>
+                    <span>Contacts are <strong>identified by email address</strong> in Knock, so they stay consistent across campaigns</span>
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- =============================================
+         SLIDE 7: STEP 4 — EMAIL DESIGN
+         ============================================= -->
+    <section class="slide" data-title="Email Design">
+        <div class="bg-grid"></div>
+        <div class="bg-glow-subtle"></div>
+        <div class="slide-content">
+            <div class="two-col">
+                <div class="col-text">
+                    <div class="step-label reveal"><div class="dot"></div> Step 4 &mdash; Design the Email</div>
+                    <h2 class="reveal" style="margin-bottom: var(--element-gap);">A branded email, built and uploaded automatically</h2>
+                    <p class="subtitle reveal" style="margin-bottom: clamp(14px, 2vw, 22px);">
+                        The AI builds a fully branded email using Truv's design system &mdash; correct fonts, colors, logo, mobile-responsive layout, unsubscribe link, and footer. It then uploads it to SendGrid as a ready-to-use template.
+                    </p>
+
+                    <ul class="friendly-list reveal" style="max-width: 500px;">
+                        <li>
+                            <span class="li-icon">&#127912;</span>
+                            <span><strong>On-brand</strong> &mdash; Gilroy font, Truv blue, dark hero gradient</span>
+                        </li>
+                        <li>
+                            <span class="li-icon">&#128241;</span>
+                            <span><strong>Mobile-ready</strong> &mdash; responsive on every device</span>
+                        </li>
+                        <li>
+                            <span class="li-icon">&#128100;</span>
+                            <span><strong>Personalized</strong> &mdash; greets each recipient by first name</span>
+                        </li>
+                        <li>
+                            <span class="li-icon">&#9989;</span>
+                            <span><strong>Compliant</strong> &mdash; unsubscribe link included automatically</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-visual reveal-scale" style="transition-delay: 0.3s;">
+                    <div class="email-preview">
+                        <div class="ep-hero">
+                            <img src="https://res.cloudinary.com/dc0r5pclf/image/upload/v1768234665/logo-truv-white_s1kr8v.svg" width="40" alt="Truv" style="margin-bottom: 12px; opacity: 0.9;">
+                            <div class="ep-badge">Test Email</div>
+                            <h4>[TEST] Campaign Launcher Demo</h4>
+                            <p>A test email created by the campaign-launcher skill.</p>
+                        </div>
+                        <div class="ep-body">
+                            <div class="ep-greeting">Hi {{firstName}},</div>
+                            <div class="ep-text">This is a <strong>test email</strong> generated by the Campaign Launcher skill to verify the pipeline.</div>
+                            <span class="ep-btn">Visit Truv</span>
+                        </div>
+                        <div class="ep-footer">
+                            <p>Truv Inc. &bull; Miami, FL &bull; Unsubscribe</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- =============================================
+         SLIDE 8: STEP 5 — CONNECT
+         ============================================= -->
+    <section class="slide" data-title="Connect">
+        <div class="bg-grid"></div>
+        <div class="bg-glow-subtle"></div>
+        <div class="slide-content">
+            <div class="step-label reveal"><div class="dot"></div> Step 5 &mdash; Connect the Pieces</div>
+            <h2 class="reveal" style="margin-bottom: var(--element-gap);">The email template is wired to the audience automatically</h2>
+            <p class="subtitle reveal" style="margin-bottom: clamp(16px, 3vw, 32px);">
+                Behind the scenes, the AI creates a &ldquo;workflow&rdquo; in Knock that connects the SendGrid email template to the audience. Think of it as plugging in the last cord &mdash; the audience knows who to send to, and the workflow knows what to send.
+            </p>
+
+            <div class="flow reveal-scale" style="transition-delay: 0.25s;">
+                <div class="flow-node">
+                    <div class="fn-icon">&#128101;</div>
+                    <div class="fn-label">93 People</div>
+                    <div class="fn-detail">Knock Audience</div>
+                </div>
+                <span class="flow-arrow">&rarr;</span>
+                <div class="flow-node" style="border-color: var(--accent); background: rgba(44, 100, 227, 0.08);">
+                    <div class="fn-icon">&#9889;</div>
+                    <div class="fn-label" style="color: var(--accent);">Workflow</div>
+                    <div class="fn-detail">Triggers the send</div>
+                </div>
+                <span class="flow-arrow">&rarr;</span>
+                <div class="flow-node">
+                    <div class="fn-icon">&#9993;&#65039;</div>
+                    <div class="fn-label">Email Template</div>
+                    <div class="fn-detail">SendGrid</div>
+                </div>
+                <span class="flow-arrow">&rarr;</span>
+                <div class="flow-node" style="border-color: var(--accent-green);">
+                    <div class="fn-icon">&#128236;</div>
+                    <div class="fn-label" style="color: var(--accent-green);">Delivered</div>
+                    <div class="fn-detail">To each inbox</div>
+                </div>
+            </div>
+
+            <ul class="friendly-list reveal" style="margin-top: clamp(16px, 2.5vw, 28px); max-width: 650px;">
+                <li>
+                    <span class="li-icon">&#128272;</span>
+                    <span><strong>Validated</strong> &mdash; the system confirms the workflow is active and correctly configured</span>
+                </li>
+                <li>
+                    <span class="li-icon">&#128683;</span>
+                    <span><strong>Unsubscribe compliance</strong> &mdash; built into every workflow, no extra steps needed</span>
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- =============================================
+         SLIDE 9: STEP 6 — SAFE SENDING
+         ============================================= -->
+    <section class="slide" data-title="Send">
+        <div class="bg-grid"></div>
+        <div class="bg-glow-subtle"></div>
+        <div class="slide-content">
+            <div class="step-label reveal"><div class="dot"></div> Step 6 &mdash; Safe, Staged Sending</div>
+            <h2 class="reveal" style="margin-bottom: var(--element-gap);">Emails go out in batches, not all at once</h2>
+            <p class="subtitle reveal" style="margin-bottom: clamp(14px, 2.5vw, 28px);">
+                For large audiences, the system sends in controlled batches with pauses between them. This protects deliverability and prevents emails from landing in spam. You can always preview the plan before any emails go out.
+            </p>
+
+            <div class="info-grid reveal-scale" style="max-width: 800px; grid-template-columns: repeat(3, 1fr); transition-delay: 0.2s;">
+                <div class="info-card" style="text-align: center;">
+                    <div class="card-icon">&#128101;</div>
+                    <div class="card-stat">93</div>
+                    <div class="card-body">Recipients ready</div>
+                </div>
+                <div class="info-card" style="text-align: center;">
+                    <div class="card-icon">&#128230;</div>
+                    <div class="card-stat" style="color: var(--accent-amber);">1</div>
+                    <div class="card-body">Batch needed<br><span style="font-size: 0.85em; color: var(--text-muted);">(max 500 per batch)</span></div>
+                </div>
+                <div class="info-card" style="text-align: center;">
+                    <div class="card-icon">&#128337;</div>
+                    <div class="card-stat" style="color: var(--accent-green);">&lt; 1 min</div>
+                    <div class="card-body">Estimated delivery time</div>
+                </div>
+            </div>
+
+            <div class="reveal" style="margin-top: clamp(14px, 2vw, 22px); display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+                <span class="badge badge-amber">&#9888;&#65039; Dry Run</span>
+                <span style="font-size: var(--small-size); color: var(--text-secondary);">For this demo, we previewed the plan without actually sending any emails.</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- =============================================
+         SLIDE 10: SUMMARY
+         ============================================= -->
+    <section class="slide" data-title="Summary">
+        <div class="bg-grid"></div>
+        <div class="bg-glow"></div>
+        <div class="slide-content" style="align-items: center;">
+            <div class="step-label reveal" style="text-align: center;"><div class="dot" style="background: var(--accent-green);"></div> All Done</div>
+            <h2 class="reveal" style="text-align: center; margin-bottom: clamp(16px, 2.5vw, 32px);">Campaign ready to fire</h2>
+
+            <div class="summary-grid reveal-scale" style="transition-delay: 0.15s;">
+                <div class="summary-card">
+                    <div class="sc-icon">&#128101;</div>
+                    <div class="sc-label">Audience</div>
+                    <div class="sc-value">93 people</div>
+                    <div class="sc-detail">Lead Magnet form fills, filtered</div>
+                </div>
+                <div class="summary-card">
+                    <div class="sc-icon">&#128203;</div>
+                    <div class="sc-label">HubSpot List</div>
+                    <div class="sc-value">Saved</div>
+                    <div class="sc-detail">Permanent list for reporting</div>
+                </div>
+                <div class="summary-card">
+                    <div class="sc-icon">&#9993;&#65039;</div>
+                    <div class="sc-label">Email</div>
+                    <div class="sc-value">Designed &amp; uploaded</div>
+                    <div class="sc-detail">Branded, mobile-ready, compliant</div>
+                </div>
+                <div class="summary-card">
+                    <div class="sc-icon">&#9889;</div>
+                    <div class="sc-label">Delivery</div>
+                    <div class="sc-value" style="color: var(--accent-green);">Ready to send</div>
+                    <div class="sc-detail">Batched for safe delivery</div>
+                </div>
+            </div>
+
+            <div class="reveal" style="margin-top: clamp(20px, 3vw, 36px); text-align: center; max-width: 600px;">
+                <h3 style="margin-bottom: var(--element-gap); color: var(--text-primary);">What used to take hours now takes one conversation.</h3>
+                <p style="font-size: var(--body-size); color: var(--text-secondary); line-height: 1.6;">
+                    Just tell the AI your audience and your message. It builds everything, asks for your approval at each step, and delivers safely.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===========================================
+         JAVASCRIPT
+         =========================================== -->
+    <script>
+        class SlidePresentation {
+            constructor() {
+                this.slides = document.querySelectorAll('.slide');
+                this.progressBar = document.getElementById('progressBar');
+                this.navDotsContainer = document.getElementById('navDots');
+                this.currentSlide = 0;
+                this.createNavDots();
+                this.setupIntersectionObserver();
+                this.setupKeyboardNav();
+                this.setupTouchNav();
+                this.updateProgress();
+            }
+
+            createNavDots() {
+                this.slides.forEach((slide, i) => {
+                    const dot = document.createElement('button');
+                    dot.className = 'nav-dot' + (i === 0 ? ' active' : '');
+                    dot.setAttribute('aria-label', `Slide ${i + 1}: ${slide.dataset.title || ''}`);
+                    dot.addEventListener('click', () => this.slides[i].scrollIntoView({ behavior: 'smooth' }));
+                    this.navDotsContainer.appendChild(dot);
+                });
+                this.navDots = this.navDotsContainer.querySelectorAll('.nav-dot');
+            }
+
+            setupIntersectionObserver() {
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('visible');
+                            const index = Array.from(this.slides).indexOf(entry.target);
+                            this.currentSlide = index;
+                            this.updateNavDots();
+                            this.updateProgress();
+                        }
+                    });
+                }, { threshold: 0.5 });
+                this.slides.forEach(slide => observer.observe(slide));
+            }
+
+            setupKeyboardNav() {
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'ArrowDown' || e.key === 'ArrowRight' || e.key === ' ') {
+                        e.preventDefault(); this.goToSlide(this.currentSlide + 1);
+                    } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
+                        e.preventDefault(); this.goToSlide(this.currentSlide - 1);
+                    } else if (e.key === 'Home') {
+                        e.preventDefault(); this.goToSlide(0);
+                    } else if (e.key === 'End') {
+                        e.preventDefault(); this.goToSlide(this.slides.length - 1);
+                    }
+                });
+            }
+
+            setupTouchNav() {
+                let touchStartY = 0;
+                document.addEventListener('touchstart', (e) => { touchStartY = e.touches[0].clientY; }, { passive: true });
+                document.addEventListener('touchend', (e) => {
+                    const diff = touchStartY - e.changedTouches[0].clientY;
+                    if (Math.abs(diff) > 50) {
+                        if (diff > 0) this.goToSlide(this.currentSlide + 1);
+                        else this.goToSlide(this.currentSlide - 1);
+                    }
+                }, { passive: true });
+            }
+
+            goToSlide(index) {
+                const clamped = Math.max(0, Math.min(index, this.slides.length - 1));
+                this.slides[clamped].scrollIntoView({ behavior: 'smooth' });
+            }
+
+            updateNavDots() {
+                this.navDots.forEach((dot, i) => dot.classList.toggle('active', i === this.currentSlide));
+            }
+
+            updateProgress() {
+                this.progressBar.style.width = `${((this.currentSlide + 1) / this.slides.length) * 100}%`;
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => new SlidePresentation());
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Truv Branding Verification</title>
+    <link rel="stylesheet" href="../../branding/colors/truv-palette.css">
+    <style>
+        body {
+            font-family: sans-serif;
+            background-color: var(--truv-grey);
+            color: var(--truv-black);
+            padding: 2rem;
+        }
+        .color-swatch {
+            width: 100px;
+            height: 100px;
+            margin-right: 1rem;
+            display: inline-block;
+            border: 1px solid #ccc;
+        }
+        .primary-blue { background-color: var(--truv-primary-blue); }
+        .primary-blue-opacity { background-color: rgba(var(--truv-primary-blue-rgb), 0.5); }
+        
+        .dark-blue { background-color: var(--truv-dark-blue); }
+        .dark-blue-opacity { background-color: rgba(var(--truv-dark-blue-rgb), 0.5); }
+        
+        .error-red { background-color: var(--truv-error-red); }
+        .error-red-opacity { background-color: rgba(var(--truv-error-red-rgb), 0.5); }
+    </style>
+</head>
+<body>
+    <h1>Branding Assets Verification</h1>
+    
+    <h2>CSS Variables (Solid vs Opacity)</h2>
+    <div>
+        <div class="color-swatch primary-blue"></div>
+        <div class="color-swatch primary-blue-opacity"></div>
+        <span>Primary Blue (Solid / 50%)</span>
+    </div>
+    
+    <div style="margin-top: 1rem;">
+        <div class="color-swatch dark-blue"></div>
+        <div class="color-swatch dark-blue-opacity"></div>
+        <span>Dark Blue (Solid / 50%)</span>
+    </div>
+
+    <div style="margin-top: 1rem;">
+        <div class="color-swatch error-red"></div>
+        <div class="color-swatch error-red-opacity"></div>
+        <span>Error Red (Solid / 50%)</span>
+    </div>
+
+    <h2>SVG Logos (Responsive Check)</h2>
+    <div style="width: 200px; border: 1px dashed red;">
+        <img src="../../branding/logos/logo-truv.svg" alt="Truv Logo" style="width: 100%;">
+    </div>
+</body>
+</html>

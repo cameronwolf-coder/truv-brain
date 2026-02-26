@@ -1,0 +1,1452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Outbound Automation — 5 Execution Opportunities | Truv</title>
+
+    <!-- Fonts: Gilroy approximation via DM Sans + Inter for data -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        /* ===========================================
+           CSS CUSTOM PROPERTIES — TRUV BRAND
+           =========================================== */
+        :root {
+            --truv-blue: #2c64e3;
+            --truv-blue-dark: #0f1c47;
+            --truv-blue-light: #c5d9f7;
+            --truv-bg: #f4f4f2;
+            --truv-white: #ffffff;
+            --truv-gray-100: #f0f0ee;
+            --truv-gray-200: #e2e2de;
+            --truv-gray-400: #9a9a94;
+            --truv-gray-600: #5a5a56;
+            --truv-gray-800: #2a2a28;
+            --truv-accent-green: #22c55e;
+            --truv-accent-amber: #f59e0b;
+            --truv-accent-red: #ef4444;
+
+            --font-display: 'DM Sans', system-ui, sans-serif;
+            --font-body: 'Inter', system-ui, sans-serif;
+
+            --title-size: clamp(1.75rem, 4.5vw, 3.5rem);
+            --h2-size: clamp(1.25rem, 3vw, 2.25rem);
+            --h3-size: clamp(1rem, 2vw, 1.5rem);
+            --body-size: clamp(0.7rem, 1.3vw, 1rem);
+            --small-size: clamp(0.6rem, 1vw, 0.8rem);
+            --label-size: clamp(0.55rem, 0.85vw, 0.7rem);
+
+            --slide-padding: clamp(1.5rem, 4vw, 4rem);
+            --content-gap: clamp(0.75rem, 2vw, 1.75rem);
+            --element-gap: clamp(0.25rem, 0.75vw, 0.75rem);
+
+            --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+            --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
+            --duration: 0.7s;
+        }
+
+        /* ===========================================
+           BASE STYLES
+           =========================================== */
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-snap-type: y mandatory;
+            height: 100%;
+            overflow-x: hidden;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--truv-bg);
+            color: var(--truv-gray-800);
+            height: 100%;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ===========================================
+           SLIDE CONTAINER — VIEWPORT LOCKED
+           =========================================== */
+        .slide {
+            width: 100vw;
+            height: 100vh;
+            height: 100dvh;
+            overflow: hidden;
+            scroll-snap-align: start;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            padding: var(--slide-padding);
+        }
+
+        .slide-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            max-height: 100%;
+            overflow: hidden;
+        }
+
+        /* ===========================================
+           PROGRESS BAR
+           =========================================== */
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: var(--truv-blue);
+            z-index: 1000;
+            transition: width 0.3s ease;
+            width: 0%;
+        }
+
+        /* ===========================================
+           NAVIGATION DOTS
+           =========================================== */
+        .nav-dots {
+            position: fixed;
+            right: clamp(0.75rem, 2vw, 1.5rem);
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: clamp(6px, 0.8vh, 10px);
+            z-index: 100;
+        }
+
+        .nav-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--truv-gray-200);
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            padding: 0;
+        }
+
+        .nav-dot.active {
+            background: var(--truv-blue);
+            transform: scale(1.3);
+        }
+
+        .nav-dot:hover {
+            background: var(--truv-blue-light);
+        }
+
+        /* ===========================================
+           SLIDE NUMBER
+           =========================================== */
+        .slide-number {
+            position: absolute;
+            bottom: clamp(0.75rem, 2vw, 1.5rem);
+            right: clamp(1.5rem, 3vw, 2.5rem);
+            font-family: var(--font-body);
+            font-size: var(--label-size);
+            color: var(--truv-gray-400);
+            letter-spacing: 0.05em;
+            font-weight: 500;
+        }
+
+        /* ===========================================
+           TYPOGRAPHY
+           =========================================== */
+        .slide-tag {
+            font-family: var(--font-body);
+            font-size: var(--label-size);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--truv-blue);
+            margin-bottom: clamp(0.5rem, 1vh, 1rem);
+        }
+
+        .slide-title {
+            font-family: var(--font-display);
+            font-size: var(--title-size);
+            font-weight: 700;
+            line-height: 1.15;
+            color: var(--truv-blue-dark);
+            margin-bottom: clamp(0.5rem, 1.5vh, 1.25rem);
+        }
+
+        .slide-subtitle {
+            font-family: var(--font-display);
+            font-size: var(--h2-size);
+            font-weight: 600;
+            line-height: 1.2;
+            color: var(--truv-blue-dark);
+            margin-bottom: clamp(0.5rem, 1.5vh, 1.25rem);
+        }
+
+        .slide-body {
+            font-size: var(--body-size);
+            line-height: 1.55;
+            color: var(--truv-gray-600);
+            max-width: 680px;
+        }
+
+        /* ===========================================
+           CARDS
+           =========================================== */
+        .card-grid {
+            display: grid;
+            gap: clamp(0.5rem, 1.2vw, 1rem);
+        }
+
+        .card-grid.cols-2 { grid-template-columns: repeat(2, 1fr); }
+        .card-grid.cols-3 { grid-template-columns: repeat(3, 1fr); }
+        .card-grid.cols-5 { grid-template-columns: repeat(5, 1fr); }
+
+        .card {
+            background: var(--truv-white);
+            border-radius: clamp(8px, 1vw, 14px);
+            padding: clamp(0.75rem, 1.5vw, 1.5rem);
+            border: 1px solid var(--truv-gray-200);
+            transition: transform 0.3s var(--ease-out-expo), box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(15, 28, 71, 0.08);
+        }
+
+        .card-icon {
+            width: clamp(28px, 3vw, 40px);
+            height: clamp(28px, 3vw, 40px);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: clamp(14px, 1.5vw, 20px);
+            margin-bottom: clamp(0.4rem, 0.8vh, 0.75rem);
+        }
+
+        .card-title {
+            font-family: var(--font-display);
+            font-size: clamp(0.8rem, 1.3vw, 1.05rem);
+            font-weight: 600;
+            color: var(--truv-blue-dark);
+            margin-bottom: clamp(0.2rem, 0.5vh, 0.4rem);
+        }
+
+        .card-text {
+            font-size: var(--small-size);
+            color: var(--truv-gray-600);
+            line-height: 1.45;
+        }
+
+        /* ===========================================
+           STATUS BADGES
+           =========================================== */
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-size: var(--label-size);
+            font-weight: 600;
+            padding: clamp(2px, 0.3vw, 4px) clamp(6px, 0.8vw, 10px);
+            border-radius: 100px;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+
+        .badge-green { background: #dcfce7; color: #166534; }
+        .badge-amber { background: #fef3c7; color: #92400e; }
+        .badge-red { background: #fee2e2; color: #991b1b; }
+        .badge-blue { background: #dbeafe; color: #1e40af; }
+        .badge-gray { background: #f3f4f6; color: #4b5563; }
+
+        /* ===========================================
+           TABLES
+           =========================================== */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: var(--small-size);
+        }
+
+        .data-table th {
+            font-family: var(--font-display);
+            font-weight: 600;
+            text-align: left;
+            padding: clamp(0.35rem, 0.8vh, 0.6rem) clamp(0.5rem, 1vw, 1rem);
+            border-bottom: 2px solid var(--truv-blue-dark);
+            color: var(--truv-blue-dark);
+            font-size: var(--label-size);
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+        }
+
+        .data-table td {
+            padding: clamp(0.3rem, 0.7vh, 0.55rem) clamp(0.5rem, 1vw, 1rem);
+            border-bottom: 1px solid var(--truv-gray-200);
+            color: var(--truv-gray-600);
+        }
+
+        .data-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .data-table .highlight-cell {
+            font-weight: 600;
+            color: var(--truv-blue-dark);
+        }
+
+        /* ===========================================
+           FLOW DIAGRAM
+           =========================================== */
+        .flow-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: clamp(0.25rem, 0.8vw, 0.75rem);
+            flex-wrap: nowrap;
+        }
+
+        .flow-step {
+            background: var(--truv-white);
+            border: 2px solid var(--truv-gray-200);
+            border-radius: clamp(8px, 1vw, 12px);
+            padding: clamp(0.6rem, 1.2vw, 1.25rem) clamp(0.8rem, 1.5vw, 1.5rem);
+            text-align: center;
+            flex: 1;
+            min-width: 0;
+            transition: all 0.3s ease;
+        }
+
+        .flow-step.active {
+            border-color: var(--truv-blue);
+            background: linear-gradient(135deg, #eef3fd, #fff);
+            box-shadow: 0 4px 20px rgba(44, 100, 227, 0.12);
+        }
+
+        .flow-step.gap {
+            border-color: var(--truv-accent-red);
+            border-style: dashed;
+            background: #fef7f7;
+        }
+
+        .flow-step-label {
+            font-family: var(--font-display);
+            font-size: clamp(0.7rem, 1.1vw, 0.95rem);
+            font-weight: 600;
+            color: var(--truv-blue-dark);
+        }
+
+        .flow-step-sub {
+            font-size: var(--label-size);
+            color: var(--truv-gray-400);
+            margin-top: 2px;
+        }
+
+        .flow-arrow {
+            font-size: clamp(0.8rem, 1.2vw, 1.2rem);
+            color: var(--truv-gray-400);
+            flex-shrink: 0;
+        }
+
+        /* ===========================================
+           TIMELINE
+           =========================================== */
+        .timeline {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: clamp(0.3rem, 0.6vw, 0.5rem);
+        }
+
+        .timeline-week {
+            background: var(--truv-white);
+            border-radius: clamp(6px, 0.8vw, 10px);
+            padding: clamp(0.5rem, 1vw, 0.9rem);
+            border: 1px solid var(--truv-gray-200);
+            font-size: var(--label-size);
+        }
+
+        .timeline-week-label {
+            font-family: var(--font-display);
+            font-weight: 700;
+            color: var(--truv-blue);
+            margin-bottom: clamp(0.25rem, 0.5vh, 0.5rem);
+            font-size: clamp(0.6rem, 0.9vw, 0.8rem);
+        }
+
+        .timeline-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 4px;
+            margin-bottom: clamp(2px, 0.3vh, 4px);
+            line-height: 1.35;
+        }
+
+        .timeline-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            flex-shrink: 0;
+            margin-top: 3px;
+        }
+
+        .dot-1 { background: var(--truv-blue); }
+        .dot-2 { background: var(--truv-accent-green); }
+        .dot-3 { background: var(--truv-accent-amber); }
+        .dot-4 { background: #8b5cf6; }
+        .dot-5 { background: var(--truv-accent-red); }
+
+        /* ===========================================
+           METRIC BLOCKS
+           =========================================== */
+        .metric-row {
+            display: flex;
+            gap: clamp(0.5rem, 1.5vw, 1.5rem);
+        }
+
+        .metric-block {
+            text-align: center;
+            flex: 1;
+        }
+
+        .metric-value {
+            font-family: var(--font-display);
+            font-size: clamp(1.5rem, 4vw, 3rem);
+            font-weight: 700;
+            color: var(--truv-blue);
+            line-height: 1;
+        }
+
+        .metric-label {
+            font-size: var(--small-size);
+            color: var(--truv-gray-400);
+            margin-top: clamp(2px, 0.4vh, 6px);
+            font-weight: 500;
+        }
+
+        /* ===========================================
+           DARK SLIDES
+           =========================================== */
+        .slide-dark {
+            background: var(--truv-blue-dark);
+            color: var(--truv-white);
+        }
+
+        .slide-dark .slide-tag { color: var(--truv-blue-light); }
+        .slide-dark .slide-title { color: var(--truv-white); }
+        .slide-dark .slide-subtitle { color: var(--truv-white); }
+        .slide-dark .slide-body { color: rgba(255,255,255,0.7); }
+        .slide-dark .slide-number { color: rgba(255,255,255,0.3); }
+
+        /* ===========================================
+           BLUE SLIDES
+           =========================================== */
+        .slide-blue {
+            background: var(--truv-blue);
+            color: var(--truv-white);
+        }
+
+        .slide-blue .slide-tag { color: var(--truv-blue-light); }
+        .slide-blue .slide-title { color: var(--truv-white); }
+        .slide-blue .slide-subtitle { color: var(--truv-white); }
+        .slide-blue .slide-body { color: rgba(255,255,255,0.85); }
+        .slide-blue .slide-number { color: rgba(255,255,255,0.3); }
+        .slide-blue .card {
+            background: rgba(255,255,255,0.12);
+            border-color: rgba(255,255,255,0.15);
+        }
+        .slide-blue .card-title { color: var(--truv-white); }
+        .slide-blue .card-text { color: rgba(255,255,255,0.75); }
+
+        /* ===========================================
+           REVEAL ANIMATIONS
+           =========================================== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity var(--duration) var(--ease-out-expo),
+                        transform var(--duration) var(--ease-out-expo);
+        }
+
+        .reveal-left {
+            opacity: 0;
+            transform: translateX(-30px);
+            transition: opacity var(--duration) var(--ease-out-expo),
+                        transform var(--duration) var(--ease-out-expo);
+        }
+
+        .reveal-scale {
+            opacity: 0;
+            transform: scale(0.92);
+            transition: opacity var(--duration) var(--ease-out-expo),
+                        transform var(--duration) var(--ease-out-expo);
+        }
+
+        .slide.visible .reveal,
+        .slide.visible .reveal-left,
+        .slide.visible .reveal-scale {
+            opacity: 1;
+            transform: translateY(0) translateX(0) scale(1);
+        }
+
+        .reveal:nth-child(1) { transition-delay: 0.05s; }
+        .reveal:nth-child(2) { transition-delay: 0.12s; }
+        .reveal:nth-child(3) { transition-delay: 0.19s; }
+        .reveal:nth-child(4) { transition-delay: 0.26s; }
+        .reveal:nth-child(5) { transition-delay: 0.33s; }
+        .reveal:nth-child(6) { transition-delay: 0.40s; }
+
+        /* ===========================================
+           RESPONSIVE BREAKPOINTS
+           =========================================== */
+        @media (max-height: 700px) {
+            :root {
+                --slide-padding: clamp(1rem, 3vw, 2.5rem);
+                --content-gap: clamp(0.5rem, 1.5vw, 1.25rem);
+                --title-size: clamp(1.5rem, 4vw, 2.75rem);
+                --h2-size: clamp(1.1rem, 2.5vw, 1.75rem);
+            }
+        }
+
+        @media (max-height: 600px) {
+            :root {
+                --slide-padding: clamp(0.75rem, 2.5vw, 1.75rem);
+                --content-gap: clamp(0.4rem, 1vw, 0.85rem);
+                --title-size: clamp(1.25rem, 3.5vw, 2.25rem);
+                --body-size: clamp(0.65rem, 1.1vw, 0.9rem);
+            }
+            .nav-dots { display: none; }
+        }
+
+        @media (max-height: 500px) {
+            :root {
+                --slide-padding: clamp(0.5rem, 2vw, 1.25rem);
+                --title-size: clamp(1.1rem, 3vw, 1.75rem);
+                --h2-size: clamp(0.9rem, 2vw, 1.25rem);
+                --body-size: clamp(0.6rem, 1vw, 0.8rem);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .card-grid.cols-3 { grid-template-columns: repeat(2, 1fr); }
+            .card-grid.cols-5 { grid-template-columns: repeat(3, 1fr); }
+            .timeline { grid-template-columns: repeat(3, 1fr); }
+            .flow-container { flex-wrap: wrap; }
+        }
+
+        @media (max-width: 600px) {
+            .card-grid.cols-2 { grid-template-columns: 1fr; }
+            .card-grid.cols-3 { grid-template-columns: 1fr; }
+            .metric-row { flex-wrap: wrap; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                transition-duration: 0.2s !important;
+            }
+            html { scroll-behavior: auto; }
+        }
+
+        /* ===========================================
+           DECORATIVE ELEMENTS
+           =========================================== */
+        .bg-grid {
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(44,100,227,0.04) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(44,100,227,0.04) 1px, transparent 1px);
+            background-size: clamp(30px, 4vw, 50px) clamp(30px, 4vw, 50px);
+            pointer-events: none;
+        }
+
+        .bg-gradient-tl {
+            position: absolute;
+            top: -20%;
+            left: -10%;
+            width: 50%;
+            height: 60%;
+            background: radial-gradient(ellipse, rgba(44,100,227,0.06) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .bg-gradient-br {
+            position: absolute;
+            bottom: -20%;
+            right: -10%;
+            width: 50%;
+            height: 60%;
+            background: radial-gradient(ellipse, rgba(44,100,227,0.04) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        /* ===========================================
+           LIST STYLES
+           =========================================== */
+        .check-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: var(--element-gap);
+        }
+
+        .check-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: clamp(0.3rem, 0.6vw, 0.5rem);
+            font-size: var(--body-size);
+            color: var(--truv-gray-600);
+            line-height: 1.45;
+        }
+
+        .check-list li::before {
+            content: ">";
+            color: var(--truv-blue);
+            font-weight: 700;
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+
+        /* ===========================================
+           SPLIT LAYOUT
+           =========================================== */
+        .split {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: clamp(1rem, 3vw, 3rem);
+            align-items: center;
+        }
+
+        @media (max-width: 768px) {
+            .split { grid-template-columns: 1fr; }
+        }
+
+        /* ===========================================
+           COMPARISON TABLE
+           =========================================== */
+        .compare-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: clamp(0.5rem, 1.2vw, 1rem);
+        }
+
+        .compare-col {
+            background: var(--truv-white);
+            border-radius: clamp(8px, 1vw, 14px);
+            padding: clamp(0.75rem, 1.5vw, 1.5rem);
+            border: 1px solid var(--truv-gray-200);
+        }
+
+        .compare-col.highlight {
+            border-color: var(--truv-blue);
+            box-shadow: 0 4px 20px rgba(44,100,227,0.1);
+        }
+
+        .compare-header {
+            font-family: var(--font-display);
+            font-size: clamp(0.75rem, 1.1vw, 0.95rem);
+            font-weight: 700;
+            color: var(--truv-blue-dark);
+            padding-bottom: clamp(0.3rem, 0.6vh, 0.5rem);
+            margin-bottom: clamp(0.3rem, 0.6vh, 0.5rem);
+            border-bottom: 2px solid var(--truv-gray-200);
+        }
+
+        .compare-col.highlight .compare-header {
+            border-bottom-color: var(--truv-blue);
+        }
+
+        .compare-item {
+            display: flex;
+            align-items: center;
+            gap: clamp(0.3rem, 0.5vw, 0.5rem);
+            font-size: var(--small-size);
+            color: var(--truv-gray-600);
+            padding: clamp(2px, 0.3vh, 4px) 0;
+        }
+
+        .compare-icon {
+            flex-shrink: 0;
+            font-size: clamp(0.7rem, 1vw, 0.9rem);
+        }
+
+        /* ===========================================
+           INITIATIVE HEADER BAR
+           =========================================== */
+        .initiative-bar {
+            display: flex;
+            align-items: center;
+            gap: clamp(0.5rem, 1vw, 1rem);
+            margin-bottom: clamp(0.5rem, 1.5vh, 1.25rem);
+        }
+
+        .initiative-num {
+            font-family: var(--font-display);
+            font-size: clamp(0.7rem, 1vw, 0.85rem);
+            font-weight: 700;
+            color: var(--truv-white);
+            background: var(--truv-blue);
+            width: clamp(24px, 2.5vw, 32px);
+            height: clamp(24px, 2.5vw, 32px);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .initiative-meta {
+            display: flex;
+            gap: clamp(0.3rem, 0.6vw, 0.5rem);
+        }
+    </style>
+</head>
+<body>
+    <!-- Progress Bar -->
+    <div class="progress-bar" id="progressBar"></div>
+
+    <!-- Navigation Dots -->
+    <nav class="nav-dots" id="navDots"></nav>
+
+    <!-- =============================================
+         SLIDE 1: TITLE
+         ============================================= -->
+    <section class="slide slide-dark" id="slide-1">
+        <div class="bg-grid" style="opacity:0.5"></div>
+        <div class="bg-gradient-tl" style="background: radial-gradient(ellipse, rgba(44,100,227,0.15) 0%, transparent 70%)"></div>
+        <div class="slide-content" style="align-items: center; text-align: center;">
+            <div class="reveal" style="margin-bottom: clamp(0.5rem, 1.5vh, 1.5rem);">
+                <span class="badge badge-blue" style="font-size: var(--small-size);">Internal Strategy</span>
+            </div>
+            <h1 class="slide-title reveal" style="max-width: 800px;">
+                Outbound Automation:<br>5 Execution Opportunities
+            </h1>
+            <p class="slide-body reveal" style="color: rgba(255,255,255,0.6); max-width: 520px; text-align: center;">
+                Adapted from leading outbound automation frameworks, mapped to Truv's current infrastructure and mortgage ICP.
+            </p>
+            <div class="reveal" style="margin-top: clamp(1rem, 3vh, 2.5rem); display: flex; gap: clamp(1rem, 2vw, 2rem); font-size: var(--small-size); color: rgba(255,255,255,0.4);">
+                <span>Cameron Wolf</span>
+                <span>|</span>
+                <span>February 2026</span>
+            </div>
+        </div>
+        <div class="slide-number">01 / 14</div>
+    </section>
+
+    <!-- =============================================
+         SLIDE 2: THE FRAMEWORK
+         ============================================= -->
+    <section class="slide" id="slide-2">
+        <div class="bg-gradient-br"></div>
+        <div class="slide-content">
+            <div class="slide-tag reveal">The Framework</div>
+            <h2 class="slide-subtitle reveal">Signal Flow: The Outbound Engine</h2>
+            <p class="slide-body reveal" style="margin-bottom: clamp(1rem, 3vh, 2rem);">
+                The core thesis: effective outbound isn't about volume — it's about connecting the right <strong>signals</strong> through <strong>enrichment</strong> to <strong>personalized outreach</strong> with closed-loop <strong>reporting</strong>.
+            </p>
+            <div class="flow-container reveal-scale" style="margin-bottom: clamp(1rem, 2.5vh, 2rem);">
+                <div class="flow-step gap">
+                    <div class="flow-step-label">Signals</div>
+                    <div class="flow-step-sub">Gap</div>
+                </div>
+                <div class="flow-arrow">&rarr;</div>
+                <div class="flow-step gap">
+                    <div class="flow-step-label">Enrichment</div>
+                    <div class="flow-step-sub">Partial</div>
+                </div>
+                <div class="flow-arrow">&rarr;</div>
+                <div class="flow-step active">
+                    <div class="flow-step-label">Orchestration</div>
+                    <div class="flow-step-sub">Strong</div>
+                </div>
+                <div class="flow-arrow">&rarr;</div>
+                <div class="flow-step active">
+                    <div class="flow-step-label">Outbound</div>
+                    <div class="flow-step-sub">Documented</div>
+                </div>
+                <div class="flow-arrow">&rarr;</div>
+                <div class="flow-step gap">
+                    <div class="flow-step-label">Reporting</div>
+                    <div class="flow-step-sub">Gap</div>
+                </div>
+            </div>
+            <p class="slide-body reveal" style="font-size: var(--small-size); color: var(--truv-gray-400);">
+                <strong style="color: var(--truv-blue);">Blue = built.</strong> &nbsp;
+                <strong style="color: var(--truv-accent-red);">Red dashed = gap.</strong> &nbsp;
+                Truv's orchestration layer (HubSpot scoring, Pipedream automation) is strong. The signal input layer and feedback loop are the primary gaps.
+            </p>
+        </div>
+        <div class="slide-number">02 / 14</div>
+    </section>
+
+    <!-- =============================================
+         SLIDE 3: GAP ANALYSIS
+         ============================================= -->
+    <section class="slide" id="slide-3">
+        <div class="slide-content">
+            <div class="slide-tag reveal">Gap Analysis</div>
+            <h2 class="slide-subtitle reveal">Where We Are vs. Where We Need to Be</h2>
+            <div class="compare-grid reveal" style="margin-top: clamp(0.5rem, 1.5vh, 1rem);">
+                <div class="compare-col">
+                    <div class="compare-header">What We Have</div>
+                    <div class="compare-item"><span class="compare-icon">&#10003;</span> HubSpot contact scoring (4 dimensions)</div>
+                    <div class="compare-item"><span class="compare-icon">&#10003;</span> Dormant/closed-lost segmentation</div>
+                    <div class="compare-item"><span class="compare-icon">&#10003;</span> Pipedream weekly automation</div>
+                    <div class="compare-item"><span class="compare-icon">&#10003;</span> 4-email Smartlead sequence (written)</div>
+                    <div class="compare-item"><span class="compare-icon">&#10003;</span> Clay playbook documented</div>
+                    <div class="compare-item"><span class="compare-icon">&#10003;</span> AI data enrichment tool</div>
+                    <div class="compare-item"><span class="compare-icon">&#10003;</span> Strong proof points &amp; case studies</div>
+                </div>
+                <div class="compare-col highlight">
+                    <div class="compare-header">What We're Missing</div>
+                    <div class="compare-item"><span class="compare-icon" style="color: var(--truv-accent-red);">&#10007;</span> LinkedIn person-level signals (2x conversion)</div>
+                    <div class="compare-item"><span class="compare-icon" style="color: var(--truv-accent-red);">&#10007;</span> Website visitor identification</div>
+                    <div class="compare-item"><span class="compare-icon" style="color: var(--truv-accent-red);">&#10007;</span> Technographic scoring (40% of model)</div>
+                    <div class="compare-item"><span class="compare-icon" style="color: var(--truv-accent-red);">&#10007;</span> External trigger scoring (hardcoded placeholder)</div>
+                    <div class="compare-item"><span class="compare-icon" style="color: var(--truv-accent-red);">&#10007;</span> Domain infrastructure audit</div>
+                    <div class="compare-item"><span class="compare-icon" style="color: var(--truv-accent-red);">&#10007;</span> Sales/CS feedback loop</div>
+                    <div class="compare-item"><span class="compare-icon" style="color: var(--truv-accent-amber);">~</span> Clay &rarr; Smartlead pipeline (not yet activated)</div>
+                </div>
+            </div>
+        </div>
+        <div class="slide-number">03 / 14</div>
+    </section>
+
+    <!-- =============================================
+         SLIDE 4: KEY INSIGHT
+         ============================================= -->
+    <section class="slide slide-blue" id="slide-4">
+        <div class="slide-content" style="align-items: center; text-align: center;">
+            <div class="slide-tag reveal">Key Insight from Industry Data</div>
+            <h2 class="slide-title reveal" style="max-width: 700px;">
+                Person-level signals convert <span style="text-decoration: underline; text-decoration-color: rgba(255,255,255,0.4); text-underline-offset: 6px;">nearly 2&times;</span> as frequently as company-level signals.
+            </h2>
+            <p class="slide-body reveal" style="max-width: 500px; text-align: center; margin-top: clamp(0.5rem, 1.5vh, 1rem);">
+                Data from Unify (outbound platform). LinkedIn activity, champion tracking, and content engagement dramatically outperform firmographic-only targeting.
+            </p>
+        </div>
+        <div class="slide-number">04 / 14</div>
+    </section>
+
+    <!-- =============================================
+         SLIDE 5: THE 5 INITIATIVES OVERVIEW
+         ============================================= -->
+    <section class="slide" id="slide-5">
+        <div class="bg-gradient-tl"></div>
+        <div class="slide-content">
+            <div class="slide-tag reveal">The Plan</div>
+            <h2 class="slide-subtitle reveal">5 Execution Opportunities</h2>
+            <div class="card-grid cols-5 reveal" style="margin-top: clamp(0.5rem, 1.5vh, 1rem);">
+                <div class="card" style="border-top: 3px solid var(--truv-blue);">
+                    <div class="card-title">1. Clay &rarr; Smartlead</div>
+                    <div class="card-text">Activate the documented pipeline. First campaign in 2 weeks.</div>
+                    <div style="margin-top: clamp(0.3rem, 0.6vh, 0.5rem);">
+                        <span class="badge badge-red">High Impact</span>
+                    </div>
+                </div>
+                <div class="card" style="border-top: 3px solid var(--truv-accent-green);">
+                    <div class="card-title">2. LinkedIn Signals</div>
+                    <div class="card-text">Person-level scoring. Posts, engagement, champion tracking.</div>
+                    <div style="margin-top: clamp(0.3rem, 0.6vh, 0.5rem);">
+                        <span class="badge badge-red">High Impact</span>
+                    </div>
+                </div>
+                <div class="card" style="border-top: 3px solid var(--truv-accent-amber);">
+                    <div class="card-title">3. Technographics</div>
+                    <div class="card-text">Detect verification provider, LOS platform, API readiness.</div>
+                    <div style="margin-top: clamp(0.3rem, 0.6vh, 0.5rem);">
+                        <span class="badge badge-amber">High Effort</span>
+                    </div>
+                </div>
+                <div class="card" style="border-top: 3px solid #8b5cf6;">
+                    <div class="card-title">4. Website Visitors</div>
+                    <div class="card-text">Identify anonymous visitors. Route warm signals to outbound.</div>
+                    <div style="margin-top: clamp(0.3rem, 0.6vh, 0.5rem);">
+                        <span class="badge badge-green">Low Effort</span>
+                    </div>
+                </div>
+                <div class="card" style="border-top: 3px solid var(--truv-accent-red);">
+                    <div class="card-title">5. Domain Audit</div>
+                    <div class="card-text">Secondary domains, DMARC/SPF/DKIM, mailbox warmup.</div>
+                    <div style="margin-top: clamp(0.3rem, 0.6vh, 0.5rem);">
+                        <span class="badge badge-blue">Critical</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="slide-number">05 / 14</div>
+    </section>
+
+    <!-- =============================================
+         SLIDE 6: INITIATIVE 1 — CLAY > SMARTLEAD
+         ============================================= -->
+    <section class="slide" id="slide-6">
+        <div class="slide-content">
+            <div class="initiative-bar reveal">
+                <div class="initiative-num">1</div>
+                <div>
+                    <div class="slide-tag" style="margin-bottom:0;">Initiative 1</div>
+                </div>
+                <div class="initiative-meta">
+                    <span class="badge badge-red">High Impact</span>
+                    <span class="badge badge-amber">Medium Effort</span>
+                    <span class="badge badge-gray">Weeks 1-2</span>
+                </div>
+            </div>
+            <h2 class="slide-subtitle reveal">Activate the Clay &rarr; Smartlead Pipeline</h2>
+            <div class="split reveal">
+                <div>
+                    <p class="slide-body" style="margin-bottom: clamp(0.5rem, 1.5vh, 1rem);">
+                        The full workflow is documented but unexecuted. HubSpot contacts flow through Clay enrichment (LinkedIn post scraping + AI personalization) into Smartlead's 4-email sequence.
+                    </p>
+                    <ul class="check-list">
+                        <li>Build Clay table with LinkedIn enrichment columns</li>
+                        <li>AI-generated custom_message from prospect's posts</li>
+                        <li>4-step sequence: personal opener &rarr; proof point &rarr; feature angle &rarr; breakup</li>
+                        <li>QA first 10 messages manually before bulk send</li>
+                        <li>Reply sync back to HubSpot with status tracking</li>
+                    </ul>
+                </div>
+                <div>
+                    <div class="card" style="background: var(--truv-blue-dark); border-color: transparent;">
+                        <div class="card-title" style="color: var(--truv-blue-light); margin-bottom: clamp(0.3rem, 0.8vh, 0.75rem);">Target Metrics</div>
+                        <table class="data-table" style="color: rgba(255,255,255,0.7);">
+                            <tr><td>Open rate</td><td class="highlight-cell" style="color: var(--truv-blue-light); text-align: right;">&gt;50%</td></tr>
+                            <tr><td>Reply rate</td><td class="highlight-cell" style="color: var(--truv-blue-light); text-align: right;">&gt;5%</td></tr>
+                            <tr><td>Meeting book rate</td><td class="highlight-cell" style="color: var(--truv-blue-light); text-align: right;">&gt;1.5%</td></tr>
+                            <tr><td>Cost per contact</td><td class="highlight-cell" style="color: var(--truv-blue-light); text-align: right;">$0.03-0.05</td></tr>
+                            <tr><td style="border-bottom:none">Cost per meeting</td><td class="highlight-cell" style="color: var(--truv-blue-light); text-align: right; border-bottom:none;">&lt;$50</td></tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="slide-number">06 / 14</div>
+    </section>
+
+    <!-- =============================================
+         SLIDE 7: INITIATIVE 1 — FLOW
+         ============================================= -->
+    <section class="slide" id="slide-7">
+        <div class="bg-grid"></div>
+        <div class="slide-content">
+            <div class="slide-tag reveal">Initiative 1 &mdash; Pipeline Flow</div>
+            <h2 class="slide-subtitle reveal">How It Works: End-to-End</h2>
+            <div class="flow-container reveal-scale" style="margin: clamp(0.75rem, 2vh, 1.5rem) 0;">
+                <div class="flow-step active">
+                    <div class="flow-step-label">HubSpot</div>
+                    <div class="flow-step-sub">Scored contacts</div>
+                </div>
+                <div class="flow-arrow">&rarr;</div>
+                <div class="flow-step active">
+                    <div class="flow-step-label">Clay</div>
+                    <div class="flow-step-sub">Enrich + personalize</div>
+                </div>
+                <div class="flow-arrow">&rarr;</div>
+                <div class="flow-step active">
+                    <div class="flow-step-label">Smartlead</div>
+                    <div class="flow-step-sub">4-email sequence</div>
+                </div>
+                <div class="flow-arrow">&rarr;</div>
+                <div class="flow-step active" style="border-color: var(--truv-accent-green);">
+                    <div class="flow-step-label">Outcome</div>
+                    <div class="flow-step-sub">Reply / Exhaust</div>
+                </div>
+            </div>
+            <div class="card-grid cols-3 reveal" style="margin-top: clamp(0.5rem, 1.5vh, 1rem);">
+                <div class="card">
+                    <div class="card-title" style="color: var(--truv-accent-green);">Reply / Meeting</div>
+                    <div class="card-text">Syncs to HubSpot. Sales works the opportunity. Contact exits Smartlead.</div>
+                </div>
+                <div class="card">
+                    <div class="card-title" style="color: var(--truv-accent-amber);">No Reply (Exhausted)</div>
+                    <div class="card-text">Marked <code style="font-size: 0.85em; background: var(--truv-gray-100); padding: 1px 4px; border-radius: 3px;">outreach_status: exhausted</code>. Enters marketing nurture via SendGrid.</div>
+                </div>
+                <div class="card">
+                    <div class="card-title" style="color: var(--truv-gray-400);">Unsubscribe / Bounce</div>
+                    <div class="card-text">Smartlead handles suppression. Syncs to HubSpot to prevent re-enrollment.</div>
+                </div>
+            </div>
+        </div>
+        <div class="slide-number">07 / 14</div>
+    </section>
+
+    <!-- =============================================
+         SLIDE 8: INITIATIVE 2 — LINKEDIN SIGNALS
+         ============================================= -->
+    <section class="slide" id="slide-8">
+        <div class="slide-content">
+            <div class="initiative-bar reveal">
+                <div class="initiative-num">2</div>
+                <div>
+                    <div class="slide-tag" style="margin-bottom:0;">Initiative 2</div>
+                </div>
+                <div class="initiative-meta">
+                    <span class="badge badge-red">High Impact</span>
+                    <span class="badge badge-amber">Medium Effort</span>
+                    <span class="badge badge-gray">Weeks 2-4</span>
+                </div>
+            </div>
+            <h2 class="slide-subtitle reveal">Add LinkedIn Signal Scoring</h2>
+            <div class="split reveal">
+                <div>
+                    <p class="slide-body" style="margin-bottom: clamp(0.5rem, 1.5vh, 1rem);">
+                        Our scorer's <code style="font-size: 0.85em; background: var(--truv-gray-100); padding: 1px 4px; border-radius: 3px;">_score_external_triggers()</code> returns a hardcoded 40. Replace with real LinkedIn intelligence.
+                    </p>
+                    <ul class="check-list">
+                        <li><strong>Phase 1:</strong> Clay-based post scraping + AI relevance scoring</li>
+                        <li><strong>Phase 2:</strong> Phantombuster monitoring for profile views, competitor engagement</li>
+                        <li><strong>Phase 3:</strong> Champion tracking — detect when contacts change jobs</li>
+                    </ul>
+                </div>
+                <div>
+                    <div class="card">
+                        <div class="card-title">LinkedIn Signal Scoring</div>
+                        <div class="card-text" style="font-family: monospace; line-height: 1.6; font-size: var(--label-size);">
+                            <div>Post relevance (mortgage/verification) <span style="float:right; color: var(--truv-blue); font-weight:600;">+40 pts</span></div>
+                            <div>Job change detected <span style="float:right; color: var(--truv-blue); font-weight:600;">+30 pts</span></div>
+                            <div>Former champion at new company <span style="float:right; color: var(--truv-blue); font-weight:600;">+25 pts</span></div>
+                            <div>Competitor engagement <span style="float:right; color: var(--truv-blue); font-weight:600;">+20 pts</span></div>
+                            <div style="margin-top: clamp(0.3rem, 0.5vh, 0.5rem); padding-top: clamp(0.3rem, 0.5vh, 0.5rem); border-top: 2px solid var(--truv-gray-200); font-weight: 700; color: var(--truv-blue-dark);">
+                                Max external trigger score <span style="float:right;">100 pts</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="slide-number">08 / 14</div>
+    </section>
+
+    <!-- =============================================
+         SLIDE 9: INITIATIVE 3 — TECHNOGRAPHICS
+         ============================================= -->
+    <section class="slide" id="slide-9">
+        <div class="slide-content">
+            <div class="initiative-bar reveal">
+                <div class="initiative-num">3</div>
+                <div>
+                    <div class="slide-tag" style="margin-bottom:0;">Initiative 3</div>
+                </div>
+                <div class="initiative-meta">
+                    <span class="badge badge-red">High Impact</span>
+                    <span class="badge badge-red">High Effort</span>
+                    <span class="badge badge-gray">Weeks 3-6</span>
+                </div>
+            </div>
+            <h2 class="slide-subtitle reveal">Build Technographic Scoring Layer</h2>
+            <p class="slide-body reveal" style="margin-bottom: clamp(0.5rem, 1.5vh, 1rem);">
+                Best-in-class outbound systems allocate <strong>40% of their scoring model</strong> to technographics. Knowing a prospect uses TWN, Encompass, or manual verification changes the entire pitch angle.
+            </p>
+            <div class="card-grid cols-3 reveal">
+                <div class="card">
+                    <div class="card-icon" style="background: #fee2e2;">&#9888;</div>
+                    <div class="card-title">Verification Provider</div>
+                    <div class="card-text">
+                        Manual/fax: <strong>90 pts</strong><br>
+                        TWN user: <strong>70 pts</strong><br>
+                        Equifax: <strong>65 pts</strong>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-icon" style="background: #dbeafe;">&#9881;</div>
+                    <div class="card-title">LOS Platform</div>
+                    <div class="card-text">
+                        Encompass: <strong>85 pts</strong> (native integration)<br>
+                        Blend: <strong>70 pts</strong><br>
+                        ICE: <strong>60 pts</strong>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-icon" style="background: #dcfce7;">&#9889;</div>
+                    <div class="card-title">Personalization Angle</div>
+                    <div class="card-text">
+                        TWN &rarr; cost savings ($350/loan)<br>
+                        Manual &rarr; automation (30s vs 3-7 days)<br>
+                        Encompass &rarr; native integration
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="slide-number">09 / 14</div>
+    </section>
+
+    <!-- =============================================
+         SLIDE 10: INITIATIVE 4 — WEBSITE VISITORS
+         ============================================= -->
+    <section class="slide" id="slide-10">
+        <div class="slide-content">
+            <div class="initiative-bar reveal">
+                <div class="initiative-num">4</div>
+                <div>
+                    <div class="slide-tag" style="margin-bottom:0;">Initiative 4</div>
+                </div>
+                <div class="initiative-meta">
+                    <span class="badge badge-amber">Medium Impact</span>
+                    <span class="badge badge-green">Low Effort</span>
+                    <span class="badge badge-gray">Week 1</span>
+                </div>
+            </div>
+            <h2 class="slide-subtitle reveal">Set Up Website Visitor Identification</h2>
+            <div class="split reveal">
+                <div>
+                    <p class="slide-body" style="margin-bottom: clamp(0.5rem, 1.5vh, 1rem);">
+                        Someone visiting truv.com/pricing is further down the funnel than any cold list. Identify them and route into the outbound pipeline.
+                    </p>
+                    <ul class="check-list">
+                        <li>Install Clay Web Intent pixel on truv.com</li>
+                        <li>Track high-intent pages: /pricing, /roi-calculator, /case-studies</li>
+                        <li>Score by page visited (pricing = 90, blog = 30)</li>
+                        <li>High intent &rarr; priority Smartlead sequence</li>
+                        <li>Gate whitepaper + ROI results for email capture</li>
+                    </ul>
+                </div>
+                <div>
+                    <div class="card">
+                        <div class="card-title">Page Intent Scoring</div>
+                        <table class="data-table">
+                            <thead>
+                                <tr><th>Page</th><th style="text-align:right;">Score</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>/pricing</td><td class="highlight-cell" style="text-align:right;">90</td></tr>
+                                <tr><td>/roi-calculator</td><td class="highlight-cell" style="text-align:right;">85</td></tr>
+                                <tr><td>/case-studies</td><td class="highlight-cell" style="text-align:right;">70</td></tr>
+                                <tr><td>/solutions/*</td><td class="highlight-cell" style="text-align:right;">60</td></tr>
+                                <tr><td>/blog, /resources</td><td class="highlight-cell" style="text-align:right;">30</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="slide-number">10 / 14</div>
+    </section>
+
+    <!-- =============================================
+         SLIDE 11: INITIATIVE 5 — DOMAIN AUDIT
+         ============================================= -->
+    <section class="slide" id="slide-11">
+        <div class="slide-content">
+            <div class="initiative-bar reveal">
+                <div class="initiative-num">5</div>
+                <div>
+                    <div class="slide-tag" style="margin-bottom:0;">Initiative 5</div>
+                </div>
+                <div class="initiative-meta">
+                    <span class="badge badge-blue">Critical</span>
+                    <span class="badge badge-green">Low Effort</span>
+                    <span class="badge badge-gray">Week 1</span>
+                </div>
+            </div>
+            <h2 class="slide-subtitle reveal">Domain Infrastructure Audit</h2>
+            <p class="slide-body reveal" style="margin-bottom: clamp(0.5rem, 1.5vh, 1rem);">
+                Deliverability failures account for 3 of the top 9 outbound failure reasons. This is table stakes before scaling anything else.
+            </p>
+            <div class="card-grid cols-2 reveal">
+                <div class="card">
+                    <div class="card-title">Deliverability Rules</div>
+                    <ul class="check-list" style="font-size: var(--small-size);">
+                        <li>NEVER send cold from primary domain (truv.com)</li>
+                        <li>Max 25 emails/day per mailbox</li>
+                        <li>Max 5-10 mailboxes per domain</li>
+                        <li>Pre-age domains 2-4 weeks</li>
+                        <li>Open tracking OFF (pixel hurts deliverability)</li>
+                        <li>No images or attachments in cold emails</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <div class="card-title">Capacity Model</div>
+                    <table class="data-table">
+                        <thead>
+                            <tr><th>Setup</th><th style="text-align:right;">Daily</th><th style="text-align:right;">Weekly</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>5 domains &times; 5 mailboxes</td><td class="highlight-cell" style="text-align:right;">625</td><td class="highlight-cell" style="text-align:right;">3,125</td></tr>
+                            <tr><td>10 domains &times; 5 mailboxes</td><td class="highlight-cell" style="text-align:right;">1,250</td><td class="highlight-cell" style="text-align:right;">6,250</td></tr>
+                            <tr><td>10 domains &times; 10 mailboxes</td><td class="highlight-cell" style="text-align:right;">2,500</td><td class="highlight-cell" style="text-align:right;">12,500</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="slide-number">11 / 14</div>
+    </section>
+
+    <!-- =============================================
+         SLIDE 12: TIMELINE
+         ============================================= -->
+    <section class="slide" id="slide-12">
+        <div class="bg-gradient-br"></div>
+        <div class="slide-content">
+            <div class="slide-tag reveal">Execution Plan</div>
+            <h2 class="slide-subtitle reveal">6-Week Implementation Timeline</h2>
+            <div class="timeline reveal" style="margin-top: clamp(0.5rem, 1.5vh, 1rem);">
+                <div class="timeline-week" style="border-top: 3px solid var(--truv-blue);">
+                    <div class="timeline-week-label">Week 1</div>
+                    <div class="timeline-item"><div class="timeline-dot dot-5"></div><span>Domain audit + purchase</span></div>
+                    <div class="timeline-item"><div class="timeline-dot dot-4"></div><span>Clay pixel install</span></div>
+                    <div class="timeline-item"><div class="timeline-dot dot-1"></div><span>Build Clay table</span></div>
+                    <div class="timeline-item"><div class="timeline-dot dot-5"></div><span>Begin mailbox warmup</span></div>
+                </div>
+                <div class="timeline-week" style="border-top: 3px solid var(--truv-accent-green);">
+                    <div class="timeline-week-label">Week 2</div>
+                    <div class="timeline-item"><div class="timeline-dot dot-1"></div><span>First campaign (50 contacts)</span></div>
+                    <div class="timeline-item"><div class="timeline-dot dot-4"></div><span>Visitor routing live</span></div>
+                    <div class="timeline-item"><div class="timeline-dot dot-2"></div><span>LinkedIn enrichment begins</span></div>
+                    <div class="timeline-item"><div class="timeline-dot dot-4"></div><span>Gate whitepaper</span></div>
+                </div>
+                <div class="timeline-week" style="border-top: 3px solid var(--truv-accent-amber);">
+                    <div class="timeline-week-label">Week 3</div>
+                    <div class="timeline-item"><div class="timeline-dot dot-2"></div><span>LinkedIn scoring in scorer.py</span></div>
+                    <div class="timeline-item"><div class="timeline-dot dot-3"></div><span>Tech data collection begins</span></div>
+                    <div class="timeline-item"><div class="timeline-dot dot-1"></div><span>Campaign 1 optimization</span></div>
+                </div>
+                <div class="timeline-week" style="border-top: 3px solid #8b5cf6;">
+                    <div class="timeline-week-label">Week 4</div>
+                    <div class="timeline-item"><div class="timeline-dot dot-2"></div><span>Phantombuster monitoring</span></div>
+                    <div class="timeline-item"><div class="timeline-dot dot-2"></div><span>Champion tracking</span></div>
+                    <div class="timeline-item"><div class="timeline-dot dot-3"></div><span>Tech scoring logic</span></div>
+                </div>
+                <div class="timeline-week" style="border-top: 3px solid var(--truv-accent-red);">
+                    <div class="timeline-week-label">Week 5</div>
+                    <div class="timeline-item"><div class="timeline-dot dot-3"></div><span>Batch enrichment (500 accts)</span></div>
+                    <div class="timeline-item"><div class="timeline-dot dot-3"></div><span>Updated scorer weights</span></div>
+                    <div class="timeline-item"><div class="timeline-dot dot-1"></div><span>Scale to 2nd vertical</span></div>
+                </div>
+                <div class="timeline-week" style="border-top: 3px solid var(--truv-gray-400);">
+                    <div class="timeline-week-label">Week 6</div>
+                    <div class="timeline-item"><div class="timeline-dot dot-3"></div><span>Personalization integration</span></div>
+                    <div class="timeline-item"><div class="timeline-dot dot-1"></div><span>Full pipeline operational</span></div>
+                    <div class="timeline-item"><div class="timeline-dot dot-5"></div><span>Feedback loop established</span></div>
+                </div>
+            </div>
+            <div class="reveal" style="display: flex; gap: clamp(0.75rem, 1.5vw, 1.5rem); margin-top: clamp(0.5rem, 1.5vh, 1rem); font-size: var(--label-size); flex-wrap: wrap;">
+                <span style="display:flex;align-items:center;gap:4px;"><span class="timeline-dot dot-1" style="position:static;margin:0;"></span> Clay/Smartlead</span>
+                <span style="display:flex;align-items:center;gap:4px;"><span class="timeline-dot dot-2" style="position:static;margin:0;"></span> LinkedIn</span>
+                <span style="display:flex;align-items:center;gap:4px;"><span class="timeline-dot dot-3" style="position:static;margin:0;"></span> Technographics</span>
+                <span style="display:flex;align-items:center;gap:4px;"><span class="timeline-dot dot-4" style="position:static;margin:0;"></span> Website Visitors</span>
+                <span style="display:flex;align-items:center;gap:4px;"><span class="timeline-dot dot-5" style="position:static;margin:0;"></span> Domain Infra</span>
+            </div>
+        </div>
+        <div class="slide-number">12 / 14</div>
+    </section>
+
+    <!-- =============================================
+         SLIDE 13: BUDGET
+         ============================================= -->
+    <section class="slide" id="slide-13">
+        <div class="slide-content">
+            <div class="slide-tag reveal">Investment</div>
+            <h2 class="slide-subtitle reveal">Monthly Budget Estimate</h2>
+            <div class="split reveal">
+                <div>
+                    <table class="data-table">
+                        <thead>
+                            <tr><th>Item</th><th style="text-align:right;">Monthly</th><th style="text-align:right;">Notes</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td class="highlight-cell">Clay</td><td style="text-align:right;">$149-349</td><td style="text-align:right; font-size: var(--label-size);">Enrichment + AI + Web Intent</td></tr>
+                            <tr><td class="highlight-cell">Smartlead</td><td style="text-align:right;">$94</td><td style="text-align:right; font-size: var(--label-size);">Already active</td></tr>
+                            <tr><td class="highlight-cell">Phantombuster</td><td style="text-align:right;">$69</td><td style="text-align:right; font-size: var(--label-size);">LinkedIn monitoring</td></tr>
+                            <tr><td class="highlight-cell">Domains</td><td style="text-align:right;">~$10</td><td style="text-align:right; font-size: var(--label-size);">5-10 secondary domains/yr</td></tr>
+                            <tr><td class="highlight-cell">Google Workspace</td><td style="text-align:right;">$150-300</td><td style="text-align:right; font-size: var(--label-size);">25-50 mailboxes @ $6/ea</td></tr>
+                            <tr><td class="highlight-cell">OpenAI API</td><td style="text-align:right;">$10-20</td><td style="text-align:right; font-size: var(--label-size);">Clay AI columns</td></tr>
+                            <tr>
+                                <td style="font-weight:700; color: var(--truv-blue-dark); border-top: 2px solid var(--truv-blue-dark);">Total</td>
+                                <td style="text-align:right; font-weight:700; color: var(--truv-blue); border-top: 2px solid var(--truv-blue-dark); font-size: clamp(0.85rem, 1.3vw, 1.1rem);">$500-700/mo</td>
+                                <td style="text-align:right; border-top: 2px solid var(--truv-blue-dark); font-size: var(--label-size);">Excluding existing tools</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div>
+                    <div class="card" style="background: var(--truv-blue-dark); border-color: transparent; text-align: center;">
+                        <div class="card-text" style="color: rgba(255,255,255,0.5); font-size: var(--label-size); margin-bottom: clamp(0.5rem, 1vh, 1rem);">EXPECTED OUTPUT AT SCALE</div>
+                        <div style="font-family: var(--font-display); font-size: clamp(1.5rem, 3.5vw, 2.5rem); font-weight: 700; color: var(--truv-white); line-height: 1.1;">
+                            3,000-6,000
+                        </div>
+                        <div style="font-size: var(--body-size); color: var(--truv-blue-light); margin-top: 4px;">
+                            personalized emails/week
+                        </div>
+                        <div style="margin-top: clamp(0.5rem, 1.5vh, 1rem); padding-top: clamp(0.5rem, 1.5vh, 1rem); border-top: 1px solid rgba(255,255,255,0.1);">
+                            <div style="font-size: var(--small-size); color: rgba(255,255,255,0.5);">at</div>
+                            <div style="font-family: var(--font-display); font-size: clamp(1.25rem, 2.5vw, 2rem); font-weight: 700; color: var(--truv-accent-green); line-height: 1.1;">
+                                $0.03-0.10
+                            </div>
+                            <div style="font-size: var(--body-size); color: var(--truv-blue-light); margin-top: 4px;">
+                                per contact
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="slide-number">13 / 14</div>
+    </section>
+
+    <!-- =============================================
+         SLIDE 14: NEXT STEPS
+         ============================================= -->
+    <section class="slide slide-dark" id="slide-14">
+        <div class="bg-grid" style="opacity:0.3"></div>
+        <div class="slide-content" style="align-items: center; text-align: center;">
+            <div class="slide-tag reveal">What's Next</div>
+            <h2 class="slide-title reveal" style="max-width: 650px;">
+                Week 1 starts with three parallel workstreams.
+            </h2>
+            <div class="card-grid cols-3 reveal" style="margin-top: clamp(0.75rem, 2vh, 1.5rem); max-width: 750px;">
+                <div class="card" style="background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.1); text-align: left;">
+                    <div class="card-title" style="color: var(--truv-accent-red);">Domain Audit</div>
+                    <div class="card-text" style="color: rgba(255,255,255,0.6);">Purchase secondary domains. Configure DMARC/SPF/DKIM. Begin mailbox warmup.</div>
+                </div>
+                <div class="card" style="background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.1); text-align: left;">
+                    <div class="card-title" style="color: #8b5cf6;">Clay Pixel</div>
+                    <div class="card-text" style="color: rgba(255,255,255,0.6);">Install Web Intent on truv.com. Set up page-level scoring. Configure routing.</div>
+                </div>
+                <div class="card" style="background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.1); text-align: left;">
+                    <div class="card-title" style="color: var(--truv-blue-light);">Clay Table</div>
+                    <div class="card-text" style="color: rgba(255,255,255,0.6);">Build enrichment pipeline. Write example bank. Configure Smartlead sequence.</div>
+                </div>
+            </div>
+            <p class="reveal" style="margin-top: clamp(1rem, 3vh, 2.5rem); font-size: var(--small-size); color: rgba(255,255,255,0.35); max-width: 500px;">
+                Based on industry-leading outbound automation frameworks<br>
+                Full implementation guide: Notion &rarr; 2026 Planning &rarr; Outbound Automation Implementation Guide
+            </p>
+        </div>
+        <div class="slide-number">14 / 14</div>
+    </section>
+
+    <!-- ===========================================
+         JAVASCRIPT: PRESENTATION CONTROLLER
+         =========================================== -->
+    <script>
+        class SlidePresentation {
+            constructor() {
+                this.slides = document.querySelectorAll('.slide');
+                this.currentSlide = 0;
+                this.totalSlides = this.slides.length;
+                this.isScrolling = false;
+                this.scrollTimeout = null;
+
+                this.createNavDots();
+                this.setupIntersectionObserver();
+                this.setupKeyboardNav();
+                this.setupWheelNav();
+                this.setupTouchNav();
+                this.updateProgress();
+            }
+
+            createNavDots() {
+                const nav = document.getElementById('navDots');
+                this.slides.forEach((_, i) => {
+                    const dot = document.createElement('button');
+                    dot.className = 'nav-dot' + (i === 0 ? ' active' : '');
+                    dot.setAttribute('aria-label', `Go to slide ${i + 1}`);
+                    dot.addEventListener('click', () => this.goToSlide(i));
+                    nav.appendChild(dot);
+                });
+                this.dots = nav.querySelectorAll('.nav-dot');
+            }
+
+            setupIntersectionObserver() {
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('visible');
+                            const index = Array.from(this.slides).indexOf(entry.target);
+                            this.currentSlide = index;
+                            this.updateNavDots();
+                            this.updateProgress();
+                        }
+                    });
+                }, { threshold: 0.5 });
+
+                this.slides.forEach(slide => observer.observe(slide));
+            }
+
+            setupKeyboardNav() {
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'ArrowDown' || e.key === 'ArrowRight' || e.key === ' ') {
+                        e.preventDefault();
+                        this.nextSlide();
+                    } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
+                        e.preventDefault();
+                        this.prevSlide();
+                    }
+                });
+            }
+
+            setupWheelNav() {
+                let lastWheel = 0;
+                document.addEventListener('wheel', (e) => {
+                    const now = Date.now();
+                    if (now - lastWheel < 800) return;
+                    lastWheel = now;
+
+                    if (e.deltaY > 0) this.nextSlide();
+                    else if (e.deltaY < 0) this.prevSlide();
+                }, { passive: true });
+            }
+
+            setupTouchNav() {
+                let touchStartY = 0;
+                document.addEventListener('touchstart', (e) => {
+                    touchStartY = e.touches[0].clientY;
+                }, { passive: true });
+
+                document.addEventListener('touchend', (e) => {
+                    const touchEndY = e.changedTouches[0].clientY;
+                    const diff = touchStartY - touchEndY;
+                    if (Math.abs(diff) > 50) {
+                        if (diff > 0) this.nextSlide();
+                        else this.prevSlide();
+                    }
+                }, { passive: true });
+            }
+
+            goToSlide(index) {
+                if (index >= 0 && index < this.totalSlides) {
+                    this.slides[index].scrollIntoView({ behavior: 'smooth' });
+                    this.currentSlide = index;
+                    this.updateNavDots();
+                    this.updateProgress();
+                }
+            }
+
+            nextSlide() {
+                this.goToSlide(this.currentSlide + 1);
+            }
+
+            prevSlide() {
+                this.goToSlide(this.currentSlide - 1);
+            }
+
+            updateNavDots() {
+                this.dots.forEach((dot, i) => {
+                    dot.classList.toggle('active', i === this.currentSlide);
+                });
+            }
+
+            updateProgress() {
+                const progress = ((this.currentSlide + 1) / this.totalSlides) * 100;
+                document.getElementById('progressBar').style.width = progress + '%';
+            }
+        }
+
+        // Initialize when DOM is ready
+        document.addEventListener('DOMContentLoaded', () => {
+            new SlidePresentation();
+        });
+    </script>
+</body>
+</html>

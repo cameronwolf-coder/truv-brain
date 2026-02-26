@@ -1,0 +1,140 @@
+MARKETING WEEK ENDING | Feb 9–13, 2026
+Cameron Wolf · Sr. Marketing Manager
+════════════════════════════════════════════════════════════════
+
+EXECUTIVE SUMMARY
+
+Big execution week—19 tickets closed. Primary focus was webinar promotion (4-email sequence delivered 7,379 emails, drove 18 new signups), case study infrastructure (3 new landing pages + 3 downloadable PDFs), and CRM cleanup following team changes. We also relaunched LinkedIn ads Tuesday with the new landing pages—early results show $1.08 CPC with 321 clicks in 2 days. Currently waiting on LinkedIn to finish audience matching before deploying all three campaigns.
+
+Inbound this week: 10 Form Fills → 10 Assigned → 6 First Contact → 2 SALs → 1 Deal
+
+════════════════════════════════════════════════════════════════
+COMPLETED THIS WEEK
+════════════════════════════════════════════════════════════════
+
+Systems & Process Improvements
+─────────────────────────────────────────
+• Removed auto SAL creation when meeting is booked via Sales Rep (was creating duplicate leads)
+• Converted #ccm-webinar Slack channel to #webinar-signups; switched notification infra from Clay to HubSpot
+• Adjusted LinkedIn Ad audience to exclude Underwriters, Processors, and mid-level adjacent roles
+
+CRM Cleanup: Allan & Dhiraj Offboarding
+─────────────────────────────────────────
+• Removed from all Round Robin assignments and booking links
+• Reassigned all Contact, Company, and Deal ownership
+
+Campaigns Executed
+─────────────────────────────────────────
+• Product Webinar 4-email sequence sent (Feb 4, 10, 11, 12)
+• Enriched HIT Summit Government list for event outreach
+
+Tools & Assets Created
+─────────────────────────────────────────
+• Set up Clay Signal for LinkedIn Personas—scrapes prospect posts for timely follow-up triggers
+• Created matched LinkedIn Ads list: Top 250 lenders × 3 key Ops personas (see details below)
+• Built 3 new case study landing pages: Cross Country Mortgage, First Continental Mortgage, Prosperity Home Mortgage
+• Created 3 downloadable case study PDFs: Cross Country, First Continental, Prosperity Home Mortgage
+• Edited Product Webinar video for YouTube upload
+• Shipped SendGrid Customer Comms Survey Template (HubSpot → Pipedream → SendGrid automation)
+
+════════════════════════════════════════════════════════════════
+NEW: MORTGAGE OPS TARGETING LIST (LinkedIn Ads)
+════════════════════════════════════════════════════════════════
+
+Built a precision-targeted contact list for LinkedIn Ads by cross-referencing the Top 250 Mortgage Lenders (2024 HMDA origination data) against HubSpot operations contacts.
+
+How we built it:
+  1. Took top 250 mortgage lenders by origination volume (HMDA data)
+  2. Removed 39 lenders that are existing Truv customers
+  3. Kept 9 deal-stage lenders (UWM, Chase, Wells Fargo, PNC, Citizens, Truist...)
+  4. Searched HubSpot for contacts with "operations" in title at remaining 211 lenders
+  5. Scored by seniority & selected top 3 VP+ contacts per company
+
+  Target Lenders:      211
+  VP+ Contacts:        402
+  Companies Covered:   158
+  Expected LI Matches: ~160–240
+
+Top Ops Personas:
+  ┌─────────────────────────┬───────┬───────┐
+  │ Title Group             │ Count │   %   │
+  ├─────────────────────────┼───────┼───────┤
+  │ VP, Operations          │   144 │  36%  │
+  │ SVP, Operations         │   119 │  30%  │
+  │ COO / Chief Ops Officer │    87 │  22%  │
+  │ EVP, Operations         │    31 │   8%  │
+  └─────────────────────────┴───────┴───────┘
+
+════════════════════════════════════════════════════════════════
+EMAIL CAMPAIGN PERFORMANCE
+════════════════════════════════════════════════════════════════
+
+Product Updates (Feb 2)
+─────────────────────────────────────────
+  Sent: 4,029 | Open Rate: 33.2% | Click Rate: 28.7% | Unsubs: 0
+
+Webinar Promotion: Truv Product Insider (Feb 26)
+─────────────────────────────────────────
+  ┌──────────────────┬───────────┬───────┬───────┬────────┬────────┐
+  │ Email            │ Delivered │ Opens │ Open% │ Clicks │ Click% │
+  ├──────────────────┼───────────┼───────┼───────┼────────┼────────┤
+  │ Email 1 (Feb 4)  │     2,117 │   478 │ 22.6% │    349 │  16.5% │
+  │ Email 2 (Feb 10) │     1,758 │   409 │ 23.3% │    297 │  16.9% │
+  │ Email 3 (Feb 11) │     1,759 │   439 │ 25.0% │    321 │  18.2% │
+  │ Email 4 (Feb 12) │     1,745 │   401 │ 23.0% │    271 │  15.5% │
+  ├──────────────────┼───────────┼───────┼───────┼────────┼────────┤
+  │ TOTAL            │     7,379 │ 1,727 │ 23.4% │  1,238 │  16.8% │
+  └──────────────────┴───────────┴───────┴───────┴────────┴────────┘
+
+Result: 1,238 clicks → 18 signups (1.5% click-to-signup).
+Started with 4 registrations, ended with 22. Zero unsubscribes across all sends.
+
+════════════════════════════════════════════════════════════════
+LINKEDIN ADS PERFORMANCE (Relaunch)
+════════════════════════════════════════════════════════════════
+
+After pausing ads last week due to poor landing page engagement, we built 3 new case study landing pages and relaunched PHM Tuesday afternoon.
+
+PHM Case Study Campaign (Feb 11–13)
+─────────────────────────────────────────
+  ┌─────────────┬─────────┬────────┬───────┬───────┬────────┐
+  │ Spend       │ Impress │ Clicks │  CTR  │  CPC  │  CPM   │
+  ├─────────────┼─────────┼────────┼───────┼───────┼────────┤
+  │ $347        │  19,333 │    321 │ 1.66% │ $1.08 │ $17.97 │
+  └─────────────┴─────────┴────────┴───────┴───────┴────────┘
+
+Early results promising. Re-deploying all 3 case study campaigns once LinkedIn finishes audience matching.
+
+════════════════════════════════════════════════════════════════
+INBOUND PERFORMANCE SNAPSHOT (Feb 6–13)
+════════════════════════════════════════════════════════════════
+
+  ┌───────────────────────────┬───────┐
+  │ Stage                     │ Count │
+  ├───────────────────────────┼───────┤
+  │ Form Fill (Contact Sales) │    10 │
+  │ Assigned to Rep           │    10 │
+  │ First Contact Made        │     6 │
+  │ Meeting Created (SAL)     │     2 │
+  │ Deal Created              │     1 │
+  └───────────────────────────┴───────┘
+
+🔥 Hot Leads Requiring Action (4):
+─────────────────────────────────────────
+  ┌─────────────────────────────────────┬───────────────────────────┬───────────┐
+  │ Lead                                │ Company                   │ Submitted │
+  ├─────────────────────────────────────┼───────────────────────────┼───────────┤
+  │ jen@birchwoodcreditservices.com      │ Birchwood Credit Services │ Feb 10    │
+  │ andrew@bankruptcytruth.com          │ Bankruptcy Truth          │ Feb 12    │
+  │ kgoeringer@hoothomeloans.com        │ Hoot Home Loans           │ Feb 12    │
+  │ trey@lendidloans.com                │ Lendid Loans              │ Feb 12    │
+  └─────────────────────────────────────┴───────────────────────────┴───────────┘
+
+════════════════════════════════════════════════════════════════
+NEXT WEEK AHEAD
+════════════════════════════════════════════════════════════════
+
+→ Re-deploy Cross Country Mortgage and First Continental Mortgage LinkedIn ad campaigns (pending audience matching)
+→ Deploy new Top 250 Mortgage Ops matched audience to LinkedIn Ads (402 VP+ contacts uploaded)
+→ Webinar execution: Truv Product Insider (Feb 26)
+→ Monitor landing page engagement metrics post-relaunch

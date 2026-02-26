@@ -1,0 +1,1745 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Story: First Continental Mortgage | Truv</title>
+    <style>
+        /* Truv Brand Fonts */
+        @font-face {
+            font-family: 'Gilroy';
+            src: url('../../branding/fonts/Gilroy-Medium.woff2') format('woff2'),
+                 url('../../branding/fonts/Gilroy-Medium.woff') format('woff');
+            font-weight: 500;
+            font-style: normal;
+        }
+        @font-face {
+            font-family: 'Gilroy';
+            src: url('../../branding/fonts/Gilroy-SemiBold.woff2') format('woff2'),
+                 url('../../branding/fonts/Gilroy-SemiBold.woff') format('woff');
+            font-weight: 600;
+            font-style: normal;
+        }
+
+        /* Truv Brand Colors */
+        :root {
+            --truv-primary-blue: #2C64E3;
+            --truv-dark-blue: #0F1C47;
+            --truv-black: #171717;
+            --truv-grey: #F4F4F2;
+            --truv-white: #FFFFFF;
+            --truv-light-blue: #C5D9F7;
+        }
+
+        /* Reset & Base */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            font-size: 16px;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+
+        body {
+            font-family: 'Gilroy', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-weight: 500;
+            line-height: 1.6;
+            color: var(--truv-black);
+            background: var(--truv-white);
+        }
+
+        /* Print Optimization - Strict Letter Size */
+        @page {
+            size: 8.5in 11in;
+            margin: 0;
+        }
+
+        @media print {
+            html, body {
+                width: 8.5in;
+                height: 11in;
+                margin: 0;
+                padding: 0;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            .page {
+                width: 8.5in !important;
+                height: 11in !important;
+                max-height: 11in !important;
+                page-break-after: always;
+                page-break-inside: avoid;
+                break-after: page;
+                break-inside: avoid;
+                overflow: hidden !important;
+            }
+            .page:last-child {
+                page-break-after: auto;
+                break-after: auto;
+            }
+        }
+
+        /* Page Layout - Fixed Letter Size */
+        .page {
+            width: 8.5in;
+            height: 11in;
+            max-height: 11in;
+            margin: 0 auto;
+            background: var(--truv-white);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Screen preview spacing */
+        @media screen {
+            .page {
+                margin-bottom: 40px;
+                box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
+            }
+        }
+
+        /* === PAGE 1: COVER === */
+        .cover {
+            background: linear-gradient(135deg, var(--truv-dark-blue) 0%, #1a3a7a 50%, var(--truv-dark-blue) 100%);
+            display: flex;
+            flex-direction: column;
+            padding: 0;
+            height: 11in;
+            max-height: 11in;
+        }
+
+        .cover-header {
+            padding: 40px 48px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo svg {
+            height: 28px;
+            width: auto;
+        }
+
+        .logo svg path {
+            fill: white;
+        }
+
+        .cover-badge {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--truv-light-blue);
+            padding: 8px 16px;
+            border: 1px solid rgba(197, 217, 247, 0.3);
+            border-radius: 4px;
+        }
+
+        .cover-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 0 48px 32px;
+        }
+
+        .cover-company {
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--truv-light-blue);
+            margin-bottom: 20px;
+        }
+
+        .cover-headline {
+            font-size: 42px;
+            font-weight: 600;
+            line-height: 1.1;
+            color: var(--truv-white);
+            margin-bottom: 0;
+            max-width: 88%;
+        }
+
+        .cover-headline .highlight {
+            color: var(--truv-primary-blue);
+        }
+
+        /* Accent line between headline and stats */
+        .cover-divider {
+            width: 64px;
+            height: 3px;
+            background: var(--truv-primary-blue);
+            margin: 48px 0 0;
+        }
+
+        .cover-stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0;
+            background: rgba(255, 255, 255, 0.04);
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            margin-top: auto;
+        }
+
+        .cover-stat {
+            padding: 32px 20px;
+            text-align: center;
+            border-right: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .cover-stat:last-child {
+            border-right: none;
+        }
+
+        .cover-stat-value {
+            font-size: 46px;
+            font-weight: 600;
+            color: var(--truv-white);
+            line-height: 1;
+            margin-bottom: 8px;
+        }
+
+        .cover-stat-value .unit {
+            font-size: 30px;
+            color: var(--truv-primary-blue);
+        }
+
+        .cover-stat-label {
+            font-size: 10px;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.5);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
+        /* Geometric accent */
+        .cover::before {
+            content: '';
+            position: absolute;
+            top: -200px;
+            right: -200px;
+            width: 600px;
+            height: 600px;
+            border: 1px solid rgba(44, 100, 227, 0.12);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .cover::after {
+            content: '';
+            position: absolute;
+            top: -100px;
+            right: -100px;
+            width: 400px;
+            height: 400px;
+            border: 1px solid rgba(44, 100, 227, 0.08);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        /* === SHARED PAGE STYLES === */
+        .inner-page {
+            padding: 0 48px;
+            display: flex;
+            flex-direction: column;
+            height: 11in;
+            max-height: 11in;
+            overflow: hidden;
+        }
+
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 24px 0 12px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+            margin-bottom: 20px;
+            flex-shrink: 0;
+        }
+
+        .page-header .logo svg {
+            height: 20px;
+        }
+
+        .page-header .logo svg path {
+            fill: var(--truv-dark-blue);
+        }
+
+        .page-number {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--truv-primary-blue);
+            letter-spacing: 0.05em;
+        }
+
+        .section-label {
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--truv-primary-blue);
+            margin-bottom: 8px;
+        }
+
+        .section-title {
+            font-size: 22px;
+            font-weight: 600;
+            color: var(--truv-dark-blue);
+            margin-bottom: 12px;
+            line-height: 1.2;
+        }
+
+        /* Page footer */
+        .page-footer {
+            margin-top: auto;
+            padding: 12px 0 24px;
+            border-top: 1px solid rgba(0, 0, 0, 0.06);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+        .page-footer .logo svg {
+            height: 14px;
+            opacity: 0.25;
+        }
+
+        .page-footer .logo svg path {
+            fill: var(--truv-dark-blue);
+        }
+
+        .page-footer-right {
+            font-size: 9px;
+            color: rgba(23, 23, 23, 0.35);
+            letter-spacing: 0.05em;
+        }
+
+        /* Horizontal divider */
+        .section-divider {
+            width: 100%;
+            height: 1px;
+            background: rgba(0, 0, 0, 0.06);
+            margin: 12px 0;
+            flex-shrink: 0;
+        }
+
+        /* === PAGE 2: COMPANY PROFILE === */
+        .company-intro {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+            flex: 1;
+        }
+
+        .company-description {
+            font-size: 13px;
+            line-height: 1.55;
+            color: var(--truv-black);
+        }
+
+        .company-description p {
+            margin-bottom: 8px;
+        }
+
+        .company-facts {
+            background: var(--truv-grey);
+            padding: 16px 20px;
+            border-radius: 8px;
+            border-top: 3px solid var(--truv-primary-blue);
+            margin-top: auto;
+            margin-bottom: auto;
+        }
+
+        .company-divider {
+            width: 100%;
+            height: 1px;
+            background: rgba(0, 0, 0, 0.08);
+            margin-top: 24px;
+        }
+
+        .company-facts h4 {
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--truv-dark-blue);
+            margin-bottom: 12px;
+        }
+
+        .facts-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0;
+        }
+
+        .fact-cell {
+            text-align: center;
+            padding: 10px 8px;
+            border-right: 1px solid rgba(0, 0, 0, 0.06);
+        }
+
+        .fact-cell:last-child {
+            border-right: none;
+        }
+
+        .fact-value {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--truv-dark-blue);
+            margin-bottom: 3px;
+        }
+
+        .fact-label {
+            font-size: 10px;
+            color: rgba(23, 23, 23, 0.45);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* Why Truv — dark bottom section on page 2 */
+        .why-truv-section {
+            background: linear-gradient(135deg, var(--truv-dark-blue) 0%, #1a3a7a 100%);
+            margin: auto -48px 0;
+            padding: 24px 48px 28px;
+            flex-shrink: 0;
+        }
+
+        .why-truv-section .section-label {
+            color: var(--truv-light-blue);
+        }
+
+        .why-truv-section .section-title {
+            color: var(--truv-white);
+            font-size: 20px;
+            margin-bottom: 14px;
+        }
+
+        .why-truv-intro {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.75);
+            margin-bottom: 16px;
+            line-height: 1.55;
+        }
+
+        .why-truv-stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+        }
+
+        .why-truv-stat {
+            text-align: center;
+            padding: 14px 8px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .why-truv-stat-value {
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--truv-white);
+            line-height: 1;
+            margin-bottom: 6px;
+        }
+
+        .why-truv-stat-value .unit {
+            font-size: 16px;
+            color: var(--truv-primary-blue);
+        }
+
+        .why-truv-stat-label {
+            font-size: 9px;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.45);
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+        }
+
+        /* Challenge page styles */
+        .challenge-hero {
+            background: linear-gradient(135deg, var(--truv-dark-blue) 0%, #1a3a7a 100%);
+            margin: 0 -48px;
+            padding: 28px 48px;
+            margin-bottom: 18px;
+        }
+
+        .challenge-hero .section-label {
+            color: var(--truv-light-blue);
+        }
+
+        .challenge-hero .section-title {
+            color: var(--truv-white);
+            font-size: 24px;
+            margin-bottom: 14px;
+        }
+
+        .challenge-hero-text {
+            font-size: 13px;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.85);
+        }
+
+        .challenge-cards {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 16px;
+        }
+
+        .challenge-card {
+            border: 1px solid rgba(0, 0, 0, 0.06);
+            border-radius: 10px;
+            padding: 12px 16px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            border-left: 3px solid var(--truv-primary-blue);
+        }
+
+        .challenge-card-number {
+            width: 32px;
+            height: 32px;
+            min-width: 32px;
+            background: var(--truv-primary-blue);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+            font-weight: 600;
+            color: white;
+            margin-top: 1px;
+        }
+
+        .challenge-card-number svg {
+            width: 16px;
+            height: 16px;
+            fill: white;
+        }
+
+        .challenge-card-content {
+            flex: 1;
+        }
+
+        .challenge-card h4 {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--truv-dark-blue);
+            margin-bottom: 3px;
+            line-height: 1.3;
+        }
+
+        .challenge-card p {
+            font-size: 13px;
+            line-height: 1.45;
+            color: rgba(23, 23, 23, 0.6);
+        }
+
+        /* Before/After Comparison */
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 0;
+        }
+
+        .comparison-card {
+            border-radius: 10px;
+            padding: 14px 16px;
+            position: relative;
+        }
+
+        .comparison-card.before {
+            background: var(--truv-grey);
+            border: 1px solid rgba(0, 0, 0, 0.08);
+        }
+
+        .comparison-card.after {
+            background: linear-gradient(135deg, var(--truv-dark-blue) 0%, #1a3a7a 100%);
+        }
+
+        .comparison-card-label {
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .comparison-card.before .comparison-card-label {
+            color: rgba(23, 23, 23, 0.45);
+        }
+
+        .comparison-card.after .comparison-card-label {
+            color: var(--truv-light-blue);
+        }
+
+        .comparison-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 6px 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+        }
+
+        .comparison-card.after .comparison-row {
+            border-bottom-color: rgba(255, 255, 255, 0.08);
+        }
+
+        .comparison-row:last-child {
+            border-bottom: none;
+        }
+
+        .comparison-row-label {
+            font-size: 11px;
+        }
+
+        .comparison-card.before .comparison-row-label {
+            color: rgba(23, 23, 23, 0.55);
+        }
+
+        .comparison-card.after .comparison-row-label {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .comparison-row-value {
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .comparison-card.before .comparison-row-value {
+            color: var(--truv-black);
+        }
+
+        .comparison-card.after .comparison-row-value {
+            color: var(--truv-white);
+        }
+
+        /* Quote Block — Featured */
+        .quote-block {
+            padding: 20px 24px;
+            background: linear-gradient(135deg, rgba(197, 217, 247, 0.35) 0%, rgba(232, 240, 252, 0.5) 100%);
+            border-radius: 12px;
+            position: relative;
+            margin-bottom: 0;
+        }
+
+        .quote-mark {
+            position: absolute;
+            top: 10px;
+            left: 24px;
+            font-size: 48px;
+            font-weight: 600;
+            color: var(--truv-primary-blue);
+            opacity: 0.15;
+            line-height: 1;
+            font-family: Georgia, serif;
+            z-index: 0;
+        }
+
+        .quote-text {
+            font-size: 14px;
+            font-weight: 500;
+            line-height: 1.45;
+            color: var(--truv-dark-blue);
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 1;
+            padding-top: 14px;
+        }
+
+        .quote-attribution {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .quote-avatar {
+            width: 40px;
+            height: 40px;
+            background: var(--truv-dark-blue);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 15px;
+            font-weight: 600;
+            color: white;
+        }
+
+        .quote-author {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--truv-dark-blue);
+        }
+
+        .quote-title {
+            font-size: 11px;
+            color: rgba(15, 28, 71, 0.5);
+        }
+
+        /* === PAGE 4: SOLUTION DETAIL === */
+        .integration-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            margin: 14px 0 16px;
+        }
+
+        .integration-card {
+            border: 1px solid rgba(0, 0, 0, 0.06);
+            border-radius: 10px;
+            padding: 18px 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .integration-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--truv-primary-blue);
+        }
+
+        .integration-card.encompass::before {
+            background: var(--truv-dark-blue);
+        }
+
+        .integration-card-label {
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--truv-primary-blue);
+            margin-bottom: 4px;
+        }
+
+        .integration-card.encompass .integration-card-label {
+            color: var(--truv-dark-blue);
+        }
+
+        .integration-card h4 {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--truv-dark-blue);
+            margin-bottom: 8px;
+            line-height: 1.3;
+        }
+
+        .integration-card p {
+            font-size: 13px;
+            line-height: 1.5;
+            color: rgba(23, 23, 23, 0.65);
+            margin-bottom: 0;
+        }
+
+        .detail-content {
+            font-size: 13px;
+            line-height: 1.55;
+            color: var(--truv-black);
+        }
+
+        .detail-content p {
+            margin-bottom: 10px;
+        }
+
+        /* Inline Quote — Elevated */
+        .inline-quote {
+            padding: 12px 16px;
+            background: var(--truv-grey);
+            border-left: 3px solid var(--truv-primary-blue);
+            border-radius: 0 8px 8px 0;
+            margin: 10px 0;
+        }
+
+        .inline-quote p {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--truv-dark-blue);
+            font-style: italic;
+            line-height: 1.5;
+            margin-bottom: 0 !important;
+        }
+
+        .inline-quote cite {
+            display: block;
+            font-size: 10px;
+            color: rgba(23, 23, 23, 0.5);
+            font-style: normal;
+            margin-top: 6px;
+        }
+
+        .text-divider {
+            width: 40px;
+            height: 2px;
+            background: var(--truv-light-blue);
+            margin: 2px 0 10px;
+        }
+
+        /* Transformation flow visual */
+        .transform-flow {
+            display: flex;
+            align-items: center;
+            gap: 0;
+            margin: 14px 0;
+            padding: 14px 0;
+            border-top: 1px solid rgba(0, 0, 0, 0.06);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+        }
+
+        .transform-step {
+            flex: 1;
+            text-align: center;
+            padding: 10px 8px;
+        }
+
+        .transform-step-label {
+            font-size: 9px;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: rgba(23, 23, 23, 0.4);
+            margin-bottom: 4px;
+        }
+
+        .transform-step-value {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--truv-dark-blue);
+            line-height: 1.3;
+        }
+
+        .transform-arrow {
+            font-size: 16px;
+            color: var(--truv-primary-blue);
+            flex-shrink: 0;
+            font-weight: 600;
+        }
+
+        /* === PAGE 5: OUTCOMES + PARTNERSHIP === */
+        .outcomes-grid-compact {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .outcome-card-compact {
+            border: 1px solid rgba(0, 0, 0, 0.06);
+            border-top: 3px solid var(--truv-primary-blue);
+            border-radius: 10px;
+            padding: 18px 20px;
+        }
+
+        .outcome-icon {
+            width: 24px;
+            height: 24px;
+            background: rgba(44, 100, 227, 0.1);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 6px;
+        }
+
+        .outcome-icon svg {
+            width: 14px;
+            height: 14px;
+            fill: var(--truv-primary-blue);
+        }
+
+        .outcome-card-compact h4 {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--truv-dark-blue);
+            margin-bottom: 4px;
+        }
+
+        .outcome-card-compact p {
+            font-size: 11px;
+            line-height: 1.4;
+            color: rgba(23, 23, 23, 0.65);
+        }
+
+        .outcome-card-compact ul {
+            list-style: none;
+            padding: 0;
+            margin: 6px 0;
+        }
+
+        .outcome-card-compact ul li {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--truv-primary-blue);
+            padding: 2px 0;
+        }
+
+        .outcome-card-compact ul li::before {
+            content: '';
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            background: var(--truv-primary-blue);
+            border-radius: 50%;
+            margin-right: 8px;
+            vertical-align: middle;
+        }
+
+        /* Partnership section */
+        .partnership-section {
+            background: linear-gradient(135deg, var(--truv-dark-blue) 0%, #1a3a7a 100%);
+            margin: 24px -48px 0;
+            padding: 20px 48px 22px;
+            flex-shrink: 0;
+        }
+
+        .partnership-section .section-label {
+            color: var(--truv-light-blue);
+        }
+
+        .partnership-section .section-title {
+            color: var(--truv-white);
+            font-size: 18px;
+            margin-bottom: 14px;
+        }
+
+        .partnership-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+
+        .partnership-tile {
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 8px;
+            padding: 12px 14px;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .partnership-tile-icon {
+            width: 28px;
+            height: 28px;
+            min-width: 28px;
+            background: rgba(44, 100, 227, 0.25);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 1px;
+        }
+
+        .partnership-tile-icon svg {
+            width: 14px;
+            height: 14px;
+            fill: var(--truv-light-blue);
+        }
+
+        .partnership-tile-title {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--truv-white);
+            margin-bottom: 2px;
+            line-height: 1.3;
+        }
+
+        .partnership-tile-desc {
+            font-size: 10px;
+            color: rgba(255, 255, 255, 0.55);
+            line-height: 1.35;
+        }
+
+        /* === PAGE 6: CONCLUSION + ABOUT + CTA === */
+        /* Results Grid — Recap */
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .result-card {
+            background: var(--truv-dark-blue);
+            padding: 16px;
+            border-radius: 12px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .result-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--truv-primary-blue);
+        }
+
+        .result-value {
+            font-size: 36px;
+            font-weight: 600;
+            color: var(--truv-white);
+            line-height: 1;
+            margin-bottom: 6px;
+        }
+
+        .result-value .unit {
+            font-size: 22px;
+            color: var(--truv-primary-blue);
+        }
+
+        .result-label {
+            font-size: 10px;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.6);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .conclusion-content {
+            font-size: 13px;
+            line-height: 1.55;
+            color: var(--truv-black);
+            margin-bottom: 20px;
+        }
+
+        .conclusion-content p {
+            margin-bottom: 10px;
+        }
+
+        .conclusion-content strong {
+            color: var(--truv-dark-blue);
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-bottom: 0;
+        }
+
+        .about-card {
+            border: 1px solid rgba(0, 0, 0, 0.06);
+            border-top: 3px solid var(--truv-primary-blue);
+            border-radius: 10px;
+            padding: 14px 16px;
+        }
+
+        .about-card h4 {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--truv-dark-blue);
+            margin-bottom: 6px;
+        }
+
+        .about-card p {
+            font-size: 13px;
+            line-height: 1.5;
+            color: rgba(23, 23, 23, 0.7);
+        }
+
+        .about-card a {
+            color: var(--truv-primary-blue);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: var(--truv-dark-blue);
+            margin: auto -48px 0;
+            padding: 22px 48px 24px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            bottom: -100px;
+            left: -100px;
+            width: 300px;
+            height: 300px;
+            border: 1px solid rgba(44, 100, 227, 0.15);
+            border-radius: 50%;
+        }
+
+        .cta-section::after {
+            content: '';
+            position: absolute;
+            top: -50px;
+            right: -50px;
+            width: 200px;
+            height: 200px;
+            border: 1px solid rgba(44, 100, 227, 0.1);
+            border-radius: 50%;
+        }
+
+        .cta-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-title {
+            font-size: 22px;
+            font-weight: 600;
+            color: var(--truv-white);
+            margin-bottom: 6px;
+        }
+
+        .cta-subtitle {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 14px;
+            max-width: 440px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 10px 24px;
+            font-family: 'Gilroy', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 6px;
+        }
+
+        .btn-primary {
+            background: var(--truv-primary-blue);
+            color: white;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+        }
+
+        .cta-contact {
+            margin-top: 10px;
+            font-size: 10px;
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        .cta-contact a {
+            color: var(--truv-light-blue);
+            text-decoration: none;
+        }
+
+        .footer-logo {
+            margin-top: 8px;
+        }
+
+        .footer-logo svg {
+            height: 14px;
+            opacity: 0.3;
+        }
+
+        .footer-logo svg path {
+            fill: white;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- PAGE 1: COVER -->
+    <div class="page cover">
+        <div class="cover-header">
+            <div class="logo">
+                <svg viewBox="0 0 69 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M5.85522 23.7673C4.18138 23.7673 2.86445 23.2873 1.90445 22.3273C0.969068 21.3673 0.501372 20.0627 0.501372 18.4135V0.210419H4.71061V18.2289C4.71061 18.795 4.88292 19.2627 5.22753 19.632C5.57215 19.9766 6.02753 20.1489 6.59368 20.1489H10.5444V23.7673H5.85522ZM0.5 8.55503V4.93657H10.5814V8.55503H0.5Z" fill="white"/>
+                    <path d="M14.4254 23.7673V10.2904C14.4254 8.61657 14.8931 7.31196 15.8285 6.37657C16.7885 5.41657 18.1054 4.93657 19.7792 4.93657H24.3208V8.55503H20.5546C19.9638 8.55503 19.4962 8.72734 19.1515 9.07196C18.8315 9.41657 18.6716 9.88427 18.6716 10.475V23.7673H14.4254Z" fill="white"/>
+                    <path d="M36.2746 24.2104C34.4531 24.2104 32.8654 23.8535 31.5115 23.1397C30.1577 22.4012 29.1115 21.392 28.3731 20.112C27.6346 18.832 27.2654 17.392 27.2654 15.792V4.93657H31.5115V15.755C31.5115 16.715 31.7208 17.5643 32.1392 18.3027C32.5823 19.0166 33.1608 19.5827 33.8746 20.0012C34.6131 20.395 35.4131 20.592 36.2746 20.592C37.1361 20.592 37.9238 20.395 38.6377 20.0012C39.3761 19.5827 39.9546 19.0166 40.373 18.3027C40.8161 17.5643 41.0377 16.715 41.0377 15.755V4.93657H45.2838V15.792C45.2838 17.392 44.9023 18.832 44.1392 20.112C43.4007 21.392 42.3546 22.4012 41.0007 23.1397C39.6715 23.8535 38.0961 24.2104 36.2746 24.2104Z" fill="white"/>
+                    <path d="M58.4645 24.2104C57.4799 24.2104 56.5937 23.9397 55.806 23.3981C55.0429 22.8566 54.4891 22.1304 54.1445 21.2196L48.3845 4.93657H52.9999L57.9106 19.5581C57.9845 19.7304 58.0706 19.8535 58.1691 19.9273C58.2676 20.0012 58.3783 20.0381 58.5014 20.0381C58.6245 20.0381 58.7352 20.0012 58.8337 19.9273C58.9568 19.8535 59.0429 19.7304 59.0922 19.5581L64.0399 4.93657H68.5814L62.7845 21.2196C62.4645 22.1304 61.9106 22.8566 61.1229 23.3981C60.3352 23.9397 59.4491 24.2104 58.4645 24.2104Z" fill="white"/>
+                </svg>
+            </div>
+            <div class="cover-badge">Customer Story</div>
+        </div>
+
+        <div class="cover-content">
+            <div class="cover-company">First Continental Mortgage</div>
+            <h1 class="cover-headline">
+                First Continental Mortgage reduces verification spend by an estimated <span class="highlight">$745,000</span> annually using Truv.
+            </h1>
+            <div class="cover-divider"></div>
+        </div>
+
+        <div class="cover-stats">
+            <div class="cover-stat">
+                <div class="cover-stat-value">$745<span class="unit">K</span></div>
+                <div class="cover-stat-label">Estimated Annual Savings</div>
+            </div>
+            <div class="cover-stat">
+                <div class="cover-stat-value">64<span class="unit">%</span></div>
+                <div class="cover-stat-label">VOIE Login Conversion</div>
+            </div>
+            <div class="cover-stat">
+                <div class="cover-stat-value">85<span class="unit">%</span></div>
+                <div class="cover-stat-label">VOA Login Conversion</div>
+            </div>
+            <div class="cover-stat">
+                <div class="cover-stat-value">8.21<span class="unit">%</span></div>
+                <div class="cover-stat-label">R&amp;W Relief Uplift</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PAGE 2: COMPANY PROFILE & CHALLENGE INTRO -->
+    <div class="page inner-page">
+        <div class="page-header">
+            <div class="logo">
+                <svg viewBox="0 0 69 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M5.85522 23.7673C4.18138 23.7673 2.86445 23.2873 1.90445 22.3273C0.969068 21.3673 0.501372 20.0627 0.501372 18.4135V0.210419H4.71061V18.2289C4.71061 18.795 4.88292 19.2627 5.22753 19.632C5.57215 19.9766 6.02753 20.1489 6.59368 20.1489H10.5444V23.7673H5.85522ZM0.5 8.55503V4.93657H10.5814V8.55503H0.5Z" fill="black"/>
+                    <path d="M14.4254 23.7673V10.2904C14.4254 8.61657 14.8931 7.31196 15.8285 6.37657C16.7885 5.41657 18.1054 4.93657 19.7792 4.93657H24.3208V8.55503H20.5546C19.9638 8.55503 19.4962 8.72734 19.1515 9.07196C18.8315 9.41657 18.6716 9.88427 18.6716 10.475V23.7673H14.4254Z" fill="black"/>
+                    <path d="M36.2746 24.2104C34.4531 24.2104 32.8654 23.8535 31.5115 23.1397C30.1577 22.4012 29.1115 21.392 28.3731 20.112C27.6346 18.832 27.2654 17.392 27.2654 15.792V4.93657H31.5115V15.755C31.5115 16.715 31.7208 17.5643 32.1392 18.3027C32.5823 19.0166 33.1608 19.5827 33.8746 20.0012C34.6131 20.395 35.4131 20.592 36.2746 20.592C37.1361 20.592 37.9238 20.395 38.6377 20.0012C39.3761 19.5827 39.9546 19.0166 40.373 18.3027C40.8161 17.5643 41.0377 16.715 41.0377 15.755V4.93657H45.2838V15.792C45.2838 17.392 44.9023 18.832 44.1392 20.112C43.4007 21.392 42.3546 22.4012 41.0007 23.1397C39.6715 23.8535 38.0961 24.2104 36.2746 24.2104Z" fill="black"/>
+                    <path d="M58.4645 24.2104C57.4799 24.2104 56.5937 23.9397 55.806 23.3981C55.0429 22.8566 54.4891 22.1304 54.1445 21.2196L48.3845 4.93657H52.9999L57.9106 19.5581C57.9845 19.7304 58.0706 19.8535 58.1691 19.9273C58.2676 20.0012 58.3783 20.0381 58.5014 20.0381C58.6245 20.0381 58.7352 20.0012 58.8337 19.9273C58.9568 19.8535 59.0429 19.7304 59.0922 19.5581L64.0399 4.93657H68.5814L62.7845 21.2196C62.4645 22.1304 61.9106 22.8566 61.1229 23.3981C60.3352 23.9397 59.4491 24.2104 58.4645 24.2104Z" fill="black"/>
+                </svg>
+            </div>
+            <div class="page-number">02</div>
+        </div>
+
+        <div class="section-label">About the Company</div>
+        <h2 class="section-title">First Continental Mortgage, Ltd.</h2>
+
+        <div class="company-intro">
+            <div class="company-description">
+                <p>
+                    First Continental Mortgage, Ltd. (FCM) is a builder-focused mortgage lender operating through 12 joint venture partnerships across the United States. Specializing exclusively in new construction lending, FCM manages complex verification workflows across multiple entities and platforms, funding nearly 7,000 loans per year.
+                </p>
+                <p>
+                    Based in Houston, Texas, FCM has built its reputation on delivering specialized mortgage solutions for the builder market. Each joint venture partnership requires coordinated operations, making consistency and efficiency across entities critical to FCM&#8217;s success.
+                </p>
+                <p style="font-weight: 600; color: var(--truv-dark-blue); margin-top: 6px;">
+                    The $2M verification problem.
+                </p>
+                <p>
+                    Before partnering with Truv, FCM was spending approximately $2 million annually on a legacy VOIE vendor, with additional verification costs scattered across multiple third-party providers. The high cost of legacy verification services&#8212;combined with fragmented vendor relationships, poor support, and complex multi-entity rollout requirements&#8212;created significant drag on FCM&#8217;s ability to scale efficiently.
+                </p>
+                <p>
+                    FCM needed a partner that could deliver cost savings, tailored support, and flexible integration across their existing platforms: nCino point-of-sale and Encompass loan origination system.
+                </p>
+            </div>
+            <div class="company-divider"></div>
+            <div class="company-facts">
+                <h4>At a Glance</h4>
+                <div class="facts-grid">
+                    <div class="fact-cell">
+                        <div class="fact-value">Builder-Focused</div>
+                        <div class="fact-label">Market Focus</div>
+                    </div>
+                    <div class="fact-cell">
+                        <div class="fact-value">7,000/yr</div>
+                        <div class="fact-label">Loans Funded</div>
+                    </div>
+                    <div class="fact-cell">
+                        <div class="fact-value">~$2M/yr</div>
+                        <div class="fact-label">Prior VOIE Spend</div>
+                    </div>
+                    <div class="fact-cell">
+                        <div class="fact-value">Houston, TX</div>
+                        <div class="fact-label">Headquarters</div>
+                    </div>
+                </div>
+                <div class="facts-grid" style="margin-top: 1px; border-top: 1px solid rgba(0,0,0,0.06);">
+                    <div class="fact-cell">
+                        <div class="fact-value">12 JVs</div>
+                        <div class="fact-label">Partnerships</div>
+                    </div>
+                    <div class="fact-cell">
+                        <div class="fact-value">Encompass</div>
+                        <div class="fact-label">LOS</div>
+                    </div>
+                    <div class="fact-cell">
+                        <div class="fact-value">nCino</div>
+                        <div class="fact-label">POS</div>
+                    </div>
+                    <div class="fact-cell">
+                        <div class="fact-value">VOIE + VOA</div>
+                        <div class="fact-label">Products</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="why-truv-section">
+            <div class="section-label">Why Truv</div>
+            <h2 class="section-title" style="color: var(--truv-white);">The Truv Platform</h2>
+            <p class="why-truv-intro">FCM selected Truv for its unmatched coverage, cost efficiency, and ability to embed directly into existing POS and LOS workflows&#8212;replacing costly legacy verification providers with consumer-permissioned data from the source.</p>
+            <div class="why-truv-stats">
+                <div class="why-truv-stat">
+                    <div class="why-truv-stat-value">96<span class="unit">%</span></div>
+                    <div class="why-truv-stat-label">US Workforce Coverage</div>
+                </div>
+                <div class="why-truv-stat">
+                    <div class="why-truv-stat-value">80<span class="unit">%</span></div>
+                    <div class="why-truv-stat-label">Avg. Cost Savings</div>
+                </div>
+                <div class="why-truv-stat">
+                    <div class="why-truv-stat-value">150<span class="unit">+</span></div>
+                    <div class="why-truv-stat-label">Lender Customers</div>
+                </div>
+                <div class="why-truv-stat">
+                    <div class="why-truv-stat-value">&lt;2<span class="unit">s</span></div>
+                    <div class="why-truv-stat-label">API Response Time</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PAGE 3: CHALLENGE (FULL PAGE) -->
+    <div class="page inner-page">
+        <div class="page-header">
+            <div class="logo">
+                <svg viewBox="0 0 69 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M5.85522 23.7673C4.18138 23.7673 2.86445 23.2873 1.90445 22.3273C0.969068 21.3673 0.501372 20.0627 0.501372 18.4135V0.210419H4.71061V18.2289C4.71061 18.795 4.88292 19.2627 5.22753 19.632C5.57215 19.9766 6.02753 20.1489 6.59368 20.1489H10.5444V23.7673H5.85522ZM0.5 8.55503V4.93657H10.5814V8.55503H0.5Z" fill="black"/>
+                    <path d="M14.4254 23.7673V10.2904C14.4254 8.61657 14.8931 7.31196 15.8285 6.37657C16.7885 5.41657 18.1054 4.93657 19.7792 4.93657H24.3208V8.55503H20.5546C19.9638 8.55503 19.4962 8.72734 19.1515 9.07196C18.8315 9.41657 18.6716 9.88427 18.6716 10.475V23.7673H14.4254Z" fill="black"/>
+                    <path d="M36.2746 24.2104C34.4531 24.2104 32.8654 23.8535 31.5115 23.1397C30.1577 22.4012 29.1115 21.392 28.3731 20.112C27.6346 18.832 27.2654 17.392 27.2654 15.792V4.93657H31.5115V15.755C31.5115 16.715 31.7208 17.5643 32.1392 18.3027C32.5823 19.0166 33.1608 19.5827 33.8746 20.0012C34.6131 20.395 35.4131 20.592 36.2746 20.592C37.1361 20.592 37.9238 20.395 38.6377 20.0012C39.3761 19.5827 39.9546 19.0166 40.373 18.3027C40.8161 17.5643 41.0377 16.715 41.0377 15.755V4.93657H45.2838V15.792C45.2838 17.392 44.9023 18.832 44.1392 20.112C43.4007 21.392 42.3546 22.4012 41.0007 23.1397C39.6715 23.8535 38.0961 24.2104 36.2746 24.2104Z" fill="black"/>
+                    <path d="M58.4645 24.2104C57.4799 24.2104 56.5937 23.9397 55.806 23.3981C55.0429 22.8566 54.4891 22.1304 54.1445 21.2196L48.3845 4.93657H52.9999L57.9106 19.5581C57.9845 19.7304 58.0706 19.8535 58.1691 19.9273C58.2676 20.0012 58.3783 20.0381 58.5014 20.0381C58.6245 20.0381 58.7352 20.0012 58.8337 19.9273C58.9568 19.8535 59.0429 19.7304 59.0922 19.5581L64.0399 4.93657H68.5814L62.7845 21.2196C62.4645 22.1304 61.9106 22.8566 61.1229 23.3981C60.3352 23.9397 59.4491 24.2104 58.4645 24.2104Z" fill="black"/>
+                </svg>
+            </div>
+            <div class="page-number">03</div>
+        </div>
+
+        <div class="challenge-hero">
+            <div class="section-label">The Challenge</div>
+            <h2 class="section-title" style="color: var(--truv-white);">$2M in Annual Verification Costs &amp; Fragmented Vendor Ecosystem</h2>
+            <p class="challenge-hero-text">
+                As a builder-focused lender managing 12 joint venture businesses, FCM faced unique verification challenges that required a coordinated, scalable solution. Excessive costs, poor vendor support, and complex multi-entity rollout requirements demanded a new approach.
+            </p>
+        </div>
+
+        <div class="challenge-cards">
+            <div class="challenge-card">
+                <div class="challenge-card-number">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
+                </div>
+                <div class="challenge-card-content">
+                    <h4>Excessive verification costs</h4>
+                    <p>FCM was spending $2M annually on legacy VOIE vendor with costs compounded by their to-be-built loan model requiring multiple re-verifications over 6&#8211;9 month construction periods</p>
+                </div>
+            </div>
+            <div class="challenge-card">
+                <div class="challenge-card-number">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
+                </div>
+                <div class="challenge-card-content">
+                    <h4>Poor vendor support</h4>
+                    <p>Previously used vendors provided little to no customer support, creating bottlenecks when processors needed assistance and extending loan milestones unnecessarily</p>
+                </div>
+            </div>
+            <div class="challenge-card">
+                <div class="challenge-card-number">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17 7h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1 0 1.43-.98 2.63-2.31 2.98l1.46 1.46C20.88 15.61 22 13.95 22 12c0-2.76-2.24-5-5-5zm-1 4h-2.19l2 2H16zM2 4.27l3.11 3.11C3.29 8.12 2 9.91 2 12c0 2.76 2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1 0-1.59 1.21-2.9 2.76-3.07L8.73 11H8v2h2.73L13 15.27V17h1.73l4.01 4L20 19.74 3.27 3 2 4.27z"/></svg>
+                </div>
+                <div class="challenge-card-content">
+                    <h4>Fragmented vendor ecosystem</h4>
+                    <p>Processors had access to multiple verification providers leading to inconsistent processes, duplicate costs, and an inefficient borrower experience</p>
+                </div>
+            </div>
+            <div class="challenge-card">
+                <div class="challenge-card-number">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>
+                </div>
+                <div class="challenge-card-content">
+                    <h4>Complex multi-entity rollout</h4>
+                    <p>With 12 separate joint ventures, implementing company-wide solutions required strategic change management and phased deployment</p>
+                </div>
+            </div>
+            <div class="challenge-card">
+                <div class="challenge-card-number">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+                </div>
+                <div class="challenge-card-content">
+                    <h4>Dual-platform integration need</h4>
+                    <p>FCM needed verification embedded into both nCino (POS) and Encompass (LOS) without disrupting existing workflows</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="quote-block">
+            <div class="quote-mark">&ldquo;</div>
+            <p class="quote-text">
+                Our processors love that we can get ahold of someone at Truv within 4 hours. Compare that to other vendors, where our team couldn&#8217;t reach a human for 2 years - it&#8217;s night and day. Having responsive support and service makes us more efficient in actually solving problems instead of just working around them.
+            </p>
+            <div class="quote-attribution">
+                <div class="quote-avatar">JK</div>
+                <div>
+                    <div class="quote-author">Jessica Kipnis</div>
+                    <div class="quote-title">Chief Operating Officer, First Continental Mortgage, Ltd.</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="page-footer">
+            <div class="logo">
+                <svg viewBox="0 0 69 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M5.85522 23.7673C4.18138 23.7673 2.86445 23.2873 1.90445 22.3273C0.969068 21.3673 0.501372 20.0627 0.501372 18.4135V0.210419H4.71061V18.2289C4.71061 18.795 4.88292 19.2627 5.22753 19.632C5.57215 19.9766 6.02753 20.1489 6.59368 20.1489H10.5444V23.7673H5.85522ZM0.5 8.55503V4.93657H10.5814V8.55503H0.5Z" fill="black"/>
+                    <path d="M14.4254 23.7673V10.2904C14.4254 8.61657 14.8931 7.31196 15.8285 6.37657C16.7885 5.41657 18.1054 4.93657 19.7792 4.93657H24.3208V8.55503H20.5546C19.9638 8.55503 19.4962 8.72734 19.1515 9.07196C18.8315 9.41657 18.6716 9.88427 18.6716 10.475V23.7673H14.4254Z" fill="black"/>
+                    <path d="M36.2746 24.2104C34.4531 24.2104 32.8654 23.8535 31.5115 23.1397C30.1577 22.4012 29.1115 21.392 28.3731 20.112C27.6346 18.832 27.2654 17.392 27.2654 15.792V4.93657H31.5115V15.755C31.5115 16.715 31.7208 17.5643 32.1392 18.3027C32.5823 19.0166 33.1608 19.5827 33.8746 20.0012C34.6131 20.395 35.4131 20.592 36.2746 20.592C37.1361 20.592 37.9238 20.395 38.6377 20.0012C39.3761 19.5827 39.9546 19.0166 40.373 18.3027C40.8161 17.5643 41.0377 16.715 41.0377 15.755V4.93657H45.2838V15.792C45.2838 17.392 44.9023 18.832 44.1392 20.112C43.4007 21.392 42.3546 22.4012 41.0007 23.1397C39.6715 23.8535 38.0961 24.2104 36.2746 24.2104Z" fill="black"/>
+                    <path d="M58.4645 24.2104C57.4799 24.2104 56.5937 23.9397 55.806 23.3981C55.0429 22.8566 54.4891 22.1304 54.1445 21.2196L48.3845 4.93657H52.9999L57.9106 19.5581C57.9845 19.7304 58.0706 19.8535 58.1691 19.9273C58.2676 20.0012 58.3783 20.0381 58.5014 20.0381C58.6245 20.0381 58.7352 20.0012 58.8337 19.9273C58.9568 19.8535 59.0429 19.7304 59.0922 19.5581L64.0399 4.93657H68.5814L62.7845 21.2196C62.4645 22.1304 61.9106 22.8566 61.1229 23.3981C60.3352 23.9397 59.4491 24.2104 58.4645 24.2104Z" fill="black"/>
+                </svg>
+            </div>
+            <div class="page-footer-right">First Continental Mortgage &times; Truv</div>
+        </div>
+    </div>
+
+    <!-- PAGE 4: SOLUTION DETAIL - NCINO + ENCOMPASS INTEGRATION -->
+    <div class="page inner-page">
+        <div class="page-header">
+            <div class="logo">
+                <svg viewBox="0 0 69 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M5.85522 23.7673C4.18138 23.7673 2.86445 23.2873 1.90445 22.3273C0.969068 21.3673 0.501372 20.0627 0.501372 18.4135V0.210419H4.71061V18.2289C4.71061 18.795 4.88292 19.2627 5.22753 19.632C5.57215 19.9766 6.02753 20.1489 6.59368 20.1489H10.5444V23.7673H5.85522ZM0.5 8.55503V4.93657H10.5814V8.55503H0.5Z" fill="black"/>
+                    <path d="M14.4254 23.7673V10.2904C14.4254 8.61657 14.8931 7.31196 15.8285 6.37657C16.7885 5.41657 18.1054 4.93657 19.7792 4.93657H24.3208V8.55503H20.5546C19.9638 8.55503 19.4962 8.72734 19.1515 9.07196C18.8315 9.41657 18.6716 9.88427 18.6716 10.475V23.7673H14.4254Z" fill="black"/>
+                    <path d="M36.2746 24.2104C34.4531 24.2104 32.8654 23.8535 31.5115 23.1397C30.1577 22.4012 29.1115 21.392 28.3731 20.112C27.6346 18.832 27.2654 17.392 27.2654 15.792V4.93657H31.5115V15.755C31.5115 16.715 31.7208 17.5643 32.1392 18.3027C32.5823 19.0166 33.1608 19.5827 33.8746 20.0012C34.6131 20.395 35.4131 20.592 36.2746 20.592C37.1361 20.592 37.9238 20.395 38.6377 20.0012C39.3761 19.5827 39.9546 19.0166 40.373 18.3027C40.8161 17.5643 41.0377 16.715 41.0377 15.755V4.93657H45.2838V15.792C45.2838 17.392 44.9023 18.832 44.1392 20.112C43.4007 21.392 42.3546 22.4012 41.0007 23.1397C39.6715 23.8535 38.0961 24.2104 36.2746 24.2104Z" fill="black"/>
+                    <path d="M58.4645 24.2104C57.4799 24.2104 56.5937 23.9397 55.806 23.3981C55.0429 22.8566 54.4891 22.1304 54.1445 21.2196L48.3845 4.93657H52.9999L57.9106 19.5581C57.9845 19.7304 58.0706 19.8535 58.1691 19.9273C58.2676 20.0012 58.3783 20.0381 58.5014 20.0381C58.6245 20.0381 58.7352 20.0012 58.8337 19.9273C58.9568 19.8535 59.0429 19.7304 59.0922 19.5581L64.0399 4.93657H68.5814L62.7845 21.2196C62.4645 22.1304 61.9106 22.8566 61.1229 23.3981C60.3352 23.9397 59.4491 24.2104 58.4645 24.2104Z" fill="black"/>
+                </svg>
+            </div>
+            <div class="page-number">04</div>
+        </div>
+
+        <div class="section-label">The Solution</div>
+        <h2 class="section-title">Dual-Platform VOIE &amp; VOA Across nCino &amp; Encompass</h2>
+
+        <div class="detail-content">
+            <p>
+                Truv worked closely with FCM&#8217;s operations team to implement a phased rollout strategy that prioritized both quick wins and long-term adoption across all 12 joint venture entities.
+            </p>
+        </div>
+
+        <div class="integration-grid">
+            <div class="integration-card">
+                <div class="integration-card-label">Point of Sale</div>
+                <h4>nCino Integration</h4>
+                <p>Truv deployed VOIE and VOA solutions in nCino, positioning Truv as the first line of defense in the verification waterfall during the loan application process. Borrowers complete verifications seamlessly within the application flow.</p>
+            </div>
+            <div class="integration-card encompass">
+                <div class="integration-card-label">Loan Origination</div>
+                <h4>Encompass Integration</h4>
+                <p>Truv streamlined pre-closing verifications in the LOS with cross-platform automation, eliminating manual re-verification orders and reducing processor workload during the critical closing phase.</p>
+            </div>
+        </div>
+
+        <div class="transform-flow">
+            <div class="transform-step">
+                <div class="transform-step-label">Before</div>
+                <div class="transform-step-value">Multiple vendors,<br>manual process</div>
+            </div>
+            <div class="transform-arrow">&#8594;</div>
+            <div class="transform-step">
+                <div class="transform-step-label">Truv Bridge</div>
+                <div class="transform-step-value">Borrower links<br>payroll &amp; bank accounts</div>
+            </div>
+            <div class="transform-arrow">&#8594;</div>
+            <div class="transform-step">
+                <div class="transform-step-label">Result</div>
+                <div class="transform-step-value">Unified VOIE + VOA<br>in nCino &amp; Encompass</div>
+            </div>
+        </div>
+
+        <div class="detail-content">
+            <p>
+                By consolidating VOIE and VOA into a single vendor, Truv replaced FCM&#8217;s fragmented ecosystem of multiple verification providers with one streamlined solution. This eliminated duplicate costs and gave processors a consistent workflow across all 12 joint ventures.
+            </p>
+
+            <p>
+                The implementation evolved over several months, with Truv adapting to FCM&#8217;s feedback and delivering customized solutions for their unique multi-entity structure. Truv mobilized a cross-functional team including sales leadership, customer success, and product/engineering to address concerns head-on.
+            </p>
+
+            <p>
+                Truv&#8217;s hands-on approach minimized initial implementation challenges and paved the clearest path toward company-wide adoption across all joint venture partnerships.
+            </p>
+        </div>
+
+        <div class="page-footer">
+            <div class="logo">
+                <svg viewBox="0 0 69 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M5.85522 23.7673C4.18138 23.7673 2.86445 23.2873 1.90445 22.3273C0.969068 21.3673 0.501372 20.0627 0.501372 18.4135V0.210419H4.71061V18.2289C4.71061 18.795 4.88292 19.2627 5.22753 19.632C5.57215 19.9766 6.02753 20.1489 6.59368 20.1489H10.5444V23.7673H5.85522ZM0.5 8.55503V4.93657H10.5814V8.55503H0.5Z" fill="black"/>
+                    <path d="M14.4254 23.7673V10.2904C14.4254 8.61657 14.8931 7.31196 15.8285 6.37657C16.7885 5.41657 18.1054 4.93657 19.7792 4.93657H24.3208V8.55503H20.5546C19.9638 8.55503 19.4962 8.72734 19.1515 9.07196C18.8315 9.41657 18.6716 9.88427 18.6716 10.475V23.7673H14.4254Z" fill="black"/>
+                    <path d="M36.2746 24.2104C34.4531 24.2104 32.8654 23.8535 31.5115 23.1397C30.1577 22.4012 29.1115 21.392 28.3731 20.112C27.6346 18.832 27.2654 17.392 27.2654 15.792V4.93657H31.5115V15.755C31.5115 16.715 31.7208 17.5643 32.1392 18.3027C32.5823 19.0166 33.1608 19.5827 33.8746 20.0012C34.6131 20.395 35.4131 20.592 36.2746 20.592C37.1361 20.592 37.9238 20.395 38.6377 20.0012C39.3761 19.5827 39.9546 19.0166 40.373 18.3027C40.8161 17.5643 41.0377 16.715 41.0377 15.755V4.93657H45.2838V15.792C45.2838 17.392 44.9023 18.832 44.1392 20.112C43.4007 21.392 42.3546 22.4012 41.0007 23.1397C39.6715 23.8535 38.0961 24.2104 36.2746 24.2104Z" fill="black"/>
+                    <path d="M58.4645 24.2104C57.4799 24.2104 56.5937 23.9397 55.806 23.3981C55.0429 22.8566 54.4891 22.1304 54.1445 21.2196L48.3845 4.93657H52.9999L57.9106 19.5581C57.9845 19.7304 58.0706 19.8535 58.1691 19.9273C58.2676 20.0012 58.3783 20.0381 58.5014 20.0381C58.6245 20.0381 58.7352 20.0012 58.8337 19.9273C58.9568 19.8535 59.0429 19.7304 59.0922 19.5581L64.0399 4.93657H68.5814L62.7845 21.2196C62.4645 22.1304 61.9106 22.8566 61.1229 23.3981C60.3352 23.9397 59.4491 24.2104 58.4645 24.2104Z" fill="black"/>
+                </svg>
+            </div>
+            <div class="page-footer-right">First Continental Mortgage &times; Truv</div>
+        </div>
+    </div>
+
+    <!-- PAGE 5: OUTCOMES + WHITE-GLOVE PARTNERSHIP -->
+    <div class="page inner-page">
+        <div class="page-header">
+            <div class="logo">
+                <svg viewBox="0 0 69 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M5.85522 23.7673C4.18138 23.7673 2.86445 23.2873 1.90445 22.3273C0.969068 21.3673 0.501372 20.0627 0.501372 18.4135V0.210419H4.71061V18.2289C4.71061 18.795 4.88292 19.2627 5.22753 19.632C5.57215 19.9766 6.02753 20.1489 6.59368 20.1489H10.5444V23.7673H5.85522ZM0.5 8.55503V4.93657H10.5814V8.55503H0.5Z" fill="black"/>
+                    <path d="M14.4254 23.7673V10.2904C14.4254 8.61657 14.8931 7.31196 15.8285 6.37657C16.7885 5.41657 18.1054 4.93657 19.7792 4.93657H24.3208V8.55503H20.5546C19.9638 8.55503 19.4962 8.72734 19.1515 9.07196C18.8315 9.41657 18.6716 9.88427 18.6716 10.475V23.7673H14.4254Z" fill="black"/>
+                    <path d="M36.2746 24.2104C34.4531 24.2104 32.8654 23.8535 31.5115 23.1397C30.1577 22.4012 29.1115 21.392 28.3731 20.112C27.6346 18.832 27.2654 17.392 27.2654 15.792V4.93657H31.5115V15.755C31.5115 16.715 31.7208 17.5643 32.1392 18.3027C32.5823 19.0166 33.1608 19.5827 33.8746 20.0012C34.6131 20.395 35.4131 20.592 36.2746 20.592C37.1361 20.592 37.9238 20.395 38.6377 20.0012C39.3761 19.5827 39.9546 19.0166 40.373 18.3027C40.8161 17.5643 41.0377 16.715 41.0377 15.755V4.93657H45.2838V15.792C45.2838 17.392 44.9023 18.832 44.1392 20.112C43.4007 21.392 42.3546 22.4012 41.0007 23.1397C39.6715 23.8535 38.0961 24.2104 36.2746 24.2104Z" fill="black"/>
+                    <path d="M58.4645 24.2104C57.4799 24.2104 56.5937 23.9397 55.806 23.3981C55.0429 22.8566 54.4891 22.1304 54.1445 21.2196L48.3845 4.93657H52.9999L57.9106 19.5581C57.9845 19.7304 58.0706 19.8535 58.1691 19.9273C58.2676 20.0012 58.3783 20.0381 58.5014 20.0381C58.6245 20.0381 58.7352 20.0012 58.8337 19.9273C58.9568 19.8535 59.0429 19.7304 59.0922 19.5581L64.0399 4.93657H68.5814L62.7845 21.2196C62.4645 22.1304 61.9106 22.8566 61.1229 23.3981C60.3352 23.9397 59.4491 24.2104 58.4645 24.2104Z" fill="black"/>
+                </svg>
+            </div>
+            <div class="page-number">05</div>
+        </div>
+
+        <div class="section-label">Outcomes</div>
+        <h2 class="section-title">Key Results</h2>
+
+        <div class="outcomes-grid-compact">
+            <div class="outcome-card-compact">
+                <div class="outcome-icon">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z"/></svg>
+                </div>
+                <h4>Est. $745,000 in Annual Savings</h4>
+                <p>By optimizing their verification waterfall that positions Truv upfront, FCM estimates $745,000 in annual cost savings compared to legacy providers.</p>
+            </div>
+            <div class="outcome-card-compact">
+                <div class="outcome-icon">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"/></svg>
+                </div>
+                <h4>64% VOIE &amp; 85% VOA Conversion</h4>
+                <p>Strong login conversion rates across both income/employment and asset verification drive consistent results and reduce fallback to manual processes.</p>
+            </div>
+            <div class="outcome-card-compact">
+                <div class="outcome-icon">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>
+                </div>
+                <h4>8.21% Income Validation R&amp;W Uplift</h4>
+                <p>Truv delivered an 8.21% uplift in income validation and 4.54% uplift in employment validation for loans qualifying for rep and warranty relief.</p>
+            </div>
+            <div class="outcome-card-compact">
+                <div class="outcome-icon">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.38 8.57l-1.23 1.85a8 8 0 01-.22 7.58H5.07A8 8 0 0115.58 6.85l1.85-1.23A10 10 0 003.35 19a2 2 0 001.72 1h13.85a2 2 0 001.74-1 10 10 0 00-.27-10.44zm-9.79 6.84a2 2 0 002.83 0l5.66-8.49-8.49 5.66a2 2 0 000 2.83z"/></svg>
+                </div>
+                <h4>4-Hour Support Response Time</h4>
+                <p>Unlike previous vendors where FCM couldn&#8217;t reach support for years, Truv provides responsive 4-hour response times enabling quick issue resolution.</p>
+            </div>
+        </div>
+
+        <div class="comparison-grid">
+            <div class="comparison-card before">
+                <div class="comparison-card-label">Before Truv</div>
+                <div class="comparison-row">
+                    <span class="comparison-row-label">Annual VOIE spend</span>
+                    <span class="comparison-row-value">~$2M</span>
+                </div>
+                <div class="comparison-row">
+                    <span class="comparison-row-label">Vendor support</span>
+                    <span class="comparison-row-value">Unreachable</span>
+                </div>
+                <div class="comparison-row">
+                    <span class="comparison-row-label">Vendor ecosystem</span>
+                    <span class="comparison-row-value">Multiple providers</span>
+                </div>
+                <div class="comparison-row">
+                    <span class="comparison-row-label">R&amp;W relief uplift</span>
+                    <span class="comparison-row-value">Baseline</span>
+                </div>
+            </div>
+            <div class="comparison-card after">
+                <div class="comparison-card-label">With Truv</div>
+                <div class="comparison-row">
+                    <span class="comparison-row-label">Annual VOIE spend</span>
+                    <span class="comparison-row-value">~$1.26M (est.)</span>
+                </div>
+                <div class="comparison-row">
+                    <span class="comparison-row-label">Vendor support</span>
+                    <span class="comparison-row-value">4 hours</span>
+                </div>
+                <div class="comparison-row">
+                    <span class="comparison-row-label">Vendor ecosystem</span>
+                    <span class="comparison-row-value">Single platform</span>
+                </div>
+                <div class="comparison-row">
+                    <span class="comparison-row-label">R&amp;W relief uplift</span>
+                    <span class="comparison-row-value">+8.21%</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="partnership-section">
+            <div class="section-label">White-Glove Partnership</div>
+            <h2 class="section-title" style="color: var(--truv-white);">Ongoing Support &amp; Collaboration</h2>
+
+            <div class="partnership-grid">
+                <div class="partnership-tile">
+                    <div class="partnership-tile-icon">
+                        <svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+                    </div>
+                    <div>
+                        <div class="partnership-tile-title">Cross-Functional Team</div>
+                        <div class="partnership-tile-desc">COO, product, engineering &amp; CS leaders building custom features</div>
+                    </div>
+                </div>
+                <div class="partnership-tile">
+                    <div class="partnership-tile-icon">
+                        <svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
+                    </div>
+                    <div>
+                        <div class="partnership-tile-title">4-Hour Response</div>
+                        <div class="partnership-tile-desc">Friction-free support unblocking loan approvals</div>
+                    </div>
+                </div>
+                <div class="partnership-tile">
+                    <div class="partnership-tile-icon">
+                        <svg viewBox="0 0 24 24"><path d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82zM12 3L1 9l11 6 9-4.91V17h2V9L12 3z"/></svg>
+                    </div>
+                    <div>
+                        <div class="partnership-tile-title">Phased Training</div>
+                        <div class="partnership-tile-desc">Sessions across all 12 JVs with strategic rollout</div>
+                    </div>
+                </div>
+                <div class="partnership-tile">
+                    <div class="partnership-tile-icon">
+                        <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
+                    </div>
+                    <div>
+                        <div class="partnership-tile-title">Collaborative Roadmap</div>
+                        <div class="partnership-tile-desc">Refining integrations &amp; expanding automation</div>
+                    </div>
+                </div>
+                <div class="partnership-tile">
+                    <div class="partnership-tile-icon">
+                        <svg viewBox="0 0 24 24"><path d="M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z"/></svg>
+                    </div>
+                    <div>
+                        <div class="partnership-tile-title">Pre-Closing Automation</div>
+                        <div class="partnership-tile-desc">Automating 10-day VOE in Encompass</div>
+                    </div>
+                </div>
+                <div class="partnership-tile">
+                    <div class="partnership-tile-icon">
+                        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                    </div>
+                    <div>
+                        <div class="partnership-tile-title">Continuous Feedback</div>
+                        <div class="partnership-tile-desc">Turning challenges into long-term success</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="page-footer">
+            <div class="logo">
+                <svg viewBox="0 0 69 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M5.85522 23.7673C4.18138 23.7673 2.86445 23.2873 1.90445 22.3273C0.969068 21.3673 0.501372 20.0627 0.501372 18.4135V0.210419H4.71061V18.2289C4.71061 18.795 4.88292 19.2627 5.22753 19.632C5.57215 19.9766 6.02753 20.1489 6.59368 20.1489H10.5444V23.7673H5.85522ZM0.5 8.55503V4.93657H10.5814V8.55503H0.5Z" fill="black"/>
+                    <path d="M14.4254 23.7673V10.2904C14.4254 8.61657 14.8931 7.31196 15.8285 6.37657C16.7885 5.41657 18.1054 4.93657 19.7792 4.93657H24.3208V8.55503H20.5546C19.9638 8.55503 19.4962 8.72734 19.1515 9.07196C18.8315 9.41657 18.6716 9.88427 18.6716 10.475V23.7673H14.4254Z" fill="black"/>
+                    <path d="M36.2746 24.2104C34.4531 24.2104 32.8654 23.8535 31.5115 23.1397C30.1577 22.4012 29.1115 21.392 28.3731 20.112C27.6346 18.832 27.2654 17.392 27.2654 15.792V4.93657H31.5115V15.755C31.5115 16.715 31.7208 17.5643 32.1392 18.3027C32.5823 19.0166 33.1608 19.5827 33.8746 20.0012C34.6131 20.395 35.4131 20.592 36.2746 20.592C37.1361 20.592 37.9238 20.395 38.6377 20.0012C39.3761 19.5827 39.9546 19.0166 40.373 18.3027C40.8161 17.5643 41.0377 16.715 41.0377 15.755V4.93657H45.2838V15.792C45.2838 17.392 44.9023 18.832 44.1392 20.112C43.4007 21.392 42.3546 22.4012 41.0007 23.1397C39.6715 23.8535 38.0961 24.2104 36.2746 24.2104Z" fill="black"/>
+                    <path d="M58.4645 24.2104C57.4799 24.2104 56.5937 23.9397 55.806 23.3981C55.0429 22.8566 54.4891 22.1304 54.1445 21.2196L48.3845 4.93657H52.9999L57.9106 19.5581C57.9845 19.7304 58.0706 19.8535 58.1691 19.9273C58.2676 20.0012 58.3783 20.0381 58.5014 20.0381C58.6245 20.0381 58.7352 20.0012 58.8337 19.9273C58.9568 19.8535 59.0429 19.7304 59.0922 19.5581L64.0399 4.93657H68.5814L62.7845 21.2196C62.4645 22.1304 61.9106 22.8566 61.1229 23.3981C60.3352 23.9397 59.4491 24.2104 58.4645 24.2104Z" fill="black"/>
+                </svg>
+            </div>
+            <div class="page-footer-right">First Continental Mortgage &times; Truv</div>
+        </div>
+    </div>
+
+    <!-- PAGE 6: CONCLUSION + ABOUT + CTA -->
+    <div class="page inner-page">
+        <div class="page-header">
+            <div class="logo">
+                <svg viewBox="0 0 69 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M5.85522 23.7673C4.18138 23.7673 2.86445 23.2873 1.90445 22.3273C0.969068 21.3673 0.501372 20.0627 0.501372 18.4135V0.210419H4.71061V18.2289C4.71061 18.795 4.88292 19.2627 5.22753 19.632C5.57215 19.9766 6.02753 20.1489 6.59368 20.1489H10.5444V23.7673H5.85522ZM0.5 8.55503V4.93657H10.5814V8.55503H0.5Z" fill="black"/>
+                    <path d="M14.4254 23.7673V10.2904C14.4254 8.61657 14.8931 7.31196 15.8285 6.37657C16.7885 5.41657 18.1054 4.93657 19.7792 4.93657H24.3208V8.55503H20.5546C19.9638 8.55503 19.4962 8.72734 19.1515 9.07196C18.8315 9.41657 18.6716 9.88427 18.6716 10.475V23.7673H14.4254Z" fill="black"/>
+                    <path d="M36.2746 24.2104C34.4531 24.2104 32.8654 23.8535 31.5115 23.1397C30.1577 22.4012 29.1115 21.392 28.3731 20.112C27.6346 18.832 27.2654 17.392 27.2654 15.792V4.93657H31.5115V15.755C31.5115 16.715 31.7208 17.5643 32.1392 18.3027C32.5823 19.0166 33.1608 19.5827 33.8746 20.0012C34.6131 20.395 35.4131 20.592 36.2746 20.592C37.1361 20.592 37.9238 20.395 38.6377 20.0012C39.3761 19.5827 39.9546 19.0166 40.373 18.3027C40.8161 17.5643 41.0377 16.715 41.0377 15.755V4.93657H45.2838V15.792C45.2838 17.392 44.9023 18.832 44.1392 20.112C43.4007 21.392 42.3546 22.4012 41.0007 23.1397C39.6715 23.8535 38.0961 24.2104 36.2746 24.2104Z" fill="black"/>
+                    <path d="M58.4645 24.2104C57.4799 24.2104 56.5937 23.9397 55.806 23.3981C55.0429 22.8566 54.4891 22.1304 54.1445 21.2196L48.3845 4.93657H52.9999L57.9106 19.5581C57.9845 19.7304 58.0706 19.8535 58.1691 19.9273C58.2676 20.0012 58.3783 20.0381 58.5014 20.0381C58.6245 20.0381 58.7352 20.0012 58.8337 19.9273C58.9568 19.8535 59.0429 19.7304 59.0922 19.5581L64.0399 4.93657H68.5814L62.7845 21.2196C62.4645 22.1304 61.9106 22.8566 61.1229 23.3981C60.3352 23.9397 59.4491 24.2104 58.4645 24.2104Z" fill="black"/>
+                </svg>
+            </div>
+            <div class="page-number">06</div>
+        </div>
+
+        <div class="section-label">Conclusion</div>
+
+        <div class="results-grid">
+            <div class="result-card">
+                <div class="result-value">$745<span class="unit">K</span></div>
+                <div class="result-label">Annual Savings</div>
+            </div>
+            <div class="result-card">
+                <div class="result-value">64<span class="unit">%</span></div>
+                <div class="result-label">VOIE Conversion</div>
+            </div>
+            <div class="result-card">
+                <div class="result-value">85<span class="unit">%</span></div>
+                <div class="result-label">VOA Conversion</div>
+            </div>
+            <div class="result-card">
+                <div class="result-value">8.21<span class="unit">%</span></div>
+                <div class="result-label">R&amp;W Uplift</div>
+            </div>
+        </div>
+
+        <div class="conclusion-content">
+            <p>
+                Through its partnership with Truv, First Continental Mortgage is transforming how it manages verifications across their growing joint venture businesses&#8212;achieving an estimated <strong>$745,000 in annual savings</strong>, dramatically improved vendor support, and streamlined operations across both nCino and Encompass platforms.
+            </p>
+            <p>
+                Looking ahead, FCM and Truv are working toward workflow automation and operational enhancements including automating the 10-day pre-closing VOE&#8212;setting a new standard for verification efficiency in the builder lending space.
+            </p>
+        </div>
+
+        <div class="about-grid">
+            <div class="about-card">
+                <h4>About First Continental Mortgage</h4>
+                <p>
+                    First Continental Mortgage, Ltd. specializes in new construction lending through 12 joint venture partnerships with builders nationwide. Based in Houston, Texas, FCM focuses exclusively on builder business, managing complex verification requirements across to-be-built and completed home transactions.
+                </p>
+                <p style="margin-top: 6px;">Visit: <a href="https://firstcontinentalmtg.com">firstcontinentalmtg.com</a></p>
+            </div>
+            <div class="about-card">
+                <h4>About Truv</h4>
+                <p>
+                    Truv empowers 150+ lenders to instantly verify income, employment, assets, and insurance data directly from the source. With best-in-class coverage, configurable workflows, and a focus on consumer-permissioned data, Truv helps financial institutions streamline underwriting while dramatically reducing costs.
+                </p>
+                <p style="margin-top: 6px;">Learn more at <a href="https://truv.com">truv.com</a></p>
+            </div>
+        </div>
+
+        <div class="cta-section">
+            <div class="cta-content">
+                <h2 class="cta-title">See What Truv Can Save Your Team</h2>
+                <p class="cta-subtitle">
+                    If FCM&#8217;s challenges sound familiar, we&#8217;d love to show you what&#8217;s possible. Join 150+ lenders saving 60&#8211;80% on verifications with consumer-permissioned data from Truv.
+                </p>
+                <div class="cta-buttons">
+                    <a href="https://truv.com/contact-sales" class="btn btn-primary">Request a Custom ROI Analysis</a>
+                    <a href="https://truv.com/customer-stories" class="btn btn-secondary">More Customer Stories</a>
+                </div>
+                <p class="cta-contact">
+                    Questions? Contact us at <a href="mailto:sales@truv.com">sales@truv.com</a>
+                </p>
+                <div class="footer-logo">
+                    <svg viewBox="0 0 69 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M5.85522 23.7673C4.18138 23.7673 2.86445 23.2873 1.90445 22.3273C0.969068 21.3673 0.501372 20.0627 0.501372 18.4135V0.210419H4.71061V18.2289C4.71061 18.795 4.88292 19.2627 5.22753 19.632C5.57215 19.9766 6.02753 20.1489 6.59368 20.1489H10.5444V23.7673H5.85522ZM0.5 8.55503V4.93657H10.5814V8.55503H0.5Z" fill="white"/>
+                        <path d="M14.4254 23.7673V10.2904C14.4254 8.61657 14.8931 7.31196 15.8285 6.37657C16.7885 5.41657 18.1054 4.93657 19.7792 4.93657H24.3208V8.55503H20.5546C19.9638 8.55503 19.4962 8.72734 19.1515 9.07196C18.8315 9.41657 18.6716 9.88427 18.6716 10.475V23.7673H14.4254Z" fill="white"/>
+                        <path d="M36.2746 24.2104C34.4531 24.2104 32.8654 23.8535 31.5115 23.1397C30.1577 22.4012 29.1115 21.392 28.3731 20.112C27.6346 18.832 27.2654 17.392 27.2654 15.792V4.93657H31.5115V15.755C31.5115 16.715 31.7208 17.5643 32.1392 18.3027C32.5823 19.0166 33.1608 19.5827 33.8746 20.0012C34.6131 20.395 35.4131 20.592 36.2746 20.592C37.1361 20.592 37.9238 20.395 38.6377 20.0012C39.3761 19.5827 39.9546 19.0166 40.373 18.3027C40.8161 17.5643 41.0377 16.715 41.0377 15.755V4.93657H45.2838V15.792C45.2838 17.392 44.9023 18.832 44.1392 20.112C43.4007 21.392 42.3546 22.4012 41.0007 23.1397C39.6715 23.8535 38.0961 24.2104 36.2746 24.2104Z" fill="white"/>
+                        <path d="M58.4645 24.2104C57.4799 24.2104 56.5937 23.9397 55.806 23.3981C55.0429 22.8566 54.4891 22.1304 54.1445 21.2196L48.3845 4.93657H52.9999L57.9106 19.5581C57.9845 19.7304 58.0706 19.8535 58.1691 19.9273C58.2676 20.0012 58.3783 20.0381 58.5014 20.0381C58.6245 20.0381 58.7352 20.0012 58.8337 19.9273C58.9568 19.8535 59.0429 19.7304 59.0922 19.5581L64.0399 4.93657H68.5814L62.7845 21.2196C62.4645 22.1304 61.9106 22.8566 61.1229 23.3981C60.3352 23.9397 59.4491 24.2104 58.4645 24.2104Z" fill="white"/>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

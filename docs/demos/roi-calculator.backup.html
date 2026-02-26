@@ -1,0 +1,2336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ROI Calculator | Truv</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <style>
+        /* Truv Brand Font - Gilroy */
+        @font-face {
+            font-family: 'Gilroy';
+            src: url('branding/fonts/Gilroy-Medium.woff2') format('woff2'),
+                 url('branding/fonts/Gilroy-Medium.woff') format('woff');
+            font-weight: 500;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: 'Gilroy';
+            src: url('branding/fonts/Gilroy-SemiBold.woff2') format('woff2'),
+                 url('branding/fonts/Gilroy-SemiBold.woff') format('woff');
+            font-weight: 600;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            /* Primary Colors - Truv Brand */
+            --truv-blue: #2C64E3;
+            --truv-blue-dark: #0F1C47;
+            --truv-blue-light: #C5D9F7;
+            --truv-blue-glow: rgba(44, 100, 227, 0.15);
+
+            /* Neutral Colors - Truv Brand */
+            --dark: #171717;
+            --gray: #3C3C43;
+            --gray-light: #6b6b70;
+            --border: #e5e7eb;
+            --background: #F4F4F2;
+            --white: #ffffff;
+
+            /* Accent Colors - Truv Brand */
+            --success: #10b981;
+            --success-light: #d1fae5;
+            --warning: #f59e0b;
+            --warning-light: #fef3c7;
+            --error: #F47F7F;
+        }
+
+        body {
+            font-family: 'Gilroy', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--background);
+            color: var(--dark);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        /* Numbers use Gilroy SemiBold */
+        .mono {
+            font-family: 'Gilroy', sans-serif;
+            font-weight: 600;
+        }
+
+        /* Header */
+        .header {
+            background: rgba(255,255,255,0.8);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            padding: 16px 24px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 700;
+            font-size: 24px;
+            color: var(--truv-blue);
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            background: var(--truv-blue);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 18px;
+        }
+
+        .header-cta {
+            font-size: 14px;
+            color: var(--gray);
+        }
+
+        .header-cta a {
+            color: var(--truv-blue);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 60px 24px;
+        }
+
+        /* Card */
+        .card {
+            background: var(--white);
+            border-radius: 20px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+            padding: 48px;
+            overflow: hidden;
+        }
+
+        /* Step Sections */
+        .step-section {
+            opacity: 0;
+            transform: translateY(20px);
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .step-section.visible {
+            opacity: 1;
+            transform: translateY(0);
+            max-height: 2000px;
+        }
+
+        .step-section.instant {
+            transition: none;
+        }
+
+        /* Step 0: Hero Inputs */
+        .hero-section {
+            text-align: center;
+            padding-bottom: 32px;
+        }
+
+        .hero-title {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 8px;
+            letter-spacing: -0.5px;
+        }
+
+        .hero-subtitle {
+            font-size: 16px;
+            color: var(--gray-light);
+            margin-bottom: 40px;
+        }
+
+        .hero-inputs {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        @media (max-width: 600px) {
+            .hero-inputs {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .input-group {
+            text-align: left;
+        }
+
+        .input-label {
+            display: block;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--gray);
+            margin-bottom: 8px;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 16px 20px;
+            font-size: 18px;
+            font-weight: 600;
+            font-family: 'Gilroy', sans-serif;
+            border: none;
+            border-radius: 12px;
+            background: var(--background);
+            color: var(--dark);
+            transition: all 0.2s;
+            outline: none;
+        }
+
+        .input-field:focus {
+            background: var(--white);
+            box-shadow: 0 0 0 3px var(--truv-blue-glow), 0 0 0 1px var(--truv-blue);
+        }
+
+        .input-field::placeholder {
+            color: var(--gray-light);
+            font-family: 'Inter', sans-serif;
+        }
+
+        select.input-field {
+            font-family: 'Inter', sans-serif;
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%236b6b70' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 16px center;
+            padding-right: 48px;
+        }
+
+        /* Step 1: Cost Selection Cards */
+        .cost-section {
+            padding: 32px 0;
+            border-top: 1px solid var(--border);
+            margin-top: 8px;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .section-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--gray);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .cost-cards {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        @media (max-width: 600px) {
+            .cost-cards {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .cost-card {
+            padding: 16px 18px;
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+
+        .cost-card::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: transparent;
+            border-radius: 12px 0 0 12px;
+            transition: background 0.2s ease;
+        }
+
+        .cost-card:hover {
+            border-color: #d1d5db;
+        }
+
+        .cost-card.selected {
+            border-color: var(--truv-blue);
+            background: var(--truv-blue-light);
+        }
+
+        .cost-card.selected::before {
+            background: var(--truv-blue);
+        }
+
+        .cost-card-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 2px;
+            line-height: 1.3;
+        }
+
+        .cost-card-desc {
+            font-size: 13px;
+            color: var(--gray-light);
+            line-height: 1.4;
+        }
+
+        .cost-card-input {
+            margin-top: 12px;
+            width: 100%;
+            padding: 10px 14px;
+            font-size: 16px;
+            font-family: 'Gilroy', sans-serif;
+            font-weight: 600;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            background: var(--white);
+            display: none;
+        }
+
+        .cost-card.selected .cost-card-input {
+            display: block;
+        }
+
+        .cost-card-input:focus {
+            outline: none;
+            border-color: var(--truv-blue);
+        }
+
+        /* Step 2: Results Reveal */
+        .results-section {
+            padding-top: 32px;
+        }
+
+        /* Calculating Animation */
+        .calculating-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255,255,255,0.9);
+            backdrop-filter: blur(4px);
+            z-index: 200;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .calculating-overlay.active {
+            display: flex;
+        }
+
+        .calculating-spinner {
+            width: 48px;
+            height: 48px;
+            border: 3px solid var(--border);
+            border-top-color: var(--truv-blue);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .calculating-text {
+            font-size: 16px;
+            font-weight: 500;
+            color: var(--gray);
+        }
+
+        /* Hero Number */
+        .hero-result {
+            text-align: center;
+            padding: 40px 0;
+            background: linear-gradient(135deg, var(--truv-blue) 0%, var(--truv-blue-dark) 100%);
+            border-radius: 20px;
+            color: white;
+            margin-bottom: 24px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-result::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 60%);
+            animation: pulse-glow 3s ease-in-out infinite;
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+        }
+
+        .hero-result-label {
+            font-size: 14px;
+            opacity: 0.9;
+            margin-bottom: 8px;
+            position: relative;
+        }
+
+        .hero-result-value {
+            font-family: 'Gilroy', sans-serif;
+            font-size: 56px;
+            font-weight: 700;
+            letter-spacing: -2px;
+            margin-bottom: 8px;
+            position: relative;
+        }
+
+        .hero-result-context {
+            font-size: 15px;
+            opacity: 0.85;
+            position: relative;
+        }
+
+        /* Secondary Stats */
+        .stats-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 32px;
+        }
+
+        .stat-card {
+            background: var(--background);
+            border-radius: 14px;
+            padding: 24px;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-family: 'Gilroy', sans-serif;
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--truv-blue);
+            margin-bottom: 4px;
+        }
+
+        .stat-label {
+            font-size: 13px;
+            color: var(--gray);
+        }
+
+        /* Blurred Gate Section */
+        .gated-preview {
+            position: relative;
+            margin-top: 32px;
+        }
+
+        .gated-content {
+            filter: blur(8px);
+            opacity: 0.6;
+            pointer-events: none;
+            user-select: none;
+        }
+
+        .gated-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to bottom, transparent 0%, rgba(255,255,255,0.9) 30%, var(--white) 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .gated-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 8px;
+        }
+
+        .gated-subtitle {
+            font-size: 14px;
+            color: var(--gray);
+            margin-bottom: 24px;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 16px 32px;
+            font-size: 15px;
+            font-weight: 600;
+            border-radius: 12px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-primary {
+            background: var(--truv-blue);
+            color: white;
+            box-shadow: 0 4px 14px var(--truv-blue-glow);
+        }
+
+        .btn-primary:hover {
+            background: var(--truv-blue-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px var(--truv-blue-glow);
+        }
+
+        .btn-secondary {
+            background: var(--white);
+            color: var(--truv-blue);
+            border: 2px solid var(--truv-blue);
+        }
+
+        .btn-secondary:hover {
+            background: var(--truv-blue-light);
+        }
+
+        .btn-text {
+            background: none;
+            color: var(--gray);
+            padding: 8px 16px;
+        }
+
+        .btn-text:hover {
+            color: var(--dark);
+        }
+
+        /* Mini comparison preview */
+        .comparison-preview {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            padding: 20px;
+            background: var(--background);
+            border-radius: 14px;
+        }
+
+        .comparison-box {
+            text-align: center;
+        }
+
+        .comparison-label {
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--gray-light);
+            margin-bottom: 6px;
+        }
+
+        .comparison-value {
+            font-family: 'Gilroy', sans-serif;
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--dark);
+        }
+
+        .comparison-value.savings {
+            color: var(--success);
+        }
+
+        /* Detailed Results (Post-unlock) */
+        .detailed-results {
+            display: none;
+        }
+
+        .detailed-results.active {
+            display: block;
+        }
+
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .user-greeting {
+            font-size: 14px;
+            color: var(--gray);
+        }
+
+        /* Funnel Visualization */
+        .funnel-section {
+            margin: 32px 0;
+        }
+
+        .funnel-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .funnel-bars {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .funnel-row {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .funnel-label {
+            width: 100px;
+            font-size: 13px;
+            color: var(--gray);
+        }
+
+        .funnel-bar-container {
+            flex: 1;
+            height: 36px;
+            background: var(--background);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .funnel-bar {
+            height: 100%;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 12px;
+            font-family: 'Gilroy', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            color: white;
+            transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .funnel-bar.apps { background: var(--truv-blue); }
+        .funnel-bar.submitted { background: #5b8def; }
+        .funnel-bar.funded { background: var(--success); }
+
+        /* Cost Table */
+        .cost-table-section {
+            margin: 32px 0;
+        }
+
+        .cost-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .cost-table th,
+        .cost-table td {
+            padding: 14px 16px;
+            text-align: left;
+            font-size: 14px;
+        }
+
+        .cost-table th {
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--gray-light);
+            background: var(--background);
+            border-radius: 8px 8px 0 0;
+        }
+
+        .cost-table td {
+            border-bottom: 1px solid var(--border);
+        }
+
+        .cost-table .mono {
+            font-family: 'Gilroy', sans-serif;
+            font-weight: 500;
+        }
+
+        .cost-table .total-row {
+            font-weight: 600;
+            background: var(--background);
+        }
+
+        .cost-table .savings-row {
+            background: var(--success-light);
+            color: var(--success);
+            font-weight: 600;
+        }
+
+        .cost-table .savings-row td {
+            border-bottom: none;
+            border-radius: 0 0 8px 8px;
+        }
+
+        /* Sliders Section */
+        .sliders-section {
+            margin: 32px 0;
+            padding: 24px;
+            background: var(--background);
+            border-radius: 14px;
+        }
+
+        .sliders-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 20px;
+        }
+
+        .slider-group {
+            margin-bottom: 20px;
+        }
+
+        .slider-group:last-child {
+            margin-bottom: 0;
+        }
+
+        .slider-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .slider-label {
+            font-size: 13px;
+            color: var(--gray);
+        }
+
+        .slider-value {
+            font-family: 'Gilroy', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--truv-blue);
+        }
+
+        .slider {
+            width: 100%;
+            height: 6px;
+            border-radius: 3px;
+            background: var(--border);
+            outline: none;
+            -webkit-appearance: none;
+        }
+
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: var(--truv-blue);
+            cursor: pointer;
+            border: 3px solid white;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        }
+
+        /* Quote */
+        .quote-section {
+            margin: 32px 0;
+            padding: 24px;
+            background: var(--background);
+            border-radius: 14px;
+            border-left: 4px solid var(--truv-blue);
+        }
+
+        .quote-text {
+            font-size: 15px;
+            font-style: italic;
+            color: var(--gray);
+            margin-bottom: 12px;
+            line-height: 1.7;
+        }
+
+        .quote-author {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .quote-role {
+            font-size: 13px;
+            color: var(--gray-light);
+        }
+
+        /* CTA Section */
+        .cta-section {
+            margin-top: 32px;
+            text-align: center;
+        }
+
+        /* Modal */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.4);
+            backdrop-filter: blur(4px);
+            z-index: 200;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 480px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            box-shadow: 0 24px 48px rgba(0,0,0,0.2);
+            animation: modal-in 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @keyframes modal-in {
+            from {
+                opacity: 0;
+                transform: scale(0.95) translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: var(--background);
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            color: var(--gray-light);
+            padding: 8px;
+            transition: all 0.2s;
+        }
+
+        .modal-close:hover {
+            background: var(--border);
+            color: var(--dark);
+        }
+
+        .modal-header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .modal-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .modal-subtitle {
+            font-size: 14px;
+            color: var(--gray);
+        }
+
+        /* Form Steps */
+        .form-step {
+            display: none;
+        }
+
+        .form-step.active {
+            display: block;
+            animation: step-in 0.3s ease;
+        }
+
+        @keyframes step-in {
+            from {
+                opacity: 0;
+                transform: translateX(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        @media (max-width: 500px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--dark);
+            margin-bottom: 6px;
+        }
+
+        .form-input,
+        .form-select {
+            width: 100%;
+            padding: 14px 16px;
+            font-size: 15px;
+            border: none;
+            border-radius: 10px;
+            background: var(--background);
+            color: var(--dark);
+            transition: all 0.2s;
+        }
+
+        .form-input:focus,
+        .form-select:focus {
+            outline: none;
+            background: var(--white);
+            box-shadow: 0 0 0 3px var(--truv-blue-glow), 0 0 0 1px var(--truv-blue);
+        }
+
+        .form-divider {
+            border-top: 1px solid var(--border);
+            margin: 24px 0;
+            padding-top: 24px;
+        }
+
+        .form-divider-text {
+            font-size: 13px;
+            color: var(--gray-light);
+            margin-bottom: 16px;
+        }
+
+        .step-dots {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 24px;
+        }
+
+        .step-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--border);
+            transition: all 0.2s;
+        }
+
+        .step-dot.active {
+            background: var(--truv-blue);
+            width: 24px;
+            border-radius: 4px;
+        }
+
+        /* Success Modal */
+        .success-icon {
+            width: 64px;
+            height: 64px;
+            background: var(--success-light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px;
+        }
+
+        .success-icon svg {
+            color: var(--success);
+        }
+
+        .success-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 24px;
+        }
+
+        .action-card {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 20px;
+            background: var(--background);
+            border: 2px solid transparent;
+            border-radius: 14px;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: left;
+        }
+
+        .action-card:hover {
+            border-color: var(--truv-blue);
+            background: var(--truv-blue-light);
+        }
+
+        .action-card-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--white);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            color: var(--truv-blue);
+        }
+
+        .action-card-content {
+            flex: 1;
+        }
+
+        .action-card-title {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 2px;
+        }
+
+        .action-card-desc {
+            font-size: 13px;
+            color: var(--gray);
+        }
+
+        /* Integration Badge */
+        .integration-badge {
+            display: none;
+            margin-bottom: 20px;
+            padding: 16px;
+            background: var(--success-light);
+            border-radius: 12px;
+            border: 1px solid var(--success);
+        }
+
+        .integration-badge.visible {
+            display: block;
+        }
+
+        .integration-badge-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 6px;
+        }
+
+        .integration-badge-title {
+            font-weight: 600;
+            color: var(--success);
+            font-size: 14px;
+        }
+
+        .integration-badge-text {
+            font-size: 13px;
+            color: var(--gray);
+        }
+
+        /* Schedule Modal */
+        .schedule-modal {
+            max-width: 520px;
+        }
+
+        .demo-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            background: var(--warning-light);
+            color: var(--warning);
+            font-size: 11px;
+            font-weight: 600;
+            border-radius: 20px;
+            margin-bottom: 16px;
+        }
+
+        .calendar-mock {
+            background: var(--background);
+            border-radius: 14px;
+            padding: 24px;
+            margin: 20px 0;
+        }
+
+        .calendar-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+        }
+
+        .calendar-month {
+            font-weight: 600;
+            font-size: 16px;
+        }
+
+        .calendar-nav {
+            display: flex;
+            gap: 8px;
+        }
+
+        .calendar-nav button {
+            width: 32px;
+            height: 32px;
+            border: 1px solid var(--border);
+            background: var(--white);
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 4px;
+            text-align: center;
+        }
+
+        .calendar-day-header {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--gray-light);
+            padding: 8px 0;
+        }
+
+        .calendar-day {
+            padding: 10px;
+            font-size: 14px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .calendar-day:hover {
+            background: var(--truv-blue-light);
+        }
+
+        .calendar-day.disabled {
+            color: var(--gray-light);
+            cursor: default;
+        }
+
+        .calendar-day.disabled:hover {
+            background: transparent;
+        }
+
+        .calendar-day.selected {
+            background: var(--truv-blue);
+            color: white;
+        }
+
+        .time-slots {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            margin-top: 16px;
+        }
+
+        .time-slot {
+            padding: 10px;
+            text-align: center;
+            font-size: 13px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .time-slot:hover {
+            border-color: var(--truv-blue);
+            background: var(--truv-blue-light);
+        }
+
+        .time-slot.selected {
+            background: var(--truv-blue);
+            color: white;
+            border-color: var(--truv-blue);
+        }
+
+        .schedule-footer {
+            text-align: center;
+            margin-top: 16px;
+            font-size: 13px;
+            color: var(--gray-light);
+        }
+
+        .schedule-footer strong {
+            color: var(--truv-blue);
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 24px;
+            color: var(--gray-light);
+            font-size: 13px;
+        }
+
+        /* Simple Calculator View */
+        #simpleCalculator {
+            display: block;
+        }
+
+        #simpleCalculator.hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <a href="#" class="logo" onclick="resetCalculator(); return false;">
+                <div class="logo-icon">T</div>
+                truv
+            </a>
+            <div class="header-cta">
+                Questions? <a href="#">Talk to Sales</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Calculating Overlay -->
+    <div class="calculating-overlay" id="calculatingOverlay">
+        <div class="calculating-spinner"></div>
+        <div class="calculating-text">Calculating your savings...</div>
+    </div>
+
+    <main class="container">
+        <!-- Simple Calculator -->
+        <div id="simpleCalculator">
+            <div class="card">
+                <!-- Step 0: Hero Inputs -->
+                <div class="hero-section step-section visible instant" id="step0">
+                    <h1 class="hero-title">Calculate Your Savings</h1>
+                    <p class="hero-subtitle">See how much you could save with Truv</p>
+
+                    <div class="hero-inputs">
+                        <div class="input-group">
+                            <label class="input-label">Annual Funded Loans</label>
+                            <input type="text" class="input-field" id="fundedLoans" placeholder="e.g., 2,000" oninput="handleLoansInput(this)">
+                        </div>
+                        <div class="input-group">
+                            <label class="input-label">Industry</label>
+                            <select class="input-field" id="industry" onchange="checkStep1()">
+                                <option value="">Select industry</option>
+                                <option value="mortgage">Mortgage Lending</option>
+                                <option value="credit_union">Credit Union</option>
+                                <option value="consumer">Consumer Lending</option>
+                                <option value="auto">Auto Lending</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 1: Cost Selection -->
+                <div class="cost-section step-section" id="step1">
+                    <div class="section-header">
+                        <span class="section-title">Your Current Costs</span>
+                    </div>
+
+                    <div class="cost-cards">
+                        <div class="cost-card selected" onclick="selectCostCard('default')" id="card-default">
+                            <div class="cost-card-title">Industry Benchmarks</div>
+                            <div class="cost-card-desc">$10/VOA, $62/TWN</div>
+                        </div>
+                        <div class="cost-card" onclick="selectCostCard('perLoan')" id="card-perLoan">
+                            <div class="cost-card-title">Cost Per Loan</div>
+                            <div class="cost-card-desc">Your verification cost per funded loan</div>
+                            <input type="text" class="cost-card-input" id="input-perLoan" placeholder="$85" oninput="updateCalculations()">
+                        </div>
+                        <div class="cost-card" onclick="selectCostCard('totalSpend')" id="card-totalSpend">
+                            <div class="cost-card-title">Total Annual Spend</div>
+                            <div class="cost-card-desc">Your total verification budget</div>
+                            <input type="text" class="cost-card-input" id="input-totalSpend" placeholder="$180,000" oninput="updateCalculations()">
+                        </div>
+                        <div class="cost-card" onclick="selectCostCard('perVerification')" id="card-perVerification">
+                            <div class="cost-card-title">Cost Per Verification</div>
+                            <div class="cost-card-desc">What you pay TWN</div>
+                            <input type="text" class="cost-card-input" id="input-perVerification" placeholder="$62" oninput="updateCalculations()">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 2: Results -->
+                <div class="results-section step-section" id="step2">
+                    <div class="hero-result">
+                        <div class="hero-result-label">Estimated Annual Savings</div>
+                        <div class="hero-result-value mono" id="heroSavings">$92,101</div>
+                        <div class="hero-result-context">based on <span id="heroLoans" class="mono">2,000</span> funded loans per year</div>
+                    </div>
+
+                    <div class="stats-row">
+                        <div class="stat-card">
+                            <div class="stat-value" id="statPerLoan">$46</div>
+                            <div class="stat-label">Per Funded Loan</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value" id="statPercent">51%</div>
+                            <div class="stat-label">Cost Reduction</div>
+                        </div>
+                    </div>
+
+                    <!-- Blurred Preview Gate -->
+                    <div class="gated-preview">
+                        <div class="gated-content">
+                            <div class="comparison-preview">
+                                <div class="comparison-box">
+                                    <div class="comparison-label">Current Cost</div>
+                                    <div class="comparison-value mono" id="previewCurrent">$180,374</div>
+                                </div>
+                                <div class="comparison-box">
+                                    <div class="comparison-label">With Truv</div>
+                                    <div class="comparison-value mono savings" id="previewTruv">$88,273</div>
+                                </div>
+                            </div>
+                            <div style="height: 120px; background: var(--background); border-radius: 12px; margin-top: 16px;"></div>
+                        </div>
+                        <div class="gated-overlay">
+                            <div class="gated-title">See the full breakdown</div>
+                            <div class="gated-subtitle">Line-by-line costs, funnel visualization & more</div>
+                            <button class="btn btn-primary" onclick="openGateModal()">
+                                Unlock Full Report
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                                    <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Detailed Results (Post-unlock) -->
+        <div id="detailedResults" class="detailed-results">
+            <div class="card">
+                <div class="nav-buttons">
+                    <button class="btn btn-text" onclick="resetCalculator()">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M19 12H5M12 19l-7-7 7-7"/>
+                        </svg>
+                        Start Over
+                    </button>
+                    <span class="user-greeting">Welcome, <span id="userName">there</span></span>
+                </div>
+
+                <div class="hero-section" style="padding-bottom: 24px;">
+                    <h1 class="hero-title">Your ROI Breakdown</h1>
+                </div>
+
+                <!-- Summary Stats -->
+                <div class="hero-result">
+                    <div class="hero-result-label">Estimated Annual Savings</div>
+                    <div class="hero-result-value mono" id="detailSavings">$92,101</div>
+                    <div class="hero-result-context">based on <span id="detailLoans" class="mono">2,000</span> funded loans</div>
+                </div>
+
+                <div class="stats-row">
+                    <div class="stat-card">
+                        <div class="stat-value" id="detailPerLoan">$46</div>
+                        <div class="stat-label">Per Funded Loan</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="detailPercent">51%</div>
+                        <div class="stat-label">Cost Reduction</div>
+                    </div>
+                </div>
+
+                <!-- Sliders at top for "playing" -->
+                <div class="sliders-section">
+                    <div class="sliders-title">Adjust Your Numbers</div>
+                    <div class="slider-group">
+                        <div class="slider-header">
+                            <span class="slider-label">Funded Loans</span>
+                            <span class="slider-value" id="loansValue">2,000</span>
+                        </div>
+                        <input type="range" class="slider" id="loansSlider" min="500" max="50000" value="2000" oninput="updateDetailedCalculations()">
+                    </div>
+                    <div class="slider-group">
+                        <div class="slider-header">
+                            <span class="slider-label">TWN Cost</span>
+                            <span class="slider-value" id="twnValue">$62</span>
+                        </div>
+                        <input type="range" class="slider" id="twnSlider" min="40" max="100" value="62" oninput="updateDetailedCalculations()">
+                    </div>
+                </div>
+
+                <!-- Funnel Visualization -->
+                <div class="funnel-section">
+                    <div class="funnel-title">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--truv-blue)" stroke-width="2">
+                            <path d="M22 3H2l8 9.46V19l4 2v-8.54L22 3z"/>
+                        </svg>
+                        Verification Funnel
+                    </div>
+                    <div class="funnel-bars">
+                        <div class="funnel-row">
+                            <span class="funnel-label">Apps Started</span>
+                            <div class="funnel-bar-container">
+                                <div class="funnel-bar apps" id="funnelApps" style="width: 100%;">6,667</div>
+                            </div>
+                        </div>
+                        <div class="funnel-row">
+                            <span class="funnel-label">Submitted</span>
+                            <div class="funnel-bar-container">
+                                <div class="funnel-bar submitted" id="funnelSubmitted" style="width: 50%;">3,333</div>
+                            </div>
+                        </div>
+                        <div class="funnel-row">
+                            <span class="funnel-label">Funded</span>
+                            <div class="funnel-bar-container">
+                                <div class="funnel-bar funded" id="funnelFunded" style="width: 30%;">2,000</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Cost Table -->
+                <div class="cost-table-section">
+                    <div class="funnel-title">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--truv-blue)" stroke-width="2">
+                            <rect x="3" y="3" width="18" height="18" rx="2"/>
+                            <path d="M3 9h18M9 21V9"/>
+                        </svg>
+                        Cost Comparison
+                    </div>
+                    <table class="cost-table">
+                        <thead>
+                            <tr>
+                                <th>Item</th>
+                                <th>Current</th>
+                                <th>With Truv</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>VOA Checks</td>
+                                <td class="mono" id="currentVOA">$35,000</td>
+                                <td class="mono" id="truvVOA">$25,200</td>
+                            </tr>
+                            <tr>
+                                <td>VOIE Checks</td>
+                                <td class="mono" id="currentVOIE">—</td>
+                                <td class="mono" id="truvVOIE">$23,520</td>
+                            </tr>
+                            <tr>
+                                <td>TWN Verifications</td>
+                                <td class="mono" id="currentTWN">$145,374</td>
+                                <td class="mono" id="truvTWN">$39,553</td>
+                            </tr>
+                            <tr class="total-row">
+                                <td>Total Annual Cost</td>
+                                <td class="mono" id="currentTotal">$180,374</td>
+                                <td class="mono" id="truvTotal">$88,273</td>
+                            </tr>
+                            <tr class="savings-row">
+                                <td colspan="2">Your Annual Savings</td>
+                                <td class="mono" id="tableSavings">$92,101</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Quote -->
+                <div class="quote-section" id="quoteSection">
+                    <p class="quote-text">"Borrowers try Truv first because it has proven most reliable."</p>
+                    <p class="quote-author">Austin Coleman</p>
+                    <p class="quote-role">SVP, America First Credit Union</p>
+                </div>
+
+                <!-- CTA -->
+                <div class="cta-section">
+                    <button class="btn btn-primary" onclick="openScheduleModal()">
+                        Schedule a Demo
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Lead Capture Modal (2-step) -->
+    <div class="modal-overlay" id="gateModal">
+        <div class="modal">
+            <button class="modal-close" onclick="closeGateModal()" type="button">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M18 6L6 18M6 6l12 12"/>
+                </svg>
+            </button>
+
+            <div class="step-dots">
+                <div class="step-dot active" id="dot1"></div>
+                <div class="step-dot" id="dot2"></div>
+            </div>
+
+            <form id="leadForm" onsubmit="submitLeadForm(event)">
+                <!-- Step 1: Who are you -->
+                <div class="form-step active" id="formStep1">
+                    <div class="modal-header">
+                        <h2 class="modal-title">Who are you?</h2>
+                        <p class="modal-subtitle">Get your personalized ROI report</p>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label" for="name">Full Name</label>
+                            <input type="text" class="form-input" id="name" placeholder="John Smith" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="email">Work Email</label>
+                            <input type="email" class="form-input" id="email" placeholder="john@company.com" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label" for="title">Job Title</label>
+                            <input type="text" class="form-input" id="title" placeholder="VP of Operations" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="phone">Phone</label>
+                            <input type="tel" class="form-input" id="phone" placeholder="(555) 123-4567" required>
+                        </div>
+                    </div>
+
+                    <button type="button" class="btn btn-primary" style="width: 100%;" onclick="nextFormStep()">
+                        Continue
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- Step 2: Company details -->
+                <div class="form-step" id="formStep2">
+                    <div class="modal-header">
+                        <h2 class="modal-title">Company Details</h2>
+                        <p class="modal-subtitle">Help us personalize your analysis</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="company">Company Name</label>
+                        <input type="text" class="form-input" id="company" placeholder="Acme Lending" required>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label" for="los">LOS System</label>
+                            <select class="form-select" id="los">
+                                <option value="">Select LOS</option>
+                                <option value="encompass">Encompass (ICE)</option>
+                                <option value="bytepro">Byte Pro</option>
+                                <option value="meridianlink">MeridianLink</option>
+                                <option value="blackknight">Black Knight</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="pos">POS System</label>
+                            <select class="form-select" id="pos">
+                                <option value="">Select POS</option>
+                                <option value="blend">Blend</option>
+                                <option value="encompassconsumerconnect">Encompass CC</option>
+                                <option value="floify">Floify</option>
+                                <option value="simplenexus">SimpleNexus</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">
+                        Get My Report
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                            <polyline points="22 4 12 14.01 9 11.01"/>
+                        </svg>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div class="modal-overlay" id="successModal">
+        <div class="modal">
+            <button class="modal-close" onclick="closeSuccessModal()" type="button">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M18 6L6 18M6 6l12 12"/>
+                </svg>
+            </button>
+
+            <div class="success-icon">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                    <polyline points="22 4 12 14.01 9 11.01"/>
+                </svg>
+            </div>
+
+            <div class="modal-header">
+                <h2 class="modal-title">Your Report is Ready!</h2>
+                <p class="modal-subtitle">Thanks, <span id="successName">there</span></p>
+            </div>
+
+            <div class="integration-badge" id="integrationBadge">
+                <div class="integration-badge-header">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--success)" stroke-width="2">
+                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                        <polyline points="22 4 12 14.01 9 11.01"/>
+                    </svg>
+                    <span class="integration-badge-title">Great news!</span>
+                </div>
+                <p class="integration-badge-text" id="integrationText">Truv has native integrations with your systems.</p>
+            </div>
+
+            <div class="success-actions">
+                <div class="action-card" onclick="downloadPDF()">
+                    <div class="action-card-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                            <polyline points="7 10 12 15 17 10"/>
+                            <line x1="12" y1="15" x2="12" y2="3"/>
+                        </svg>
+                    </div>
+                    <div class="action-card-content">
+                        <div class="action-card-title">Download PDF Report</div>
+                        <div class="action-card-desc">Save your personalized analysis</div>
+                    </div>
+                </div>
+
+                <div class="action-card" onclick="openScheduleModal()">
+                    <div class="action-card-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                            <line x1="16" y1="2" x2="16" y2="6"/>
+                            <line x1="8" y1="2" x2="8" y2="6"/>
+                            <line x1="3" y1="10" x2="21" y2="10"/>
+                        </svg>
+                    </div>
+                    <div class="action-card-content">
+                        <div class="action-card-title">Schedule a Call</div>
+                        <div class="action-card-desc">Walk through your savings with sales</div>
+                    </div>
+                </div>
+
+                <button class="btn btn-secondary" style="width: 100%;" onclick="closeSuccessModal(); showDetailedResults();">
+                    View Full Breakdown
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Schedule Modal -->
+    <div class="modal-overlay" id="scheduleModal">
+        <div class="modal schedule-modal">
+            <button class="modal-close" onclick="closeScheduleModal()" type="button">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M18 6L6 18M6 6l12 12"/>
+                </svg>
+            </button>
+
+            <div class="demo-badge">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"/>
+                    <path d="M12 16v-4M12 8h.01"/>
+                </svg>
+                DEMO MODE
+            </div>
+
+            <div class="modal-header">
+                <h2 class="modal-title">Schedule a Call</h2>
+                <p class="modal-subtitle">Pick a time that works for you</p>
+            </div>
+
+            <div class="calendar-mock">
+                <div class="calendar-header">
+                    <div class="calendar-month">January 2025</div>
+                    <div class="calendar-nav">
+                        <button type="button">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M15 18l-6-6 6-6"/>
+                            </svg>
+                        </button>
+                        <button type="button">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M9 18l6-6-6-6"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                <div class="calendar-grid">
+                    <div class="calendar-day-header">Su</div>
+                    <div class="calendar-day-header">Mo</div>
+                    <div class="calendar-day-header">Tu</div>
+                    <div class="calendar-day-header">We</div>
+                    <div class="calendar-day-header">Th</div>
+                    <div class="calendar-day-header">Fr</div>
+                    <div class="calendar-day-header">Sa</div>
+                    <div class="calendar-day disabled"></div>
+                    <div class="calendar-day disabled"></div>
+                    <div class="calendar-day disabled"></div>
+                    <div class="calendar-day disabled">1</div>
+                    <div class="calendar-day disabled">2</div>
+                    <div class="calendar-day disabled">3</div>
+                    <div class="calendar-day disabled">4</div>
+                    <div class="calendar-day disabled">5</div>
+                    <div class="calendar-day">6</div>
+                    <div class="calendar-day">7</div>
+                    <div class="calendar-day selected">8</div>
+                    <div class="calendar-day">9</div>
+                    <div class="calendar-day">10</div>
+                    <div class="calendar-day">11</div>
+                    <div class="calendar-day">12</div>
+                    <div class="calendar-day">13</div>
+                    <div class="calendar-day">14</div>
+                    <div class="calendar-day">15</div>
+                    <div class="calendar-day">16</div>
+                    <div class="calendar-day">17</div>
+                    <div class="calendar-day">18</div>
+                </div>
+                <div class="time-slots">
+                    <div class="time-slot">9:00 AM</div>
+                    <div class="time-slot selected">10:30 AM</div>
+                    <div class="time-slot">1:00 PM</div>
+                    <div class="time-slot">2:30 PM</div>
+                    <div class="time-slot">3:30 PM</div>
+                    <div class="time-slot">4:30 PM</div>
+                </div>
+            </div>
+
+            <button class="btn btn-primary" style="width: 100%;" onclick="confirmSchedule()" type="button">
+                Confirm: Wed, Jan 8 at 10:30 AM
+            </button>
+
+            <p class="schedule-footer">
+                In production: redirects to <strong>truv.com/demo</strong>
+            </p>
+        </div>
+    </div>
+
+    <footer class="footer">
+        © 2025 Truv. All rights reserved.
+    </footer>
+
+    <script>
+        // State
+        let currentStep = 0;
+        let selectedCostOption = 'default';
+        let leadData = {};
+        let calculatedResults = {};
+        let formStep = 1;
+
+        // Defaults
+        const defaults = {
+            voaCost: 10,
+            twnCost: 62,
+            truvVoaCost: 6,
+            truvVoieCost: 10
+        };
+
+        // Quotes
+        const quotes = {
+            mortgage: { text: "Truv provides the most seamless borrower experience. We've seen a 65%+ conversion rate.", author: "CrossCountry Mortgage", role: "Top 5 Retail Lender" },
+            credit_union: { text: "Borrowers try Truv first because it has proven most reliable.", author: "Austin Coleman", role: "SVP, America First Credit Union" },
+            consumer: { text: "Truv's real-time verification transformed our approval process.", author: "HFS Financial", role: "Consumer Lending" },
+            auto: { text: "Same-day funding is now our standard thanks to instant verification.", author: "TurboPass", role: "Auto Lending Partner" }
+        };
+
+        // Native integrations
+        const nativeIntegrations = {
+            los: ['encompass', 'bytepro', 'meridianlink'],
+            pos: ['blend', 'encompassconsumerconnect', 'floify']
+        };
+
+        // Format helpers
+        function formatCurrency(num) {
+            return '$' + Math.round(num).toLocaleString();
+        }
+
+        function formatNumber(num) {
+            return Math.round(num).toLocaleString();
+        }
+
+        function parseCurrency(str) {
+            if (!str) return 0;
+            return parseFloat(str.replace(/[$,]/g, '')) || 0;
+        }
+
+        function parseLoans(str) {
+            if (!str) return 0;
+            return parseInt(str.replace(/,/g, '')) || 0;
+        }
+
+        // Handle loans input (format with commas)
+        function handleLoansInput(el) {
+            let val = el.value.replace(/[^0-9]/g, '');
+            if (val) {
+                el.value = parseInt(val).toLocaleString();
+            }
+            checkStep1();
+        }
+
+        // Check if we should show step 1
+        function checkStep1() {
+            const loans = parseLoans(document.getElementById('fundedLoans').value);
+            const industry = document.getElementById('industry').value;
+
+            if (loans > 0 && industry) {
+                showStep(1);
+                updateCalculations();
+            }
+        }
+
+        // Show step with animation
+        function showStep(step) {
+            if (step <= currentStep) return;
+
+            const stepEl = document.getElementById('step' + step);
+            if (stepEl && !stepEl.classList.contains('visible')) {
+                stepEl.classList.add('visible');
+                currentStep = step;
+
+                // If showing step 1, auto-trigger step 2 after selection
+                if (step === 1) {
+                    setTimeout(() => {
+                        showCalculating();
+                    }, 500);
+                }
+            }
+        }
+
+        // Show calculating overlay
+        function showCalculating() {
+            const overlay = document.getElementById('calculatingOverlay');
+            overlay.classList.add('active');
+
+            setTimeout(() => {
+                overlay.classList.remove('active');
+                showStep(2);
+            }, 1200);
+        }
+
+        // Select cost card
+        function selectCostCard(option) {
+            selectedCostOption = option;
+
+            document.querySelectorAll('.cost-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+            document.getElementById('card-' + option).classList.add('selected');
+
+            updateCalculations();
+        }
+
+        // Get current costs based on selection
+        function getCurrentCosts(fundedLoans) {
+            const e2eCR = 0.3, pullThrough = 0.6, retailPct = 0.7, borrowersPerApp = 1.5, w2Rate = 0.8;
+            const appsStarted = fundedLoans / e2eCR;
+            const appsSubmitted = fundedLoans / pullThrough;
+            const appSubmitCR = e2eCR / pullThrough;
+            const voasDuringApp = appsStarted * borrowersPerApp * retailPct;
+            const w2AppsSubmitted = appsSubmitted * w2Rate;
+            const voiesAfterSubmit = w2AppsSubmitted * borrowersPerApp * retailPct;
+
+            const voaConvCurrent = 0.50, ssvConvCurrent = 0.20, twnConvCurrent = 0.60;
+            const currentVOAs = voasDuringApp * voaConvCurrent;
+            const currentSSV = currentVOAs * ssvConvCurrent;
+            const voiesNeededAfterSSV = voiesAfterSubmit - (currentSSV * appSubmitCR);
+            const currentTWNInitial = voiesNeededAfterSSV * twnConvCurrent;
+            const currentTWNReverify = currentTWNInitial * pullThrough;
+            const totalTWN = currentTWNInitial + currentTWNReverify;
+
+            let voaCost = defaults.voaCost;
+            let twnCost = defaults.twnCost;
+
+            if (selectedCostOption === 'perLoan') {
+                const costPerLoan = parseCurrency(document.getElementById('input-perLoan').value);
+                if (costPerLoan > 0) {
+                    const impliedTotalCost = costPerLoan * fundedLoans;
+                    const voaCostTotal = currentVOAs * defaults.voaCost;
+                    const impliedTwnTotal = impliedTotalCost - voaCostTotal;
+                    if (totalTWN > 0) twnCost = Math.max(40, impliedTwnTotal / totalTWN);
+                }
+            } else if (selectedCostOption === 'totalSpend') {
+                const totalSpend = parseCurrency(document.getElementById('input-totalSpend').value);
+                if (totalSpend > 0) {
+                    const voaCostTotal = currentVOAs * defaults.voaCost;
+                    const impliedTwnTotal = totalSpend - voaCostTotal;
+                    if (totalTWN > 0) twnCost = Math.max(40, impliedTwnTotal / totalTWN);
+                }
+            } else if (selectedCostOption === 'perVerification') {
+                const perVerif = parseCurrency(document.getElementById('input-perVerification').value);
+                if (perVerif > 0) twnCost = perVerif;
+            }
+
+            return { voaCost, twnCost, currentVOAs, totalTWN };
+        }
+
+        // Calculate savings
+        function calculateSavings(fundedLoans, voaCostOverride = null, twnCostOverride = null, retailPct = 0.7, borrowersPerApp = 1.5, e2eCR = 0.3, pullThrough = 0.6, w2Rate = 0.8) {
+            const appsStarted = Math.round(fundedLoans / e2eCR);
+            const appsSubmitted = Math.round(fundedLoans / pullThrough);
+            const appSubmitCR = e2eCR / pullThrough;
+            const w2AppsSubmitted = appsSubmitted * w2Rate;
+            const voasDuringApp = appsStarted * borrowersPerApp * retailPct;
+            const voiesDuringApp = appsStarted * w2Rate * borrowersPerApp * retailPct;
+            const voiesAfterSubmit = w2AppsSubmitted * borrowersPerApp * retailPct;
+
+            const voaCost = voaCostOverride !== null ? voaCostOverride : defaults.voaCost;
+            const twnCost = twnCostOverride !== null ? twnCostOverride : defaults.twnCost;
+
+            const voaConvCurrent = 0.50, ssvConvCurrent = 0.20, twnConvCurrent = 0.60;
+            const currentVOAs = voasDuringApp * voaConvCurrent;
+            const currentSSV = currentVOAs * ssvConvCurrent;
+            const voiesNeededAfterSSV = voiesAfterSubmit - (currentSSV * appSubmitCR);
+            const currentTWNInitial = voiesNeededAfterSSV * twnConvCurrent;
+            const currentTWNReverify = currentTWNInitial * pullThrough;
+
+            const currentVOACost = currentVOAs * voaCost;
+            const currentTWNCost = (currentTWNInitial + currentTWNReverify) * twnCost;
+            const totalCurrentCost = currentVOACost + currentTWNCost;
+
+            const voaConvTruv = 0.60, ssvConvTruv = 0.24, voieConvTruv = 0.42, twnConvReduced = 0.36;
+            const truvVOAs = voasDuringApp * voaConvTruv;
+            const truvSSV = truvVOAs * ssvConvTruv;
+            const truvVOIEs = voiesDuringApp * voieConvTruv;
+            const voiesStillNeeded = voiesAfterSubmit - ((truvSSV + truvVOIEs) * appSubmitCR);
+            const truvTWNInitial = Math.max(0, voiesStillNeeded * twnConvReduced);
+            const truvTWNReverify = truvTWNInitial * pullThrough;
+
+            const truvVOACost = truvVOAs * defaults.truvVoaCost;
+            const truvVOIECost = truvVOIEs * defaults.truvVoieCost;
+            const truvTWNCost = (truvTWNInitial + truvTWNReverify) * twnCost;
+            const totalTruvCost = truvVOACost + truvVOIECost + truvTWNCost;
+
+            const annualSavings = totalCurrentCost - totalTruvCost;
+            const savingsPercent = totalCurrentCost > 0 ? (annualSavings / totalCurrentCost) * 100 : 0;
+            const savingsPerLoan = fundedLoans > 0 ? annualSavings / fundedLoans : 0;
+
+            return {
+                annualSavings, savingsPercent, savingsPerLoan, appsStarted, appsSubmitted, fundedLoans,
+                currentVOAs, currentVOACost, voaCost, twnCost, currentTWNTotal: currentTWNInitial + currentTWNReverify,
+                currentTWNCost, totalCurrentCost, truvVOAs, truvVOACost, truvVOIEs, truvVOIECost,
+                truvTWNTotal: truvTWNInitial + truvTWNReverify, truvTWNCost, totalTruvCost
+            };
+        }
+
+        // Update calculations for simple view
+        function updateCalculations() {
+            const fundedLoans = parseLoans(document.getElementById('fundedLoans').value) || 2000;
+            const costs = getCurrentCosts(fundedLoans);
+            calculatedResults = calculateSavings(fundedLoans, costs.voaCost, costs.twnCost);
+
+            document.getElementById('heroSavings').textContent = formatCurrency(calculatedResults.annualSavings);
+            document.getElementById('heroLoans').textContent = formatNumber(fundedLoans);
+            document.getElementById('statPerLoan').textContent = formatCurrency(calculatedResults.savingsPerLoan);
+            document.getElementById('statPercent').textContent = Math.round(calculatedResults.savingsPercent) + '%';
+            document.getElementById('previewCurrent').textContent = formatCurrency(calculatedResults.totalCurrentCost);
+            document.getElementById('previewTruv').textContent = formatCurrency(calculatedResults.totalTruvCost);
+        }
+
+        // Update detailed view calculations
+        function updateDetailedCalculations() {
+            const fundedLoans = parseInt(document.getElementById('loansSlider').value);
+            const twnCost = parseInt(document.getElementById('twnSlider').value);
+
+            document.getElementById('loansValue').textContent = formatNumber(fundedLoans);
+            document.getElementById('twnValue').textContent = formatCurrency(twnCost);
+
+            const results = calculateSavings(fundedLoans, defaults.voaCost, twnCost);
+
+            document.getElementById('detailSavings').textContent = formatCurrency(results.annualSavings);
+            document.getElementById('detailLoans').textContent = formatNumber(fundedLoans);
+            document.getElementById('detailPerLoan').textContent = formatCurrency(results.savingsPerLoan);
+            document.getElementById('detailPercent').textContent = Math.round(results.savingsPercent) + '%';
+
+            // Funnel
+            document.getElementById('funnelApps').textContent = formatNumber(results.appsStarted);
+            document.getElementById('funnelApps').style.width = '100%';
+            document.getElementById('funnelSubmitted').textContent = formatNumber(results.appsSubmitted);
+            document.getElementById('funnelSubmitted').style.width = Math.max(15, (results.appsSubmitted / results.appsStarted * 100)) + '%';
+            document.getElementById('funnelFunded').textContent = formatNumber(fundedLoans);
+            document.getElementById('funnelFunded').style.width = Math.max(10, (fundedLoans / results.appsStarted * 100)) + '%';
+
+            // Table
+            document.getElementById('currentVOA').textContent = formatCurrency(results.currentVOACost);
+            document.getElementById('truvVOA').textContent = formatCurrency(results.truvVOACost);
+            document.getElementById('currentVOIE').textContent = '—';
+            document.getElementById('truvVOIE').textContent = formatCurrency(results.truvVOIECost);
+            document.getElementById('currentTWN').textContent = formatCurrency(results.currentTWNCost);
+            document.getElementById('truvTWN').textContent = formatCurrency(results.truvTWNCost);
+            document.getElementById('currentTotal').textContent = formatCurrency(results.totalCurrentCost);
+            document.getElementById('truvTotal').textContent = formatCurrency(results.totalTruvCost);
+            document.getElementById('tableSavings').textContent = formatCurrency(results.annualSavings);
+
+            calculatedResults = results;
+        }
+
+        // Modal functions
+        function openGateModal() {
+            document.getElementById('gateModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+            formStep = 1;
+            updateFormSteps();
+        }
+
+        function closeGateModal() {
+            document.getElementById('gateModal').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        function openSuccessModal() {
+            document.getElementById('successModal').classList.add('active');
+        }
+
+        function closeSuccessModal() {
+            document.getElementById('successModal').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        function openScheduleModal() {
+            closeSuccessModal();
+            document.getElementById('scheduleModal').classList.add('active');
+        }
+
+        function closeScheduleModal() {
+            document.getElementById('scheduleModal').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        function confirmSchedule() {
+            alert('Demo: Meeting scheduled!\n\nIn production, this redirects to truv.com/demo');
+            closeScheduleModal();
+            showDetailedResults();
+        }
+
+        // Form step navigation
+        function nextFormStep() {
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const title = document.getElementById('title').value;
+            const phone = document.getElementById('phone').value;
+
+            if (!name || !email || !title || !phone) {
+                alert('Please fill in all fields');
+                return;
+            }
+
+            formStep = 2;
+            updateFormSteps();
+        }
+
+        function updateFormSteps() {
+            document.getElementById('formStep1').classList.toggle('active', formStep === 1);
+            document.getElementById('formStep2').classList.toggle('active', formStep === 2);
+            document.getElementById('dot1').classList.toggle('active', formStep === 1);
+            document.getElementById('dot2').classList.toggle('active', formStep === 2);
+        }
+
+        // Submit lead form
+        function submitLeadForm(e) {
+            e.preventDefault();
+
+            const fundedLoans = parseLoans(document.getElementById('fundedLoans').value) || 2000;
+            const costs = getCurrentCosts(fundedLoans);
+            const los = document.getElementById('los').value;
+            const pos = document.getElementById('pos').value;
+
+            leadData = {
+                name: document.getElementById('name').value,
+                title: document.getElementById('title').value,
+                company: document.getElementById('company').value,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value,
+                industry: document.getElementById('industry').value,
+                los, pos, fundedLoans,
+                derivedTwnCost: costs.twnCost
+            };
+
+            calculatedResults = calculateSavings(fundedLoans, costs.voaCost, costs.twnCost);
+
+            document.getElementById('loansSlider').value = fundedLoans;
+            document.getElementById('twnSlider').value = Math.round(costs.twnCost);
+
+            // Update quote
+            const quote = quotes[leadData.industry] || quotes.mortgage;
+            document.querySelector('#quoteSection .quote-text').textContent = `"${quote.text}"`;
+            document.querySelector('#quoteSection .quote-author').textContent = quote.author;
+            document.querySelector('#quoteSection .quote-role').textContent = quote.role;
+
+            document.getElementById('userName').textContent = leadData.name.split(' ')[0];
+            document.getElementById('successName').textContent = leadData.name.split(' ')[0];
+
+            // Check integrations
+            const losIntegrated = los && nativeIntegrations.los.includes(los);
+            const posIntegrated = pos && nativeIntegrations.pos.includes(pos);
+            const badge = document.getElementById('integrationBadge');
+
+            if (losIntegrated || posIntegrated) {
+                const systems = [];
+                if (losIntegrated) systems.push(document.querySelector(`#los option[value="${los}"]`)?.textContent);
+                if (posIntegrated) systems.push(document.querySelector(`#pos option[value="${pos}"]`)?.textContent);
+                document.getElementById('integrationText').textContent = `Truv has native integrations with ${systems.join(' and ')}.`;
+                badge.classList.add('visible');
+            } else {
+                badge.classList.remove('visible');
+            }
+
+            closeGateModal();
+            openSuccessModal();
+        }
+
+        // Show detailed results
+        function showDetailedResults() {
+            document.getElementById('simpleCalculator').classList.add('hidden');
+            document.getElementById('detailedResults').classList.add('active');
+            updateDetailedCalculations();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Reset
+        function resetCalculator() {
+            document.getElementById('simpleCalculator').classList.remove('hidden');
+            document.getElementById('detailedResults').classList.remove('active');
+            document.getElementById('leadForm').reset();
+            document.getElementById('fundedLoans').value = '';
+            document.getElementById('industry').value = '';
+
+            // Reset steps
+            currentStep = 0;
+            document.getElementById('step1').classList.remove('visible');
+            document.getElementById('step2').classList.remove('visible');
+
+            selectCostCard('default');
+            document.getElementById('input-perLoan').value = '';
+            document.getElementById('input-totalSpend').value = '';
+            document.getElementById('input-perVerification').value = '';
+
+            formStep = 1;
+            updateFormSteps();
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // PDF Generation
+        function downloadPDF() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            const pageWidth = doc.internal.pageSize.getWidth();
+            let y = 20;
+
+            // Header
+            doc.setFillColor(44, 100, 227);
+            doc.rect(0, 0, pageWidth, 40, 'F');
+            doc.setTextColor(255, 255, 255);
+            doc.setFontSize(24);
+            doc.setFont('helvetica', 'bold');
+            doc.text('truv', 20, 25);
+            doc.setFontSize(12);
+            doc.setFont('helvetica', 'normal');
+            doc.text('ROI Analysis Report', pageWidth - 20, 25, { align: 'right' });
+
+            y = 55;
+            doc.setTextColor(107, 107, 112);
+            doc.setFontSize(10);
+            doc.text('Prepared for:', 20, y);
+            y += 6;
+            doc.setTextColor(23, 23, 23);
+            doc.setFontSize(16);
+            doc.setFont('helvetica', 'bold');
+            doc.text(leadData.company || 'Your Company', 20, y);
+            y += 8;
+            doc.setFontSize(10);
+            doc.setFont('helvetica', 'normal');
+            doc.setTextColor(107, 107, 112);
+            doc.text(`${leadData.name} | ${leadData.email}`, 20, y);
+            y += 5;
+            doc.text(`Generated: ${new Date().toLocaleDateString()}`, 20, y);
+
+            y += 20;
+            doc.setFillColor(232, 239, 252);
+            doc.roundedRect(20, y, pageWidth - 40, 45, 3, 3, 'F');
+            y += 15;
+            doc.setTextColor(44, 100, 227);
+            doc.setFontSize(12);
+            doc.text('Estimated Annual Savings', pageWidth / 2, y, { align: 'center' });
+            y += 18;
+            doc.setFontSize(32);
+            doc.setFont('helvetica', 'bold');
+            doc.text(formatCurrency(calculatedResults.annualSavings), pageWidth / 2, y, { align: 'center' });
+
+            y += 30;
+            const colWidth = (pageWidth - 40) / 3;
+            doc.setFillColor(248, 249, 250);
+            doc.roundedRect(20, y, colWidth - 5, 35, 2, 2, 'F');
+            doc.roundedRect(20 + colWidth, y, colWidth - 5, 35, 2, 2, 'F');
+            doc.roundedRect(20 + colWidth * 2, y, colWidth - 5, 35, 2, 2, 'F');
+
+            y += 12;
+            doc.setFontSize(9);
+            doc.setFont('helvetica', 'normal');
+            doc.setTextColor(107, 107, 112);
+            doc.text('Per Funded Loan', 20 + (colWidth - 5) / 2, y, { align: 'center' });
+            doc.text('Cost Reduction', 20 + colWidth + (colWidth - 5) / 2, y, { align: 'center' });
+            doc.text('Funded Loans', 20 + colWidth * 2 + (colWidth - 5) / 2, y, { align: 'center' });
+
+            y += 12;
+            doc.setFontSize(18);
+            doc.setFont('helvetica', 'bold');
+            doc.setTextColor(23, 23, 23);
+            doc.text(formatCurrency(calculatedResults.savingsPerLoan), 20 + (colWidth - 5) / 2, y, { align: 'center' });
+            doc.text(Math.round(calculatedResults.savingsPercent) + '%', 20 + colWidth + (colWidth - 5) / 2, y, { align: 'center' });
+            doc.text(formatNumber(calculatedResults.fundedLoans), 20 + colWidth * 2 + (colWidth - 5) / 2, y, { align: 'center' });
+
+            y += 30;
+            doc.setFontSize(14);
+            doc.setTextColor(23, 23, 23);
+            doc.text('Cost Comparison', 20, y);
+            y += 10;
+
+            doc.setFillColor(248, 249, 250);
+            doc.rect(20, y, pageWidth - 40, 10, 'F');
+            doc.setFontSize(9);
+            doc.setFont('helvetica', 'bold');
+            doc.setTextColor(107, 107, 112);
+            doc.text('ITEM', 25, y + 7);
+            doc.text('CURRENT', 100, y + 7);
+            doc.text('WITH TRUV', 160, y + 7);
+
+            y += 15;
+            const tableData = [
+                ['VOA Checks', formatCurrency(calculatedResults.currentVOACost), formatCurrency(calculatedResults.truvVOACost)],
+                ['VOIE Checks', '—', formatCurrency(calculatedResults.truvVOIECost)],
+                ['TWN Verifications', formatCurrency(calculatedResults.currentTWNCost), formatCurrency(calculatedResults.truvTWNCost)],
+            ];
+
+            doc.setFont('helvetica', 'normal');
+            doc.setTextColor(23, 23, 23);
+            tableData.forEach(row => {
+                doc.setFontSize(10);
+                doc.text(row[0], 25, y);
+                doc.text(row[1], 100, y);
+                doc.text(row[2], 160, y);
+                y += 10;
+            });
+
+            doc.setFillColor(248, 249, 250);
+            doc.rect(20, y - 5, pageWidth - 40, 12, 'F');
+            doc.setFont('helvetica', 'bold');
+            doc.text('Total', 25, y + 3);
+            doc.text(formatCurrency(calculatedResults.totalCurrentCost), 100, y + 3);
+            doc.text(formatCurrency(calculatedResults.totalTruvCost), 160, y + 3);
+
+            y += 15;
+            doc.setFillColor(209, 250, 229);
+            doc.rect(20, y - 5, pageWidth - 40, 12, 'F');
+            doc.setTextColor(16, 185, 129);
+            doc.text('Annual Savings', 25, y + 3);
+            doc.text(formatCurrency(calculatedResults.annualSavings), 160, y + 3);
+
+            y += 25;
+            doc.setFillColor(44, 100, 227);
+            doc.roundedRect(20, y, pageWidth - 40, 30, 3, 3, 'F');
+            doc.setTextColor(255, 255, 255);
+            doc.setFontSize(12);
+            doc.text('Ready to start saving?', pageWidth / 2, y + 12, { align: 'center' });
+            doc.setFontSize(10);
+            doc.setFont('helvetica', 'normal');
+            doc.text('Schedule a demo at truv.com/demo', pageWidth / 2, y + 22, { align: 'center' });
+
+            y = doc.internal.pageSize.getHeight() - 15;
+            doc.setTextColor(107, 107, 112);
+            doc.setFontSize(8);
+            doc.text('© 2025 Truv. All rights reserved.', pageWidth / 2, y, { align: 'center' });
+
+            doc.save(`Truv_ROI_Report_${(leadData.company || 'Company').replace(/\s+/g, '_')}.pdf`);
+        }
+
+        // Modal click-outside handlers
+        ['gateModal', 'successModal', 'scheduleModal'].forEach(id => {
+            document.getElementById(id).addEventListener('click', function(e) {
+                if (e.target === this) {
+                    this.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
+            });
+        });
+
+        // Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeGateModal();
+                closeSuccessModal();
+                closeScheduleModal();
+            }
+        });
+    </script>
+</body>
+</html>
