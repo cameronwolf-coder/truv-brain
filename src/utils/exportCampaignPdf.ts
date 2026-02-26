@@ -155,8 +155,16 @@ export async function exportCampaignPdf(
     y += 6;
   }
 
-  // --- Metric boxes (2 rows of 4) ---
+  // --- Two-column layout: KPIs left, email preview right ---
   y += 4;
+
+  const columnGap = 8;
+  const leftColWidth = contentWidth * 0.48;
+  const rightColX = margin + leftColWidth + columnGap;
+  const rightColWidth = contentWidth - leftColWidth - columnGap;
+  const kpiStartY = y;
+
+  // --- Left column: KPI boxes (2 cols, 4 rows) ---
   const metrics = [
     { label: 'Delivered', value: m.delivered.toLocaleString() },
     { label: 'Unique Opens', value: m.unique_opens.toLocaleString() },
@@ -168,16 +176,16 @@ export async function exportCampaignPdf(
     { label: 'Bounce Rate', value: pct(m.bounce_rate) },
   ];
 
-  const cols = 4;
+  const kpiCols = 2;
   const gap = 4;
-  const boxW = (contentWidth - gap * (cols - 1)) / cols;
+  const boxW = (leftColWidth - gap * (kpiCols - 1)) / kpiCols;
   const boxH = 20;
 
   metrics.forEach((met, i) => {
-    const row = Math.floor(i / cols);
-    const col = i % cols;
+    const row = Math.floor(i / kpiCols);
+    const col = i % kpiCols;
     const bx = margin + col * (boxW + gap);
-    const by = y + row * (boxH + gap);
+    const by = kpiStartY + row * (boxH + gap);
 
     doc.setFillColor(245, 247, 250);
     doc.roundedRect(bx, by, boxW, boxH, 2, 2, 'F');
@@ -193,46 +201,26 @@ export async function exportCampaignPdf(
     doc.text(met.value, bx + boxW / 2, by + 16, { align: 'center' });
   });
 
-  y += 2 * (boxH + gap) + 4;
-
-  // --- Email template preview ---
+  // --- Right column: Email template preview ---
   if (templateCanvas) {
-    doc.setFontSize(11);
-    doc.setTextColor(15, 28, 71);
-    doc.setFont('helvetica', 'bold');
-    doc.text('Email Template Preview', margin, y);
-    y += 4;
-
     const imgData = templateCanvas.toDataURL('image/jpeg', 0.85);
     const canvasAspect = templateCanvas.height / templateCanvas.width;
 
-    // Scale to fit the remaining page width (centered, with a max width)
-    const maxImgWidth = Math.min(contentWidth, 140);
-    let imgW = maxImgWidth;
+    const imgW = rightColWidth;
     let imgH = imgW * canvasAspect;
 
-    // If the image is too tall for the remaining space, start a new page
-    const remainingHeight = pageHeight - y - 12;
-    if (imgH > remainingHeight) {
-      // If the image is very tall, cap and let it span pages
-      if (imgH > pageHeight - 40) {
-        imgH = pageHeight - 40;
-        imgW = imgH / canvasAspect;
-      } else {
-        doc.addPage();
-        y = 14;
-      }
+    // Cap to available page height
+    const maxImgH = pageHeight - kpiStartY - 12;
+    if (imgH > maxImgH) {
+      imgH = maxImgH;
     }
 
-    // Center the preview
-    const imgX = margin + (contentWidth - imgW) / 2;
-
-    // Add a light border around the preview
+    // Light border
     doc.setDrawColor(220, 220, 220);
     doc.setLineWidth(0.3);
-    doc.roundedRect(imgX - 1, y - 1, imgW + 2, imgH + 2, 1, 1, 'S');
+    doc.roundedRect(rightColX - 1, kpiStartY - 1, imgW + 2, imgH + 2, 1, 1, 'S');
 
-    doc.addImage(imgData, 'JPEG', imgX, y, imgW, imgH);
+    doc.addImage(imgData, 'JPEG', rightColX, kpiStartY, imgW, imgH);
   }
 
   // --- Footer on each page ---
