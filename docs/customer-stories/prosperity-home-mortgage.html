@@ -1,0 +1,1114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Story: Prosperity Home Mortgage | Truv</title>
+    <style>
+        /* Truv Brand Fonts */
+        @font-face {
+            font-family: 'Gilroy';
+            src: url('../../branding/fonts/Gilroy-Medium.woff2') format('woff2'),
+                 url('../../branding/fonts/Gilroy-Medium.woff') format('woff');
+            font-weight: 500;
+            font-style: normal;
+        }
+        @font-face {
+            font-family: 'Gilroy';
+            src: url('../../branding/fonts/Gilroy-SemiBold.woff2') format('woff2'),
+                 url('../../branding/fonts/Gilroy-SemiBold.woff') format('woff');
+            font-weight: 600;
+            font-style: normal;
+        }
+
+        /* Truv Brand Colors */
+        :root {
+            --truv-primary-blue: #2C64E3;
+            --truv-dark-blue: #0F1C47;
+            --truv-black: #171717;
+            --truv-grey: #F4F4F2;
+            --truv-white: #FFFFFF;
+            --truv-light-blue: #C5D9F7;
+        }
+
+        /* Reset & Base */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            font-size: 16px;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+
+        body {
+            font-family: 'Gilroy', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-weight: 500;
+            line-height: 1.5;
+            color: var(--truv-black);
+            background: var(--truv-white);
+        }
+
+        /* Print Optimization - Strict Letter Size */
+        @page {
+            size: 8.5in 11in;
+            margin: 0;
+        }
+
+        @media print {
+            html, body {
+                width: 8.5in;
+                height: 11in;
+                margin: 0;
+                padding: 0;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            .page {
+                width: 8.5in !important;
+                height: 11in !important;
+                max-height: 11in !important;
+                page-break-after: always;
+                page-break-inside: avoid;
+                break-after: page;
+                break-inside: avoid;
+                overflow: hidden !important;
+            }
+            .page:last-child {
+                page-break-after: auto;
+                break-after: auto;
+            }
+            .outcome-card,
+            .highlight-item,
+            .result-card,
+            .quote-block,
+            .company-facts {
+                box-shadow: none !important;
+            }
+        }
+
+        /* Page Layout - Fixed Letter Size */
+        .page {
+            width: 8.5in;
+            height: 11in;
+            max-height: 11in;
+            margin: 0 auto;
+            background: var(--truv-white);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* === PAGE 1: COVER === */
+        .cover {
+            background: linear-gradient(135deg, var(--truv-dark-blue) 0%, #1a3a7a 50%, var(--truv-dark-blue) 100%);
+            display: flex;
+            flex-direction: column;
+            padding: 0;
+            height: 11in;
+            max-height: 11in;
+        }
+
+        .cover-header {
+            padding: 48px 56px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo svg {
+            height: 28px;
+            width: auto;
+        }
+
+        .logo svg path {
+            fill: white;
+        }
+
+        .cover-badge {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--truv-light-blue);
+            padding: 8px 16px;
+            border: 1px solid rgba(197, 217, 247, 0.3);
+            border-radius: 4px;
+        }
+
+        .cover-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 0 56px 80px;
+        }
+
+        .cover-company {
+            font-size: 16px;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--truv-white);
+            margin-bottom: 24px;
+        }
+
+        .cover-headline {
+            font-size: 52px;
+            font-weight: 600;
+            line-height: 1.1;
+            color: var(--truv-white);
+            margin-bottom: 32px;
+            max-width: 90%;
+        }
+
+        .cover-headline .highlight {
+            color: var(--truv-primary-blue);
+        }
+
+        .cover-subheadline {
+            font-size: 20px;
+            font-weight: 500;
+            line-height: 1.5;
+            color: rgba(255, 255, 255, 0.8);
+            max-width: 560px;
+        }
+
+        .cover-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0;
+            background: rgba(255, 255, 255, 0.05);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: auto;
+        }
+
+        .cover-stat {
+            padding: 32px 40px;
+            text-align: center;
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .cover-stat:last-child {
+            border-right: none;
+        }
+
+        .cover-stat-value {
+            font-size: 48px;
+            font-weight: 600;
+            color: var(--truv-white);
+            line-height: 1;
+            margin-bottom: 8px;
+        }
+
+        .cover-stat-value .unit {
+            font-size: 32px;
+            color: var(--truv-primary-blue);
+        }
+
+        .cover-stat-label {
+            font-size: 13px;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.6);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* Geometric accent */
+        .cover::before {
+            content: '';
+            position: absolute;
+            top: -200px;
+            right: -200px;
+            width: 600px;
+            height: 600px;
+            border: 1px solid rgba(44, 100, 227, 0.15);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .cover::after {
+            content: '';
+            position: absolute;
+            top: -100px;
+            right: -100px;
+            width: 400px;
+            height: 400px;
+            border: 1px solid rgba(44, 100, 227, 0.1);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        /* === PAGE 2: COMPANY PROFILE === */
+        .profile-page {
+            padding: 48px 56px;
+            display: flex;
+            flex-direction: column;
+            height: 11in;
+            max-height: 11in;
+            overflow: hidden;
+        }
+
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 32px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--truv-grey);
+        }
+
+        .page-header .logo svg {
+            height: 22px;
+        }
+
+        .page-header .logo svg path {
+            fill: var(--truv-black);
+        }
+
+        .page-number {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--truv-primary-blue);
+        }
+
+        .section-label {
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--truv-primary-blue);
+            margin-bottom: 8px;
+        }
+
+        .section-title {
+            font-size: 26px;
+            font-weight: 600;
+            color: var(--truv-dark-blue);
+            margin-bottom: 16px;
+            line-height: 1.2;
+        }
+
+        .company-intro {
+            display: grid;
+            grid-template-columns: 1fr 260px;
+            gap: 40px;
+            align-items: stretch;
+            margin-top: -48px;
+        }
+
+        .company-description {
+            font-size: 13px;
+            line-height: 1.5;
+            color: var(--truv-black);
+            padding-top: 48px;
+        }
+
+        .company-description p {
+            margin-bottom: 8px;
+        }
+
+        .company-facts {
+            background: var(--truv-grey);
+            padding: 20px 24px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+        }
+
+        .company-facts h4 {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--truv-dark-blue);
+            margin-bottom: 16px;
+        }
+
+        .fact-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+        }
+
+        .fact-row:last-child {
+            border-bottom: none;
+        }
+
+        .fact-label {
+            font-size: 13px;
+            color: rgba(23, 23, 23, 0.6);
+        }
+
+        .fact-value {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--truv-dark-blue);
+            text-align: right;
+        }
+
+        /* Challenge Section */
+        .challenge-section {
+            background: linear-gradient(135deg, var(--truv-dark-blue) 0%, #1a3a7a 100%);
+            margin: auto -56px -48px;
+            padding: 28px 56px 32px;
+        }
+
+        .challenge-section .section-label {
+            color: var(--truv-light-blue);
+        }
+
+        .challenge-section .section-title {
+            color: var(--truv-white);
+        }
+
+        .challenge-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        .challenge-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 16px;
+        }
+
+        .challenge-icon {
+            width: 32px;
+            height: 32px;
+            background: var(--truv-primary-blue);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 8px;
+        }
+
+        .challenge-icon svg {
+            width: 18px;
+            height: 18px;
+            fill: white;
+        }
+
+        .challenge-card h4 {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--truv-white);
+            margin-bottom: 6px;
+        }
+
+        .challenge-card p {
+            font-size: 11px;
+            line-height: 1.4;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* === PAGE 3: SOLUTION & RESULTS === */
+        .results-page {
+            padding: 48px 56px;
+            height: 11in;
+            max-height: 11in;
+            overflow: hidden;
+        }
+
+        .solution-section {
+            margin-bottom: 24px;
+        }
+
+        .solution-content {
+            font-size: 13px;
+            line-height: 1.5;
+            color: var(--truv-black);
+            max-width: 90%;
+        }
+
+        .solution-content p {
+            margin-bottom: 12px;
+        }
+
+        .solution-highlights {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-top: 24px;
+        }
+
+        .highlight-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            padding: 12px 14px;
+            background: var(--truv-grey);
+            border-radius: 6px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+        }
+
+        .highlight-check {
+            width: 18px;
+            height: 18px;
+            background: var(--truv-primary-blue);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+
+        .highlight-check svg {
+            width: 10px;
+            height: 10px;
+            fill: white;
+        }
+
+        .highlight-item span {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--truv-dark-blue);
+        }
+
+        /* Results Grid */
+        .results-section {
+            margin-top: 24px;
+        }
+
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 24px;
+        }
+
+        .result-card {
+            background: var(--truv-dark-blue);
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+        }
+
+        .result-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--truv-primary-blue);
+        }
+
+        .result-value {
+            font-size: 42px;
+            font-weight: 600;
+            color: var(--truv-white);
+            line-height: 1;
+            margin-bottom: 6px;
+        }
+
+        .result-value .unit {
+            font-size: 28px;
+            color: var(--truv-primary-blue);
+        }
+
+        .result-label {
+            font-size: 13px;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 8px;
+        }
+
+        .result-detail {
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.5);
+            line-height: 1.4;
+        }
+
+        /* Quote Section */
+        .quote-section {
+            margin-top: 24px;
+            padding: 24px 28px;
+            background: linear-gradient(135deg, var(--truv-light-blue) 0%, #e8f0fc 100%);
+            border-radius: 12px;
+            position: relative;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+        }
+
+        .quote-mark {
+            position: absolute;
+            top: 12px;
+            left: 24px;
+            font-size: 48px;
+            font-weight: 600;
+            color: var(--truv-primary-blue);
+            opacity: 0.2;
+            line-height: 1;
+            font-family: Georgia, serif;
+            z-index: 0;
+        }
+
+        .quote-text {
+            font-size: 18px;
+            font-weight: 500;
+            line-height: 1.5;
+            color: var(--truv-dark-blue);
+            margin-bottom: 16px;
+            position: relative;
+            z-index: 1;
+            padding-top: 24px;
+        }
+
+        .quote-attribution {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .quote-avatar {
+            width: 48px;
+            height: 48px;
+            background: var(--truv-dark-blue);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            font-weight: 600;
+            color: white;
+        }
+
+        .quote-author {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--truv-dark-blue);
+        }
+
+        .quote-title {
+            font-size: 13px;
+            color: rgba(15, 28, 71, 0.6);
+        }
+
+        /* === PAGE 4: ADDITIONAL OUTCOMES & CTA === */
+        .outcomes-page {
+            padding: 48px 56px;
+            display: flex;
+            flex-direction: column;
+            height: 11in;
+            max-height: 11in;
+            overflow: hidden;
+        }
+
+        .outcomes-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-bottom: 16px;
+            padding: 8px;
+            margin-left: -8px;
+            margin-right: -8px;
+        }
+
+        .outcome-card {
+            border: 1px solid var(--truv-grey);
+            border-radius: 10px;
+            padding: 16px 18px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.06);
+        }
+
+        .outcome-icon {
+            width: 32px;
+            height: 32px;
+            background: var(--truv-light-blue);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 8px;
+        }
+
+        .outcome-icon svg {
+            width: 16px;
+            height: 16px;
+            fill: var(--truv-primary-blue);
+        }
+
+        .outcome-card h4 {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--truv-dark-blue);
+            margin-bottom: 4px;
+        }
+
+        .outcome-card p {
+            font-size: 11px;
+            line-height: 1.4;
+            color: rgba(23, 23, 23, 0.7);
+        }
+
+        /* Additional Quote */
+        .additional-quotes {
+            margin-bottom: 16px;
+        }
+
+        .mini-quote {
+            padding: 12px 16px;
+            background: var(--truv-grey);
+            border-left: 3px solid var(--truv-primary-blue);
+            border-radius: 0 6px 6px 0;
+            margin-bottom: 8px;
+        }
+
+        .mini-quote p {
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--truv-dark-blue);
+            font-style: italic;
+            margin-bottom: 2px;
+        }
+
+        .mini-quote cite {
+            font-size: 10px;
+            color: rgba(23, 23, 23, 0.6);
+            font-style: normal;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: var(--truv-dark-blue);
+            margin: auto -56px -48px;
+            padding: 28px 56px 32px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            bottom: -100px;
+            left: -100px;
+            width: 300px;
+            height: 300px;
+            border: 1px solid rgba(44, 100, 227, 0.2);
+            border-radius: 50%;
+        }
+
+        .cta-section::after {
+            content: '';
+            position: absolute;
+            top: -50px;
+            right: -50px;
+            width: 200px;
+            height: 200px;
+            border: 1px solid rgba(44, 100, 227, 0.15);
+            border-radius: 50%;
+        }
+
+        .cta-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--truv-white);
+            margin-bottom: 8px;
+        }
+
+        .cta-subtitle {
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 14px;
+            max-width: 480px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 10px 20px;
+            font-family: 'Gilroy', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: all 0.2s ease;
+        }
+
+        .btn-primary {
+            background: var(--truv-primary-blue);
+            color: white;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .cta-contact {
+            margin-top: 10px;
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .cta-contact a {
+            color: var(--truv-light-blue);
+            text-decoration: none;
+        }
+
+        /* Footer logo */
+        .footer-logo {
+            margin-top: 10px;
+        }
+
+        .footer-logo svg {
+            height: 16px;
+            opacity: 0.4;
+        }
+
+        .footer-logo svg path {
+            fill: white;
+        }
+
+        /* Screen preview spacing */
+        @media screen {
+            .page {
+                margin-bottom: 32px;
+                box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- PAGE 1: COVER -->
+    <div class="page cover">
+        <div class="cover-header">
+            <div class="logo">
+                <svg viewBox="0 0 69 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M5.85522 23.7673C4.18138 23.7673 2.86445 23.2873 1.90445 22.3273C0.969068 21.3673 0.501372 20.0627 0.501372 18.4135V0.210419H4.71061V18.2289C4.71061 18.795 4.88292 19.2627 5.22753 19.632C5.57215 19.9766 6.02753 20.1489 6.59368 20.1489H10.5444V23.7673H5.85522ZM0.5 8.55503V4.93657H10.5814V8.55503H0.5Z" fill="white"/>
+                    <path d="M14.4254 23.7673V10.2904C14.4254 8.61657 14.8931 7.31196 15.8285 6.37657C16.7885 5.41657 18.1054 4.93657 19.7792 4.93657H24.3208V8.55503H20.5546C19.9638 8.55503 19.4962 8.72734 19.1515 9.07196C18.8315 9.41657 18.6716 9.88427 18.6716 10.475V23.7673H14.4254Z" fill="white"/>
+                    <path d="M36.2746 24.2104C34.4531 24.2104 32.8654 23.8535 31.5115 23.1397C30.1577 22.4012 29.1115 21.392 28.3731 20.112C27.6346 18.832 27.2654 17.392 27.2654 15.792V4.93657H31.5115V15.755C31.5115 16.715 31.7208 17.5643 32.1392 18.3027C32.5823 19.0166 33.1608 19.5827 33.8746 20.0012C34.6131 20.395 35.4131 20.592 36.2746 20.592C37.1361 20.592 37.9238 20.395 38.6377 20.0012C39.3761 19.5827 39.9546 19.0166 40.373 18.3027C40.8161 17.5643 41.0377 16.715 41.0377 15.755V4.93657H45.2838V15.792C45.2838 17.392 44.9023 18.832 44.1392 20.112C43.4007 21.392 42.3546 22.4012 41.0007 23.1397C39.6715 23.8535 38.0961 24.2104 36.2746 24.2104Z" fill="white"/>
+                    <path d="M58.4645 24.2104C57.4799 24.2104 56.5937 23.9397 55.806 23.3981C55.0429 22.8566 54.4891 22.1304 54.1445 21.2196L48.3845 4.93657H52.9999L57.9106 19.5581C57.9845 19.7304 58.0706 19.8535 58.1691 19.9273C58.2676 20.0012 58.3783 20.0381 58.5014 20.0381C58.6245 20.0381 58.7352 20.0012 58.8337 19.9273C58.9568 19.8535 59.0429 19.7304 59.0922 19.5581L64.0399 4.93657H68.5814L62.7845 21.2196C62.4645 22.1304 61.9106 22.8566 61.1229 23.3981C60.3352 23.9397 59.4491 24.2104 58.4645 24.2104Z" fill="white"/>
+                </svg>
+            </div>
+            <div class="cover-badge">Customer Story</div>
+        </div>
+
+        <div class="cover-content">
+            <div class="cover-company">Prosperity Home Mortgage</div>
+            <h1 class="cover-headline">
+                Prosperity Home Mortgage reduced income and employment verification costs by <span class="highlight">90%</span> over legacy verification providers.
+            </h1>
+            <p class="cover-subheadline">
+                How a top-15 U.S. retail mortgage lender as ranked by the Scotsman Guide, transformed their income, employment and asset verification process with Truv's consumer-permissioned data platform.
+            </p>
+        </div>
+
+        <div class="cover-stats">
+            <div class="cover-stat">
+                <div class="cover-stat-value">70<span class="unit">%</span></div>
+                <div class="cover-stat-label">VOIE Login Conversion Rate</div>
+            </div>
+            <div class="cover-stat">
+                <div class="cover-stat-value">80<span class="unit">%</span></div>
+                <div class="cover-stat-label">VOA Login Conversion Rate</div>
+            </div>
+            <div class="cover-stat">
+                <div class="cover-stat-value">&lt;1<span class="unit">mo</span></div>
+                <div class="cover-stat-label">Implementation in Lodasoft</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PAGE 2: COMPANY PROFILE & CHALLENGE -->
+    <div class="page profile-page">
+        <div class="page-header">
+            <div class="logo">
+                <svg viewBox="0 0 69 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M5.85522 23.7673C4.18138 23.7673 2.86445 23.2873 1.90445 22.3273C0.969068 21.3673 0.501372 20.0627 0.501372 18.4135V0.210419H4.71061V18.2289C4.71061 18.795 4.88292 19.2627 5.22753 19.632C5.57215 19.9766 6.02753 20.1489 6.59368 20.1489H10.5444V23.7673H5.85522ZM0.5 8.55503V4.93657H10.5814V8.55503H0.5Z" fill="black"/>
+                    <path d="M14.4254 23.7673V10.2904C14.4254 8.61657 14.8931 7.31196 15.8285 6.37657C16.7885 5.41657 18.1054 4.93657 19.7792 4.93657H24.3208V8.55503H20.5546C19.9638 8.55503 19.4962 8.72734 19.1515 9.07196C18.8315 9.41657 18.6716 9.88427 18.6716 10.475V23.7673H14.4254Z" fill="black"/>
+                    <path d="M36.2746 24.2104C34.4531 24.2104 32.8654 23.8535 31.5115 23.1397C30.1577 22.4012 29.1115 21.392 28.3731 20.112C27.6346 18.832 27.2654 17.392 27.2654 15.792V4.93657H31.5115V15.755C31.5115 16.715 31.7208 17.5643 32.1392 18.3027C32.5823 19.0166 33.1608 19.5827 33.8746 20.0012C34.6131 20.395 35.4131 20.592 36.2746 20.592C37.1361 20.592 37.9238 20.395 38.6377 20.0012C39.3761 19.5827 39.9546 19.0166 40.373 18.3027C40.8161 17.5643 41.0377 16.715 41.0377 15.755V4.93657H45.2838V15.792C45.2838 17.392 44.9023 18.832 44.1392 20.112C43.4007 21.392 42.3546 22.4012 41.0007 23.1397C39.6715 23.8535 38.0961 24.2104 36.2746 24.2104Z" fill="black"/>
+                    <path d="M58.4645 24.2104C57.4799 24.2104 56.5937 23.9397 55.806 23.3981C55.0429 22.8566 54.4891 22.1304 54.1445 21.2196L48.3845 4.93657H52.9999L57.9106 19.5581C57.9845 19.7304 58.0706 19.8535 58.1691 19.9273C58.2676 20.0012 58.3783 20.0381 58.5014 20.0381C58.6245 20.0381 58.7352 20.0012 58.8337 19.9273C58.9568 19.8535 59.0429 19.7304 59.0922 19.5581L64.0399 4.93657H68.5814L62.7845 21.2196C62.4645 22.1304 61.9106 22.8566 61.1229 23.3981C60.3352 23.9397 59.4491 24.2104 58.4645 24.2104Z" fill="black"/>
+                </svg>
+            </div>
+            <div class="page-number">02</div>
+        </div>
+
+        <div class="section-label">About the Company</div>
+        <h2 class="section-title">Prosperity Home Mortgage, LLC</h2>
+
+        <div class="company-intro">
+            <div class="company-description">
+                <p>
+                    Prosperity Home Mortgage, LLC (PHM), a subsidiary of HomeServices of America, a Berkshire Hathaway affiliate, is one of the top 15 retail mortgage lenders in the United States, as ranked by the Scotsman Guide. PHM is consistently ranked at the top of the industry's most prestigious customer service rankings, reflecting its unrivaled commitment to delivering an exceptional customer experience for the 25,000+ borrowers they serve annually.
+                </p>
+                <p>
+                    The lender funds over $8 billion annually in production while employing 450+ producing mortgage consultants, achieving among the highest productivity per mortgage consultant in the mortgage industry.
+                </p>
+                <p>
+                    PHM selected Truv as its primary VOIE and VOA provider, integrating directly into its Lodasoft point-of-sale system in under one month.
+                </p>
+            </div>
+            <div class="company-facts">
+                <h4>At a Glance</h4>
+                <div class="fact-row">
+                    <span class="fact-label">Annual Production</span>
+                    <span class="fact-value">$8B+</span>
+                </div>
+                <div class="fact-row">
+                    <span class="fact-label">Loans Funded</span>
+                    <span class="fact-value">20,000/year</span>
+                </div>
+                <div class="fact-row">
+                    <span class="fact-label">Mortgage Consultants</span>
+                    <span class="fact-value">450+</span>
+                </div>
+                <div class="fact-row">
+                    <span class="fact-label">Borrowers Served</span>
+                    <span class="fact-value">25,000+/year</span>
+                </div>
+                <div class="fact-row">
+                    <span class="fact-label">Headquarters</span>
+                    <span class="fact-value">Fairfax, VA</span>
+                </div>
+                <div class="fact-row">
+                    <span class="fact-label">NMLS ID</span>
+                    <span class="fact-value">#75164</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="challenge-section">
+            <div class="section-label">The Challenge</div>
+            <h2 class="section-title">Rising Costs & Low Conversion Rates</h2>
+
+            <div class="challenge-grid">
+                <div class="challenge-card">
+                    <div class="challenge-icon">
+                        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1.41 16.09V20h-2.67v-1.93c-1.71-.36-3.16-1.46-3.27-3.4h1.96c.1 1.05.82 1.87 2.65 1.87 1.96 0 2.4-.98 2.4-1.59 0-.83-.44-1.61-2.67-2.14-2.48-.6-4.18-1.62-4.18-3.67 0-1.72 1.39-2.84 3.11-3.21V4h2.67v1.95c1.86.45 2.79 1.86 2.85 3.39H14.3c-.05-1.11-.64-1.87-2.22-1.87-1.5 0-2.4.68-2.4 1.64 0 .84.65 1.39 2.67 1.91s4.18 1.39 4.18 3.91c-.01 1.83-1.38 2.83-3.12 3.16z"/></svg>
+                    </div>
+                    <h4>Reduce Verification Spending</h4>
+                    <p>In 2021, PHM faced rising loan origination costs, primarily driven by legacy verification services, resulting in total verification costs exceeding $492 on a portion of loans.</p>
+                </div>
+                <div class="challenge-card">
+                    <div class="challenge-icon">
+                        <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
+                    </div>
+                    <h4>Enhance Borrower Experience</h4>
+                    <p>Improve borrower adoption by simplifying the account linking process and using messaging throughout that builds trust in the process.</p>
+                </div>
+                <div class="challenge-card">
+                    <div class="challenge-icon">
+                        <svg viewBox="0 0 24 24"><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM17 13l-5 5-5-5h3V9h4v4h3z"/></svg>
+                    </div>
+                    <h4>Cross-Platform Portability</h4>
+                    <p>Integrate with POS while allowing seamless access in LOS without functionality loss or borrower re-engagement.</p>
+                </div>
+                <div class="challenge-card">
+                    <div class="challenge-icon">
+                        <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/></svg>
+                    </div>
+                    <h4>Security & Compliance</h4>
+                    <p>Work with a verification provider that adheres to the highest industry security standards and protocols, including SOC 2 Type II certification, to protect sensitive borrower data and maintain regulatory compliance.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PAGE 3: SOLUTION & RESULTS -->
+    <div class="page results-page">
+        <div class="page-header">
+            <div class="logo">
+                <svg viewBox="0 0 69 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M5.85522 23.7673C4.18138 23.7673 2.86445 23.2873 1.90445 22.3273C0.969068 21.3673 0.501372 20.0627 0.501372 18.4135V0.210419H4.71061V18.2289C4.71061 18.795 4.88292 19.2627 5.22753 19.632C5.57215 19.9766 6.02753 20.1489 6.59368 20.1489H10.5444V23.7673H5.85522ZM0.5 8.55503V4.93657H10.5814V8.55503H0.5Z" fill="black"/>
+                    <path d="M14.4254 23.7673V10.2904C14.4254 8.61657 14.8931 7.31196 15.8285 6.37657C16.7885 5.41657 18.1054 4.93657 19.7792 4.93657H24.3208V8.55503H20.5546C19.9638 8.55503 19.4962 8.72734 19.1515 9.07196C18.8315 9.41657 18.6716 9.88427 18.6716 10.475V23.7673H14.4254Z" fill="black"/>
+                    <path d="M36.2746 24.2104C34.4531 24.2104 32.8654 23.8535 31.5115 23.1397C30.1577 22.4012 29.1115 21.392 28.3731 20.112C27.6346 18.832 27.2654 17.392 27.2654 15.792V4.93657H31.5115V15.755C31.5115 16.715 31.7208 17.5643 32.1392 18.3027C32.5823 19.0166 33.1608 19.5827 33.8746 20.0012C34.6131 20.395 35.4131 20.592 36.2746 20.592C37.1361 20.592 37.9238 20.395 38.6377 20.0012C39.3761 19.5827 39.9546 19.0166 40.373 18.3027C40.8161 17.5643 41.0377 16.715 41.0377 15.755V4.93657H45.2838V15.792C45.2838 17.392 44.9023 18.832 44.1392 20.112C43.4007 21.392 42.3546 22.4012 41.0007 23.1397C39.6715 23.8535 38.0961 24.2104 36.2746 24.2104Z" fill="black"/>
+                    <path d="M58.4645 24.2104C57.4799 24.2104 56.5937 23.9397 55.806 23.3981C55.0429 22.8566 54.4891 22.1304 54.1445 21.2196L48.3845 4.93657H52.9999L57.9106 19.5581C57.9845 19.7304 58.0706 19.8535 58.1691 19.9273C58.2676 20.0012 58.3783 20.0381 58.5014 20.0381C58.6245 20.0381 58.7352 20.0012 58.8337 19.9273C58.9568 19.8535 59.0429 19.7304 59.0922 19.5581L64.0399 4.93657H68.5814L62.7845 21.2196C62.4645 22.1304 61.9106 22.8566 61.1229 23.3981C60.3352 23.9397 59.4491 24.2104 58.4645 24.2104Z" fill="black"/>
+                </svg>
+            </div>
+            <div class="page-number">03</div>
+        </div>
+
+        <div class="solution-section">
+            <div class="section-label">The Solution</div>
+            <h2 class="section-title">Truv: Consumer-Permissioned Verification</h2>
+
+            <div class="solution-content">
+                <p>
+                    PHM selected Truv as its primary VOIE and VOA provider, integrating directly into its Lodasoft point-of-sale system. Implementation focused on borrower education, trust-centered workflows, and data-driven continuous improvements.
+                </p>
+                <p>
+                    Truv provides original paystubs and W2s with every successful verification, enabling PHM to use returned data across 100% of loan files regardless of investor type (agency, non-QM, or others).
+                </p>
+            </div>
+
+            <div class="solution-highlights">
+                <div class="highlight-item">
+                    <div class="highlight-check">
+                        <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                    </div>
+                    <span>Borrower education and trust-led workflow</span>
+                </div>
+                <div class="highlight-item">
+                    <div class="highlight-check">
+                        <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                    </div>
+                    <span>Customized in-app messaging and user experience</span>
+                </div>
+                <div class="highlight-item">
+                    <div class="highlight-check">
+                        <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                    </div>
+                    <span>Streamlined account linking experiences</span>
+                </div>
+                <div class="highlight-item">
+                    <div class="highlight-check">
+                        <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                    </div>
+                    <span>Continuous improvements driven by data analysis</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="results-section">
+            <div class="section-label">The Results</div>
+            <h2 class="section-title">Measurable Impact Across Operations</h2>
+
+            <div class="results-grid">
+                <div class="result-card">
+                    <div class="result-value">90<span class="unit">%+</span></div>
+                    <div class="result-label">Cost Savings</div>
+                    <div class="result-detail">over legacy verification providers, translating to millions in annual savings</div>
+                </div>
+                <div class="result-card">
+                    <div class="result-value">85<span class="unit">%</span></div>
+                    <div class="result-label">Linking Attempt Rate</div>
+                    <div class="result-detail">of applicants now attempt to link accounts</div>
+                </div>
+                <div class="result-card">
+                    <div class="result-value">&lt;1<span class="unit">mo</span></div>
+                    <div class="result-label">Implementation</div>
+                    <div class="result-detail">deployment in Lodasoft with white-glove onboarding support</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="quote-section">
+            <div class="quote-mark">"</div>
+            <p class="quote-text">
+                Truv's platform gave us the transparency, trust, and borrower experience we were missing. Conversion rates doubled seemingly overnight, proving that consumer-permissioned verification can drive both massive savings and an unrivaled customer experience.
+            </p>
+            <div class="quote-attribution">
+                <div class="quote-avatar">JB</div>
+                <div>
+                    <div class="quote-author">Josh Byrom</div>
+                    <div class="quote-title">SVP Technology & Innovation, Prosperity Home Mortgage</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PAGE 4: ADDITIONAL OUTCOMES & CTA -->
+    <div class="page outcomes-page">
+        <div class="page-header">
+            <div class="logo">
+                <svg viewBox="0 0 69 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M5.85522 23.7673C4.18138 23.7673 2.86445 23.2873 1.90445 22.3273C0.969068 21.3673 0.501372 20.0627 0.501372 18.4135V0.210419H4.71061V18.2289C4.71061 18.795 4.88292 19.2627 5.22753 19.632C5.57215 19.9766 6.02753 20.1489 6.59368 20.1489H10.5444V23.7673H5.85522ZM0.5 8.55503V4.93657H10.5814V8.55503H0.5Z" fill="black"/>
+                    <path d="M14.4254 23.7673V10.2904C14.4254 8.61657 14.8931 7.31196 15.8285 6.37657C16.7885 5.41657 18.1054 4.93657 19.7792 4.93657H24.3208V8.55503H20.5546C19.9638 8.55503 19.4962 8.72734 19.1515 9.07196C18.8315 9.41657 18.6716 9.88427 18.6716 10.475V23.7673H14.4254Z" fill="black"/>
+                    <path d="M36.2746 24.2104C34.4531 24.2104 32.8654 23.8535 31.5115 23.1397C30.1577 22.4012 29.1115 21.392 28.3731 20.112C27.6346 18.832 27.2654 17.392 27.2654 15.792V4.93657H31.5115V15.755C31.5115 16.715 31.7208 17.5643 32.1392 18.3027C32.5823 19.0166 33.1608 19.5827 33.8746 20.0012C34.6131 20.395 35.4131 20.592 36.2746 20.592C37.1361 20.592 37.9238 20.395 38.6377 20.0012C39.3761 19.5827 39.9546 19.0166 40.373 18.3027C40.8161 17.5643 41.0377 16.715 41.0377 15.755V4.93657H45.2838V15.792C45.2838 17.392 44.9023 18.832 44.1392 20.112C43.4007 21.392 42.3546 22.4012 41.0007 23.1397C39.6715 23.8535 38.0961 24.2104 36.2746 24.2104Z" fill="black"/>
+                    <path d="M58.4645 24.2104C57.4799 24.2104 56.5937 23.9397 55.806 23.3981C55.0429 22.8566 54.4891 22.1304 54.1445 21.2196L48.3845 4.93657H52.9999L57.9106 19.5581C57.9845 19.7304 58.0706 19.8535 58.1691 19.9273C58.2676 20.0012 58.3783 20.0381 58.5014 20.0381C58.6245 20.0381 58.7352 20.0012 58.8337 19.9273C58.9568 19.8535 59.0429 19.7304 59.0922 19.5581L64.0399 4.93657H68.5814L62.7845 21.2196C62.4645 22.1304 61.9106 22.8566 61.1229 23.3981C60.3352 23.9397 59.4491 24.2104 58.4645 24.2104Z" fill="black"/>
+                </svg>
+            </div>
+            <div class="page-number">04</div>
+        </div>
+
+        <div class="section-label">Key Outcomes</div>
+        <h2 class="section-title">Operational Excellence Achieved</h2>
+
+        <div class="outcomes-grid">
+            <div class="outcome-card">
+                <div class="outcome-icon">
+                    <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6zm7 13H5v-.23c0-.62.28-1.2.76-1.58C7.47 15.82 9.64 15 12 15s4.53.82 6.24 2.19c.48.38.76.97.76 1.58V19z"/></svg>
+                </div>
+                <h4>Cross-Platform Experience</h4>
+                <p>Data completed in point-of-sale automatically appears in loan origination system, enabling seamless reverifications and 10-day pre-closing verifications.</p>
+            </div>
+            <div class="outcome-card">
+                <div class="outcome-icon">
+                    <svg viewBox="0 0 24 24"><path d="M9 11H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2zm2-7h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11z"/></svg>
+                </div>
+                <h4>More than 90% Cost Savings Over Legacy Verification Providers</h4>
+                <p>Truv's direct-to-source verification model reduced PHM's per-loan verification costs by more than 90% compared to legacy verification providers, translating into millions in annual savings across PHM's 20,000 annual loan fundings.</p>
+            </div>
+            <div class="outcome-card">
+                <div class="outcome-icon">
+                    <svg viewBox="0 0 24 24"><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM17 13l-5 5-5-5h3V9h4v4h3z"/></svg>
+                </div>
+                <h4>Conversion Rate</h4>
+                <p>Through targeted optimization, Truv drives 70% VOIE and 80% VOA login conversion rates, with 85% of applicants now attempting to link accounts.</p>
+            </div>
+            <div class="outcome-card">
+                <div class="outcome-icon">
+                    <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>
+                </div>
+                <h4>White-Glove Support</h4>
+                <p>Less than one month deployment in Lodasoft with white-glove onboarding support ensuring rapid integration and fast adoption.</p>
+            </div>
+        </div>
+
+        <div class="additional-quotes">
+            <div class="mini-quote">
+                <p>"By grabbing the paystubs and W2s as part of their VOIE product, in addition to having the VOA to use as bank statements, Truv gives us the opportunity to hit a home run of simplicity and efficiency on every loan regardless of investor."</p>
+                <cite>— Josh Byrom, SVP Technology & Innovation</cite>
+            </div>
+            <div class="mini-quote">
+                <p>"Where support is an afterthought with some vendors, support is a feature with Truv."</p>
+                <cite>— Josh Byrom, SVP Technology & Innovation</cite>
+            </div>
+        </div>
+
+        <div class="cta-section">
+            <div class="cta-content">
+                <h2 class="cta-title">Ready to Transform Your Verification Process?</h2>
+                <p class="cta-subtitle">
+                    Join 150+ lenders using Truv for instant income, employment, and asset verification directly from source data.
+                </p>
+                <div class="cta-buttons">
+                    <a href="https://truv.com/contact-sales" class="btn btn-primary">Request a Demo</a>
+                    <a href="https://truv.com/customer-stories" class="btn btn-secondary">More Customer Stories</a>
+                </div>
+                <p class="cta-contact">
+                    Questions? Contact us at <a href="mailto:sales@truv.com">sales@truv.com</a>
+                </p>
+                <div class="footer-logo">
+                    <svg viewBox="0 0 69 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M5.85522 23.7673C4.18138 23.7673 2.86445 23.2873 1.90445 22.3273C0.969068 21.3673 0.501372 20.0627 0.501372 18.4135V0.210419H4.71061V18.2289C4.71061 18.795 4.88292 19.2627 5.22753 19.632C5.57215 19.9766 6.02753 20.1489 6.59368 20.1489H10.5444V23.7673H5.85522ZM0.5 8.55503V4.93657H10.5814V8.55503H0.5Z" fill="white"/>
+                        <path d="M14.4254 23.7673V10.2904C14.4254 8.61657 14.8931 7.31196 15.8285 6.37657C16.7885 5.41657 18.1054 4.93657 19.7792 4.93657H24.3208V8.55503H20.5546C19.9638 8.55503 19.4962 8.72734 19.1515 9.07196C18.8315 9.41657 18.6716 9.88427 18.6716 10.475V23.7673H14.4254Z" fill="white"/>
+                        <path d="M36.2746 24.2104C34.4531 24.2104 32.8654 23.8535 31.5115 23.1397C30.1577 22.4012 29.1115 21.392 28.3731 20.112C27.6346 18.832 27.2654 17.392 27.2654 15.792V4.93657H31.5115V15.755C31.5115 16.715 31.7208 17.5643 32.1392 18.3027C32.5823 19.0166 33.1608 19.5827 33.8746 20.0012C34.6131 20.395 35.4131 20.592 36.2746 20.592C37.1361 20.592 37.9238 20.395 38.6377 20.0012C39.3761 19.5827 39.9546 19.0166 40.373 18.3027C40.8161 17.5643 41.0377 16.715 41.0377 15.755V4.93657H45.2838V15.792C45.2838 17.392 44.9023 18.832 44.1392 20.112C43.4007 21.392 42.3546 22.4012 41.0007 23.1397C39.6715 23.8535 38.0961 24.2104 36.2746 24.2104Z" fill="white"/>
+                        <path d="M58.4645 24.2104C57.4799 24.2104 56.5937 23.9397 55.806 23.3981C55.0429 22.8566 54.4891 22.1304 54.1445 21.2196L48.3845 4.93657H52.9999L57.9106 19.5581C57.9845 19.7304 58.0706 19.8535 58.1691 19.9273C58.2676 20.0012 58.3783 20.0381 58.5014 20.0381C58.6245 20.0381 58.7352 20.0012 58.8337 19.9273C58.9568 19.8535 59.0429 19.7304 59.0922 19.5581L64.0399 4.93657H68.5814L62.7845 21.2196C62.4645 22.1304 61.9106 22.8566 61.1229 23.3981C60.3352 23.9397 59.4491 24.2104 58.4645 24.2104Z" fill="white"/>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</body>
+</html>

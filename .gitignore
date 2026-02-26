@@ -29,6 +29,35 @@ __pycache__/
 .pytest_cache/
 venv/
 
+# AI agent configs (unused — keep .claude/ and .opencode/)
+.agent/
+.agents/
+.cline/
+.codebuddy/
+.commandcode/
+.continue/
+.crush/
+.cursor/
+.factory/
+.goose/
+.junie/
+.kilocode/
+.kiro/
+.kode/
+.mcpjam/
+.mux/
+.neovate/
+.openhands/
+.pi/
+.pochi/
+.qoder/
+.qwen/
+.roo/
+.trae/
+.windsurf/
+.zencoder/
+.claude-design/
+
 # Other
 .worktrees/
 .vercel

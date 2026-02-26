@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How BankSouth Mortgage Saves $100K+/Year on Verification | Truv</title>
+    <meta name="description" content="Download the case study to see how BankSouth Mortgage saved $100K+ annually by consolidating verification vendors with Truv across nCino and Encompass.">
+
+    <style>
+        /* Truv Brand Fonts */
+        @font-face {
+            font-family: 'Gilroy';
+            src: url('https://hs-19933594.f.hubspotemail.net/hubfs/19933594/Truv/Font%20Gilroy/Gilroy-Medium.woff2') format('woff2'),
+                 url('https://hs-19933594.f.hubspotemail.net/hubfs/19933594/Truv/Font%20Gilroy/Gilroy-Medium.woff') format('woff');
+            font-weight: 500;
+            font-style: normal;
+        }
+        @font-face {
+            font-family: 'Gilroy';
+            src: url('https://hs-19933594.f.hubspotemail.net/hubfs/19933594/Truv/Font%20Gilroy/Gilroy-Bold.woff2') format('woff2'),
+                 url('https://hs-19933594.f.hubspotemail.net/hubfs/19933594/Truv/Font%20Gilroy/Gilroy-Bold.woff') format('woff');
+            font-weight: 600;
+            font-style: normal;
+        }
+
+        /* Design Tokens */
+        :root {
+            --truv-blue: #2C64E3;
+            --truv-dark: #0F1C47;
+            --truv-black: #171717;
+            --truv-grey: #F4F4F2;
+            --truv-white: #FFFFFF;
+            --truv-light-blue: #C5D9F7;
+            --truv-blue-10: #EBF0FC;
+            --truv-blue-50: #f0f5ff;
+            --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+            --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
+            --shadow-lg: 0 12px 40px rgba(0,0,0,0.12);
+            --shadow-xl: 0 24px 60px rgba(0,0,0,0.16);
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --radius-xl: 20px;
+        }
+
+        /* Reset */
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Gilroy', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-weight: 500;
+            line-height: 1.6;
+            color: var(--truv-black);
+            background: var(--truv-white);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        img { max-width: 100%; height: auto; }
+        a { color: var(--truv-blue); text-decoration: none; }
+        a:hover { text-decoration: underline; }
+
+        /* Container */
+        .container { max-width: 1140px; margin: 0 auto; padding: 0 24px; }
+        .container--narrow { max-width: 800px; }
+
+        /* ========== HEADER ========== */
+        .site-header {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(0,0,0,0.06);
+            height: 64px;
+            display: flex;
+            align-items: center;
+        }
+        .site-header .container { display: flex; align-items: center; justify-content: space-between; width: 100%; }
+        .site-header__logo img { height: 28px; display: block; }
+        .site-header__cta {
+            display: inline-flex; align-items: center; gap: 8px;
+            background: var(--truv-blue); color: var(--truv-white);
+            padding: 10px 20px; border-radius: 50px;
+            font-size: 14px; font-weight: 600; font-family: inherit;
+            border: none; cursor: pointer; transition: background 0.2s;
+        }
+        .site-header__cta:hover { background: #1a4fc7; text-decoration: none; }
+
+        /* ========== HERO ========== */
+        .hero {
+            position: relative;
+            padding: 120px 0 80px;
+            background: linear-gradient(180deg, #0a1232 0%, #162257 50%, #1e3a6e 100%);
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute; top: -200px; right: -200px;
+            width: 600px; height: 600px;
+            background: radial-gradient(circle, rgba(44,100,227,0.25) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        .hero::after {
+            content: '';
+            position: absolute; bottom: -200px; left: -200px;
+            width: 500px; height: 500px;
+            background: radial-gradient(circle, rgba(44,100,227,0.15) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero__grid {
+            display: grid;
+            grid-template-columns: 1fr 420px;
+            gap: 60px;
+            align-items: center;
+            position: relative; z-index: 1;
+        }
+
+        .hero__label {
+            display: inline-block;
+            background: var(--truv-blue);
+            color: var(--truv-white);
+            font-size: 12px; font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            padding: 6px 14px;
+            border-radius: 50px;
+            margin-bottom: 20px;
+        }
+
+        .hero__title {
+            color: var(--truv-white);
+            font-size: 42px;
+            font-weight: 600;
+            line-height: 1.15;
+            margin-bottom: 16px;
+        }
+        .hero__title-highlight {
+            background: linear-gradient(135deg, #6B9AFF, #2C64E3);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero__subtitle {
+            color: var(--truv-light-blue);
+            font-size: 17px;
+            line-height: 1.7;
+            margin-bottom: 24px;
+            max-width: 520px;
+        }
+
+        .hero__proof {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: rgba(255,255,255,0.7);
+            font-size: 14px;
+        }
+        .hero__proof-text { opacity: 0.8; }
+
+        /* Form Card */
+        .form-card {
+            background: var(--truv-white);
+            border-radius: var(--radius-xl);
+            padding: 32px;
+            box-shadow: var(--shadow-xl);
+            position: relative; z-index: 2;
+        }
+        .form-card__title {
+            font-size: 22px;
+            font-weight: 600;
+            color: var(--truv-black);
+            margin-bottom: 6px;
+        }
+        .form-card__desc {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 16px;
+        }
+        .form-card__bonus {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--truv-blue-10);
+            color: var(--truv-blue);
+            padding: 8px 14px;
+            border-radius: var(--radius-sm);
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+        .form-card__trust {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            margin-top: 12px;
+            font-size: 12px;
+            color: #999;
+        }
+
+        /* ========== STATS ========== */
+        .stats {
+            background: var(--truv-grey);
+            padding: 60px 0;
+        }
+        .stats__header {
+            text-align: center;
+            font-size: 14px;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 32px;
+        }
+        .stats__grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+            text-align: center;
+        }
+        .stat__value {
+            font-size: 48px;
+            font-weight: 600;
+            color: var(--truv-blue);
+            line-height: 1.1;
+            margin-bottom: 8px;
+            font-family: 'Gilroy', sans-serif;
+        }
+        .stat__label {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.4;
+        }
+
+        /* ========== PREVIEW ========== */
+        .preview {
+            padding: 80px 0;
+        }
+        .preview__grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+        .preview__visual {
+            position: relative;
+        }
+        .preview__card {
+            background: var(--truv-grey);
+            border-radius: var(--radius-lg);
+            padding: 40px;
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        .preview__card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+        .preview__card-badge {
+            position: absolute; top: 16px; right: 16px;
+            display: flex; align-items: center; gap: 6px;
+            background: var(--truv-blue);
+            color: var(--truv-white);
+            padding: 6px 14px;
+            border-radius: 50px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        .preview__card-img {
+            max-width: 280px;
+            border-radius: var(--radius-sm);
+            box-shadow: var(--shadow-md);
+            margin-bottom: 16px;
+        }
+        .preview__card-label {
+            display: flex; align-items: center; justify-content: center; gap: 6px;
+            font-size: 13px; color: #888;
+        }
+
+        .preview__content h2 {
+            font-size: 32px;
+            font-weight: 600;
+            color: var(--truv-dark);
+            margin-bottom: 24px;
+        }
+
+        .checklist { list-style: none; }
+        .checklist__item {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            padding: 14px 0;
+            border-bottom: 1px solid #f0f0f0;
+            font-size: 16px;
+            line-height: 1.5;
+            color: #444;
+        }
+        .checklist__item:last-child { border-bottom: none; }
+        .checklist__icon {
+            flex-shrink: 0;
+            width: 24px; height: 24px;
+            background: var(--truv-blue-10);
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            margin-top: 2px;
+        }
+        .checklist__icon svg { color: var(--truv-blue); }
+
+        /* ========== QUOTE ========== */
+        .quote-section {
+            background: var(--truv-grey);
+            padding: 80px 0;
+        }
+        .quote-card {
+            background: var(--truv-white);
+            border-radius: var(--radius-xl);
+            padding: 48px;
+            box-shadow: var(--shadow-md);
+            position: relative;
+            overflow: hidden;
+        }
+        .quote-card::before {
+            content: '';
+            position: absolute; top: 0; left: 0;
+            width: 4px; height: 100%;
+            background: linear-gradient(180deg, var(--truv-blue) 0%, var(--truv-light-blue) 100%);
+        }
+        .quote-card__icon {
+            color: var(--truv-blue);
+            opacity: 0.3;
+            margin-bottom: 20px;
+        }
+        .quote-card__text {
+            font-size: 22px;
+            font-weight: 500;
+            line-height: 1.6;
+            color: #333;
+            margin-bottom: 24px;
+        }
+        .quote-card__text strong {
+            color: var(--truv-dark);
+            font-weight: 600;
+        }
+        .quote-card__cite {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        .quote-card__avatar {
+            width: 48px; height: 48px;
+            background: var(--truv-blue);
+            color: var(--truv-white);
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 16px; font-weight: 600;
+            flex-shrink: 0;
+        }
+        .quote-card__name {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--truv-black);
+        }
+        .quote-card__role {
+            font-size: 14px;
+            color: #888;
+        }
+
+        /* ========== CTA ========== */
+        .cta-section {
+            background: var(--truv-dark);
+            padding: 80px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        .cta-section::before {
+            content: '';
+            position: absolute; top: -100px; right: -100px;
+            width: 400px; height: 400px;
+            background: radial-gradient(circle, rgba(44,100,227,0.2) 0%, transparent 70%);
+        }
+        .cta__inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 40px;
+            position: relative; z-index: 1;
+        }
+        .cta__title {
+            font-size: 32px;
+            font-weight: 600;
+            color: var(--truv-white);
+            margin-bottom: 8px;
+        }
+        .cta__desc {
+            font-size: 16px;
+            color: rgba(255,255,255,0.7);
+            max-width: 480px;
+        }
+        .cta__btn {
+            display: inline-flex; align-items: center; gap: 8px;
+            background: var(--truv-white);
+            color: var(--truv-dark);
+            padding: 16px 32px;
+            border-radius: 50px;
+            font-size: 16px; font-weight: 600; font-family: inherit;
+            border: none; cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+        .cta__btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+            text-decoration: none;
+        }
+
+        /* ========== FOOTER ========== */
+        .site-footer {
+            background: #fafafa;
+            border-top: 1px solid #eee;
+            padding: 40px 0;
+            text-align: center;
+        }
+        .site-footer__links {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+        }
+        .site-footer__links a { color: #666; font-size: 14px; }
+        .site-footer__links a:hover { color: var(--truv-blue); }
+        .site-footer__copy {
+            font-size: 13px;
+            color: #aaa;
+        }
+
+        /* ========== MODAL ========== */
+        .modal {
+            position: fixed; inset: 0; z-index: 1000;
+            display: flex; align-items: center; justify-content: center;
+            opacity: 0; visibility: hidden;
+            transition: opacity 0.3s, visibility 0.3s;
+        }
+        .modal.is-open { opacity: 1; visibility: visible; }
+        .modal__backdrop {
+            position: absolute; inset: 0;
+            background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(4px);
+        }
+        .modal__panel {
+            position: relative; z-index: 1;
+            background: var(--truv-white);
+            border-radius: var(--radius-xl);
+            padding: 40px;
+            max-width: 480px;
+            width: 90%;
+            box-shadow: var(--shadow-xl);
+            transform: translateY(20px);
+            transition: transform 0.3s;
+        }
+        .modal.is-open .modal__panel { transform: translateY(0); }
+        .modal__close {
+            position: absolute; top: 16px; right: 16px;
+            background: none; border: none; cursor: pointer;
+            color: #999; padding: 4px;
+        }
+        .modal__close:hover { color: #333; }
+        .modal__title {
+            font-size: 22px; font-weight: 600;
+            margin-bottom: 6px;
+        }
+        .modal__desc {
+            font-size: 14px; color: #666;
+            margin-bottom: 20px;
+        }
+
+        /* ========== HUBSPOT FORM OVERRIDES ========== */
+        .hs-form-field { margin-bottom: 14px !important; }
+        .hs-form-field label {
+            font-family: 'Gilroy', sans-serif !important;
+            font-size: 13px !important;
+            font-weight: 600 !important;
+            color: #555 !important;
+            margin-bottom: 4px !important;
+        }
+        .hs-input {
+            font-family: 'Gilroy', sans-serif !important;
+            font-size: 15px !important;
+            padding: 10px 14px !important;
+            border: 1.5px solid #e0e0e0 !important;
+            border-radius: 10px !important;
+            width: 100% !important;
+            transition: border-color 0.2s !important;
+        }
+        .hs-input:focus {
+            border-color: var(--truv-blue) !important;
+            outline: none !important;
+            box-shadow: 0 0 0 3px rgba(44,100,227,0.1) !important;
+        }
+        .hs-submit .hs-button {
+            font-family: 'Gilroy', sans-serif !important;
+            font-size: 16px !important;
+            font-weight: 600 !important;
+            background: var(--truv-blue) !important;
+            color: var(--truv-white) !important;
+            border: none !important;
+            border-radius: 50px !important;
+            padding: 14px 28px !important;
+            cursor: pointer !important;
+            width: 100% !important;
+            transition: background 0.2s !important;
+        }
+        .hs-submit .hs-button:hover {
+            background: #1a4fc7 !important;
+        }
+        .hs-error-msgs { font-size: 12px !important; color: #e74c3c !important; }
+
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 1024px) {
+            .hero__grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+                text-align: center;
+            }
+            .hero__subtitle { max-width: 100%; margin-left: auto; margin-right: auto; }
+            .hero__proof { justify-content: center; }
+            .form-card { max-width: 480px; margin: 0 auto; }
+            .stats__grid { grid-template-columns: repeat(2, 1fr); gap: 32px; }
+            .preview__grid { grid-template-columns: 1fr; gap: 40px; }
+            .cta__inner { flex-direction: column; text-align: center; }
+            .cta__desc { margin: 0 auto; }
+        }
+
+        @media (max-width: 768px) {
+            .hero { padding: 100px 0 60px; }
+            .hero__title { font-size: 32px; }
+            .stats { padding: 48px 0; }
+            .stat__value { font-size: 36px; }
+            .preview { padding: 60px 0; }
+            .preview__content h2 { font-size: 26px; }
+            .quote-section { padding: 60px 0; }
+            .quote-card { padding: 32px; }
+            .quote-card__text { font-size: 18px; }
+            .cta-section { padding: 60px 0; }
+            .cta__title { font-size: 26px; }
+        }
+
+        @media (max-width: 480px) {
+            .stats__grid { grid-template-columns: 1fr 1fr; }
+            .site-header__cta span { display: none; }
+        }
+
+        /* ========== ANIMATIONS ========== */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(24px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-in {
+            opacity: 0;
+            transform: translateY(24px);
+        }
+        .animate-in.is-visible {
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="site-header">
+        <div class="container">
+            <a href="https://truv.com" class="site-header__logo">
+                <img src="https://res.cloudinary.com/dc0r5pclf/image/upload/v1768234655/logo-truv_dqfiwp.svg" alt="Truv" height="28">
+            </a>
+            <button class="site-header__cta" onclick="openModal()">
+                <span>Get the Case Study</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </button>
+        </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero__grid">
+                <div class="hero__content">
+                    <span class="hero__label">Customer Story</span>
+                    <h1 class="hero__title">
+                        How BankSouth Mortgage saves<br>
+                        <span class="hero__title-highlight">$100K+/year on verification</span>
+                    </h1>
+                    <p class="hero__subtitle">
+                        See how a community mortgage lender consolidated fragmented verification vendors with Truv &mdash; cutting costs, gaining real-time analytics, and achieving record-high VOIE &amp; VOA conversion rates.
+                    </p>
+                    <div class="hero__proof">
+                        <span class="hero__proof-text">An Atlanta-based community mortgage lender</span>
+                    </div>
+                </div>
+
+                <div class="form-card">
+                    <h2 class="form-card__title">Get the Full Story</h2>
+                    <p class="form-card__desc">See how BankSouth Mortgage achieved these results.</p>
+                    <div class="form-card__bonus">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
+                        </svg>
+                        <span>Includes implementation checklist</span>
+                    </div>
+                    <div id="hubspot-form-hero"></div>
+                    <p class="form-card__trust">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                        </svg>
+                        <span>Your info is secure and never shared</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats -->
+    <section class="stats">
+        <div class="container">
+            <p class="stats__header">Results BankSouth Mortgage achieved with Truv</p>
+            <div class="stats__grid" id="stats-grid">
+                <div class="stat animate-in">
+                    <div class="stat__value" data-target="100" data-prefix="$" data-suffix="K+">$0K+</div>
+                    <div class="stat__label">Annual cost savings</div>
+                </div>
+                <div class="stat animate-in">
+                    <div class="stat__value" data-target="82" data-suffix="%">0%</div>
+                    <div class="stat__label">VOIE login conversion rate</div>
+                </div>
+                <div class="stat animate-in">
+                    <div class="stat__value" data-target="92" data-suffix="%">0%</div>
+                    <div class="stat__label">VOA conversion rate (Encompass)</div>
+                </div>
+                <div class="stat animate-in">
+                    <div class="stat__value" data-target="2" data-suffix="">2</div>
+                    <div class="stat__label">Platforms integrated (nCino + Encompass)</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Preview / What You'll Learn -->
+    <section class="preview">
+        <div class="container">
+            <div class="preview__grid">
+                <div class="preview__visual animate-in">
+                    <div class="preview__card" onclick="openModal()">
+                        <div class="preview__card-badge">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
+                            </svg>
+                            <span>Download</span>
+                        </div>
+                        <!-- Placeholder preview -->
+                        <div style="background: linear-gradient(180deg, #0a1232 0%, #1e3a6e 100%); border-radius: 8px; padding: 40px 24px; margin-bottom: 16px;">
+                            <div style="color: #fff; font-size: 10px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; opacity: 0.7;">Customer Story</div>
+                            <div style="color: #fff; font-size: 20px; font-weight: 600; line-height: 1.3; margin-bottom: 16px;">How BankSouth<br>Mortgage Saves<br>$100K+/Year</div>
+                            <div style="display: flex; gap: 16px; justify-content: center;">
+                                <div style="text-align: center;"><div style="color: #fff; font-size: 18px; font-weight: 600;">$100K+</div><div style="color: #c5d9f7; font-size: 9px;">Savings</div></div>
+                                <div style="text-align: center;"><div style="color: #fff; font-size: 18px; font-weight: 600;">82%</div><div style="color: #c5d9f7; font-size: 9px;">VOIE</div></div>
+                                <div style="text-align: center;"><div style="color: #fff; font-size: 18px; font-weight: 600;">92%</div><div style="color: #c5d9f7; font-size: 9px;">VOA</div></div>
+                            </div>
+                        </div>
+                        <div class="preview__card-label">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                            </svg>
+                            <span>Fill out the form to download</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="preview__content animate-in">
+                    <h2>What you'll learn</h2>
+                    <ul class="checklist">
+                        <li class="checklist__item">
+                            <span class="checklist__icon">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            </span>
+                            <span>How BankSouth cut $100K+ in annual verification costs by consolidating fragmented vendors</span>
+                        </li>
+                        <li class="checklist__item">
+                            <span class="checklist__icon">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            </span>
+                            <span>The dual-platform integration strategy across nCino and Encompass</span>
+                        </li>
+                        <li class="checklist__item">
+                            <span class="checklist__icon">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            </span>
+                            <span>Why borrower conversion rates hit 82% VOIE and 92% VOA after switching to Truv</span>
+                        </li>
+                        <li class="checklist__item">
+                            <span class="checklist__icon">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            </span>
+                            <span>How real-time analytics replaced limited legacy reporting for better decision-making</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quote -->
+    <section class="quote-section">
+        <div class="container container--narrow">
+            <div class="quote-card animate-in">
+                <div class="quote-card__icon">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M11.192 15.757c0-.88-.23-1.618-.69-2.217-.326-.412-.768-.683-1.327-.812-.55-.128-1.07-.137-1.54-.028-.16-.95.1-1.956.76-3.022.66-1.065 1.515-1.867 2.558-2.403L9.373 5c-.8.396-1.56.898-2.26 1.505-.71.607-1.34 1.305-1.9 2.094s-.98 1.68-1.25 2.69-.346 2.04-.217 3.1c.168 1.4.62 2.52 1.356 3.35.735.84 1.652 1.26 2.748 1.26.965 0 1.766-.29 2.4-.878.628-.576.94-1.365.94-2.368l.002.003zm9.124 0c0-.88-.23-1.618-.69-2.217-.326-.42-.77-.692-1.327-.817-.56-.124-1.074-.13-1.54-.022-.16-.94.09-1.95.75-3.02.66-1.06 1.514-1.86 2.557-2.4L18.49 5c-.8.396-1.555.898-2.26 1.505-.708.607-1.34 1.305-1.894 2.094-.556.79-.97 1.68-1.24 2.69-.273 1-.345 2.04-.217 3.1.165 1.4.615 2.52 1.35 3.35.732.833 1.646 1.25 2.742 1.25.967 0 1.768-.29 2.402-.876.627-.576.942-1.365.942-2.368v.01z"/>
+                    </svg>
+                </div>
+                <blockquote class="quote-card__text">
+                    Every dollar overspent on verifications impacts margins, loan officers, or borrowers. <strong>Truv eliminated that conversation entirely.</strong>
+                </blockquote>
+                <figcaption class="quote-card__cite">
+                    <div class="quote-card__avatar">TM</div>
+                    <div>
+                        <div class="quote-card__name">Tom Masci</div>
+                        <div class="quote-card__role">SVP Tech &amp; Data Analytics, BankSouth Mortgage</div>
+                    </div>
+                </figcaption>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta__inner">
+                <div>
+                    <h2 class="cta__title">Ready to see the full story?</h2>
+                    <p class="cta__desc">Download the complete case study and learn how BankSouth Mortgage transformed their verification process with Truv.</p>
+                </div>
+                <button class="cta__btn" onclick="openModal()">
+                    <span>Get the Full Story</span>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="site-footer__links">
+                <a href="https://help.truv.com">Help Center</a>
+                <a href="https://docs.truv.com/docs/quickstart-guide">Quickstart Guide</a>
+                <a href="https://truv.com/changelog">Changelog</a>
+                <a href="https://truv.com/blog">Blog</a>
+                <a href="https://truv.com/terms">Service Terms</a>
+                <a href="https://truv.com/privacy">Privacy Policy</a>
+            </div>
+            <p class="site-footer__copy">Truv Inc., 218 NW 24th Street, 2nd and 3rd Floors Miami, FL 33127, US</p>
+        </div>
+    </footer>
+
+    <!-- Modal -->
+    <div class="modal" id="truv-modal" aria-hidden="true" role="dialog">
+        <div class="modal__backdrop" onclick="closeModal()"></div>
+        <div class="modal__panel">
+            <button class="modal__close" onclick="closeModal()" aria-label="Close">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+                </svg>
+            </button>
+            <h2 class="modal__title">Get the Full Story</h2>
+            <p class="modal__desc">Enter your details to download the full case study.</p>
+            <div class="form-card__bonus" style="justify-content: center;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
+                </svg>
+                <span>Includes implementation checklist</span>
+            </div>
+            <div id="hubspot-form-modal"></div>
+            <p class="form-card__trust">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                </svg>
+                <span>Your info is secure and never shared</span>
+            </p>
+        </div>
+    </div>
+
+    <!-- HubSpot Forms -->
+    <script charset="utf-8" type="text/javascript" src="//js.hsforms.net/forms/embed/v2.js"></script>
+
+    <script>
+        // PDF URL — update when PDF is available
+        var pdfUrl = '/resources/banksouth-mortgage-case-study.pdf';
+
+        // Modal
+        function openModal() {
+            document.getElementById('truv-modal').classList.add('is-open');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeModal() {
+            document.getElementById('truv-modal').classList.remove('is-open');
+            document.body.style.overflow = '';
+        }
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && document.getElementById('truv-modal').classList.contains('is-open')) {
+                closeModal();
+            }
+        });
+
+        // PDF download trigger
+        function downloadPDF() {
+            var link = document.createElement('a');
+            link.href = pdfUrl;
+            link.download = 'banksouth-mortgage-case-study.pdf';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        // Animated counters
+        function animateCounter(el) {
+            var target = parseInt(el.dataset.target, 10);
+            var prefix = el.dataset.prefix || '';
+            var suffix = el.dataset.suffix || '';
+            var duration = 1500;
+            var start = performance.now();
+
+            function update(now) {
+                var elapsed = now - start;
+                var progress = Math.min(elapsed / duration, 1);
+                var easeOut = 1 - Math.pow(1 - progress, 3);
+                var current = Math.round(easeOut * target);
+                el.textContent = prefix + current + suffix;
+                if (progress < 1) requestAnimationFrame(update);
+            }
+            requestAnimationFrame(update);
+        }
+
+        // Intersection Observer for stats + fade-in
+        var observer = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+
+                    // Animate stat counters
+                    var counters = entry.target.querySelectorAll('[data-target]');
+                    counters.forEach(function(stat, i) {
+                        setTimeout(function() { animateCounter(stat); }, i * 150);
+                    });
+
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.2 });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Observe all animate-in elements
+            document.querySelectorAll('.animate-in').forEach(function(el) {
+                observer.observe(el);
+            });
+
+            // Also observe the stats grid itself
+            var statsGrid = document.getElementById('stats-grid');
+            if (statsGrid) observer.observe(statsGrid);
+
+            // Hero form
+            if (window.hbspt) {
+                hbspt.forms.create({
+                    portalId: '19933594',
+                    formId: '3e13cb92-4a61-469a-bece-7c9fdc2dd710',
+                    region: 'na1',
+                    target: '#hubspot-form-hero',
+                    submitText: 'Get the Full Story',
+                    onFormSubmitted: function() { downloadPDF(); }
+                });
+
+                hbspt.forms.create({
+                    portalId: '19933594',
+                    formId: '3e13cb92-4a61-469a-bece-7c9fdc2dd710',
+                    region: 'na1',
+                    target: '#hubspot-form-modal',
+                    submitText: 'Get the Full Story',
+                    onFormSubmitted: function() { closeModal(); downloadPDF(); }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

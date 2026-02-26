@@ -1,0 +1,1673 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Truv Cold Outreach Playbook - Mortgage Operations Leaders</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --truv-blue: #2C64E3;
+            --truv-blue-light: #EBF0FC;
+            --truv-blue-mid: #C5D9F7;
+            --truv-dark: #171717;
+            --truv-gray: #3C3C43;
+            --truv-light-gray: #F5F7FA;
+            --truv-border: #E5E7EB;
+            --truv-green: #16A34A;
+            --truv-green-light: #F0FDF4;
+            --truv-red: #DC2626;
+            --truv-red-light: #FEF2F2;
+            --truv-amber: #D97706;
+            --truv-amber-light: #FFFBEB;
+            --truv-purple: #7C3AED;
+            --truv-purple-light: #F5F3FF;
+        }
+
+        * {
+            box-sizing: border-box;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+
+        @page { size: letter; margin: 0.5in; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--truv-dark);
+            line-height: 1.5;
+            margin: 0;
+            padding: 0;
+            background: #E5E7EB;
+            font-size: 12.5px;
+        }
+
+        @media print {
+            body { background: white; font-size: 11.5px; }
+            .page { box-shadow: none; margin: 0; width: 100%; }
+            .page-break { page-break-before: always; }
+        }
+
+        .page {
+            width: 8.5in;
+            min-height: 11in;
+            margin: 20px auto;
+            background: white;
+            padding: 44px 48px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.1);
+        }
+
+        .page-break { break-before: page; }
+
+        /* Cover */
+        .cover {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            min-height: calc(11in - 88px);
+            position: relative;
+        }
+
+        .cover-label {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--truv-blue);
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            margin-bottom: 12px;
+        }
+
+        .cover h1 {
+            font-size: 38px;
+            font-weight: 800;
+            line-height: 1.12;
+            margin: 0 0 16px 0;
+            letter-spacing: -0.03em;
+            max-width: 90%;
+        }
+
+        .cover-sub {
+            font-size: 16px;
+            color: var(--truv-gray);
+            line-height: 1.6;
+            max-width: 85%;
+            margin-bottom: 36px;
+        }
+
+        .toc {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .toc-item {
+            background: var(--truv-light-gray);
+            border-radius: 8px;
+            padding: 12px 16px;
+            font-size: 12px;
+        }
+
+        .toc-item .num {
+            font-weight: 800;
+            color: var(--truv-blue);
+            margin-right: 6px;
+        }
+
+        .cover-footer {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 12px;
+            border-top: 2px solid var(--truv-border);
+            font-size: 10px;
+            color: var(--truv-gray);
+        }
+
+        /* Page header */
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--truv-border);
+        }
+
+        .page-header .section-label {
+            font-size: 10px;
+            font-weight: 700;
+            color: var(--truv-blue);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .page-header .page-num {
+            font-size: 10px;
+            color: #999;
+            font-weight: 600;
+        }
+
+        /* Typography */
+        h2 {
+            font-size: 22px;
+            font-weight: 800;
+            margin: 0 0 4px 0;
+            letter-spacing: -0.02em;
+            line-height: 1.2;
+        }
+
+        h3 {
+            font-size: 14px;
+            font-weight: 700;
+            margin: 0 0 6px 0;
+        }
+
+        h4 {
+            font-size: 11px;
+            font-weight: 700;
+            margin: 0 0 4px 0;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--truv-blue);
+        }
+
+        .subtitle {
+            font-size: 13px;
+            color: var(--truv-gray);
+            margin-bottom: 18px;
+            line-height: 1.5;
+        }
+
+        p { margin: 0 0 8px 0; }
+
+        .section-divider {
+            height: 3px;
+            background: linear-gradient(90deg, var(--truv-blue) 0%, var(--truv-blue-mid) 100%);
+            border-radius: 2px;
+            margin: 20px 0 18px 0;
+        }
+
+        .divider-thin {
+            height: 1px;
+            background: var(--truv-border);
+            margin: 14px 0;
+        }
+
+        /* Layout */
+        .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+        .three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+        .col-60-40 { display: grid; grid-template-columns: 1.5fr 1fr; gap: 14px; }
+        .col-40-60 { display: grid; grid-template-columns: 1fr 1.5fr; gap: 14px; }
+
+        /* Cards */
+        .card {
+            background: var(--truv-light-gray);
+            border-radius: 8px;
+            padding: 14px 16px;
+            margin-bottom: 10px;
+        }
+
+        .card-blue { background: var(--truv-blue-light); border-left: 3px solid var(--truv-blue); }
+        .card-green { background: var(--truv-green-light); border-left: 3px solid var(--truv-green); }
+        .card-amber { background: var(--truv-amber-light); border-left: 3px solid var(--truv-amber); }
+        .card-red { background: var(--truv-red-light); border-left: 3px solid var(--truv-red); }
+        .card-purple { background: var(--truv-purple-light); border-left: 3px solid var(--truv-purple); }
+
+        /* Stats */
+        .stat-row {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-bottom: 16px;
+        }
+
+        .stat-box {
+            background: var(--truv-blue);
+            color: white;
+            border-radius: 8px;
+            padding: 12px 10px;
+            text-align: center;
+        }
+
+        .stat-box .val { font-size: 20px; font-weight: 800; }
+        .stat-box .lbl { font-size: 9px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; opacity: 0.85; margin-top: 2px; }
+
+        /* Quote */
+        .quote {
+            border-left: 3px solid var(--truv-blue);
+            padding: 8px 14px;
+            margin: 8px 0;
+            background: var(--truv-blue-light);
+            border-radius: 0 6px 6px 0;
+            font-size: 11.5px;
+        }
+
+        .quote p { font-style: italic; margin: 0 0 3px 0; }
+        .quote .attr { font-size: 10px; font-style: normal; font-weight: 600; color: var(--truv-blue); }
+
+        /* Tables */
+        table { width: 100%; border-collapse: collapse; font-size: 11.5px; }
+        table th {
+            text-align: left;
+            font-weight: 700;
+            font-size: 9px;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: var(--truv-gray);
+            padding: 6px 8px;
+            border-bottom: 2px solid var(--truv-border);
+        }
+        table td { padding: 6px 8px; border-bottom: 1px solid var(--truv-border); vertical-align: top; }
+        table tr:last-child td { border-bottom: none; }
+
+        /* Tags */
+        .tag {
+            display: inline-block;
+            font-size: 9px;
+            font-weight: 700;
+            padding: 2px 7px;
+            border-radius: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            color: white;
+        }
+        .tag-blue { background: var(--truv-blue); }
+        .tag-green { background: var(--truv-green); }
+        .tag-amber { background: var(--truv-amber); }
+        .tag-red { background: var(--truv-red); }
+        .tag-purple { background: var(--truv-purple); }
+
+        ul { margin: 3px 0 8px 0; padding-left: 16px; }
+        ul li { margin-bottom: 3px; line-height: 1.4; }
+        ol { margin: 3px 0 8px 0; padding-left: 18px; }
+        ol li { margin-bottom: 3px; line-height: 1.4; }
+
+        .bold { font-weight: 700; }
+        .blue { color: var(--truv-blue); }
+        .small { font-size: 10px; color: var(--truv-gray); }
+        .tiny { font-size: 9px; color: #999; }
+
+        .mini-label {
+            font-size: 9px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 3px;
+        }
+
+        /* Email template block */
+        .email-block {
+            background: #FAFAFA;
+            border: 1px solid var(--truv-border);
+            border-radius: 8px;
+            padding: 14px 16px;
+            margin-bottom: 10px;
+            font-family: 'Inter', sans-serif;
+            font-size: 11.5px;
+            line-height: 1.55;
+        }
+
+        .email-subject {
+            font-size: 10px;
+            font-weight: 700;
+            color: var(--truv-gray);
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            margin-bottom: 8px;
+            padding-bottom: 6px;
+            border-bottom: 1px dashed var(--truv-border);
+        }
+
+        .email-var {
+            background: var(--truv-blue-light);
+            color: var(--truv-blue);
+            font-weight: 600;
+            padding: 1px 5px;
+            border-radius: 3px;
+            font-size: 10.5px;
+        }
+
+        /* Do/Don't */
+        .do-col { background: var(--truv-green-light); border-radius: 8px; padding: 12px 14px; }
+        .dont-col { background: var(--truv-red-light); border-radius: 8px; padding: 12px 14px; }
+
+        /* Objection */
+        .objection {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+
+        .objection .they-say {
+            background: var(--truv-red-light);
+            border-radius: 6px;
+            padding: 8px 12px;
+            font-size: 11px;
+        }
+
+        .objection .you-say {
+            background: var(--truv-green-light);
+            border-radius: 6px;
+            padding: 8px 12px;
+            font-size: 11px;
+        }
+
+        .page-footer {
+            margin-top: auto;
+            padding-top: 12px;
+            border-top: 1px solid var(--truv-border);
+            display: flex;
+            justify-content: space-between;
+            font-size: 9px;
+            color: #999;
+        }
+
+        .highlight-box {
+            background: var(--truv-blue);
+            color: white;
+            border-radius: 8px;
+            padding: 14px 18px;
+            margin-bottom: 12px;
+        }
+
+        .highlight-box h3 { color: white; margin-bottom: 4px; }
+        .highlight-box p { color: rgba(255,255,255,0.9); margin: 0; }
+    </style>
+</head>
+<body>
+
+<!-- ============================================ -->
+<!-- PAGE 1: COVER                                 -->
+<!-- ============================================ -->
+<div class="page">
+    <div class="cover">
+        <div class="cover-label">Cold Outreach Playbook - Confidential</div>
+        <h1>How to Write Cold Sequences That Get Mortgage Ops Leaders to Reply</h1>
+        <p class="cover-sub">
+            A complete reference for writing effective cold outreach to COOs, VPs of Operations, and Directors of Loan Operations at mortgage lenders. Includes the buyer's world, proof points, voice rules, ready-to-use sequences, 50 example openers, and objection handling.
+        </p>
+
+        <div class="toc">
+            <div class="toc-item"><span class="num">01</span> The Buyer's World</div>
+            <div class="toc-item"><span class="num">02</span> What Truv Actually Does</div>
+            <div class="toc-item"><span class="num">03</span> Proof Points & Name Drops</div>
+            <div class="toc-item"><span class="num">04</span> Voice Rules & Banned Words</div>
+            <div class="toc-item"><span class="num">05</span> Competitive Ammunition</div>
+            <div class="toc-item"><span class="num">06</span> Writing Openers That Work</div>
+            <div class="toc-item"><span class="num">07</span> 50 Example Openers</div>
+            <div class="toc-item"><span class="num">08</span> Full Email Sequences</div>
+            <div class="toc-item"><span class="num">09</span> Objection Handling in Email</div>
+            <div class="toc-item"><span class="num">10</span> Subject Lines & Mechanics</div>
+            <div class="toc-item"><span class="num">11</span> Role-Specific Angles</div>
+            <div class="toc-item"><span class="num">12</span> Quick Reference Cheat Sheet</div>
+        </div>
+
+        <div class="cover-footer">
+            <span>Truv - Consumer Permissioned Data Platform</span>
+            <span>For Authorized Consultants Only</span>
+        </div>
+    </div>
+</div>
+
+<!-- ============================================ -->
+<!-- PAGE 2: THE BUYER'S WORLD                     -->
+<!-- ============================================ -->
+<div class="page page-break">
+    <div class="page-header">
+        <span class="section-label">01 - The Buyer's World</span>
+        <span class="page-num">2</span>
+    </div>
+
+    <h2>Get Inside Their Head Before You Write a Word</h2>
+    <p class="subtitle">You are writing to people who manage loan operations teams of 20-200+ people. They are under pressure from their CEO to cut costs, close faster, and reduce buyback risk. They are not looking for software - they are looking for fewer problems.</p>
+
+    <div class="highlight-box">
+        <h3>The One Sentence That Explains Their Life</h3>
+        <p style="font-size: 14px; font-weight: 600;">"I need to close more loans, faster, with fewer people, at lower cost, without getting hit with a buyback."</p>
+    </div>
+
+    <h3>Who You're Writing To</h3>
+    <table style="margin-bottom: 14px;">
+        <thead>
+            <tr><th>Title</th><th>What They Own</th><th>What Keeps Them Up</th><th>How They're Measured</th></tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="bold">COO / SVP Ops</td>
+                <td>Entire ops org, budget</td>
+                <td>Cost per loan, buyback risk</td>
+                <td>Days to close, cost per loan, pull-through rate</td>
+            </tr>
+            <tr>
+                <td class="bold">VP of Operations</td>
+                <td>Processing, UW, closing</td>
+                <td>Scaling without hiring</td>
+                <td>Team efficiency, turn times, error rates</td>
+            </tr>
+            <tr>
+                <td class="bold">VP of Lending</td>
+                <td>Production, borrower exp</td>
+                <td>Pull-through, losing deals</td>
+                <td>Close rate, borrower satisfaction, volume</td>
+            </tr>
+            <tr>
+                <td class="bold">Dir. Loan Ops</td>
+                <td>Day-to-day processing</td>
+                <td>Processor capacity</td>
+                <td>Files per processor, turn time, error rate</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>The 5 Pain Points That Make Them Reply</h3>
+    <div class="two-col" style="margin-bottom: 12px;">
+        <div>
+            <div class="card" style="margin-bottom: 8px;">
+                <h4 style="color: var(--truv-red);">1. Verification Costs Out of Control</h4>
+                <p style="font-size: 11px; margin: 0;">$40K-$200K/year on verifications. The Work Number misses 40% of borrowers, so they're paying full price for 60% coverage and STILL doing manual VOE for the rest. TWN raises prices ~20% every six months.</p>
+            </div>
+            <div class="card" style="margin-bottom: 8px;">
+                <h4 style="color: var(--truv-red);">2. Manual VOE Killing Close Times</h4>
+                <p style="font-size: 11px; margin: 0;">5-7 days per manual verification. Processors spend 15-25 minutes per file on data entry. Constant borrower follow-up for pay stubs. This is the bottleneck, not underwriting.</p>
+            </div>
+            <div class="card">
+                <h4 style="color: var(--truv-red);">3. Buyback Risk</h4>
+                <p style="font-size: 11px; margin: 0;">$50K-$500K+ per buyback. GSEs getting stricter. Pay stubs are 60-90 days old by closing. Manual data entry creates transposed digits that cascade into repurchase demands.</p>
+            </div>
+        </div>
+        <div>
+            <div class="card" style="margin-bottom: 8px;">
+                <h4 style="color: var(--truv-red);">4. Can't Scale Without Hiring</h4>
+                <p style="font-size: 11px; margin: 0;">Every loan requires the same manual effort. Volume spikes mean overtime or new hires. Processors are the most expensive bottleneck. Training a new processor takes weeks, and error rates stay high for months.</p>
+            </div>
+            <div class="card" style="margin-bottom: 8px;">
+                <h4 style="color: var(--truv-red);">5. Fraud Everywhere</h4>
+                <p style="font-size: 11px; margin: 0;">Fake pay stubs, photoshopped statements. Manual review can't catch everything. A single fraudulent loan can cost more than an entire year of verification spend.</p>
+            </div>
+            <div class="card card-blue" style="margin-bottom: 0;">
+                <h4>The Hidden Pain (Use This)</h4>
+                <p style="font-size: 11px; margin: 0;">30-40% of a processor's day is consumed by verification tasks that could be automated. They didn't hire processors to be "copy machines" - re-keying data between systems.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section-divider"></div>
+
+    <h3>Their Language vs. Your Language</h3>
+    <p class="small" style="margin-bottom: 8px;">Use their words. When they think about this problem, these are the phrases in their head:</p>
+    <div class="two-col">
+        <div class="card-green card">
+            <h4 style="color: var(--truv-green);">How They Think About It</h4>
+            <ul style="font-size: 11px; margin: 4px 0 0 0;">
+                <li>"Verification costs are out of control"</li>
+                <li>"My processors are drowning"</li>
+                <li>"We can't hire our way out of this"</li>
+                <li>"Buyback risk keeps me up at night"</li>
+                <li>"What do we do about the 40% miss rate?"</li>
+                <li>"Every loan is the same manual grind"</li>
+                <li>"Clear-to-close is taking too long"</li>
+            </ul>
+        </div>
+        <div class="card-red card">
+            <h4 style="color: var(--truv-red);">How Vendors Talk (Don't Do This)</h4>
+            <ul style="font-size: 11px; margin: 4px 0 0 0;">
+                <li>"Optimize your verification workflow"</li>
+                <li>"Leverage our AI-powered platform"</li>
+                <li>"Streamline your operations"</li>
+                <li>"Mitigate rep & warranty exposure"</li>
+                <li>"Best-in-class coverage"</li>
+                <li>"Transform your verification process"</li>
+                <li>"Unlock operational efficiency"</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!-- ============================================ -->
+<!-- PAGE 3: WHAT TRUV DOES                        -->
+<!-- ============================================ -->
+<div class="page page-break">
+    <div class="page-header">
+        <span class="section-label">02 - What Truv Actually Does</span>
+        <span class="page-num">3</span>
+    </div>
+
+    <h2>The Product in Plain English</h2>
+    <p class="subtitle">You need to understand this well enough to explain it in one sentence. You do NOT need to pitch the product in cold emails - you need to reference the pain it solves.</p>
+
+    <div class="card card-blue" style="margin-bottom: 14px;">
+        <h4>One-Sentence Explanation</h4>
+        <p style="margin: 0; font-size: 13px; font-weight: 500;">Truv connects directly to payroll providers so lenders can verify income and employment in 30 seconds instead of 5-7 days, at up to 80% lower cost than instant databases, with the data flowing straight into Encompass.</p>
+    </div>
+
+    <div class="stat-row">
+        <div class="stat-box">
+            <div class="val">96%</div>
+            <div class="lbl">US Workforce Covered</div>
+        </div>
+        <div class="stat-box">
+            <div class="val">80%</div>
+            <div class="lbl">Cost Savings vs TWN</div>
+        </div>
+        <div class="stat-box">
+            <div class="val">30s</div>
+            <div class="lbl">Verification Time</div>
+        </div>
+        <div class="stat-box">
+            <div class="val">$350</div>
+            <div class="lbl">Saved Per Loan</div>
+        </div>
+    </div>
+
+    <h3>How It Works (For Your Reference - Don't Pitch This)</h3>
+    <ol style="font-size: 12px; margin-bottom: 14px;">
+        <li>Borrower gets a link (via email, text, QR code, or inside their POS portal)</li>
+        <li>They log into their payroll account (ADP, Workday, Gusto, etc.) - takes 30 seconds</li>
+        <li>Truv pulls verified income, employment, and pay history directly from the payroll source</li>
+        <li>Data writes directly into Encompass (or nCino, Byte, Empower) - no re-keying</li>
+        <li>If payroll login doesn't work, falls back to bank income verification or document upload with 99.99% fraud detection</li>
+    </ol>
+
+    <h3>Key Things You'll Reference in Emails</h3>
+    <table style="margin-bottom: 14px;">
+        <thead>
+            <tr><th>Feature</th><th>Why Ops Leaders Care</th><th>Use It When...</th></tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="bold">Encompass integration</td>
+                <td>No re-keying. Data flows in automatically.</td>
+                <td>They use Encompass (most do)</td>
+            </tr>
+            <tr>
+                <td class="bold">Free re-verifications</td>
+                <td>10-day PCV, rate lock extensions - no extra cost</td>
+                <td>They're paying per re-verification today</td>
+            </tr>
+            <tr>
+                <td class="bold">Waterfall verification</td>
+                <td>Payroll first, bank income second, doc upload third - one integration</td>
+                <td>They're using multiple vendors</td>
+            </tr>
+            <tr>
+                <td class="bold">GSE approved</td>
+                <td>Fannie Mae DU + Freddie Mac LPA (AIM). R&W relief.</td>
+                <td>They mention compliance or buybacks</td>
+            </tr>
+            <tr>
+                <td class="bold">Pre-closing VOE from VOIE</td>
+                <td>Re-verify instantly from the original order</td>
+                <td>They mention Day 1 Certainty or pre-closing</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="section-divider"></div>
+
+    <h2>Trust Signals (Weave Into Follow-Ups)</h2>
+    <div class="three-col">
+        <div class="card" style="text-align: center; padding: 10px;">
+            <div class="bold blue">SOC 2 Type II</div>
+            <div class="small">Certified</div>
+        </div>
+        <div class="card" style="text-align: center; padding: 10px;">
+            <div class="bold blue">FCRA Compliant</div>
+            <div class="small">Full compliance</div>
+        </div>
+        <div class="card" style="text-align: center; padding: 10px;">
+            <div class="bold blue">10M+ Verifications</div>
+            <div class="small">Processed</div>
+        </div>
+    </div>
+
+    <h3>Key Integrations</h3>
+    <div class="three-col">
+        <div class="card" style="text-align: center; padding: 8px;">
+            <div class="bold" style="font-size: 11px;">LOS</div>
+            <div class="tiny">Encompass, nCino, Byte, Empower</div>
+        </div>
+        <div class="card" style="text-align: center; padding: 8px;">
+            <div class="bold" style="font-size: 11px;">POS</div>
+            <div class="tiny">BeSmartee, Floify, LenderLogix, LodaSoft</div>
+        </div>
+        <div class="card" style="text-align: center; padding: 8px;">
+            <div class="bold" style="font-size: 11px;">GSE</div>
+            <div class="tiny">Fannie Mae DU, Freddie Mac LPA (AIM)</div>
+        </div>
+    </div>
+</div>
+
+<!-- ============================================ -->
+<!-- PAGE 4: PROOF POINTS                          -->
+<!-- ============================================ -->
+<div class="page page-break">
+    <div class="page-header">
+        <span class="section-label">03 - Proof Points & Name Drops</span>
+        <span class="page-num">4</span>
+    </div>
+
+    <h2>Every Claim Needs a Name and a Number</h2>
+    <p class="subtitle">The #1 rule for Truv cold outreach: never say "our customers" generically. Always name the company and cite the specific result. Social proof boosts reply rates by 41%.</p>
+
+    <h3>Tier 1 - Your Go-To Name Drops <span class="tag tag-blue">Use These First</span></h3>
+    <table style="margin-bottom: 12px;">
+        <thead>
+            <tr><th>Customer</th><th>Result</th><th>Quotable</th></tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="bold">CrossCountry Mortgage</td>
+                <td>$10M/yr savings, 70% conversion, 8% R&W uplift, &lt;1 month setup</td>
+                <td class="small" style="font-style:italic;">"Truv has redefined what partnership means." - Tom Durney, EVP</td>
+            </tr>
+            <tr>
+                <td class="bold">AmeriSave</td>
+                <td>80% cost savings vs TWN, 3/5 loans get R&W relief, 99% uptime</td>
+                <td class="small" style="font-style:italic;">"Cost savings, product innovation, reliable technology, and a partnership approach." - Magesh Sarma, CISO</td>
+            </tr>
+            <tr>
+                <td class="bold">First Continental</td>
+                <td>$745K/yr savings, 64% VOIE, 85% VOA, 8.21% R&W uplift</td>
+                <td class="small" style="font-style:italic;">"Our processors love that we can get ahold of someone within 4 hours." - Jessica Kipnis, COO</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>Tier 2 - Supporting Proof <span class="tag tag-green">Use for Variety</span></h3>
+    <table style="margin-bottom: 12px;">
+        <thead>
+            <tr><th>Customer</th><th>Result</th><th>Best For</th></tr>
+        </thead>
+        <tbody>
+            <tr><td class="bold">Compass Mortgage</td><td>60-80% savings, faster approvals</td><td>COOs specifically - Justin Venhousen is a COO</td></tr>
+            <tr><td class="bold">MIG</td><td>2x conversion (25% to 50%), $150/loan saved</td><td>Conversion story</td></tr>
+            <tr><td class="bold">Orion Lending</td><td>$300K/yr savings, 32% conversion, &lt;2 weeks setup</td><td>Fast implementation story</td></tr>
+            <tr><td class="bold">Revolution Mortgage</td><td>70% savings, 8 to 3 bps per loan</td><td>Basis point math</td></tr>
+            <tr><td class="bold">The Lender</td><td>75% savings, +10% conversion</td><td>Wholesale angle</td></tr>
+            <tr><td class="bold">MortgageRight</td><td>80% savings, 40% reduction in TWN usage</td><td>TWN displacement story</td></tr>
+            <tr><td class="bold">AFCU</td><td>80% savings, 65% conversion</td><td>Credit union angle</td></tr>
+        </tbody>
+    </table>
+
+    <div class="section-divider"></div>
+
+    <h3>Proof Points by Pain Point <span class="tag tag-purple">Match to Their Problem</span></h3>
+    <div class="two-col">
+        <div>
+            <div class="card" style="margin-bottom: 6px;">
+                <h4 style="color: var(--truv-dark);">When They Say "It Costs Too Much"</h4>
+                <ul style="font-size: 11px; margin: 4px 0 0 0;">
+                    <li>AmeriSave cut costs 80% vs TWN</li>
+                    <li>CrossCountry saves $10M/year</li>
+                    <li>Revolution went from 8 to 3 bps/loan</li>
+                    <li>Orion saves $100/application</li>
+                    <li>Free re-verifications (120 days)</li>
+                </ul>
+            </div>
+            <div class="card" style="margin-bottom: 6px;">
+                <h4 style="color: var(--truv-dark);">When They Say "It Takes Too Long"</h4>
+                <ul style="font-size: 11px; margin: 4px 0 0 0;">
+                    <li>30 seconds vs 5-7 days</li>
+                    <li>Orion went live in &lt;2 weeks</li>
+                    <li>CrossCountry: &lt;1 month custom implementation</li>
+                    <li>Data writes directly into Encompass</li>
+                </ul>
+            </div>
+        </div>
+        <div>
+            <div class="card" style="margin-bottom: 6px;">
+                <h4 style="color: var(--truv-dark);">When They Worry About Risk</h4>
+                <ul style="font-size: 11px; margin: 4px 0 0 0;">
+                    <li>Fannie Mae DU + Freddie Mac LPA approved</li>
+                    <li>CrossCountry: 8% R&W relief uplift</li>
+                    <li>First Continental: 8.21% income validation R&W</li>
+                    <li>99.99% fraud detection</li>
+                    <li>Zero buybacks for 18+ months reported</li>
+                </ul>
+            </div>
+            <div class="card" style="margin-bottom: 6px;">
+                <h4 style="color: var(--truv-dark);">When They Can't Scale</h4>
+                <ul style="font-size: 11px; margin: 4px 0 0 0;">
+                    <li>MIG doubled conversion: 25% to 50%</li>
+                    <li>95% completion vs 60% manual</li>
+                    <li>"Stopped hiring for a role they thought they needed"</li>
+                    <li>Piedmont: 90% reduction in manual tasks</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ============================================ -->
+<!-- PAGE 5: VOICE RULES                           -->
+<!-- ============================================ -->
+<div class="page page-break">
+    <div class="page-header">
+        <span class="section-label">04 - Voice Rules & Banned Words</span>
+        <span class="page-num">5</span>
+    </div>
+
+    <h2>The Truv Voice: Expert Peer, Not Vendor</h2>
+    <p class="subtitle">Truv sounds like a senior lending ops practitioner who's been in the trenches. Every email should read like it came from someone who understands their world, not someone trying to sell them something.</p>
+
+    <div class="highlight-box" style="margin-bottom: 14px;">
+        <h3>The Voice Test</h3>
+        <p>Before sending any email, ask: "Would a VP of Ops forward this to their team?" If it sounds like a sales email, rewrite it. If it sounds like industry insight from a peer, send it.</p>
+    </div>
+
+    <h3>Language That Works vs. Language That Kills Replies</h3>
+    <table style="margin-bottom: 14px;">
+        <thead>
+            <tr><th>Language Type</th><th>Impact on Replies</th><th>Example</th></tr>
+        </thead>
+        <tbody>
+            <tr><td class="bold" style="color: var(--truv-green);">Social proof</td><td class="bold" style="color: var(--truv-green);">+41%</td><td>"CrossCountry saved $10M annually"</td></tr>
+            <tr><td class="bold" style="color: var(--truv-green);">Priority-based</td><td class="bold" style="color: var(--truv-green);">+20%</td><td>"Most ops leaders at your scale..."</td></tr>
+            <tr><td class="bold" style="color: var(--truv-red);">ROI language</td><td class="bold" style="color: var(--truv-red);">-17%</td><td>"Maximize your return on investment"</td></tr>
+            <tr><td class="bold" style="color: var(--truv-red);">Platform language</td><td class="bold" style="color: var(--truv-red);">-26%</td><td>"Our unified platform"</td></tr>
+            <tr><td class="bold" style="color: var(--truv-red);">"AI" mentions</td><td class="bold" style="color: var(--truv-red);">-38%</td><td>"AI-powered verification"</td></tr>
+            <tr><td class="bold" style="color: var(--truv-red);">Buzzwords</td><td class="bold" style="color: var(--truv-red);">-57%</td><td>"Revolutionary, game-changing"</td></tr>
+        </tbody>
+    </table>
+
+    <div class="card card-red" style="margin-bottom: 14px;">
+        <h4 style="color: var(--truv-red); margin-bottom: 6px;">Banned Words & Phrases - Never Use</h4>
+        <div class="two-col">
+            <div>
+                <ul style="font-size: 11px; margin: 0;">
+                    <li>Revolutionary, game-changing, disruptive</li>
+                    <li>AI-powered, AI-driven</li>
+                    <li>All-in-one, single pane of glass</li>
+                    <li>Best-in-class, world-class, cutting-edge</li>
+                    <li>Leverage, utilize (use "use")</li>
+                    <li>Synergy, seamless</li>
+                </ul>
+            </div>
+            <div>
+                <ul style="font-size: 11px; margin: 0;">
+                    <li>"I'd love to..." (too salesy)</li>
+                    <li>"What sparked your interest?"</li>
+                    <li>"Looking forward to partnering"</li>
+                    <li>"Hope this finds you well"</li>
+                    <li>"Just checking in"</li>
+                    <li>Em dashes (use hyphens instead)</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <h3>Writing Rules for Cold Email</h3>
+    <div class="two-col" style="margin-bottom: 14px;">
+        <div class="do-col">
+            <h4 style="color: var(--truv-green); margin-bottom: 6px;">Always</h4>
+            <ul style="font-size: 11px;">
+                <li>Start with value - never a greeting</li>
+                <li>Use specific numbers: "60% cost reduction"</li>
+                <li>Name customers with results: "AmeriSave cut costs 80%"</li>
+                <li>Use industry terms: R&W relief, pull-through, DU</li>
+                <li>Permission-based CTAs: "Worth 15 minutes?"</li>
+                <li>Direct questions: "What's your miss rate on TWN?"</li>
+                <li>Keep to 51-100 words (optimal reply rate)</li>
+            </ul>
+        </div>
+        <div class="dont-col">
+            <h4 style="color: var(--truv-red); margin-bottom: 6px;">Never</h4>
+            <ul style="font-size: 11px;">
+                <li>Start with "Hi [Name]," or any greeting</li>
+                <li>Use vague claims: "incredible ROI"</li>
+                <li>Pitch the product before establishing pain</li>
+                <li>Use "book a demo" or "schedule a call"</li>
+                <li>Re-personalize follow-up emails (feels stalkerish)</li>
+                <li>Use exclamation marks</li>
+                <li>Exceed 100 words in any single email</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="section-divider"></div>
+
+    <h3>Optimal Email Mechanics</h3>
+    <div class="three-col">
+        <div class="card" style="text-align: center;">
+            <div class="bold blue" style="font-size: 16px;">51-100</div>
+            <div class="small">Words (2.6% reply rate)</div>
+        </div>
+        <div class="card" style="text-align: center;">
+            <div class="bold blue" style="font-size: 16px;">3-4</div>
+            <div class="small">Sentences for C-Suite</div>
+        </div>
+        <div class="card" style="text-align: center;">
+            <div class="bold blue" style="font-size: 16px;">4-5</div>
+            <div class="small">Sentences for VP/Director</div>
+        </div>
+    </div>
+
+    <h3>CTA Hierarchy (Low Friction Only)</h3>
+    <table>
+        <thead><tr><th>CTA</th><th>When to Use</th><th>Friction Level</th></tr></thead>
+        <tbody>
+            <tr><td>"Worth 15 minutes?"</td><td>Default CTA for C-Suite</td><td class="tag tag-green" style="display:inline;">Low</td></tr>
+            <tr><td>"Want me to run the numbers for {{company}}?"</td><td>When you can offer ROI analysis</td><td class="tag tag-green" style="display:inline;">Low</td></tr>
+            <tr><td>"Open to a quick look?"</td><td>Default for VP/Director</td><td class="tag tag-green" style="display:inline;">Low</td></tr>
+            <tr><td>"Here's a 2-min overview: [link]"</td><td>Breakup email - self-serve</td><td class="tag tag-green" style="display:inline;">Lowest</td></tr>
+            <tr><td style="color: var(--truv-red); text-decoration: line-through;">"Book a demo"</td><td style="color: var(--truv-red);">NEVER in cold outreach</td><td class="tag tag-red" style="display:inline;">High</td></tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- ============================================ -->
+<!-- PAGE 6: COMPETITIVE AMMUNITION                -->
+<!-- ============================================ -->
+<div class="page page-break">
+    <div class="page-header">
+        <span class="section-label">05 - Competitive Ammunition</span>
+        <span class="page-num">6</span>
+    </div>
+
+    <h2>Know What They're Using Today</h2>
+    <p class="subtitle">Almost every mortgage ops leader falls into one of three buckets. Your opener should acknowledge their current state and create a wedge.</p>
+
+    <h3>Bucket 1: Using The Work Number (Most Common) <span class="tag tag-blue">60% of prospects</span></h3>
+    <div class="card" style="margin-bottom: 6px;">
+        <table>
+            <thead><tr><th></th><th style="color: var(--truv-blue);">Truv</th><th>The Work Number</th></tr></thead>
+            <tbody>
+                <tr><td class="bold">Coverage</td><td>96% of US workforce</td><td>~60% (40% miss rate)</td></tr>
+                <tr><td class="bold">Cost</td><td>Up to 80% less</td><td>Up to $123/verification, +20% every 6 months</td></tr>
+                <tr><td class="bold">Data freshness</td><td>Real-time from payroll source</td><td>Database (can be weeks old)</td></tr>
+                <tr><td class="bold">Re-verifications</td><td>Free within 120 days</td><td>Full price each time</td></tr>
+                <tr><td class="bold">Encompass integration</td><td>Auto-populates, no re-keying</td><td>Manual entry required</td></tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="card card-green" style="margin-bottom: 14px;">
+        <h4 style="color: var(--truv-green);">Wedge Question</h4>
+        <p style="margin: 0; font-size: 12px; font-weight: 500;">"What do you do for the 40% that TWN doesn't cover? You're paying full price for 60% coverage and still doing manual VOE for the rest."</p>
+    </div>
+
+    <h3>Bucket 2: Fully Manual Process <span class="tag tag-amber">25% of prospects</span></h3>
+    <div class="two-col" style="margin-bottom: 14px;">
+        <div class="card">
+            <h4>Their Reality</h4>
+            <ul style="font-size: 11px;">
+                <li>5-7 day turnaround per verification</li>
+                <li>Processors re-keying into Encompass by hand</li>
+                <li>60% completion rate</li>
+                <li>Constant borrower follow-up for pay stubs</li>
+                <li>Pay stubs 60-90 days old by closing</li>
+            </ul>
+        </div>
+        <div class="card card-green">
+            <h4 style="color: var(--truv-green);">Wedge Angle</h4>
+            <p style="font-size: 11px; margin: 0 0 6px 0;">Don't pitch "automation" - pitch the specific time and cost savings:</p>
+            <p style="font-size: 11px; margin: 0; font-weight: 500;">"Most ops teams I talk to are spending 15-25 minutes per file on verification data entry. At your volume, that's X processor-hours per month that could be recovered."</p>
+        </div>
+    </div>
+
+    <h3>Bucket 3: Using a Competitor (Plaid, Finicity, Argyle) <span class="tag tag-purple">15% of prospects</span></h3>
+    <div class="card" style="margin-bottom: 14px;">
+        <p style="font-size: 11.5px; margin: 0;">Tread carefully here - they already made a decision. Your angle is additive, not replacement: "Most lenders using [competitor] still have gaps on [specific weakness]." Truv's advantages: higher conversion rates (65-70%), deeper Encompass integration, free re-verifications, R&W relief.</p>
+    </div>
+
+    <div class="section-divider"></div>
+
+    <h2>Gap Detection Signals</h2>
+    <p class="subtitle">Before writing, check their website for signals. Lenders whose borrower-facing pages still tell people to upload pay stubs are your strongest leads.</p>
+
+    <div class="two-col">
+        <div class="card card-green">
+            <h4 style="color: var(--truv-green);">Gap Present (Strong Lead)</h4>
+            <ul style="font-size: 11px;">
+                <li>"Upload your pay stubs / W-2s"</li>
+                <li>"Please provide the following documents"</li>
+                <li>"Fax documents to..."</li>
+                <li>"Secure document portal" for manual uploads</li>
+                <li>Document checklists on borrower resources page</li>
+            </ul>
+        </div>
+        <div class="card card-red">
+            <h4 style="color: var(--truv-red);">No Gap (Deprioritize)</h4>
+            <ul style="font-size: 11px;">
+                <li>"Connect your payroll" or "link your accounts"</li>
+                <li>Mentions of Truv, Plaid, Finicity, Argyle</li>
+                <li>"Instant verification" language</li>
+                <li>"Consumer-permissioned" on site</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="card card-purple" style="margin-top: 10px;">
+        <h4 style="color: var(--truv-purple);">Power Move: Reference Their Own Website</h4>
+        <p style="margin: 0; font-size: 11.5px;">"Your borrower checklist asks for 2 recent pay stubs and a W-2 - which means your processors are chasing documents on every loan. Most ops leaders I talk to don't realize that step alone adds 3-5 days and $40+ per file."</p>
+        <p class="tiny" style="margin: 4px 0 0 0;">This feels researched, not templated. It's the single highest-performing opener type.</p>
+    </div>
+</div>
+
+<!-- ============================================ -->
+<!-- PAGE 7: WRITING OPENERS                       -->
+<!-- ============================================ -->
+<div class="page page-break">
+    <div class="page-header">
+        <span class="section-label">06 - Writing Openers That Work</span>
+        <span class="page-num">7</span>
+    </div>
+
+    <h2>The Opener Is Everything</h2>
+    <p class="subtitle">Only Email 1 gets personalized. Emails 2-4 are static follow-ups. The opener (first 1-2 sentences) is what determines whether they keep reading. Here's how to write them.</p>
+
+    <h3>Three Types of Openers (In Order of Effectiveness)</h3>
+
+    <div class="card card-green" style="margin-bottom: 10px;">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+            <h4 style="color: var(--truv-green); margin: 0;">Type 1: Website Gap Reference</h4>
+            <span class="tag tag-green">Highest Reply Rate</span>
+        </div>
+        <p style="font-size: 11.5px; margin: 6px 0 0 0;">You found something specific on their website (document upload instructions, manual checklist) and connect it to a pain point for their role.</p>
+        <div class="email-block" style="margin-top: 8px; margin-bottom: 0;">
+            Your borrower checklist asks for 2 recent pay stubs and a W-2 - which means your processors are chasing documents on every loan. Most ops leaders I talk to don't realize that step alone adds 3-5 days and $40+ per file.
+        </div>
+    </div>
+
+    <div class="card card-blue" style="margin-bottom: 10px;">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+            <h4 style="margin: 0;">Type 2: LinkedIn Post Reference</h4>
+            <span class="tag tag-blue">High Reply Rate</span>
+        </div>
+        <p style="font-size: 11.5px; margin: 6px 0 0 0;">They posted about something relevant on LinkedIn. Paraphrase their insight and connect to a Truv benefit. Never say "I saw your post."</p>
+        <div class="email-block" style="margin-top: 8px; margin-bottom: 0;">
+            You made a great point about verification bottlenecks slowing down clear-to-close - it's something we hear from almost every ops team running more than 500 loans a month.
+        </div>
+    </div>
+
+    <div class="card" style="margin-bottom: 10px;">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+            <h4 style="margin: 0;">Type 3: Role-Based Fallback</h4>
+            <span class="tag tag-amber">Solid Reply Rate</span>
+        </div>
+        <p style="font-size: 11.5px; margin: 6px 0 0 0;">No signal found. Reference a challenge common to their role at a company their size. Must feel specific, not generic.</p>
+        <div class="email-block" style="margin-top: 8px; margin-bottom: 0;">
+            Most ops managers I talk to at lenders your size are spending somewhere between 15-25 minutes per file on manual verification data entry - curious if that tracks with what you're seeing.
+        </div>
+    </div>
+
+    <div class="section-divider"></div>
+
+    <h3>The Formula</h3>
+    <div class="card card-blue" style="margin-bottom: 10px;">
+        <p style="margin: 0; font-size: 12px;"><span class="bold">[Signal from their world]</span> + <span class="bold">[connect to pain point for their role]</span> + <span class="bold">[hint at what's possible without pitching]</span></p>
+    </div>
+
+    <h3>Style Rules for Openers</h3>
+    <div class="two-col">
+        <div>
+            <ul style="font-size: 11.5px;">
+                <li><span class="bold">1-2 sentences max.</span> Not a paragraph.</li>
+                <li><span class="bold">No exclamation marks.</span> Ever.</li>
+                <li><span class="bold">No "I saw your post."</span> Paraphrase their insight.</li>
+                <li><span class="bold">No "I hope this finds you well."</span></li>
+                <li><span class="bold">No greeting.</span> Don't start with "Hi [Name],"</li>
+            </ul>
+        </div>
+        <div>
+            <ul style="font-size: 11.5px;">
+                <li><span class="bold">Consultative tone.</span> Like an advisor, not a seller.</li>
+                <li><span class="bold">Specific numbers.</span> "15-25 minutes per file" not "a lot of time"</li>
+                <li><span class="bold">Industry language.</span> "Clear-to-close," "DU," "re-keying"</li>
+                <li><span class="bold">End with curiosity.</span> "Curious if..." or "wondering whether..."</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!-- ============================================ -->
+<!-- PAGE 8: 50 EXAMPLE OPENERS (Part 1)           -->
+<!-- ============================================ -->
+<div class="page page-break">
+    <div class="page-header">
+        <span class="section-label">07 - Example Openers (Part 1 of 2)</span>
+        <span class="page-num">8</span>
+    </div>
+
+    <h2>50 Ready-to-Adapt Openers</h2>
+    <p class="subtitle">Use these as style references and starting points. Adapt the specifics to each prospect. Grouped by signal type and role.</p>
+
+    <h3>Website Gap Openers (For When You Found a Doc Checklist)</h3>
+    <div class="card" style="margin-bottom: 6px;">
+        <p style="margin:0; font-size: 11px;"><span class="bold blue">1.</span> Your borrower checklist asks for 2 recent pay stubs and a W-2 - which means your processors are chasing documents on every loan. Most ops leaders I talk to don't realize that step alone adds 3-5 days and $40+ per file.</p>
+    </div>
+    <div class="card" style="margin-bottom: 6px;">
+        <p style="margin:0; font-size: 11px;"><span class="bold blue">2.</span> Your "Documents Needed" page lists 6 items borrowers need to collect before applying. Curious how many files stall at that step - at most lenders your size, it's where 30-40% of processing time gets burned.</p>
+    </div>
+    <div class="card" style="margin-bottom: 6px;">
+        <p style="margin:0; font-size: 11px;"><span class="bold blue">3.</span> Noticed your application portal asks borrowers to upload pay stubs. Most lenders still running that workflow are spending $40-80 per file on the manual collection and re-keying alone - before the actual verification cost.</p>
+    </div>
+    <div class="card" style="margin-bottom: 6px;">
+        <p style="margin:0; font-size: 11px;"><span class="bold blue">4.</span> Your site mentions a "secure document portal" for income verification - which usually means processors are downloading, reviewing, and re-keying that data into Encompass by hand. Curious how many processor-hours that adds up to monthly.</p>
+    </div>
+    <div class="card" style="margin-bottom: 6px;">
+        <p style="margin:0; font-size: 11px;"><span class="bold blue">5.</span> Your borrower resources page walks people through collecting employment letters and bank statements. That process was designed for a different era - most of the data in those documents can be pulled directly from payroll in 30 seconds now.</p>
+    </div>
+
+    <div class="divider-thin"></div>
+
+    <h3>LinkedIn Post Openers (COOs & VPs of Ops)</h3>
+    <div class="card" style="margin-bottom: 6px;">
+        <p style="margin:0; font-size: 11px;"><span class="bold blue">6.</span> You made a great point about verification bottlenecks slowing down clear-to-close - it's something we hear from almost every ops team running more than 500 loans a month.</p>
+    </div>
+    <div class="card" style="margin-bottom: 6px;">
+        <p style="margin:0; font-size: 11px;"><span class="bold blue">7.</span> Your post about margin compression in the current rate environment was sharp - a lot of the production leaders I talk to are finding that operational efficiency is the only lever they can actually control right now.</p>
+    </div>
+    <div class="card" style="margin-bottom: 6px;">
+        <p style="margin:0; font-size: 11px;"><span class="bold blue">8.</span> You made an interesting point about buyback risk being underpriced. The verification layer is usually where the data integrity issues start, especially when processors are manually entering income figures.</p>
+    </div>
+    <div class="card" style="margin-bottom: 6px;">
+        <p style="margin:0; font-size: 11px;"><span class="bold blue">9.</span> Your take on needing to do more with fewer processors is exactly what's driving the conversations I'm having with ops teams at similar-sized lenders.</p>
+    </div>
+    <div class="card" style="margin-bottom: 6px;">
+        <p style="margin:0; font-size: 11px;"><span class="bold blue">10.</span> You raised a good point about clear-to-close timelines being the hidden cost center. In our experience, verification is the step that creates the most unpredictable delays because it depends on borrower responsiveness.</p>
+    </div>
+    <div class="card" style="margin-bottom: 6px;">
+        <p style="margin:0; font-size: 11px;"><span class="bold blue">11.</span> Your comments about scaling without proportionally scaling headcount resonated. The verification and data entry layer is usually the first place where that math breaks down.</p>
+    </div>
+    <div class="card" style="margin-bottom: 6px;">
+        <p style="margin:0; font-size: 11px;"><span class="bold blue">12.</span> Interesting perspective on how GSE requirements are getting stricter while turn-time expectations keep shrinking. That tension is exactly why we built what we built.</p>
+    </div>
+    <div class="card" style="margin-bottom: 6px;">
+        <p style="margin:0; font-size: 11px;"><span class="bold blue">13.</span> Your post about the real cost of a loan defect was eye-opening. A lot of that risk originates at the re-keying step, where a transposed digit can cascade into a repurchase demand.</p>
+    </div>
+    <div class="card" style="margin-bottom: 6px;">
+        <p style="margin:0; font-size: 11px;"><span class="bold blue">14.</span> The hiring challenge you described is real - and it's pushing a lot of lending leaders to rethink which parts of the workflow actually need a human in the loop.</p>
+    </div>
+    <div class="card" style="margin-bottom: 6px;">
+        <p style="margin:0; font-size: 11px;"><span class="bold blue">15.</span> Your frustration with re-keying data resonated - one ops director I work with described it as "paying people to be copy machines," which is about right.</p>
+    </div>
+</div>
+
+<!-- ============================================ -->
+<!-- PAGE 9: 50 EXAMPLE OPENERS (Part 2)           -->
+<!-- ============================================ -->
+<div class="page page-break">
+    <div class="page-header">
+        <span class="section-label">07 - Example Openers (Part 2 of 2)</span>
+        <span class="page-num">9</span>
+    </div>
+
+    <h3>LinkedIn Post Openers (Ops Managers & Directors)</h3>
+    <div class="card" style="margin-bottom: 5px;">
+        <p style="margin:0; font-size: 11px;"><span class="bold blue">16.</span> Your post about standardizing QC workflows got me thinking - a lot of the verification errors you mentioned tend to trace back to manual data entry between systems.</p>
+    </div>
+    <div class="card" style="margin-bottom: 5px;">
+        <p style="margin:0; font-size: 11px;"><span class="bold blue">17.</span> You raised a good question about balancing speed with compliance on verifications. The teams I see doing both well have automated the data transfer layer so processors aren't choosing between fast and accurate.</p>
+    </div>
+    <div class="card" style="margin-bottom: 5px;">
+        <p style="margin:0; font-size: 11px;"><span class="bold blue">18.</span> Your post about onboarding new processors hit on something we hear constantly - training someone to manually re-key verification data into Encompass takes weeks, and the error rate stays high for months.</p>
+    </div>
+    <div class="card" style="margin-bottom: 5px;">
+        <p style="margin:0; font-size: 11px;"><span class="bold blue">19.</span> The point you made about turn times being a retention issue is spot on. We've seen teams cut 2-3 days off their average just by removing the manual verification step from the processor's plate.</p>
+    </div>
+    <div class="card" style="margin-bottom: 5px;">
+        <p style="margin:0; font-size: 11px;"><span class="bold blue">20.</span> The stat you shared about processor overtime during peak season tracks with what we're seeing - most of that extra time is spent on verification data entry and borrower follow-up, not actual underwriting decisions.</p>
+    </div>
+
+    <div class="divider-thin"></div>
+
+    <h3>Role-Based Fallbacks (No Signal Found)</h3>
+
+    <h4 style="margin-top: 8px;">COOs & VPs</h4>
+    <div class="card" style="margin-bottom: 5px;">
+        <p style="margin:0; font-size: 11px;"><span class="bold blue">21.</span> Most production leaders I talk to are under pressure to improve margins without sacrificing loan quality. The verification layer is usually where those two goals collide.</p>
+    </div>
+    <div class="card" style="margin-bottom: 5px;">
+        <p style="margin:0; font-size: 11px;"><span class="bold blue">22.</span> Curious how {{company}} is thinking about the operational cost of verifications right now. At most lenders your size, it's one of the highest per-loan cost line items that's still fully manual.</p>
+    </div>
+    <div class="card" style="margin-bottom: 5px;">
+        <p style="margin:0; font-size: 11px;"><span class="bold blue">23.</span> In the current rate environment, the lending leaders I talk to are focused on two things: reducing cost per loan and shortening clear-to-close. Both usually start with the verification step.</p>
+    </div>
+    <div class="card" style="margin-bottom: 5px;">
+        <p style="margin:0; font-size: 11px;"><span class="bold blue">24.</span> One thing I've noticed across conversations with production leaders - the teams that are hitting sub-20-day close timelines have all automated the verification data entry step. It's the common thread.</p>
+    </div>
+    <div class="card" style="margin-bottom: 5px;">
+        <p style="margin:0; font-size: 11px;"><span class="bold blue">25.</span> Most VPs I talk to are surprised when they see how much of their processor capacity is consumed by verification tasks that could be automated. It's usually 30-40% of their day.</p>
+    </div>
+    <div class="card" style="margin-bottom: 5px;">
+        <p style="margin:0; font-size: 11px;"><span class="bold blue">26.</span> The lenders I work with who have the best unit economics all made the same move - they stopped treating verification as a manual process and started treating it as a data integration problem.</p>
+    </div>
+    <div class="card" style="margin-bottom: 5px;">
+        <p style="margin:0; font-size: 11px;"><span class="bold blue">27.</span> Curious if {{company}} has looked at what percentage of your loan defects trace back to manual data entry errors in the verification step. At most lenders, it's higher than expected.</p>
+    </div>
+
+    <h4 style="margin-top: 8px;">Ops Managers & Directors</h4>
+    <div class="card" style="margin-bottom: 5px;">
+        <p style="margin:0; font-size: 11px;"><span class="bold blue">28.</span> Most ops managers I talk to at lenders your size are spending somewhere between 15-25 minutes per file on manual verification data entry - curious if that tracks with what you're seeing.</p>
+    </div>
+    <div class="card" style="margin-bottom: 5px;">
+        <p style="margin:0; font-size: 11px;"><span class="bold blue">29.</span> One thing that keeps coming up in my conversations with ops teams is the gap between how fast they can underwrite a loan and how long the verification step takes. It's usually the bottleneck.</p>
+    </div>
+    <div class="card" style="margin-bottom: 5px;">
+        <p style="margin:0; font-size: 11px;"><span class="bold blue">30.</span> I've been talking to a lot of operations directors who are trying to figure out how to handle volume spikes without adding headcount. The verification workflow is usually the first place that breaks.</p>
+    </div>
+    <div class="card" style="margin-bottom: 5px;">
+        <p style="margin:0; font-size: 11px;"><span class="bold blue">31.</span> A lot of ops managers at mid-size lenders tell me their processors spend more time on data entry and borrower follow-up than on actual file analysis. Curious if that's the case at {{company}}.</p>
+    </div>
+    <div class="card" style="margin-bottom: 5px;">
+        <p style="margin:0; font-size: 11px;"><span class="bold blue">32.</span> In most of the ops conversations I'm having right now, turn times and processor capacity are the two biggest concerns. Both tend to trace back to the same bottleneck - manual verification workflows.</p>
+    </div>
+    <div class="card" style="margin-bottom: 5px;">
+        <p style="margin:0; font-size: 11px;"><span class="bold blue">33.</span> One pattern I keep seeing at lenders in the {{company}} range - processors are the most expensive bottleneck, and verification is the most repetitive thing on their plate.</p>
+    </div>
+    <div class="card" style="margin-bottom: 5px;">
+        <p style="margin:0; font-size: 11px;"><span class="bold blue">34.</span> Curious how {{company}} is handling VOIE and VOE right now. Most ops teams I work with are either fully manual or using a provider that still requires re-keying into Encompass.</p>
+    </div>
+    <div class="card" style="margin-bottom: 5px;">
+        <p style="margin:0; font-size: 11px;"><span class="bold blue">35.</span> A lot of the ops leaders I work with started looking at verification automation after their second or third hire couldn't move the needle on turn times. Headcount wasn't the problem - the workflow was.</p>
+    </div>
+</div>
+
+<!-- ============================================ -->
+<!-- PAGE 10: FULL EMAIL SEQUENCES                 -->
+<!-- ============================================ -->
+<div class="page page-break">
+    <div class="page-header">
+        <span class="section-label">08 - Full Email Sequences</span>
+        <span class="page-num">10</span>
+    </div>
+
+    <h2>Two Complete Sequences</h2>
+    <p class="subtitle">Sequence A is signal-based (you found a website gap or LinkedIn post). Sequence B is general outreach. Only Email 1 gets personalized. Follow-ups are static.</p>
+
+    <h3>Sequence A: Signal-Based (Gap Detected or LinkedIn Post) <span class="tag tag-green">Preferred</span></h3>
+
+    <div class="email-block">
+        <div class="email-subject">Email 1 - Day 0 | Subject: {{company}} + verifications</div>
+        <p><span class="email-var">{{custom_opener}}</span></p>
+        <p>We built an integration that writes VOIE, VOE, and VOA data directly into Encompass - no re-keying, no copy-paste, no borrower follow-up for paystubs. Takes about 15 minutes to see how it works.</p>
+        <p>Open to a quick look?</p>
+    </div>
+
+    <div class="email-block">
+        <div class="email-subject">Email 2 - Day 3 | Subject: Re: {{company}} + verifications</div>
+        <p>One thing I should've mentioned - a Top 50 lender using the integration saw:</p>
+        <ul>
+            <li>60% faster verifications</li>
+            <li>Zero re-keying errors</li>
+            <li>Instant pre-closing VOE from existing VOIE orders</li>
+        </ul>
+        <p>Their ops director said the biggest surprise wasn't the speed - it was how much processor capacity it freed up. They stopped hiring for a role they thought they needed to fill.</p>
+        <p>Worth 15 minutes to see if the math works for <span class="email-var">{{company}}</span>?</p>
+    </div>
+
+    <div class="email-block">
+        <div class="email-subject">Email 3 - Day 7 | Subject: quick question on {{company}}'s verification workflow</div>
+        <p><span class="email-var">{{first_name}}</span> - curious about one thing.</p>
+        <p>How is your team currently handling pre-closing reverification for Day 1 Certainty? Most teams I talk to are re-running the entire process manually, even when the original VOIE is still fresh.</p>
+        <p>We built a way to generate a VOE report directly from a completed VOIE order - takes seconds instead of hours, and it satisfies GSE requirements.</p>
+        <p>If that's a pain point, happy to show you. If not, no worries at all.</p>
+    </div>
+
+    <div class="email-block">
+        <div class="email-subject">Email 4 - Day 14 | Subject: should I close this out?</div>
+        <p><span class="email-var">{{first_name}}</span> - I know the timing might not be right, and I don't want to be the person cluttering your inbox.</p>
+        <p>If verifications aren't a priority right now, totally get it. I'll close this out on my end.</p>
+        <p>But if manual data entry into Encompass is still eating your team's time, here's a 2-minute overview: [link]</p>
+        <p>Either way, appreciate your time.</p>
+    </div>
+
+    <div class="card card-amber" style="margin-top: 10px;">
+        <h4 style="color: var(--truv-amber); margin-bottom: 4px;">Sequence Settings</h4>
+        <p style="font-size: 11px; margin: 0;">4 emails over 14 days. Business days only. Send 7:00-9:30 AM recipient timezone. Open tracking OFF (deliverability). Click tracking ON for CTA link only. "Re:" on Email 2 threads with Email 1.</p>
+    </div>
+</div>
+
+<!-- ============================================ -->
+<!-- PAGE 11: SEQUENCE B + DESIGN NOTES            -->
+<!-- ============================================ -->
+<div class="page page-break">
+    <div class="page-header">
+        <span class="section-label">08 - Full Email Sequences (Continued)</span>
+        <span class="page-num">11</span>
+    </div>
+
+    <h3>Sequence B: General Outreach (No Signal) <span class="tag tag-amber">Fallback</span></h3>
+
+    <div class="email-block">
+        <div class="email-subject">Email 1 - Day 0 | Subject: {{company}} borrower docs</div>
+        <p><span class="email-var">{{custom_opener}}</span></p>
+        <p>We work with mid-size lenders who were running the same process - borrowers uploading pay stubs, processors re-keying into Encompass, 3-5 days of back-and-forth before they could even start underwriting.</p>
+        <p>Most of them didn't realize how much that was actually costing per loan until we ran the numbers.</p>
+        <p>Happy to put together a quick ROI breakdown for <span class="email-var">{{company}}</span> - takes me about a day and there's no commitment. Want me to run it?</p>
+    </div>
+
+    <div class="email-block">
+        <div class="email-subject">Email 2 - Day 4 | Subject: Re: {{company}} borrower docs</div>
+        <p>One thing worth mentioning - a Top 50 lender running a similar process saw:</p>
+        <ul>
+            <li>60% faster verifications</li>
+            <li>Zero re-keying errors into Encompass</li>
+            <li>Processors freed up enough to handle 30% more volume without hiring</li>
+        </ul>
+        <p>Their ops director said the biggest win wasn't speed - it was stopping a hire they thought they needed.</p>
+        <p>The ROI analysis I mentioned would show whether <span class="email-var">{{company}}</span> is in a similar range. Takes 15 minutes to walk through once I put it together.</p>
+    </div>
+
+    <div class="email-block">
+        <div class="email-subject">Email 3 - Day 10 | Subject: should I close this out?</div>
+        <p><span class="email-var">{{first_name}}</span> - don't want to be noise in your inbox.</p>
+        <p>If verifications aren't a priority right now, totally get it. But if your team is still manually collecting borrower docs, I put together a quick cost-per-loan calculator that takes 2 minutes:</p>
+        <p>[link to ROI calculator]</p>
+        <p>Either way - appreciate your time.</p>
+    </div>
+
+    <div class="section-divider"></div>
+
+    <h3>Why These Sequences Work</h3>
+    <div class="two-col" style="margin-bottom: 14px;">
+        <div>
+            <h4>Structural Decisions</h4>
+            <ul style="font-size: 11px;">
+                <li><span class="bold">Only Email 1 is personalized.</span> Follow-ups that re-personalize feel stalkerish.</li>
+                <li><span class="bold">Email 3/4 is always the breakup.</span> Removes pressure. Gets highest reply rates.</li>
+                <li><span class="bold">"Re:" on Email 2</span> threads with Email 1. Test removing if it feels deceptive.</li>
+                <li><span class="bold">Breakup includes self-serve link.</span> For people who won't book a call but are curious.</li>
+            </ul>
+        </div>
+        <div>
+            <h4>CTA Decisions</h4>
+            <ul style="font-size: 11px;">
+                <li><span class="bold">CTAs are always low-friction:</span> "quick look," "15 minutes," "2-min overview"</li>
+                <li><span class="bold">Never "book a demo."</span> Never "schedule a call."</li>
+                <li><span class="bold">Sequence B offers ROI analysis</span> - positioned as something YOU do for them, not homework.</li>
+                <li><span class="bold">"Worth 15 minutes?"</span> is the default CTA. "Worth 30 minutes?" for C-Suite.</li>
+            </ul>
+        </div>
+    </div>
+
+    <h3>Email 3 Angle Shift (Important)</h3>
+    <div class="card card-purple">
+        <p style="margin: 0; font-size: 11.5px;">Email 3 in Sequence A shifts from the broad pitch to a <span class="bold">specific feature</span> (pre-closing VOE from VOIE). This catches people who didn't care about the general efficiency pitch but have this exact pain point. Day 1 Certainty reverification is a universal headache for ops teams.</p>
+    </div>
+</div>
+
+<!-- ============================================ -->
+<!-- PAGE 12: OBJECTION HANDLING IN EMAIL          -->
+<!-- ============================================ -->
+<div class="page page-break">
+    <div class="page-header">
+        <span class="section-label">09 - Objection Handling in Email</span>
+        <span class="page-num">12</span>
+    </div>
+
+    <h2>When They Reply With an Objection</h2>
+    <p class="subtitle">A reply - even a negative one - is a win. Here's how to handle the 6 most common objections in a reply email. Keep responses short (3-4 sentences max).</p>
+
+    <div class="objection" style="margin-bottom: 10px;">
+        <div class="they-say">
+            <div class="mini-label" style="color: var(--truv-red);">They Say</div>
+            <p style="margin:0; font-weight: 600; font-size: 12px;">"We already use The Work Number"</p>
+        </div>
+        <div class="you-say">
+            <div class="mini-label" style="color: var(--truv-green);">Reply With</div>
+            <p style="margin:0; font-size: 11px;">Makes sense - most of our customers started there. The question is what you're doing for the 40% TWN doesn't cover. AmeriSave was in the same spot - they added Truv alongside TWN and cut their total verification costs 80%. Most lenders end up shifting volume once they see the conversion rates. Worth comparing notes?</p>
+        </div>
+    </div>
+
+    <div class="objection" style="margin-bottom: 10px;">
+        <div class="they-say">
+            <div class="mini-label" style="color: var(--truv-red);">They Say</div>
+            <p style="margin:0; font-weight: 600; font-size: 12px;">"We don't have the bandwidth right now"</p>
+        </div>
+        <div class="you-say">
+            <div class="mini-label" style="color: var(--truv-green);">Reply With</div>
+            <p style="margin:0; font-size: 11px;">Totally get it. For what it's worth, Orion Lending was live in under 2 weeks and their team didn't have to build anything. We integrate natively with Encompass, so the setup is mostly configuration, not development. Happy to reconnect when timing is better - when would make sense?</p>
+        </div>
+    </div>
+
+    <div class="objection" style="margin-bottom: 10px;">
+        <div class="they-say">
+            <div class="mini-label" style="color: var(--truv-red);">They Say</div>
+            <p style="margin:0; font-weight: 600; font-size: 12px;">"Not sure our borrowers would adopt it"</p>
+        </div>
+        <div class="you-say">
+            <div class="mini-label" style="color: var(--truv-green);">Reply With</div>
+            <p style="margin:0; font-size: 11px;">Fair concern - MIG had the same worry. They went from 25% to 50% conversion within the first quarter. The borrower experience is 30 seconds on any device. CrossCountry is at 70%+ post-login completion. Happy to show you what the borrower flow looks like - takes 5 minutes.</p>
+        </div>
+    </div>
+
+    <div class="objection" style="margin-bottom: 10px;">
+        <div class="they-say">
+            <div class="mini-label" style="color: var(--truv-red);">They Say</div>
+            <p style="margin:0; font-weight: 600; font-size: 12px;">"What about GSE approval?"</p>
+        </div>
+        <div class="you-say">
+            <div class="mini-label" style="color: var(--truv-green);">Reply With</div>
+            <p style="margin:0; font-size: 11px;">We're approved by both Fannie Mae Desktop Underwriter and Freddie Mac Loan Product Advisor (AIM). CrossCountry saw 8% R&W relief uplift. First Continental saw 8.21% income validation R&W. Happy to share the details on how the GSE integration works.</p>
+        </div>
+    </div>
+
+    <div class="objection" style="margin-bottom: 10px;">
+        <div class="they-say">
+            <div class="mini-label" style="color: var(--truv-red);">They Say</div>
+            <p style="margin:0; font-weight: 600; font-size: 12px;">"We looked at this before and it wasn't the right time"</p>
+        </div>
+        <div class="you-say">
+            <div class="mini-label" style="color: var(--truv-green);">Reply With</div>
+            <p style="margin:0; font-size: 11px;">Understood. Since then, we've added native Encompass integration (zero re-keying), free pre-closing re-verifications, and our conversion rates are now 65-70%+. CrossCountry went live in under a month. The product has changed a lot - worth a fresh look if verification costs are still a factor.</p>
+        </div>
+    </div>
+
+    <div class="objection" style="margin-bottom: 10px;">
+        <div class="they-say">
+            <div class="mini-label" style="color: var(--truv-red);">They Say</div>
+            <p style="margin:0; font-weight: 600; font-size: 12px;">"Send me some info"</p>
+        </div>
+        <div class="you-say">
+            <div class="mini-label" style="color: var(--truv-green);">Reply With</div>
+            <p style="margin:0; font-size: 11px;">Happy to. Rather than a generic deck, let me put together a quick comparison based on your volume - it'll show projected savings and what the Encompass integration actually looks like for your workflow. What's your approximate monthly loan volume so I can make it relevant?</p>
+        </div>
+    </div>
+
+    <div class="card card-blue" style="margin-top: 8px;">
+        <h4 style="margin-bottom: 4px;">Reply Rules</h4>
+        <ul style="font-size: 11px; margin: 0;">
+            <li><span class="bold">Acknowledge their position first.</span> "Makes sense," "Fair concern," "Totally get it."</li>
+            <li><span class="bold">Name a specific customer.</span> Every response includes proof.</li>
+            <li><span class="bold">Keep it short.</span> 3-4 sentences max. Don't over-explain.</li>
+            <li><span class="bold">End with a low-friction next step.</span> Never pressure.</li>
+            <li><span class="bold">"Send me info" = convert to custom analysis.</span> Don't send a generic PDF.</li>
+        </ul>
+    </div>
+</div>
+
+<!-- ============================================ -->
+<!-- PAGE 13: SUBJECT LINES & MECHANICS            -->
+<!-- ============================================ -->
+<div class="page page-break">
+    <div class="page-header">
+        <span class="section-label">10 - Subject Lines & Mechanics</span>
+        <span class="page-num">13</span>
+    </div>
+
+    <h2>Subject Line Rules</h2>
+    <p class="subtitle">Subject lines should look like internal communication - lowercase, informal, no punctuation. The goal is to NOT look like a marketing email.</p>
+
+    <div class="card card-green" style="margin-bottom: 10px;">
+        <h4 style="color: var(--truv-green); margin-bottom: 6px;">What Boosts Open Rates</h4>
+        <table>
+            <thead><tr><th>Element</th><th>Impact</th></tr></thead>
+            <tbody>
+                <tr><td>Short/empty subjects</td><td class="bold" style="color: var(--truv-green);">+30.4%</td></tr>
+                <tr><td>Priority-based language</td><td class="bold" style="color: var(--truv-green);">+16.7%</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="card card-red" style="margin-bottom: 10px;">
+        <h4 style="color: var(--truv-red); margin-bottom: 6px;">What Kills Open Rates</h4>
+        <table>
+            <thead><tr><th>Element</th><th>Impact</th></tr></thead>
+            <tbody>
+                <tr><td>"AI" mentions</td><td class="bold" style="color: var(--truv-red);">-17.9%</td></tr>
+                <tr><td>Numbers in subject</td><td class="bold" style="color: var(--truv-red);">-8.9%</td></tr>
+                <tr><td>Buzzwords</td><td class="bold" style="color: var(--truv-red);">-6.9%</td></tr>
+                <tr><td>Questions</td><td class="bold" style="color: var(--truv-red);">-3.9%</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <h3>Proven Subject Lines</h3>
+    <table style="margin-bottom: 14px;">
+        <thead><tr><th>Subject</th><th>When to Use</th></tr></thead>
+        <tbody>
+            <tr><td class="bold">{{company}} + verifications</td><td>Default for signal-based outreach</td></tr>
+            <tr><td class="bold">{{company}} borrower docs</td><td>Default for gap-detected outreach</td></tr>
+            <tr><td class="bold">verification costs</td><td>Cost-focused opener</td></tr>
+            <tr><td class="bold">quick question on {{company}}'s workflow</td><td>Feature-specific angle (Email 3)</td></tr>
+            <tr><td class="bold">should I close this out?</td><td>Breakup email (always highest reply)</td></tr>
+            <tr><td class="bold">rep & warranty buybacks</td><td>Risk/compliance angle</td></tr>
+            <tr><td class="bold">GSE verification requirements</td><td>Compliance angle</td></tr>
+            <tr><td class="bold">processor capacity</td><td>Scale/efficiency angle</td></tr>
+        </tbody>
+    </table>
+
+    <div class="section-divider"></div>
+
+    <h2>Sending Mechanics</h2>
+    <div class="two-col" style="margin-bottom: 14px;">
+        <div class="card">
+            <h4>Timing & Cadence</h4>
+            <ul style="font-size: 11px;">
+                <li><span class="bold">Send window:</span> 7:00-9:30 AM recipient timezone</li>
+                <li><span class="bold">Business days only</span></li>
+                <li><span class="bold">Sequence A:</span> Day 0, 3, 7, 14</li>
+                <li><span class="bold">Sequence B:</span> Day 0, 4, 10</li>
+                <li><span class="bold">Open tracking:</span> OFF (improves deliverability)</li>
+                <li><span class="bold">Click tracking:</span> ON for CTA link only</li>
+            </ul>
+        </div>
+        <div class="card">
+            <h4>Targeting Rules</h4>
+            <ul style="font-size: 11px;">
+                <li><span class="bold">2-3 contacts per company:</span> 1 primary buyer + 1-2 influencers</li>
+                <li><span class="bold">Different messaging per role</span></li>
+                <li><span class="bold">Verify every email</span> before sending</li>
+                <li><span class="bold">Sweet spot:</span> 100-500 employees, 1K-5K loans/yr</li>
+                <li><span class="bold">Remove:</span> &gt;500 employees (enterprise) and &lt;50 (no budget)</li>
+            </ul>
+        </div>
+    </div>
+
+    <h3>After the Sequence Ends</h3>
+    <table>
+        <thead><tr><th>Outcome</th><th>Action</th></tr></thead>
+        <tbody>
+            <tr><td class="bold">Reply / meeting</td><td>Sync to HubSpot. Sales works it. Contact exits sequence.</td></tr>
+            <tr><td class="bold">No reply (exhausted)</td><td>Mark in HubSpot. Enter marketing nurture (webinars, newsletters).</td></tr>
+            <tr><td class="bold">Unsubscribe / bounce</td><td>Suppress in sending tool. Sync to HubSpot to prevent re-enrollment.</td></tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- ============================================ -->
+<!-- PAGE 14: ROLE-SPECIFIC ANGLES                 -->
+<!-- ============================================ -->
+<div class="page page-break">
+    <div class="page-header">
+        <span class="section-label">11 - Role-Specific Angles</span>
+        <span class="page-num">14</span>
+    </div>
+
+    <h2>Tailor the Message to the Role</h2>
+    <p class="subtitle">Same product, different angle. Each role cares about something different. Use their language, reference their KPIs.</p>
+
+    <div class="card" style="margin-bottom: 10px; border-left: 4px solid var(--truv-blue);">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+            <h3 style="margin: 0;">COO / SVP of Operations</h3>
+            <span class="tag tag-blue">Primary Buyer</span>
+        </div>
+        <div class="two-col">
+            <div>
+                <h4>They Care About</h4>
+                <ul style="font-size: 11px; margin: 2px 0;">
+                    <li>Cost per loan</li>
+                    <li>Processor capacity / headcount</li>
+                    <li>Days to close</li>
+                    <li>Buyback risk</li>
+                </ul>
+            </div>
+            <div>
+                <h4>Connect The Gap To</h4>
+                <p style="font-size: 11px; margin: 2px 0; font-style: italic;">"Your team is manually collecting docs that could be verified in 30 seconds. That's $X per loan in labor alone."</p>
+                <p style="font-size: 10px; margin: 4px 0 0 0;"><span class="bold">Name drops:</span> CrossCountry ($10M), AmeriSave (80%), Compass (Justin Venhousen is a COO)</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="card" style="margin-bottom: 10px; border-left: 4px solid var(--truv-green);">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+            <h3 style="margin: 0;">VP of Lending / Production</h3>
+            <span class="tag tag-green">Primary Buyer</span>
+        </div>
+        <div class="two-col">
+            <div>
+                <h4>They Care About</h4>
+                <ul style="font-size: 11px; margin: 2px 0;">
+                    <li>Pull-through rate</li>
+                    <li>Close times</li>
+                    <li>Borrower experience</li>
+                    <li>Volume growth</li>
+                </ul>
+            </div>
+            <div>
+                <h4>Connect The Gap To</h4>
+                <p style="font-size: 11px; margin: 2px 0; font-style: italic;">"Borrowers are dropping off at your document upload step. Every day of back-and-forth is a loan that closes somewhere else."</p>
+                <p style="font-size: 10px; margin: 4px 0 0 0;"><span class="bold">Name drops:</span> MIG (2x conversion), The Lender (+10% conversion)</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="card" style="margin-bottom: 10px; border-left: 4px solid var(--truv-purple);">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+            <h3 style="margin: 0;">Director of Underwriting</h3>
+            <span class="tag tag-purple">Influencer</span>
+        </div>
+        <div class="two-col">
+            <div>
+                <h4>They Care About</h4>
+                <ul style="font-size: 11px; margin: 2px 0;">
+                    <li>Data freshness and accuracy</li>
+                    <li>GSE compliance</li>
+                    <li>Fraud detection</li>
+                    <li>Audit readiness</li>
+                </ul>
+            </div>
+            <div>
+                <h4>Connect The Gap To</h4>
+                <p style="font-size: 11px; margin: 2px 0; font-style: italic;">"Those uploaded pay stubs are 60-90 days old by closing. Direct-source data is current as of the last pay cycle."</p>
+                <p style="font-size: 10px; margin: 4px 0 0 0;"><span class="bold">Name drops:</span> CCM (8% R&W uplift), FCM (8.21% R&W), 99.99% fraud detection</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="card" style="margin-bottom: 10px; border-left: 4px solid var(--truv-amber);">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+            <h3 style="margin: 0;">Director of Loan Processing</h3>
+            <span class="tag tag-amber">Influencer / Champion</span>
+        </div>
+        <div class="two-col">
+            <div>
+                <h4>They Care About</h4>
+                <ul style="font-size: 11px; margin: 2px 0;">
+                    <li>Daily workload</li>
+                    <li>Re-keying errors</li>
+                    <li>Staffing and training</li>
+                    <li>Borrower follow-up burden</li>
+                </ul>
+            </div>
+            <div>
+                <h4>Connect The Gap To</h4>
+                <p style="font-size: 11px; margin: 2px 0; font-style: italic;">"Your processors are re-keying verification data into Encompass by hand. That's the bottleneck, not headcount."</p>
+                <p style="font-size: 10px; margin: 4px 0 0 0;"><span class="bold">Name drops:</span> First Continental (4hr support response), Piedmont (90% manual task reduction)</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section-divider"></div>
+
+    <h3>Multi-Threading Strategy</h3>
+    <div class="card card-blue">
+        <p style="font-size: 11.5px; margin: 0;">Send to 2-3 contacts at the same company with <span class="bold">different messaging per role</span>. The COO gets cost/scale. The Dir. of Processing gets workload/re-keying. The VP Lending gets pull-through/borrower experience. If one person forwards to another internally, you've already established relevance with both.</p>
+    </div>
+</div>
+
+<!-- ============================================ -->
+<!-- PAGE 15: CHEAT SHEET                          -->
+<!-- ============================================ -->
+<div class="page page-break">
+    <div class="page-header">
+        <span class="section-label">12 - Quick Reference Cheat Sheet</span>
+        <span class="page-num">15</span>
+    </div>
+
+    <h2>One-Page Reference</h2>
+    <p class="subtitle">Pin this to your wall. Everything you need to write an email in 60 seconds.</p>
+
+    <h3>The Numbers That Matter</h3>
+    <div class="stat-row">
+        <div class="stat-box"><div class="val">80%</div><div class="lbl">Cost Savings vs TWN</div></div>
+        <div class="stat-box"><div class="val">$350</div><div class="lbl">Saved Per Loan</div></div>
+        <div class="stat-box"><div class="val">96%</div><div class="lbl">Workforce Coverage</div></div>
+        <div class="stat-box"><div class="val">30s</div><div class="lbl">Verification Time</div></div>
+    </div>
+    <div class="stat-row">
+        <div class="stat-box" style="background: var(--truv-dark);"><div class="val">65-70%</div><div class="lbl">VOIE Conversion</div></div>
+        <div class="stat-box" style="background: var(--truv-dark);"><div class="val">99.99%</div><div class="lbl">Fraud Detection</div></div>
+        <div class="stat-box" style="background: var(--truv-dark);"><div class="val">&lt;2 wks</div><div class="lbl">Implementation</div></div>
+        <div class="stat-box" style="background: var(--truv-dark);"><div class="val">Free</div><div class="lbl">Re-verifications</div></div>
+    </div>
+
+    <h3>Top 5 Name Drops</h3>
+    <table style="margin-bottom: 14px;">
+        <thead><tr><th>Customer</th><th>Headline Stat</th><th>Who Said It</th></tr></thead>
+        <tbody>
+            <tr><td class="bold">CrossCountry Mortgage</td><td>$10M/yr savings</td><td>Tom Durney, EVP</td></tr>
+            <tr><td class="bold">AmeriSave</td><td>80% cost savings</td><td>Magesh Sarma, CISO</td></tr>
+            <tr><td class="bold">First Continental</td><td>$745K/yr savings</td><td>Jessica Kipnis, COO</td></tr>
+            <tr><td class="bold">Compass Mortgage</td><td>60-80% savings</td><td>Justin Venhousen, COO</td></tr>
+            <tr><td class="bold">MIG</td><td>2x conversion</td><td>J.R. Huber, EVP</td></tr>
+        </tbody>
+    </table>
+
+    <h3>Opener Formula</h3>
+    <div class="card card-blue" style="margin-bottom: 14px;">
+        <p style="margin: 0; font-size: 12px;"><span class="bold">[Signal from their world]</span> + <span class="bold">[pain point for their role]</span> + <span class="bold">[hint at what's possible]</span></p>
+    </div>
+
+    <h3>Persona Quick-Match</h3>
+    <table style="margin-bottom: 14px;">
+        <thead><tr><th>Role</th><th>Lead With</th><th>Key Metric</th><th>Name Drop</th></tr></thead>
+        <tbody>
+            <tr><td class="bold">COO / VP Ops</td><td>Cost, scale</td><td>$350/loan, 80%</td><td>CrossCountry, AmeriSave</td></tr>
+            <tr><td class="bold">VP Lending</td><td>Pull-through, speed</td><td>+10% conversion</td><td>MIG, The Lender</td></tr>
+            <tr><td class="bold">Dir. UW</td><td>Compliance, data</td><td>8% R&W uplift</td><td>CCM, FCM</td></tr>
+            <tr><td class="bold">Dir. Processing</td><td>Workload, errors</td><td>15-25 min/file saved</td><td>FCM (4hr support)</td></tr>
+        </tbody>
+    </table>
+
+    <h3>Subject Lines</h3>
+    <div class="three-col" style="margin-bottom: 14px;">
+        <div class="card" style="text-align:center; padding: 8px;"><span class="bold" style="font-size:11px;">{{company}} + verifications</span></div>
+        <div class="card" style="text-align:center; padding: 8px;"><span class="bold" style="font-size:11px;">{{company}} borrower docs</span></div>
+        <div class="card" style="text-align:center; padding: 8px;"><span class="bold" style="font-size:11px;">should I close this out?</span></div>
+    </div>
+
+    <h3>Voice Reminders</h3>
+    <div class="two-col" style="margin-bottom: 14px;">
+        <div class="do-col" style="padding: 10px 12px;">
+            <p class="mini-label" style="color: var(--truv-green);">Sound Like</p>
+            <p style="font-size: 11px; margin: 0; font-style: italic;">"Most lenders at your scale face buyback risk from stale verification data. CrossCountry saved $10M annually. Worth 15 minutes?"</p>
+        </div>
+        <div class="dont-col" style="padding: 10px 12px;">
+            <p class="mini-label" style="color: var(--truv-red);">Don't Sound Like</p>
+            <p style="font-size: 11px; margin: 0; font-style: italic;">"We're revolutionizing the verification space with our innovative platform. I'd love to learn more about your needs!"</p>
+        </div>
+    </div>
+
+    <div class="highlight-box">
+        <h3>The Golden Rule</h3>
+        <p style="font-size: 13px;">Every email should read like it was written by someone who understands their world - not someone trying to sell them something. If a VP of Ops wouldn't forward it to their team, rewrite it.</p>
+    </div>
+
+    <div class="page-footer">
+        <span>Truv Cold Outreach Playbook - Confidential</span>
+        <span>truv.com | sales@truv.com</span>
+    </div>
+</div>
+
+</body>
+</html>

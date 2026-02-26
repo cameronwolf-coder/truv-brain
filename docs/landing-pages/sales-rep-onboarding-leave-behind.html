@@ -1,0 +1,1185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Truv Sales Playbook - New Rep Onboarding</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --truv-blue: #2C64E3;
+            --truv-blue-light: #EBF0FC;
+            --truv-blue-mid: #C5D9F7;
+            --truv-dark: #171717;
+            --truv-gray: #3C3C43;
+            --truv-light-gray: #F5F7FA;
+            --truv-border: #E5E7EB;
+            --truv-green: #16A34A;
+            --truv-green-light: #F0FDF4;
+            --truv-red: #DC2626;
+            --truv-red-light: #FEF2F2;
+            --truv-amber: #D97706;
+            --truv-amber-light: #FFFBEB;
+        }
+
+        * {
+            box-sizing: border-box;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+
+        @page {
+            size: letter;
+            margin: 0.5in;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--truv-dark);
+            line-height: 1.5;
+            margin: 0;
+            padding: 0;
+            background: #E5E7EB;
+            font-size: 13px;
+        }
+
+        @media print {
+            body { background: white; }
+            .page { box-shadow: none; margin: 0; width: 100%; }
+            .page-break { page-break-before: always; }
+            .no-print { display: none; }
+        }
+
+        .page {
+            width: 8.5in;
+            min-height: 11in;
+            margin: 24px auto;
+            background: white;
+            padding: 48px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.1);
+        }
+
+        .page-break {
+            break-before: page;
+        }
+
+        /* ---- COVER PAGE ---- */
+        .cover {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            min-height: calc(11in - 96px);
+            position: relative;
+        }
+
+        .cover-label {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--truv-blue);
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            margin-bottom: 16px;
+        }
+
+        .cover h1 {
+            font-size: 42px;
+            font-weight: 800;
+            line-height: 1.15;
+            margin: 0 0 20px 0;
+            letter-spacing: -0.03em;
+            max-width: 85%;
+        }
+
+        .cover-subtitle {
+            font-size: 18px;
+            color: var(--truv-gray);
+            line-height: 1.6;
+            max-width: 80%;
+            margin-bottom: 40px;
+        }
+
+        .cover-metrics {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-top: 8px;
+        }
+
+        .cover-metric {
+            background: var(--truv-light-gray);
+            border-radius: 10px;
+            padding: 20px 16px;
+            text-align: center;
+        }
+
+        .cover-metric .value {
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--truv-blue);
+            margin-bottom: 4px;
+        }
+
+        .cover-metric .label {
+            font-size: 11px;
+            color: var(--truv-gray);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+
+        .cover-footer {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 16px;
+            border-top: 2px solid var(--truv-border);
+            font-size: 11px;
+            color: var(--truv-gray);
+        }
+
+        .cover-footer img { height: 24px; }
+
+        /* ---- PAGE HEADER ---- */
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 32px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid var(--truv-border);
+        }
+
+        .page-header .section-label {
+            font-size: 10px;
+            font-weight: 700;
+            color: var(--truv-blue);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .page-header .page-num {
+            font-size: 10px;
+            color: #999;
+            font-weight: 600;
+        }
+
+        /* ---- TYPOGRAPHY ---- */
+        h2 {
+            font-size: 24px;
+            font-weight: 800;
+            margin: 0 0 6px 0;
+            letter-spacing: -0.02em;
+            line-height: 1.2;
+        }
+
+        h3 {
+            font-size: 16px;
+            font-weight: 700;
+            margin: 0 0 8px 0;
+            letter-spacing: -0.01em;
+        }
+
+        h4 {
+            font-size: 13px;
+            font-weight: 700;
+            margin: 0 0 4px 0;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            color: var(--truv-blue);
+        }
+
+        .subtitle {
+            font-size: 14px;
+            color: var(--truv-gray);
+            margin-bottom: 24px;
+            line-height: 1.5;
+        }
+
+        p { margin: 0 0 10px 0; }
+
+        /* ---- COMPONENTS ---- */
+        .section-divider {
+            height: 3px;
+            background: linear-gradient(90deg, var(--truv-blue) 0%, var(--truv-blue-mid) 100%);
+            border-radius: 2px;
+            margin: 28px 0 24px 0;
+        }
+
+        .card {
+            background: var(--truv-light-gray);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 14px;
+        }
+
+        .card-blue {
+            background: var(--truv-blue-light);
+            border-left: 4px solid var(--truv-blue);
+        }
+
+        .card-green {
+            background: var(--truv-green-light);
+            border-left: 4px solid var(--truv-green);
+        }
+
+        .card-amber {
+            background: var(--truv-amber-light);
+            border-left: 4px solid var(--truv-amber);
+        }
+
+        .card-red {
+            background: var(--truv-red-light);
+            border-left: 4px solid var(--truv-red);
+        }
+
+        .two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .three-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 14px;
+        }
+
+        /* Stats row */
+        .stat-row {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .stat-box {
+            background: var(--truv-blue);
+            color: white;
+            border-radius: 8px;
+            padding: 14px 12px;
+            text-align: center;
+        }
+
+        .stat-box .val {
+            font-size: 22px;
+            font-weight: 800;
+        }
+
+        .stat-box .lbl {
+            font-size: 10px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            opacity: 0.85;
+            margin-top: 2px;
+        }
+
+        /* Quote */
+        .quote {
+            border-left: 3px solid var(--truv-blue);
+            padding: 10px 16px;
+            margin: 12px 0;
+            background: var(--truv-blue-light);
+            border-radius: 0 8px 8px 0;
+            font-size: 12.5px;
+        }
+
+        .quote p {
+            font-style: italic;
+            margin: 0 0 4px 0;
+            color: var(--truv-dark);
+        }
+
+        .quote .attr {
+            font-size: 11px;
+            font-style: normal;
+            font-weight: 600;
+            color: var(--truv-blue);
+        }
+
+        /* Table */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 12.5px;
+        }
+
+        table th {
+            text-align: left;
+            font-weight: 700;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: var(--truv-gray);
+            padding: 8px 10px;
+            border-bottom: 2px solid var(--truv-border);
+        }
+
+        table td {
+            padding: 8px 10px;
+            border-bottom: 1px solid var(--truv-border);
+            vertical-align: top;
+        }
+
+        table tr:last-child td { border-bottom: none; }
+
+        .tag {
+            display: inline-block;
+            background: var(--truv-blue);
+            color: white;
+            font-size: 10px;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+
+        .tag-green { background: var(--truv-green); }
+        .tag-amber { background: var(--truv-amber); }
+
+        ul {
+            margin: 4px 0 10px 0;
+            padding-left: 18px;
+        }
+
+        ul li {
+            margin-bottom: 4px;
+            line-height: 1.4;
+        }
+
+        .bold { font-weight: 700; }
+        .blue { color: var(--truv-blue); }
+        .small { font-size: 11px; color: var(--truv-gray); }
+
+        /* Objection row */
+        .objection {
+            display: grid;
+            grid-template-columns: 1fr 1.4fr;
+            gap: 12px;
+            margin-bottom: 10px;
+        }
+
+        .objection .they-say {
+            background: var(--truv-red-light);
+            border-radius: 8px;
+            padding: 10px 14px;
+            font-size: 12px;
+        }
+
+        .objection .you-say {
+            background: var(--truv-green-light);
+            border-radius: 8px;
+            padding: 10px 14px;
+            font-size: 12px;
+        }
+
+        .mini-label {
+            font-size: 9px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 4px;
+        }
+
+        .page-footer {
+            margin-top: auto;
+            padding-top: 16px;
+            border-top: 1px solid var(--truv-border);
+            display: flex;
+            justify-content: space-between;
+            font-size: 10px;
+            color: #999;
+        }
+
+        /* Persona card */
+        .persona-card {
+            border: 1px solid var(--truv-border);
+            border-radius: 10px;
+            padding: 16px;
+            margin-bottom: 12px;
+        }
+
+        .persona-card h3 {
+            font-size: 14px;
+            margin-bottom: 2px;
+        }
+
+        .persona-titles {
+            font-size: 11px;
+            color: var(--truv-gray);
+            margin-bottom: 10px;
+        }
+
+        .pain-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6px;
+        }
+
+        .pain-item {
+            background: var(--truv-light-gray);
+            border-radius: 6px;
+            padding: 8px 10px;
+            font-size: 11.5px;
+        }
+
+        .pain-item strong {
+            display: block;
+            font-size: 10px;
+            color: var(--truv-blue);
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            margin-bottom: 2px;
+        }
+
+        .do-dont {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .do-col {
+            background: var(--truv-green-light);
+            border-radius: 8px;
+            padding: 14px;
+        }
+
+        .dont-col {
+            background: var(--truv-red-light);
+            border-radius: 8px;
+            padding: 14px;
+        }
+    </style>
+</head>
+<body>
+
+<!-- ============================================ -->
+<!-- PAGE 1: COVER                                 -->
+<!-- ============================================ -->
+<div class="page">
+    <div class="cover">
+        <div class="cover-label">Sales Playbook - Internal Only</div>
+        <h1>Your Guide to Selling Truv</h1>
+        <p class="cover-subtitle">
+            Everything you need to know: proof points, buyer pain points, competitive positioning, and what resonates with operations leaders. This is your reference for every call.
+        </p>
+
+        <div class="cover-metrics">
+            <div class="cover-metric">
+                <div class="value">80%</div>
+                <div class="label">Cost Savings</div>
+            </div>
+            <div class="cover-metric">
+                <div class="value">$350</div>
+                <div class="label">Saved / Loan</div>
+            </div>
+            <div class="cover-metric">
+                <div class="value">96%</div>
+                <div class="label">Coverage</div>
+            </div>
+            <div class="cover-metric">
+                <div class="value">30s</div>
+                <div class="label">Verification</div>
+            </div>
+        </div>
+
+        <div class="cover-footer">
+            <span>Truv - Consumer Permissioned Data Platform</span>
+            <span>Confidential - For Internal Use Only</span>
+        </div>
+    </div>
+</div>
+
+<!-- ============================================ -->
+<!-- PAGE 2: THE TRUV PITCH                        -->
+<!-- ============================================ -->
+<div class="page page-break">
+    <div class="page-header">
+        <span class="section-label">The Truv Pitch</span>
+        <span class="page-num">2</span>
+    </div>
+
+    <h2>What Truv Does (30-Second Version)</h2>
+    <p class="subtitle">Truv connects directly to payroll providers and financial institutions so lenders can verify income, employment, and assets in real-time - instead of relying on expensive databases or manual processes.</p>
+
+    <div class="stat-row">
+        <div class="stat-box">
+            <div class="val">96%</div>
+            <div class="lbl">US Workforce</div>
+        </div>
+        <div class="stat-box">
+            <div class="val">13K+</div>
+            <div class="lbl">FIs Connected</div>
+        </div>
+        <div class="stat-box">
+            <div class="val">45+</div>
+            <div class="lbl">Payroll Providers</div>
+        </div>
+        <div class="stat-box">
+            <div class="val">99.99%</div>
+            <div class="lbl">Fraud Detection</div>
+        </div>
+    </div>
+
+    <h3>Core Products</h3>
+    <div class="two-col" style="margin-bottom: 20px;">
+        <div class="card">
+            <h4>Income & Employment (VOIE)</h4>
+            <p>Real-time verification from payroll sources. 65-70% post-login conversion. Includes paystub OCR fallback with 99.99% fraud detection.</p>
+        </div>
+        <div class="card">
+            <h4>Assets (VOA)</h4>
+            <p>Bank account and asset verification from 13,000+ financial institutions. Balance, transaction history (24mo), and cash flow analysis.</p>
+        </div>
+        <div class="card">
+            <h4>Insurance (VOHI)</h4>
+            <p>Automated home and rental insurance verification. Extracts declarations pages in minutes instead of days.</p>
+        </div>
+        <div class="card">
+            <h4>Direct Deposit Switch</h4>
+            <p>Automated paycheck switching for retail banks and credit unions. +12% deposit growth (B9 case study).</p>
+        </div>
+    </div>
+
+    <h3>Why Truv Wins</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Differentiator</th>
+                <th>What It Means</th>
+                <th>Proof</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="bold">Up to 80% cheaper</td>
+                <td>vs. The Work Number / instant databases</td>
+                <td>AmeriSave, MortgageRight, AFCU all at 80%</td>
+            </tr>
+            <tr>
+                <td class="bold">96% coverage</td>
+                <td>vs. ~60% for TWN (40% miss rate)</td>
+                <td>45+ payroll providers, OCR fallback</td>
+            </tr>
+            <tr>
+                <td class="bold">30-second verification</td>
+                <td>vs. 5-7 days for manual VOE</td>
+                <td>95% completion rate vs. 60% manual</td>
+            </tr>
+            <tr>
+                <td class="bold">Direct-to-source data</td>
+                <td>Real-time, not stale databases</td>
+                <td>Fannie Mae DU + Freddie Mac LPA approved</td>
+            </tr>
+            <tr>
+                <td class="bold">Free re-verifications</td>
+                <td>Re-verify within 120 days at no cost</td>
+                <td>10-day PCV, rate lock extensions</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="section-divider"></div>
+
+    <h3>Key Integrations</h3>
+    <div class="three-col">
+        <div class="card" style="text-align:center; padding: 12px;">
+            <div class="bold" style="font-size:12px;">LOS</div>
+            <div class="small">Encompass, nCino, Byte, Empower</div>
+        </div>
+        <div class="card" style="text-align:center; padding: 12px;">
+            <div class="bold" style="font-size:12px;">POS</div>
+            <div class="small">BeSmartee, Floify, LenderLogix, LodaSoft</div>
+        </div>
+        <div class="card" style="text-align:center; padding: 12px;">
+            <div class="bold" style="font-size:12px;">GSE</div>
+            <div class="small">Fannie Mae DU, Freddie Mac LPA (AIM)</div>
+        </div>
+    </div>
+</div>
+
+<!-- ============================================ -->
+<!-- PAGE 3: WHAT RESONATES WITH OPS BUYERS        -->
+<!-- ============================================ -->
+<div class="page page-break">
+    <div class="page-header">
+        <span class="section-label">Know Your Buyer</span>
+        <span class="page-num">3</span>
+    </div>
+
+    <h2>What Resonates with Operations Buyers</h2>
+    <p class="subtitle">Operations leaders care about three things: cost, speed, and scale. They are measured on verification cost per loan, days to close, and team efficiency. Speak their language.</p>
+
+    <div class="persona-card">
+        <h3>Mortgage Operations Executive <span class="tag">Primary Buyer</span></h3>
+        <div class="persona-titles">COO, SVP of Operations, VP of Operations, VP of Lending - Reports to CEO/President</div>
+
+        <div class="pain-grid">
+            <div class="pain-item">
+                <strong>Pain #1: Cost</strong>
+                "Verification costs are out of control" - $40K-$200K/year, 40% database miss rate means paying twice
+            </div>
+            <div class="pain-item">
+                <strong>Pain #2: Speed</strong>
+                "Manual VOE killing close times" - 5-7 days per verification, constant borrower follow-up
+            </div>
+            <div class="pain-item">
+                <strong>Pain #3: Risk</strong>
+                "Buyback risk keeps me up at night" - $50K-$500K+ per buyback, GSE getting stricter
+            </div>
+            <div class="pain-item">
+                <strong>Pain #4: Scale</strong>
+                "Can't scale without hiring" - Every loan requires the same manual effort
+            </div>
+        </div>
+    </div>
+
+    <div class="card card-blue" style="margin-bottom: 16px;">
+        <h4 style="margin-bottom: 8px;">How To Open With Ops Buyers</h4>
+        <p style="margin: 0;">Lead with cost savings and scale. They respond to specific dollar amounts, not percentages. Calculate their potential savings before the call:</p>
+        <ul style="margin-top: 6px;">
+            <li><span class="bold">Know their volume:</span> "[Company] originated X loans last quarter..."</li>
+            <li><span class="bold">Lead with the math:</span> "At $350 savings per loan, that's $X annually..."</li>
+            <li><span class="bold">Name the pain:</span> "What do you do for the 40% TWN doesn't cover?"</li>
+            <li><span class="bold">Drop a name:</span> "CrossCountry is saving $10M annually. AmeriSave cut costs 80%."</li>
+        </ul>
+    </div>
+
+    <h3>Their Success Metrics (What They Report to Their CEO)</h3>
+    <div class="three-col" style="margin-bottom: 20px;">
+        <div class="card" style="text-align: center;">
+            <div class="bold blue" style="font-size: 18px;">$X</div>
+            <div class="small">Verification Cost Per Loan</div>
+        </div>
+        <div class="card" style="text-align: center;">
+            <div class="bold blue" style="font-size: 18px;">18 to 11</div>
+            <div class="small">Days to Close (Target)</div>
+        </div>
+        <div class="card" style="text-align: center;">
+            <div class="bold blue" style="font-size: 18px;">0%</div>
+            <div class="small">Buyback Rate (Target)</div>
+        </div>
+    </div>
+
+    <div class="section-divider"></div>
+
+    <h3>Director of Underwriting <span class="tag-green tag">Secondary Buyer</span></h3>
+    <p style="margin-bottom: 8px;">Director/VP of Underwriting, Chief Credit Officer - Cares about risk, compliance, and audit readiness.</p>
+    <div class="two-col">
+        <div>
+            <h4>Their Pain Points</h4>
+            <ul>
+                <li>Pay stubs 60-90 days old by closing</li>
+                <li>GSE requirements keep changing</li>
+                <li>Manual verification doesn't meet audit standards</li>
+                <li>Instant databases miss 40% of borrowers</li>
+            </ul>
+        </div>
+        <div>
+            <h4>What To Say</h4>
+            <ul>
+                <li>"Direct-source data, not stale databases"</li>
+                <li>"Fannie Mae DU + Freddie Mac LPA approved"</li>
+                <li>"SOC 2 Type II, FCRA compliant"</li>
+                <li>"CrossCountry saw 8% R&W relief uplift"</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!-- ============================================ -->
+<!-- PAGE 4: PROOF POINTS BY VERTICAL              -->
+<!-- ============================================ -->
+<div class="page page-break">
+    <div class="page-header">
+        <span class="section-label">Proof Points</span>
+        <span class="page-num">4</span>
+    </div>
+
+    <h2>Customer Results You Can Cite</h2>
+    <p class="subtitle">Every claim must have a named customer and a specific number. No vague "our customers see great ROI" - use these.</p>
+
+    <h3>Mortgage Lenders</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Customer</th>
+                <th>Key Result</th>
+                <th>Quote</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="bold">CrossCountry Mortgage</td>
+                <td>$10M/yr savings, 70% conversion, 8% R&W uplift</td>
+                <td class="small" style="font-style:italic;">"Truv has redefined what partnership means." - Tom Durney, EVP</td>
+            </tr>
+            <tr>
+                <td class="bold">First Continental</td>
+                <td>$745K/yr savings, 64% VOIE, 85% VOA conversion</td>
+                <td class="small" style="font-style:italic;">"Our processors love that we can get ahold of someone within 4 hours." - Jessica Kipnis, COO</td>
+            </tr>
+            <tr>
+                <td class="bold">AmeriSave</td>
+                <td>80% cost savings, 3/5 loans get R&W relief</td>
+                <td class="small" style="font-style:italic;">"Cost savings, product innovation, reliable technology, and a partnership approach." - Magesh Sarma, CISO</td>
+            </tr>
+            <tr>
+                <td class="bold">Compass Mortgage</td>
+                <td>60-80% savings, faster approvals</td>
+                <td class="small" style="font-style:italic;">"There's no excuse for lenders to not look at a product like Truv." - Justin Venhousen, COO</td>
+            </tr>
+            <tr>
+                <td class="bold">MIG</td>
+                <td>2x conversion (25% to 50%), $150/loan saved</td>
+                <td class="small" style="font-style:italic;">"We went from 25% conversion to 50%." - J.R. Huber, EVP</td>
+            </tr>
+            <tr>
+                <td class="bold">Orion Lending</td>
+                <td>$300K/yr savings, 32% conversion, &lt;2 week setup</td>
+                <td class="small" style="font-style:italic;">"Truv helped us accomplish this objective." - Richard Plummer, EVP Ops</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="section-divider"></div>
+
+    <h3>Other Verticals</h3>
+    <div class="two-col">
+        <div>
+            <h4>Credit Unions</h4>
+            <div class="card" style="margin-bottom: 8px;">
+                <p class="bold" style="margin-bottom: 2px;">America First Credit Union</p>
+                <p class="small" style="margin: 0;">80% savings, 65% conversion (mortgage), 30% (home equity)</p>
+                <p class="small" style="font-style:italic; margin: 4px 0 0 0;">"Borrowers try Truv first because it has proven most reliable." - Austin Coleman, SVP</p>
+            </div>
+            <h4 style="margin-top: 12px;">Consumer Lending</h4>
+            <div class="card" style="margin-bottom: 8px;">
+                <p class="bold" style="margin-bottom: 2px;">HFS Financial</p>
+                <p class="small" style="margin: 0;">+15% fraud detection, 65% conversion, +10-15% team efficiency</p>
+                <p class="small" style="font-style:italic; margin: 4px 0 0 0;">"Go with Truv, a nimble team ready to work with us." - Andrew Collins, CEO</p>
+            </div>
+        </div>
+        <div>
+            <h4>Auto Lending</h4>
+            <div class="card" style="margin-bottom: 8px;">
+                <p class="bold" style="margin-bottom: 2px;">TurboPass</p>
+                <p class="small" style="margin: 0;">1.5 days faster funding, 38% loan loss reduction, 49% bank fee reduction</p>
+                <p class="small" style="font-style:italic; margin: 4px 0 0 0;">"We've built the greatest pay stub report the industry has ever seen." - Lou Loquasto, CRO</p>
+            </div>
+            <h4 style="margin-top: 12px;">Home Equity</h4>
+            <div class="card" style="margin-bottom: 8px;">
+                <p class="bold" style="margin-bottom: 2px;">NFTYDoor</p>
+                <p class="small" style="margin: 0;">45% VOIE conversion, 70% VOHI conversion, &lt;1 month to go live</p>
+                <p class="small" style="font-style:italic; margin: 4px 0 0 0;">"What truly set Truv apart was the hands-on approach to customer service." - Jonathan Spinetto, COO</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="card card-blue" style="margin-top: 12px;">
+        <h4 style="margin-bottom: 6px;">Results You Can Always Cite</h4>
+        <div class="three-col">
+            <div>
+                <p class="bold" style="font-size: 12px; margin-bottom: 2px;">Mortgage</p>
+                <ul class="small" style="margin: 0; padding-left: 14px;">
+                    <li>60-80% cost savings</li>
+                    <li>50-70% VOIE conversion</li>
+                    <li>&lt;2 week implementations</li>
+                    <li>Zero buybacks for 18+ mo</li>
+                </ul>
+            </div>
+            <div>
+                <p class="bold" style="font-size: 12px; margin-bottom: 2px;">Credit Unions</p>
+                <ul class="small" style="margin: 0; padding-left: 14px;">
+                    <li>80% cost reduction</li>
+                    <li>15-pt NPS improvement</li>
+                    <li>Same-day vs. 3-5 days</li>
+                </ul>
+            </div>
+            <div>
+                <p class="bold" style="font-size: 12px; margin-bottom: 2px;">Consumer / Auto</p>
+                <ul class="small" style="margin: 0; padding-left: 14px;">
+                    <li>+15% fraud detection</li>
+                    <li>80-90% fewer manual tasks</li>
+                    <li>1.5 days faster funding</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ============================================ -->
+<!-- PAGE 5: HOW TO SELL - COMPETITIVE & OBJECTIONS -->
+<!-- ============================================ -->
+<div class="page page-break">
+    <div class="page-header">
+        <span class="section-label">Competitive Selling</span>
+        <span class="page-num">5</span>
+    </div>
+
+    <h2>Competitive Positioning</h2>
+    <p class="subtitle">Know the landscape. Here's how Truv stacks up against what your prospects are using today.</p>
+
+    <h3>vs. The Work Number / Instant Databases</h3>
+    <div class="card" style="margin-bottom: 16px;">
+        <table>
+            <thead>
+                <tr>
+                    <th></th>
+                    <th style="color: var(--truv-blue);">Truv</th>
+                    <th>The Work Number</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="bold">Coverage</td>
+                    <td>96% of US workforce</td>
+                    <td>~60% (40% miss rate)</td>
+                </tr>
+                <tr>
+                    <td class="bold">Cost</td>
+                    <td>Up to 80% less</td>
+                    <td>Up to $123/verification, ~20% price hikes every 6 months</td>
+                </tr>
+                <tr>
+                    <td class="bold">Data</td>
+                    <td>Real-time, direct-source</td>
+                    <td>Database (can be stale)</td>
+                </tr>
+                <tr>
+                    <td class="bold">Re-verifications</td>
+                    <td>Free within 120 days</td>
+                    <td>Full price each time</td>
+                </tr>
+                <tr>
+                    <td class="bold">GSE Approved</td>
+                    <td>Fannie Mae DU + Freddie Mac LPA</td>
+                    <td>Yes</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="card card-green" style="margin-bottom: 20px;">
+        <h4 style="color: var(--truv-green); margin-bottom: 6px;">Key Question to Ask</h4>
+        <p style="margin: 0; font-weight: 600;">"What do you do for the 40% that The Work Number doesn't cover? You're paying full price and still only hitting 60% of borrowers."</p>
+    </div>
+
+    <h3>vs. Manual VOE</h3>
+    <div class="two-col" style="margin-bottom: 20px;">
+        <div class="card">
+            <h4>Manual Process</h4>
+            <ul>
+                <li>5-7 days turnaround</li>
+                <li>60% completion rate</li>
+                <li>Constant borrower follow-up</li>
+                <li>Stale data by closing</li>
+                <li>Can't scale without hiring</li>
+            </ul>
+        </div>
+        <div class="card card-green">
+            <h4 style="color: var(--truv-green);">With Truv</h4>
+            <ul>
+                <li>30-second verification</li>
+                <li>95% completion rate</li>
+                <li>Borrower self-service</li>
+                <li>Real-time data at close</li>
+                <li>Same team, more loans</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="section-divider"></div>
+
+    <h2>Handling Objections</h2>
+
+    <div class="objection">
+        <div class="they-say">
+            <div class="mini-label" style="color: var(--truv-red);">They Say</div>
+            <p style="margin:0; font-weight: 600;">"We already use The Work Number"</p>
+        </div>
+        <div class="you-say">
+            <div class="mini-label" style="color: var(--truv-green);">You Say</div>
+            <p style="margin:0;">"Most of our customers started there. TWN misses 40% of borrowers and prices go up 20% every six months. AmeriSave cut costs 80% by adding Truv. Most lenders run us alongside TWN to fill that 40% gap - and end up shifting volume to us."</p>
+        </div>
+    </div>
+
+    <div class="objection">
+        <div class="they-say">
+            <div class="mini-label" style="color: var(--truv-red);">They Say</div>
+            <p style="margin:0; font-weight: 600;">"We don't have the IT resources"</p>
+        </div>
+        <div class="you-say">
+            <div class="mini-label" style="color: var(--truv-green);">You Say</div>
+            <p style="margin:0;">"We integrate natively with Encompass, nCino, and most POS platforms. Orion Lending was live in under 2 weeks. Many customers go live with zero IT involvement using our Dashboard or Orders product."</p>
+        </div>
+    </div>
+
+    <div class="objection">
+        <div class="they-say">
+            <div class="mini-label" style="color: var(--truv-red);">They Say</div>
+            <p style="margin:0; font-weight: 600;">"Is this GSE-approved?"</p>
+        </div>
+        <div class="you-say">
+            <div class="mini-label" style="color: var(--truv-green);">You Say</div>
+            <p style="margin:0;">"Yes. We're approved by both Fannie Mae Desktop Underwriter and Freddie Mac Loan Product Advisor (AIM). CrossCountry saw 8% R&W relief uplift. First Continental saw 8.21% income validation R&W uplift."</p>
+        </div>
+    </div>
+
+    <div class="objection">
+        <div class="they-say">
+            <div class="mini-label" style="color: var(--truv-red);">They Say</div>
+            <p style="margin:0; font-weight: 600;">"What about borrower adoption?"</p>
+        </div>
+        <div class="you-say">
+            <div class="mini-label" style="color: var(--truv-green);">You Say</div>
+            <p style="margin:0;">"Our post-login conversion is 65-70%. MIG doubled their conversion from 25% to 50%. The borrower experience takes 30 seconds and works on mobile, desktop, text, email, or QR code."</p>
+        </div>
+    </div>
+</div>
+
+<!-- ============================================ -->
+<!-- PAGE 6: VOICE, DO/DON'T, DEAL SIZES           -->
+<!-- ============================================ -->
+<div class="page page-break">
+    <div class="page-header">
+        <span class="section-label">How to Talk About Truv</span>
+        <span class="page-num">6</span>
+    </div>
+
+    <h2>Sound Like a Peer, Not a Vendor</h2>
+    <p class="subtitle">Truv sounds like a senior lending ops practitioner who's been in the trenches. Confident expert, not corporate vendor. Lead with specifics, not buzzwords.</p>
+
+    <div class="do-dont" style="margin-bottom: 20px;">
+        <div class="do-col">
+            <h4 style="color: var(--truv-green); margin-bottom: 8px;">Do Say</h4>
+            <ul style="font-size: 12px;">
+                <li>"CrossCountry saved $10M annually."</li>
+                <li>"What do you do for the 40% TWN misses?"</li>
+                <li>"96% coverage, 30 seconds, $350 per loan."</li>
+                <li>"Most lenders at your scale face buyback risk from stale verification data."</li>
+                <li>"Worth 15 minutes to discuss?"</li>
+                <li>"Save up to 80%"</li>
+            </ul>
+        </div>
+        <div class="dont-col">
+            <h4 style="color: var(--truv-red); margin-bottom: 8px;">Never Say</h4>
+            <ul style="font-size: 12px;">
+                <li>"We're revolutionizing the verification space"</li>
+                <li>"I'd love to learn more about your needs!"</li>
+                <li>"Our AI-powered, seamless platform"</li>
+                <li>"Best-in-class, world-class, cutting-edge"</li>
+                <li>"Leverage our solution to optimize your workflow"</li>
+                <li>"Our customers see incredible ROI"</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="card card-amber" style="margin-bottom: 20px;">
+        <h4 style="color: var(--truv-amber); margin-bottom: 6px;">Banned Words</h4>
+        <p style="margin: 0; font-size: 12px;">Revolutionary, game-changing, disruptive, AI-powered, all-in-one, best-in-class, world-class, cutting-edge, leverage, utilize, synergy, seamless, "I'd love to...", "looking forward to partnering"</p>
+    </div>
+
+    <div class="section-divider"></div>
+
+    <h2>Deal Size Reference</h2>
+
+    <h3>Mortgage Lending</h3>
+    <table style="margin-bottom: 16px;">
+        <thead>
+            <tr>
+                <th>Tier</th>
+                <th>Employees</th>
+                <th>Volume</th>
+                <th>Deal Size</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="bold">Enterprise</td>
+                <td>500+</td>
+                <td>5,000+ loans/yr</td>
+                <td class="bold blue">$150K-$250K ARR</td>
+            </tr>
+            <tr>
+                <td class="bold">Mid-Market</td>
+                <td>100-500</td>
+                <td>1,000-5,000 loans/yr</td>
+                <td class="bold blue">$35K-$75K ARR</td>
+            </tr>
+            <tr>
+                <td class="bold">SMB</td>
+                <td>50-100</td>
+                <td>500-1,000 loans/yr</td>
+                <td class="bold blue">$12K-$35K ARR</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="two-col">
+        <div>
+            <h3>Credit Unions</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Tier</th>
+                        <th>Assets</th>
+                        <th>Deal</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>Large</td><td>$1B+</td><td class="bold blue">$40K-$60K</td></tr>
+                    <tr><td>Mid</td><td>$250M-$1B</td><td class="bold blue">$25K-$40K</td></tr>
+                    <tr><td>Small</td><td>$100M-$250M</td><td class="bold blue">$18K-$30K</td></tr>
+                </tbody>
+            </table>
+        </div>
+        <div>
+            <h3>Consumer / Fintech</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Tier</th>
+                        <th>Volume</th>
+                        <th>Deal</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>Enterprise</td><td>50K+ loans/yr</td><td class="bold blue">$100K-$150K</td></tr>
+                    <tr><td>Mid-Market</td><td>10K-50K/yr</td><td class="bold blue">$40K-$75K</td></tr>
+                    <tr><td>Early</td><td>1K-10K/yr</td><td class="bold blue">$25K-$40K</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="section-divider"></div>
+
+    <h3>Trust Signals (Use on Every Call)</h3>
+    <div class="stat-row">
+        <div class="stat-box">
+            <div class="val" style="font-size: 16px;">SOC 2 Type II</div>
+            <div class="lbl">Certified</div>
+        </div>
+        <div class="stat-box">
+            <div class="val" style="font-size: 16px;">FCRA</div>
+            <div class="lbl">Compliant</div>
+        </div>
+        <div class="stat-box">
+            <div class="val" style="font-size: 16px;">Fannie + Freddie</div>
+            <div class="lbl">GSE Approved</div>
+        </div>
+        <div class="stat-box">
+            <div class="val" style="font-size: 16px;">10M+</div>
+            <div class="lbl">Verifications</div>
+        </div>
+    </div>
+</div>
+
+<!-- ============================================ -->
+<!-- PAGE 7: QUICK REFERENCE / CHEAT SHEET          -->
+<!-- ============================================ -->
+<div class="page page-break">
+    <div class="page-header">
+        <span class="section-label">Quick Reference</span>
+        <span class="page-num">7</span>
+    </div>
+
+    <h2>Cheat Sheet: Selling by Persona</h2>
+    <p class="subtitle">Match your message to who you're talking to. Different buyers care about different things.</p>
+
+    <table style="margin-bottom: 20px;">
+        <thead>
+            <tr>
+                <th>Persona</th>
+                <th>Lead With</th>
+                <th>Key Metric</th>
+                <th>Name Drop</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="bold">COO / VP Ops</td>
+                <td>Cost savings, scale</td>
+                <td>$350/loan, 80% savings</td>
+                <td>CrossCountry ($10M), AmeriSave (80%)</td>
+            </tr>
+            <tr>
+                <td class="bold">Dir. Underwriting</td>
+                <td>Compliance, data quality</td>
+                <td>GSE approved, 99.99% fraud</td>
+                <td>CCM (8% R&W uplift)</td>
+            </tr>
+            <tr>
+                <td class="bold">CU Leader</td>
+                <td>Member experience, ease</td>
+                <td>Same-day, zero IT</td>
+                <td>AFCU (65% conversion, 80% savings)</td>
+            </tr>
+            <tr>
+                <td class="bold">Fintech CEO</td>
+                <td>Speed, fraud prevention</td>
+                <td>&lt;2s API, +15% fraud</td>
+                <td>HFS (65% conversion), TurboPass</td>
+            </tr>
+            <tr>
+                <td class="bold">Prop Mgmt</td>
+                <td>Speed, fake pay stubs</td>
+                <td>Verify during tours</td>
+                <td>Reduce vacancy days</td>
+            </tr>
+            <tr>
+                <td class="bold">BG Screening</td>
+                <td>White-label, new revenue</td>
+                <td>$500K+ new ARR</td>
+                <td>4-6 week integration</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="section-divider"></div>
+
+    <h2>Power Quotes by Theme</h2>
+    <p class="subtitle">Keep these loaded for calls, emails, and proposals.</p>
+
+    <h4 style="margin-top: 12px;">Cost Savings</h4>
+    <div class="quote">
+        <p>"Truv has given us the ability to lower costs, while speeding up the verification process and providing better employment data for our operations team."</p>
+        <span class="attr">Justin Venhousen, COO, Compass Mortgage</span>
+    </div>
+    <div class="quote">
+        <p>"The cost of Truv's VOIE is the most important reason to use Truv. It is saving us thousands of dollars."</p>
+        <span class="attr">Mary Rodgers, EVP, The Lender</span>
+    </div>
+
+    <h4 style="margin-top: 12px;">Partnership & Support</h4>
+    <div class="quote">
+        <p>"Truv has redefined what partnership means - delivering accurate, trustworthy data, rapid implementation, and the agility to help us close loans faster."</p>
+        <span class="attr">Tom Durney, EVP, CrossCountry Mortgage</span>
+    </div>
+    <div class="quote">
+        <p>"Our processors love that we can get ahold of someone at Truv within 4 hours. Compare that to other vendors, where our team couldn't reach a human for 2 years."</p>
+        <span class="attr">Jessica Kipnis, COO, First Continental Mortgage</span>
+    </div>
+
+    <h4 style="margin-top: 12px;">No-Brainer</h4>
+    <div class="quote">
+        <p>"There's no excuse for lenders to not look at a product like Truv. It works, it's easy for the borrower, the data set is superior, you benefit from GSE approvals, and the price is more competitive. It's a no-brainer."</p>
+        <span class="attr">Justin Venhousen, COO, Compass Mortgage</span>
+    </div>
+
+    <div class="page-footer" style="margin-top: 32px;">
+        <span>Truv Sales Playbook - Confidential</span>
+        <span>truv.com | sales@truv.com</span>
+    </div>
+</div>
+
+</body>
+</html>
