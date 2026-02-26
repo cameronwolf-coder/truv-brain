@@ -20,3 +20,15 @@ export async function getCampaignDetail(
   if (!res.ok) throw new Error(`HTTP ${res.status}`);
   return res.json();
 }
+
+export interface TemplatePreview {
+  name: string;
+  subject: string;
+  html_content: string;
+}
+
+export async function getTemplatePreview(templateId: string): Promise<TemplatePreview> {
+  const res = await fetch(`/api/email-template-preview?template_id=${encodeURIComponent(templateId)}`);
+  if (!res.ok) throw new Error(`HTTP ${res.status}`);
+  return res.json();
+}
