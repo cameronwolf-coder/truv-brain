@@ -201,19 +201,13 @@ export async function exportCampaignPdf(
     doc.text(met.value, bx + boxW / 2, by + 16, { align: 'center' });
   });
 
-  // --- Right column: Email template preview ---
+  // --- Right column: Email template preview (fixed width, true aspect ratio) ---
   if (templateCanvas) {
     const imgData = templateCanvas.toDataURL('image/jpeg', 0.85);
     const canvasAspect = templateCanvas.height / templateCanvas.width;
 
     const imgW = rightColWidth;
-    let imgH = imgW * canvasAspect;
-
-    // Cap to available page height
-    const maxImgH = pageHeight - kpiStartY - 12;
-    if (imgH > maxImgH) {
-      imgH = maxImgH;
-    }
+    const imgH = imgW * canvasAspect; // preserve aspect ratio exactly
 
     // Light border
     doc.setDrawColor(220, 220, 220);
