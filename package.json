@@ -19,6 +19,8 @@
     "framer-motion": "^12.24.10",
     "googleapis": "^171.2.0",
     "html2pdf.js": "^0.13.0",
+    "jspdf": "^4.2.0",
+    "jspdf-autotable": "^5.0.7",
     "openai": "^6.16.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
