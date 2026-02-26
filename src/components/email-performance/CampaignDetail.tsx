@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { getCampaignDetail } from '../../services/emailPerformanceClient';
+import { exportCampaignPdf } from '../../utils/exportCampaignPdf';
 import type { CampaignSummary, RecipientActivity } from '../../types/emailPerformance';
 import { MetricCard } from './MetricCard';
 
@@ -44,6 +45,7 @@ export function CampaignDetail({ campaign, onBack }: CampaignDetailProps) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [offset, setOffset] = useState(0);
+  const [exporting, setExporting] = useState(false);
   const limit = 50;
 
   useEffect(() => {
@@ -72,6 +74,22 @@ export function CampaignDetail({ campaign, onBack }: CampaignDetailProps) {
         </button>
         <h2 className="text-xl font-semibold text-gray-900">{campaign.name}</h2>
         <span className="text-xs text-gray-400 font-mono">{campaign.workflow_key}</span>
+        <button
+          onClick={async () => {
+            setExporting(true);
+            try {
+              await exportCampaignPdf(campaign);
+            } catch (err) {
+              console.error('PDF export failed:', err);
+            } finally {
+              setExporting(false);
+            }
+          }}
+          disabled={exporting}
+          className="ml-auto px-4 py-2 text-sm font-medium rounded-lg bg-truv-blue text-white hover:bg-blue-700 disabled:opacity-50 transition-colors"
+        >
+          {exporting ? 'Exporting...' : 'Export PDF'}
+        </button>
       </div>
 
       {/* Summary Metrics */}
