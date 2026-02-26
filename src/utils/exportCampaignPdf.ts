@@ -164,13 +164,14 @@ export async function exportCampaignPdf(
     alternateRowStyles: {
       fillColor: [248, 249, 252],
     },
+    tableWidth: 'auto',
     columnStyles: {
-      0: { cellWidth: 70 },
-      1: { halign: 'center', cellWidth: 22 },
-      2: { halign: 'center', cellWidth: 22 },
-      3: { halign: 'center', cellWidth: 22 },
-      4: { halign: 'center', cellWidth: 22 },
-      5: { halign: 'right', cellWidth: 40 },
+      0: { cellWidth: 'auto' },
+      1: { halign: 'center', cellWidth: 28 },
+      2: { halign: 'center', cellWidth: 26 },
+      3: { halign: 'center', cellWidth: 26 },
+      4: { halign: 'center', cellWidth: 26 },
+      5: { halign: 'right', cellWidth: 45 },
     },
     didParseCell(data) {
       // Color-code status column
