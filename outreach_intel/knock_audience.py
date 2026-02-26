@@ -1,16 +1,15 @@
-"""Push a HubSpot static list to Knock as an Audience.
+"""Push a HubSpot static list to Knock as an Audience and trigger staged sends.
 
 Usage:
     python -m outreach_intel.knock_audience push <hubspot_list_id> [--audience-key KEY]
     python -m outreach_intel.knock_audience info <audience_key>
+    python -m outreach_intel.knock_audience trigger <workflow_key> <audience_key> [--batch-size N] [--delay-seconds N] [--dry-run]
 
 How it works:
-    1. Pulls all contacts from the HubSpot static list
-    2. Adds them as members to a Knock Audience (auto-creates if needed)
-    3. Audience key defaults to a slug of the HubSpot list name
-
-The Knock Audiences API inline-identifies users when adding members,
-so no separate bulk identify step is needed.
+    push:    Pulls contacts from HubSpot list → adds as Knock Audience members
+    info:    Shows audience member count and sample members
+    trigger: Fires a Knock workflow for audience members in staged batches
+             with configurable pacing to protect email deliverability
 """
 
 import argparse
@@ -90,6 +89,13 @@ class KnockAudienceClient:
             if not after:
                 break
         return entries
+
+    def trigger_workflow(self, workflow_key: str, recipient_ids: list[str], data: dict | None = None) -> dict:
+        """Trigger a workflow for a list of recipients (max 1,000 per call)."""
+        body: dict[str, Any] = {"recipients": recipient_ids[:1000]}
+        if data:
+            body["data"] = data
+        return self._request("POST", f"/workflows/{workflow_key}/trigger", body)
 
 
 def fetch_hubspot_list_contacts(list_id: str) -> list[dict]:
@@ -221,6 +227,92 @@ def push_to_knock(
     return {"audience_key": key, "user_count": added}
 
 
+def staged_trigger(
+    workflow_key: str,
+    audience_key: str,
+    batch_size: int = 500,
+    delay_seconds: int = 60,
+    data: dict | None = None,
+    dry_run: bool = False,
+) -> dict:
+    """Trigger a Knock workflow for audience members in staged batches.
+
+    Paces sends to protect email deliverability for large audiences.
+    Default: 500 recipients per batch, 60s between batches (~30k/hour).
+
+    Args:
+        workflow_key: Knock workflow to trigger
+        audience_key: Knock audience to pull recipients from
+        batch_size: Recipients per batch (max 1,000)
+        delay_seconds: Seconds to wait between batches
+        data: Optional workflow trigger data
+        dry_run: If True, show plan without triggering
+
+    Returns:
+        dict with total_triggered and batch_count
+    """
+    knock = KnockAudienceClient()
+    batch_size = min(batch_size, 1000)
+
+    # 1. Get all audience members
+    print(f"Fetching audience members for '{audience_key}'...", flush=True)
+    members = knock.get_all_members(audience_key)
+    recipient_ids = [m["user_id"] for m in members]
+    total = len(recipient_ids)
+
+    if not recipient_ids:
+        print("No members found in audience.")
+        return {"total_triggered": 0, "batch_count": 0}
+
+    total_batches = math.ceil(total / batch_size)
+    est_minutes = (total_batches - 1) * delay_seconds / 60
+
+    print(f"\nStaged send plan:")
+    print(f"  Workflow:      {workflow_key}")
+    print(f"  Audience:      {audience_key}")
+    print(f"  Recipients:    {total}")
+    print(f"  Batch size:    {batch_size}")
+    print(f"  Batches:       {total_batches}")
+    print(f"  Delay:         {delay_seconds}s between batches")
+    print(f"  Est. duration: {est_minutes:.0f} minutes")
+    if data:
+        print(f"  Trigger data:  {data}")
+
+    if dry_run:
+        print(f"\n[DRY RUN] No workflows triggered.")
+        return {"total_triggered": 0, "batch_count": 0}
+
+    # 2. Trigger in batches
+    triggered = 0
+    for i in range(0, total, batch_size):
+        batch_num = i // batch_size + 1
+        batch = recipient_ids[i:i + batch_size]
+
+        print(f"\n  Batch {batch_num}/{total_batches}: triggering {len(batch)} recipients...", flush=True)
+        try:
+            result = knock.trigger_workflow(workflow_key, batch, data=data)
+            triggered += len(batch)
+            run_id = result.get("workflow_run_id", "—")
+            print(f"    OK (run: {run_id})", flush=True)
+        except requests.HTTPError as e:
+            print(f"    ERROR: {e}", flush=True)
+            print(f"    Stopping staged send to prevent partial delivery.", flush=True)
+            break
+
+        # Wait between batches (skip delay after last batch)
+        if batch_num < total_batches:
+            print(f"    Waiting {delay_seconds}s before next batch...", flush=True)
+            time.sleep(delay_seconds)
+
+    print(f"\n{'='*70}")
+    print(f"Staged send complete.")
+    print(f"  Triggered: {triggered}/{total} recipients")
+    print(f"  Batches:   {math.ceil(triggered / batch_size)}/{total_batches}")
+    print(f"{'='*70}")
+
+    return {"total_triggered": triggered, "batch_count": math.ceil(triggered / batch_size)}
+
+
 def main():
     parser = argparse.ArgumentParser(description="Manage Knock audiences from HubSpot lists")
     sub = parser.add_subparsers(dest="command", required=True)
@@ -233,6 +325,14 @@ def main():
     # info
     info_cmd = sub.add_parser("info", help="Show audience details and member count")
     info_cmd.add_argument("audience_key", help="Audience key")
+
+    # trigger
+    trigger_cmd = sub.add_parser("trigger", help="Trigger a workflow for audience members with staged pacing")
+    trigger_cmd.add_argument("workflow_key", help="Knock workflow key to trigger")
+    trigger_cmd.add_argument("audience_key", help="Knock audience key")
+    trigger_cmd.add_argument("--batch-size", type=int, default=500, help="Recipients per batch (default: 500, max: 1000)")
+    trigger_cmd.add_argument("--delay-seconds", type=int, default=60, help="Seconds between batches (default: 60)")
+    trigger_cmd.add_argument("--dry-run", action="store_true", help="Show plan without triggering")
 
     args = parser.parse_args()
     knock = KnockAudienceClient()
@@ -251,6 +351,15 @@ def main():
             for m in entries[:10]:
                 u = m.get("user", {})
                 print(f"    {u.get('name', '—')} <{u.get('email', '—')}>")
+
+    elif args.command == "trigger":
+        staged_trigger(
+            workflow_key=args.workflow_key,
+            audience_key=args.audience_key,
+            batch_size=args.batch_size,
+            delay_seconds=args.delay_seconds,
+            dry_run=args.dry_run,
+        )
 
 
 if __name__ == "__main__":
