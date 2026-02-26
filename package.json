@@ -13,6 +13,7 @@
     "@anthropic-ai/sdk": "^0.71.2",
     "@mendable/firecrawl-js": "^4.11.4",
     "@tinymce/tinymce-react": "^6.3.0",
+    "@upstash/redis": "^1.36.2",
     "@vercel/node": "^5.5.27",
     "eventsource-parser": "^3.0.6",
     "framer-motion": "^12.24.10",
