@@ -16,6 +16,7 @@ import { ABMBuilder } from './pages/ABMBuilder';
 import { DataEnrichment } from './pages/DataEnrichment';
 import { ExpertReview } from './pages/ExpertReview';
 import { UrlToEmail } from './pages/UrlToEmail';
+import { EmailPerformance } from './pages/EmailPerformance';
 import './index.css';
 
 const router = createBrowserRouter([
@@ -78,6 +79,10 @@ const router = createBrowserRouter([
       {
         path: 'url-to-email',
         element: <UrlToEmail />,
+      },
+      {
+        path: 'email-performance',
+        element: <EmailPerformance />,
       },
     ],
   },
