@@ -1,0 +1,1094 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HubSpot Events → Linear Projects | Automation Pipeline</title>
+
+    <!-- Fonts -->
+    <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=clash-display@500,600,700&f[]=satoshi@400,500,700&display=swap">
+
+    <style>
+        /* ===========================================
+           CSS CUSTOM PROPERTIES (TRUV BRAND)
+           =========================================== */
+        :root {
+            --truv-blue: #2c64e3;
+            --truv-dark: #0f1c47;
+            --truv-off-white: #f4f4f2;
+            --truv-blue-light: #c5d9f7;
+            --truv-blue-glow: rgba(44, 100, 227, 0.25);
+            --text-primary: #0f1c47;
+            --text-secondary: #4a5568;
+            --text-muted: #718096;
+
+            --font-display: 'Clash Display', sans-serif;
+            --font-body: 'Satoshi', sans-serif;
+
+            --title-size: clamp(2rem, 5.5vw, 4.5rem);
+            --h2-size: clamp(1.5rem, 3.5vw, 2.75rem);
+            --h3-size: clamp(1.1rem, 2vw, 1.5rem);
+            --body-size: clamp(0.8rem, 1.4vw, 1.1rem);
+            --small-size: clamp(0.7rem, 1vw, 0.9rem);
+            --label-size: clamp(0.6rem, 0.9vw, 0.75rem);
+
+            --slide-padding: clamp(1.5rem, 4vw, 5rem);
+            --content-gap: clamp(0.75rem, 2vw, 2rem);
+            --element-gap: clamp(0.4rem, 1vw, 1rem);
+
+            --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+            --duration-normal: 0.7s;
+        }
+
+        /* ===========================================
+           BASE STYLES
+           =========================================== */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-snap-type: y mandatory;
+            height: 100%;
+            overflow-x: hidden;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--truv-off-white);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            height: 100%;
+        }
+
+        /* ===========================================
+           SLIDE CONTAINER
+           =========================================== */
+        .slide {
+            width: 100vw;
+            height: 100vh;
+            height: 100dvh;
+            padding: var(--slide-padding);
+            scroll-snap-align: start;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .slide-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            max-height: 100%;
+            overflow: hidden;
+            max-width: min(90vw, 1100px);
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        /* ===========================================
+           PROGRESS BAR
+           =========================================== */
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: var(--truv-blue);
+            z-index: 100;
+            transition: width 0.3s ease;
+            width: 0%;
+        }
+
+        /* ===========================================
+           NAV DOTS
+           =========================================== */
+        .nav-dots {
+            position: fixed;
+            right: clamp(0.75rem, 2vw, 2rem);
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            z-index: 100;
+        }
+
+        .nav-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(15, 28, 71, 0.15);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            padding: 0;
+        }
+
+        .nav-dot.active {
+            background: var(--truv-blue);
+            transform: scale(1.3);
+        }
+
+        /* ===========================================
+           TYPOGRAPHY
+           =========================================== */
+        h1 {
+            font-family: var(--font-display);
+            font-size: var(--title-size);
+            font-weight: 700;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+        }
+
+        h2 {
+            font-family: var(--font-display);
+            font-size: var(--h2-size);
+            font-weight: 600;
+            line-height: 1.15;
+            letter-spacing: -0.01em;
+        }
+
+        h3 {
+            font-family: var(--font-display);
+            font-size: var(--h3-size);
+            font-weight: 600;
+            line-height: 1.3;
+        }
+
+        p, li {
+            font-size: var(--body-size);
+            line-height: 1.6;
+            color: var(--text-secondary);
+        }
+
+        .label {
+            font-size: var(--label-size);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--truv-blue);
+        }
+
+        /* ===========================================
+           ANIMATIONS
+           =========================================== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(25px);
+            transition: opacity var(--duration-normal) var(--ease-out-expo),
+                        transform var(--duration-normal) var(--ease-out-expo);
+        }
+
+        .slide.visible .reveal {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .reveal:nth-child(1) { transition-delay: 0.05s; }
+        .reveal:nth-child(2) { transition-delay: 0.15s; }
+        .reveal:nth-child(3) { transition-delay: 0.25s; }
+        .reveal:nth-child(4) { transition-delay: 0.35s; }
+        .reveal:nth-child(5) { transition-delay: 0.45s; }
+        .reveal:nth-child(6) { transition-delay: 0.55s; }
+
+        /* ===========================================
+           SLIDE 1: TITLE
+           =========================================== */
+        .title-slide {
+            background: var(--truv-dark);
+            color: white;
+        }
+
+        .title-slide .label {
+            color: var(--truv-blue-light);
+        }
+
+        .title-slide p {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .title-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(44, 100, 227, 0.15);
+            border: 1px solid rgba(44, 100, 227, 0.3);
+            border-radius: 100px;
+            padding: clamp(4px, 0.5vw, 8px) clamp(10px, 1.5vw, 20px);
+            font-size: var(--small-size);
+            color: var(--truv-blue-light);
+            margin-bottom: var(--content-gap);
+        }
+
+        .title-badge .dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #4ade80;
+            animation: pulse-dot 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse-dot {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+
+        .title-slide h1 {
+            margin-bottom: var(--element-gap);
+        }
+
+        .title-slide h1 .highlight {
+            color: var(--truv-blue);
+            background: linear-gradient(135deg, #2c64e3, #5b8def);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .title-meta {
+            display: flex;
+            gap: clamp(1rem, 3vw, 3rem);
+            margin-top: var(--content-gap);
+        }
+
+        .title-meta-item {
+            font-size: var(--small-size);
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        .title-meta-item strong {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* Background decoration */
+        .title-slide::before {
+            content: '';
+            position: absolute;
+            top: -30%;
+            right: -10%;
+            width: 60%;
+            height: 80%;
+            background: radial-gradient(ellipse, rgba(44, 100, 227, 0.08) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .title-slide::after {
+            content: '';
+            position: absolute;
+            bottom: -20%;
+            left: -10%;
+            width: 50%;
+            height: 60%;
+            background: radial-gradient(ellipse, rgba(44, 100, 227, 0.05) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        /* Grid lines on title */
+        .grid-overlay {
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+            background-size: 60px 60px;
+            pointer-events: none;
+        }
+
+        /* ===========================================
+           SLIDE 2: PROBLEM
+           =========================================== */
+        .problem-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+            gap: clamp(0.75rem, 1.5vw, 1.25rem);
+            margin-top: var(--content-gap);
+        }
+
+        .problem-card {
+            background: white;
+            border-radius: 12px;
+            padding: clamp(1rem, 2vw, 1.5rem);
+            border: 1px solid rgba(15, 28, 71, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .problem-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(15, 28, 71, 0.08);
+        }
+
+        .problem-icon {
+            width: clamp(32px, 3vw, 40px);
+            height: clamp(32px, 3vw, 40px);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: clamp(14px, 1.5vw, 18px);
+            margin-bottom: var(--element-gap);
+        }
+
+        .problem-icon.red { background: #fef2f2; color: #dc2626; }
+        .problem-icon.amber { background: #fffbeb; color: #d97706; }
+        .problem-icon.gray { background: #f3f4f6; color: #6b7280; }
+
+        .problem-card h3 {
+            margin-bottom: 4px;
+        }
+
+        .problem-card p {
+            font-size: var(--small-size);
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        /* ===========================================
+           SLIDE 3: ARCHITECTURE
+           =========================================== */
+        .arch-flow {
+            display: flex;
+            flex-direction: column;
+            gap: clamp(0.4rem, 1vh, 0.75rem);
+            margin-top: var(--content-gap);
+        }
+
+        .arch-step {
+            display: flex;
+            align-items: center;
+            gap: clamp(0.75rem, 1.5vw, 1.25rem);
+            background: white;
+            border-radius: 12px;
+            padding: clamp(0.6rem, 1.2vw, 1rem) clamp(0.8rem, 1.5vw, 1.25rem);
+            border: 1px solid rgba(15, 28, 71, 0.06);
+        }
+
+        .arch-num {
+            flex-shrink: 0;
+            width: clamp(28px, 2.5vw, 36px);
+            height: clamp(28px, 2.5vw, 36px);
+            border-radius: 50%;
+            background: var(--truv-blue);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: var(--small-size);
+        }
+
+        .arch-step-content h3 {
+            font-size: var(--body-size);
+            font-weight: 600;
+        }
+
+        .arch-step-content p {
+            font-size: var(--small-size);
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+
+        .arch-connector {
+            width: 2px;
+            height: clamp(8px, 1vh, 14px);
+            background: rgba(44, 100, 227, 0.2);
+            margin-left: clamp(14px, 1.25vw, 18px);
+            border-radius: 1px;
+        }
+
+        .arch-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: var(--label-size);
+            font-weight: 600;
+            margin-left: 8px;
+        }
+
+        .arch-badge.hubspot { background: #fff4e5; color: #ff7a59; }
+        .arch-badge.pipedream { background: #e8f5e9; color: #2e7d32; }
+        .arch-badge.linear { background: #ede9fe; color: #5b21b6; }
+
+        /* ===========================================
+           SLIDE 4: WHAT WAS BUILT
+           =========================================== */
+        .built-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+            gap: clamp(0.75rem, 1.5vw, 1.25rem);
+            margin-top: var(--content-gap);
+        }
+
+        .built-card {
+            background: white;
+            border-radius: 12px;
+            padding: clamp(1rem, 2vw, 1.5rem);
+            border: 1px solid rgba(15, 28, 71, 0.06);
+            display: flex;
+            flex-direction: column;
+            gap: var(--element-gap);
+        }
+
+        .built-card-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .built-card-icon {
+            width: clamp(28px, 2.5vw, 36px);
+            height: clamp(28px, 2.5vw, 36px);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: clamp(14px, 1.5vw, 18px);
+            flex-shrink: 0;
+        }
+
+        .built-card-icon.orange { background: #fff4e5; }
+        .built-card-icon.green { background: #e8f5e9; }
+        .built-card-icon.purple { background: #ede9fe; }
+
+        .built-card h3 {
+            font-size: clamp(0.95rem, 1.5vw, 1.2rem);
+        }
+
+        .built-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: clamp(4px, 0.5vh, 8px);
+        }
+
+        .built-list li {
+            font-size: var(--small-size);
+            color: var(--text-secondary);
+            padding-left: 16px;
+            position: relative;
+            line-height: 1.5;
+        }
+
+        .built-list li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 8px;
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: var(--truv-blue);
+            opacity: 0.4;
+        }
+
+        /* ===========================================
+           SLIDE 5: FIELD MAPPING
+           =========================================== */
+        .mapping-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: var(--content-gap);
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid rgba(15, 28, 71, 0.06);
+        }
+
+        .mapping-table thead th {
+            background: var(--truv-dark);
+            color: white;
+            font-family: var(--font-display);
+            font-size: var(--small-size);
+            font-weight: 600;
+            padding: clamp(8px, 1vh, 14px) clamp(12px, 1.5vw, 20px);
+            text-align: left;
+            letter-spacing: 0.02em;
+        }
+
+        .mapping-table tbody td {
+            font-size: var(--small-size);
+            padding: clamp(6px, 0.8vh, 12px) clamp(12px, 1.5vw, 20px);
+            border-bottom: 1px solid rgba(15, 28, 71, 0.04);
+            vertical-align: top;
+        }
+
+        .mapping-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .mapping-table tbody tr:hover {
+            background: rgba(44, 100, 227, 0.02);
+        }
+
+        .code-tag {
+            display: inline-block;
+            background: rgba(44, 100, 227, 0.06);
+            color: var(--truv-blue);
+            font-family: 'SF Mono', 'Fira Code', monospace;
+            font-size: calc(var(--small-size) * 0.9);
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+
+        .arrow-cell {
+            color: var(--truv-blue);
+            font-weight: 600;
+            text-align: center;
+        }
+
+        /* ===========================================
+           SLIDE 6: STATUS MAPPING
+           =========================================== */
+        .status-flow {
+            display: flex;
+            flex-direction: column;
+            gap: clamp(0.5rem, 1vh, 1rem);
+            margin-top: var(--content-gap);
+        }
+
+        .status-row {
+            display: flex;
+            align-items: center;
+            gap: clamp(0.5rem, 1.5vw, 1.5rem);
+            background: white;
+            border-radius: 12px;
+            padding: clamp(0.75rem, 1.2vw, 1.25rem) clamp(1rem, 2vw, 1.5rem);
+            border: 1px solid rgba(15, 28, 71, 0.06);
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: clamp(4px, 0.4vh, 6px) clamp(10px, 1vw, 14px);
+            border-radius: 100px;
+            font-size: var(--small-size);
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .status-badge .status-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+        }
+
+        .status-badge.upcoming { background: #eff6ff; color: #2563eb; }
+        .status-badge.upcoming .status-dot { background: #2563eb; }
+        .status-badge.in-progress { background: #fefce8; color: #ca8a04; }
+        .status-badge.in-progress .status-dot { background: #ca8a04; }
+        .status-badge.completed { background: #f0fdf4; color: #16a34a; }
+        .status-badge.completed .status-dot { background: #16a34a; }
+
+        .status-badge.planned { background: #f1f5f9; color: #475569; }
+        .status-badge.planned .status-dot { background: #475569; }
+        .status-badge.started { background: #fef9c3; color: #a16207; }
+        .status-badge.started .status-dot { background: #a16207; }
+        .status-badge.done { background: #dcfce7; color: #15803d; }
+        .status-badge.done .status-dot { background: #15803d; }
+
+        .status-arrow {
+            color: var(--truv-blue);
+            font-size: clamp(16px, 1.5vw, 22px);
+            flex-shrink: 0;
+        }
+
+        .status-label {
+            font-size: var(--label-size);
+            color: var(--text-muted);
+            min-width: 80px;
+            flex-shrink: 0;
+        }
+
+        /* ===========================================
+           SLIDE 7: RESULT
+           =========================================== */
+        .result-slide {
+            background: var(--truv-dark);
+            color: white;
+        }
+
+        .result-slide p {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .result-slide .label {
+            color: var(--truv-blue-light);
+        }
+
+        .result-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, 180px), 1fr));
+            gap: clamp(0.75rem, 1.5vw, 1.25rem);
+            margin-top: var(--content-gap);
+        }
+
+        .result-stat {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            padding: clamp(1rem, 1.5vw, 1.5rem);
+            text-align: center;
+        }
+
+        .result-stat .num {
+            font-family: var(--font-display);
+            font-size: clamp(2rem, 4vw, 3.5rem);
+            font-weight: 700;
+            color: var(--truv-blue);
+            background: linear-gradient(135deg, #2c64e3, #5b8def);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.1;
+        }
+
+        .result-stat .stat-label {
+            font-size: var(--small-size);
+            color: rgba(255, 255, 255, 0.5);
+            margin-top: 4px;
+        }
+
+        .result-slide::before {
+            content: '';
+            position: absolute;
+            top: -30%;
+            right: -10%;
+            width: 60%;
+            height: 80%;
+            background: radial-gradient(ellipse, rgba(44, 100, 227, 0.08) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .result-slide .grid-overlay {
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+            background-size: 60px 60px;
+            pointer-events: none;
+        }
+
+        .result-bottom {
+            margin-top: var(--content-gap);
+            padding-top: var(--element-gap);
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .result-bottom p {
+            font-size: var(--small-size);
+            color: rgba(255, 255, 255, 0.35);
+        }
+
+        /* ===========================================
+           RESPONSIVE BREAKPOINTS
+           =========================================== */
+        @media (max-height: 700px) {
+            :root {
+                --slide-padding: clamp(1rem, 3vw, 2.5rem);
+                --content-gap: clamp(0.5rem, 1.5vw, 1rem);
+                --title-size: clamp(1.75rem, 5vw, 3rem);
+                --h2-size: clamp(1.25rem, 3vw, 2rem);
+            }
+        }
+
+        @media (max-height: 600px) {
+            :root {
+                --slide-padding: clamp(0.75rem, 2.5vw, 1.5rem);
+                --content-gap: clamp(0.4rem, 1vw, 0.75rem);
+                --title-size: clamp(1.5rem, 4.5vw, 2.5rem);
+                --body-size: clamp(0.7rem, 1.2vw, 0.95rem);
+            }
+            .nav-dots { display: none; }
+        }
+
+        @media (max-height: 500px) {
+            :root {
+                --slide-padding: clamp(0.5rem, 2vw, 1rem);
+                --title-size: clamp(1.25rem, 4vw, 2rem);
+                --h2-size: clamp(1rem, 2.5vw, 1.5rem);
+                --body-size: clamp(0.65rem, 1vw, 0.85rem);
+            }
+        }
+
+        @media (max-width: 768px) {
+            :root {
+                --title-size: clamp(1.75rem, 8vw, 3rem);
+            }
+            .problem-grid { grid-template-columns: 1fr; }
+            .built-grid { grid-template-columns: 1fr; }
+            .result-stats { grid-template-columns: repeat(2, 1fr); }
+            .title-meta { flex-direction: column; gap: 4px; }
+            .status-label { display: none; }
+        }
+
+        @media (max-width: 500px) {
+            .mapping-table { font-size: 11px; }
+        }
+
+        /* ===========================================
+           REDUCED MOTION
+           =========================================== */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                transition-duration: 0.2s !important;
+            }
+            html { scroll-behavior: auto; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Progress bar -->
+    <div class="progress-bar" id="progress"></div>
+
+    <!-- Navigation dots -->
+    <nav class="nav-dots" id="navDots"></nav>
+
+    <!-- ==========================================
+         SLIDE 1: TITLE
+         ========================================== -->
+    <section class="slide title-slide" data-slide="0">
+        <div class="grid-overlay"></div>
+        <div class="slide-content">
+            <div class="title-badge reveal">
+                <span class="dot"></span>
+                Live in Production
+            </div>
+            <h1 class="reveal">
+                HubSpot Events<br>
+                <span class="highlight">→ Linear Projects</span>
+            </h1>
+            <p class="reveal" style="max-width: 520px; margin-top: var(--element-gap);">
+                Automated sync pipeline — every event created in HubSpot instantly becomes a trackable project in Linear.
+            </p>
+            <div class="title-meta reveal">
+                <span class="title-meta-item"><strong>Team:</strong> Growth Marketing</span>
+                <span class="title-meta-item"><strong>Built:</strong> March 2026</span>
+                <span class="title-meta-item"><strong>Stack:</strong> Pipedream + GraphQL</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================
+         SLIDE 2: THE PROBLEM
+         ========================================== -->
+    <section class="slide" data-slide="1">
+        <div class="slide-content">
+            <span class="label reveal">The Problem</span>
+            <h2 class="reveal" style="margin-top: var(--element-gap);">Manual event tracking across two systems</h2>
+            <div class="problem-grid">
+                <div class="problem-card reveal">
+                    <div class="problem-icon red">&#x2717;</div>
+                    <h3>Duplicate Entry</h3>
+                    <p>Every event was manually created in both HubSpot and Linear — double the effort, double the risk of errors.</p>
+                </div>
+                <div class="problem-card reveal">
+                    <div class="problem-icon amber">&#x26A0;</div>
+                    <h3>Stale Data</h3>
+                    <p>Date changes, status updates, and new events in HubSpot were never reflected in the Linear timeline view.</p>
+                </div>
+                <div class="problem-card reveal">
+                    <div class="problem-icon gray">&#x23F1;</div>
+                    <h3>No Single Source of Truth</h3>
+                    <p>Sales entered events in HubSpot, Marketing tracked them in Linear — neither system stayed in sync.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================
+         SLIDE 3: ARCHITECTURE
+         ========================================== -->
+    <section class="slide" data-slide="2">
+        <div class="slide-content">
+            <span class="label reveal">Architecture</span>
+            <h2 class="reveal" style="margin-top: var(--element-gap);">Three-step webhook pipeline</h2>
+            <div class="arch-flow">
+                <div class="arch-step reveal">
+                    <div class="arch-num">1</div>
+                    <div class="arch-step-content">
+                        <h3>HubSpot Workflow Triggers <span class="arch-badge hubspot">HubSpot</span></h3>
+                        <p>Event created or updated → fires webhook POST to Pipedream endpoint</p>
+                    </div>
+                </div>
+                <div class="arch-connector reveal"></div>
+                <div class="arch-step reveal">
+                    <div class="arch-num">2</div>
+                    <div class="arch-step-content">
+                        <h3>Fetch Event Details <span class="arch-badge pipedream">Pipedream</span></h3>
+                        <p>Retrieves full event record from HubSpot CRM API — name, dates, location, status, type</p>
+                    </div>
+                </div>
+                <div class="arch-connector reveal"></div>
+                <div class="arch-step reveal">
+                    <div class="arch-num">3</div>
+                    <div class="arch-step-content">
+                        <h3>Sync to Linear <span class="arch-badge linear">Linear</span></h3>
+                        <p>Search for existing project → create or update via GraphQL with mapped fields & status</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================
+         SLIDE 4: WHAT WAS BUILT
+         ========================================== -->
+    <section class="slide" data-slide="3">
+        <div class="slide-content">
+            <span class="label reveal">What Was Built</span>
+            <h2 class="reveal" style="margin-top: var(--element-gap);">Three components, fully automated</h2>
+            <div class="built-grid">
+                <div class="built-card reveal">
+                    <div class="built-card-header">
+                        <div class="built-card-icon orange">&#x2699;</div>
+                        <h3>HubSpot Workflow</h3>
+                    </div>
+                    <ul class="built-list">
+                        <li>Triggers on Event create & property change</li>
+                        <li>Re-enrollment enabled for updates</li>
+                        <li>Custom object type 2-56342751</li>
+                        <li>Webhook POST action to Pipedream</li>
+                    </ul>
+                </div>
+                <div class="built-card reveal">
+                    <div class="built-card-icon green">&#x26A1;</div>
+                    <h3>Pipedream Workflow</h3>
+                    </div>
+                    <ul class="built-list" style="margin-top: -8px; padding: 0 clamp(1rem, 2vw, 1.5rem) clamp(1rem, 2vw, 1.5rem);">
+                        <li>HTTP webhook trigger</li>
+                        <li>Code step: fetch from HubSpot API</li>
+                        <li>Code step: search + create/update Linear</li>
+                    </ul>
+                </div>
+                <div class="built-card reveal">
+                    <div class="built-card-header">
+                        <div class="built-card-icon purple">&#x1F4CA;</div>
+                        <h3>Linear Project Sync</h3>
+                    </div>
+                    <ul class="built-list">
+                        <li>[MKTG-EVENT] prefix for timeline views</li>
+                        <li>Status mapping via UUID status IDs</li>
+                        <li>Dedup by project name search</li>
+                        <li>Dates, location, type in description</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================
+         SLIDE 5: FIELD MAPPING
+         ========================================== -->
+    <section class="slide" data-slide="4">
+        <div class="slide-content">
+            <span class="label reveal">Field Mapping</span>
+            <h2 class="reveal" style="margin-top: var(--element-gap);">HubSpot → Linear translation</h2>
+            <table class="mapping-table reveal">
+                <thead>
+                    <tr>
+                        <th>HubSpot Event</th>
+                        <th></th>
+                        <th>Linear Project</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span class="code-tag">event_name</span></td>
+                        <td class="arrow-cell">→</td>
+                        <td><span class="code-tag">name</span> with [MKTG-EVENT] prefix</td>
+                    </tr>
+                    <tr>
+                        <td><span class="code-tag">event_start_date</span></td>
+                        <td class="arrow-cell">→</td>
+                        <td><span class="code-tag">startDate</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="code-tag">event_end_date</span></td>
+                        <td class="arrow-cell">→</td>
+                        <td><span class="code-tag">targetDate</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="code-tag">event_location</span></td>
+                        <td class="arrow-cell">→</td>
+                        <td>Included in <span class="code-tag">description</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="code-tag">event_url</span></td>
+                        <td class="arrow-cell">→</td>
+                        <td>Included in <span class="code-tag">description</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="code-tag">event_status</span></td>
+                        <td class="arrow-cell">→</td>
+                        <td><span class="code-tag">statusId</span> (UUID mapping)</td>
+                    </tr>
+                    <tr>
+                        <td><span class="code-tag">event_type</span></td>
+                        <td class="arrow-cell">→</td>
+                        <td>Included in <span class="code-tag">description</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- ==========================================
+         SLIDE 6: STATUS MAPPING
+         ========================================== -->
+    <section class="slide" data-slide="5">
+        <div class="slide-content">
+            <span class="label reveal">Status Mapping</span>
+            <h2 class="reveal" style="margin-top: var(--element-gap);">Lifecycle states stay in sync</h2>
+            <div class="status-flow">
+                <div class="status-row reveal">
+                    <span class="status-label">New event</span>
+                    <span class="status-badge upcoming"><span class="status-dot"></span>Upcoming</span>
+                    <span class="status-arrow">→</span>
+                    <span class="status-badge planned"><span class="status-dot"></span>Planned</span>
+                </div>
+                <div class="status-row reveal">
+                    <span class="status-label">Active</span>
+                    <span class="status-badge in-progress"><span class="status-dot"></span>In Progress</span>
+                    <span class="status-arrow">→</span>
+                    <span class="status-badge started"><span class="status-dot"></span>In Progress</span>
+                </div>
+                <div class="status-row reveal">
+                    <span class="status-label">Done</span>
+                    <span class="status-badge completed"><span class="status-dot"></span>Completed</span>
+                    <span class="status-arrow">→</span>
+                    <span class="status-badge done"><span class="status-dot"></span>Completed</span>
+                </div>
+            </div>
+            <p class="reveal" style="margin-top: var(--content-gap); font-size: var(--small-size); color: var(--text-muted);">
+                Status IDs are mapped to Linear's project workflow UUIDs, ensuring updates propagate correctly for timeline and filter views.
+            </p>
+        </div>
+    </section>
+
+    <!-- ==========================================
+         SLIDE 7: RESULT
+         ========================================== -->
+    <section class="slide result-slide" data-slide="6">
+        <div class="grid-overlay"></div>
+        <div class="slide-content">
+            <span class="label reveal">The Result</span>
+            <h2 class="reveal" style="margin-top: var(--element-gap); color: white;">Fully automated, zero manual entry</h2>
+            <p class="reveal" style="max-width: 560px;">
+                HubSpot is the single source of truth for events. Linear's timeline view updates automatically — no more copy-paste, no more stale data.
+            </p>
+            <div class="result-stats">
+                <div class="result-stat reveal">
+                    <div class="num">0</div>
+                    <div class="stat-label">Manual steps</div>
+                </div>
+                <div class="result-stat reveal">
+                    <div class="num">&lt;5s</div>
+                    <div class="stat-label">Sync latency</div>
+                </div>
+                <div class="result-stat reveal">
+                    <div class="num">7</div>
+                    <div class="stat-label">Fields mapped</div>
+                </div>
+                <div class="result-stat reveal">
+                    <div class="num">2-way</div>
+                    <div class="stat-label">Create & update</div>
+                </div>
+            </div>
+            <div class="result-bottom reveal">
+                <p>Built by Cameron Wolf &middot; Growth Marketing &middot; Truv</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===========================================
+         JAVASCRIPT
+         =========================================== -->
+    <script>
+        /* ===========================================
+           SLIDE PRESENTATION CONTROLLER
+           Handles navigation, animations, progress bar,
+           and navigation dots.
+           =========================================== */
+        class SlidePresentation {
+            constructor() {
+                this.slides = document.querySelectorAll('.slide');
+                this.totalSlides = this.slides.length;
+                this.progressBar = document.getElementById('progress');
+                this.navDotsContainer = document.getElementById('navDots');
+                this.currentSlide = 0;
+
+                this.createNavDots();
+                this.setupObserver();
+                this.setupKeyboard();
+                this.updateProgress();
+            }
+
+            createNavDots() {
+                for (let i = 0; i < this.totalSlides; i++) {
+                    const dot = document.createElement('button');
+                    dot.classList.add('nav-dot');
+                    dot.setAttribute('aria-label', `Go to slide ${i + 1}`);
+                    if (i === 0) dot.classList.add('active');
+                    dot.addEventListener('click', () => {
+                        this.slides[i].scrollIntoView({ behavior: 'smooth' });
+                    });
+                    this.navDotsContainer.appendChild(dot);
+                }
+                this.navDots = this.navDotsContainer.querySelectorAll('.nav-dot');
+            }
+
+            setupObserver() {
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('visible');
+                            const idx = parseInt(entry.target.dataset.slide);
+                            this.currentSlide = idx;
+                            this.updateProgress();
+                            this.updateDots();
+                        }
+                    });
+                }, { threshold: 0.4 });
+
+                this.slides.forEach(slide => observer.observe(slide));
+            }
+
+            setupKeyboard() {
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'ArrowDown' || e.key === 'ArrowRight' || e.key === ' ') {
+                        e.preventDefault();
+                        const next = Math.min(this.currentSlide + 1, this.totalSlides - 1);
+                        this.slides[next].scrollIntoView({ behavior: 'smooth' });
+                    } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
+                        e.preventDefault();
+                        const prev = Math.max(this.currentSlide - 1, 0);
+                        this.slides[prev].scrollIntoView({ behavior: 'smooth' });
+                    }
+                });
+            }
+
+            updateProgress() {
+                const pct = ((this.currentSlide + 1) / this.totalSlides) * 100;
+                this.progressBar.style.width = pct + '%';
+            }
+
+            updateDots() {
+                this.navDots.forEach((dot, i) => {
+                    dot.classList.toggle('active', i === this.currentSlide);
+                });
+            }
+        }
+
+        // Initialize
+        new SlidePresentation();
+    </script>
+</body>
+</html>
