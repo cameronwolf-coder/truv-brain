@@ -60,21 +60,33 @@ async function linearQuery(query: string, variables: Record<string, unknown> = {
 }
 
 async function fetchProjects() {
-  const data = await linearQuery(`
-    query {
-      team(id: "${TEAM_ID}") {
-        projects(first: 100) {
-          nodes {
-            id name url state
-            startDate targetDate
-            lead { name }
-            labels { nodes { name color } }
+  const allProjects: LinearProject[] = [];
+  let cursor: string | undefined;
+
+  do {
+    const data = await linearQuery(
+      `query($after: String) {
+        team(id: "${TEAM_ID}") {
+          projects(first: 100, after: $after) {
+            pageInfo { hasNextPage endCursor }
+            nodes {
+              id name url state
+              startDate targetDate
+              lead { name }
+              labels { nodes { name color } }
+            }
           }
         }
-      }
-    }
-  `);
-  const activeProjects = (data.team.projects.nodes as LinearProject[])
+      }`,
+      { after: cursor },
+    );
+
+    const { nodes, pageInfo } = data.team.projects;
+    allProjects.push(...nodes);
+    cursor = pageInfo.hasNextPage ? pageInfo.endCursor : undefined;
+  } while (cursor);
+
+  const activeProjects = allProjects
     .filter((p) => p.state === 'planned' || p.state === 'started');
 
   // Fetch issue counts per project in parallel (one query each, stays under complexity limit)

@@ -1,7 +1,8 @@
 import { useState, useMemo, lazy, Suspense, startTransition } from 'react';
-import { useCalendarEvents } from '../services/marketingHubClient';
+import { useCalendarEvents, useActivityFeed } from '../services/marketingHubClient';
 import { CalendarToolbar } from '../components/marketing-hub/CalendarToolbar';
 import { ProjectProgress } from '../components/marketing-hub/ProjectProgress';
+import { UpcomingFeed } from '../components/marketing-hub/UpcomingFeed';
 import type { CalendarEvent, CalendarViewType, MarketingHubFilters } from '../types/marketingHub';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -133,6 +134,7 @@ export function Hub() {
   const [filters, setFilters] = useState<MarketingHubFilters>(emptyFilters);
 
   const { events, projects: projectEvents, isLoading: calLoading, error: calError } = useCalendarEvents();
+  const { items: feedItems, isLoading: feedLoading } = useActivityFeed();
 
   const filterOptions = useMemo(() => {
     const categories = new Set<string>();
@@ -186,7 +188,7 @@ export function Hub() {
         {/* Header */}
         <div className="mb-6">
           <div className="flex items-center gap-3 mb-1">
-            <img src="/logos/truv-logomark.svg" alt="" className="w-7 h-7" />
+            <img src="/logos/logomark.svg" alt="" className="w-7 h-7" />
             <h1 className="text-2xl font-semibold text-gray-900">Marketing Hub</h1>
           </div>
           <p className="text-sm text-gray-500">
@@ -233,6 +235,17 @@ export function Hub() {
             )}
           </Suspense>
         )}
+
+        {/* Upcoming Events */}
+        <div className="mt-8">
+          <h2 className="text-lg font-semibold text-gray-900 mb-4">What's Happening</h2>
+          <UpcomingFeed
+            events={events}
+            recentActivity={feedItems}
+            isLoading={calLoading && feedLoading}
+            onEventClick={handleEventClick}
+          />
+        </div>
 
         {/* Project Progress */}
         <div className="mt-8">
