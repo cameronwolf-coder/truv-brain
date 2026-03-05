@@ -2,7 +2,6 @@ import { useState, useMemo, lazy, Suspense, startTransition } from 'react';
 import { useCalendarEvents, useTruvEvents, updateEvent } from '../services/marketingHubClient';
 import type { TruvEvent } from '../services/marketingHubClient';
 import { CalendarToolbar } from '../components/marketing-hub/CalendarToolbar';
-import { ProjectProgress } from '../components/marketing-hub/ProjectProgress';
 import { EventEditModal } from '../components/marketing-hub/EventEditModal';
 import type { CalendarEvent, CalendarViewType, MarketingHubFilters } from '../types/marketingHub';
 
@@ -338,6 +337,120 @@ function Legend() {
   );
 }
 
+// --- Compact Project Progress Rings ---
+
+const RING_COLORS: Record<string, string> = {
+  Event: '#ca8a04',
+  Growth: '#2c64e3',
+  PMM: '#10b981',
+  Ops: '#6b7280',
+  Other: '#6b7280',
+};
+
+function ProgressRing({ pct, color, size = 40 }: { pct: number; color: string; size?: number }) {
+  const r = (size - 6) / 2;
+  const circ = 2 * Math.PI * r;
+  const offset = circ - (pct / 100) * circ;
+  return (
+    <svg width={size} height={size} className="shrink-0">
+      <circle cx={size / 2} cy={size / 2} r={r} fill="none" stroke="#e5e7eb" strokeWidth={4} />
+      <circle
+        cx={size / 2}
+        cy={size / 2}
+        r={r}
+        fill="none"
+        stroke={color}
+        strokeWidth={4}
+        strokeLinecap="round"
+        strokeDasharray={circ}
+        strokeDashoffset={offset}
+        transform={`rotate(-90 ${size / 2} ${size / 2})`}
+      />
+    </svg>
+  );
+}
+
+function cleanProjectName(title: string): string {
+  return title.replace(/\[MKTG-\w+\]\s*/i, '');
+}
+
+const COLLAPSED_COUNT = 6;
+
+function ProjectRings({
+  projects,
+  isLoading,
+  onProjectClick,
+}: {
+  projects: CalendarEvent[];
+  isLoading: boolean;
+  onProjectClick: (p: CalendarEvent) => void;
+}) {
+  const [expanded, setExpanded] = useState(false);
+
+  if (isLoading) {
+    return (
+      <div className="mb-6 bg-white rounded-xl border border-gray-200 p-5 animate-pulse">
+        <div className="h-5 bg-gray-200 rounded w-40 mb-4" />
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
+          {[...Array(6)].map((_, i) => (
+            <div key={i} className="h-16 bg-gray-100 rounded-lg" />
+          ))}
+        </div>
+      </div>
+    );
+  }
+
+  if (projects.length === 0) return null;
+
+  const visible = expanded ? projects : projects.slice(0, COLLAPSED_COUNT);
+  const hasMore = projects.length > COLLAPSED_COUNT;
+
+  return (
+    <div className="mb-6 bg-white rounded-xl border border-gray-200">
+      <div className="px-5 py-4 border-b border-gray-100">
+        <h2 className="text-base font-semibold text-gray-900">Project Progress</h2>
+      </div>
+      <div className="p-4 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
+        {visible.map((p) => {
+          const total = p.totalIssues || 0;
+          const completed = p.completedIssues || 0;
+          const pct = total > 0 ? Math.round((completed / total) * 100) : 0;
+          const color = RING_COLORS[p.category] || RING_COLORS.Other;
+
+          return (
+            <button
+              key={p.id}
+              onClick={() => onProjectClick(p)}
+              className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 transition-colors text-left"
+            >
+              <div className="relative">
+                <ProgressRing pct={pct} color={color} />
+                <span className="absolute inset-0 flex items-center justify-center text-[10px] font-semibold text-gray-700">
+                  {pct}%
+                </span>
+              </div>
+              <div className="min-w-0">
+                <p className="text-sm font-medium text-gray-900 truncate">{cleanProjectName(p.title)}</p>
+                <p className="text-xs text-gray-400">{completed}/{total} tasks</p>
+              </div>
+            </button>
+          );
+        })}
+      </div>
+      {hasMore && (
+        <div className="px-5 pb-4">
+          <button
+            onClick={() => setExpanded(!expanded)}
+            className="text-sm text-truv-blue hover:text-blue-700 font-medium transition-colors"
+          >
+            {expanded ? 'Show less' : `Show all ${projects.length} projects`}
+          </button>
+        </div>
+      )}
+    </div>
+  );
+}
+
 // --- Main Hub Page ---
 
 export function Hub() {
@@ -442,15 +555,8 @@ export function Hub() {
         {/* Key Marketing Dates */}
         <KeyDates events={events} isLoading={calLoading} onEventClick={handleEventClick} />
 
-        {/* Project Progress */}
-        <div className="mb-6">
-          <h2 className="text-base font-semibold text-gray-900 mb-3">Project Progress</h2>
-          <ProjectProgress
-            projects={projectEvents}
-            isLoading={calLoading}
-            onProjectClick={handleEventClick}
-          />
-        </div>
+        {/* Project Progress — Compact Rings */}
+        <ProjectRings projects={projectEvents} isLoading={calLoading} onProjectClick={handleEventClick} />
 
         {/* Full Calendar — Collapsible */}
         <div className="border border-gray-200 rounded-xl bg-white overflow-hidden">
