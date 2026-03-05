@@ -3,7 +3,7 @@ import type { CalendarEvent } from '../../types/marketingHub';
 
 const HIGHLIGHT_OPTIONS = [
   { value: 'default', label: 'Default', color: '#6b7280', description: 'Status color' },
-  { value: 'gold', label: 'Gold / Live', color: '#d97706', description: 'Adds [LIVE] prefix' },
+  { value: 'gold', label: 'Gold / Live', color: '#ca8a04', description: 'Adds [LIVE] prefix' },
 ] as const;
 
 type HighlightValue = (typeof HIGHLIGHT_OPTIONS)[number]['value'];
