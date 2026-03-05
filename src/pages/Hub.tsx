@@ -174,7 +174,7 @@ const CATEGORY_COLORS: Record<string, { dot: string; bg: string; text: string; b
 // --- Key Dates ---
 
 function isKeyDate(e: CalendarEvent): boolean {
-  return e.type === 'project' || /\[LIVE\]/i.test(e.title) || e.category === 'Event';
+  return /\[LIVE\]/i.test(e.title) || e.category === 'Event';
 }
 
 function friendlyDateStr(dateStr: string): string {
@@ -191,10 +191,9 @@ function friendlyDateStr(dateStr: string): string {
 }
 
 function getKeyDateLabel(e: CalendarEvent): string {
-  if (/\[LIVE\]/i.test(e.title)) return 'Send';
-  if (e.category === 'Event') return 'Event';
-  if (e.type === 'project') return 'Campaign';
-  return 'Task';
+  if (/\[LIVE\]/i.test(e.title)) return 'Email Send';
+  if (e.category === 'Event') return 'Webinar';
+  return 'Event';
 }
 
 function KeyDates({
@@ -248,7 +247,7 @@ function KeyDates({
     <div className="mb-6 bg-white rounded-xl border border-gray-200">
       <div className="px-5 py-4 border-b border-gray-100">
         <h2 className="text-base font-semibold text-gray-900">Key Marketing Dates</h2>
-        <p className="text-xs text-gray-500 mt-0.5">Campaigns, webinars, and email sends</p>
+        <p className="text-xs text-gray-500 mt-0.5">Webinar dates and email sends</p>
       </div>
       <div className="divide-y divide-gray-100">
         {keyDates.map((e) => {
