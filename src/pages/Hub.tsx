@@ -199,13 +199,16 @@ function getKeyDateLabel(e: CalendarEvent): string {
   return 'Conference';
 }
 
-function getKeyDateTitle(e: CalendarEvent): string {
+function getKeyDateTitle(e: CalendarEvent): { main: string; detail?: string } {
   if (e.type === 'issue') {
-    // Show the actual task title — it's more specific than the project name
-    return e.title.replace(/\[MKTG-\w+\]\s*/i, '');
+    const projectName = e.project?.replace(/\[MKTG-\w+\]\s*/i, '');
+    const taskName = e.title.replace(/^\[LIVE\]\s*/i, '');
+    // If task name is generic ("Send"), just show project name
+    if (/^send$/i.test(taskName)) return { main: projectName || taskName };
+    // Otherwise show project name + task detail
+    return { main: projectName || taskName, detail: taskName };
   }
-  // For projects, strip the [MKTG-EVENT] prefix
-  return e.title.replace(/\[MKTG-\w+\]\s*/i, '');
+  return { main: e.title.replace(/\[MKTG-\w+\]\s*/i, '') };
 }
 
 function getKeyDateDate(e: CalendarEvent): string {
@@ -271,7 +274,7 @@ function KeyDates({
         {keyDates.map((e) => {
           const colors = CATEGORY_COLORS[e.category] || CATEGORY_COLORS.Other;
           const label = getKeyDateLabel(e);
-          const displayTitle = getKeyDateTitle(e);
+          const { main: displayTitle, detail } = getKeyDateTitle(e);
           const dateStr = getKeyDateDate(e);
           const isPast = parseDate(dateStr) <= new Date();
 
@@ -294,9 +297,10 @@ function KeyDates({
               </span>
 
               {/* Title */}
-              <span className="text-sm text-gray-800 truncate flex-1">
-                {displayTitle}
-              </span>
+              <div className="min-w-0 flex-1">
+                <span className="text-sm text-gray-800 truncate block">{displayTitle}</span>
+                {detail && <span className="text-xs text-gray-400 truncate block">{detail}</span>}
+              </div>
 
               {/* Assignee */}
               {e.assignee && (
