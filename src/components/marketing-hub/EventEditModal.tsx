@@ -1,6 +1,13 @@
 import { useState } from 'react';
 import type { CalendarEvent } from '../../types/marketingHub';
 
+const HIGHLIGHT_OPTIONS = [
+  { value: 'default', label: 'Default', color: '#6b7280', description: 'Status color' },
+  { value: 'gold', label: 'Gold / Live', color: '#d97706', description: 'Adds [LIVE] prefix' },
+] as const;
+
+type HighlightValue = (typeof HIGHLIGHT_OPTIONS)[number]['value'];
+
 interface EventEditModalProps {
   event: CalendarEvent;
   onClose: () => void;
@@ -8,10 +15,21 @@ interface EventEditModalProps {
   saving: boolean;
 }
 
+function hasLivePrefix(title: string): boolean {
+  return /^\[LIVE\]\s*/i.test(title);
+}
+
+function stripLivePrefix(title: string): string {
+  return title.replace(/^\[LIVE\]\s*/i, '');
+}
+
 export function EventEditModal({ event, onClose, onSave, saving }: EventEditModalProps) {
   const [title, setTitle] = useState(event.title);
   const [dueDate, setDueDate] = useState(event.start);
   const [endDate, setEndDate] = useState(event.end || '');
+  const [highlight, setHighlight] = useState<HighlightValue>(
+    hasLivePrefix(event.title) || event.category === 'Event' ? 'gold' : 'default',
+  );
 
   const isProject = event.type === 'project';
 
@@ -19,7 +37,18 @@ export function EventEditModal({ event, onClose, onSave, saving }: EventEditModa
     e.preventDefault();
     const updates: Record<string, string | undefined> = {};
 
-    if (title !== event.title) updates.title = title;
+    // Apply highlight: add or remove [LIVE] prefix
+    let finalTitle = title;
+    const hadLive = hasLivePrefix(event.title);
+    const wantsGold = highlight === 'gold';
+
+    if (wantsGold && !hasLivePrefix(finalTitle) && event.category !== 'Event') {
+      finalTitle = `[LIVE] ${finalTitle}`;
+    } else if (!wantsGold && hasLivePrefix(finalTitle)) {
+      finalTitle = stripLivePrefix(finalTitle);
+    }
+
+    if (finalTitle !== event.title) updates.title = finalTitle;
 
     if (isProject) {
       if (dueDate !== event.start) updates.startDate = dueDate;
@@ -84,6 +113,30 @@ export function EventEditModal({ event, onClose, onSave, saving }: EventEditModa
                 />
               </div>
             )}
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1.5">Highlight Color</label>
+            <div className="flex gap-2">
+              {HIGHLIGHT_OPTIONS.map((opt) => (
+                <button
+                  key={opt.value}
+                  type="button"
+                  onClick={() => setHighlight(opt.value)}
+                  className={`flex items-center gap-2 px-3 py-2 rounded-lg border text-sm transition-colors ${
+                    highlight === opt.value
+                      ? 'border-truv-blue bg-blue-50 text-gray-900'
+                      : 'border-gray-200 text-gray-600 hover:border-gray-300'
+                  }`}
+                >
+                  <span
+                    className="w-3 h-3 rounded-full shrink-0"
+                    style={{ backgroundColor: opt.color }}
+                  />
+                  {opt.label}
+                </button>
+              ))}
+            </div>
           </div>
 
           <div className="flex items-center gap-2 text-xs text-gray-500">
