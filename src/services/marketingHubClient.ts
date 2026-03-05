@@ -12,7 +12,7 @@ interface CalendarResponse {
 }
 
 export function useCalendarEvents(months = 3) {
-  const { data, error, isLoading } = useSWR<CalendarResponse>(
+  const { data, error, isLoading, mutate } = useSWR<CalendarResponse>(
     `/api/marketing-hub/linear-calendar?months=${months}`,
     fetcher,
     { revalidateOnFocus: false, dedupingInterval: 60000 },
@@ -20,7 +20,21 @@ export function useCalendarEvents(months = 3) {
 
   const events = data ? [...data.projects, ...data.issues] : [];
 
-  return { events, projects: data?.projects || [], issues: data?.issues || [], error, isLoading };
+  return { events, projects: data?.projects || [], issues: data?.issues || [], error, isLoading, mutate };
+}
+
+export async function updateEvent(
+  id: string,
+  type: 'project' | 'issue',
+  updates: Record<string, string | undefined>,
+): Promise<{ success: boolean }> {
+  const res = await fetch('/api/marketing-hub/update-event', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ id, type, updates }),
+  });
+  if (!res.ok) throw new Error(`HTTP ${res.status}`);
+  return res.json();
 }
 
 export function useActivityFeed(days = 30) {
