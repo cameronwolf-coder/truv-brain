@@ -175,6 +175,8 @@ const CATEGORY_COLORS: Record<string, { dot: string; bg: string; text: string; b
 function isKeyDate(e: CalendarEvent): boolean {
   // Email send tasks — the actual "Send" step in each project
   if (e.type === 'issue' && /\bSend\b/i.test(e.title)) return true;
+  // Content publish dates
+  if (e.type === 'issue' && /\bPublish\b/i.test(e.title)) return true;
   // Webinar/conference project-level dates (not individual tasks inside them)
   if (e.type === 'project' && e.category === 'Event') return true;
   return false;
@@ -194,6 +196,7 @@ function friendlyDateStr(dateStr: string): string {
 }
 
 function getKeyDateLabel(e: CalendarEvent): string {
+  if (e.type === 'issue' && /\bPublish\b/i.test(e.title)) return 'Publish';
   if (e.type === 'issue') return 'Email Send';
   if (/webinar/i.test(e.title)) return 'Webinar';
   return 'Conference';
@@ -203,8 +206,8 @@ function getKeyDateTitle(e: CalendarEvent): { main: string; detail?: string } {
   if (e.type === 'issue') {
     const projectName = e.project?.replace(/\[MKTG-\w+\]\s*/i, '');
     const taskName = e.title.replace(/^\[LIVE\]\s*/i, '');
-    // If task name is generic ("Send"), just show project name
-    if (/^send$/i.test(taskName)) return { main: projectName || taskName };
+    // If task name is generic ("Send", "Publish", etc.), just show project name
+    if (/^(send|publish|target publish date)$/i.test(taskName)) return { main: projectName || taskName };
     // Otherwise show project name + task detail
     return { main: projectName || taskName, detail: taskName };
   }
@@ -268,7 +271,7 @@ function KeyDates({
     <div className="mb-6 bg-white rounded-xl border border-gray-200">
       <div className="px-5 py-4 border-b border-gray-100">
         <h2 className="text-base font-semibold text-gray-900">Key Marketing Dates</h2>
-        <p className="text-xs text-gray-500 mt-0.5">Webinar dates and email sends</p>
+        <p className="text-xs text-gray-500 mt-0.5">Webinar dates, email sends, and publish dates</p>
       </div>
       <div className="divide-y divide-gray-100">
         {keyDates.map((e) => {
