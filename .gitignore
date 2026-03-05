@@ -63,4 +63,11 @@ venv/
 .vercel
 .env
 .env*.local
+.env.production
+.mcp.json
+.opencode/mcp.json
+.opencode/settings.json
 public/tinymce
+
+roi-calc-internal/
+sendgrid-mcp/

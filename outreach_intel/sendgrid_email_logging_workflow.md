@@ -127,8 +127,10 @@ export default defineComponent({
 > use `hs_email_headers` (JSON string) for sender/recipient metadata instead.
 > Associations must use the v3 batch endpoint, not v4 PUT.
 
-**Dedup logic:** Only `delivered`/`bounce`/`dropped`/`unsubscribe` events create email engagements.
-`open`/`click` events update **contact-level date properties** only — no duplicate timeline entries.
+**Dedup logic:** `delivered`/`bounce`/`dropped`/`unsubscribe` events always create email engagements.
+`open`/`click` events update **contact-level date properties** AND either:
+- **Update** the existing email engagement body (if a matching `sg_message_id` is found) with tracking info
+- **Backfill-create** a new email engagement (if the `delivered` event was missed) with tracking info included
 
 **Custom contact properties** (created Feb 2026):
 - `sg_last_email_open_date` — updated on every open event
@@ -183,8 +185,9 @@ export default defineComponent({
           continue;
         }
 
-        // 2a. For open/click events — update contact date properties only
+        // 2a. For open/click events — update contact properties + find/create engagement
         if (UPDATE_EVENTS.has(event.event)) {
+          // Update contact date properties
           if (event.event === "open") {
             const contactUpdates = { sg_last_email_open_date: event.timestamp };
             if (!contact.properties?.sg_first_email_open_date) {
@@ -209,7 +212,98 @@ export default defineComponent({
             );
           }
 
-          results.push({ email: event.email, contactId: contact.id, event: event.event, status: "updated" });
+          // Search for existing email engagement on this contact with matching message ID
+          let existingEmailId = null;
+          if (event.sg_message_id) {
+            const assocRes = await axios.get(
+              `https://api.hubapi.com/crm/v3/objects/contacts/${contact.id}/associations/emails`,
+              { headers }
+            );
+            const emailIds = (assocRes.data?.results || []).map(r => r.id);
+
+            // Check recent emails (last 10) for matching message ID in body
+            for (const eid of emailIds.slice(-10)) {
+              const emailObj = await axios.get(
+                `https://api.hubapi.com/crm/v3/objects/emails/${eid}?properties=hs_email_text`,
+                { headers }
+              );
+              const body = emailObj.data?.properties?.hs_email_text || "";
+              if (body.includes(event.sg_message_id)) {
+                existingEmailId = eid;
+                break;
+              }
+            }
+          }
+
+          const trackDate = new Date(event.timestamp).toLocaleDateString("en-US", {
+            year: "numeric", month: "short", day: "numeric", hour: "numeric", minute: "2-digit", timeZoneName: "short"
+          });
+          const trackLine = event.event === "open"
+            ? `Opened: ${trackDate}`
+            : `Clicked: ${event.url || "link"} at ${trackDate}`;
+
+          if (existingEmailId) {
+            // Update existing engagement body to append tracking info
+            const emailObj = await axios.get(
+              `https://api.hubapi.com/crm/v3/objects/emails/${existingEmailId}?properties=hs_email_text`,
+              { headers }
+            );
+            const currentBody = emailObj.data?.properties?.hs_email_text || "";
+            await axios.patch(
+              `https://api.hubapi.com/crm/v3/objects/emails/${existingEmailId}`,
+              { properties: { hs_email_text: currentBody + "\n" + trackLine } },
+              { headers }
+            );
+            results.push({ email: event.email, contactId: contact.id, engagementId: existingEmailId, event: event.event, status: "updated" });
+          } else {
+            // Backfill: create the email engagement since delivered was missed
+            const category = event.category || "Marketing";
+            const rawSubject = event.subject || "";
+            let emailSubject;
+            if (rawSubject && rawSubject !== "Email from Truv" && rawSubject !== "") {
+              emailSubject = rawSubject;
+            } else {
+              emailSubject = `Truv Marketing Email — ${category}`;
+            }
+
+            const bodyLines = [
+              `Status: Delivered`,
+              `Campaign: ${category}`,
+              `Sent: ${trackDate}`,
+              `Channel: SendGrid`,
+              `Message ID: ${event.sg_message_id}`,
+              trackLine,
+            ];
+
+            const emailRes = await axios.post(
+              "https://api.hubapi.com/crm/v3/objects/emails",
+              {
+                properties: {
+                  hs_timestamp: event.timestamp,
+                  hs_email_direction: "EMAIL",
+                  hs_email_status: "SENT",
+                  hs_email_subject: emailSubject,
+                  hs_email_text: bodyLines.join("\n"),
+                  hs_email_headers: JSON.stringify({
+                    from: { email: "insights@email.truv.com", firstName: "Truv", lastName: "Marketing" },
+                    to: [{ email: event.email, firstName: contact.properties?.firstname || "", lastName: contact.properties?.lastname || "" }],
+                  }),
+                },
+              },
+              { headers }
+            );
+
+            await axios.post(
+              "https://api.hubapi.com/crm/v3/associations/emails/contacts/batch/create",
+              {
+                inputs: [{ from: { id: emailRes.data.id }, to: { id: contact.id }, type: "email_to_contact" }],
+              },
+              { headers }
+            );
+
+            results.push({ email: event.email, contactId: contact.id, engagementId: emailRes.data.id, event: event.event, status: "backfilled" });
+          }
+
           continue;
         }
 
@@ -277,11 +371,12 @@ export default defineComponent({
 
     const logged = results.filter(r => r.status === "logged").length;
     const updated = results.filter(r => r.status === "updated").length;
+    const backfilled = results.filter(r => r.status === "backfilled").length;
     const skipped = results.filter(r => r.status === "skipped").length;
     const errors = results.filter(r => r.status === "error").length;
 
-    $.export("$summary", `Logged: ${logged}, Updated: ${updated}, Skipped: ${skipped}, Errors: ${errors}`);
-    return { summary: `Logged: ${logged}, Updated: ${updated}, Skipped: ${skipped}, Errors: ${errors}`, results };
+    $.export("$summary", `Logged: ${logged}, Updated: ${updated}, Backfilled: ${backfilled}, Skipped: ${skipped}, Errors: ${errors}`);
+    return { summary: `Logged: ${logged}, Updated: ${updated}, Backfilled: ${backfilled}, Skipped: ${skipped}, Errors: ${errors}`, results };
   },
 });
 ```
@@ -331,6 +426,10 @@ Each event in the array includes:
 
 These properties can be used in HubSpot lists and workflows for remarketing segments.
 
+### Engagement tracking (open/click events)
+
+When an `open` or `click` event arrives, the workflow searches for an existing email engagement on the contact (by matching `sg_message_id` in the body text). If found, tracking info is appended to the body (e.g., "Opened: Mar 3, 2026" or "Clicked: https://truv.com at Mar 3, 2026"). If no matching engagement exists (i.e., the `delivered` event was dropped), the workflow backfill-creates a new email engagement with status "Delivered" and the tracking info included.
+
 ## Required: Add subject and categories in Knock Workflows
 
 Every Knock workflow that sends email via the SendGrid HTTP channel **must** include `subject` and `categories` fields. Without these, the HubSpot engagement will fall back to "Truv Marketing Email — Marketing" with no way to identify which email the contact received.
@@ -350,8 +449,7 @@ Every Knock workflow that sends email via the SendGrid HTTP channel **must** inc
     "name": "Truv"
   },
   "template_id": "d-xxxxxxxxxxxx",
-  "subject": "Your Q1 2026 Product Update from Truv",
-  "categories": ["Marketing", "Product Update Q1 2026"],
+  "categories": ["Marketing", "{{ workflow.key }}"],
   "asm": {"group_id": 29127}
 }
 ```
@@ -360,8 +458,8 @@ Every Knock workflow that sends email via the SendGrid HTTP channel **must** inc
 
 | Field | Required | Purpose |
 |-------|----------|---------|
-| `subject` | **Yes** | Becomes the HubSpot timeline entry subject. Use a descriptive, human-readable subject. |
-| `categories` | **Yes** | Logged in HubSpot body as "Campaign: ...". Also filterable in SendGrid Activity. Use specific tags like `["Marketing", "Product Update Q1 2026"]` — not just `["Marketing"]`. |
+| `subject` | No | Optional override. Omit to let the SendGrid dynamic template control the subject. If set, it overrides the template subject AND becomes the HubSpot timeline entry subject. |
+| `categories` | **Yes** | Logged in HubSpot body as "Campaign: ...". Also filterable in SendGrid Activity. Use `["Marketing", "{{ workflow.key }}"]` — the liquid tag auto-populates from the Knock workflow key. |
 | `template_id` | Yes | The SendGrid dynamic template to render. |
 | `asm.group_id` | Yes | SendGrid unsubscribe group (29127 = Marketing). |
 
@@ -376,8 +474,7 @@ Every Knock workflow that sends email via the SendGrid HTTP channel **must** inc
 
 ### Checklist for new Knock workflows
 
-- [ ] `subject` is set to a descriptive, campaign-specific subject line
-- [ ] `categories` includes at least 2 tags: a general category (e.g., "Marketing") and a specific campaign name (e.g., "NPS Survey Jan 2026")
+- [ ] `categories` is set to `["Marketing", "{{ workflow.key }}"]` (auto-populates from Knock workflow key)
 - [ ] `template_id` points to the correct SendGrid template
 - [ ] `asm.group_id` is set (29127 for Marketing)
 

@@ -1,0 +1,234 @@
+/**
+ * Truv Design System - Utility Classes
+ * Source: truv.com
+ */
+
+/* ========================================
+   SPACING UTILITIES
+   ======================================== */
+
+/* Margin */
+.truv-m-0 { margin: 0; }
+.truv-m-1 { margin: var(--truv-space-1); }
+.truv-m-2 { margin: var(--truv-space-2); }
+.truv-m-3 { margin: var(--truv-space-3); }
+.truv-m-4 { margin: var(--truv-space-4); }
+.truv-m-5 { margin: var(--truv-space-5); }
+.truv-m-6 { margin: var(--truv-space-6); }
+.truv-m-7 { margin: var(--truv-space-7); }
+.truv-m-8 { margin: var(--truv-space-8); }
+
+.truv-mt-0 { margin-top: 0; }
+.truv-mt-4 { margin-top: var(--truv-space-4); }
+.truv-mt-6 { margin-top: var(--truv-space-6); }
+.truv-mt-8 { margin-top: var(--truv-space-8); }
+
+.truv-mb-0 { margin-bottom: 0; }
+.truv-mb-4 { margin-bottom: var(--truv-space-4); }
+.truv-mb-6 { margin-bottom: var(--truv-space-6); }
+.truv-mb-8 { margin-bottom: var(--truv-space-8); }
+
+.truv-mx-auto { margin-left: auto; margin-right: auto; }
+
+/* Padding */
+.truv-p-0 { padding: 0; }
+.truv-p-3 { padding: var(--truv-space-3); }
+.truv-p-4 { padding: var(--truv-space-4); }
+.truv-p-5 { padding: var(--truv-space-5); }
+.truv-p-6 { padding: var(--truv-space-6); }
+.truv-p-8 { padding: var(--truv-space-8); }
+
+.truv-py-4 { padding-top: var(--truv-space-4); padding-bottom: var(--truv-space-4); }
+.truv-py-6 { padding-top: var(--truv-space-6); padding-bottom: var(--truv-space-6); }
+.truv-py-8 { padding-top: var(--truv-space-8); padding-bottom: var(--truv-space-8); }
+
+.truv-px-4 { padding-left: var(--truv-space-4); padding-right: var(--truv-space-4); }
+.truv-px-6 { padding-left: var(--truv-space-6); padding-right: var(--truv-space-6); }
+
+/* Gap */
+.truv-gap-2 { gap: var(--truv-space-2); }
+.truv-gap-3 { gap: var(--truv-space-3); }
+.truv-gap-4 { gap: var(--truv-space-4); }
+.truv-gap-6 { gap: var(--truv-space-6); }
+.truv-gap-8 { gap: var(--truv-space-8); }
+
+/* ========================================
+   FLEXBOX UTILITIES
+   ======================================== */
+
+.truv-flex { display: flex; }
+.truv-flex-col { flex-direction: column; }
+.truv-flex-wrap { flex-wrap: wrap; }
+.truv-flex-1 { flex: 1; }
+
+.truv-items-start { align-items: flex-start; }
+.truv-items-center { align-items: center; }
+.truv-items-end { align-items: flex-end; }
+
+.truv-justify-start { justify-content: flex-start; }
+.truv-justify-center { justify-content: center; }
+.truv-justify-end { justify-content: flex-end; }
+.truv-justify-between { justify-content: space-between; }
+
+/* ========================================
+   BACKGROUND UTILITIES
+   ======================================== */
+
+.truv-bg-white { background-color: var(--truv-white); }
+.truv-bg-grey { background-color: var(--truv-grey); }
+.truv-bg-dark { background-color: var(--truv-dark); }
+.truv-bg-primary { background-color: var(--truv-primary); }
+.truv-bg-light-blue { background-color: var(--truv-light-blue); }
+
+/* ========================================
+   BORDER UTILITIES
+   ======================================== */
+
+.truv-rounded { border-radius: var(--truv-radius-md); }
+.truv-rounded-lg { border-radius: var(--truv-radius-lg); }
+.truv-rounded-xl { border-radius: var(--truv-radius-xl); }
+.truv-rounded-pill { border-radius: var(--truv-radius-pill); }
+.truv-rounded-full { border-radius: var(--truv-radius-full); }
+
+.truv-border { border: 1px solid var(--truv-border); }
+.truv-border-0 { border: none; }
+
+/* ========================================
+   SHADOW UTILITIES
+   ======================================== */
+
+.truv-shadow-none { box-shadow: none; }
+.truv-shadow-sm { box-shadow: var(--truv-shadow-sm); }
+.truv-shadow-md { box-shadow: var(--truv-shadow-md); }
+.truv-shadow-lg { box-shadow: var(--truv-shadow-lg); }
+.truv-shadow-glow { box-shadow: var(--truv-shadow-glow); }
+
+/* ========================================
+   WIDTH & HEIGHT UTILITIES
+   ======================================== */
+
+.truv-w-full { width: 100%; }
+.truv-w-auto { width: auto; }
+.truv-max-w-sm { max-width: 480px; }
+.truv-max-w-md { max-width: 640px; }
+.truv-max-w-lg { max-width: 800px; }
+.truv-max-w-xl { max-width: 1024px; }
+
+.truv-h-full { height: 100%; }
+.truv-h-screen { height: 100vh; }
+.truv-min-h-screen { min-height: 100vh; }
+
+/* ========================================
+   DISPLAY UTILITIES
+   ======================================== */
+
+.truv-block { display: block; }
+.truv-inline-block { display: inline-block; }
+.truv-inline-flex { display: inline-flex; }
+.truv-hidden { display: none; }
+.truv-grid { display: grid; }
+
+/* Responsive visibility */
+@media (max-width: 768px) {
+  .truv-hide-mobile { display: none !important; }
+}
+
+@media (min-width: 769px) {
+  .truv-hide-desktop { display: none !important; }
+}
+
+/* ========================================
+   POSITION UTILITIES
+   ======================================== */
+
+.truv-relative { position: relative; }
+.truv-absolute { position: absolute; }
+.truv-fixed { position: fixed; }
+.truv-sticky { position: sticky; }
+
+.truv-top-0 { top: 0; }
+.truv-left-0 { left: 0; }
+.truv-right-0 { right: 0; }
+.truv-bottom-0 { bottom: 0; }
+.truv-inset-0 { top: 0; right: 0; bottom: 0; left: 0; }
+
+/* ========================================
+   OVERFLOW UTILITIES
+   ======================================== */
+
+.truv-overflow-hidden { overflow: hidden; }
+.truv-overflow-auto { overflow: auto; }
+
+/* ========================================
+   TRANSITION UTILITIES
+   ======================================== */
+
+.truv-transition { transition: var(--truv-transition-base); }
+.truv-transition-fast { transition: var(--truv-transition-fast); }
+.truv-transition-smooth { transition: var(--truv-transition-smooth); }
+
+/* ========================================
+   HOVER EFFECTS
+   ======================================== */
+
+.truv-hover-lift:hover {
+  transform: translateY(-2px);
+}
+
+.truv-hover-scale:hover {
+  transform: scale(1.02);
+}
+
+.truv-hover-shadow:hover {
+  box-shadow: var(--truv-shadow-md);
+}
+
+/* ========================================
+   ANIMATION UTILITIES
+   ======================================== */
+
+@keyframes truv-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes truv-slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.truv-animate-fade-in {
+  animation: truv-fade-in 0.4s ease forwards;
+}
+
+.truv-animate-slide-up {
+  animation: truv-slide-up 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* ========================================
+   ACCESSIBILITY
+   ======================================== */
+
+.truv-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Focus visible for keyboard navigation */
+.truv-focus-visible:focus-visible {
+  outline: 2px solid var(--truv-primary);
+  outline-offset: 2px;
+}

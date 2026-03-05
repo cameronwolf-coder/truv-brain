@@ -1,0 +1,241 @@
+/**
+ * Truv Design System - Typography
+ * Source: truv.com
+ */
+
+/* ========================================
+   FONT FACES
+   ======================================== */
+
+@font-face {
+  font-family: 'Gilroy';
+  src: url('../fonts/Gilroy-Medium.woff2') format('woff2'),
+       url('../fonts/Gilroy-Medium.woff') format('woff');
+  font-weight: 400;
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Gilroy';
+  src: url('../fonts/Gilroy-SemiBold.woff2') format('woff2'),
+       url('../fonts/Gilroy-SemiBold.woff') format('woff');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ========================================
+   BASE TYPOGRAPHY
+   ======================================== */
+
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--truv-font-family);
+  font-size: var(--truv-text-base);
+  font-weight: var(--truv-font-medium);
+  line-height: var(--truv-leading-normal);
+  color: var(--truv-text-primary);
+}
+
+/* ========================================
+   HEADINGS
+   ======================================== */
+
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6 {
+  font-family: var(--truv-font-family);
+  font-weight: var(--truv-font-medium);
+  line-height: var(--truv-leading-tight);
+  color: var(--truv-text-primary);
+  margin: 0 0 var(--truv-space-4) 0;
+}
+
+h1, .h1 {
+  font-size: var(--truv-text-4xl); /* 64px */
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+h2, .h2 {
+  font-size: var(--truv-text-2xl); /* 36px */
+  line-height: var(--truv-leading-tight);
+}
+
+h3, .h3 {
+  font-size: var(--truv-text-xl); /* 24px */
+  line-height: var(--truv-leading-snug);
+}
+
+h4, .h4 {
+  font-size: var(--truv-text-lg); /* 18px */
+  line-height: var(--truv-leading-snug);
+}
+
+h5, .h5 {
+  font-size: var(--truv-text-base); /* 15px */
+  font-weight: var(--truv-font-semibold);
+}
+
+h6, .h6 {
+  font-size: var(--truv-text-sm); /* 12px */
+  font-weight: var(--truv-font-semibold);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Hero heading - extra large */
+.truv-hero-title {
+  font-size: var(--truv-text-5xl); /* 87px */
+  font-weight: var(--truv-font-medium);
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+}
+
+@media (max-width: 768px) {
+  h1, .h1 {
+    font-size: var(--truv-text-3xl); /* 48px */
+  }
+
+  .truv-hero-title {
+    font-size: var(--truv-text-3xl); /* 48px */
+  }
+
+  h2, .h2 {
+    font-size: var(--truv-text-xl); /* 24px */
+  }
+}
+
+/* ========================================
+   BODY TEXT
+   ======================================== */
+
+p {
+  margin: 0 0 var(--truv-space-4) 0;
+  line-height: var(--truv-leading-relaxed);
+}
+
+.truv-lead {
+  font-size: var(--truv-text-lg);
+  line-height: var(--truv-leading-relaxed);
+  color: var(--truv-text-secondary);
+}
+
+.truv-small {
+  font-size: var(--truv-text-sm);
+}
+
+.truv-xs {
+  font-size: var(--truv-text-xs);
+}
+
+/* ========================================
+   LINKS
+   ======================================== */
+
+a {
+  color: var(--truv-text-primary);
+  text-decoration: none;
+  transition: var(--truv-transition-fast);
+}
+
+a:hover {
+  color: var(--truv-primary);
+}
+
+.truv-link {
+  color: var(--truv-primary);
+  text-decoration: none;
+}
+
+.truv-link:hover {
+  text-decoration: underline;
+}
+
+/* Link with arrow */
+.truv-link-arrow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--truv-space-2);
+  font-weight: var(--truv-font-medium);
+}
+
+.truv-link-arrow::after {
+  content: '→';
+  transition: transform var(--truv-transition-smooth);
+}
+
+.truv-link-arrow:hover::after {
+  transform: translateX(4px);
+}
+
+/* ========================================
+   LABELS & BADGES
+   ======================================== */
+
+.truv-label {
+  display: inline-block;
+  font-size: var(--truv-text-xs);
+  font-weight: var(--truv-font-semibold);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--truv-primary);
+}
+
+.truv-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--truv-space-1) var(--truv-space-3);
+  font-size: var(--truv-text-xs);
+  font-weight: var(--truv-font-semibold);
+  background: var(--truv-light-blue);
+  color: var(--truv-primary);
+  border-radius: var(--truv-radius-pill);
+}
+
+/* ========================================
+   LISTS
+   ======================================== */
+
+ul, ol {
+  margin: 0 0 var(--truv-space-4) 0;
+  padding-left: var(--truv-space-5);
+}
+
+li {
+  margin-bottom: var(--truv-space-2);
+}
+
+/* Unstyled list */
+.truv-list-none {
+  list-style: none;
+  padding: 0;
+}
+
+/* ========================================
+   TEXT UTILITIES
+   ======================================== */
+
+.truv-text-primary { color: var(--truv-primary); }
+.truv-text-dark { color: var(--truv-dark); }
+.truv-text-muted { color: var(--truv-text-muted); }
+.truv-text-white { color: var(--truv-white); }
+.truv-text-error { color: var(--truv-error); }
+
+.truv-text-center { text-align: center; }
+.truv-text-left { text-align: left; }
+.truv-text-right { text-align: right; }
+
+.truv-font-medium { font-weight: var(--truv-font-medium); }
+.truv-font-semibold { font-weight: var(--truv-font-semibold); }
+
+.truv-uppercase {
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}

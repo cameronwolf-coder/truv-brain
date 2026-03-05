@@ -1,0 +1,1054 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HubSpot Events → Linear Projects — Automation Summary</title>
+
+    <!-- Gilroy via local fonts -->
+    <style>
+        @font-face {
+            font-family: 'Gilroy';
+            src: url('../public/fonts/Gilroy-Medium.woff2') format('woff2'),
+                 url('../public/fonts/Gilroy-Medium.woff') format('woff');
+            font-weight: 500;
+            font-style: normal;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'Gilroy';
+            src: url('../public/fonts/Gilroy-SemiBold.woff2') format('woff2'),
+                 url('../public/fonts/Gilroy-SemiBold.woff') format('woff');
+            font-weight: 600;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        /* ===========================================
+           TRUV BRAND TOKENS
+           =========================================== */
+        :root {
+            --truv-blue: #2c64e3;
+            --truv-blue-dark: #0f1c47;
+            --truv-blue-light: #c5d9f7;
+            --truv-bg: #f4f4f2;
+            --truv-white: #ffffff;
+            --truv-accent: #2c64e3;
+            --truv-accent-glow: rgba(44, 100, 227, 0.25);
+            --truv-muted: #6b7a99;
+            --truv-border: rgba(44, 100, 227, 0.15);
+            --truv-success: #22c55e;
+            --truv-orange: #f59e0b;
+
+            /* Typography — clamp for viewport fitting */
+            --font-display: 'Gilroy', system-ui, -apple-system, sans-serif;
+            --title-size: clamp(1.75rem, 5vw, 3.5rem);
+            --h2-size: clamp(1.25rem, 3.5vw, 2.25rem);
+            --h3-size: clamp(1rem, 2vw, 1.35rem);
+            --body-size: clamp(0.75rem, 1.3vw, 1.05rem);
+            --small-size: clamp(0.65rem, 1vw, 0.85rem);
+            --mono-size: clamp(0.6rem, 0.9vw, 0.8rem);
+
+            /* Spacing */
+            --slide-padding: clamp(1.5rem, 5vw, 5rem);
+            --content-gap: clamp(0.75rem, 2vw, 2rem);
+            --element-gap: clamp(0.4rem, 1vw, 1rem);
+
+            /* Animation */
+            --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+            --duration: 0.7s;
+        }
+
+        /* ===========================================
+           BASE
+           =========================================== */
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html {
+            height: 100%;
+            scroll-snap-type: y mandatory;
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+
+        body {
+            font-family: var(--font-display);
+            background: var(--truv-bg);
+            color: var(--truv-blue-dark);
+            height: 100%;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ===========================================
+           SLIDE — exact viewport fit
+           =========================================== */
+        .slide {
+            width: 100vw;
+            height: 100vh;
+            height: 100dvh;
+            overflow: hidden;
+            scroll-snap-align: start;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .slide-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            max-height: 100%;
+            overflow: hidden;
+            padding: var(--slide-padding);
+        }
+
+        /* ===========================================
+           PROGRESS BAR
+           =========================================== */
+        .progress-bar {
+            position: fixed;
+            top: 0; left: 0;
+            height: 3px;
+            background: var(--truv-blue-light);
+            z-index: 200;
+            transition: width 0.3s ease;
+            width: 0%;
+            pointer-events: none;
+        }
+
+        /* ===========================================
+           NAV DOTS
+           =========================================== */
+        .nav-dots {
+            position: fixed;
+            right: clamp(0.75rem, 2vw, 1.5rem);
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 90;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .nav-dot {
+            width: 8px; height: 8px;
+            border-radius: 50%;
+            background: var(--truv-blue-light);
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            padding: 0;
+        }
+        .nav-dot.active {
+            background: var(--truv-blue);
+            transform: scale(1.4);
+        }
+
+        /* ===========================================
+           SLIDE COUNTER
+           =========================================== */
+        .slide-counter {
+            position: fixed;
+            bottom: clamp(0.75rem, 2vw, 1.5rem);
+            right: clamp(0.75rem, 2vw, 1.5rem);
+            font-size: var(--small-size);
+            color: var(--truv-muted);
+            z-index: 90;
+            font-weight: 500;
+        }
+
+        /* ===========================================
+           TYPOGRAPHY
+           =========================================== */
+        h1 {
+            font-size: var(--title-size);
+            font-weight: 600;
+            line-height: 1.15;
+            letter-spacing: -0.02em;
+        }
+        h2 {
+            font-size: var(--h2-size);
+            font-weight: 600;
+            line-height: 1.2;
+            letter-spacing: -0.01em;
+        }
+        h3 {
+            font-size: var(--h3-size);
+            font-weight: 600;
+            line-height: 1.3;
+        }
+        p, li {
+            font-size: var(--body-size);
+            line-height: 1.55;
+            font-weight: 500;
+        }
+
+        /* ===========================================
+           TAG / LABEL
+           =========================================== */
+        .tag {
+            display: inline-block;
+            font-size: var(--small-size);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--truv-blue);
+            background: rgba(44, 100, 227, 0.08);
+            padding: 0.3em 0.8em;
+            border-radius: 4px;
+            margin-bottom: var(--element-gap);
+        }
+
+        /* ===========================================
+           ANIMATIONS
+           =========================================== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity var(--duration) var(--ease-out-expo),
+                        transform var(--duration) var(--ease-out-expo);
+        }
+        .slide.visible .reveal {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .reveal:nth-child(1) { transition-delay: 0.05s; }
+        .reveal:nth-child(2) { transition-delay: 0.15s; }
+        .reveal:nth-child(3) { transition-delay: 0.25s; }
+        .reveal:nth-child(4) { transition-delay: 0.35s; }
+        .reveal:nth-child(5) { transition-delay: 0.45s; }
+        .reveal:nth-child(6) { transition-delay: 0.55s; }
+
+        .reveal-scale {
+            opacity: 0;
+            transform: scale(0.92);
+            transition: opacity var(--duration) var(--ease-out-expo),
+                        transform var(--duration) var(--ease-out-expo);
+        }
+        .slide.visible .reveal-scale {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* ===========================================
+           TITLE SLIDE
+           =========================================== */
+        .title-slide {
+            background: var(--truv-blue-dark);
+            color: var(--truv-white);
+        }
+        .title-slide .slide-content {
+            gap: var(--content-gap);
+        }
+        .title-slide .tag {
+            color: var(--truv-blue-light);
+            background: rgba(197, 217, 247, 0.1);
+        }
+        .title-slide h1 {
+            max-width: 16ch;
+        }
+        .title-slide .subtitle {
+            color: rgba(255, 255, 255, 0.6);
+            max-width: 40ch;
+        }
+        .title-slide .meta {
+            font-size: var(--small-size);
+            color: rgba(255, 255, 255, 0.35);
+            margin-top: auto;
+            padding-top: var(--content-gap);
+        }
+        .title-logo {
+            position: absolute;
+            bottom: var(--slide-padding);
+            right: var(--slide-padding);
+            height: clamp(20px, 3vw, 32px);
+            opacity: 0.35;
+        }
+
+        /* Decorative grid on title */
+        .title-slide::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(44, 100, 227, 0.06) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(44, 100, 227, 0.06) 1px, transparent 1px);
+            background-size: clamp(30px, 5vw, 60px) clamp(30px, 5vw, 60px);
+            pointer-events: none;
+        }
+        /* Glow accent */
+        .title-slide::after {
+            content: '';
+            position: absolute;
+            bottom: -20%;
+            right: -10%;
+            width: 50vw;
+            height: 50vw;
+            background: radial-gradient(circle, rgba(44, 100, 227, 0.2) 0%, transparent 60%);
+            pointer-events: none;
+        }
+
+        /* ===========================================
+           PROBLEM SLIDE
+           =========================================== */
+        .problem-slide .slide-content {
+            gap: var(--content-gap);
+        }
+        .pain-points {
+            display: flex;
+            flex-direction: column;
+            gap: var(--element-gap);
+            margin-top: var(--element-gap);
+        }
+        .pain-point {
+            display: flex;
+            align-items: flex-start;
+            gap: clamp(0.5rem, 1.2vw, 1rem);
+            padding: clamp(0.6rem, 1.2vw, 1rem) clamp(0.8rem, 1.5vw, 1.25rem);
+            background: var(--truv-white);
+            border-radius: 10px;
+            border: 1px solid var(--truv-border);
+        }
+        .pain-icon {
+            flex-shrink: 0;
+            width: clamp(28px, 3vw, 40px);
+            height: clamp(28px, 3vw, 40px);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: clamp(14px, 1.5vw, 20px);
+        }
+        .pain-icon.red { background: rgba(239, 68, 68, 0.1); }
+        .pain-icon.orange { background: rgba(245, 158, 11, 0.1); }
+        .pain-icon.yellow { background: rgba(234, 179, 8, 0.1); }
+        .pain-point strong {
+            display: block;
+            font-size: var(--body-size);
+            margin-bottom: 2px;
+        }
+        .pain-point span {
+            font-size: var(--small-size);
+            color: var(--truv-muted);
+        }
+
+        /* ===========================================
+           ARCHITECTURE SLIDE
+           =========================================== */
+        .arch-slide {
+            background: var(--truv-blue-dark);
+            color: var(--truv-white);
+        }
+        .arch-slide .tag {
+            color: var(--truv-blue-light);
+            background: rgba(197, 217, 247, 0.1);
+        }
+        .arch-slide .slide-content {
+            gap: var(--content-gap);
+        }
+        .pipeline {
+            display: flex;
+            align-items: stretch;
+            gap: 0;
+            margin-top: var(--element-gap);
+        }
+        .pipe-step {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: clamp(0.6rem, 1.5vw, 1.25rem) clamp(0.4rem, 1vw, 0.75rem);
+            position: relative;
+        }
+        .pipe-step:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 0;
+            height: 0;
+            border-top: 8px solid transparent;
+            border-bottom: 8px solid transparent;
+            border-left: 10px solid rgba(44, 100, 227, 0.4);
+        }
+        .pipe-icon {
+            width: clamp(40px, 5vw, 64px);
+            height: clamp(40px, 5vw, 64px);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: clamp(18px, 2.5vw, 28px);
+            margin-bottom: clamp(0.3rem, 0.8vw, 0.6rem);
+            background: rgba(44, 100, 227, 0.15);
+            border: 1px solid rgba(44, 100, 227, 0.3);
+        }
+        .pipe-step h3 {
+            font-size: var(--small-size);
+            color: var(--truv-white);
+            margin-bottom: 4px;
+        }
+        .pipe-step p {
+            font-size: clamp(0.55rem, 0.8vw, 0.75rem);
+            color: rgba(255, 255, 255, 0.45);
+            line-height: 1.3;
+        }
+
+        /* ===========================================
+           HUBSPOT WORKFLOW SLIDE
+           =========================================== */
+        .hs-slide .slide-content {
+            gap: var(--content-gap);
+        }
+        .config-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
+            gap: var(--element-gap);
+            margin-top: var(--element-gap);
+        }
+        .config-card {
+            background: var(--truv-white);
+            border-radius: 10px;
+            padding: clamp(0.75rem, 1.5vw, 1.25rem);
+            border: 1px solid var(--truv-border);
+        }
+        .config-card h3 {
+            font-size: var(--small-size);
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: var(--truv-muted);
+            margin-bottom: clamp(0.3rem, 0.6vw, 0.5rem);
+        }
+        .config-card p {
+            font-size: var(--body-size);
+            font-weight: 600;
+            color: var(--truv-blue-dark);
+        }
+        .config-card .detail {
+            font-size: var(--small-size);
+            color: var(--truv-muted);
+            font-weight: 500;
+            margin-top: 4px;
+        }
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: var(--small-size);
+            font-weight: 600;
+            color: var(--truv-success);
+        }
+        .status-badge::before {
+            content: '';
+            width: 7px; height: 7px;
+            border-radius: 50%;
+            background: var(--truv-success);
+        }
+
+        /* ===========================================
+           PIPEDREAM SLIDE
+           =========================================== */
+        .pd-slide .slide-content {
+            gap: var(--content-gap);
+        }
+        .steps {
+            display: flex;
+            flex-direction: column;
+            gap: var(--element-gap);
+            margin-top: var(--element-gap);
+        }
+        .step {
+            display: flex;
+            align-items: flex-start;
+            gap: clamp(0.6rem, 1.2vw, 1rem);
+            padding: clamp(0.6rem, 1.2vw, 1rem) clamp(0.8rem, 1.5vw, 1.25rem);
+            background: var(--truv-white);
+            border-radius: 10px;
+            border: 1px solid var(--truv-border);
+            position: relative;
+        }
+        .step:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            bottom: calc(-1 * var(--element-gap));
+            left: clamp(22px, 2.8vw, 36px);
+            width: 2px;
+            height: var(--element-gap);
+            background: var(--truv-border);
+        }
+        .step-num {
+            flex-shrink: 0;
+            width: clamp(28px, 3vw, 40px);
+            height: clamp(28px, 3vw, 40px);
+            border-radius: 8px;
+            background: rgba(44, 100, 227, 0.08);
+            color: var(--truv-blue);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: var(--small-size);
+        }
+        .step-body strong {
+            display: block;
+            font-size: var(--body-size);
+            margin-bottom: 2px;
+        }
+        .step-body span {
+            font-size: var(--small-size);
+            color: var(--truv-muted);
+        }
+        .step-body code {
+            font-family: 'SF Mono', 'Fira Code', monospace;
+            font-size: var(--mono-size);
+            background: rgba(44, 100, 227, 0.06);
+            padding: 1px 5px;
+            border-radius: 3px;
+            color: var(--truv-blue);
+        }
+
+        /* ===========================================
+           FIELD MAPPING SLIDE
+           =========================================== */
+        .mapping-slide .slide-content {
+            gap: var(--content-gap);
+        }
+        .mapping-table {
+            width: 100%;
+            max-width: min(90vw, 800px);
+            border-collapse: collapse;
+            margin-top: var(--element-gap);
+        }
+        .mapping-table th {
+            font-size: var(--small-size);
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: var(--truv-muted);
+            font-weight: 600;
+            text-align: left;
+            padding: clamp(0.3rem, 0.6vw, 0.5rem) clamp(0.5rem, 1vw, 0.75rem);
+            border-bottom: 2px solid var(--truv-border);
+        }
+        .mapping-table td {
+            font-size: var(--body-size);
+            padding: clamp(0.35rem, 0.7vw, 0.6rem) clamp(0.5rem, 1vw, 0.75rem);
+            border-bottom: 1px solid rgba(44, 100, 227, 0.07);
+            font-weight: 500;
+        }
+        .mapping-table tr:last-child td { border-bottom: none; }
+        .mapping-table .arrow-cell {
+            text-align: center;
+            color: var(--truv-blue);
+            font-size: var(--body-size);
+            width: 40px;
+        }
+        .mapping-table code {
+            font-family: 'SF Mono', 'Fira Code', monospace;
+            font-size: var(--mono-size);
+            background: rgba(44, 100, 227, 0.06);
+            padding: 2px 6px;
+            border-radius: 3px;
+        }
+
+        /* ===========================================
+           RESULT SLIDE
+           =========================================== */
+        .result-slide {
+            background: var(--truv-blue-dark);
+            color: var(--truv-white);
+        }
+        .result-slide .tag {
+            color: var(--truv-blue-light);
+            background: rgba(197, 217, 247, 0.1);
+        }
+        .result-slide .slide-content {
+            gap: var(--content-gap);
+        }
+        .result-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, 180px), 1fr));
+            gap: var(--element-gap);
+            margin-top: var(--element-gap);
+        }
+        .result-card {
+            background: rgba(44, 100, 227, 0.08);
+            border: 1px solid rgba(44, 100, 227, 0.2);
+            border-radius: 12px;
+            padding: clamp(0.75rem, 1.5vw, 1.25rem);
+            text-align: center;
+        }
+        .result-card .big {
+            font-size: clamp(1.5rem, 3.5vw, 2.5rem);
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        .result-card .label {
+            font-size: var(--small-size);
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .final-message {
+            margin-top: var(--content-gap);
+            padding: clamp(0.75rem, 1.5vw, 1.25rem);
+            background: rgba(34, 197, 94, 0.08);
+            border: 1px solid rgba(34, 197, 94, 0.2);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            gap: clamp(0.5rem, 1vw, 0.75rem);
+        }
+        .final-message .check {
+            flex-shrink: 0;
+            width: clamp(28px, 3vw, 36px);
+            height: clamp(28px, 3vw, 36px);
+            border-radius: 50%;
+            background: rgba(34, 197, 94, 0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: clamp(14px, 1.5vw, 18px);
+        }
+        .final-message p {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* Decorative grid on result */
+        .result-slide::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(44, 100, 227, 0.04) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(44, 100, 227, 0.04) 1px, transparent 1px);
+            background-size: clamp(30px, 5vw, 60px) clamp(30px, 5vw, 60px);
+            pointer-events: none;
+        }
+
+        /* ===========================================
+           RESPONSIVE — short viewports
+           =========================================== */
+        @media (max-height: 700px) {
+            :root {
+                --slide-padding: clamp(1rem, 3.5vw, 3rem);
+                --content-gap: clamp(0.5rem, 1.5vw, 1.25rem);
+                --title-size: clamp(1.5rem, 4.5vw, 2.75rem);
+                --h2-size: clamp(1.1rem, 3vw, 1.75rem);
+            }
+        }
+        @media (max-height: 600px) {
+            :root {
+                --slide-padding: clamp(0.75rem, 3vw, 2rem);
+                --content-gap: clamp(0.4rem, 1vw, 0.75rem);
+                --element-gap: clamp(0.25rem, 0.8vw, 0.6rem);
+            }
+            .nav-dots { display: none; }
+        }
+        @media (max-height: 500px) {
+            :root {
+                --slide-padding: clamp(0.5rem, 2.5vw, 1.25rem);
+                --title-size: clamp(1.1rem, 4vw, 1.75rem);
+                --body-size: clamp(0.6rem, 1vw, 0.8rem);
+            }
+        }
+        @media (max-width: 600px) {
+            .pipeline { flex-direction: column; }
+            .pipe-step:not(:last-child)::after {
+                right: 50%;
+                top: auto;
+                bottom: 0;
+                transform: translateX(50%) rotate(90deg);
+            }
+        }
+
+        /* ===========================================
+           LINKS
+           =========================================== */
+        .slide-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: var(--small-size);
+            font-weight: 600;
+            color: var(--truv-blue);
+            text-decoration: none;
+            padding: 0.35em 0.8em;
+            border-radius: 6px;
+            background: rgba(44, 100, 227, 0.06);
+            border: 1px solid var(--truv-border);
+            transition: all 0.2s ease;
+            margin-top: clamp(0.3rem, 0.6vw, 0.5rem);
+        }
+        .slide-link:hover {
+            background: rgba(44, 100, 227, 0.12);
+            border-color: rgba(44, 100, 227, 0.3);
+        }
+        .slide-link.dark {
+            color: var(--truv-blue-light);
+            background: rgba(197, 217, 247, 0.08);
+            border-color: rgba(197, 217, 247, 0.15);
+        }
+        .slide-link.dark:hover {
+            background: rgba(197, 217, 247, 0.15);
+            border-color: rgba(197, 217, 247, 0.3);
+        }
+        .slide-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: clamp(0.3rem, 0.6vw, 0.5rem);
+            margin-top: var(--element-gap);
+        }
+
+        /* ===========================================
+           REDUCED MOTION
+           =========================================== */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                transition-duration: 0.2s !important;
+            }
+            html { scroll-behavior: auto; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Progress bar -->
+    <div class="progress-bar" id="progressBar"></div>
+
+    <!-- Nav dots -->
+    <nav class="nav-dots" id="navDots"></nav>
+
+    <!-- Slide counter -->
+    <div class="slide-counter" id="slideCounter"></div>
+
+    <!-- ============================
+         SLIDE 1 — Title
+         ============================ -->
+    <section class="slide title-slide">
+        <img src="../branding/logos/logo-truv-white.svg" alt="Truv" class="title-logo">
+        <div class="slide-content">
+            <span class="tag reveal">Automation Pipeline</span>
+            <h1 class="reveal">HubSpot Events → Linear Projects</h1>
+            <p class="subtitle reveal">Automated sync between CRM event records and Growth team project timeline — zero manual work.</p>
+            <p class="meta reveal">Cameron Wolf · March 4, 2026 · Growth Marketing</p>
+        </div>
+    </section>
+
+    <!-- ============================
+         SLIDE 2 — The Problem
+         ============================ -->
+    <section class="slide problem-slide">
+        <div class="slide-content">
+            <span class="tag reveal">The Problem</span>
+            <h2 class="reveal">Manual event tracking across two systems</h2>
+            <div class="pain-points">
+                <div class="pain-point reveal">
+                    <div class="pain-icon red">&#9888;</div>
+                    <div>
+                        <strong>Duplicate data entry</strong>
+                        <span>Every event created in HubSpot had to be manually recreated as a Linear project for the Growth team timeline.</span>
+                    </div>
+                </div>
+                <div class="pain-point reveal">
+                    <div class="pain-icon orange">&#8635;</div>
+                    <div>
+                        <strong>Drift between systems</strong>
+                        <span>Date changes, status updates, and new details in HubSpot never made it to Linear without manual intervention.</span>
+                    </div>
+                </div>
+                <div class="pain-point reveal">
+                    <div class="pain-icon yellow">&#9201;</div>
+                    <div>
+                        <strong>13 events manually synced</strong>
+                        <span>Initial batch of 13 events had to be created one-by-one in Linear. Every new event would need the same treatment.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================
+         SLIDE 3 — Architecture
+         ============================ -->
+    <section class="slide arch-slide">
+        <div class="slide-content">
+            <span class="tag reveal">Architecture</span>
+            <h2 class="reveal">Three systems, one automated flow</h2>
+            <div class="slide-links reveal">
+                <a href="https://app.hubspot.com/workflows/19933594/platform/flow/1785872204/edit" target="_blank" class="slide-link dark">&#8599; HubSpot Workflow</a>
+                <a href="https://pipedream.com/@truvhq/projects/proj_BgsYmjp/dev-cameron-wolf-RfOFnC/hubspot-events-to-linear-projects-p_ZJCr7xk/build" target="_blank" class="slide-link dark">&#8599; Pipedream Workflow</a>
+                <a href="https://linear.app/citadel/team/MKTG/projects/view/march-projects-23779427e8ef" target="_blank" class="slide-link dark">&#8599; Linear Projects</a>
+            </div>
+            <div class="pipeline reveal-scale">
+                <div class="pipe-step">
+                    <div class="pipe-icon">&#128204;</div>
+                    <h3>HubSpot</h3>
+                    <p>Event created or updated triggers workflow</p>
+                </div>
+                <div class="pipe-step">
+                    <div class="pipe-icon">&#9889;</div>
+                    <h3>HubSpot Workflow</h3>
+                    <p>Sends POST webhook with all event properties</p>
+                </div>
+                <div class="pipe-step">
+                    <div class="pipe-icon">&#9881;</div>
+                    <h3>Pipedream</h3>
+                    <p>Fetches full event, maps fields, calls Linear API</p>
+                </div>
+                <div class="pipe-step">
+                    <div class="pipe-icon">&#9654;</div>
+                    <h3>Linear</h3>
+                    <p>Project created or updated on Growth team</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================
+         SLIDE 4 — HubSpot Workflow
+         ============================ -->
+    <section class="slide hs-slide">
+        <div class="slide-content">
+            <span class="tag reveal">HubSpot Workflow</span>
+            <h2 class="reveal">Trigger: Event object changes</h2>
+            <div class="slide-links reveal">
+                <a href="https://app.hubspot.com/workflows/19933594/platform/flow/1785872204/edit" target="_blank" class="slide-link">&#8599; Open in HubSpot</a>
+            </div>
+            <div class="config-grid">
+                <div class="config-card reveal">
+                    <h3>Object</h3>
+                    <p>Events</p>
+                    <div class="detail">Custom object 2-56342751</div>
+                </div>
+                <div class="config-card reveal">
+                    <h3>Trigger 1</h3>
+                    <p>Property changed</p>
+                    <div class="detail">Event Name is known</div>
+                </div>
+                <div class="config-card reveal">
+                    <h3>Re-enrollment</h3>
+                    <p><span class="status-badge">ON</span></p>
+                    <div class="detail">Fires on every update</div>
+                </div>
+                <div class="config-card reveal">
+                    <h3>Action</h3>
+                    <p>Send Webhook</p>
+                    <div class="detail">POST → Pipedream endpoint</div>
+                </div>
+                <div class="config-card reveal">
+                    <h3>Body</h3>
+                    <p>All properties</p>
+                    <div class="detail">Includes objectId, event data</div>
+                </div>
+                <div class="config-card reveal">
+                    <h3>Status</h3>
+                    <p><span class="status-badge">LIVE</span></p>
+                    <div class="detail">Activated March 4, 2026</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================
+         SLIDE 5 — Pipedream Workflow
+         ============================ -->
+    <section class="slide pd-slide">
+        <div class="slide-content">
+            <span class="tag reveal">Pipedream Workflow</span>
+            <h2 class="reveal">Three-step processing pipeline</h2>
+            <div class="slide-links reveal">
+                <a href="https://pipedream.com/@truvhq/projects/proj_BgsYmjp/dev-cameron-wolf-RfOFnC/hubspot-events-to-linear-projects-p_ZJCr7xk/build" target="_blank" class="slide-link">&#8599; Open in Pipedream</a>
+                <a href="https://pipedream.com/@truvhq/projects/proj_BgsYmjp" target="_blank" class="slide-link">&#128193; GTM Automation Project</a>
+            </div>
+            <div class="steps">
+                <div class="step reveal">
+                    <div class="step-num">1</div>
+                    <div class="step-body">
+                        <strong>HTTP Trigger</strong>
+                        <span>Receives POST from HubSpot webhook at <code>eo6flf4pdz0kt0f.m.pipedream.net</code></span>
+                    </div>
+                </div>
+                <div class="step reveal">
+                    <div class="step-num">2</div>
+                    <div class="step-body">
+                        <strong>Fetch Event Details</strong>
+                        <span>Calls HubSpot API with OAuth to get full event record — name, dates, location, URL, status, type</span>
+                    </div>
+                </div>
+                <div class="step reveal">
+                    <div class="step-num">3</div>
+                    <div class="step-body">
+                        <strong>Sync to Linear</strong>
+                        <span>Searches for existing <code>[MKTG-GROWTH]</code> project by name. Creates new or updates existing via GraphQL API.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================
+         SLIDE 6 — Field Mapping
+         ============================ -->
+    <section class="slide mapping-slide">
+        <div class="slide-content">
+            <span class="tag reveal">Field Mapping</span>
+            <h2 class="reveal">HubSpot → Linear translation</h2>
+            <table class="mapping-table reveal-scale">
+                <thead>
+                    <tr>
+                        <th>HubSpot Event</th>
+                        <th></th>
+                        <th>Linear Project</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>event_name</code></td>
+                        <td class="arrow-cell">→</td>
+                        <td><code>name</code> with [MKTG-GROWTH] prefix</td>
+                    </tr>
+                    <tr>
+                        <td><code>event_start_date</code></td>
+                        <td class="arrow-cell">→</td>
+                        <td><code>startDate</code></td>
+                    </tr>
+                    <tr>
+                        <td><code>event_end_date</code></td>
+                        <td class="arrow-cell">→</td>
+                        <td><code>targetDate</code></td>
+                    </tr>
+                    <tr>
+                        <td><code>event_location</code></td>
+                        <td class="arrow-cell">→</td>
+                        <td><code>summary</code> (name — location)</td>
+                    </tr>
+                    <tr>
+                        <td><code>event_status</code></td>
+                        <td class="arrow-cell">→</td>
+                        <td><code>state</code> (planned / started / completed)</td>
+                    </tr>
+                    <tr>
+                        <td><code>event_type</code> + <code>event_url</code></td>
+                        <td class="arrow-cell">→</td>
+                        <td><code>description</code> (rich markdown)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- ============================
+         SLIDE 7 — Result
+         ============================ -->
+    <section class="slide result-slide">
+        <div class="slide-content">
+            <span class="tag reveal">Result</span>
+            <h2 class="reveal">Fully automated, zero maintenance</h2>
+            <div class="result-grid">
+                <div class="result-card reveal">
+                    <div class="big">0</div>
+                    <div class="label">Manual steps</div>
+                </div>
+                <div class="result-card reveal">
+                    <div class="big">3</div>
+                    <div class="label">Systems connected</div>
+                </div>
+                <div class="result-card reveal">
+                    <div class="big">&lt;5s</div>
+                    <div class="label">Sync latency</div>
+                </div>
+                <div class="result-card reveal">
+                    <div class="big">&#8734;</div>
+                    <div class="label">Events supported</div>
+                </div>
+            </div>
+            <div class="final-message reveal">
+                <div class="check">&#10003;</div>
+                <p>Pipeline is live. New events in HubSpot automatically appear as [MKTG-GROWTH] projects in Linear. Updates flow through in real time.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===========================================
+         PRESENTATION CONTROLLER
+         =========================================== -->
+    <script>
+        class SlidePresentation {
+            constructor() {
+                this.slides = document.querySelectorAll('.slide');
+                this.progressBar = document.getElementById('progressBar');
+                this.navDotsContainer = document.getElementById('navDots');
+                this.slideCounter = document.getElementById('slideCounter');
+                this.currentSlide = 0;
+
+                this.createNavDots();
+                this.setupIntersectionObserver();
+                this.setupKeyboardNav();
+                this.updateUI();
+            }
+
+            createNavDots() {
+                this.slides.forEach((_, i) => {
+                    const dot = document.createElement('button');
+                    dot.className = 'nav-dot';
+                    dot.setAttribute('aria-label', `Go to slide ${i + 1}`);
+                    dot.addEventListener('click', () => {
+                        this.slides[i].scrollIntoView({ behavior: 'smooth' });
+                    });
+                    this.navDotsContainer.appendChild(dot);
+                });
+            }
+
+            setupIntersectionObserver() {
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('visible');
+                            const index = [...this.slides].indexOf(entry.target);
+                            this.currentSlide = index;
+                            this.updateUI();
+                        }
+                    });
+                }, { threshold: 0.4 });
+
+                this.slides.forEach(slide => observer.observe(slide));
+            }
+
+            setupKeyboardNav() {
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'ArrowDown' || e.key === 'ArrowRight' || e.key === ' ') {
+                        e.preventDefault();
+                        this.goTo(Math.min(this.currentSlide + 1, this.slides.length - 1));
+                    }
+                    if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
+                        e.preventDefault();
+                        this.goTo(Math.max(this.currentSlide - 1, 0));
+                    }
+                });
+            }
+
+            goTo(index) {
+                this.slides[index].scrollIntoView({ behavior: 'smooth' });
+            }
+
+            updateUI() {
+                /* Progress bar */
+                const progress = ((this.currentSlide + 1) / this.slides.length) * 100;
+                this.progressBar.style.width = progress + '%';
+
+                /* Nav dots */
+                const dots = this.navDotsContainer.querySelectorAll('.nav-dot');
+                dots.forEach((dot, i) => dot.classList.toggle('active', i === this.currentSlide));
+
+                /* Counter */
+                this.slideCounter.textContent = `${this.currentSlide + 1} / ${this.slides.length}`;
+            }
+        }
+
+        new SlidePresentation();
+    </script>
+</body>
+</html>
