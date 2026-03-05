@@ -39,7 +39,6 @@ export function EventEditModal({ event, onClose, onSave, saving }: EventEditModa
 
     // Apply highlight: add or remove [LIVE] prefix
     let finalTitle = title;
-    const hadLive = hasLivePrefix(event.title);
     const wantsGold = highlight === 'gold';
 
     if (wantsGold && !hasLivePrefix(finalTitle) && event.category !== 'Event') {
