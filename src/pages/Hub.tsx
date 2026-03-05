@@ -3,7 +3,6 @@ import { useCalendarEvents, useActivityFeed, useTruvEvents, updateEvent } from '
 import type { TruvEvent } from '../services/marketingHubClient';
 import { CalendarToolbar } from '../components/marketing-hub/CalendarToolbar';
 import { ProjectProgress } from '../components/marketing-hub/ProjectProgress';
-import { UpcomingFeed } from '../components/marketing-hub/UpcomingFeed';
 import { EventEditModal } from '../components/marketing-hub/EventEditModal';
 import type { CalendarEvent, CalendarViewType, MarketingHubFilters } from '../types/marketingHub';
 
@@ -106,7 +105,7 @@ function QuickStats({ events, projects }: { events: CalendarEvent[]; projects: C
   );
 }
 
-// --- Upcoming Events at Truv ---
+// --- Upcoming Webinars ---
 
 function TruvEventsBar({ events, isLoading }: { events: TruvEvent[]; isLoading: boolean }) {
   if (isLoading) {
@@ -162,10 +161,147 @@ function TruvEventsBar({ events, isLoading }: { events: TruvEvent[]; isLoading: 
   );
 }
 
+// --- Category colors ---
+
+const CATEGORY_COLORS: Record<string, { dot: string; bg: string; text: string; border: string }> = {
+  Event: { dot: '#ca8a04', bg: 'bg-yellow-50', text: 'text-yellow-800', border: 'border-l-yellow-500' },
+  Growth: { dot: '#2c64e3', bg: 'bg-blue-50', text: 'text-blue-800', border: 'border-l-truv-blue' },
+  PMM: { dot: '#10b981', bg: 'bg-emerald-50', text: 'text-emerald-800', border: 'border-l-emerald-500' },
+  Ops: { dot: '#6b7280', bg: 'bg-gray-50', text: 'text-gray-700', border: 'border-l-gray-400' },
+  Other: { dot: '#6b7280', bg: 'bg-gray-50', text: 'text-gray-700', border: 'border-l-gray-400' },
+};
+
+// --- Key Dates ---
+
+function isKeyDate(e: CalendarEvent): boolean {
+  return e.type === 'project' || /\[LIVE\]/i.test(e.title) || e.category === 'Event';
+}
+
+function friendlyDateStr(dateStr: string): string {
+  const d = parseDate(dateStr);
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  const diff = Math.round((d.getTime() - today.getTime()) / 86400000);
+
+  if (diff === 0) return 'Today';
+  if (diff === 1) return 'Tomorrow';
+  if (diff === -1) return 'Yesterday';
+
+  return d.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
+}
+
+function getKeyDateLabel(e: CalendarEvent): string {
+  if (/\[LIVE\]/i.test(e.title)) return 'Send';
+  if (e.category === 'Event') return 'Event';
+  if (e.type === 'project') return 'Campaign';
+  return 'Task';
+}
+
+function KeyDates({
+  events,
+  isLoading,
+  onEventClick,
+}: {
+  events: CalendarEvent[];
+  isLoading: boolean;
+  onEventClick: (e: CalendarEvent) => void;
+}) {
+  const keyDates = useMemo(() => {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const cutoff = new Date(today);
+    cutoff.setDate(cutoff.getDate() + 60);
+
+    return events
+      .filter((e) => {
+        if (!isKeyDate(e)) return false;
+        if (COMPLETED.has(e.status.toLowerCase())) return false;
+        const d = parseDate(e.start);
+        return d >= today && d <= cutoff;
+      })
+      .sort((a, b) => a.start.localeCompare(b.start));
+  }, [events]);
+
+  if (isLoading) {
+    return (
+      <div className="mb-6 bg-white rounded-xl border border-gray-200 p-5 animate-pulse">
+        <div className="h-5 bg-gray-200 rounded w-40 mb-4" />
+        {[...Array(4)].map((_, i) => (
+          <div key={i} className="flex items-center gap-4 py-3 border-b border-gray-100">
+            <div className="h-4 bg-gray-200 rounded w-20" />
+            <div className="h-4 bg-gray-100 rounded flex-1" />
+          </div>
+        ))}
+      </div>
+    );
+  }
+
+  if (keyDates.length === 0) {
+    return (
+      <div className="mb-6 bg-white rounded-xl border border-gray-200 p-8 text-center">
+        <p className="text-sm text-gray-500">No upcoming key dates</p>
+      </div>
+    );
+  }
+
+  return (
+    <div className="mb-6 bg-white rounded-xl border border-gray-200">
+      <div className="px-5 py-4 border-b border-gray-100">
+        <h2 className="text-base font-semibold text-gray-900">Key Marketing Dates</h2>
+        <p className="text-xs text-gray-500 mt-0.5">Campaigns, webinars, and email sends</p>
+      </div>
+      <div className="divide-y divide-gray-100">
+        {keyDates.map((e) => {
+          const colors = CATEGORY_COLORS[e.category] || CATEGORY_COLORS.Other;
+          const label = getKeyDateLabel(e);
+          const displayTitle = e.title.replace(/^\[LIVE\]\s*/i, '');
+          const isPast = parseDate(e.start) <= new Date();
+
+          return (
+            <button
+              key={e.id}
+              onClick={() => onEventClick(e)}
+              className={`w-full text-left px-5 py-3.5 flex items-center gap-4 hover:bg-gray-50 transition-colors border-l-4 ${colors.border}`}
+            >
+              {/* Date */}
+              <div className="w-24 shrink-0">
+                <span className={`text-sm font-semibold ${isPast ? 'text-gray-400' : 'text-gray-900'}`}>
+                  {friendlyDateStr(e.start)}
+                </span>
+              </div>
+
+              {/* Label badge */}
+              <span className={`shrink-0 text-[10px] font-semibold uppercase px-2 py-0.5 rounded-full ${colors.bg} ${colors.text}`}>
+                {label}
+              </span>
+
+              {/* Title */}
+              <span className="text-sm text-gray-800 truncate flex-1">
+                {/\[LIVE\]/i.test(e.title) && <span className="text-yellow-600 mr-1">★</span>}
+                {displayTitle}
+              </span>
+
+              {/* Assignee */}
+              {e.assignee && (
+                <span className="text-xs text-gray-400 shrink-0 hidden sm:block">{e.assignee}</span>
+              )}
+
+              {/* Arrow */}
+              <svg className="w-4 h-4 text-gray-300 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </button>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
 // --- Legend ---
 
 const legendItems = [
-  { label: 'Event', color: '#ca8a04' },
+  { label: 'Event / Live', color: '#ca8a04' },
   { label: 'Growth', color: '#2c64e3' },
   { label: 'PMM', color: '#10b981' },
   { label: 'Ops', color: '#6b7280' },
@@ -190,12 +326,12 @@ export function Hub() {
   const [viewType, setViewType] = useState<CalendarViewType>('month');
   const [currentDate, setCurrentDate] = useState(() => new Date());
   const [filters, setFilters] = useState<MarketingHubFilters>(emptyFilters);
+  const [calendarOpen, setCalendarOpen] = useState(false);
 
   const [selectedEvent, setSelectedEvent] = useState<CalendarEvent | null>(null);
   const [saving, setSaving] = useState(false);
 
   const { events, projects: projectEvents, isLoading: calLoading, error: calError, mutate } = useCalendarEvents();
-  const { items: feedItems, isLoading: feedLoading } = useActivityFeed();
   const { events: truvEvents, isLoading: truvEventsLoading } = useTruvEvents();
 
   const filterOptions = useMemo(() => {
@@ -205,7 +341,6 @@ export function Hub() {
     const assignees = new Set<string>();
     const statuses = new Set<string>();
 
-    // Include all active project names so the dropdown is complete
     projectEvents.forEach((p) => projects.add(p.title));
 
     events.forEach((e) => {
@@ -258,7 +393,6 @@ export function Hub() {
     }
   }
 
-  // No-op for drag-drop (read-only page)
   const noop = () => {};
 
   return (
@@ -271,7 +405,7 @@ export function Hub() {
             <h1 className="text-2xl font-semibold text-gray-900">Marketing Hub</h1>
           </div>
           <p className="text-sm text-gray-500">
-            What's happening across marketing — upcoming projects, tasks, and milestones.
+            Campaigns, webinars, and key dates across marketing.
           </p>
         </div>
 
@@ -284,59 +418,75 @@ export function Hub() {
         {/* Quick Stats */}
         {!calLoading && <QuickStats events={events} projects={projectEvents} />}
 
-        {/* Upcoming Events at Truv */}
+        {/* Upcoming Webinars */}
         <TruvEventsBar events={truvEvents} isLoading={truvEventsLoading} />
 
-        {/* Toolbar */}
-        <CalendarToolbar
-          view={viewType}
-          onViewChange={handleViewChange}
-          currentDate={currentDate}
-          onDateChange={setCurrentDate}
-          filters={filters}
-          onFiltersChange={setFilters}
-          filterOptions={filterOptions}
-        />
-
-        {/* Legend */}
-        <Legend />
-
-        {/* Calendar */}
-        {calLoading ? (
-          <CalendarSkeleton />
-        ) : (
-          <Suspense fallback={<CalendarSkeleton />}>
-            {viewType === 'month' && (
-              <MonthView events={filteredEvents} currentDate={currentDate} onEventClick={handleEventClick} onEventDrop={noop} />
-            )}
-            {viewType === 'week' && (
-              <WeekView events={filteredEvents} currentDate={currentDate} onEventClick={handleEventClick} onEventDrop={noop} />
-            )}
-            {viewType === 'timeline' && (
-              <TimelineView events={filteredEvents} currentDate={currentDate} onEventClick={handleEventClick} />
-            )}
-          </Suspense>
-        )}
-
-        {/* Upcoming Events */}
-        <div className="mt-8">
-          <h2 className="text-lg font-semibold text-gray-900 mb-4">What's Happening</h2>
-          <UpcomingFeed
-            events={events}
-            recentActivity={feedItems}
-            isLoading={calLoading && feedLoading}
-            onEventClick={handleEventClick}
-          />
-        </div>
+        {/* Key Marketing Dates */}
+        <KeyDates events={events} isLoading={calLoading} onEventClick={handleEventClick} />
 
         {/* Project Progress */}
-        <div className="mt-8">
-          <h2 className="text-lg font-semibold text-gray-900 mb-4">Project Progress</h2>
+        <div className="mb-6">
+          <h2 className="text-base font-semibold text-gray-900 mb-3">Project Progress</h2>
           <ProjectProgress
             projects={projectEvents}
             isLoading={calLoading}
             onProjectClick={handleEventClick}
           />
+        </div>
+
+        {/* Full Calendar — Collapsible */}
+        <div className="border border-gray-200 rounded-xl bg-white overflow-hidden">
+          <button
+            onClick={() => setCalendarOpen(!calendarOpen)}
+            className="w-full flex items-center justify-between px-5 py-4 hover:bg-gray-50 transition-colors"
+          >
+            <div>
+              <h2 className="text-base font-semibold text-gray-900 text-left">Full Calendar</h2>
+              <p className="text-xs text-gray-500 mt-0.5 text-left">All tasks, issues, and project timelines</p>
+            </div>
+            <svg
+              className={`w-5 h-5 text-gray-400 transition-transform ${calendarOpen ? 'rotate-180' : ''}`}
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+
+          {calendarOpen && (
+            <div className="px-5 pb-5 border-t border-gray-100">
+              <div className="pt-4">
+                <CalendarToolbar
+                  view={viewType}
+                  onViewChange={handleViewChange}
+                  currentDate={currentDate}
+                  onDateChange={setCurrentDate}
+                  filters={filters}
+                  onFiltersChange={setFilters}
+                  filterOptions={filterOptions}
+                />
+
+                <Legend />
+
+                {calLoading ? (
+                  <CalendarSkeleton />
+                ) : (
+                  <Suspense fallback={<CalendarSkeleton />}>
+                    {viewType === 'month' && (
+                      <MonthView events={filteredEvents} currentDate={currentDate} onEventClick={handleEventClick} onEventDrop={noop} />
+                    )}
+                    {viewType === 'week' && (
+                      <WeekView events={filteredEvents} currentDate={currentDate} onEventClick={handleEventClick} onEventDrop={noop} />
+                    )}
+                    {viewType === 'timeline' && (
+                      <TimelineView events={filteredEvents} currentDate={currentDate} onEventClick={handleEventClick} />
+                    )}
+                  </Suspense>
+                )}
+              </div>
+            </div>
+          )}
         </div>
       </div>
 
