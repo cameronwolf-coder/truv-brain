@@ -126,7 +126,7 @@ function TruvEventsBar({ events, isLoading }: { events: TruvEvent[]; isLoading: 
   return (
     <div className="mb-6 bg-white rounded-xl border border-gray-200 p-5">
       <div className="flex items-center justify-between mb-4">
-        <h2 className="text-base font-semibold text-gray-900">Upcoming Events at Truv</h2>
+        <h2 className="text-base font-semibold text-gray-900">Upcoming Webinars</h2>
         <a
           href="https://truv.com/events"
           target="_blank"
@@ -148,15 +148,6 @@ function TruvEventsBar({ events, isLoading }: { events: TruvEvent[]; isLoading: 
             rel="noopener noreferrer"
             className="group flex flex-col gap-1.5 p-3.5 rounded-lg border border-gray-100 hover:border-truv-blue/30 hover:bg-blue-50/40 transition-colors"
           >
-            <div className="flex items-center gap-2">
-              <span className={`shrink-0 text-[10px] font-medium px-1.5 py-0.5 rounded-full ${
-                evt.type === 'webinar'
-                  ? 'bg-purple-50 text-purple-700'
-                  : 'bg-amber-50 text-amber-700'
-              }`}>
-                {evt.type === 'webinar' ? 'Webinar' : 'Conference'}
-              </span>
-            </div>
             <span className="text-sm font-medium text-gray-900 group-hover:text-truv-blue transition-colors leading-snug line-clamp-2">
               {evt.title}
             </span>
