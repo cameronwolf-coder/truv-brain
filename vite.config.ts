@@ -8,4 +8,12 @@ export default defineConfig({
     __GIT_COMMIT_SHA__: JSON.stringify(process.env.VERCEL_GIT_COMMIT_SHA || 'dev'),
     __GIT_COMMIT_MESSAGE__: JSON.stringify(process.env.VERCEL_GIT_COMMIT_MESSAGE || ''),
   },
+  server: {
+    proxy: {
+      '/api': {
+        target: 'https://truv-brain.vercel.app',
+        changeOrigin: true,
+      },
+    },
+  },
 })
