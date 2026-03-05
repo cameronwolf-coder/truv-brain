@@ -29,8 +29,8 @@ export const WeekView = memo(function WeekView({ events, currentDate, onEventCli
   }, [currentDate]);
 
   const fcEvents = events.map((e) => {
-    const isEvent = e.category === 'Event';
-    const bgColor = isEvent ? '#d97706' : e.type === 'project' ? '#2c64e3' : e.statusColor || '#6b7280';
+    const isGold = e.category === 'Event' || /\[LIVE\]/i.test(e.title);
+    const bgColor = isGold ? '#d97706' : e.type === 'project' ? '#2c64e3' : e.statusColor || '#6b7280';
     return {
       id: e.id,
       title: e.title,
@@ -72,17 +72,17 @@ export const WeekView = memo(function WeekView({ events, currentDate, onEventCli
         }}
         eventContent={(arg) => {
           const props = arg.event.extendedProps;
-          const isEvent = props.category === 'Event';
-          const dotColor = isEvent ? '#d97706' : props.type === 'project' ? '#2c64e3' : (props.statusColor || '#6b7280');
+          const isGold = props.category === 'Event' || /\[LIVE\]/i.test(props.title);
+          const dotColor = isGold ? '#d97706' : props.type === 'project' ? '#2c64e3' : (props.statusColor || '#6b7280');
           return (
-            <div className={`flex items-center gap-1.5 overflow-hidden cursor-pointer py-0.5 ${isEvent ? 'font-semibold' : ''}`}>
-              {isEvent && <span className="text-[10px]">&#9733;</span>}
+            <div className={`flex items-center gap-1.5 overflow-hidden cursor-pointer py-0.5 ${isGold ? 'font-semibold' : ''}`}>
+              {isGold && <span className="text-[10px]">&#9733;</span>}
               <span
                 className="w-2 h-2 rounded-full shrink-0"
                 style={{ backgroundColor: dotColor }}
               />
               <div className="min-w-0">
-                <p className={`truncate text-xs font-medium ${isEvent ? 'text-amber-800' : 'text-gray-800'}`}>{arg.event.title}</p>
+                <p className={`truncate text-xs font-medium ${isGold ? 'text-amber-800' : 'text-gray-800'}`}>{arg.event.title}</p>
                 {props.assignee && (
                   <p className="truncate text-[10px] text-gray-500">{props.assignee}</p>
                 )}

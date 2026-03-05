@@ -25,8 +25,8 @@ export const MonthView = memo(function MonthView({ events, currentDate, onEventC
   }, [currentDate]);
 
   const fcEvents = events.map((e) => {
-    const isEvent = e.category === 'Event';
-    const bgColor = isEvent ? '#d97706' : e.type === 'project' ? '#2c64e3' : e.statusColor || '#6b7280';
+    const isGold = e.category === 'Event' || /\[LIVE\]/i.test(e.title);
+    const bgColor = isGold ? '#d97706' : e.type === 'project' ? '#2c64e3' : e.statusColor || '#6b7280';
     return {
       id: e.id,
       title: e.title,
@@ -69,16 +69,16 @@ export const MonthView = memo(function MonthView({ events, currentDate, onEventC
         }}
         eventContent={(arg) => {
           const props = arg.event.extendedProps;
-          const isEvent = props.category === 'Event';
-          const dotColor = isEvent ? '#d97706' : props.type === 'project' ? '#2c64e3' : (props.statusColor || '#6b7280');
+          const isGold = props.category === 'Event' || /\[LIVE\]/i.test(props.title);
+          const dotColor = isGold ? '#d97706' : props.type === 'project' ? '#2c64e3' : (props.statusColor || '#6b7280');
           return (
-            <div className={`flex items-center gap-1 overflow-hidden cursor-pointer ${isEvent ? 'font-semibold' : ''}`}>
-              {isEvent && <span className="text-[10px]">&#9733;</span>}
+            <div className={`flex items-center gap-1 overflow-hidden cursor-pointer ${isGold ? 'font-semibold' : ''}`}>
+              {isGold && <span className="text-[10px]">&#9733;</span>}
               <span
                 className="w-2 h-2 rounded-full shrink-0"
                 style={{ backgroundColor: dotColor }}
               />
-              <span className={`truncate text-xs font-medium ${isEvent ? 'text-amber-800' : 'text-gray-800'}`}>
+              <span className={`truncate text-xs font-medium ${isGold ? 'text-amber-800' : 'text-gray-800'}`}>
                 {arg.event.title}
               </span>
             </div>

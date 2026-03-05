@@ -1,9 +1,10 @@
 import { useState, useMemo, lazy, Suspense, startTransition } from 'react';
-import { useCalendarEvents, useActivityFeed, useTruvEvents } from '../services/marketingHubClient';
+import { useCalendarEvents, useActivityFeed, useTruvEvents, updateEvent } from '../services/marketingHubClient';
 import type { TruvEvent } from '../services/marketingHubClient';
 import { CalendarToolbar } from '../components/marketing-hub/CalendarToolbar';
 import { ProjectProgress } from '../components/marketing-hub/ProjectProgress';
 import { UpcomingFeed } from '../components/marketing-hub/UpcomingFeed';
+import { EventEditModal } from '../components/marketing-hub/EventEditModal';
 import type { CalendarEvent, CalendarViewType, MarketingHubFilters } from '../types/marketingHub';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -190,7 +191,10 @@ export function Hub() {
   const [currentDate, setCurrentDate] = useState(() => new Date());
   const [filters, setFilters] = useState<MarketingHubFilters>(emptyFilters);
 
-  const { events, projects: projectEvents, isLoading: calLoading, error: calError } = useCalendarEvents();
+  const [selectedEvent, setSelectedEvent] = useState<CalendarEvent | null>(null);
+  const [saving, setSaving] = useState(false);
+
+  const { events, projects: projectEvents, isLoading: calLoading, error: calError, mutate } = useCalendarEvents();
   const { items: feedItems, isLoading: feedLoading } = useActivityFeed();
   const { events: truvEvents, isLoading: truvEventsLoading } = useTruvEvents();
 
@@ -237,7 +241,21 @@ export function Hub() {
   }
 
   function handleEventClick(event: CalendarEvent) {
-    window.open(event.url, '_blank', 'noopener,noreferrer');
+    setSelectedEvent(event);
+  }
+
+  async function handleEventSave(updates: Record<string, string | undefined>) {
+    if (!selectedEvent) return;
+    setSaving(true);
+    try {
+      await updateEvent(selectedEvent.id, selectedEvent.type, updates);
+      await mutate();
+      setSelectedEvent(null);
+    } catch (err) {
+      console.error('Failed to save event:', err);
+    } finally {
+      setSaving(false);
+    }
   }
 
   // No-op for drag-drop (read-only page)
@@ -321,6 +339,15 @@ export function Hub() {
           />
         </div>
       </div>
+
+      {selectedEvent && (
+        <EventEditModal
+          event={selectedEvent}
+          onClose={() => setSelectedEvent(null)}
+          onSave={handleEventSave}
+          saving={saving}
+        />
+      )}
     </div>
   );
 }
