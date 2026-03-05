@@ -4,6 +4,20 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import type { CalendarEvent } from '../../types/marketingHub';
 
+const CATEGORY_COLORS: Record<string, string> = {
+  Event: '#ca8a04',
+  Growth: '#2c64e3',
+  PMM: '#10b981',
+  Ops: '#6b7280',
+  Other: '#6b7280',
+};
+
+function getEventColor(e: CalendarEvent): string {
+  if (e.category === 'Event' || /\[LIVE\]/i.test(e.title)) return '#ca8a04';
+  if (e.type === 'project') return CATEGORY_COLORS[e.category] || '#2c64e3';
+  return CATEGORY_COLORS[e.category] || e.statusColor || '#6b7280';
+}
+
 interface MonthViewProps {
   events: CalendarEvent[];
   currentDate: Date;
@@ -25,15 +39,13 @@ export const MonthView = memo(function MonthView({ events, currentDate, onEventC
   }, [currentDate]);
 
   const fcEvents = events.map((e) => {
-    const isGold = e.category === 'Event' || /\[LIVE\]/i.test(e.title);
-    const bgColor = isGold ? '#d97706' : e.type === 'project' ? '#2c64e3' : e.statusColor || '#6b7280';
     return {
       id: e.id,
       title: e.title,
       start: e.start,
       end: e.end,
       extendedProps: { ...e },
-      backgroundColor: bgColor,
+      backgroundColor: getEventColor(e),
       borderColor: 'transparent',
       classNames: ['rounded-md', 'text-xs', 'px-1'],
     };
@@ -68,9 +80,9 @@ export const MonthView = memo(function MonthView({ events, currentDate, onEventC
           onEventDrop(props.id, props.type, newStart, newEnd);
         }}
         eventContent={(arg) => {
-          const props = arg.event.extendedProps;
+          const props = arg.event.extendedProps as CalendarEvent;
           const isGold = props.category === 'Event' || /\[LIVE\]/i.test(props.title);
-          const dotColor = isGold ? '#d97706' : props.type === 'project' ? '#2c64e3' : (props.statusColor || '#6b7280');
+          const dotColor = getEventColor(props);
           return (
             <div className={`flex items-center gap-1 overflow-hidden cursor-pointer ${isGold ? 'font-semibold' : ''}`}>
               {isGold && <span className="text-[10px]">&#9733;</span>}

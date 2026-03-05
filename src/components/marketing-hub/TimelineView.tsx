@@ -1,6 +1,14 @@
 import { memo, useMemo } from 'react';
 import type { CalendarEvent } from '../../types/marketingHub';
 
+const CATEGORY_COLORS: Record<string, string> = {
+  Event: '#ca8a04',
+  Growth: '#2c64e3',
+  PMM: '#10b981',
+  Ops: '#6b7280',
+  Other: '#6b7280',
+};
+
 interface TimelineViewProps {
   events: CalendarEvent[];
   currentDate: Date;
@@ -124,7 +132,7 @@ export const TimelineView = memo(function TimelineView({ events, currentDate, on
               className="absolute h-6 rounded-full top-1/2 -translate-y-1/2"
               style={{
                 ...getBarStyle(project.start, project.end!),
-                backgroundColor: (project.category === 'Event' || /\[LIVE\]/i.test(project.title)) ? '#d97706' : '#2c64e3',
+                backgroundColor: (project.category === 'Event' || /\[LIVE\]/i.test(project.title)) ? '#ca8a04' : (CATEGORY_COLORS[project.category] || '#2c64e3'),
                 opacity: 0.85,
               }}
             >
@@ -164,7 +172,7 @@ export const TimelineView = memo(function TimelineView({ events, currentDate, on
                   className="absolute w-3 h-3 rounded-full top-1/2 -translate-y-1/2 -translate-x-1/2 border-2 border-white shadow-sm"
                   style={{
                     ...getDotPosition(issue.start),
-                    backgroundColor: issue.statusColor || '#6b7280',
+                    backgroundColor: CATEGORY_COLORS[issue.category] || issue.statusColor || '#6b7280',
                   }}
                 />
               </div>

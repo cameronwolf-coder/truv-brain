@@ -165,7 +165,7 @@ function TruvEventsBar({ events, isLoading }: { events: TruvEvent[]; isLoading: 
 // --- Legend ---
 
 const legendItems = [
-  { label: 'Event', color: '#d97706' },
+  { label: 'Event', color: '#ca8a04' },
   { label: 'Growth', color: '#2c64e3' },
   { label: 'PMM', color: '#10b981' },
   { label: 'Ops', color: '#6b7280' },
