@@ -1,4 +1,4 @@
-import { StrictMode } from 'react';
+import { StrictMode, lazy, Suspense } from 'react';
 import { createRoot } from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { Layout } from './components/Layout';
@@ -17,6 +17,7 @@ import { DataEnrichment } from './pages/DataEnrichment';
 import { ExpertReview } from './pages/ExpertReview';
 import { UrlToEmail } from './pages/UrlToEmail';
 import { EmailPerformance } from './pages/EmailPerformance';
+const MarketingHub = lazy(() => import('./pages/MarketingHub').then((m) => ({ default: m.MarketingHub })));
 import './index.css';
 
 const router = createBrowserRouter([
@@ -83,6 +84,10 @@ const router = createBrowserRouter([
       {
         path: 'email-performance',
         element: <EmailPerformance />,
+      },
+      {
+        path: 'marketing-hub',
+        element: <Suspense fallback={<div className="p-8 text-gray-500">Loading...</div>}><MarketingHub /></Suspense>,
       },
     ],
   },

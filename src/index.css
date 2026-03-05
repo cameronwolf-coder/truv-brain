@@ -71,3 +71,36 @@ body {
 .privacy-notice a:hover {
   text-decoration: underline;
 }
+
+/* FullCalendar Overrides */
+.fc {
+  --fc-border-color: #e5e7eb;
+  --fc-today-bg-color: #eff6ff;
+  --fc-event-border-color: transparent;
+  font-family: 'Gilroy', sans-serif;
+}
+
+.fc .fc-daygrid-day-number {
+  font-size: 13px;
+  color: #374151;
+  padding: 6px 8px;
+}
+
+.fc .fc-col-header-cell-cushion {
+  font-size: 12px;
+  font-weight: 500;
+  color: #6b7280;
+  text-transform: uppercase;
+  padding: 8px 0;
+}
+
+.fc .fc-daygrid-event {
+  border-radius: 4px;
+  padding: 1px 4px;
+  margin: 1px 2px;
+}
+
+.fc .fc-day-today .fc-daygrid-day-number {
+  color: #2c64e3;
+  font-weight: 600;
+}
