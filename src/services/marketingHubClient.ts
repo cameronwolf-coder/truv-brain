@@ -51,6 +51,23 @@ export async function createIssue(
   return res.json();
 }
 
+export interface TruvEvent {
+  title: string;
+  date: string;
+  type: 'event' | 'webinar';
+  url: string;
+}
+
+export function useTruvEvents() {
+  const { data, error, isLoading } = useSWR<{ events: TruvEvent[] }>(
+    '/api/marketing-hub/truv-events',
+    fetcher,
+    { revalidateOnFocus: false, dedupingInterval: 300000 },
+  );
+
+  return { events: data?.events || [], error, isLoading };
+}
+
 export function useActivityFeed(days = 30) {
   const { data, error, isLoading } = useSWR<ActivityFeedItem[]>(
     `/api/marketing-hub/activity-feed?days=${days}`,

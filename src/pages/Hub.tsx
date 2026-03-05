@@ -1,5 +1,6 @@
 import { useState, useMemo, lazy, Suspense, startTransition } from 'react';
-import { useCalendarEvents, useActivityFeed } from '../services/marketingHubClient';
+import { useCalendarEvents, useActivityFeed, useTruvEvents } from '../services/marketingHubClient';
+import type { TruvEvent } from '../services/marketingHubClient';
 import { CalendarToolbar } from '../components/marketing-hub/CalendarToolbar';
 import { ProjectProgress } from '../components/marketing-hub/ProjectProgress';
 import { UpcomingFeed } from '../components/marketing-hub/UpcomingFeed';
@@ -104,6 +105,71 @@ function QuickStats({ events, projects }: { events: CalendarEvent[]; projects: C
   );
 }
 
+// --- Upcoming Events at Truv ---
+
+function TruvEventsBar({ events, isLoading }: { events: TruvEvent[]; isLoading: boolean }) {
+  if (isLoading) {
+    return (
+      <div className="mb-6 bg-white rounded-xl border border-gray-200 p-4 animate-pulse">
+        <div className="h-5 bg-gray-200 rounded w-48 mb-3" />
+        <div className="flex gap-4">
+          {[...Array(3)].map((_, i) => (
+            <div key={i} className="h-20 bg-gray-100 rounded-lg flex-1" />
+          ))}
+        </div>
+      </div>
+    );
+  }
+
+  if (events.length === 0) return null;
+
+  return (
+    <div className="mb-6 bg-white rounded-xl border border-gray-200 p-5">
+      <div className="flex items-center justify-between mb-4">
+        <h2 className="text-base font-semibold text-gray-900">Upcoming Events at Truv</h2>
+        <a
+          href="https://truv.com/events"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-sm font-medium text-truv-blue hover:text-blue-700 transition-colors flex items-center gap-1"
+        >
+          View all events
+          <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+          </svg>
+        </a>
+      </div>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
+        {events.map((evt) => (
+          <a
+            key={evt.url}
+            href={evt.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group flex flex-col gap-1.5 p-3.5 rounded-lg border border-gray-100 hover:border-truv-blue/30 hover:bg-blue-50/40 transition-colors"
+          >
+            <div className="flex items-center gap-2">
+              <span className={`shrink-0 text-[10px] font-medium px-1.5 py-0.5 rounded-full ${
+                evt.type === 'webinar'
+                  ? 'bg-purple-50 text-purple-700'
+                  : 'bg-amber-50 text-amber-700'
+              }`}>
+                {evt.type === 'webinar' ? 'Webinar' : 'Conference'}
+              </span>
+            </div>
+            <span className="text-sm font-medium text-gray-900 group-hover:text-truv-blue transition-colors leading-snug line-clamp-2">
+              {evt.title}
+            </span>
+            {evt.date && (
+              <span className="text-xs text-gray-500">{evt.date}</span>
+            )}
+          </a>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 // --- Legend ---
 
 const legendItems = [
@@ -135,6 +201,7 @@ export function Hub() {
 
   const { events, projects: projectEvents, isLoading: calLoading, error: calError } = useCalendarEvents();
   const { items: feedItems, isLoading: feedLoading } = useActivityFeed();
+  const { events: truvEvents, isLoading: truvEventsLoading } = useTruvEvents();
 
   const filterOptions = useMemo(() => {
     const categories = new Set<string>();
@@ -204,6 +271,9 @@ export function Hub() {
 
         {/* Quick Stats */}
         {!calLoading && <QuickStats events={events} projects={projectEvents} />}
+
+        {/* Upcoming Events at Truv */}
+        <TruvEventsBar events={truvEvents} isLoading={truvEventsLoading} />
 
         {/* Toolbar */}
         <CalendarToolbar
