@@ -274,11 +274,18 @@ function KeyDates({
                 {label}
               </span>
 
-              {/* Title */}
-              <span className="text-sm text-gray-800 truncate flex-1">
-                {/\[LIVE\]/i.test(e.title) && <span className="text-yellow-600 mr-1">★</span>}
-                {displayTitle}
-              </span>
+              {/* Title + Project */}
+              <div className="flex items-center gap-2 min-w-0 flex-1">
+                <span className="text-sm text-gray-800 truncate">
+                  {/\[LIVE\]/i.test(e.title) && <span className="text-yellow-600 mr-1">★</span>}
+                  {displayTitle}
+                </span>
+                {e.project && (
+                  <span className="text-xs text-gray-400 truncate shrink-0 hidden md:block">
+                    {e.project}
+                  </span>
+                )}
+              </div>
 
               {/* Assignee */}
               {e.assignee && (
