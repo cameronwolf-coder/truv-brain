@@ -1,26 +1,23 @@
 import { useState, useMemo, lazy, Suspense, startTransition } from 'react';
-import { useCalendarEvents, useActivityFeed, updateEvent, createIssue } from '../services/marketingHubClient';
+import { useCalendarEvents, updateEvent, createIssue } from '../services/marketingHubClient';
 import { CalendarToolbar } from '../components/marketing-hub/CalendarToolbar';
-import { UpcomingFeed } from '../components/marketing-hub/UpcomingFeed';
+import { ProjectProgress } from '../components/marketing-hub/ProjectProgress';
 import { EventEditModal } from '../components/marketing-hub/EventEditModal';
 import { CreateIssueModal } from '../components/marketing-hub/CreateIssueModal';
 import type { CalendarEvent, CalendarViewType, MarketingHubFilters } from '../types/marketingHub';
 
-function lazyRetry<T extends Record<string, unknown>>(
-  loader: () => Promise<T>,
-  pick: keyof T,
-) {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function lazyRetry(loader: () => Promise<any>, pick: string) {
   return lazy(() =>
     loader()
-      .then((m) => ({ default: m[pick] as React.ComponentType<never> }))
+      .then((m: Record<string, unknown>) => ({ default: m[pick] as React.ComponentType<any> }))
       .catch(() => {
-        // Stale chunk after deployment — reload once to get fresh HTML
         const key = 'chunk-reload';
         if (!sessionStorage.getItem(key)) {
           sessionStorage.setItem(key, '1');
           window.location.reload();
         }
-        return { default: (() => null) as unknown as React.ComponentType<never> };
+        return { default: (() => null) as React.ComponentType<any> };
       }),
   );
 }
@@ -53,7 +50,6 @@ export function MarketingHub() {
   const [saving, setSaving] = useState(false);
 
   const { events, projects: projectEvents, isLoading: calLoading, error: calError, mutate } = useCalendarEvents();
-  const { items: feedItems, isLoading: feedLoading, error: feedError } = useActivityFeed();
 
   async function handleEventSave(updates: Record<string, string | undefined>) {
     if (!selectedEvent) return;
@@ -197,17 +193,11 @@ export function MarketingHub() {
       )}
 
       <div className="mt-8">
-        <h2 className="text-lg font-semibold text-gray-900 mb-4">What's Happening</h2>
-        {feedError && (
-          <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg text-sm text-red-700">
-            Failed to load activity feed.
-          </div>
-        )}
-        <UpcomingFeed
-          events={events}
-          recentActivity={feedItems}
-          isLoading={calLoading && feedLoading}
-          onEventClick={setSelectedEvent}
+        <h2 className="text-lg font-semibold text-gray-900 mb-4">Project Progress</h2>
+        <ProjectProgress
+          projects={projectEvents}
+          isLoading={calLoading}
+          onProjectClick={setSelectedEvent}
         />
       </div>
 

@@ -17,6 +17,8 @@ export interface CalendarEvent {
   category: EventCategory;
   labels: { name: string; color: string }[];
   url: string;
+  totalIssues?: number;
+  completedIssues?: number;
 }
 
 export interface ActivityFeedItem {

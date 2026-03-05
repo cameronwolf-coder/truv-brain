@@ -12,6 +12,7 @@ interface LinearProject {
   targetDate?: string;
   lead?: { name: string };
   labels: { nodes: { name: string; color: string }[] };
+  issues: { nodes: { state: { type: string } }[] };
 }
 
 interface LinearIssue {
@@ -69,6 +70,7 @@ async function fetchProjects() {
             startDate targetDate
             lead { name }
             labels { nodes { name color } }
+            issues(first: 250) { nodes { state { type } } }
           }
         }
       }
@@ -76,19 +78,26 @@ async function fetchProjects() {
   `);
   return (data.team.projects.nodes as LinearProject[])
     .filter((p) => p.state === 'planned' || p.state === 'started')
-    .map((p) => ({
-      id: p.id,
-      title: p.name,
-      start: p.startDate || p.targetDate || new Date().toISOString().split('T')[0],
-      end: p.targetDate || undefined,
-      type: 'project' as const,
-      status: p.state,
-      statusColor: PROJECT_STATE_COLORS[p.state] || '#6b7280',
-      assignee: p.lead?.name,
-      category: parseCategory(p.name),
-      labels: (p.labels?.nodes || []).map((l) => ({ name: l.name, color: l.color })),
-      url: p.url,
-    }));
+    .map((p) => {
+      const issues = p.issues?.nodes || [];
+      const totalIssues = issues.length;
+      const completedIssues = issues.filter((i) => i.state.type === 'completed').length;
+      return {
+        id: p.id,
+        title: p.name,
+        start: p.startDate || p.targetDate || new Date().toISOString().split('T')[0],
+        end: p.targetDate || undefined,
+        type: 'project' as const,
+        status: p.state,
+        statusColor: PROJECT_STATE_COLORS[p.state] || '#6b7280',
+        assignee: p.lead?.name,
+        category: parseCategory(p.name),
+        labels: (p.labels?.nodes || []).map((l) => ({ name: l.name, color: l.color })),
+        url: p.url,
+        totalIssues,
+        completedIssues,
+      };
+    });
 }
 
 async function fetchIssues(startDate: string, endDate: string) {
