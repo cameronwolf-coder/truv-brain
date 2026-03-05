@@ -99,13 +99,16 @@ export function MarketingHub() {
     return projectEvents.map((p) => ({ id: p.id, name: p.title }));
   }, [projectEvents]);
 
-  // Derive filter options from events
+  // Derive filter options from events + all active projects
   const filterOptions = useMemo(() => {
     const categories = new Set<string>();
     const projects = new Set<string>();
     const labels = new Set<string>();
     const assignees = new Set<string>();
     const statuses = new Set<string>();
+
+    // Include all active project names so the dropdown is complete
+    projectEvents.forEach((p) => projects.add(p.title));
 
     events.forEach((e) => {
       categories.add(e.category);
@@ -122,7 +125,7 @@ export function MarketingHub() {
       assignees: Array.from(assignees).sort(),
       statuses: Array.from(statuses).sort(),
     };
-  }, [events]);
+  }, [events, projectEvents]);
 
   // Derive filtered events during render
   const filteredEvents = useMemo(() => {
