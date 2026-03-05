@@ -18,9 +18,14 @@ import { ExpertReview } from './pages/ExpertReview';
 import { UrlToEmail } from './pages/UrlToEmail';
 import { EmailPerformance } from './pages/EmailPerformance';
 const MarketingHub = lazy(() => import('./pages/MarketingHub').then((m) => ({ default: m.MarketingHub })));
+const Hub = lazy(() => import('./pages/Hub').then((m) => ({ default: m.Hub })));
 import './index.css';
 
 const router = createBrowserRouter([
+  {
+    path: '/hub',
+    element: <Suspense fallback={<div className="p-8 text-gray-500">Loading...</div>}><Hub /></Suspense>,
+  },
   {
     path: '/',
     element: <Layout />,
