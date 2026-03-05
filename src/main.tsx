@@ -1,6 +1,9 @@
 import { StrictMode, lazy, Suspense } from 'react';
 import { createRoot } from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { GoogleOAuthProvider } from '@react-oauth/google';
+import { AuthProvider } from './contexts/AuthContext';
+import { ProtectedRoute } from './components/ProtectedRoute';
 import { Layout } from './components/Layout';
 import { Home } from './pages/Home';
 import { ProofPoints } from './pages/ProofPoints';
@@ -24,7 +27,7 @@ import './index.css';
 const router = createBrowserRouter([
   {
     path: '/hub',
-    element: <Suspense fallback={<div className="p-8 text-gray-500">Loading...</div>}><Hub /></Suspense>,
+    element: <Suspense fallback={<div className="p-8 text-gray-500">Loading...</div>}><ProtectedRoute><Hub /></ProtectedRoute></Suspense>,
   },
   {
     path: '/',
@@ -92,14 +95,20 @@ const router = createBrowserRouter([
       },
       {
         path: 'marketing-hub',
-        element: <Suspense fallback={<div className="p-8 text-gray-500">Loading...</div>}><MarketingHub /></Suspense>,
+        element: <Suspense fallback={<div className="p-8 text-gray-500">Loading...</div>}><ProtectedRoute><MarketingHub /></ProtectedRoute></Suspense>,
       },
     ],
   },
 ]);
 
+const GOOGLE_CLIENT_ID = '600053020430-etbmsaj7r5pv60ma4s6butlosa571hrd.apps.googleusercontent.com';
+
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
+      <AuthProvider>
+        <RouterProvider router={router} />
+      </AuthProvider>
+    </GoogleOAuthProvider>
   </StrictMode>
 );
