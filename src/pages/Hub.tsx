@@ -1,8 +1,7 @@
 import { useState, useMemo, lazy, Suspense, startTransition } from 'react';
-import { useCalendarEvents, useTruvEvents, updateEvent } from '../services/marketingHubClient';
+import { useCalendarEvents, useTruvEvents } from '../services/marketingHubClient';
 import type { TruvEvent } from '../services/marketingHubClient';
 import { CalendarToolbar } from '../components/marketing-hub/CalendarToolbar';
-import { EventEditModal } from '../components/marketing-hub/EventEditModal';
 import type { CalendarEvent, CalendarViewType, MarketingHubFilters } from '../types/marketingHub';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -569,10 +568,7 @@ export function Hub() {
   const [filters, setFilters] = useState<MarketingHubFilters>(emptyFilters);
   const [calendarOpen, setCalendarOpen] = useState(false);
 
-  const [selectedEvent, setSelectedEvent] = useState<CalendarEvent | null>(null);
-  const [saving, setSaving] = useState(false);
-
-  const { events, projects: projectEvents, isLoading: calLoading, error: calError, mutate } = useCalendarEvents();
+  const { events, projects: projectEvents, isLoading: calLoading, error: calError } = useCalendarEvents();
   const { events: truvEvents, isLoading: truvEventsLoading } = useTruvEvents();
 
   const filterOptions = useMemo(() => {
@@ -616,24 +612,6 @@ export function Hub() {
     startTransition(() => setViewType(view));
   }
 
-  function handleEventClick(event: CalendarEvent) {
-    setSelectedEvent(event);
-  }
-
-  async function handleEventSave(updates: Record<string, string | undefined>) {
-    if (!selectedEvent) return;
-    setSaving(true);
-    try {
-      await updateEvent(selectedEvent.id, selectedEvent.type, updates);
-      await mutate();
-      setSelectedEvent(null);
-    } catch (err) {
-      console.error('Failed to save event:', err);
-    } finally {
-      setSaving(false);
-    }
-  }
-
   const noop = () => {};
 
   return (
@@ -665,10 +643,10 @@ export function Hub() {
         <TruvEventsBar events={truvEvents} isLoading={truvEventsLoading} />
 
         {/* Key Marketing Dates */}
-        <KeyDates events={events} isLoading={calLoading} onEventClick={handleEventClick} />
+        <KeyDates events={events} isLoading={calLoading} onEventClick={noop} />
 
         {/* Project Progress — Compact Rings */}
-        <ProjectRings projects={projectEvents} isLoading={calLoading} onProjectClick={handleEventClick} />
+        <ProjectRings projects={projectEvents} isLoading={calLoading} onProjectClick={noop} />
 
         {/* Full Calendar — Collapsible */}
         <div className="border border-gray-200 rounded-xl bg-white overflow-hidden">
@@ -710,13 +688,13 @@ export function Hub() {
                 ) : (
                   <Suspense fallback={<CalendarSkeleton />}>
                     {viewType === 'month' && (
-                      <MonthView events={filteredEvents} currentDate={currentDate} onEventClick={handleEventClick} onEventDrop={noop} />
+                      <MonthView events={filteredEvents} currentDate={currentDate} onEventClick={noop} onEventDrop={noop} />
                     )}
                     {viewType === 'week' && (
-                      <WeekView events={filteredEvents} currentDate={currentDate} onEventClick={handleEventClick} onEventDrop={noop} />
+                      <WeekView events={filteredEvents} currentDate={currentDate} onEventClick={noop} onEventDrop={noop} />
                     )}
                     {viewType === 'timeline' && (
-                      <TimelineView events={filteredEvents} currentDate={currentDate} onEventClick={handleEventClick} />
+                      <TimelineView events={filteredEvents} currentDate={currentDate} onEventClick={noop} />
                     )}
                   </Suspense>
                 )}
@@ -726,14 +704,6 @@ export function Hub() {
         </div>
       </div>
 
-      {selectedEvent && (
-        <EventEditModal
-          event={selectedEvent}
-          onClose={() => setSelectedEvent(null)}
-          onSave={handleEventSave}
-          saving={saving}
-        />
-      )}
     </div>
   );
 }
