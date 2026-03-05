@@ -8,6 +8,7 @@ interface CalendarToolbarProps {
   filters: MarketingHubFilters;
   onFiltersChange: (filters: MarketingHubFilters) => void;
   filterOptions: {
+    categories: string[];
     projects: string[];
     labels: string[];
     assignees: string[];
@@ -109,6 +110,16 @@ export function CalendarToolbar({
       <div className="flex items-center gap-3">
         <span className="text-xs font-medium text-gray-500 uppercase">Filters:</span>
         <select
+          value={filters.category || ''}
+          onChange={(e) => onFiltersChange({ ...filters, category: e.target.value || null })}
+          className="text-sm border border-gray-200 rounded-lg px-3 py-1.5 text-gray-700 bg-white"
+        >
+          <option value="">All Categories</option>
+          {filterOptions.categories.map((c) => (
+            <option key={c} value={c}>{c}</option>
+          ))}
+        </select>
+        <select
           value={filters.project || ''}
           onChange={(e) => onFiltersChange({ ...filters, project: e.target.value || null })}
           className="text-sm border border-gray-200 rounded-lg px-3 py-1.5 text-gray-700 bg-white"
@@ -148,9 +159,9 @@ export function CalendarToolbar({
             <option key={s} value={s}>{s}</option>
           ))}
         </select>
-        {(filters.project || filters.label || filters.assignee || filters.status) && (
+        {(filters.category || filters.project || filters.label || filters.assignee || filters.status) && (
           <button
-            onClick={() => onFiltersChange({ project: null, label: null, assignee: null, status: null })}
+            onClick={() => onFiltersChange({ category: null, project: null, label: null, assignee: null, status: null })}
             className="text-xs text-gray-500 hover:text-gray-700 underline"
           >
             Clear all
