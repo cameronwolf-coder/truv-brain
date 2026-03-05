@@ -124,12 +124,12 @@ export const TimelineView = memo(function TimelineView({ events, currentDate, on
               className="absolute h-6 rounded-full top-1/2 -translate-y-1/2"
               style={{
                 ...getBarStyle(project.start, project.end!),
-                backgroundColor: project.category === 'Event' ? '#d97706' : '#2c64e3',
+                backgroundColor: (project.category === 'Event' || /\[LIVE\]/i.test(project.title)) ? '#d97706' : '#2c64e3',
                 opacity: 0.85,
               }}
             >
               <span className="text-[10px] text-white font-medium px-2 leading-6 truncate block">
-                {project.category === 'Event' ? '★ ' : ''}{project.title}
+                {(project.category === 'Event' || /\[LIVE\]/i.test(project.title)) ? '★ ' : ''}{project.title}
               </span>
             </div>
           </div>
