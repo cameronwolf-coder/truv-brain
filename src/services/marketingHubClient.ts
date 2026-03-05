@@ -37,6 +37,20 @@ export async function updateEvent(
   return res.json();
 }
 
+export async function createIssue(
+  title: string,
+  dueDate?: string,
+  projectId?: string,
+): Promise<{ success: boolean }> {
+  const res = await fetch('/api/marketing-hub/create-issue', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ title, dueDate, projectId }),
+  });
+  if (!res.ok) throw new Error(`HTTP ${res.status}`);
+  return res.json();
+}
+
 export function useActivityFeed(days = 30) {
   const { data, error, isLoading } = useSWR<ActivityFeedItem[]>(
     `/api/marketing-hub/activity-feed?days=${days}`,
