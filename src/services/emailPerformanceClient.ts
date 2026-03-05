@@ -6,6 +6,11 @@ export async function getCampaigns(): Promise<CampaignSummary[]> {
   return res.json();
 }
 
+export async function syncCampaigns(): Promise<void> {
+  const res = await fetch('/api/email-performance-backfill', { method: 'POST' });
+  if (!res.ok) throw new Error(`HTTP ${res.status}`);
+}
+
 export async function getCampaignDetail(
   workflow: string,
   limit = 100,
