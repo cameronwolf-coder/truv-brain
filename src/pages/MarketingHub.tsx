@@ -1,7 +1,7 @@
 import { useState, useMemo, lazy, Suspense, startTransition } from 'react';
 import { useCalendarEvents, useActivityFeed, updateEvent, createIssue } from '../services/marketingHubClient';
 import { CalendarToolbar } from '../components/marketing-hub/CalendarToolbar';
-import { ActivityFeed } from '../components/marketing-hub/ActivityFeed';
+import { UpcomingFeed } from '../components/marketing-hub/UpcomingFeed';
 import { EventEditModal } from '../components/marketing-hub/EventEditModal';
 import { CreateIssueModal } from '../components/marketing-hub/CreateIssueModal';
 import type { CalendarEvent, CalendarViewType, MarketingHubFilters } from '../types/marketingHub';
@@ -197,16 +197,18 @@ export function MarketingHub() {
       )}
 
       <div className="mt-8">
-        <div className="flex items-center justify-between mb-4">
-          <h2 className="text-lg font-semibold text-gray-900">Recent Activity</h2>
-          <span className="text-xs text-gray-400">Last 30 days</span>
-        </div>
+        <h2 className="text-lg font-semibold text-gray-900 mb-4">What's Happening</h2>
         {feedError && (
           <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg text-sm text-red-700">
             Failed to load activity feed.
           </div>
         )}
-        <ActivityFeed items={feedItems} isLoading={feedLoading} />
+        <UpcomingFeed
+          events={events}
+          recentActivity={feedItems}
+          isLoading={calLoading && feedLoading}
+          onEventClick={setSelectedEvent}
+        />
       </div>
 
       {selectedEvent && (
