@@ -69,6 +69,19 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
       if (messages.length === 0) continue;
 
+      // Clear existing campaign data so re-syncing doesn't double-count
+      const recipientKeys = await redis.smembers(`campaign:${workflow}:recipients`) as string[];
+      const clearPipeline = redis.pipeline();
+      clearPipeline.del(`campaign:${workflow}:totals`);
+      clearPipeline.del(`campaign:${workflow}:unique_open`);
+      clearPipeline.del(`campaign:${workflow}:unique_click`);
+      clearPipeline.del(`campaign:${workflow}:meta`);
+      clearPipeline.del(`campaign:${workflow}:recipients`);
+      for (const email of recipientKeys) {
+        clearPipeline.del(`campaign:${workflow}:recipient:${email}`);
+      }
+      await clearPipeline.exec();
+
       const pipeline = redis.pipeline();
       let written = 0;
 
