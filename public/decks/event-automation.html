@@ -1,0 +1,1179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Operations Automation | Truv Marketing</title>
+
+    <!-- Fonts -->
+    <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=satoshi@500,700,900&f[]=cabinet-grotesk@700,800&display=swap">
+
+    <style>
+        /* ===========================================
+           THEME — Truv Brand
+           =========================================== */
+        :root {
+            --truv-blue: #2c64e3;
+            --truv-dark: #0f1c47;
+            --truv-light: #c5d9f7;
+            --bg: #f4f4f2;
+            --white: #ffffff;
+            --text-primary: #0f1c47;
+            --text-secondary: #4a5568;
+            --accent: #2c64e3;
+            --accent-soft: rgba(44, 100, 227, 0.08);
+            --accent-medium: rgba(44, 100, 227, 0.15);
+            --green: #16a34a;
+            --green-soft: rgba(22, 163, 74, 0.1);
+            --amber: #d97706;
+            --amber-soft: rgba(217, 119, 6, 0.1);
+
+            --font-display: 'Cabinet Grotesk', 'Satoshi', sans-serif;
+            --font-body: 'Satoshi', sans-serif;
+
+            --title-size: clamp(2rem, 5.5vw, 4.5rem);
+            --h2-size: clamp(1.5rem, 3.5vw, 2.75rem);
+            --h3-size: clamp(1.1rem, 2vw, 1.5rem);
+            --body-size: clamp(0.85rem, 1.4vw, 1.15rem);
+            --small-size: clamp(0.7rem, 1vw, 0.9rem);
+            --label-size: clamp(0.6rem, 0.9vw, 0.8rem);
+
+            --slide-padding: clamp(2rem, 5vw, 5rem);
+            --content-gap: clamp(1rem, 2.5vw, 2.5rem);
+            --element-gap: clamp(0.5rem, 1.2vw, 1rem);
+
+            --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+            --ease-out-back: cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        /* ===========================================
+           BASE
+           =========================================== */
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-snap-type: y mandatory;
+            height: 100%;
+            overflow-x: hidden;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--bg);
+            color: var(--text-primary);
+            height: 100%;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ===========================================
+           SLIDE CONTAINER
+           =========================================== */
+        .slide {
+            width: 100vw;
+            height: 100vh;
+            height: 100dvh;
+            overflow: hidden;
+            scroll-snap-align: start;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .slide-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            max-height: 100%;
+            overflow: hidden;
+            padding: var(--slide-padding);
+            position: relative;
+            z-index: 2;
+        }
+
+        /* ===========================================
+           PROGRESS BAR
+           =========================================== */
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: var(--truv-blue);
+            z-index: 100;
+            transition: width 0.4s var(--ease-out-expo);
+        }
+
+        /* ===========================================
+           NAVIGATION DOTS
+           =========================================== */
+        .nav-dots {
+            position: fixed;
+            right: clamp(1rem, 2vw, 2rem);
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            z-index: 100;
+        }
+
+        .nav-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(15, 28, 71, 0.15);
+            cursor: pointer;
+            transition: all 0.3s var(--ease-out-expo);
+            border: none;
+            padding: 0;
+        }
+
+        .nav-dot.active {
+            background: var(--truv-blue);
+            transform: scale(1.3);
+        }
+
+        .nav-dot:hover {
+            background: var(--truv-blue);
+            opacity: 0.7;
+        }
+
+        /* Dark slide variant dots */
+        .slide.dark ~ .nav-dots .nav-dot,
+        .slide.dark .nav-dot {
+            background: rgba(255,255,255,0.2);
+        }
+
+        /* ===========================================
+           SLIDE NUMBER
+           =========================================== */
+        .slide-number {
+            position: absolute;
+            bottom: clamp(1rem, 2vw, 2rem);
+            right: clamp(1.5rem, 3vw, 3rem);
+            font-size: var(--small-size);
+            color: var(--text-secondary);
+            opacity: 0.5;
+            font-variant-numeric: tabular-nums;
+            z-index: 2;
+        }
+
+        .slide.dark .slide-number {
+            color: rgba(255,255,255,0.3);
+        }
+
+        /* ===========================================
+           ANIMATIONS
+           =========================================== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(25px);
+            transition: opacity 0.7s var(--ease-out-expo),
+                        transform 0.7s var(--ease-out-expo);
+        }
+
+        .slide.visible .reveal {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .reveal:nth-child(1) { transition-delay: 0.1s; }
+        .reveal:nth-child(2) { transition-delay: 0.2s; }
+        .reveal:nth-child(3) { transition-delay: 0.3s; }
+        .reveal:nth-child(4) { transition-delay: 0.4s; }
+        .reveal:nth-child(5) { transition-delay: 0.5s; }
+        .reveal:nth-child(6) { transition-delay: 0.6s; }
+
+        .reveal-scale {
+            opacity: 0;
+            transform: scale(0.92);
+            transition: opacity 0.7s var(--ease-out-expo),
+                        transform 0.7s var(--ease-out-expo);
+        }
+
+        .slide.visible .reveal-scale {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* ===========================================
+           SHARED COMPONENTS
+           =========================================== */
+        .tag {
+            display: inline-block;
+            font-size: var(--label-size);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--truv-blue);
+            background: var(--accent-soft);
+            padding: 0.35em 0.9em;
+            border-radius: 100px;
+        }
+
+        .slide.dark .tag {
+            color: var(--truv-light);
+            background: rgba(197, 217, 247, 0.12);
+        }
+
+        h2 {
+            font-family: var(--font-display);
+            font-size: var(--h2-size);
+            font-weight: 800;
+            line-height: 1.15;
+            letter-spacing: -0.02em;
+        }
+
+        h3 {
+            font-family: var(--font-display);
+            font-size: var(--h3-size);
+            font-weight: 700;
+            line-height: 1.25;
+        }
+
+        .subtitle {
+            font-size: var(--body-size);
+            color: var(--text-secondary);
+            line-height: 1.6;
+            max-width: 600px;
+        }
+
+        .slide.dark .subtitle {
+            color: rgba(255,255,255,0.6);
+        }
+
+        /* ===========================================
+           SLIDE 1: TITLE
+           =========================================== */
+        .title-slide {
+            background: var(--truv-dark);
+            color: var(--white);
+            overflow: hidden;
+        }
+
+        .title-slide .slide-content {
+            justify-content: center;
+            gap: var(--content-gap);
+        }
+
+        .title-slide h1 {
+            font-family: var(--font-display);
+            font-size: var(--title-size);
+            font-weight: 900;
+            line-height: 1.05;
+            letter-spacing: -0.03em;
+            max-width: 14ch;
+        }
+
+        .title-slide h1 .accent {
+            color: var(--truv-blue);
+            display: inline;
+        }
+
+        .title-slide .meta {
+            font-size: var(--body-size);
+            color: rgba(255,255,255,0.45);
+            display: flex;
+            gap: 1.5em;
+            align-items: center;
+        }
+
+        .title-slide .meta span {
+            display: flex;
+            align-items: center;
+            gap: 0.4em;
+        }
+
+        /* Geometric accent shapes */
+        .title-bg-shape {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.06;
+            z-index: 1;
+        }
+
+        .title-bg-shape.one {
+            width: clamp(300px, 50vw, 700px);
+            height: clamp(300px, 50vw, 700px);
+            background: var(--truv-blue);
+            top: -15%;
+            right: -10%;
+        }
+
+        .title-bg-shape.two {
+            width: clamp(200px, 30vw, 400px);
+            height: clamp(200px, 30vw, 400px);
+            background: var(--truv-light);
+            bottom: -10%;
+            left: 5%;
+        }
+
+        /* ===========================================
+           SLIDE 2: THE PROBLEM
+           =========================================== */
+        .problem-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
+            gap: clamp(0.75rem, 1.5vw, 1.25rem);
+            margin-top: var(--content-gap);
+        }
+
+        .problem-card {
+            background: var(--white);
+            border-radius: 12px;
+            padding: clamp(1rem, 2vw, 1.75rem);
+            border: 1px solid rgba(15, 28, 71, 0.06);
+            transition: transform 0.3s var(--ease-out-expo);
+        }
+
+        .problem-card:hover {
+            transform: translateY(-2px);
+        }
+
+        .problem-icon {
+            font-size: clamp(1.5rem, 2.5vw, 2rem);
+            margin-bottom: clamp(0.4rem, 1vw, 0.75rem);
+        }
+
+        .problem-card h3 {
+            margin-bottom: clamp(0.2rem, 0.5vw, 0.4rem);
+            font-size: clamp(0.95rem, 1.4vw, 1.15rem);
+        }
+
+        .problem-card p {
+            font-size: var(--small-size);
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        /* ===========================================
+           SLIDE 3: WHAT WE BUILT (Overview)
+           =========================================== */
+        .flow-visual {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: clamp(0.5rem, 1.5vw, 1.5rem);
+            margin-top: var(--content-gap);
+            flex-wrap: wrap;
+        }
+
+        .flow-node {
+            background: var(--white);
+            border-radius: 12px;
+            padding: clamp(0.75rem, 1.5vw, 1.5rem) clamp(1rem, 2vw, 2rem);
+            border: 2px solid rgba(15, 28, 71, 0.06);
+            text-align: center;
+            min-width: clamp(100px, 15vw, 160px);
+            transition: all 0.3s var(--ease-out-expo);
+        }
+
+        .flow-node.active {
+            border-color: var(--truv-blue);
+            background: var(--accent-soft);
+        }
+
+        .flow-node .node-icon {
+            font-size: clamp(1.25rem, 2vw, 1.75rem);
+            margin-bottom: 0.3em;
+        }
+
+        .flow-node .node-label {
+            font-size: var(--small-size);
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .flow-node .node-sub {
+            font-size: var(--label-size);
+            color: var(--text-secondary);
+            margin-top: 0.15em;
+        }
+
+        .flow-arrow {
+            font-size: clamp(1rem, 1.5vw, 1.5rem);
+            color: var(--truv-blue);
+            opacity: 0.5;
+            flex-shrink: 0;
+        }
+
+        /* ===========================================
+           SCREENSHOT CONTAINERS
+           =========================================== */
+        .screenshot-container {
+            margin-top: var(--content-gap);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 24px rgba(15, 28, 71, 0.12), 0 1px 4px rgba(15, 28, 71, 0.06);
+            border: 1px solid rgba(15, 28, 71, 0.08);
+            max-height: min(45vh, 380px);
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .screenshot-container img {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: cover;
+            object-position: top left;
+        }
+
+        .screenshot-label {
+            font-size: var(--label-size);
+            color: var(--text-secondary);
+            text-align: center;
+            margin-top: clamp(0.3rem, 0.5vw, 0.5rem);
+            font-style: italic;
+        }
+
+        .split-screenshots {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: clamp(0.5rem, 1vw, 1rem);
+            margin-top: var(--content-gap);
+        }
+
+        .split-screenshots .screenshot-container {
+            margin-top: 0;
+            max-height: min(35vh, 300px);
+        }
+
+        @media (max-width: 768px) {
+            .split-screenshots {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ===========================================
+           SLIDE 4: HOW IT WORKS (Detail)
+           =========================================== */
+        .steps-list {
+            display: flex;
+            flex-direction: column;
+            gap: clamp(0.6rem, 1.2vw, 1rem);
+            margin-top: var(--content-gap);
+            max-width: 750px;
+        }
+
+        .step-item {
+            display: flex;
+            align-items: flex-start;
+            gap: clamp(0.75rem, 1.5vw, 1.25rem);
+        }
+
+        .step-num {
+            flex-shrink: 0;
+            width: clamp(28px, 3vw, 36px);
+            height: clamp(28px, 3vw, 36px);
+            border-radius: 50%;
+            background: var(--truv-blue);
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: var(--small-size);
+        }
+
+        .step-text h3 {
+            font-size: clamp(0.9rem, 1.3vw, 1.1rem);
+            margin-bottom: 0.15em;
+        }
+
+        .step-text p {
+            font-size: var(--small-size);
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        /* ===========================================
+           SLIDE 5: BI-DIRECTIONAL SYNC
+           =========================================== */
+        .sync-visual {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: clamp(1.5rem, 4vw, 4rem);
+            margin-top: var(--content-gap);
+            flex-wrap: wrap;
+        }
+
+        .sync-platform {
+            text-align: center;
+        }
+
+        .sync-platform .platform-icon {
+            width: clamp(60px, 10vw, 100px);
+            height: clamp(60px, 10vw, 100px);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: clamp(1.5rem, 3vw, 2.5rem);
+            margin: 0 auto clamp(0.4rem, 0.8vw, 0.75rem);
+        }
+
+        .sync-platform .platform-name {
+            font-weight: 700;
+            font-size: var(--body-size);
+        }
+
+        .sync-platform .platform-role {
+            font-size: var(--small-size);
+            color: var(--text-secondary);
+        }
+
+        .sync-arrows {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: clamp(0.3rem, 0.6vw, 0.5rem);
+        }
+
+        .sync-arrow-row {
+            display: flex;
+            align-items: center;
+            gap: 0.5em;
+            font-size: var(--small-size);
+            color: var(--truv-blue);
+            font-weight: 600;
+        }
+
+        .sync-arrow-row .arrow {
+            font-size: clamp(1.25rem, 2vw, 1.75rem);
+        }
+
+        .sync-detail {
+            background: var(--accent-soft);
+            border-radius: 10px;
+            padding: clamp(0.75rem, 1.5vw, 1.25rem) clamp(1rem, 2vw, 1.75rem);
+            margin-top: var(--content-gap);
+            max-width: 550px;
+            margin-left: auto;
+            margin-right: auto;
+            text-align: center;
+        }
+
+        .sync-detail p {
+            font-size: var(--small-size);
+            color: var(--truv-dark);
+            line-height: 1.5;
+        }
+
+        .sync-detail strong {
+            color: var(--truv-blue);
+        }
+
+        /* ===========================================
+           SLIDE 6: RESULTS / IMPACT
+           =========================================== */
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr));
+            gap: clamp(0.75rem, 1.5vw, 1.25rem);
+            margin-top: var(--content-gap);
+        }
+
+        .result-card {
+            background: var(--white);
+            border-radius: 12px;
+            padding: clamp(1rem, 2vw, 1.75rem);
+            border: 1px solid rgba(15, 28, 71, 0.06);
+            text-align: center;
+        }
+
+        .result-card .result-number {
+            font-family: var(--font-display);
+            font-size: clamp(1.75rem, 4vw, 3rem);
+            font-weight: 900;
+            color: var(--truv-blue);
+            line-height: 1;
+            margin-bottom: 0.2em;
+        }
+
+        .result-card .result-label {
+            font-size: var(--small-size);
+            color: var(--text-secondary);
+            line-height: 1.4;
+        }
+
+        .result-card .result-label strong {
+            color: var(--text-primary);
+            display: block;
+            font-size: var(--body-size);
+            margin-bottom: 0.15em;
+        }
+
+        /* ===========================================
+           SLIDE 7: WHAT'S NEXT
+           =========================================== */
+        .roadmap-list {
+            display: flex;
+            flex-direction: column;
+            gap: clamp(0.6rem, 1.2vw, 1rem);
+            margin-top: var(--content-gap);
+            max-width: 700px;
+        }
+
+        .roadmap-item {
+            display: flex;
+            align-items: flex-start;
+            gap: clamp(0.75rem, 1.5vw, 1.25rem);
+            background: rgba(255,255,255,0.08);
+            border-radius: 12px;
+            padding: clamp(0.75rem, 1.5vw, 1.25rem) clamp(1rem, 2vw, 1.5rem);
+            border: 1px solid rgba(255,255,255,0.06);
+        }
+
+        .roadmap-status {
+            flex-shrink: 0;
+            padding: 0.25em 0.7em;
+            border-radius: 100px;
+            font-size: var(--label-size);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
+        .roadmap-status.live {
+            background: rgba(22, 163, 74, 0.15);
+            color: #4ade80;
+        }
+
+        .roadmap-status.next {
+            background: rgba(217, 119, 6, 0.15);
+            color: #fbbf24;
+        }
+
+        .roadmap-status.planned {
+            background: rgba(197, 217, 247, 0.12);
+            color: var(--truv-light);
+        }
+
+        .roadmap-text h3 {
+            font-size: clamp(0.9rem, 1.3vw, 1.1rem);
+            color: var(--white);
+            margin-bottom: 0.15em;
+        }
+
+        .roadmap-text p {
+            font-size: var(--small-size);
+            color: rgba(255,255,255,0.5);
+            line-height: 1.5;
+        }
+
+        /* ===========================================
+           SLIDE 8: CLOSING
+           =========================================== */
+        .closing-slide {
+            background: var(--truv-dark);
+            color: var(--white);
+            text-align: center;
+        }
+
+        .closing-slide .slide-content {
+            align-items: center;
+        }
+
+        .closing-slide h2 {
+            font-size: var(--title-size);
+            max-width: 16ch;
+        }
+
+        .closing-slide h2 .accent {
+            color: var(--truv-blue);
+        }
+
+        .closing-slide .closing-sub {
+            font-size: var(--body-size);
+            color: rgba(255,255,255,0.5);
+            margin-top: clamp(0.5rem, 1vw, 1rem);
+        }
+
+        /* ===========================================
+           RESPONSIVE
+           =========================================== */
+        @media (max-height: 700px) {
+            :root {
+                --slide-padding: clamp(1.25rem, 3vw, 2.5rem);
+                --content-gap: clamp(0.6rem, 1.5vw, 1.25rem);
+            }
+        }
+
+        @media (max-height: 600px) {
+            :root {
+                --slide-padding: clamp(1rem, 2.5vw, 2rem);
+                --content-gap: clamp(0.4rem, 1vw, 0.75rem);
+                --title-size: clamp(1.5rem, 5vw, 2.5rem);
+                --h2-size: clamp(1.25rem, 3vw, 2rem);
+            }
+            .nav-dots, .decorative { display: none; }
+        }
+
+        @media (max-height: 500px) {
+            :root {
+                --slide-padding: clamp(0.75rem, 2vw, 1.5rem);
+                --title-size: clamp(1.25rem, 4vw, 2rem);
+                --h2-size: clamp(1rem, 2.5vw, 1.5rem);
+                --body-size: clamp(0.7rem, 1vw, 0.85rem);
+            }
+        }
+
+        @media (max-width: 900px) {
+            [data-slide="3"] .slide-content {
+                flex-direction: column !important;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .flow-visual { flex-direction: column; }
+            .flow-arrow { transform: rotate(90deg); }
+            .sync-visual { flex-direction: column; }
+            .sync-arrows { flex-direction: row; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                transition-duration: 0.2s !important;
+            }
+            html { scroll-behavior: auto; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Progress bar -->
+    <div class="progress-bar" id="progressBar"></div>
+
+    <!-- Navigation dots -->
+    <nav class="nav-dots" id="navDots" aria-label="Slide navigation"></nav>
+
+    <!-- =============================================
+         SLIDE 1: TITLE
+         ============================================= -->
+    <section class="slide title-slide dark" data-slide="0">
+        <div class="title-bg-shape one"></div>
+        <div class="title-bg-shape two"></div>
+        <div class="slide-content">
+            <div class="tag reveal">Marketing Operations</div>
+            <h1 class="reveal">Automating Event <span class="accent">Operations</span></h1>
+            <p class="subtitle reveal" style="color: rgba(255,255,255,0.5); max-width: 500px;">
+                How we eliminated manual task creation and built a real-time sync between HubSpot and Linear.
+            </p>
+            <div class="meta reveal">
+                <span>Cameron Wolf</span>
+                <span>March 2026</span>
+            </div>
+        </div>
+        <div class="slide-number">01 / 08</div>
+    </section>
+
+    <!-- =============================================
+         SLIDE 2: THE PROBLEM
+         ============================================= -->
+    <section class="slide" data-slide="1">
+        <div class="slide-content">
+            <div class="tag reveal">The Challenge</div>
+            <h2 class="reveal">Too many tools, not enough visibility</h2>
+            <p class="subtitle reveal">Event execution relied on manual coordination across disconnected systems.</p>
+
+            <div class="problem-grid">
+                <div class="problem-card reveal-scale" style="transition-delay: 0.2s;">
+                    <div class="problem-icon">&#128221;</div>
+                    <h3>Manual task creation</h3>
+                    <p>Every webinar required manually creating ~31 tasks across multiple tools. Hours of setup per event.</p>
+                </div>
+                <div class="problem-card reveal-scale" style="transition-delay: 0.3s;">
+                    <div class="problem-icon">&#128256;</div>
+                    <h3>Disconnected systems</h3>
+                    <p>HubSpot for CRM tasks, Linear for project management, spreadsheets for tracking. No single source of truth.</p>
+                </div>
+                <div class="problem-card reveal-scale" style="transition-delay: 0.4s;">
+                    <div class="problem-icon">&#128683;</div>
+                    <h3>Dropped balls</h3>
+                    <p>Without a centralized checklist, playbook steps got missed. No visibility into who owned what.</p>
+                </div>
+            </div>
+        </div>
+        <div class="slide-number">02 / 08</div>
+    </section>
+
+    <!-- =============================================
+         SLIDE 3: THE SOLUTION (OVERVIEW)
+         ============================================= -->
+    <section class="slide" data-slide="2">
+        <div class="slide-content">
+            <div class="tag reveal">The Solution</div>
+            <h2 class="reveal">One event creation triggers everything</h2>
+            <p class="subtitle reveal">Melissa creates an event in HubSpot. The rest happens automatically.</p>
+
+            <div class="flow-visual">
+                <div class="flow-node active reveal-scale" style="transition-delay: 0.2s;">
+                    <div class="node-icon">&#128197;</div>
+                    <div class="node-label">HubSpot Event</div>
+                    <div class="node-sub">Melissa creates event</div>
+                </div>
+                <div class="flow-arrow reveal" style="transition-delay: 0.3s;">&#10132;</div>
+                <div class="flow-node reveal-scale" style="transition-delay: 0.35s;">
+                    <div class="node-icon">&#128214;</div>
+                    <div class="node-label">Notion Playbook</div>
+                    <div class="node-sub">31 tasks pulled</div>
+                </div>
+                <div class="flow-arrow reveal" style="transition-delay: 0.4s;">&#10132;</div>
+                <div class="flow-node reveal-scale" style="transition-delay: 0.45s;">
+                    <div class="node-icon">&#9989;</div>
+                    <div class="node-label">HubSpot Tasks</div>
+                    <div class="node-sub">Auto-created & assigned</div>
+                </div>
+                <div class="flow-arrow reveal" style="transition-delay: 0.5s;">&#10132;</div>
+                <div class="flow-node reveal-scale" style="transition-delay: 0.55s;">
+                    <div class="node-icon">&#128200;</div>
+                    <div class="node-label">Linear Issues</div>
+                    <div class="node-sub">Mirrored & synced</div>
+                </div>
+            </div>
+
+            <div class="screenshot-container reveal-scale" style="transition-delay: 0.6s;">
+                <img src="screenshots/hubspot-workflow.png" alt="HubSpot Events to Linear Projects workflow — triggers on event creation, sends webhook to Pipedream">
+            </div>
+            <div class="screenshot-label reveal" style="transition-delay: 0.65s;">HubSpot workflow: Event created &#8594; webhook fires &#8594; tasks + Linear project created</div>
+        </div>
+        <div class="slide-number">03 / 08</div>
+    </section>
+
+    <!-- =============================================
+         SLIDE 4: HOW IT WORKS (DETAILS)
+         ============================================= -->
+    <section class="slide" data-slide="3">
+        <div class="slide-content" style="flex-direction: row; gap: clamp(1.5rem, 3vw, 3rem); align-items: center;">
+            <div style="flex: 1; min-width: 0;">
+                <div class="tag reveal">How It Works</div>
+                <h2 class="reveal" style="margin-top: clamp(0.5rem, 1vw, 1rem);">From event to execution in seconds</h2>
+
+                <div class="steps-list">
+                    <div class="step-item reveal" style="transition-delay: 0.15s;">
+                        <div class="step-num">1</div>
+                        <div class="step-text">
+                            <h3>Event created in HubSpot</h3>
+                            <p>Melissa adds a new Webinar with dates and details.</p>
+                        </div>
+                    </div>
+                    <div class="step-item reveal" style="transition-delay: 0.25s;">
+                        <div class="step-num">2</div>
+                        <div class="step-text">
+                            <h3>Playbook tasks pulled from Notion</h3>
+                            <p>31 tasks auto-fetched covering every step from landing pages to post-event follow-up.</p>
+                        </div>
+                    </div>
+                    <div class="step-item reveal" style="transition-delay: 0.35s;">
+                        <div class="step-num">3</div>
+                        <div class="step-text">
+                            <h3>Tasks assigned with smart due dates</h3>
+                            <p>Assigned to the right person with due dates relative to the event.</p>
+                        </div>
+                    </div>
+                    <div class="step-item reveal" style="transition-delay: 0.45s;">
+                        <div class="step-num">4</div>
+                        <div class="step-text">
+                            <h3>Everything mirrors to Linear</h3>
+                            <p>Every task becomes a Linear Issue with matching assignees and due dates.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div style="flex: 1; min-width: 0;" class="reveal-scale" style="transition-delay: 0.3s;">
+                <div class="screenshot-container" style="margin-top: 0;">
+                    <img src="screenshots/pipedream-overview.png" alt="Pipedream workflow: trigger, code (fetch event), sync_to_linear steps">
+                </div>
+                <div class="screenshot-label">Pipedream automation: webhook &#8594; fetch event &#8594; create tasks &#8594; sync to Linear</div>
+            </div>
+        </div>
+        <div class="slide-number">04 / 08</div>
+    </section>
+
+    <!-- =============================================
+         SLIDE 5: BI-DIRECTIONAL SYNC
+         ============================================= -->
+    <section class="slide" data-slide="4">
+        <div class="slide-content">
+            <div class="tag reveal">Real-Time Sync</div>
+            <h2 class="reveal">Work where you want. Stay in sync.</h2>
+            <p class="subtitle reveal">Complete a task in either platform — the other updates automatically.</p>
+
+            <div class="sync-visual">
+                <div class="sync-platform reveal-scale" style="transition-delay: 0.2s;">
+                    <div class="platform-icon" style="background: #ff7a59; color: white;">H</div>
+                    <div class="platform-name">HubSpot</div>
+                    <div class="platform-role">CRM & task management</div>
+                </div>
+
+                <div class="sync-arrows reveal" style="transition-delay: 0.35s;">
+                    <div class="sync-arrow-row">
+                        <span class="arrow">&#10230;</span>
+                        <span>Status syncs</span>
+                    </div>
+                    <div class="sync-arrow-row">
+                        <span>Status syncs</span>
+                        <span class="arrow">&#10229;</span>
+                    </div>
+                </div>
+
+                <div class="sync-platform reveal-scale" style="transition-delay: 0.2s;">
+                    <div class="platform-icon" style="background: #5E6AD2; color: white;">L</div>
+                    <div class="platform-name">Linear</div>
+                    <div class="platform-role">Project management</div>
+                </div>
+            </div>
+
+            <div class="sync-detail reveal" style="transition-delay: 0.5s;">
+                <p><strong>Loop prevention built in.</strong> Each sync checks the target's current state before writing. If it already matches, the update stops — no infinite loops.</p>
+            </div>
+        </div>
+        <div class="slide-number">05 / 08</div>
+    </section>
+
+    <!-- =============================================
+         SLIDE 6: RESULTS
+         ============================================= -->
+    <section class="slide" data-slide="5">
+        <div class="slide-content">
+            <div class="tag reveal">Impact</div>
+            <h2 class="reveal">What this means for the team</h2>
+
+            <div class="results-grid" style="margin-bottom: clamp(0.5rem, 1vw, 1rem);">
+                <div class="result-card reveal-scale" style="transition-delay: 0.15s;">
+                    <div class="result-number">31</div>
+                    <div class="result-label">
+                        <strong>Tasks per event</strong>
+                        Created in seconds, not hours
+                    </div>
+                </div>
+                <div class="result-card reveal-scale" style="transition-delay: 0.25s;">
+                    <div class="result-number">0</div>
+                    <div class="result-label">
+                        <strong>Dropped steps</strong>
+                        Every task tracked and assigned
+                    </div>
+                </div>
+                <div class="result-card reveal-scale" style="transition-delay: 0.35s;">
+                    <div class="result-number">&lt;10s</div>
+                    <div class="result-label">
+                        <strong>Sync latency</strong>
+                        Real-time cross-platform updates
+                    </div>
+                </div>
+                <div class="result-card reveal-scale" style="transition-delay: 0.45s;">
+                    <div class="result-number">1</div>
+                    <div class="result-label">
+                        <strong>Calendar view</strong>
+                        Tasks by due date and owner
+                    </div>
+                </div>
+            </div>
+
+            <div class="screenshot-container reveal-scale" style="transition-delay: 0.55s; max-height: min(32vh, 260px);">
+                <img src="screenshots/linear-timeline.png" alt="Linear Growth team timeline view showing all marketing projects with due dates and owners">
+            </div>
+            <div class="screenshot-label reveal" style="transition-delay: 0.6s;">Linear timeline: all marketing projects and event tasks visible at a glance</div>
+        </div>
+        <div class="slide-number">06 / 08</div>
+    </section>
+
+    <!-- =============================================
+         SLIDE 7: WHAT'S NEXT
+         ============================================= -->
+    <section class="slide dark" data-slide="6" style="background: var(--truv-dark); color: var(--white);">
+        <div class="slide-content">
+            <div class="tag reveal">Roadmap</div>
+            <h2 class="reveal" style="color: var(--white);">Where we're headed</h2>
+
+            <div class="roadmap-list">
+                <div class="roadmap-item reveal" style="transition-delay: 0.15s;">
+                    <div>
+                        <div class="roadmap-status live">Live</div>
+                    </div>
+                    <div class="roadmap-text">
+                        <h3>Event task automation + bi-directional sync</h3>
+                        <p>Auto-create tasks from playbooks, sync status between HubSpot and Linear in real-time.</p>
+                    </div>
+                </div>
+                <div class="roadmap-item reveal" style="transition-delay: 0.25s;">
+                    <div>
+                        <div class="roadmap-status next">Next</div>
+                    </div>
+                    <div class="roadmap-text">
+                        <h3>Campaign attribution</h3>
+                        <p>Connect event attendees to HubSpot campaigns. Measure pipeline influenced by each event.</p>
+                    </div>
+                </div>
+                <div class="roadmap-item reveal" style="transition-delay: 0.35s;">
+                    <div>
+                        <div class="roadmap-status planned">Planned</div>
+                    </div>
+                    <div class="roadmap-text">
+                        <h3>Cross-channel reporting</h3>
+                        <p>Tie email, ads, landing pages, and events into unified campaign views with ROI tracking.</p>
+                    </div>
+                </div>
+                <div class="roadmap-item reveal" style="transition-delay: 0.45s;">
+                    <div>
+                        <div class="roadmap-status planned">Planned</div>
+                    </div>
+                    <div class="roadmap-text">
+                        <h3>UTM standardization</h3>
+                        <p>Standardize tracking across LinkedIn, Meta, and YouTube for clean paid media attribution.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="slide-number">07 / 08</div>
+    </section>
+
+    <!-- =============================================
+         SLIDE 8: CLOSING
+         ============================================= -->
+    <section class="slide closing-slide dark" data-slide="7">
+        <div class="title-bg-shape one"></div>
+        <div class="title-bg-shape two"></div>
+        <div class="slide-content">
+            <div class="tag reveal">Marketing Operations</div>
+            <h2 class="reveal">Less coordination.<br><span class="accent">More execution.</span></h2>
+            <p class="closing-sub reveal">Questions?</p>
+        </div>
+        <div class="slide-number">08 / 08</div>
+    </section>
+
+    <!-- ===========================================
+         PRESENTATION CONTROLLER
+         =========================================== -->
+    <script>
+        class SlidePresentation {
+            constructor() {
+                this.slides = document.querySelectorAll('.slide');
+                this.totalSlides = this.slides.length;
+                this.currentSlide = 0;
+                this.progressBar = document.getElementById('progressBar');
+                this.navDotsContainer = document.getElementById('navDots');
+                this.isTransitioning = false;
+
+                this.createNavDots();
+                this.setupIntersectionObserver();
+                this.setupKeyboardNav();
+                this.setupTouchNav();
+                this.updateProgress();
+            }
+
+            /* Navigation dots */
+            createNavDots() {
+                for (let i = 0; i < this.totalSlides; i++) {
+                    const dot = document.createElement('button');
+                    dot.className = 'nav-dot' + (i === 0 ? ' active' : '');
+                    dot.setAttribute('aria-label', `Go to slide ${i + 1}`);
+                    dot.addEventListener('click', () => this.goToSlide(i));
+                    this.navDotsContainer.appendChild(dot);
+                }
+            }
+
+            /* Intersection Observer for scroll-triggered animations */
+            setupIntersectionObserver() {
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('visible');
+                            const index = Array.from(this.slides).indexOf(entry.target);
+                            this.currentSlide = index;
+                            this.updateProgress();
+                            this.updateNavDots();
+                        }
+                    });
+                }, {
+                    threshold: 0.5
+                });
+
+                this.slides.forEach(slide => observer.observe(slide));
+            }
+
+            /* Keyboard navigation */
+            setupKeyboardNav() {
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'ArrowDown' || e.key === 'ArrowRight' || e.key === ' ') {
+                        e.preventDefault();
+                        this.nextSlide();
+                    } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
+                        e.preventDefault();
+                        this.prevSlide();
+                    }
+                });
+            }
+
+            /* Touch/swipe navigation */
+            setupTouchNav() {
+                let startY = 0;
+                document.addEventListener('touchstart', (e) => {
+                    startY = e.touches[0].clientY;
+                }, { passive: true });
+
+                document.addEventListener('touchend', (e) => {
+                    const diff = startY - e.changedTouches[0].clientY;
+                    if (Math.abs(diff) > 50) {
+                        diff > 0 ? this.nextSlide() : this.prevSlide();
+                    }
+                }, { passive: true });
+            }
+
+            goToSlide(index) {
+                if (index >= 0 && index < this.totalSlides) {
+                    this.slides[index].scrollIntoView({ behavior: 'smooth' });
+                    this.currentSlide = index;
+                    this.updateProgress();
+                    this.updateNavDots();
+                }
+            }
+
+            nextSlide() {
+                if (this.currentSlide < this.totalSlides - 1) {
+                    this.goToSlide(this.currentSlide + 1);
+                }
+            }
+
+            prevSlide() {
+                if (this.currentSlide > 0) {
+                    this.goToSlide(this.currentSlide - 1);
+                }
+            }
+
+            updateProgress() {
+                const progress = ((this.currentSlide + 1) / this.totalSlides) * 100;
+                this.progressBar.style.width = progress + '%';
+            }
+
+            updateNavDots() {
+                const dots = this.navDotsContainer.querySelectorAll('.nav-dot');
+                dots.forEach((dot, i) => {
+                    dot.classList.toggle('active', i === this.currentSlide);
+                });
+            }
+        }
+
+        /* Initialize on load */
+        document.addEventListener('DOMContentLoaded', () => {
+            new SlidePresentation();
+
+            /* Trigger first slide animation */
+            setTimeout(() => {
+                document.querySelector('.slide').classList.add('visible');
+            }, 100);
+        });
+    </script>
+
+</body>
+</html>
