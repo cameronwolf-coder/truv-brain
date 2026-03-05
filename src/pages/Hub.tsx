@@ -201,8 +201,8 @@ function getKeyDateLabel(e: CalendarEvent): string {
 
 function getKeyDateTitle(e: CalendarEvent): string {
   if (e.type === 'issue') {
-    // For send tasks, show parent project name (cleaner than "Send" or "[LIVE] Send")
-    return e.project?.replace(/\[MKTG-\w+\]\s*/i, '') || e.title;
+    // Show the actual task title — it's more specific than the project name
+    return e.title.replace(/\[MKTG-\w+\]\s*/i, '');
   }
   // For projects, strip the [MKTG-EVENT] prefix
   return e.title.replace(/\[MKTG-\w+\]\s*/i, '');
