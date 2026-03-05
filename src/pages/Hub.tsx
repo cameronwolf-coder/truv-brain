@@ -1,5 +1,5 @@
 import { useState, useMemo, lazy, Suspense, startTransition } from 'react';
-import { useCalendarEvents, useActivityFeed, useTruvEvents, updateEvent } from '../services/marketingHubClient';
+import { useCalendarEvents, useTruvEvents, updateEvent } from '../services/marketingHubClient';
 import type { TruvEvent } from '../services/marketingHubClient';
 import { CalendarToolbar } from '../components/marketing-hub/CalendarToolbar';
 import { ProjectProgress } from '../components/marketing-hub/ProjectProgress';
