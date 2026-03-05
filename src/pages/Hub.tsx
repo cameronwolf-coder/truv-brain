@@ -174,7 +174,11 @@ const CATEGORY_COLORS: Record<string, { dot: string; bg: string; text: string; b
 // --- Key Dates ---
 
 function isKeyDate(e: CalendarEvent): boolean {
-  return /\[LIVE\]/i.test(e.title) || e.category === 'Event';
+  // Email send tasks — the actual "Send" step in each project
+  if (e.type === 'issue' && /\bSend\b/i.test(e.title)) return true;
+  // Webinar/conference project-level dates (not individual tasks inside them)
+  if (e.type === 'project' && e.category === 'Event') return true;
+  return false;
 }
 
 function friendlyDateStr(dateStr: string): string {
@@ -191,9 +195,24 @@ function friendlyDateStr(dateStr: string): string {
 }
 
 function getKeyDateLabel(e: CalendarEvent): string {
-  if (/\[LIVE\]/i.test(e.title)) return 'Email Send';
-  if (e.category === 'Event') return 'Webinar';
-  return 'Event';
+  if (e.type === 'issue') return 'Email Send';
+  if (/webinar/i.test(e.title)) return 'Webinar';
+  return 'Conference';
+}
+
+function getKeyDateTitle(e: CalendarEvent): string {
+  if (e.type === 'issue') {
+    // For send tasks, show parent project name (cleaner than "Send" or "[LIVE] Send")
+    return e.project?.replace(/\[MKTG-\w+\]\s*/i, '') || e.title;
+  }
+  // For projects, strip the [MKTG-EVENT] prefix
+  return e.title.replace(/\[MKTG-\w+\]\s*/i, '');
+}
+
+function getKeyDateDate(e: CalendarEvent): string {
+  // For projects, use the target date (when the event actually happens) if available
+  if (e.type === 'project' && e.end) return e.end;
+  return e.start;
 }
 
 function KeyDates({
@@ -215,10 +234,10 @@ function KeyDates({
       .filter((e) => {
         if (!isKeyDate(e)) return false;
         if (COMPLETED.has(e.status.toLowerCase())) return false;
-        const d = parseDate(e.start);
+        const d = parseDate(getKeyDateDate(e));
         return d >= today && d <= cutoff;
       })
-      .sort((a, b) => a.start.localeCompare(b.start));
+      .sort((a, b) => getKeyDateDate(a).localeCompare(getKeyDateDate(b)));
   }, [events]);
 
   if (isLoading) {
@@ -253,8 +272,9 @@ function KeyDates({
         {keyDates.map((e) => {
           const colors = CATEGORY_COLORS[e.category] || CATEGORY_COLORS.Other;
           const label = getKeyDateLabel(e);
-          const displayTitle = e.title.replace(/^\[LIVE\]\s*/i, '');
-          const isPast = parseDate(e.start) <= new Date();
+          const displayTitle = getKeyDateTitle(e);
+          const dateStr = getKeyDateDate(e);
+          const isPast = parseDate(dateStr) <= new Date();
 
           return (
             <button
@@ -265,7 +285,7 @@ function KeyDates({
               {/* Date */}
               <div className="w-24 shrink-0">
                 <span className={`text-sm font-semibold ${isPast ? 'text-gray-400' : 'text-gray-900'}`}>
-                  {friendlyDateStr(e.start)}
+                  {friendlyDateStr(dateStr)}
                 </span>
               </div>
 
@@ -274,18 +294,10 @@ function KeyDates({
                 {label}
               </span>
 
-              {/* Title + Project */}
-              <div className="flex items-center gap-2 min-w-0 flex-1">
-                <span className="text-sm text-gray-800 truncate">
-                  {/\[LIVE\]/i.test(e.title) && <span className="text-yellow-600 mr-1">★</span>}
-                  {displayTitle}
-                </span>
-                {e.project && (
-                  <span className="text-xs text-gray-400 truncate shrink-0 hidden md:block">
-                    {e.project}
-                  </span>
-                )}
-              </div>
+              {/* Title */}
+              <span className="text-sm text-gray-800 truncate flex-1">
+                {displayTitle}
+              </span>
 
               {/* Assignee */}
               {e.assignee && (
