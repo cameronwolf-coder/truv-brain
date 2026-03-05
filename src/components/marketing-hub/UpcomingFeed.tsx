@@ -187,10 +187,10 @@ export function UpcomingFeed({ events, recentActivity, isLoading, onEventClick }
   }
 
   return (
-    <div className="bg-white rounded-xl border border-gray-200">
+    <div className="bg-white rounded-xl border border-gray-200 max-h-[320px] overflow-y-auto">
       {buckets.map((bucket) => (
         <div key={bucket.label}>
-          <div className="px-4 py-2 bg-gray-50 border-b border-gray-100">
+          <div className="px-4 py-2 bg-gray-50 border-b border-gray-100 sticky top-0 z-10">
             <span className="text-xs font-semibold text-gray-500 uppercase tracking-wider">
               {bucket.label}
             </span>
