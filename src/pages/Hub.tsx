@@ -106,6 +106,15 @@ function QuickStats({ events, projects }: { events: CalendarEvent[]; projects: C
 
 // --- Upcoming Webinars ---
 
+function toTitleCase(s: string): string {
+  const minor = new Set(['a','an','the','and','but','or','nor','for','at','by','in','of','on','to','up','is']);
+  return s.replace(/\w\S*/g, (word, i) =>
+    i === 0 || !minor.has(word.toLowerCase())
+      ? word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
+      : word.toLowerCase(),
+  );
+}
+
 function TruvEventsBar({ events, isLoading }: { events: TruvEvent[]; isLoading: boolean }) {
   if (isLoading) {
     return (
@@ -148,11 +157,17 @@ function TruvEventsBar({ events, isLoading }: { events: TruvEvent[]; isLoading: 
             className="group flex flex-col gap-1.5 p-3.5 rounded-lg border border-gray-100 hover:border-truv-blue/30 hover:bg-blue-50/40 transition-colors"
           >
             <span className="text-sm font-medium text-gray-900 group-hover:text-truv-blue transition-colors leading-snug line-clamp-2">
-              {evt.title}
+              {toTitleCase(evt.title)}
             </span>
             {evt.date && (
               <span className="text-xs text-gray-500">{evt.date}</span>
             )}
+            <span className="inline-flex items-center gap-1 text-[11px] font-medium text-truv-blue mt-1">
+              Visit page
+              <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+              </svg>
+            </span>
           </a>
         ))}
       </div>
@@ -168,6 +183,15 @@ const CATEGORY_COLORS: Record<string, { dot: string; bg: string; text: string; b
   PMM: { dot: '#10b981', bg: 'bg-emerald-50', text: 'text-emerald-800', border: 'border-l-emerald-500' },
   Ops: { dot: '#6b7280', bg: 'bg-gray-50', text: 'text-gray-700', border: 'border-l-gray-400' },
   Other: { dot: '#6b7280', bg: 'bg-gray-50', text: 'text-gray-700', border: 'border-l-gray-400' },
+};
+
+// --- Key Date badge colors by type ---
+
+const KEY_DATE_BADGE: Record<string, { bg: string; text: string }> = {
+  'Email Send': { bg: 'bg-blue-50', text: 'text-blue-800' },
+  Webinar: { bg: 'bg-purple-50', text: 'text-purple-800' },
+  Conference: { bg: 'bg-yellow-50', text: 'text-yellow-800' },
+  Publish: { bg: 'bg-emerald-50', text: 'text-emerald-800' },
 };
 
 // --- Key Dates ---
@@ -229,6 +253,9 @@ function KeyDates({
   isLoading: boolean;
   onEventClick: (e: CalendarEvent) => void;
 }) {
+  const [typeFilter, setTypeFilter] = useState<string | null>(null);
+  const [ownerFilter, setOwnerFilter] = useState<string | null>(null);
+
   const keyDates = useMemo(() => {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
@@ -244,6 +271,24 @@ function KeyDates({
       })
       .sort((a, b) => getKeyDateDate(a).localeCompare(getKeyDateDate(b)));
   }, [events]);
+
+  const { types, owners } = useMemo(() => {
+    const t = new Set<string>();
+    const o = new Set<string>();
+    keyDates.forEach((e) => {
+      t.add(getKeyDateLabel(e));
+      if (e.assignee) o.add(e.assignee);
+    });
+    return { types: Array.from(t).sort(), owners: Array.from(o).sort() };
+  }, [keyDates]);
+
+  const filtered = useMemo(() => {
+    return keyDates.filter((e) => {
+      if (typeFilter && getKeyDateLabel(e) !== typeFilter) return false;
+      if (ownerFilter && e.assignee !== ownerFilter) return false;
+      return true;
+    });
+  }, [keyDates, typeFilter, ownerFilter]);
 
   if (isLoading) {
     return (
@@ -269,14 +314,50 @@ function KeyDates({
 
   return (
     <div className="mb-6 bg-white rounded-xl border border-gray-200">
-      <div className="px-5 py-4 border-b border-gray-100">
-        <h2 className="text-base font-semibold text-gray-900">Key Marketing Dates</h2>
-        <p className="text-xs text-gray-500 mt-0.5">Webinar dates, email sends, and publish dates</p>
+      <div className="px-5 py-4 border-b border-gray-100 flex items-center justify-between flex-wrap gap-3">
+        <div>
+          <h2 className="text-base font-semibold text-gray-900">Key Marketing Dates</h2>
+          <p className="text-xs text-gray-500 mt-0.5">Webinar dates, email sends, and publish dates</p>
+        </div>
+        <div className="flex items-center gap-2">
+          <select
+            value={typeFilter || ''}
+            onChange={(e) => setTypeFilter(e.target.value || null)}
+            className="text-xs border border-gray-200 rounded-lg px-2.5 py-1.5 text-gray-700 bg-white focus:ring-2 focus:ring-truv-blue focus:border-transparent outline-none"
+          >
+            <option value="">All types</option>
+            {types.map((t) => (
+              <option key={t} value={t}>{t}</option>
+            ))}
+          </select>
+          <select
+            value={ownerFilter || ''}
+            onChange={(e) => setOwnerFilter(e.target.value || null)}
+            className="text-xs border border-gray-200 rounded-lg px-2.5 py-1.5 text-gray-700 bg-white focus:ring-2 focus:ring-truv-blue focus:border-transparent outline-none"
+          >
+            <option value="">All owners</option>
+            {owners.map((o) => (
+              <option key={o} value={o}>{o}</option>
+            ))}
+          </select>
+          {(typeFilter || ownerFilter) && (
+            <button
+              onClick={() => { setTypeFilter(null); setOwnerFilter(null); }}
+              className="text-xs text-gray-400 hover:text-gray-600 transition-colors"
+            >
+              Clear
+            </button>
+          )}
+        </div>
       </div>
       <div className="divide-y divide-gray-100">
-        {keyDates.map((e) => {
-          const colors = CATEGORY_COLORS[e.category] || CATEGORY_COLORS.Other;
+        {filtered.length === 0 && (
+          <div className="px-5 py-8 text-center text-sm text-gray-400">No dates match filters</div>
+        )}
+        {filtered.map((e) => {
           const label = getKeyDateLabel(e);
+          const badgeColors = KEY_DATE_BADGE[label] || CATEGORY_COLORS[e.category] || CATEGORY_COLORS.Other;
+          const colors = CATEGORY_COLORS[e.category] || CATEGORY_COLORS.Other;
           const { main: displayTitle, detail } = getKeyDateTitle(e);
           const dateStr = getKeyDateDate(e);
           const isPast = parseDate(dateStr) <= new Date();
@@ -295,7 +376,7 @@ function KeyDates({
               </div>
 
               {/* Label badge */}
-              <span className={`shrink-0 text-[10px] font-semibold uppercase px-2 py-0.5 rounded-full ${colors.bg} ${colors.text}`}>
+              <span className={`shrink-0 text-[10px] font-semibold uppercase px-2 py-0.5 rounded-full ${badgeColors.bg} ${badgeColors.text}`}>
                 {label}
               </span>
 
@@ -381,7 +462,7 @@ function cleanProjectName(title: string): string {
   return title.replace(/\[MKTG-\w+\]\s*/i, '');
 }
 
-const COLLAPSED_COUNT = 6;
+const COLLAPSED_COUNT = 8;
 
 function ProjectRings({
   projects,
@@ -393,6 +474,19 @@ function ProjectRings({
   onProjectClick: (p: CalendarEvent) => void;
 }) {
   const [expanded, setExpanded] = useState(false);
+  const [sortBy, setSortBy] = useState<'name' | 'most-complete' | 'least-complete'>('name');
+
+  const sorted = useMemo(() => {
+    const withPct = projects.map((p) => {
+      const total = p.totalIssues || 0;
+      const completed = p.completedIssues || 0;
+      return { p, pct: total > 0 ? completed / total : 0 };
+    });
+    if (sortBy === 'most-complete') withPct.sort((a, b) => b.pct - a.pct);
+    else if (sortBy === 'least-complete') withPct.sort((a, b) => a.pct - b.pct);
+    else withPct.sort((a, b) => a.p.title.localeCompare(b.p.title));
+    return withPct.map((x) => x.p);
+  }, [projects, sortBy]);
 
   if (isLoading) {
     return (
@@ -409,13 +503,22 @@ function ProjectRings({
 
   if (projects.length === 0) return null;
 
-  const visible = expanded ? projects : projects.slice(0, COLLAPSED_COUNT);
-  const hasMore = projects.length > COLLAPSED_COUNT;
+  const visible = expanded ? sorted : sorted.slice(0, COLLAPSED_COUNT);
+  const hasMore = sorted.length > COLLAPSED_COUNT;
 
   return (
     <div className="mb-6 bg-white rounded-xl border border-gray-200">
-      <div className="px-5 py-4 border-b border-gray-100">
+      <div className="px-5 py-4 border-b border-gray-100 flex items-center justify-between">
         <h2 className="text-base font-semibold text-gray-900">Project Progress</h2>
+        <select
+          value={sortBy}
+          onChange={(e) => setSortBy(e.target.value as typeof sortBy)}
+          className="text-xs border border-gray-200 rounded-lg px-2.5 py-1.5 text-gray-700 bg-white focus:ring-2 focus:ring-truv-blue focus:border-transparent outline-none"
+        >
+          <option value="name">A–Z</option>
+          <option value="most-complete">Most complete</option>
+          <option value="least-complete">Least complete</option>
+        </select>
       </div>
       <div className="p-4 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
         {visible.map((p) => {
@@ -539,7 +642,9 @@ export function Hub() {
         {/* Header */}
         <div className="mb-6">
           <div className="flex items-center gap-3 mb-1">
-            <img src="/logos/logomark.svg" alt="" className="w-7 h-7" />
+            <svg className="w-7 h-7 text-truv-blue" viewBox="0 0 11 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+              <path d="M5.355 23.557C3.681 23.557 2.364 23.077 1.404 22.117.469 21.157.001 19.852.001 18.203V0h4.21v18.019c0 .566.172 1.033.517 1.403.345.344.8.517 1.366.517h3.95v3.618H5.356ZM0 8.345V4.726h10.081v3.619H0Z"/>
+            </svg>
             <h1 className="text-2xl font-semibold text-gray-900">Marketing Hub</h1>
           </div>
           <p className="text-sm text-gray-500">

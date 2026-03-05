@@ -138,7 +138,13 @@ export function EventEditModal({ event, onClose, onSave, saving }: EventEditModa
             </div>
           </div>
 
-          <div className="flex items-center gap-2 text-xs text-gray-500">
+          <div className="flex items-center flex-wrap gap-2 text-xs text-gray-500">
+            {event.project && (
+              <>
+                <span className="font-medium text-gray-700">{event.project.replace(/\[MKTG-\w+\]\s*/i, '')}</span>
+                <span className="text-gray-300">|</span>
+              </>
+            )}
             <span
               className="w-2 h-2 rounded-full"
               style={{ backgroundColor: event.statusColor }}

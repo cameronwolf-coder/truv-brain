@@ -85,12 +85,12 @@ export const MonthView = memo(function MonthView({ events, currentDate, onEventC
           const dotColor = getEventColor(props);
           return (
             <div className={`flex items-center gap-1 overflow-hidden cursor-pointer ${isGold ? 'font-semibold' : ''}`}>
-              {isGold && <span className="text-[10px]">&#9733;</span>}
+              {isGold && <span className="text-[10px] text-white">&#9733;</span>}
               <span
                 className="w-2 h-2 rounded-full shrink-0"
                 style={{ backgroundColor: dotColor }}
               />
-              <span className={`truncate text-xs font-medium ${isGold ? 'text-amber-800' : 'text-gray-800'}`}>
+              <span className="truncate text-xs font-medium text-white">
                 {arg.event.title}
               </span>
             </div>

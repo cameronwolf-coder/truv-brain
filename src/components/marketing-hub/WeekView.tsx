@@ -88,15 +88,15 @@ export const WeekView = memo(function WeekView({ events, currentDate, onEventCli
           const dotColor = getEventColor(props);
           return (
             <div className={`flex items-center gap-1.5 overflow-hidden cursor-pointer py-0.5 ${isGold ? 'font-semibold' : ''}`}>
-              {isGold && <span className="text-[10px]">&#9733;</span>}
+              {isGold && <span className="text-[10px] text-white">&#9733;</span>}
               <span
                 className="w-2 h-2 rounded-full shrink-0"
                 style={{ backgroundColor: dotColor }}
               />
               <div className="min-w-0">
-                <p className={`truncate text-xs font-medium ${isGold ? 'text-amber-800' : 'text-gray-800'}`}>{arg.event.title}</p>
+                <p className="truncate text-xs font-medium text-white">{arg.event.title}</p>
                 {props.assignee && (
-                  <p className="truncate text-[10px] text-gray-500">{props.assignee}</p>
+                  <p className="truncate text-[10px] text-white/70">{props.assignee}</p>
                 )}
               </div>
             </div>

@@ -75,30 +75,32 @@ export function CalendarToolbar({
         </div>
 
         {/* Date Navigation */}
-        <div className="flex items-center gap-3">
-          <button
-            onClick={() => onDateChange(navigate(currentDate, view, -1))}
-            className="p-2 rounded-lg hover:bg-gray-100 text-gray-600 transition-colors"
-          >
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-            </svg>
-          </button>
-          <button
-            onClick={() => onDateChange(new Date())}
-            className="px-3 py-1.5 text-sm font-medium text-truv-blue hover:bg-blue-50 rounded-lg transition-colors"
-          >
-            Today
-          </button>
-          <button
-            onClick={() => onDateChange(navigate(currentDate, view, 1))}
-            className="p-2 rounded-lg hover:bg-gray-100 text-gray-600 transition-colors"
-          >
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-            </svg>
-          </button>
-          <span className="text-lg font-semibold text-gray-900 min-w-[200px] text-center">
+        <div className="flex flex-col items-center gap-1">
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => onDateChange(navigate(currentDate, view, -1))}
+              className="p-1.5 rounded-lg hover:bg-gray-100 text-gray-600 transition-colors"
+            >
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+              </svg>
+            </button>
+            <button
+              onClick={() => onDateChange(new Date())}
+              className="px-3 py-1 text-xs font-medium text-truv-blue hover:bg-blue-50 rounded-lg transition-colors"
+            >
+              {view === 'week' ? 'This week' : 'This month'}
+            </button>
+            <button
+              onClick={() => onDateChange(navigate(currentDate, view, 1))}
+              className="p-1.5 rounded-lg hover:bg-gray-100 text-gray-600 transition-colors"
+            >
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </button>
+          </div>
+          <span className="text-lg font-semibold text-gray-900 text-center">
             {formatDateRange(currentDate, view)}
           </span>
         </div>
