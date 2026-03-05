@@ -90,11 +90,19 @@ class KnockAudienceClient:
                 break
         return entries
 
-    def trigger_workflow(self, workflow_key: str, recipient_ids: list[str], data: dict | None = None) -> dict:
+    def trigger_workflow(
+        self,
+        workflow_key: str,
+        recipient_ids: list[str],
+        data: dict | None = None,
+        cancellation_key: str | None = None,
+    ) -> dict:
         """Trigger a workflow for a list of recipients (max 1,000 per call)."""
         body: dict[str, Any] = {"recipients": recipient_ids[:1000]}
         if data:
             body["data"] = data
+        if cancellation_key:
+            body["cancellation_key"] = cancellation_key
         return self._request("POST", f"/workflows/{workflow_key}/trigger", body)
 
 
@@ -290,7 +298,8 @@ def staged_trigger(
 
         print(f"\n  Batch {batch_num}/{total_batches}: triggering {len(batch)} recipients...", flush=True)
         try:
-            result = knock.trigger_workflow(workflow_key, batch, data=data)
+            cancel_key = f"{workflow_key}:{audience_key}:batch-{batch_num}"
+            result = knock.trigger_workflow(workflow_key, batch, data=data, cancellation_key=cancel_key)
             triggered += len(batch)
             run_id = result.get("workflow_run_id", "—")
             print(f"    OK (run: {run_id})", flush=True)

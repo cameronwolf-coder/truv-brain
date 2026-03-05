@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pipedream Builder — Skill Overview</title>
+
+    <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=clash-display@500,600,700&f[]=satoshi@400,500,700&display=swap">
+
+    <style>
+        /* ===========================================
+           TRUV BRAND THEME
+           =========================================== */
+        :root {
+            --truv-blue: #2c64e3;
+            --truv-dark: #0f1c47;
+            --truv-off-white: #f4f4f2;
+            --truv-blue-light: #c5d9f7;
+            --truv-blue-glow: rgba(44, 100, 227, 0.2);
+            --text-on-dark: #ffffff;
+            --text-muted-dark: rgba(255, 255, 255, 0.5);
+            --text-on-light: #0f1c47;
+            --text-muted-light: #4a5568;
+
+            --font-display: 'Clash Display', sans-serif;
+            --font-body: 'Satoshi', sans-serif;
+
+            --title-size: clamp(2.2rem, 6vw, 5rem);
+            --h2-size: clamp(1.5rem, 3.5vw, 2.75rem);
+            --h3-size: clamp(1rem, 1.8vw, 1.35rem);
+            --body-size: clamp(0.8rem, 1.3vw, 1.05rem);
+            --small-size: clamp(0.7rem, 1vw, 0.85rem);
+            --label-size: clamp(0.6rem, 0.85vw, 0.72rem);
+
+            --slide-padding: clamp(2rem, 5vw, 6rem);
+            --content-gap: clamp(1rem, 2.5vw, 2.5rem);
+            --element-gap: clamp(0.5rem, 1vw, 1rem);
+
+            --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+            --duration: 0.7s;
+        }
+
+        /* ===========================================
+           BASE
+           =========================================== */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-snap-type: y mandatory;
+            height: 100%;
+            overflow-x: hidden;
+        }
+
+        body {
+            font-family: var(--font-body);
+            height: 100%;
+            overflow-x: hidden;
+        }
+
+        /* ===========================================
+           SLIDES
+           =========================================== */
+        .slide {
+            width: 100vw;
+            height: 100vh;
+            height: 100dvh;
+            scroll-snap-align: start;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            padding: var(--slide-padding);
+        }
+
+        .slide-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            max-height: 100%;
+            overflow: hidden;
+            max-width: min(92vw, 1050px);
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        /* ===========================================
+           PROGRESS + NAV
+           =========================================== */
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: var(--truv-blue);
+            z-index: 100;
+            transition: width 0.4s ease;
+        }
+
+        .nav-dots {
+            position: fixed;
+            right: clamp(0.75rem, 2vw, 1.5rem);
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            z-index: 100;
+        }
+
+        .nav-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            padding: 0;
+        }
+
+        .nav-dot.active {
+            background: var(--truv-blue);
+            transform: scale(1.4);
+            box-shadow: 0 0 8px var(--truv-blue-glow);
+        }
+
+        .slide-num {
+            position: absolute;
+            bottom: clamp(1rem, 2vw, 2rem);
+            right: clamp(1.5rem, 3vw, 3rem);
+            font-family: var(--font-display);
+            font-size: var(--label-size);
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            opacity: 0.3;
+        }
+
+        /* ===========================================
+           TYPOGRAPHY
+           =========================================== */
+        h1 {
+            font-family: var(--font-display);
+            font-size: var(--title-size);
+            font-weight: 700;
+            line-height: 1.05;
+            letter-spacing: -0.03em;
+        }
+
+        h2 {
+            font-family: var(--font-display);
+            font-size: var(--h2-size);
+            font-weight: 600;
+            line-height: 1.15;
+            letter-spacing: -0.015em;
+        }
+
+        h3 {
+            font-family: var(--font-display);
+            font-size: var(--h3-size);
+            font-weight: 600;
+            line-height: 1.3;
+        }
+
+        .label {
+            font-size: var(--label-size);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.18em;
+        }
+
+        /* ===========================================
+           ANIMATIONS
+           =========================================== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(22px);
+            transition: opacity var(--duration) var(--ease-out-expo),
+                        transform var(--duration) var(--ease-out-expo);
+        }
+
+        .slide.visible .reveal {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .reveal:nth-child(1) { transition-delay: 0.05s; }
+        .reveal:nth-child(2) { transition-delay: 0.15s; }
+        .reveal:nth-child(3) { transition-delay: 0.25s; }
+        .reveal:nth-child(4) { transition-delay: 0.35s; }
+        .reveal:nth-child(5) { transition-delay: 0.45s; }
+
+        /* ===========================================
+           GRID OVERLAY (dark slides)
+           =========================================== */
+        .grid-bg {
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px);
+            background-size: 64px 64px;
+            pointer-events: none;
+        }
+
+        /* ===========================================
+           SLIDE 1 — TITLE
+           =========================================== */
+        .s1 {
+            background: var(--truv-dark);
+            color: var(--text-on-dark);
+        }
+
+        .s1::before {
+            content: '';
+            position: absolute;
+            top: -25%;
+            right: -15%;
+            width: 55%;
+            height: 75%;
+            background: radial-gradient(ellipse, rgba(44, 100, 227, 0.1) 0%, transparent 65%);
+            pointer-events: none;
+        }
+
+        .s1 .tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(44, 100, 227, 0.12);
+            border: 1px solid rgba(44, 100, 227, 0.25);
+            border-radius: 100px;
+            padding: clamp(5px, 0.5vw, 8px) clamp(12px, 1.5vw, 20px);
+            font-size: var(--small-size);
+            color: var(--truv-blue-light);
+            margin-bottom: clamp(0.75rem, 1.5vw, 1.5rem);
+            font-weight: 500;
+        }
+
+        .s1 .tag .icon {
+            font-size: 1.1em;
+        }
+
+        .s1 h1 .accent {
+            background: linear-gradient(135deg, #2c64e3, #6b9bff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .s1 .subtitle {
+            font-size: var(--body-size);
+            color: var(--text-muted-dark);
+            max-width: 480px;
+            margin-top: var(--element-gap);
+            line-height: 1.6;
+        }
+
+        /* ===========================================
+           SLIDE 2 — PROBLEM
+           =========================================== */
+        .s2 {
+            background: var(--truv-off-white);
+            color: var(--text-on-light);
+        }
+
+        .s2 .label { color: #dc2626; }
+
+        .pain-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: clamp(0.6rem, 1.2vw, 1rem);
+            margin-top: var(--content-gap);
+        }
+
+        .pain-card {
+            background: white;
+            border-radius: 14px;
+            padding: clamp(1rem, 1.8vw, 1.5rem);
+            border: 1px solid rgba(15, 28, 71, 0.06);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .pain-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 32px rgba(15, 28, 71, 0.07);
+        }
+
+        .pain-card .icon-box {
+            width: clamp(36px, 3vw, 44px);
+            height: clamp(36px, 3vw, 44px);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: clamp(16px, 1.5vw, 20px);
+            margin-bottom: clamp(8px, 1vh, 14px);
+            background: #fef2f2;
+        }
+
+        .pain-card h3 {
+            margin-bottom: 4px;
+        }
+
+        .pain-card p {
+            font-size: var(--small-size);
+            color: var(--text-muted-light);
+            line-height: 1.5;
+        }
+
+        /* ===========================================
+           SLIDE 3 — HOW IT WORKS
+           =========================================== */
+        .s3 {
+            background: var(--truv-dark);
+            color: var(--text-on-dark);
+        }
+
+        .s3::before {
+            content: '';
+            position: absolute;
+            bottom: -20%;
+            left: -10%;
+            width: 50%;
+            height: 60%;
+            background: radial-gradient(ellipse, rgba(44, 100, 227, 0.06) 0%, transparent 65%);
+            pointer-events: none;
+        }
+
+        .s3 .label { color: var(--truv-blue-light); }
+
+        .phase-row {
+            display: flex;
+            gap: clamp(0.4rem, 0.8vw, 0.75rem);
+            margin-top: var(--content-gap);
+        }
+
+        .phase-card {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 12px;
+            padding: clamp(0.75rem, 1.2vw, 1.25rem);
+            position: relative;
+            transition: background 0.3s ease, border-color 0.3s ease;
+        }
+
+        .phase-card:hover {
+            background: rgba(255, 255, 255, 0.06);
+            border-color: rgba(44, 100, 227, 0.3);
+        }
+
+        .phase-num {
+            font-family: var(--font-display);
+            font-size: clamp(2rem, 3.5vw, 3rem);
+            font-weight: 700;
+            background: linear-gradient(135deg, rgba(44, 100, 227, 0.4), rgba(44, 100, 227, 0.1));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1;
+            margin-bottom: clamp(4px, 0.5vh, 8px);
+        }
+
+        .phase-card h3 {
+            font-size: clamp(0.8rem, 1.2vw, 1.05rem);
+            color: white;
+            margin-bottom: 4px;
+        }
+
+        .phase-card p {
+            font-size: clamp(0.65rem, 0.9vw, 0.78rem);
+            color: var(--text-muted-dark);
+            line-height: 1.5;
+        }
+
+        .technique-bar {
+            display: flex;
+            gap: clamp(0.5rem, 1vw, 0.75rem);
+            margin-top: clamp(0.75rem, 1.5vw, 1.5rem);
+        }
+
+        .technique {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(44, 100, 227, 0.1);
+            border: 1px solid rgba(44, 100, 227, 0.2);
+            border-radius: 6px;
+            padding: clamp(4px, 0.4vh, 6px) clamp(8px, 0.8vw, 12px);
+            font-size: clamp(0.6rem, 0.8vw, 0.72rem);
+            color: var(--truv-blue-light);
+            font-weight: 500;
+        }
+
+        .technique .t-icon {
+            opacity: 0.7;
+        }
+
+        /* ===========================================
+           SLIDE 4 — RESULTS
+           =========================================== */
+        .s4 {
+            background: var(--truv-off-white);
+            color: var(--text-on-light);
+        }
+
+        /* ===========================================
+           SLIDE 4 — IN ACTION (EXAMPLES)
+           =========================================== */
+        .s-examples {
+            background: var(--truv-dark);
+            color: var(--text-on-dark);
+        }
+
+        .s-examples .label { color: var(--truv-blue-light); }
+
+        .example-cards {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: clamp(0.75rem, 1.5vw, 1.25rem);
+            margin-top: var(--content-gap);
+        }
+
+        .example-card {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 14px;
+            padding: clamp(1rem, 1.8vw, 1.5rem);
+            transition: border-color 0.3s ease;
+        }
+
+        .example-card:hover {
+            border-color: rgba(44, 100, 227, 0.3);
+        }
+
+        .example-card .ex-header {
+            display: flex;
+            align-items: center;
+            gap: clamp(6px, 0.6vw, 10px);
+            margin-bottom: clamp(6px, 0.8vh, 12px);
+        }
+
+        .example-card .ex-icon {
+            width: clamp(32px, 2.5vw, 40px);
+            height: clamp(32px, 2.5vw, 40px);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: clamp(14px, 1.3vw, 18px);
+            flex-shrink: 0;
+        }
+
+        .ex-icon.email { background: rgba(0, 150, 255, 0.12); }
+        .ex-icon.event { background: rgba(255, 140, 0, 0.12); }
+
+        .example-card h3 {
+            font-size: clamp(0.85rem, 1.3vw, 1.1rem);
+            color: white;
+        }
+
+        .example-card .ex-desc {
+            font-size: var(--small-size);
+            color: var(--text-muted-dark);
+            line-height: 1.5;
+            margin-bottom: clamp(8px, 1vh, 14px);
+        }
+
+        .flow-steps {
+            display: flex;
+            align-items: center;
+            gap: clamp(4px, 0.4vw, 8px);
+            flex-wrap: wrap;
+        }
+
+        .flow-step {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            background: rgba(255, 255, 255, 0.06);
+            border-radius: 6px;
+            padding: clamp(3px, 0.3vh, 5px) clamp(7px, 0.6vw, 10px);
+            font-size: clamp(0.58rem, 0.75vw, 0.68rem);
+            color: rgba(255, 255, 255, 0.7);
+            font-weight: 500;
+            white-space: nowrap;
+        }
+
+        .flow-arrow {
+            font-size: clamp(0.6rem, 0.8vw, 0.75rem);
+            color: rgba(44, 100, 227, 0.5);
+        }
+
+        .example-card .ex-result {
+            margin-top: clamp(8px, 1vh, 14px);
+            padding-top: clamp(6px, 0.8vh, 10px);
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            font-size: clamp(0.62rem, 0.8vw, 0.72rem);
+            color: var(--truv-blue-light);
+            font-weight: 500;
+        }
+
+        .s5 .label { color: var(--truv-blue); }
+
+        @media (max-width: 768px) {
+            .example-cards { grid-template-columns: 1fr; }
+        }
+
+        /* ===========================================
+           SLIDE 5 — RESULTS (renumbered)
+           =========================================== */
+        .s5 .label { color: var(--truv-blue); }
+
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: clamp(0.6rem, 1.2vw, 1rem);
+            margin-top: var(--content-gap);
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: 14px;
+            padding: clamp(1rem, 1.5vw, 1.5rem);
+            border: 1px solid rgba(15, 28, 71, 0.06);
+            text-align: center;
+        }
+
+        .stat-card .num {
+            font-family: var(--font-display);
+            font-size: clamp(1.8rem, 3.5vw, 3rem);
+            font-weight: 700;
+            color: var(--truv-blue);
+            line-height: 1.1;
+        }
+
+        .stat-card .stat-label {
+            font-size: var(--small-size);
+            color: var(--text-muted-light);
+            margin-top: 4px;
+        }
+
+        .integrations {
+            display: flex;
+            flex-wrap: wrap;
+            gap: clamp(0.4rem, 0.7vw, 0.6rem);
+            margin-top: clamp(1rem, 2vw, 1.75rem);
+            justify-content: center;
+        }
+
+        .int-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: clamp(5px, 0.5vh, 8px) clamp(10px, 1vw, 16px);
+            border-radius: 8px;
+            font-size: var(--small-size);
+            font-weight: 600;
+        }
+
+        .int-badge.hubspot { background: #fff4e5; color: #ff5c35; }
+        .int-badge.linear { background: #ede9fe; color: #5b21b6; }
+        .int-badge.sendgrid { background: #e0f2fe; color: #0369a1; }
+        .int-badge.knock { background: #fef3c7; color: #92400e; }
+        .int-badge.slack { background: #ecfdf5; color: #047857; }
+
+        .s4 .footer-line {
+            font-size: var(--small-size);
+            color: var(--text-muted-light);
+            text-align: center;
+            margin-top: clamp(1rem, 2vw, 1.75rem);
+            padding-top: var(--element-gap);
+            border-top: 1px solid rgba(15, 28, 71, 0.06);
+        }
+
+        /* ===========================================
+           RESPONSIVE
+           =========================================== */
+        @media (max-height: 700px) {
+            :root {
+                --slide-padding: clamp(1.25rem, 3vw, 2.5rem);
+                --content-gap: clamp(0.6rem, 1.5vw, 1.25rem);
+                --title-size: clamp(1.75rem, 5vw, 3.5rem);
+                --h2-size: clamp(1.25rem, 3vw, 2rem);
+            }
+        }
+
+        @media (max-height: 600px) {
+            :root {
+                --slide-padding: clamp(0.75rem, 2.5vw, 1.5rem);
+                --content-gap: clamp(0.4rem, 1vw, 0.75rem);
+                --title-size: clamp(1.5rem, 4.5vw, 2.5rem);
+                --body-size: clamp(0.7rem, 1.1vw, 0.9rem);
+            }
+            .nav-dots { display: none; }
+            .technique-bar { display: none; }
+        }
+
+        @media (max-height: 500px) {
+            :root {
+                --slide-padding: clamp(0.5rem, 2vw, 1rem);
+                --title-size: clamp(1.25rem, 4vw, 2rem);
+                --h2-size: clamp(1rem, 2.5vw, 1.5rem);
+                --body-size: clamp(0.65rem, 1vw, 0.8rem);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .pain-cards { grid-template-columns: 1fr; }
+            .phase-row { flex-direction: column; }
+            .stats-row { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 500px) {
+            .stats-row { grid-template-columns: repeat(2, 1fr); }
+            .technique-bar { flex-wrap: wrap; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                transition-duration: 0.2s !important;
+            }
+            html { scroll-behavior: auto; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="progress-bar" id="progress"></div>
+    <nav class="nav-dots" id="navDots"></nav>
+
+    <!-- ==========================================
+         SLIDE 1 — TITLE
+         ========================================== -->
+    <section class="slide s1" data-slide="0">
+        <div class="grid-bg"></div>
+        <div class="slide-content">
+            <div class="tag reveal"><span class="icon">&#x2699;</span> Marketing Automation</div>
+            <h1 class="reveal">Pipedream<br><span class="accent">Builder</span></h1>
+            <p class="subtitle reveal">An AI-powered system that builds and deploys marketing automations in minutes instead of days.</p>
+        </div>
+        <span class="slide-num" style="color: rgba(255,255,255,0.2);">01 / 05</span>
+    </section>
+
+    <!-- ==========================================
+         SLIDE 2 — THE PROBLEM
+         ========================================== -->
+    <section class="slide s2" data-slide="1">
+        <div class="slide-content">
+            <span class="label reveal">The Problem</span>
+            <h2 class="reveal" style="margin-top: var(--element-gap);">Connecting our tools shouldn't take weeks</h2>
+            <div class="pain-cards">
+                <div class="pain-card reveal">
+                    <div class="icon-box">&#x231B;</div>
+                    <h3>Slow to Build</h3>
+                    <p>Each automation required hours of manual setup, trial-and-error testing, and back-and-forth debugging.</p>
+                </div>
+                <div class="pain-card reveal">
+                    <div class="icon-box">&#x26A0;</div>
+                    <h3>Easy to Break</h3>
+                    <p>Every platform has hidden quirks. One wrong setting in HubSpot or Linear and the whole workflow silently fails.</p>
+                </div>
+                <div class="pain-card reveal">
+                    <div class="icon-box">&#x1F4AD;</div>
+                    <h3>Hard to Repeat</h3>
+                    <p>Lessons learned on one automation were trapped in someone's head. Each new workflow started from scratch.</p>
+                </div>
+            </div>
+        </div>
+        <span class="slide-num" style="color: rgba(15,28,71,0.15);">02 / 05</span>
+    </section>
+
+    <!-- ==========================================
+         SLIDE 3 — HOW IT WORKS
+         ========================================== -->
+    <section class="slide s3" data-slide="2">
+        <div class="grid-bg"></div>
+        <div class="slide-content">
+            <span class="label reveal">How It Works</span>
+            <h2 class="reveal" style="margin-top: var(--element-gap); color: white;">Describe what you need. AI builds it.</h2>
+            <div class="phase-row">
+                <div class="phase-card reveal">
+                    <div class="phase-num">1</div>
+                    <h3>Define</h3>
+                    <p>Describe the automation: "sync HubSpot events to Linear"</p>
+                </div>
+                <div class="phase-card reveal">
+                    <div class="phase-num">2</div>
+                    <h3>Build</h3>
+                    <p>AI writes the integration code using proven patterns</p>
+                </div>
+                <div class="phase-card reveal">
+                    <div class="phase-num">3</div>
+                    <h3>Configure</h3>
+                    <p>Automatically sets up the workflow in Pipedream</p>
+                </div>
+                <div class="phase-card reveal">
+                    <div class="phase-num">4</div>
+                    <h3>Test</h3>
+                    <p>Runs the workflow and verifies everything works</p>
+                </div>
+                <div class="phase-card reveal">
+                    <div class="phase-num">5</div>
+                    <h3>Ship</h3>
+                    <p>Deploys to production, ready to run on autopilot</p>
+                </div>
+            </div>
+            <div class="technique-bar reveal">
+                <span class="technique"><span class="t-icon">&#x1F4BB;</span> Browser automation</span>
+                <span class="technique"><span class="t-icon">&#x1F510;</span> Pre-authenticated sessions</span>
+                <span class="technique"><span class="t-icon">&#x1F504;</span> Smart deduplication</span>
+                <span class="technique"><span class="t-icon">&#x26A1;</span> Built-in error handling</span>
+            </div>
+        </div>
+        <span class="slide-num" style="color: rgba(255,255,255,0.2);">03 / 05</span>
+    </section>
+
+    <!-- ==========================================
+         SLIDE 4 — IN ACTION (EXAMPLES)
+         ========================================== -->
+    <section class="slide s-examples" data-slide="3">
+        <div class="grid-bg"></div>
+        <div class="slide-content">
+            <span class="label reveal">In Action</span>
+            <h2 class="reveal" style="margin-top: var(--element-gap); color: white;">Two automations, built this week</h2>
+            <div class="example-cards">
+                <div class="example-card reveal">
+                    <div class="ex-header">
+                        <div class="ex-icon email">&#x2709;</div>
+                        <h3>Email Activity Tracking</h3>
+                    </div>
+                    <p class="ex-desc">Every email we send through SendGrid is now automatically logged on the contact's HubSpot timeline — opens, clicks, and deliveries.</p>
+                    <div class="flow-steps">
+                        <span class="flow-step">SendGrid event fires</span>
+                        <span class="flow-arrow">&#x2192;</span>
+                        <span class="flow-step">Find contact in HubSpot</span>
+                        <span class="flow-arrow">&#x2192;</span>
+                        <span class="flow-step">Log email engagement</span>
+                    </div>
+                    <div class="ex-result">Result: Full email visibility on every contact record — no manual logging</div>
+                </div>
+                <div class="example-card reveal">
+                    <div class="ex-header">
+                        <div class="ex-icon event">&#x1F4C5;</div>
+                        <h3>Event &rarr; Project Sync</h3>
+                    </div>
+                    <p class="ex-desc">When a marketing event is created or updated in HubSpot, a matching project is automatically created in Linear with the right status and dates.</p>
+                    <div class="flow-steps">
+                        <span class="flow-step">HubSpot event triggers</span>
+                        <span class="flow-arrow">&#x2192;</span>
+                        <span class="flow-step">Fetch event details</span>
+                        <span class="flow-arrow">&#x2192;</span>
+                        <span class="flow-step">Create/update Linear project</span>
+                    </div>
+                    <div class="ex-result">Result: Every event has a project in Linear automatically — no duplicate work</div>
+                </div>
+            </div>
+        </div>
+        <span class="slide-num" style="color: rgba(255,255,255,0.2);">04 / 05</span>
+    </section>
+
+    <!-- ==========================================
+         SLIDE 5 — RESULTS
+         ========================================== -->
+    <section class="slide s4" data-slide="4">
+        <div class="slide-content">
+            <span class="label reveal">Results</span>
+            <h2 class="reveal" style="margin-top: var(--element-gap);">Already running in production</h2>
+            <div class="stats-row">
+                <div class="stat-card reveal">
+                    <div class="num">5</div>
+                    <div class="stat-label">Automations live</div>
+                </div>
+                <div class="stat-card reveal">
+                    <div class="num">18+</div>
+                    <div class="stat-label">Known pitfalls avoided</div>
+                </div>
+                <div class="stat-card reveal">
+                    <div class="num">5</div>
+                    <div class="stat-label">Platforms connected</div>
+                </div>
+                <div class="stat-card reveal">
+                    <div class="num">0</div>
+                    <div class="stat-label">Manual steps left</div>
+                </div>
+            </div>
+            <div class="integrations reveal">
+                <span class="int-badge hubspot">HubSpot</span>
+                <span class="int-badge linear">Linear</span>
+                <span class="int-badge sendgrid">SendGrid</span>
+                <span class="int-badge knock">Knock</span>
+                <span class="int-badge slack">Slack</span>
+            </div>
+            <p class="footer-line reveal">Built by Cameron Wolf &middot; Growth Marketing &middot; Truv</p>
+        </div>
+        <span class="slide-num" style="color: rgba(15,28,71,0.15);">05 / 05</span>
+    </section>
+
+    <script>
+        /* ===========================================
+           PRESENTATION CONTROLLER
+           =========================================== */
+        class SlidePresentation {
+            constructor() {
+                this.slides = document.querySelectorAll('.slide');
+                this.total = this.slides.length;
+                this.progress = document.getElementById('progress');
+                this.dotsContainer = document.getElementById('navDots');
+                this.current = 0;
+
+                this.createDots();
+                this.observe();
+                this.keyboard();
+                this.updateProgress();
+            }
+
+            createDots() {
+                for (let i = 0; i < this.total; i++) {
+                    const dot = document.createElement('button');
+                    dot.classList.add('nav-dot');
+                    dot.setAttribute('aria-label', `Slide ${i + 1}`);
+                    if (i === 0) dot.classList.add('active');
+                    dot.addEventListener('click', () => {
+                        this.slides[i].scrollIntoView({ behavior: 'smooth' });
+                    });
+                    this.dotsContainer.appendChild(dot);
+                }
+                this.dots = this.dotsContainer.querySelectorAll('.nav-dot');
+            }
+
+            observe() {
+                const obs = new IntersectionObserver((entries) => {
+                    entries.forEach(e => {
+                        if (e.isIntersecting) {
+                            e.target.classList.add('visible');
+                            this.current = parseInt(e.target.dataset.slide);
+                            this.updateProgress();
+                            this.updateDots();
+                        }
+                    });
+                }, { threshold: 0.4 });
+                this.slides.forEach(s => obs.observe(s));
+            }
+
+            keyboard() {
+                document.addEventListener('keydown', (e) => {
+                    if (['ArrowDown', 'ArrowRight', ' '].includes(e.key)) {
+                        e.preventDefault();
+                        const next = Math.min(this.current + 1, this.total - 1);
+                        this.slides[next].scrollIntoView({ behavior: 'smooth' });
+                    } else if (['ArrowUp', 'ArrowLeft'].includes(e.key)) {
+                        e.preventDefault();
+                        const prev = Math.max(this.current - 1, 0);
+                        this.slides[prev].scrollIntoView({ behavior: 'smooth' });
+                    }
+                });
+            }
+
+            updateProgress() {
+                this.progress.style.width = ((this.current + 1) / this.total * 100) + '%';
+            }
+
+            updateDots() {
+                this.dots.forEach((d, i) => d.classList.toggle('active', i === this.current));
+            }
+        }
+
+        new SlidePresentation();
+    </script>
+</body>
+</html>

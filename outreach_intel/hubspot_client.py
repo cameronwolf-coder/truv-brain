@@ -216,3 +216,352 @@ class HubSpotClient:
             f"/crm/v3/lists/{list_id}/memberships/add",
             json_data=contact_ids,
         )
+
+    # ── Deals ──────────────────────────────────────────────────────────
+
+    def search_deals(
+        self,
+        filters: Optional[list[dict]] = None,
+        sorts: Optional[list[dict]] = None,
+        properties: Optional[list[str]] = None,
+        limit: int = 100,
+        after: Optional[str] = None,
+    ) -> list[dict[str, Any]]:
+        """Search deals with filters.
+
+        Args:
+            filters: List of filter objects with propertyName, operator, value(s)
+            sorts: List of sort objects with propertyName, direction
+            properties: Properties to include in results
+            limit: Maximum results to return
+            after: Pagination cursor
+
+        Returns:
+            List of matching deal records
+        """
+        if properties is None:
+            properties = [
+                "dealname", "dealstage", "amount", "closedate",
+                "pipeline", "hs_lastmodifieddate", "hubspot_owner_id",
+            ]
+
+        body: dict[str, Any] = {
+            "limit": min(limit, 100),
+            "properties": properties,
+        }
+
+        if filters:
+            body["filterGroups"] = [{"filters": filters}]
+        if sorts:
+            body["sorts"] = sorts
+        if after:
+            body["after"] = after
+
+        response = self.post("/crm/v3/objects/deals/search", json_data=body)
+        return response.get("results", [])
+
+    def get_deal(
+        self,
+        deal_id: str,
+        properties: Optional[list[str]] = None,
+    ) -> dict[str, Any]:
+        """Get a single deal by ID.
+
+        Args:
+            deal_id: HubSpot deal ID
+            properties: Properties to include
+
+        Returns:
+            Deal record
+        """
+        params = {}
+        if properties:
+            params["properties"] = ",".join(properties)
+        return self.get(f"/crm/v3/objects/deals/{deal_id}", params=params or None)
+
+    def create_deal(
+        self,
+        properties: dict[str, str],
+    ) -> dict[str, Any]:
+        """Create a new deal.
+
+        Args:
+            properties: Deal properties (dealname, dealstage, amount, pipeline, etc.)
+
+        Returns:
+            Created deal record
+        """
+        return self.post("/crm/v3/objects/deals", json_data={"properties": properties})
+
+    def update_deal(
+        self,
+        deal_id: str,
+        properties: dict[str, str],
+    ) -> dict[str, Any]:
+        """Update deal properties.
+
+        Args:
+            deal_id: HubSpot deal ID
+            properties: Properties to update
+
+        Returns:
+            Updated deal record
+        """
+        return self._request(
+            "PATCH",
+            f"/crm/v3/objects/deals/{deal_id}",
+            json_data={"properties": properties},
+        )
+
+    # ── Companies ──────────────────────────────────────────────────────
+
+    def search_companies(
+        self,
+        filters: Optional[list[dict]] = None,
+        sorts: Optional[list[dict]] = None,
+        properties: Optional[list[str]] = None,
+        limit: int = 100,
+        after: Optional[str] = None,
+    ) -> list[dict[str, Any]]:
+        """Search companies with filters.
+
+        Args:
+            filters: List of filter objects with propertyName, operator, value(s)
+            sorts: List of sort objects with propertyName, direction
+            properties: Properties to include in results
+            limit: Maximum results to return
+            after: Pagination cursor
+
+        Returns:
+            List of matching company records
+        """
+        if properties is None:
+            properties = [
+                "name", "domain", "industry", "numberofemployees",
+                "annualrevenue", "city", "state",
+            ]
+
+        body: dict[str, Any] = {
+            "limit": min(limit, 100),
+            "properties": properties,
+        }
+
+        if filters:
+            body["filterGroups"] = [{"filters": filters}]
+        if sorts:
+            body["sorts"] = sorts
+        if after:
+            body["after"] = after
+
+        response = self.post("/crm/v3/objects/companies/search", json_data=body)
+        return response.get("results", [])
+
+    def get_company(
+        self,
+        company_id: str,
+        properties: Optional[list[str]] = None,
+    ) -> dict[str, Any]:
+        """Get a single company by ID.
+
+        Args:
+            company_id: HubSpot company ID
+            properties: Properties to include
+
+        Returns:
+            Company record
+        """
+        params = {}
+        if properties:
+            params["properties"] = ",".join(properties)
+        return self.get(f"/crm/v3/objects/companies/{company_id}", params=params or None)
+
+    # ── Contacts (additional) ──────────────────────────────────────────
+
+    def get_contact(
+        self,
+        contact_id: str,
+        properties: Optional[list[str]] = None,
+    ) -> dict[str, Any]:
+        """Get a single contact by ID.
+
+        Args:
+            contact_id: HubSpot contact ID
+            properties: Properties to include
+
+        Returns:
+            Contact record
+        """
+        params = {}
+        if properties:
+            params["properties"] = ",".join(properties)
+        return self.get(f"/crm/v3/objects/contacts/{contact_id}", params=params or None)
+
+    def get_contact_by_email(
+        self,
+        email: str,
+        properties: Optional[list[str]] = None,
+    ) -> Optional[dict[str, Any]]:
+        """Look up a contact by email address.
+
+        Args:
+            email: Email address to search
+            properties: Properties to include
+
+        Returns:
+            Contact record or None if not found
+        """
+        results = self.search_contacts(
+            filters=[{"propertyName": "email", "operator": "EQ", "value": email}],
+            properties=properties,
+            limit=1,
+        )
+        return results[0] if results else None
+
+    def update_contact(
+        self,
+        contact_id: str,
+        properties: dict[str, str],
+    ) -> dict[str, Any]:
+        """Update contact properties.
+
+        Args:
+            contact_id: HubSpot contact ID
+            properties: Properties to update
+
+        Returns:
+            Updated contact record
+        """
+        return self._request(
+            "PATCH",
+            f"/crm/v3/objects/contacts/{contact_id}",
+            json_data={"properties": properties},
+        )
+
+    # ── Associations ───────────────────────────────────────────────────
+
+    def get_associations(
+        self,
+        object_type: str,
+        object_id: str,
+        to_object_type: str,
+    ) -> list[dict[str, Any]]:
+        """Get associations between objects.
+
+        Args:
+            object_type: Source object type (contacts, deals, companies)
+            object_id: Source object ID
+            to_object_type: Target object type
+
+        Returns:
+            List of associated object references
+        """
+        response = self.get(
+            f"/crm/v4/objects/{object_type}/{object_id}/associations/{to_object_type}"
+        )
+        return response.get("results", [])
+
+    def get_contact_deals(self, contact_id: str) -> list[dict[str, Any]]:
+        """Get all deals associated with a contact.
+
+        Args:
+            contact_id: HubSpot contact ID
+
+        Returns:
+            List of associated deal references (use get_deal() to get full details)
+        """
+        return self.get_associations("contacts", contact_id, "deals")
+
+    def get_contact_company(self, contact_id: str) -> Optional[dict[str, Any]]:
+        """Get the primary company associated with a contact.
+
+        Args:
+            contact_id: HubSpot contact ID
+
+        Returns:
+            Associated company reference or None
+        """
+        results = self.get_associations("contacts", contact_id, "companies")
+        return results[0] if results else None
+
+    def get_deal_contacts(self, deal_id: str) -> list[dict[str, Any]]:
+        """Get all contacts associated with a deal.
+
+        Args:
+            deal_id: HubSpot deal ID
+
+        Returns:
+            List of associated contact references
+        """
+        return self.get_associations("deals", deal_id, "contacts")
+
+    def get_company_contacts(self, company_id: str) -> list[dict[str, Any]]:
+        """Get all contacts associated with a company.
+
+        Args:
+            company_id: HubSpot company ID
+
+        Returns:
+            List of associated contact references
+        """
+        return self.get_associations("companies", company_id, "contacts")
+
+    # ── Batch Operations ───────────────────────────────────────────────
+
+    def batch_get_contacts(
+        self,
+        contact_ids: list[str],
+        properties: Optional[list[str]] = None,
+    ) -> list[dict[str, Any]]:
+        """Get multiple contacts by ID in a single request.
+
+        Args:
+            contact_ids: List of contact IDs (max 100)
+            properties: Properties to include
+
+        Returns:
+            List of contact records
+        """
+        if properties is None:
+            properties = [
+                "firstname", "lastname", "email", "jobtitle",
+                "company", "lifecyclestage",
+            ]
+
+        body = {
+            "inputs": [{"id": cid} for cid in contact_ids[:100]],
+            "properties": properties,
+        }
+        response = self.post("/crm/v3/objects/contacts/batch/read", json_data=body)
+        return response.get("results", [])
+
+    def batch_update_contacts(
+        self,
+        updates: list[dict[str, Any]],
+    ) -> list[dict[str, Any]]:
+        """Update multiple contacts in a single request.
+
+        Args:
+            updates: List of dicts with "id" and "properties" keys.
+                     Example: [{"id": "123", "properties": {"lifecyclestage": "lead"}}]
+
+        Returns:
+            List of updated contact records
+        """
+        body = {"inputs": updates[:100]}
+        response = self.post("/crm/v3/objects/contacts/batch/update", json_data=body)
+        return response.get("results", [])
+
+    # ── Owners ─────────────────────────────────────────────────────────
+
+    def get_owners(self, limit: int = 100) -> list[dict[str, Any]]:
+        """Get HubSpot owners (sales reps).
+
+        Args:
+            limit: Maximum owners to return
+
+        Returns:
+            List of owner records
+        """
+        params = {"limit": min(limit, 100)}
+        response = self.get("/crm/v3/owners", params=params)
+        return response.get("results", [])

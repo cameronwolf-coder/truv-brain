@@ -1,0 +1,26 @@
+{
+  "name": "pipedream-mcp",
+  "version": "1.0.0",
+  "description": "MCP server for Pipedream workflow management",
+  "private": true,
+  "type": "module",
+  "bin": {
+    "pipedream-mcp": "./build/index.js"
+  },
+  "files": [
+    "build"
+  ],
+  "scripts": {
+    "build": "tsc && chmod +x build/index.js",
+    "prepare": "npm run build",
+    "watch": "tsc --watch"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "0.6.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.24",
+    "dotenv": "^16.4.7",
+    "typescript": "^5.3.3"
+  }
+}

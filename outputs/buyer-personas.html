@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Truv - Buyer Personas</title>
+<style>
+  @page {
+    size: letter;
+    margin: 0.4in 0.5in;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    color: #111827;
+    background: #fff;
+    font-size: 11px;
+    line-height: 1.5;
+    padding: 32px;
+  }
+  h1 { font-size: 22px; font-weight: 600; color: #111827; }
+  h2 { font-size: 15px; font-weight: 600; color: #111827; margin-bottom: 12px; }
+  h3 { font-size: 14px; font-weight: 600; color: #111827; }
+  .subtitle { color: #6b7280; font-size: 12px; margin-top: 4px; }
+  .header { margin-bottom: 24px; display: flex; align-items: center; justify-content: space-between; }
+  .header-right { text-align: right; color: #9ca3af; font-size: 10px; }
+
+  /* Section Cards */
+  .card {
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 20px;
+    background: #fff;
+  }
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+  }
+
+  /* Response Likelihood */
+  .rank-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 14px;
+    border-radius: 8px;
+    margin-bottom: 8px;
+    border: 1px solid #e5e7eb;
+    page-break-inside: avoid;
+  }
+  .rank-row.top { background: #f0fdf4; border-color: #bbf7d0; }
+  .rank-row.high { background: #eff6ff; border-color: #bfdbfe; }
+  .rank-row.normal { background: #f9fafb; }
+  .rank-badge {
+    width: 32px; height: 32px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 14px; flex-shrink: 0;
+  }
+  .rank-badge.top { background: #22c55e; color: #fff; }
+  .rank-badge.high { background: #3b82f6; color: #fff; }
+  .rank-badge.normal { background: #d1d5db; color: #374151; }
+  .rank-info { flex: 1; }
+  .rank-label { font-weight: 600; font-size: 12px; display: flex; align-items: center; gap: 6px; }
+  .rank-title { font-size: 10px; color: #6b7280; }
+  .best-badge { background: #bbf7d0; color: #166534; font-size: 9px; font-weight: 600; padding: 1px 6px; border-radius: 4px; }
+  .rank-metrics { display: flex; gap: 20px; text-align: center; flex-shrink: 0; }
+  .metric-value { font-size: 18px; font-weight: 700; }
+  .metric-label { font-size: 9px; color: #6b7280; }
+  .metric-value.top { color: #15803d; }
+  .metric-value.high { color: #1d4ed8; }
+  .metric-value.normal { color: #374151; }
+  .score-bar-container { width: 60px; }
+  .score-bar { height: 6px; background: #e5e7eb; border-radius: 999px; overflow: hidden; }
+  .score-bar-fill { height: 100%; border-radius: 999px; }
+  .score-bar-fill.top { background: #22c55e; }
+  .score-bar-fill.high { background: #3b82f6; }
+  .score-bar-fill.normal { background: #9ca3af; }
+  .score-number { font-size: 11px; font-weight: 600; margin-left: 4px; }
+
+  /* Engagement Detail Grid */
+  .detail-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 12px;
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid #e5e7eb;
+  }
+  .detail-box {
+    padding: 12px;
+    border-radius: 8px;
+    background: #f9fafb;
+  }
+  .detail-box.top { background: rgba(187,247,208,0.3); }
+  .detail-box.high { background: rgba(191,219,254,0.3); }
+  .detail-box h4 { font-size: 11px; font-weight: 600; margin-bottom: 2px; }
+  .detail-box .sub { font-size: 9px; color: #6b7280; margin-bottom: 8px; }
+  .detail-row { display: flex; justify-content: space-between; font-size: 10px; padding: 2px 0; }
+  .detail-row .label { color: #6b7280; }
+  .detail-row .value { font-weight: 500; }
+  .detail-row .value.green { color: #16a34a; }
+  .detail-divider { border-top: 1px solid #e5e7eb; margin: 6px 0; }
+  .sample-bar { margin-top: 8px; padding: 8px; border-radius: 6px; font-size: 10px; }
+  .sample-bar.top { background: #dcfce7; color: #166534; }
+  .sample-bar.high { background: #dbeafe; color: #1e40af; }
+  .sample-bar.normal { background: #f3f4f6; color: #374151; }
+
+  /* Funnel bars */
+  .funnel-row { display: flex; align-items: center; gap: 6px; margin-bottom: 4px; }
+  .funnel-label { width: 50px; font-size: 9px; color: #6b7280; }
+  .funnel-bar-bg { flex: 1; height: 12px; background: #e5e7eb; border-radius: 999px; overflow: hidden; }
+  .funnel-bar { height: 100%; border-radius: 999px; }
+  .funnel-bar.lead { background: #9ca3af; }
+  .funnel-bar.mql { background: #60a5fa; }
+  .funnel-bar.sql { background: #a78bfa; }
+  .funnel-bar.opp { background: #fb923c; }
+  .funnel-bar.customer { background: #22c55e; }
+  .funnel-count { width: 40px; font-size: 9px; font-weight: 500; text-align: right; }
+
+  /* Insight box */
+  .insight-box {
+    padding: 10px;
+    border-radius: 8px;
+    background: #fffbeb;
+    border: 1px solid #fde68a;
+    margin-top: 12px;
+    font-size: 10px;
+    color: #92400e;
+  }
+
+  /* Distribution */
+  .dist-row { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
+  .dist-label { width: 120px; font-size: 11px; font-weight: 500; color: #374151; }
+  .dist-bar-bg { flex: 1; height: 18px; background: #f3f4f6; border-radius: 999px; overflow: hidden; }
+  .dist-bar { height: 100%; background: #3b82f6; border-radius: 999px; }
+  .dist-count { width: 100px; font-size: 11px; color: #6b7280; text-align: right; }
+  .dist-note { font-size: 9px; color: #9ca3af; margin-top: 10px; }
+
+  /* Persona Detail Cards */
+  .persona-card {
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 16px;
+    page-break-inside: avoid;
+  }
+  .persona-header {
+    padding: 16px 20px;
+    background: #f9fafb;
+    border-bottom: 1px solid #f3f4f6;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .persona-pct { font-size: 22px; font-weight: 700; color: #2563eb; }
+  .persona-pct-label { font-size: 9px; color: #6b7280; text-align: right; }
+  .persona-body { padding: 16px 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .persona-section h4 {
+    font-size: 11px; font-weight: 600; color: #374151;
+    margin-bottom: 6px;
+  }
+  .tag { display: inline-block; padding: 2px 8px; background: #eff6ff; color: #1d4ed8; border-radius: 4px; font-size: 10px; margin: 2px 2px 2px 0; }
+  .bullet-list { list-style: none; padding: 0; }
+  .bullet-list li { font-size: 10px; color: #4b5563; padding: 2px 0; display: flex; align-items: flex-start; gap: 6px; }
+  .bullet-list li .dot { flex-shrink: 0; margin-top: 3px; }
+  .dot.red { color: #f87171; }
+  .dot.green { color: #22c55e; }
+  .dot.blue { color: #3b82f6; }
+
+  /* Page breaks */
+  .page-break { page-break-before: always; }
+
+  @media print {
+    body { padding: 0; margin: 0; }
+    .card, .persona-card { box-shadow: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<div class="header">
+  <div>
+    <h1>Buyer Personas</h1>
+    <p class="subtitle">Target personas with messaging focus and HubSpot distribution</p>
+  </div>
+  <div class="header-right">
+    Truv Brain &middot; Marketing Knowledge Base<br>
+    Generated February 25, 2026
+  </div>
+</div>
+
+<!-- Persona Detail Cards -->
+
+<!-- Response Likelihood Ranking - HIDDEN -->
+<div class="card" style="display:none">
+  <div class="card-header">
+    <div>
+      <h2 style="margin-bottom:2px">Response Likelihood</h2>
+      <p style="font-size:10px;color:#6b7280">Based on HubSpot engagement data</p>
+    </div>
+    <div style="font-size:9px;color:#9ca3af">Score = Reply Rate (40%) + Conversion (40%) + Priority (20%)</div>
+  </div>
+
+  <!-- 1. Manager/Director -->
+  <div class="rank-row top">
+    <div class="rank-badge top">1</div>
+    <div class="rank-info">
+      <div class="rank-label" style="color:#14532d">Manager/Director <span class="best-badge">BEST</span></div>
+      <div class="rank-title">Manager/Director Level</div>
+    </div>
+    <div class="rank-metrics">
+      <div><div class="metric-value top">14%</div><div class="metric-label">Reply Rate</div></div>
+      <div><div class="metric-value top">1.0x</div><div class="metric-label">Conversion</div></div>
+      <div class="score-bar-container">
+        <div style="display:flex;align-items:center;gap:4px">
+          <div class="score-bar" style="flex:1"><div class="score-bar-fill top" style="width:29%"></div></div>
+          <span class="score-number" style="color:#15803d">29</span>
+        </div>
+        <div class="metric-label" style="margin-top:2px">Score</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Expanded details for Manager -->
+  <div class="detail-grid" style="margin-left:44px;margin-right:0;margin-bottom:12px">
+    <div class="detail-box top">
+      <h4 style="color:#14532d">Email Engagement</h4>
+      <div class="sub">From HubSpot email tracking</div>
+      <div class="detail-row"><span class="label">Contacts Tracked</span><span class="value">1,444</span></div>
+      <div class="detail-row"><span class="label">Total Opens</span><span class="value">4,383</span></div>
+      <div class="detail-row"><span class="label">Total Clicks</span><span class="value">256</span></div>
+      <div class="detail-row"><span class="label">Total Replies</span><span class="value green">200</span></div>
+      <div class="detail-divider"></div>
+      <div class="detail-row"><span class="label">Avg Opens/Contact</span><span class="value">3.0</span></div>
+      <div class="detail-row"><span class="label">Avg Clicks/Contact</span><span class="value">0.18</span></div>
+    </div>
+    <div class="detail-box top">
+      <h4 style="color:#14532d">Deal Presence</h4>
+      <div class="sub">All HubSpot deals (any stage)</div>
+      <div class="detail-row"><span class="label">Deal Stages Present</span><span class="value">16</span></div>
+      <div class="detail-row"><span class="label">Total Contacts</span><span class="value">349</span></div>
+      <div class="detail-row"><span class="label">Total Deal Value</span><span class="value green">$71,402K</span></div>
+      <div class="detail-divider"></div>
+      <div class="detail-row"><span class="label">Avg Value/Deal</span><span class="value">$4,463K</span></div>
+    </div>
+    <div class="detail-box top">
+      <h4 style="color:#14532d">Lifecycle Stage Counts</h4>
+      <div class="sub">How many at each stage</div>
+      <div class="funnel-row"><span class="funnel-label">Lead</span><div class="funnel-bar-bg"><div class="funnel-bar lead" style="width:69%"></div></div><span class="funnel-count">1,161</span></div>
+      <div class="funnel-row"><span class="funnel-label">MQL</span><div class="funnel-bar-bg"><div class="funnel-bar mql" style="width:73%"></div></div><span class="funnel-count">1,236</span></div>
+      <div class="funnel-row"><span class="funnel-label">SQL</span><div class="funnel-bar-bg"><div class="funnel-bar sql" style="width:34%"></div></div><span class="funnel-count">565</span></div>
+      <div class="funnel-row"><span class="funnel-label">Opp</span><div class="funnel-bar-bg"><div class="funnel-bar opp" style="width:100%"></div></div><span class="funnel-count">1,683</span></div>
+      <div class="funnel-row"><span class="funnel-label">Customer</span><div class="funnel-bar-bg"><div class="funnel-bar customer" style="width:36%"></div></div><span class="funnel-count">605</span></div>
+      <div style="font-size:9px;color:#6b7280;margin-top:4px">Lead &rarr; Customer: <strong style="color:#16a34a">52.1%</strong> conversion</div>
+    </div>
+  </div>
+  <div class="sample-bar top" style="margin-left:44px;margin-bottom:12px">
+    <strong>Sample Size:</strong> 1,161 leads, 605 customers, 1,444 engaged contacts
+  </div>
+
+  <!-- 2. CEO/Founder -->
+  <div class="rank-row high">
+    <div class="rank-badge high">2</div>
+    <div class="rank-info">
+      <div class="rank-label" style="color:#1e3a8a">CEO/Founder</div>
+      <div class="rank-title">CEO/Founder/President</div>
+    </div>
+    <div class="rank-metrics">
+      <div><div class="metric-value high">14%</div><div class="metric-label">Reply Rate</div></div>
+      <div><div class="metric-value high">0.7x</div><div class="metric-label">Conversion</div></div>
+      <div class="score-bar-container">
+        <div style="display:flex;align-items:center;gap:4px">
+          <div class="score-bar" style="flex:1"><div class="score-bar-fill high" style="width:24%"></div></div>
+          <span class="score-number" style="color:#1d4ed8">24</span>
+        </div>
+        <div class="metric-label" style="margin-top:2px">Score</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. VP Product -->
+  <div class="rank-row normal">
+    <div class="rank-badge normal">3</div>
+    <div class="rank-info">
+      <div class="rank-label">VP Product</div>
+      <div class="rank-title">VP Product/Head of Product</div>
+    </div>
+    <div class="rank-metrics">
+      <div><div class="metric-value normal">24%</div><div class="metric-label">Reply Rate</div></div>
+      <div><div class="metric-value normal">0.3x</div><div class="metric-label">Conversion</div></div>
+      <div class="score-bar-container">
+        <div style="display:flex;align-items:center;gap:4px">
+          <div class="score-bar" style="flex:1"><div class="score-bar-fill normal" style="width:23%"></div></div>
+          <span class="score-number">23</span>
+        </div>
+        <div class="metric-label" style="margin-top:2px">Score</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. CTO/VP Engineering -->
+  <div class="rank-row normal">
+    <div class="rank-badge normal">4</div>
+    <div class="rank-info">
+      <div class="rank-label">CTO/VP Engineering</div>
+      <div class="rank-title">CTO/VP Engineering/IT Director</div>
+    </div>
+    <div class="rank-metrics">
+      <div><div class="metric-value normal">12%</div><div class="metric-label">Reply Rate</div></div>
+      <div><div class="metric-value normal">0.7x</div><div class="metric-label">Conversion</div></div>
+      <div class="score-bar-container">
+        <div style="display:flex;align-items:center;gap:4px">
+          <div class="score-bar" style="flex:1"><div class="score-bar-fill normal" style="width:15%"></div></div>
+          <span class="score-number">15</span>
+        </div>
+        <div class="metric-label" style="margin-top:2px">Score</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5. VP Underwriting -->
+  <div class="rank-row normal">
+    <div class="rank-badge normal">5</div>
+    <div class="rank-info">
+      <div class="rank-label">VP Underwriting</div>
+      <div class="rank-title">VP Underwriting/Chief Credit Officer</div>
+    </div>
+    <div class="rank-metrics">
+      <div><div class="metric-value normal">16%</div><div class="metric-label">Reply Rate</div></div>
+      <div><div class="metric-value normal">0.6x</div><div class="metric-label">Conversion</div></div>
+      <div class="score-bar-container">
+        <div style="display:flex;align-items:center;gap:4px">
+          <div class="score-bar" style="flex:1"><div class="score-bar-fill normal" style="width:12%"></div></div>
+          <span class="score-number">12</span>
+        </div>
+        <div class="metric-label" style="margin-top:2px">Score</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. COO/Chief Operating -->
+  <div class="rank-row normal">
+    <div class="rank-badge normal">6</div>
+    <div class="rank-info">
+      <div class="rank-label">COO/Chief Operating</div>
+      <div class="rank-title">Chief Operating Officer</div>
+    </div>
+    <div class="rank-metrics">
+      <div><div class="metric-value normal">26%</div><div class="metric-label">Reply Rate</div></div>
+      <div><div class="metric-value normal">0.3x</div><div class="metric-label">Conversion</div></div>
+      <div class="score-bar-container">
+        <div style="display:flex;align-items:center;gap:4px">
+          <div class="score-bar" style="flex:1"><div class="score-bar-fill normal" style="width:11%"></div></div>
+          <span class="score-number">11</span>
+        </div>
+        <div class="metric-label" style="margin-top:2px">Score</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 7. Other Executive -->
+  <div class="rank-row normal">
+    <div class="rank-badge normal">7</div>
+    <div class="rank-info">
+      <div class="rank-label">Other Executive</div>
+      <div class="rank-title">Other Executive (EVP/SVP)</div>
+    </div>
+    <div class="rank-metrics">
+      <div><div class="metric-value normal">14%</div><div class="metric-label">Reply Rate</div></div>
+      <div><div class="metric-value normal">0.4x</div><div class="metric-label">Conversion</div></div>
+      <div class="score-bar-container">
+        <div style="display:flex;align-items:center;gap:4px">
+          <div class="score-bar" style="flex:1"><div class="score-bar-fill normal" style="width:3%"></div></div>
+          <span class="score-number">3</span>
+        </div>
+        <div class="metric-label" style="margin-top:2px">Score</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 8. CFO/Finance -->
+  <div class="rank-row normal">
+    <div class="rank-badge normal">8</div>
+    <div class="rank-info">
+      <div class="rank-label">CFO/Finance</div>
+      <div class="rank-title">CFO/VP Finance/Controller</div>
+    </div>
+    <div class="rank-metrics">
+      <div><div class="metric-value normal">9%</div><div class="metric-label">Reply Rate</div></div>
+      <div><div class="metric-value normal">0.5x</div><div class="metric-label">Conversion</div></div>
+      <div class="score-bar-container">
+        <div style="display:flex;align-items:center;gap:4px">
+          <div class="score-bar" style="flex:1"><div class="score-bar-fill normal" style="width:0%"></div></div>
+          <span class="score-number">0</span>
+        </div>
+        <div class="metric-label" style="margin-top:2px">Score</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 9. VP Lending -->
+  <div class="rank-row normal">
+    <div class="rank-badge normal">9</div>
+    <div class="rank-info">
+      <div class="rank-label">VP Lending</div>
+      <div class="rank-title">VP Lending/Mortgage Operations</div>
+    </div>
+    <div class="rank-metrics">
+      <div><div class="metric-value normal">12%</div><div class="metric-label">Reply Rate</div></div>
+      <div><div class="metric-value normal">0.1x</div><div class="metric-label">Conversion</div></div>
+      <div class="score-bar-container">
+        <div style="display:flex;align-items:center;gap:4px">
+          <div class="score-bar" style="flex:1"><div class="score-bar-fill normal" style="width:0%"></div></div>
+          <span class="score-number">0</span>
+        </div>
+        <div class="metric-label" style="margin-top:2px">Score</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="insight-box">
+    <strong>Key Insight:</strong> COO/VP Ops personas show 2x higher reply rates than CEOs,
+    despite CEOs making up a larger portion of contacts. Consider focusing campaigns on
+    operations leaders for better engagement.
+  </div>
+</div>
+
+<!-- HubSpot Distribution - HIDDEN -->
+<div class="card" style="display:none">
+  <h2>HubSpot Distribution</h2>
+
+  <div class="dist-row">
+    <div class="dist-label">Manager/Director</div>
+    <div class="dist-bar-bg"><div class="dist-bar" style="width:17%"></div></div>
+    <div class="dist-count">22,915 (17%)</div>
+  </div>
+  <div class="dist-row">
+    <div class="dist-label">CEO/Founder</div>
+    <div class="dist-bar-bg"><div class="dist-bar" style="width:34%"></div></div>
+    <div class="dist-count">45,831 (34%)</div>
+  </div>
+  <div class="dist-row">
+    <div class="dist-label">VP Product</div>
+    <div class="dist-bar-bg"><div class="dist-bar" style="width:1%"></div></div>
+    <div class="dist-count">1,348 (1%)</div>
+  </div>
+  <div class="dist-row">
+    <div class="dist-label">CTO/VP Engineering</div>
+    <div class="dist-bar-bg"><div class="dist-bar" style="width:20%"></div></div>
+    <div class="dist-count">26,959 (20%)</div>
+  </div>
+  <div class="dist-row">
+    <div class="dist-label">VP Underwriting</div>
+    <div class="dist-bar-bg"><div class="dist-bar" style="width:2%"></div></div>
+    <div class="dist-count">2,696 (2%)</div>
+  </div>
+  <div class="dist-row">
+    <div class="dist-label">COO/Chief Operating</div>
+    <div class="dist-bar-bg"><div class="dist-bar" style="width:8%"></div></div>
+    <div class="dist-count">10,784 (8%)</div>
+  </div>
+  <div class="dist-row">
+    <div class="dist-label">Other Executive</div>
+    <div class="dist-bar-bg"><div class="dist-bar" style="width:15%"></div></div>
+    <div class="dist-count">20,219 (15%)</div>
+  </div>
+  <div class="dist-row">
+    <div class="dist-label">CFO/Finance</div>
+    <div class="dist-bar-bg"><div class="dist-bar" style="width:3%"></div></div>
+    <div class="dist-count">4,044 (3%)</div>
+  </div>
+  <div class="dist-row">
+    <div class="dist-label">VP Lending</div>
+    <div class="dist-bar-bg"><div class="dist-bar" style="width:1%"></div></div>
+    <div class="dist-count">1,348 (1%)</div>
+  </div>
+
+  <div class="dist-note">Based on job title analysis of 134,796 targetable HubSpot contacts</div>
+</div>
+
+<!-- Persona Detail Cards -->
+
+<!-- Manager/Director -->
+<div class="persona-card">
+  <div class="persona-header">
+    <div>
+      <h3>Manager/Director Level</h3>
+      <div style="font-size:10px;color:#6b7280">Manager/Director</div>
+    </div>
+    <div style="text-align:right">
+      <div class="persona-pct">17%</div>
+      <div class="persona-pct-label">of contacts</div>
+    </div>
+  </div>
+  <div class="persona-body">
+    <div class="persona-section">
+      <h4>Focus Areas</h4>
+      <div><span class="tag">Day-to-day operations</span><span class="tag">Team performance</span><span class="tag">Process improvement</span><span class="tag">Tool adoption</span></div>
+    </div>
+    <div class="persona-section">
+      <h4>Pain Points</h4>
+      <ul class="bullet-list">
+        <li><span class="dot red">&bull;</span>Team spending too much time on manual verifications</li>
+        <li><span class="dot red">&bull;</span>Dealing with borrower complaints about verification delays</li>
+        <li><span class="dot red">&bull;</span>Managing multiple verification vendors</li>
+        <li><span class="dot red">&bull;</span>Training staff on complex verification processes</li>
+      </ul>
+    </div>
+    <div class="persona-section">
+      <h4>Key Messaging</h4>
+      <ul class="bullet-list">
+        <li><span class="dot green">&check;</span>Simple borrower experience increases team efficiency</li>
+        <li><span class="dot green">&check;</span>One platform for all verification needs</li>
+        <li><span class="dot green">&check;</span>Real-time status tracking reduces support calls</li>
+        <li><span class="dot green">&check;</span>Easy onboarding with dedicated support</li>
+      </ul>
+    </div>
+    <div class="persona-section">
+      <h4>Proof Points to Use</h4>
+      <ul class="bullet-list">
+        <li><span class="dot blue">&rarr;</span>Piedmont: 80% reduction in support calls</li>
+        <li><span class="dot blue">&rarr;</span>First Continental: 4-hour support response time</li>
+        <li><span class="dot blue">&rarr;</span>MIG: 100% conversion improvement simplifies workflows</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- CEO/Founder/President -->
+<div class="persona-card">
+  <div class="persona-header">
+    <div>
+      <h3>CEO/Founder/President</h3>
+      <div style="font-size:10px;color:#6b7280">CEO/Founder</div>
+    </div>
+    <div style="text-align:right">
+      <div class="persona-pct">34%</div>
+      <div class="persona-pct-label">of contacts</div>
+    </div>
+  </div>
+  <div class="persona-body">
+    <div class="persona-section">
+      <h4>Focus Areas</h4>
+      <div><span class="tag">Strategic value</span><span class="tag">Competitive advantage</span><span class="tag">Growth enablement</span><span class="tag">Risk reduction</span></div>
+    </div>
+    <div class="persona-section">
+      <h4>Pain Points</h4>
+      <ul class="bullet-list">
+        <li><span class="dot red">&bull;</span>Falling behind competitors using modern verification</li>
+        <li><span class="dot red">&bull;</span>Margin pressure from rising verification costs</li>
+        <li><span class="dot red">&bull;</span>Compliance and audit concerns</li>
+        <li><span class="dot red">&bull;</span>Need to scale without adding headcount</li>
+      </ul>
+    </div>
+    <div class="persona-section">
+      <h4>Key Messaging</h4>
+      <ul class="bullet-list">
+        <li><span class="dot green">&check;</span>GSE approved - reduce repurchase risk</li>
+        <li><span class="dot green">&check;</span>80% cost savings vs The Work Number</li>
+        <li><span class="dot green">&check;</span>Industry-leading conversion rates</li>
+        <li><span class="dot green">&check;</span>Trusted by top mortgage lenders</li>
+      </ul>
+    </div>
+    <div class="persona-section">
+      <h4>Proof Points to Use</h4>
+      <ul class="bullet-list">
+        <li><span class="dot blue">&rarr;</span>AmeriSave: 80% savings vs competitors</li>
+        <li><span class="dot blue">&rarr;</span>MIG: 100% conversion improvement</li>
+        <li><span class="dot blue">&rarr;</span>Revolution: Costs dropped from 8 to 3 basis points</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- VP Product/Head of Product -->
+<div class="persona-card">
+  <div class="persona-header">
+    <div>
+      <h3>VP Product/Head of Product</h3>
+      <div style="font-size:10px;color:#6b7280">VP Product</div>
+    </div>
+    <div style="text-align:right">
+      <div class="persona-pct">1%</div>
+      <div class="persona-pct-label">of contacts</div>
+    </div>
+  </div>
+  <div class="persona-body">
+    <div class="persona-section">
+      <h4>Focus Areas</h4>
+      <div><span class="tag">Product experience</span><span class="tag">Feature roadmap</span><span class="tag">Customer satisfaction</span><span class="tag">Innovation</span></div>
+    </div>
+    <div class="persona-section">
+      <h4>Pain Points</h4>
+      <ul class="bullet-list">
+        <li><span class="dot red">&bull;</span>Verification step causes application abandonment</li>
+        <li><span class="dot red">&bull;</span>Poor data quality from existing providers</li>
+        <li><span class="dot red">&bull;</span>Limited visibility into verification success rates</li>
+        <li><span class="dot red">&bull;</span>Difficulty integrating verification into product flow</li>
+      </ul>
+    </div>
+    <div class="persona-section">
+      <h4>Key Messaging</h4>
+      <ul class="bullet-list">
+        <li><span class="dot green">&check;</span>70%+ post-login conversion rate</li>
+        <li><span class="dot green">&check;</span>White-label solution matches your brand</li>
+        <li><span class="dot green">&check;</span>Real-time webhooks and analytics</li>
+        <li><span class="dot green">&check;</span>Comprehensive API for custom implementations</li>
+      </ul>
+    </div>
+    <div class="persona-section">
+      <h4>Proof Points to Use</h4>
+      <ul class="bullet-list">
+        <li><span class="dot blue">&rarr;</span>CrossCountry: 70%+ post-login conversion</li>
+        <li><span class="dot blue">&rarr;</span>NFTYDoor: 70% VOHI conversion</li>
+        <li><span class="dot blue">&rarr;</span>B9: 12% improvement in funds deposited</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="page-break"></div>
+
+<!-- CTO/VP Engineering/IT Director -->
+<div class="persona-card">
+  <div class="persona-header">
+    <div>
+      <h3>CTO/VP Engineering/IT Director</h3>
+      <div style="font-size:10px;color:#6b7280">CTO/VP Engineering</div>
+    </div>
+    <div style="text-align:right">
+      <div class="persona-pct">20%</div>
+      <div class="persona-pct-label">of contacts</div>
+    </div>
+  </div>
+  <div class="persona-body">
+    <div class="persona-section">
+      <h4>Focus Areas</h4>
+      <div><span class="tag">Integration ease</span><span class="tag">API quality</span><span class="tag">Reliability</span><span class="tag">Security</span></div>
+    </div>
+    <div class="persona-section">
+      <h4>Pain Points</h4>
+      <ul class="bullet-list">
+        <li><span class="dot red">&bull;</span>Complex integrations with existing LOS/POS</li>
+        <li><span class="dot red">&bull;</span>Poor API documentation from current vendors</li>
+        <li><span class="dot red">&bull;</span>Downtime affecting loan processing</li>
+        <li><span class="dot red">&bull;</span>Security and compliance concerns</li>
+      </ul>
+    </div>
+    <div class="persona-section">
+      <h4>Key Messaging</h4>
+      <ul class="bullet-list">
+        <li><span class="dot green">&check;</span>Go live in days, not months</li>
+        <li><span class="dot green">&check;</span>Pre-built Encompass, nCino integrations</li>
+        <li><span class="dot green">&check;</span>99.99% uptime SLA</li>
+        <li><span class="dot green">&check;</span>SOC 2 Type II certified, FCRA compliant</li>
+      </ul>
+    </div>
+    <div class="persona-section">
+      <h4>Proof Points to Use</h4>
+      <ul class="bullet-list">
+        <li><span class="dot blue">&rarr;</span>First Continental: &lt;1 month custom implementation</li>
+        <li><span class="dot blue">&rarr;</span>MortgageRight: Seamless LOS integration</li>
+        <li><span class="dot blue">&rarr;</span>NFTYDoor: Direct-to-source data quality</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- VP Underwriting/Chief Credit Officer -->
+<div class="persona-card">
+  <div class="persona-header">
+    <div>
+      <h3>VP Underwriting/Chief Credit Officer</h3>
+      <div style="font-size:10px;color:#6b7280">VP Underwriting</div>
+    </div>
+    <div style="text-align:right">
+      <div class="persona-pct">2%</div>
+      <div class="persona-pct-label">of contacts</div>
+    </div>
+  </div>
+  <div class="persona-body">
+    <div class="persona-section">
+      <h4>Focus Areas</h4>
+      <div><span class="tag">Credit risk</span><span class="tag">Loan quality</span><span class="tag">Compliance</span><span class="tag">Data accuracy</span></div>
+    </div>
+    <div class="persona-section">
+      <h4>Pain Points</h4>
+      <ul class="bullet-list">
+        <li><span class="dot red">&bull;</span>Fraudulent income documentation increasing</li>
+        <li><span class="dot red">&bull;</span>Verification delays holding up loan decisions</li>
+        <li><span class="dot red">&bull;</span>Data discrepancies between sources</li>
+        <li><span class="dot red">&bull;</span>Audit and compliance burden</li>
+      </ul>
+    </div>
+    <div class="persona-section">
+      <h4>Key Messaging</h4>
+      <ul class="bullet-list">
+        <li><span class="dot green">&check;</span>Direct-to-source data eliminates fraud risk</li>
+        <li><span class="dot green">&check;</span>GSE-approved for Day 1 Certainty</li>
+        <li><span class="dot green">&check;</span>Comprehensive income breakdown by source</li>
+        <li><span class="dot green">&check;</span>Includes paystubs and W-2s for audit trail</li>
+      </ul>
+    </div>
+    <div class="persona-section">
+      <h4>Proof Points to Use</h4>
+      <ul class="bullet-list">
+        <li><span class="dot blue">&rarr;</span>TurboPass: 38% reduction in loan losses</li>
+        <li><span class="dot blue">&rarr;</span>HFS: 15% improvement in fraud detection</li>
+        <li><span class="dot blue">&rarr;</span>MortgageRight: More granular data than competitors</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- Chief Operating Officer -->
+<div class="persona-card">
+  <div class="persona-header">
+    <div>
+      <h3>Chief Operating Officer</h3>
+      <div style="font-size:10px;color:#6b7280">COO/Chief Operating</div>
+    </div>
+    <div style="text-align:right">
+      <div class="persona-pct">8%</div>
+      <div class="persona-pct-label">of contacts</div>
+    </div>
+  </div>
+  <div class="persona-body">
+    <div class="persona-section">
+      <h4>Focus Areas</h4>
+      <div><span class="tag">Operational excellence</span><span class="tag">Process optimization</span><span class="tag">Team efficiency</span><span class="tag">Cost management</span></div>
+    </div>
+    <div class="persona-section">
+      <h4>Pain Points</h4>
+      <ul class="bullet-list">
+        <li><span class="dot red">&bull;</span>Manual verification processes eating up team time</li>
+        <li><span class="dot red">&bull;</span>High per-loan verification costs impacting margins</li>
+        <li><span class="dot red">&bull;</span>Inconsistent turnaround times affecting customer experience</li>
+        <li><span class="dot red">&bull;</span>Staff burnout from repetitive verification tasks</li>
+      </ul>
+    </div>
+    <div class="persona-section">
+      <h4>Key Messaging</h4>
+      <ul class="bullet-list">
+        <li><span class="dot green">&check;</span>Reduce manual verification tasks by 90%</li>
+        <li><span class="dot green">&check;</span>Save $350+ per closed loan</li>
+        <li><span class="dot green">&check;</span>Free up your team for higher-value work</li>
+        <li><span class="dot green">&check;</span>45-second verifications vs days of waiting</li>
+      </ul>
+    </div>
+    <div class="persona-section">
+      <h4>Proof Points to Use</h4>
+      <ul class="bullet-list">
+        <li><span class="dot blue">&rarr;</span>CrossCountry: $10M/year estimated savings</li>
+        <li><span class="dot blue">&rarr;</span>Piedmont: 90% reduction in manual tasks</li>
+        <li><span class="dot blue">&rarr;</span>First Continental: Dedicated support with 4-hour response</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="page-break"></div>
+
+<!-- Other Executive (EVP/SVP) -->
+<div class="persona-card">
+  <div class="persona-header">
+    <div>
+      <h3>Other Executive (EVP/SVP)</h3>
+      <div style="font-size:10px;color:#6b7280">Other Executive</div>
+    </div>
+    <div style="text-align:right">
+      <div class="persona-pct">15%</div>
+      <div class="persona-pct-label">of contacts</div>
+    </div>
+  </div>
+  <div class="persona-body">
+    <div class="persona-section">
+      <h4>Focus Areas</h4>
+      <div><span class="tag">Strategic initiatives</span><span class="tag">Cross-functional alignment</span><span class="tag">Business growth</span><span class="tag">Vendor management</span></div>
+    </div>
+    <div class="persona-section">
+      <h4>Pain Points</h4>
+      <ul class="bullet-list">
+        <li><span class="dot red">&bull;</span>Lack of visibility into verification bottlenecks</li>
+        <li><span class="dot red">&bull;</span>Vendor relationships not delivering promised value</li>
+        <li><span class="dot red">&bull;</span>Difficulty justifying technology investments</li>
+        <li><span class="dot red">&bull;</span>Misalignment between operations and technology</li>
+      </ul>
+    </div>
+    <div class="persona-section">
+      <h4>Key Messaging</h4>
+      <ul class="bullet-list">
+        <li><span class="dot green">&check;</span>Trusted by industry leaders like CrossCountry and AmeriSave</li>
+        <li><span class="dot green">&check;</span>Dedicated customer success team</li>
+        <li><span class="dot green">&check;</span>Proven ROI within first quarter</li>
+        <li><span class="dot green">&check;</span>Executive-level partnership approach</li>
+      </ul>
+    </div>
+    <div class="persona-section">
+      <h4>Proof Points to Use</h4>
+      <ul class="bullet-list">
+        <li><span class="dot blue">&rarr;</span>CrossCountry: Partnership approach praised by EVP</li>
+        <li><span class="dot blue">&rarr;</span>AmeriSave: Strategic partnership delivering on every front</li>
+        <li><span class="dot blue">&rarr;</span>Orion: Holistic approach to verification optimization</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- CFO/VP Finance/Controller -->
+<div class="persona-card">
+  <div class="persona-header">
+    <div>
+      <h3>CFO/VP Finance/Controller</h3>
+      <div style="font-size:10px;color:#6b7280">CFO/Finance</div>
+    </div>
+    <div style="text-align:right">
+      <div class="persona-pct">3%</div>
+      <div class="persona-pct-label">of contacts</div>
+    </div>
+  </div>
+  <div class="persona-body">
+    <div class="persona-section">
+      <h4>Focus Areas</h4>
+      <div><span class="tag">ROI</span><span class="tag">Margin improvement</span><span class="tag">Predictable pricing</span><span class="tag">Cost visibility</span></div>
+    </div>
+    <div class="persona-section">
+      <h4>Pain Points</h4>
+      <ul class="bullet-list">
+        <li><span class="dot red">&bull;</span>Verification costs unpredictable and rising</li>
+        <li><span class="dot red">&bull;</span>TWN price increases (~20% every 6 months)</li>
+        <li><span class="dot red">&bull;</span>Hard to model verification spend</li>
+        <li><span class="dot red">&bull;</span>No clear ROI metrics from current provider</li>
+      </ul>
+    </div>
+    <div class="persona-section">
+      <h4>Key Messaging</h4>
+      <ul class="bullet-list">
+        <li><span class="dot green">&check;</span>Transparent, predictable pricing</li>
+        <li><span class="dot green">&check;</span>Free re-verifications within 90 days</li>
+        <li><span class="dot green">&check;</span>Measurable ROI - track savings per loan</li>
+        <li><span class="dot green">&check;</span>35-80% guaranteed savings</li>
+      </ul>
+    </div>
+    <div class="persona-section">
+      <h4>Proof Points to Use</h4>
+      <ul class="bullet-list">
+        <li><span class="dot blue">&rarr;</span>Compass Mortgage: 60-80% savings on verifications</li>
+        <li><span class="dot blue">&rarr;</span>CrossCountry: Clear cost tracking and reporting</li>
+        <li><span class="dot blue">&rarr;</span>HFS: 10-15% efficiency improvement quantified</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- VP Lending/Mortgage Operations -->
+<div class="persona-card">
+  <div class="persona-header">
+    <div>
+      <h3>VP Lending/Mortgage Operations</h3>
+      <div style="font-size:10px;color:#6b7280">VP Lending</div>
+    </div>
+    <div style="text-align:right">
+      <div class="persona-pct">1%</div>
+      <div class="persona-pct-label">of contacts</div>
+    </div>
+  </div>
+  <div class="persona-body">
+    <div class="persona-section">
+      <h4>Focus Areas</h4>
+      <div><span class="tag">Loan volume</span><span class="tag">Turnaround time</span><span class="tag">Cost per loan</span><span class="tag">Borrower experience</span></div>
+    </div>
+    <div class="persona-section">
+      <h4>Pain Points</h4>
+      <ul class="bullet-list">
+        <li><span class="dot red">&bull;</span>Verification costs eating into margins</li>
+        <li><span class="dot red">&bull;</span>Long verification times delaying closings</li>
+        <li><span class="dot red">&bull;</span>Borrower drop-off during verification</li>
+        <li><span class="dot red">&bull;</span>Inconsistent data quality across providers</li>
+      </ul>
+    </div>
+    <div class="persona-section">
+      <h4>Key Messaging</h4>
+      <ul class="bullet-list">
+        <li><span class="dot green">&check;</span>Close loans faster with instant verification</li>
+        <li><span class="dot green">&check;</span>45-second average verification time</li>
+        <li><span class="dot green">&check;</span>Improve borrower experience and pull-through</li>
+        <li><span class="dot green">&check;</span>R&amp;W relief opportunity with GSE approval</li>
+      </ul>
+    </div>
+    <div class="persona-section">
+      <h4>Proof Points to Use</h4>
+      <ul class="bullet-list">
+        <li><span class="dot blue">&rarr;</span>CrossCountry: 8% R&amp;W relief uplift</li>
+        <li><span class="dot blue">&rarr;</span>TurboPass: 1.5 days faster funding</li>
+        <li><span class="dot blue">&rarr;</span>Compass: Faster loan approvals with better data</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
