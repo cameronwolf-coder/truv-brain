@@ -73,8 +73,10 @@ export const TimelineView = memo(function TimelineView({ events, currentDate, on
     return { left: `${Math.max(0, Math.min(100, leftPct))}%` };
   }
 
+  const todayIndex = days.findIndex((d) => isSameDay(d, today));
+
   return (
-    <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
+    <div className="bg-white rounded-xl border border-gray-200 overflow-hidden relative">
       {/* Date Header */}
       <div className="flex border-b border-gray-200 sticky top-0 bg-white z-10">
         <div className="w-48 shrink-0 p-3 border-r border-gray-200">
@@ -172,10 +174,10 @@ export const TimelineView = memo(function TimelineView({ events, currentDate, on
       ))}
 
       {/* Today line */}
-      {today >= rangeStart && today <= rangeEnd && (
+      {todayIndex >= 0 && (
         <div
-          className="absolute top-0 bottom-0 w-px bg-red-400 z-20 pointer-events-none"
-          style={{ left: `calc(192px + ${((today.getTime() - rangeStart.getTime()) / (rangeEnd.getTime() - rangeStart.getTime())) * 100}% * (100% - 192px) / 100%)` }}
+          className="absolute top-0 bottom-0 w-px bg-truv-blue/40 z-20 pointer-events-none"
+          style={{ left: `calc(192px + (100% - 192px) * ${(todayIndex + 0.5) / days.length})` }}
         />
       )}
 

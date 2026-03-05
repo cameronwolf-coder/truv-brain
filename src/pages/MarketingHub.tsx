@@ -1,8 +1,9 @@
 import { useState, useMemo, lazy, Suspense, startTransition } from 'react';
-import { useCalendarEvents, useActivityFeed, updateEvent } from '../services/marketingHubClient';
+import { useCalendarEvents, useActivityFeed, updateEvent, createIssue } from '../services/marketingHubClient';
 import { CalendarToolbar } from '../components/marketing-hub/CalendarToolbar';
 import { ActivityFeed } from '../components/marketing-hub/ActivityFeed';
 import { EventEditModal } from '../components/marketing-hub/EventEditModal';
+import { CreateIssueModal } from '../components/marketing-hub/CreateIssueModal';
 import type { CalendarEvent, CalendarViewType, MarketingHubFilters } from '../types/marketingHub';
 
 function lazyRetry<T extends Record<string, unknown>>(
@@ -48,9 +49,10 @@ export function MarketingHub() {
   const [filters, setFilters] = useState<MarketingHubFilters>(emptyFilters);
 
   const [selectedEvent, setSelectedEvent] = useState<CalendarEvent | null>(null);
+  const [showCreateModal, setShowCreateModal] = useState(false);
   const [saving, setSaving] = useState(false);
 
-  const { events, isLoading: calLoading, error: calError, mutate } = useCalendarEvents();
+  const { events, projects: projectEvents, isLoading: calLoading, error: calError, mutate } = useCalendarEvents();
   const { items: feedItems, isLoading: feedLoading, error: feedError } = useActivityFeed();
 
   async function handleEventSave(updates: Record<string, string | undefined>) {
@@ -83,6 +85,23 @@ export function MarketingHub() {
       await mutate(); // revert optimistic
     }
   }
+
+  async function handleCreateIssue(title: string, dueDate?: string, projectId?: string) {
+    setSaving(true);
+    try {
+      await createIssue(title, dueDate, projectId);
+      await mutate();
+      setShowCreateModal(false);
+    } catch (err) {
+      console.error('Failed to create issue:', err);
+    } finally {
+      setSaving(false);
+    }
+  }
+
+  const projectList = useMemo(() => {
+    return projectEvents.map((p) => ({ id: p.id, name: p.title }));
+  }, [projectEvents]);
 
   // Derive filter options from events
   const filterOptions = useMemo(() => {
@@ -127,11 +146,22 @@ export function MarketingHub() {
 
   return (
     <div className="p-8 max-w-[1400px]">
-      <div className="mb-6">
-        <h1 className="text-2xl font-semibold text-gray-900">Marketing Hub</h1>
-        <p className="text-sm text-gray-500 mt-1">
-          What's happening across marketing — upcoming projects, tasks, and recent activity.
-        </p>
+      <div className="mb-6 flex items-start justify-between">
+        <div>
+          <h1 className="text-2xl font-semibold text-gray-900">Marketing Hub</h1>
+          <p className="text-sm text-gray-500 mt-1">
+            What's happening across marketing — upcoming projects, tasks, and recent activity.
+          </p>
+        </div>
+        <button
+          onClick={() => setShowCreateModal(true)}
+          className="flex items-center gap-1.5 px-4 py-2 text-sm font-medium text-white bg-truv-blue rounded-lg hover:bg-blue-700 transition-colors shrink-0"
+        >
+          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+          </svg>
+          New Task
+        </button>
       </div>
 
       {calError && (
@@ -184,6 +214,15 @@ export function MarketingHub() {
           event={selectedEvent}
           onClose={() => setSelectedEvent(null)}
           onSave={handleEventSave}
+          saving={saving}
+        />
+      )}
+
+      {showCreateModal && (
+        <CreateIssueModal
+          projects={projectList}
+          onClose={() => setShowCreateModal(false)}
+          onCreate={handleCreateIssue}
           saving={saving}
         />
       )}
