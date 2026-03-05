@@ -60,12 +60,19 @@ async function scrapeEvents(): Promise<TruvEvent[]> {
     });
   }
 
-  // Deduplicate by URL
+  // Deduplicate by URL, keep only webinars with future dates
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
   const seen = new Set<string>();
   return events.filter((e) => {
     if (seen.has(e.url)) return false;
     seen.add(e.url);
-    return true;
+    if (e.type !== 'webinar') return false;
+    if (!e.date) return false;
+    // Parse first date from string like "March 10, 2026"
+    const parsed = new Date(e.date.replace(/(\d+)\s*[-–]\s*\d+/, '$1'));
+    return !isNaN(parsed.getTime()) && parsed >= today;
   });
 }
 
