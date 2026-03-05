@@ -2,6 +2,7 @@ import { useState, useMemo, lazy, Suspense, startTransition } from 'react';
 import { useCalendarEvents, useTruvEvents } from '../services/marketingHubClient';
 import type { TruvEvent } from '../services/marketingHubClient';
 import { CalendarToolbar } from '../components/marketing-hub/CalendarToolbar';
+import { useAuth } from '../contexts/AuthContext';
 import type { CalendarEvent, CalendarViewType, MarketingHubFilters } from '../types/marketingHub';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -563,6 +564,7 @@ function ProjectRings({
 // --- Main Hub Page ---
 
 export function Hub() {
+  const { user, logout } = useAuth();
   const [viewType, setViewType] = useState<CalendarViewType>('month');
   const [currentDate, setCurrentDate] = useState(() => new Date());
   const [filters, setFilters] = useState<MarketingHubFilters>(emptyFilters);
@@ -618,16 +620,32 @@ export function Hub() {
     <div className="min-h-screen bg-background">
       <div className="max-w-[1400px] mx-auto px-8 py-8">
         {/* Header */}
-        <div className="mb-6">
-          <div className="flex items-center gap-3 mb-1">
-            <svg className="w-7 h-7 text-truv-blue" viewBox="0 0 11 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-              <path d="M5.355 23.557C3.681 23.557 2.364 23.077 1.404 22.117.469 21.157.001 19.852.001 18.203V0h4.21v18.019c0 .566.172 1.033.517 1.403.345.344.8.517 1.366.517h3.95v3.618H5.356ZM0 8.345V4.726h10.081v3.619H0Z"/>
-            </svg>
-            <h1 className="text-2xl font-semibold text-gray-900">Marketing Hub</h1>
+        <div className="mb-6 flex items-start justify-between">
+          <div>
+            <div className="flex items-center gap-3 mb-1">
+              <svg className="w-7 h-7 text-truv-blue" viewBox="0 0 11 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path d="M5.355 23.557C3.681 23.557 2.364 23.077 1.404 22.117.469 21.157.001 19.852.001 18.203V0h4.21v18.019c0 .566.172 1.033.517 1.403.345.344.8.517 1.366.517h3.95v3.618H5.356ZM0 8.345V4.726h10.081v3.619H0Z"/>
+              </svg>
+              <h1 className="text-2xl font-semibold text-gray-900">Marketing Hub</h1>
+            </div>
+            <p className="text-sm text-gray-500">
+              Campaigns, webinars, and key dates across marketing.
+            </p>
           </div>
-          <p className="text-sm text-gray-500">
-            Campaigns, webinars, and key dates across marketing.
-          </p>
+          {user && (
+            <div className="flex items-center gap-3">
+              {user.picture && (
+                <img src={user.picture} alt="" className="w-7 h-7 rounded-full" referrerPolicy="no-referrer" />
+              )}
+              <span className="text-sm text-gray-600 hidden sm:block">{user.name}</span>
+              <button
+                onClick={logout}
+                className="text-xs text-gray-400 hover:text-gray-600 transition-colors"
+              >
+                Sign out
+              </button>
+            </div>
+          )}
         </div>
 
         {calError && (
