@@ -33,6 +33,17 @@ const PROJECT_STATE_COLORS: Record<string, string> = {
   cancelled: '#ef4444',
 };
 
+function parseCategory(name: string): string {
+  const match = name.match(/\[MKTG-(\w+)\]/i);
+  if (!match) return 'Other';
+  const tag = match[1].toUpperCase();
+  if (tag === 'EVENT') return 'Event';
+  if (tag === 'GROWTH') return 'Growth';
+  if (tag === 'PMM') return 'PMM';
+  if (tag === 'OPS') return 'Ops';
+  return 'Other';
+}
+
 async function linearQuery(query: string, variables: Record<string, unknown> = {}) {
   const res = await fetch(LINEAR_API, {
     method: 'POST',
@@ -74,6 +85,7 @@ async function fetchProjects() {
       status: p.state,
       statusColor: PROJECT_STATE_COLORS[p.state] || '#6b7280',
       assignee: p.lead?.name,
+      category: parseCategory(p.name),
       labels: (p.labels?.nodes || []).map((l) => ({ name: l.name, color: l.color })),
       url: p.url,
     }));
@@ -121,6 +133,7 @@ async function fetchIssues(startDate: string, endDate: string) {
     statusColor: i.state.color,
     assignee: i.assignee?.name,
     project: i.project?.name,
+    category: parseCategory(i.project?.name || i.title),
     labels: (i.labels?.nodes || []).map((l) => ({ name: l.name, color: l.color })),
     url: i.url,
   }));

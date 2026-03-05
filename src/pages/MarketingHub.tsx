@@ -8,7 +8,7 @@ const MonthView = lazy(() => import('../components/marketing-hub/MonthView').the
 const WeekView = lazy(() => import('../components/marketing-hub/WeekView').then((m) => ({ default: m.WeekView })));
 const TimelineView = lazy(() => import('../components/marketing-hub/TimelineView').then((m) => ({ default: m.TimelineView })));
 
-const emptyFilters: MarketingHubFilters = { project: null, label: null, assignee: null, status: null };
+const emptyFilters: MarketingHubFilters = { category: null, project: null, label: null, assignee: null, status: null };
 
 function CalendarSkeleton() {
   return (
@@ -32,12 +32,14 @@ export function MarketingHub() {
 
   // Derive filter options from events
   const filterOptions = useMemo(() => {
+    const categories = new Set<string>();
     const projects = new Set<string>();
     const labels = new Set<string>();
     const assignees = new Set<string>();
     const statuses = new Set<string>();
 
     events.forEach((e) => {
+      categories.add(e.category);
       if (e.project) projects.add(e.project);
       if (e.assignee) assignees.add(e.assignee);
       statuses.add(e.status);
@@ -45,6 +47,7 @@ export function MarketingHub() {
     });
 
     return {
+      categories: Array.from(categories).sort(),
       projects: Array.from(projects).sort(),
       labels: Array.from(labels).sort(),
       assignees: Array.from(assignees).sort(),
@@ -55,6 +58,7 @@ export function MarketingHub() {
   // Derive filtered events during render
   const filteredEvents = useMemo(() => {
     return events.filter((e) => {
+      if (filters.category && e.category !== filters.category) return false;
       if (filters.project && e.project !== filters.project && e.title !== filters.project) return false;
       if (filters.label && !e.labels.some((l) => l.name === filters.label)) return false;
       if (filters.assignee && e.assignee !== filters.assignee) return false;

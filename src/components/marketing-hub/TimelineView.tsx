@@ -32,7 +32,6 @@ export const TimelineView = memo(function TimelineView({ events, currentDate }: 
   }, [currentDate]);
 
   const days = useMemo(() => getDaysInRange(rangeStart, rangeEnd), [rangeStart, rangeEnd]);
-  const totalDays = days.length;
 
   const projects = useMemo(
     () => events.filter((e) => e.type === 'project' && e.end),
