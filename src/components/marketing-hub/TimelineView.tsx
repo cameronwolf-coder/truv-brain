@@ -4,6 +4,7 @@ import type { CalendarEvent } from '../../types/marketingHub';
 interface TimelineViewProps {
   events: CalendarEvent[];
   currentDate: Date;
+  onEventClick?: (event: CalendarEvent) => void;
 }
 
 function getDaysInRange(start: Date, end: Date): Date[] {
@@ -20,7 +21,7 @@ function isSameDay(a: Date, b: Date): boolean {
   return a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth() && a.getDate() === b.getDate();
 }
 
-export const TimelineView = memo(function TimelineView({ events, currentDate }: TimelineViewProps) {
+export const TimelineView = memo(function TimelineView({ events, currentDate, onEventClick }: TimelineViewProps) {
   const rangeStart = useMemo(() => {
     const d = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
     return d;
@@ -106,14 +107,12 @@ export const TimelineView = memo(function TimelineView({ events, currentDate }: 
           style={{ contentVisibility: 'auto' }}
         >
           <div className="w-48 shrink-0 p-3 border-r border-gray-200">
-            <a
-              href={project.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-sm font-medium text-gray-900 hover:text-truv-blue truncate block"
+            <button
+              onClick={() => onEventClick?.(project)}
+              className="text-sm font-medium text-gray-900 hover:text-truv-blue truncate block text-left w-full"
             >
               {project.title}
-            </a>
+            </button>
             {project.assignee && (
               <p className="text-xs text-gray-500 mt-0.5">{project.assignee}</p>
             )}
@@ -123,12 +122,12 @@ export const TimelineView = memo(function TimelineView({ events, currentDate }: 
               className="absolute h-6 rounded-full top-1/2 -translate-y-1/2"
               style={{
                 ...getBarStyle(project.start, project.end!),
-                backgroundColor: '#2c64e3',
+                backgroundColor: project.category === 'Event' ? '#d97706' : '#2c64e3',
                 opacity: 0.85,
               }}
             >
               <span className="text-[10px] text-white font-medium px-2 leading-6 truncate block">
-                {project.title}
+                {project.category === 'Event' ? '★ ' : ''}{project.title}
               </span>
             </div>
           </div>
@@ -148,14 +147,12 @@ export const TimelineView = memo(function TimelineView({ events, currentDate }: 
               style={{ contentVisibility: 'auto' }}
             >
               <div className="w-48 shrink-0 p-3 border-r border-gray-200">
-                <a
-                  href={issue.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-sm text-gray-700 hover:text-truv-blue truncate block"
+                <button
+                  onClick={() => onEventClick?.(issue)}
+                  className="text-sm text-gray-700 hover:text-truv-blue truncate block text-left w-full"
                 >
                   {issue.title}
-                </a>
+                </button>
                 {issue.assignee && (
                   <p className="text-xs text-gray-500 mt-0.5">{issue.assignee}</p>
                 )}

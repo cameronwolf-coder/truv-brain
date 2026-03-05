@@ -1,12 +1,32 @@
 import { useState, useMemo, lazy, Suspense, startTransition } from 'react';
-import { useCalendarEvents, useActivityFeed } from '../services/marketingHubClient';
+import { useCalendarEvents, useActivityFeed, updateEvent } from '../services/marketingHubClient';
 import { CalendarToolbar } from '../components/marketing-hub/CalendarToolbar';
 import { ActivityFeed } from '../components/marketing-hub/ActivityFeed';
-import type { CalendarViewType, MarketingHubFilters } from '../types/marketingHub';
+import { EventEditModal } from '../components/marketing-hub/EventEditModal';
+import type { CalendarEvent, CalendarViewType, MarketingHubFilters } from '../types/marketingHub';
 
-const MonthView = lazy(() => import('../components/marketing-hub/MonthView').then((m) => ({ default: m.MonthView })));
-const WeekView = lazy(() => import('../components/marketing-hub/WeekView').then((m) => ({ default: m.WeekView })));
-const TimelineView = lazy(() => import('../components/marketing-hub/TimelineView').then((m) => ({ default: m.TimelineView })));
+function lazyRetry<T extends Record<string, unknown>>(
+  loader: () => Promise<T>,
+  pick: keyof T,
+) {
+  return lazy(() =>
+    loader()
+      .then((m) => ({ default: m[pick] as React.ComponentType<never> }))
+      .catch(() => {
+        // Stale chunk after deployment — reload once to get fresh HTML
+        const key = 'chunk-reload';
+        if (!sessionStorage.getItem(key)) {
+          sessionStorage.setItem(key, '1');
+          window.location.reload();
+        }
+        return { default: (() => null) as unknown as React.ComponentType<never> };
+      }),
+  );
+}
+
+const MonthView = lazyRetry(() => import('../components/marketing-hub/MonthView'), 'MonthView');
+const WeekView = lazyRetry(() => import('../components/marketing-hub/WeekView'), 'WeekView');
+const TimelineView = lazyRetry(() => import('../components/marketing-hub/TimelineView'), 'TimelineView');
 
 const emptyFilters: MarketingHubFilters = { category: null, project: null, label: null, assignee: null, status: null };
 
@@ -27,8 +47,42 @@ export function MarketingHub() {
   const [currentDate, setCurrentDate] = useState(() => new Date());
   const [filters, setFilters] = useState<MarketingHubFilters>(emptyFilters);
 
-  const { events, isLoading: calLoading, error: calError } = useCalendarEvents();
+  const [selectedEvent, setSelectedEvent] = useState<CalendarEvent | null>(null);
+  const [saving, setSaving] = useState(false);
+
+  const { events, isLoading: calLoading, error: calError, mutate } = useCalendarEvents();
   const { items: feedItems, isLoading: feedLoading, error: feedError } = useActivityFeed();
+
+  async function handleEventSave(updates: Record<string, string | undefined>) {
+    if (!selectedEvent) return;
+    setSaving(true);
+    try {
+      await updateEvent(selectedEvent.id, selectedEvent.type, updates);
+      await mutate();
+      setSelectedEvent(null);
+    } catch (err) {
+      console.error('Failed to save event:', err);
+    } finally {
+      setSaving(false);
+    }
+  }
+
+  async function handleEventDrop(eventId: string, type: 'project' | 'issue', newStart: string, newEnd?: string) {
+    const updates: Record<string, string | undefined> = {};
+    if (type === 'project') {
+      updates.startDate = newStart;
+      if (newEnd) updates.targetDate = newEnd;
+    } else {
+      updates.dueDate = newStart;
+    }
+    try {
+      await updateEvent(eventId, type, updates);
+      await mutate();
+    } catch (err) {
+      console.error('Failed to update event date:', err);
+      await mutate(); // revert optimistic
+    }
+  }
 
   // Derive filter options from events
   const filterOptions = useMemo(() => {
@@ -101,13 +155,13 @@ export function MarketingHub() {
       ) : (
         <Suspense fallback={<CalendarSkeleton />}>
           {viewType === 'month' && (
-            <MonthView events={filteredEvents} currentDate={currentDate} />
+            <MonthView events={filteredEvents} currentDate={currentDate} onEventClick={setSelectedEvent} onEventDrop={handleEventDrop} />
           )}
           {viewType === 'week' && (
-            <WeekView events={filteredEvents} currentDate={currentDate} />
+            <WeekView events={filteredEvents} currentDate={currentDate} onEventClick={setSelectedEvent} onEventDrop={handleEventDrop} />
           )}
           {viewType === 'timeline' && (
-            <TimelineView events={filteredEvents} currentDate={currentDate} />
+            <TimelineView events={filteredEvents} currentDate={currentDate} onEventClick={setSelectedEvent} />
           )}
         </Suspense>
       )}
@@ -124,6 +178,15 @@ export function MarketingHub() {
         )}
         <ActivityFeed items={feedItems} isLoading={feedLoading} />
       </div>
+
+      {selectedEvent && (
+        <EventEditModal
+          event={selectedEvent}
+          onClose={() => setSelectedEvent(null)}
+          onSave={handleEventSave}
+          saving={saving}
+        />
+      )}
     </div>
   );
 }
