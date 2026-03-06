@@ -167,7 +167,7 @@ function AdSpendCard() {
                   contentStyle={{ fontSize: 12, borderRadius: 8 }}
                 />
                 <Bar dataKey="spend" radius={[0, 4, 4, 0]}>
-                  {data.byPlatform.map((entry) => (
+                  {data.byPlatform.map((entry: { name: string; spend: number }) => (
                     <Cell key={entry.name} fill={PLATFORM_COLORS[entry.name] || '#6b7280'} />
                   ))}
                 </Bar>
@@ -226,7 +226,7 @@ function PipelineCard() {
                   contentStyle={{ fontSize: 12, borderRadius: 8 }}
                 />
                 <Bar dataKey="value" radius={[0, 4, 4, 0]}>
-                  {data.stages.map((_, i) => (
+                  {data.stages.map((_: unknown, i: number) => (
                     <Cell key={i} fill={STAGE_COLORS[i % STAGE_COLORS.length]} />
                   ))}
                 </Bar>

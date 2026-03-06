@@ -68,6 +68,151 @@ export function useTruvEvents() {
   return { events: data?.events || [], error, isLoading };
 }
 
+// --- Analytics hooks ---
+
+export interface EmailCampaign {
+  workflow_key: string;
+  name: string;
+  template_id: string;
+  first_event: number;
+  last_event: number;
+  metrics: {
+    processed: number;
+    delivered: number;
+    opens: number;
+    unique_opens: number;
+    clicks: number;
+    unique_clicks: number;
+    bounces: number;
+    open_rate: number;
+    click_rate: number;
+    bounce_rate: number;
+    click_to_open: number;
+  };
+}
+
+export function useEmailPerformance() {
+  const { data, error, isLoading } = useSWR<EmailCampaign[]>(
+    '/api/email-performance',
+    fetcher,
+    { revalidateOnFocus: false, dedupingInterval: 300000 },
+  );
+
+  return { campaigns: data || [], error, isLoading };
+}
+
+export interface AdSpendData {
+  totalSpend: number;
+  totalClicks: number;
+  totalImpressions: number;
+  avgCTR: number;
+  avgCPC: number;
+  byPlatform: Array<{
+    name: string;
+    spend: number;
+    clicks: number;
+    impressions: number;
+    ctr: number;
+    cpc: number;
+  }>;
+  period: { start: string; end: string };
+}
+
+export function useAdSpend() {
+  const { data, error, isLoading } = useSWR<AdSpendData>(
+    '/api/analytics/ad-spend',
+    fetcher,
+    { revalidateOnFocus: false, dedupingInterval: 300000 },
+  );
+
+  return { data: data || null, error, isLoading };
+}
+
+export interface PipelineData {
+  stages: Array<{ name: string; count: number; value: number }>;
+  totalValue: number;
+  totalDeals: number;
+  avgDealAge: number;
+}
+
+export function usePipelineData() {
+  const { data, error, isLoading } = useSWR<PipelineData>(
+    '/api/analytics/pipeline',
+    fetcher,
+    { revalidateOnFocus: false, dedupingInterval: 300000 },
+  );
+
+  return { data: data || null, error, isLoading };
+}
+
+export interface LeadFlowData {
+  total: number;
+  byStage: { subscriber: number; lead: number; mql: number; sql: number; other: number };
+  byWeek: Array<{
+    week: string;
+    total: number;
+    subscriber: number;
+    lead: number;
+    marketingqualifiedlead: number;
+    salesqualifiedlead: number;
+    other: number;
+  }>;
+  period: { start: string; end: string };
+}
+
+export function useLeadFlow() {
+  const { data, error, isLoading } = useSWR<LeadFlowData>(
+    '/api/analytics/lead-flow',
+    fetcher,
+    { revalidateOnFocus: false, dedupingInterval: 300000 },
+  );
+
+  return { data: data || null, error, isLoading };
+}
+
+export interface ContactSalesContact {
+  email: string;
+  firstName: string;
+  lastName: string;
+  intent: string;
+  submittedAt: string;
+  company?: string;
+  jobTitle?: string;
+  lifecycleStage?: string;
+  leadStatus?: string;
+  ownerName?: string;
+  hubspotUrl?: string;
+  hasOwner: boolean;
+}
+
+export interface ContactSalesData {
+  kpis: {
+    contactSales: number;
+    salesOutreach: number;
+    meetingsScheduled: number;
+    login: number;
+    verificationHelp: number;
+  };
+  funnel: Array<{ stage: string; count: number }>;
+  weeklyTrend: Array<{ week: string; count: number }>;
+  leadStageFunnel: Array<{ stage: string; count: number }>;
+  byRep: Array<{ name: string; count: number }>;
+  hotLeads: ContactSalesContact[];
+  contacts: ContactSalesContact[];
+  intentBreakdown: Record<string, number>;
+  dateRange: { start: string; end: string; days: number };
+}
+
+export function useContactSales(days = 7) {
+  const { data, error, isLoading } = useSWR<ContactSalesData>(
+    `/api/analytics/contact-sales?days=${days}`,
+    fetcher,
+    { revalidateOnFocus: false, dedupingInterval: 300000 },
+  );
+
+  return { data: data || null, error, isLoading };
+}
+
 export function useActivityFeed(days = 30) {
   const { data, error, isLoading } = useSWR<ActivityFeedItem[]>(
     `/api/marketing-hub/activity-feed?days=${days}`,

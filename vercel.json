@@ -1,4 +1,5 @@
 {
+  "devCommand": "vite --port $PORT",
   "rewrites": [
     {
       "source": "/api/:path*",
