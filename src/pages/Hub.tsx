@@ -2,8 +2,6 @@ import { useState, useMemo, lazy, Suspense, startTransition } from 'react';
 import { useCalendarEvents, useTruvEvents, updateEvent, createIssue } from '../services/marketingHubClient';
 import type { TruvEvent } from '../services/marketingHubClient';
 import { CalendarToolbar } from '../components/marketing-hub/CalendarToolbar';
-import { PerformanceDashboard } from '../components/marketing-hub/PerformanceDashboard';
-import { ContactSalesDashboard } from '../components/marketing-hub/ContactSalesDashboard';
 import { EventEditModal } from '../components/marketing-hub/EventEditModal';
 import { CreateIssueModal } from '../components/marketing-hub/CreateIssueModal';
 import { useAuth } from '../contexts/AuthContext';
@@ -740,12 +738,6 @@ export function Hub() {
 
         {/* Project Progress — Compact Rings */}
         <ProjectRings projects={projectEvents} isLoading={calLoading} onProjectClick={handleEventClick} />
-
-        {/* Performance Dashboard */}
-        <PerformanceDashboard />
-
-        {/* Contact Sales Analytics */}
-        <ContactSalesDashboard />
 
         {/* Full Calendar — Collapsible */}
         <div className="border border-gray-200 rounded-xl bg-white overflow-hidden">
