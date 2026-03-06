@@ -50,3 +50,25 @@ export interface CampaignDetailResponse {
   recipients: RecipientActivity[];
   total: number;
 }
+
+export interface SmartleadMetrics {
+  sent: number;
+  opened: number;
+  clicked: number;
+  replied: number;
+  bounced: number;
+  unsubscribed: number;
+  open_rate: number;
+  click_rate: number;
+  reply_rate: number;
+  bounce_rate: number;
+}
+
+export interface SmartleadCampaign {
+  campaign_id: number;
+  name: string;
+  status: string;
+  created_at: string;
+  total_leads: number;
+  metrics: SmartleadMetrics;
+}
