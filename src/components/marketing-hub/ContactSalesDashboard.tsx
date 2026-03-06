@@ -191,7 +191,7 @@ export function ContactSalesDashboard() {
 
   const funnelData = useMemo(() => {
     if (!data) return [];
-    return data.funnel.map((f, i) => ({
+    return data.funnel.map((f: { stage: string; count: number }, i: number) => ({
       ...f,
       fill: FUNNEL_COLORS[i] || '#6b7280',
     }));
@@ -301,7 +301,7 @@ export function ContactSalesDashboard() {
                           <YAxis type="category" dataKey="stage" width={140} tick={{ fontSize: 9 }} axisLine={false} tickLine={false} />
                           <Tooltip contentStyle={{ fontSize: 12, borderRadius: 8 }} />
                           <Bar dataKey="count" radius={[0, 4, 4, 0]} name="Contacts">
-                            {funnelData.map((_, i) => (
+                            {funnelData.map((_: unknown, i: number) => (
                               <Cell key={i} fill={FUNNEL_COLORS[i] || '#6b7280'} />
                             ))}
                             <LabelList dataKey="count" position="right" style={{ fontSize: 11, fill: '#374151' }} />
@@ -325,7 +325,7 @@ export function ContactSalesDashboard() {
                       <ResponsiveContainer width="100%" height="100%">
                         <BarChart data={data.leadStageFunnel} margin={{ top: 0, right: 20, bottom: 0, left: 0 }}>
                           <XAxis dataKey="stage" tick={{ fontSize: 9 }} axisLine={false} tickLine={false}
-                            tickFormatter={(v: string) => STAGE_LABELS[v] || v} />
+                            tickFormatter={(v: string | number) => STAGE_LABELS[String(v)] || String(v)} />
                           <YAxis tick={{ fontSize: 10 }} axisLine={false} tickLine={false} allowDecimals={false} />
                           <Tooltip contentStyle={{ fontSize: 12, borderRadius: 8 }}
                             labelFormatter={(v) => STAGE_LABELS[String(v)] || String(v)} />
