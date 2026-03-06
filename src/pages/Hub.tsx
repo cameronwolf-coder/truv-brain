@@ -1,9 +1,19 @@
 import { useState, useMemo, lazy, Suspense, startTransition } from 'react';
-import { useCalendarEvents, useTruvEvents } from '../services/marketingHubClient';
+import { useCalendarEvents, useTruvEvents, updateEvent, createIssue } from '../services/marketingHubClient';
 import type { TruvEvent } from '../services/marketingHubClient';
 import { CalendarToolbar } from '../components/marketing-hub/CalendarToolbar';
+import { PerformanceDashboard } from '../components/marketing-hub/PerformanceDashboard';
+import { ContactSalesDashboard } from '../components/marketing-hub/ContactSalesDashboard';
+import { EventEditModal } from '../components/marketing-hub/EventEditModal';
+import { CreateIssueModal } from '../components/marketing-hub/CreateIssueModal';
 import { useAuth } from '../contexts/AuthContext';
 import type { CalendarEvent, CalendarViewType, MarketingHubFilters } from '../types/marketingHub';
+
+const EDITOR_EMAILS = new Set([
+  'cameron.wolf@truv.com',
+  'kaytren.bruner@truv.com',
+  'melissa.hauser@truv.com',
+]);
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function lazyRetry(loader: () => Promise<any>, pick: string) {
@@ -565,13 +575,69 @@ function ProjectRings({
 
 export function Hub() {
   const { user, logout } = useAuth();
+  const isEditor = !!(user?.email && EDITOR_EMAILS.has(user.email));
   const [viewType, setViewType] = useState<CalendarViewType>('month');
   const [currentDate, setCurrentDate] = useState(() => new Date());
   const [filters, setFilters] = useState<MarketingHubFilters>(emptyFilters);
   const [calendarOpen, setCalendarOpen] = useState(false);
 
-  const { events, projects: projectEvents, isLoading: calLoading, error: calError } = useCalendarEvents();
+  const [selectedEvent, setSelectedEvent] = useState<CalendarEvent | null>(null);
+  const [showCreateModal, setShowCreateModal] = useState(false);
+  const [saving, setSaving] = useState(false);
+
+  const { events, projects: projectEvents, isLoading: calLoading, error: calError, mutate } = useCalendarEvents();
   const { events: truvEvents, isLoading: truvEventsLoading } = useTruvEvents();
+
+  const handleEventClick = isEditor ? (e: CalendarEvent) => setSelectedEvent(e) : () => {};
+
+  async function handleEventSave(updates: Record<string, string | undefined>) {
+    if (!selectedEvent) return;
+    setSaving(true);
+    try {
+      await updateEvent(selectedEvent.id, selectedEvent.type, updates);
+      await mutate();
+      setSelectedEvent(null);
+    } catch (err) {
+      console.error('Failed to save event:', err);
+    } finally {
+      setSaving(false);
+    }
+  }
+
+  async function handleEventDrop(eventId: string, type: 'project' | 'issue', newStart: string, newEnd?: string) {
+    if (!isEditor) return;
+    const updates: Record<string, string | undefined> = {};
+    if (type === 'project') {
+      updates.startDate = newStart;
+      if (newEnd) updates.targetDate = newEnd;
+    } else {
+      updates.dueDate = newStart;
+    }
+    try {
+      await updateEvent(eventId, type, updates);
+      await mutate();
+    } catch (err) {
+      console.error('Failed to update event date:', err);
+      await mutate();
+    }
+  }
+
+  async function handleCreateIssue(title: string, dueDate?: string, projectId?: string) {
+    setSaving(true);
+    try {
+      await createIssue(title, dueDate, projectId);
+      await mutate();
+      setShowCreateModal(false);
+    } catch (err) {
+      console.error('Failed to create issue:', err);
+    } finally {
+      setSaving(false);
+    }
+  }
+
+  const projectList = useMemo(() => {
+    return projectEvents.map((p) => ({ id: p.id, name: p.title }));
+  }, [projectEvents]);
 
   const filterOptions = useMemo(() => {
     const categories = new Set<string>();
@@ -614,8 +680,6 @@ export function Hub() {
     startTransition(() => setViewType(view));
   }
 
-  const noop = () => {};
-
   return (
     <div className="min-h-screen bg-background">
       <div className="max-w-[1400px] mx-auto px-8 py-8">
@@ -634,6 +698,17 @@ export function Hub() {
           </div>
           {user && (
             <div className="flex items-center gap-3">
+              {isEditor && (
+                <button
+                  onClick={() => setShowCreateModal(true)}
+                  className="flex items-center gap-1.5 px-4 py-2 text-sm font-medium text-white bg-truv-blue rounded-lg hover:bg-blue-700 transition-colors shrink-0"
+                >
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+                  </svg>
+                  New Task
+                </button>
+              )}
               {user.picture && (
                 <img src={user.picture} alt="" className="w-7 h-7 rounded-full" referrerPolicy="no-referrer" />
               )}
@@ -661,10 +736,16 @@ export function Hub() {
         <TruvEventsBar events={truvEvents} isLoading={truvEventsLoading} />
 
         {/* Key Marketing Dates */}
-        <KeyDates events={events} isLoading={calLoading} onEventClick={noop} />
+        <KeyDates events={events} isLoading={calLoading} onEventClick={handleEventClick} />
 
         {/* Project Progress — Compact Rings */}
-        <ProjectRings projects={projectEvents} isLoading={calLoading} onProjectClick={noop} />
+        <ProjectRings projects={projectEvents} isLoading={calLoading} onProjectClick={handleEventClick} />
+
+        {/* Performance Dashboard */}
+        <PerformanceDashboard />
+
+        {/* Contact Sales Analytics */}
+        <ContactSalesDashboard />
 
         {/* Full Calendar — Collapsible */}
         <div className="border border-gray-200 rounded-xl bg-white overflow-hidden">
@@ -706,13 +787,13 @@ export function Hub() {
                 ) : (
                   <Suspense fallback={<CalendarSkeleton />}>
                     {viewType === 'month' && (
-                      <MonthView events={filteredEvents} currentDate={currentDate} onEventClick={noop} onEventDrop={noop} />
+                      <MonthView events={filteredEvents} currentDate={currentDate} onEventClick={handleEventClick} onEventDrop={isEditor ? handleEventDrop : () => {}} />
                     )}
                     {viewType === 'week' && (
-                      <WeekView events={filteredEvents} currentDate={currentDate} onEventClick={noop} onEventDrop={noop} />
+                      <WeekView events={filteredEvents} currentDate={currentDate} onEventClick={handleEventClick} onEventDrop={isEditor ? handleEventDrop : () => {}} />
                     )}
                     {viewType === 'timeline' && (
-                      <TimelineView events={filteredEvents} currentDate={currentDate} onEventClick={noop} />
+                      <TimelineView events={filteredEvents} currentDate={currentDate} onEventClick={handleEventClick} />
                     )}
                   </Suspense>
                 )}
@@ -722,6 +803,23 @@ export function Hub() {
         </div>
       </div>
 
+      {isEditor && selectedEvent && (
+        <EventEditModal
+          event={selectedEvent}
+          onClose={() => setSelectedEvent(null)}
+          onSave={handleEventSave}
+          saving={saving}
+        />
+      )}
+
+      {isEditor && showCreateModal && (
+        <CreateIssueModal
+          projects={projectList}
+          onClose={() => setShowCreateModal(false)}
+          onCreate={handleCreateIssue}
+          saving={saving}
+        />
+      )}
     </div>
   );
 }
