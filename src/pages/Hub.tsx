@@ -4,8 +4,12 @@ import type { TruvEvent } from '../services/marketingHubClient';
 import { CalendarToolbar } from '../components/marketing-hub/CalendarToolbar';
 import { EventEditModal } from '../components/marketing-hub/EventEditModal';
 import { CreateIssueModal } from '../components/marketing-hub/CreateIssueModal';
+import { PerformanceDashboard } from '../components/marketing-hub/PerformanceDashboard';
+import { ContactSalesDashboard } from '../components/marketing-hub/ContactSalesDashboard';
 import { useAuth } from '../contexts/AuthContext';
 import type { CalendarEvent, CalendarViewType, MarketingHubFilters } from '../types/marketingHub';
+
+type HubView = 'home' | 'events' | 'analytics';
 
 const EDITOR_EMAILS = new Set([
   'cameron.wolf@truv.com',
@@ -574,6 +578,7 @@ function ProjectRings({
 export function Hub() {
   const { user, logout } = useAuth();
   const isEditor = !!(user?.email && EDITOR_EMAILS.has(user.email));
+  const [hubView, setHubView] = useState<HubView>('home');
   const [viewType, setViewType] = useState<CalendarViewType>('month');
   const [currentDate, setCurrentDate] = useState(() => new Date());
   const [filters, setFilters] = useState<MarketingHubFilters>(emptyFilters);
@@ -685,18 +690,32 @@ export function Hub() {
         <div className="mb-6 flex items-start justify-between">
           <div>
             <div className="flex items-center gap-3 mb-1">
+              {hubView !== 'home' && (
+                <button
+                  onClick={() => setHubView('home')}
+                  className="p-1.5 -ml-1.5 rounded-lg hover:bg-gray-100 transition-colors text-gray-400 hover:text-gray-600"
+                >
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                  </svg>
+                </button>
+              )}
               <svg className="w-7 h-7 text-truv-blue" viewBox="0 0 11 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                 <path d="M5.355 23.557C3.681 23.557 2.364 23.077 1.404 22.117.469 21.157.001 19.852.001 18.203V0h4.21v18.019c0 .566.172 1.033.517 1.403.345.344.8.517 1.366.517h3.95v3.618H5.356ZM0 8.345V4.726h10.081v3.619H0Z"/>
               </svg>
-              <h1 className="text-2xl font-semibold text-gray-900">Marketing Hub</h1>
+              <h1 className="text-2xl font-semibold text-gray-900">
+                {hubView === 'home' ? 'Marketing Hub' : hubView === 'events' ? 'Event View' : 'Analytics'}
+              </h1>
             </div>
             <p className="text-sm text-gray-500">
-              Campaigns, webinars, and key dates across marketing.
+              {hubView === 'home' && 'Campaigns, webinars, and key dates across marketing.'}
+              {hubView === 'events' && 'Calendar, projects, and key marketing dates.'}
+              {hubView === 'analytics' && 'Performance dashboards and lead analytics.'}
             </p>
           </div>
           {user && (
             <div className="flex items-center gap-3">
-              {isEditor && (
+              {isEditor && hubView === 'events' && (
                 <button
                   onClick={() => setShowCreateModal(true)}
                   className="flex items-center gap-1.5 px-4 py-2 text-sm font-medium text-white bg-truv-blue rounded-lg hover:bg-blue-700 transition-colors shrink-0"
@@ -721,78 +740,142 @@ export function Hub() {
           )}
         </div>
 
-        {calError && (
-          <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg text-sm text-red-700">
-            Failed to load calendar data.
+        {/* Home View — Navigation Cards */}
+        {hubView === 'home' && (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <button
+              onClick={() => setHubView('events')}
+              className="group bg-white rounded-xl border border-gray-200 p-8 text-left hover:border-truv-blue/40 hover:shadow-lg hover:shadow-blue-50 transition-all"
+            >
+              <div className="flex items-center gap-4 mb-4">
+                <div className="w-12 h-12 rounded-xl bg-amber-50 flex items-center justify-center">
+                  <svg className="w-6 h-6 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                  </svg>
+                </div>
+                <div>
+                  <h2 className="text-lg font-semibold text-gray-900 group-hover:text-truv-blue transition-colors">Event View</h2>
+                  <p className="text-sm text-gray-500">Calendar, webinars, key dates, and project progress</p>
+                </div>
+              </div>
+              <div className="flex items-center gap-2 text-sm text-truv-blue font-medium opacity-0 group-hover:opacity-100 transition-opacity">
+                Open
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </div>
+            </button>
+
+            <button
+              onClick={() => setHubView('analytics')}
+              className="group bg-white rounded-xl border border-gray-200 p-8 text-left hover:border-truv-blue/40 hover:shadow-lg hover:shadow-blue-50 transition-all"
+            >
+              <div className="flex items-center gap-4 mb-4">
+                <div className="w-12 h-12 rounded-xl bg-blue-50 flex items-center justify-center">
+                  <svg className="w-6 h-6 text-truv-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                  </svg>
+                </div>
+                <div>
+                  <h2 className="text-lg font-semibold text-gray-900 group-hover:text-truv-blue transition-colors">Analytics</h2>
+                  <p className="text-sm text-gray-500">Performance dashboards, ad spend, pipeline, and leads</p>
+                </div>
+              </div>
+              <div className="flex items-center gap-2 text-sm text-truv-blue font-medium opacity-0 group-hover:opacity-100 transition-opacity">
+                Open
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </div>
+            </button>
           </div>
         )}
 
-        {/* Quick Stats */}
-        {!calLoading && <QuickStats events={events} projects={projectEvents} />}
-
-        {/* Upcoming Webinars */}
-        <TruvEventsBar events={truvEvents} isLoading={truvEventsLoading} />
-
-        {/* Key Marketing Dates */}
-        <KeyDates events={events} isLoading={calLoading} onEventClick={handleEventClick} />
-
-        {/* Project Progress — Compact Rings */}
-        <ProjectRings projects={projectEvents} isLoading={calLoading} onProjectClick={handleEventClick} />
-
-        {/* Full Calendar — Collapsible */}
-        <div className="border border-gray-200 rounded-xl bg-white overflow-hidden">
-          <button
-            onClick={() => setCalendarOpen(!calendarOpen)}
-            className="w-full flex items-center justify-between px-5 py-4 hover:bg-gray-50 transition-colors"
-          >
-            <div>
-              <h2 className="text-base font-semibold text-gray-900 text-left">Full Calendar</h2>
-              <p className="text-xs text-gray-500 mt-0.5 text-left">All tasks, issues, and project timelines</p>
-            </div>
-            <svg
-              className={`w-5 h-5 text-gray-400 transition-transform ${calendarOpen ? 'rotate-180' : ''}`}
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-            </svg>
-          </button>
-
-          {calendarOpen && (
-            <div className="px-5 pb-5 border-t border-gray-100">
-              <div className="pt-4">
-                <CalendarToolbar
-                  view={viewType}
-                  onViewChange={handleViewChange}
-                  currentDate={currentDate}
-                  onDateChange={setCurrentDate}
-                  filters={filters}
-                  onFiltersChange={setFilters}
-                  filterOptions={filterOptions}
-                />
-
-                <Legend />
-
-                {calLoading ? (
-                  <CalendarSkeleton />
-                ) : (
-                  <Suspense fallback={<CalendarSkeleton />}>
-                    {viewType === 'month' && (
-                      <MonthView events={filteredEvents} currentDate={currentDate} onEventClick={handleEventClick} onEventDrop={isEditor ? handleEventDrop : () => {}} />
-                    )}
-                    {viewType === 'week' && (
-                      <WeekView events={filteredEvents} currentDate={currentDate} onEventClick={handleEventClick} onEventDrop={isEditor ? handleEventDrop : () => {}} />
-                    )}
-                    {viewType === 'timeline' && (
-                      <TimelineView events={filteredEvents} currentDate={currentDate} onEventClick={handleEventClick} />
-                    )}
-                  </Suspense>
-                )}
+        {/* Event View */}
+        {hubView === 'events' && (
+          <>
+            {calError && (
+              <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg text-sm text-red-700">
+                Failed to load calendar data.
               </div>
+            )}
+
+            {/* Quick Stats */}
+            {!calLoading && <QuickStats events={events} projects={projectEvents} />}
+
+            {/* Upcoming Webinars */}
+            <TruvEventsBar events={truvEvents} isLoading={truvEventsLoading} />
+
+            {/* Key Marketing Dates */}
+            <KeyDates events={events} isLoading={calLoading} onEventClick={handleEventClick} />
+
+            {/* Project Progress — Compact Rings */}
+            <ProjectRings projects={projectEvents} isLoading={calLoading} onProjectClick={handleEventClick} />
+
+            {/* Full Calendar — Collapsible */}
+            <div className="border border-gray-200 rounded-xl bg-white overflow-hidden">
+              <button
+                onClick={() => setCalendarOpen(!calendarOpen)}
+                className="w-full flex items-center justify-between px-5 py-4 hover:bg-gray-50 transition-colors"
+              >
+                <div>
+                  <h2 className="text-base font-semibold text-gray-900 text-left">Full Calendar</h2>
+                  <p className="text-xs text-gray-500 mt-0.5 text-left">All tasks, issues, and project timelines</p>
+                </div>
+                <svg
+                  className={`w-5 h-5 text-gray-400 transition-transform ${calendarOpen ? 'rotate-180' : ''}`}
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+
+              {calendarOpen && (
+                <div className="px-5 pb-5 border-t border-gray-100">
+                  <div className="pt-4">
+                    <CalendarToolbar
+                      view={viewType}
+                      onViewChange={handleViewChange}
+                      currentDate={currentDate}
+                      onDateChange={setCurrentDate}
+                      filters={filters}
+                      onFiltersChange={setFilters}
+                      filterOptions={filterOptions}
+                    />
+
+                    <Legend />
+
+                    {calLoading ? (
+                      <CalendarSkeleton />
+                    ) : (
+                      <Suspense fallback={<CalendarSkeleton />}>
+                        {viewType === 'month' && (
+                          <MonthView events={filteredEvents} currentDate={currentDate} onEventClick={handleEventClick} onEventDrop={isEditor ? handleEventDrop : () => {}} />
+                        )}
+                        {viewType === 'week' && (
+                          <WeekView events={filteredEvents} currentDate={currentDate} onEventClick={handleEventClick} onEventDrop={isEditor ? handleEventDrop : () => {}} />
+                        )}
+                        {viewType === 'timeline' && (
+                          <TimelineView events={filteredEvents} currentDate={currentDate} onEventClick={handleEventClick} />
+                        )}
+                      </Suspense>
+                    )}
+                  </div>
+                </div>
+              )}
             </div>
-          )}
-        </div>
+          </>
+        )}
+
+        {/* Analytics View */}
+        {hubView === 'analytics' && (
+          <>
+            <PerformanceDashboard />
+            <ContactSalesDashboard />
+          </>
+        )}
       </div>
 
       {isEditor && selectedEvent && (
