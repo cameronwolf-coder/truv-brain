@@ -74,7 +74,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     let after: string | undefined;
     let iterations = 0;
 
-    while (iterations < 5) {
+    while (iterations < 10) {
       const searchBody: Record<string, unknown> = {
         filterGroups: [
           {
@@ -88,7 +88,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
           },
         ],
         properties: ['createdate', 'lifecyclestage'],
-        limit: 100,
+        limit: 200,
         sorts: [{ propertyName: 'createdate', direction: 'DESCENDING' }],
       };
 
