@@ -50,15 +50,16 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     if (pipelineRes.ok) {
       const pipelineData = (await pipelineRes.json()) as {
         results?: Array<{
-          stages?: Array<{ stageId: string; label: string }>;
+          stages?: Array<{ id: string; label: string }>;
         }>;
       };
 
-      // Use the first pipeline's stage labels
-      const pipeline = pipelineData.results?.[0];
-      if (pipeline?.stages) {
-        for (const stage of pipeline.stages) {
-          stageNames[stage.stageId] = stage.label;
+      // Collect stage labels from ALL pipelines
+      for (const pipeline of pipelineData.results || []) {
+        if (pipeline?.stages) {
+          for (const stage of pipeline.stages) {
+            stageNames[stage.id] = stage.label;
+          }
         }
       }
     }
