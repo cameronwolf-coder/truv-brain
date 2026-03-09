@@ -135,9 +135,9 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       const lastName = getFieldValue(sub.values, 'lastname');
       if (/voodoo/i.test(email) || /voodoo/i.test(firstName) || /voodoo/i.test(lastName)) continue;
 
-      const intent = getFieldValue(sub.values, 'get_started_intent') ||
-                     getFieldValue(sub.values, 'intent') ||
-                     getFieldValue(sub.values, 'TICKET.subject') || '';
+      const intent = getFieldValue(sub.values, 'how_can_we_help___forms_') ||
+                     getFieldValue(sub.values, 'get_started_intent') ||
+                     getFieldValue(sub.values, 'intent') || '';
 
       const existing = byEmail.get(email);
       if (!existing || sub.submittedAt < existing.submittedAt) {
@@ -205,6 +205,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
     const contactMap = new Map<string, {
       contactId: string;
+      firstName: string;
+      lastName: string;
       lifecycleStage: string;
       leadStatus: string;
       ownerId: string;
@@ -223,9 +225,10 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
             }],
           }],
           properties: [
-            'email', 'lifecyclestage', 'hs_lead_status', 'hubspot_owner_id',
-            'company', 'jobtitle', 'hs_sales_email_last_replied',
-            'notes_last_updated', 'num_associated_deals',
+            'email', 'firstname', 'lastname', 'lifecyclestage', 'hs_lead_status',
+            'hubspot_owner_id', 'company', 'jobtitle',
+            'hs_sales_email_last_replied', 'notes_last_updated',
+            'num_associated_deals',
           ],
           limit: 100,
         })) as {
@@ -236,6 +239,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
           const email = (c.properties.email || '').toLowerCase();
           contactMap.set(email, {
             contactId: c.id,
+            firstName: c.properties.firstname || '',
+            lastName: c.properties.lastname || '',
             lifecycleStage: c.properties.lifecyclestage || '',
             leadStatus: c.properties.hs_lead_status || '',
             ownerId: c.properties.hubspot_owner_id || '',
@@ -276,8 +281,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
       const contact: DeduplicatedContact = {
         email: entry.email,
-        firstName: entry.firstName,
-        lastName: entry.lastName,
+        firstName: crm?.firstName || entry.firstName,
+        lastName: crm?.lastName || entry.lastName,
         intent: entry.intent,
         submittedAt: new Date(entry.submittedAt).toISOString(),
         company: crm?.company,
