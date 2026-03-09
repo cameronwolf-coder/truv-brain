@@ -241,8 +241,16 @@ function PipelineCard() {
 
 // --- Lead Flow Card ---
 
+const LEAD_FLOW_RANGES = [
+  { label: '7d', value: 7 },
+  { label: '14d', value: 14 },
+  { label: '30d', value: 30 },
+  { label: '90d', value: 90 },
+];
+
 function LeadFlowCard() {
-  const { data, isLoading } = useLeadFlow();
+  const [days, setDays] = useState(30);
+  const { data, isLoading } = useLeadFlow(days);
 
   if (isLoading) return <CardSkeleton />;
 
@@ -255,7 +263,21 @@ function LeadFlowCard() {
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" />
         </svg>
         <h3 className="text-sm font-semibold text-gray-700">Lead Flow</h3>
-        <span className="text-[10px] text-gray-400 ml-auto">Last 30 days</span>
+        <div className="flex items-center gap-1 ml-auto">
+          {LEAD_FLOW_RANGES.map((r) => (
+            <button
+              key={r.value}
+              onClick={() => setDays(r.value)}
+              className={`px-1.5 py-0.5 rounded text-[10px] font-medium transition-colors ${
+                days === r.value
+                  ? 'bg-purple-100 text-purple-700'
+                  : 'text-gray-400 hover:text-gray-600'
+              }`}
+            >
+              {r.label}
+            </button>
+          ))}
+        </div>
       </div>
 
       {!hasData ? (

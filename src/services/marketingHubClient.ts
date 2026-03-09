@@ -160,9 +160,9 @@ export interface LeadFlowData {
   period: { start: string; end: string };
 }
 
-export function useLeadFlow() {
+export function useLeadFlow(days = 30) {
   const { data, error, isLoading } = useSWR<LeadFlowData>(
-    '/api/analytics/lead-flow',
+    `/api/analytics/lead-flow?days=${days}`,
     fetcher,
     { revalidateOnFocus: false, dedupingInterval: 300000 },
   );

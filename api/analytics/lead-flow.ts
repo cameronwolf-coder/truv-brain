@@ -32,13 +32,14 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   }
 
   try {
+    const days = Math.min(Math.max(parseInt(String(req.query.days)) || 30, 7), 90);
     const now = new Date();
-    const thirtyDaysAgo = new Date(now);
-    thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+    const startDate = new Date(now);
+    startDate.setDate(startDate.getDate() - days);
 
     // Build week buckets
     const weeks: WeekBucket[] = [];
-    const weekStartDate = new Date(thirtyDaysAgo);
+    const weekStartDate = new Date(startDate);
     // Align to Monday
     weekStartDate.setDate(weekStartDate.getDate() - ((weekStartDate.getDay() + 6) % 7));
 
@@ -60,7 +61,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       weekStartDate.setDate(weekStartDate.getDate() + 7);
     }
 
-    // Search contacts created in last 30 days
+    // Search contacts created in date range
     const byStage: Record<string, number> = {
       subscriber: 0,
       lead: 0,
@@ -81,7 +82,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
               {
                 propertyName: 'createdate',
                 operator: 'GTE',
-                value: thirtyDaysAgo.getTime().toString(),
+                value: startDate.getTime().toString(),
               },
             ],
           },
@@ -164,7 +165,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       },
       byWeek: weeks,
       period: {
-        start: thirtyDaysAgo.toISOString(),
+        start: startDate.toISOString(),
         end: now.toISOString(),
       },
     });
