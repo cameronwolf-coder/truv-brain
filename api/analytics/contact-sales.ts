@@ -68,6 +68,8 @@ function getFieldValue(values: Array<{ name: string; value: string }>, fieldName
   return values.find(v => v.name === fieldName)?.value || '';
 }
 
+export const config = { maxDuration: 30 };
+
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');

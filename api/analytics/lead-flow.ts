@@ -16,6 +16,8 @@ interface WeekBucket {
 
 const LIFECYCLE_STAGES = ['subscriber', 'lead', 'marketingqualifiedlead', 'salesqualifiedlead'];
 
+export const config = { maxDuration: 30 };
+
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
@@ -71,7 +73,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     let after: string | undefined;
     let iterations = 0;
 
-    while (iterations < 20) {
+    while (iterations < 5) {
       const searchBody: Record<string, unknown> = {
         filterGroups: [
           {
