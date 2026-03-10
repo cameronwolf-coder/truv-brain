@@ -1,83 +1,102 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import { Redis } from '@upstash/redis';
 
-const redis = new Redis({
-  url: process.env.UPSTASH_REDIS_REST_URL!,
-  token: process.env.UPSTASH_REDIS_REST_TOKEN!,
-});
+const SENDGRID_API_KEY = process.env.SENDGRID_API_KEY;
+const SENDGRID_BASE = 'https://api.sendgrid.com/v3';
+
+interface SgGlobalStat {
+  date: string;
+  stats: Array<{
+    metrics: {
+      requests: number;
+      delivered: number;
+      opens: number;
+      unique_opens: number;
+      clicks: number;
+      unique_clicks: number;
+      bounces: number;
+      bounce_drops: number;
+      deferred: number;
+      unsubscribes: number;
+      spam_reports: number;
+      processed: number;
+    };
+  }>;
+}
+
+async function sgGet(endpoint: string): Promise<unknown> {
+  const res = await fetch(`${SENDGRID_BASE}${endpoint}`, {
+    headers: { Authorization: `Bearer ${SENDGRID_API_KEY}` },
+  });
+  if (!res.ok) {
+    const text = await res.text();
+    throw new Error(`SendGrid ${res.status}: ${text}`);
+  }
+  return res.json();
+}
+
+function toYMD(d: Date): string {
+  return d.toISOString().split('T')[0];
+}
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  res.setHeader('Cache-Control', 's-maxage=1800, stale-while-revalidate=3600');
 
   if (req.method === 'OPTIONS') return res.status(200).end();
   if (req.method !== 'GET') return res.status(405).json({ error: 'Method not allowed' });
 
-  if (!process.env.UPSTASH_REDIS_REST_URL) {
-    return res.status(500).json({ error: 'Redis not configured' });
+  if (!SENDGRID_API_KEY) {
+    return res.status(500).json({ error: 'SendGrid API key not configured' });
   }
 
   try {
-    // Get all campaign workflow keys
-    const workflowKeys = await redis.smembers('campaigns:index') as string[];
+    const now = new Date();
+    const thirtyDaysAgo = new Date(now);
+    thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
 
-    if (workflowKeys.length === 0) {
-      return res.status(200).json([]);
-    }
+    // Fetch daily global stats for last 30 days
+    const stats = (await sgGet(
+      `/stats?start_date=${toYMD(thirtyDaysAgo)}&end_date=${toYMD(now)}&aggregated_by=week`
+    )) as SgGlobalStat[];
 
-    // Fetch data for all campaigns in parallel
-    const campaigns = await Promise.all(
-      workflowKeys.map(async (key) => {
-        const pipeline = redis.pipeline();
-        pipeline.hgetall(`campaign:${key}:totals`);
-        pipeline.hgetall(`campaign:${key}:meta`);
-        pipeline.scard(`campaign:${key}:unique_open`);
-        pipeline.scard(`campaign:${key}:unique_click`);
-
-        const results = await pipeline.exec();
-        const totals = (results[0] || {}) as Record<string, string>;
-        const meta = (results[1] || {}) as Record<string, string>;
-        const uniqueOpens = (results[2] || 0) as number;
-        const uniqueClicks = (results[3] || 0) as number;
-
-        const num = (v: string | undefined) => parseInt(v || '0', 10);
-        const delivered = num(totals.delivered);
-        const processed = num(totals.processed);
+    // Build weekly campaign-like objects the frontend expects
+    const campaigns = stats
+      .filter(s => s.stats.length > 0)
+      .map(s => {
+        const m = s.stats[0].metrics;
+        const weekDate = new Date(s.date);
+        const weekTs = Math.floor(weekDate.getTime() / 1000);
 
         return {
-          workflow_key: key,
-          name: meta.name || key.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase()),
-          template_id: meta.template_id || '',
-          first_event: num(meta.first_event),
-          last_event: num(meta.last_event),
+          workflow_key: `week-${s.date}`,
+          name: `Week of ${weekDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}`,
+          template_id: '',
+          first_event: weekTs,
+          last_event: weekTs,
           metrics: {
-            processed,
-            delivered,
-            opens: num(totals.open),
-            unique_opens: uniqueOpens,
-            clicks: num(totals.click),
-            unique_clicks: uniqueClicks,
-            bounces: num(totals.bounce),
-            dropped: num(totals.dropped),
-            deferred: num(totals.deferred),
-            unsubscribes: num(totals.unsubscribe),
-            spam_reports: num(totals.spamreport),
-            open_rate: delivered > 0 ? uniqueOpens / delivered : 0,
-            click_rate: delivered > 0 ? uniqueClicks / delivered : 0,
-            bounce_rate: processed > 0 ? num(totals.bounce) / processed : 0,
-            click_to_open: uniqueOpens > 0 ? uniqueClicks / uniqueOpens : 0,
+            processed: m.processed,
+            delivered: m.delivered,
+            opens: m.opens,
+            unique_opens: m.unique_opens,
+            clicks: m.clicks,
+            unique_clicks: m.unique_clicks,
+            bounces: m.bounces,
+            open_rate: m.delivered > 0 ? m.unique_opens / m.delivered : 0,
+            click_rate: m.delivered > 0 ? m.unique_clicks / m.delivered : 0,
+            bounce_rate: m.processed > 0 ? m.bounces / m.processed : 0,
+            click_to_open: m.unique_opens > 0 ? m.unique_clicks / m.unique_opens : 0,
           },
         };
-      })
-    );
+      });
 
-    // Sort by last event, newest first
+    // Sort newest first
     campaigns.sort((a, b) => b.last_event - a.last_event);
 
     return res.status(200).json(campaigns);
   } catch (err) {
     console.error('Email performance error:', err);
-    return res.status(500).json({ error: 'Failed to fetch campaign data' });
+    return res.status(500).json({ error: 'Failed to fetch email stats' });
   }
 }
