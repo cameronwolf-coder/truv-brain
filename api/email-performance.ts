@@ -1,10 +1,46 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import { cached, bustCache, SEVEN_DAYS, STALE_TTL, FRESH_TTL } from './_lib/cache';
+import { Redis } from '@upstash/redis';
 
 const SENDGRID_API_KEY = process.env.SENDGRID_API_KEY;
 const SENDGRID_BASE = 'https://api.sendgrid.com/v3';
 const KNOCK_API_KEY = process.env.KNOCK_API_KEY;
 const KNOCK_BASE = 'https://api.knock.app/v1';
+
+/* ---- Redis cache ---- */
+const SEVEN_DAYS = 7 * 24 * 60 * 60;
+const STALE_TTL = 60 * 60 * 24 * 30;
+const FRESH_TTL = 60 * 15;
+
+function getRedis(): Redis | null {
+  if (!process.env.UPSTASH_REDIS_REST_URL || !process.env.UPSTASH_REDIS_REST_TOKEN) return null;
+  return new Redis({ url: process.env.UPSTASH_REDIS_REST_URL, token: process.env.UPSTASH_REDIS_REST_TOKEN });
+}
+
+async function cached<T>(key: string, ttl: number | ((v: T) => number), fn: () => Promise<T>): Promise<T> {
+  const r = getRedis();
+  if (r) {
+    try {
+      const hit = await r.get(key);
+      if (hit !== null && hit !== undefined) return (typeof hit === 'string' ? JSON.parse(hit) : hit) as T;
+    } catch { /* miss */ }
+  }
+  const value = await fn();
+  if (r && value !== null && value !== undefined) {
+    try { await r.set(key, JSON.stringify(value), { ex: typeof ttl === 'function' ? ttl(value) : ttl }); } catch { /* ignore */ }
+  }
+  return value;
+}
+
+async function bustCache(prefix: string): Promise<void> {
+  const r = getRedis();
+  if (!r) return;
+  let cursor = 0;
+  do {
+    const [next, keys] = await r.scan(cursor, { match: `${prefix}*`, count: 100 });
+    cursor = next;
+    if (keys.length) { const p = r.pipeline(); for (const k of keys) p.del(k); await p.exec(); }
+  } while (cursor !== 0);
+}
 
 /**
  * Map Knock workflow keys → display names and SendGrid template IDs.

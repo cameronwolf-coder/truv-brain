@@ -1,5 +1,28 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import { cached, STALE_TTL } from './_lib/cache';
+import { Redis } from '@upstash/redis';
+
+/* ---- Redis cache ---- */
+const STALE_TTL = 60 * 60 * 24 * 30;
+
+function getRedis(): Redis | null {
+  if (!process.env.UPSTASH_REDIS_REST_URL || !process.env.UPSTASH_REDIS_REST_TOKEN) return null;
+  return new Redis({ url: process.env.UPSTASH_REDIS_REST_URL, token: process.env.UPSTASH_REDIS_REST_TOKEN });
+}
+
+async function cached<T>(key: string, ttl: number, fn: () => Promise<T>): Promise<T> {
+  const r = getRedis();
+  if (r) {
+    try {
+      const hit = await r.get(key);
+      if (hit !== null && hit !== undefined) return (typeof hit === 'string' ? JSON.parse(hit) : hit) as T;
+    } catch { /* miss */ }
+  }
+  const value = await fn();
+  if (r && value !== null && value !== undefined) {
+    try { await r.set(key, JSON.stringify(value), { ex: ttl }); } catch { /* ignore */ }
+  }
+  return value;
+}
 
 const SENDGRID_API_KEY = process.env.SENDGRID_API_KEY;
 const SG = 'https://api.sendgrid.com/v3';
