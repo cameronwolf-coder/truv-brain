@@ -186,7 +186,7 @@ export function CampaignDetail({ campaign, onBack }: CampaignDetailProps) {
               <CartesianGrid strokeDasharray="3 3" horizontal={false} />
               <XAxis type="number" tickFormatter={(v: number) => v >= 1000 ? `${(v/1000).toFixed(0)}K` : String(v)} />
               <YAxis type="category" dataKey="stage" width={80} tick={{ fontSize: 13 }} />
-              <Tooltip formatter={(value: number) => value.toLocaleString()} />
+              <Tooltip formatter={(value) => Number(value).toLocaleString()} />
               <Bar dataKey="value" radius={[0, 6, 6, 0]} barSize={36}>
                 {funnelData.map((entry, i) => (
                   <Cell key={i} fill={entry.fill} />
@@ -210,7 +210,7 @@ export function CampaignDetail({ campaign, onBack }: CampaignDetailProps) {
                   outerRadius={85}
                   dataKey="value"
                   paddingAngle={2}
-                  label={({ name, percent }: { name: string; percent: number }) => `${name} ${(percent * 100).toFixed(0)}%`}
+                  label={(props) => `${props.name ?? ''} ${((props.percent ?? 0) * 100).toFixed(0)}%`}
                   labelLine={false}
                 >
                   {donutData.map((_, i) => (
@@ -218,7 +218,7 @@ export function CampaignDetail({ campaign, onBack }: CampaignDetailProps) {
                   ))}
                 </Pie>
                 <Legend iconType="circle" iconSize={8} wrapperStyle={{ fontSize: 12 }} />
-                <Tooltip formatter={(value: number) => value.toLocaleString()} />
+                <Tooltip formatter={(value) => Number(value).toLocaleString()} />
               </PieChart>
             </ResponsiveContainer>
           ) : (
