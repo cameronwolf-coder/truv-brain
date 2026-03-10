@@ -3,7 +3,8 @@ import {
   BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer,
   CartesianGrid, PieChart, Pie, Cell, Legend,
 } from 'recharts';
-import { getCampaignDetail } from '../../services/emailPerformanceClient';
+import { getCampaignDetail, getClickAnalytics } from '../../services/emailPerformanceClient';
+import type { ClickAnalytics } from '../../services/emailPerformanceClient';
 import { exportCampaignPdf } from '../../utils/exportCampaignPdf';
 import type { CampaignSummary, RecipientActivity } from '../../types/emailPerformance';
 
@@ -71,6 +72,8 @@ export function CampaignDetail({ campaign, onBack }: CampaignDetailProps) {
   const [error, setError] = useState<string | null>(null);
   const [offset, setOffset] = useState(0);
   const [exporting, setExporting] = useState(false);
+  const [clickData, setClickData] = useState<ClickAnalytics | null>(null);
+  const [clickLoading, setClickLoading] = useState(false);
   const limit = 50;
 
   useEffect(() => {
@@ -84,6 +87,16 @@ export function CampaignDetail({ campaign, onBack }: CampaignDetailProps) {
       .catch((err) => setError(err.message))
       .finally(() => setLoading(false));
   }, [campaign.workflow_key, offset]);
+
+  // Fetch click analytics when template_id is available
+  useEffect(() => {
+    if (!campaign.template_id) return;
+    setClickLoading(true);
+    getClickAnalytics(campaign.template_id)
+      .then(setClickData)
+      .catch(() => setClickData(null))
+      .finally(() => setClickLoading(false));
+  }, [campaign.template_id]);
 
   const m = campaign.metrics;
 
@@ -225,6 +238,101 @@ export function CampaignDetail({ campaign, onBack }: CampaignDetailProps) {
           <div>
             <p className="text-sm font-medium text-red-800">High bounce rate: {pct(m.bounce_rate)}</p>
             <p className="text-xs text-red-600 mt-0.5">{m.bounces.toLocaleString()} bounces out of {m.processed.toLocaleString()} sent. Review list hygiene.</p>
+          </div>
+        </div>
+      )}
+
+      {/* Click Analytics */}
+      {clickLoading && (
+        <div className="bg-white rounded-lg border border-gray-200 p-8 mb-6 text-center text-gray-400 text-sm">
+          Loading click analytics...
+        </div>
+      )}
+      {clickData && clickData.link_clicks.length > 0 && (
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-6">
+          {/* Top Links - horizontal bar chart */}
+          <div className="lg:col-span-2 bg-white rounded-lg border border-gray-200 p-5">
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-sm font-semibold text-gray-700">Top Clicked Links</h3>
+              <span className="text-[10px] text-gray-400">
+                Based on {clickData.sample_size} of {clickData.messages_with_clicks} clicked messages
+              </span>
+            </div>
+            <ResponsiveContainer width="100%" height={Math.min(clickData.link_clicks.slice(0, 10).length * 40 + 20, 420)}>
+              <BarChart
+                data={clickData.link_clicks.slice(0, 10).map(l => ({
+                  label: new URL(l.url).pathname === '/' ? l.url.replace(/^https?:\/\//, '') : new URL(l.url).pathname,
+                  clicks: l.clicks,
+                  unique: l.unique_clickers,
+                  url: l.url,
+                }))}
+                layout="vertical"
+                margin={{ left: 10, right: 30, top: 0, bottom: 0 }}
+              >
+                <CartesianGrid strokeDasharray="3 3" horizontal={false} />
+                <XAxis type="number" />
+                <YAxis
+                  type="category"
+                  dataKey="label"
+                  width={200}
+                  tick={{ fontSize: 11 }}
+                />
+                <Tooltip
+                  content={({ active, payload }) => {
+                    if (!active || !payload?.[0]) return null;
+                    const d = payload[0].payload;
+                    return (
+                      <div className="bg-white border border-gray-200 rounded-lg shadow-lg p-3 text-xs max-w-xs">
+                        <p className="font-medium text-gray-900 truncate mb-1">{d.url}</p>
+                        <p className="text-gray-600">{d.clicks.toLocaleString()} total clicks</p>
+                        <p className="text-gray-600">{d.unique.toLocaleString()} unique clickers</p>
+                      </div>
+                    );
+                  }}
+                />
+                <Bar dataKey="clicks" fill="#3b82f6" radius={[0, 4, 4, 0]} barSize={24} />
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
+
+          {/* UTM Breakdown */}
+          <div className="bg-white rounded-lg border border-gray-200 p-5">
+            <h3 className="text-sm font-semibold text-gray-700 mb-4">UTM Parameters</h3>
+            {Object.keys(clickData.utm_breakdown).length > 0 ? (
+              <div className="space-y-4">
+                {Object.entries(clickData.utm_breakdown).map(([param, values]) => (
+                  <div key={param}>
+                    <p className="text-xs font-medium text-gray-500 uppercase tracking-wide mb-1.5">
+                      {param.replace('utm_', '')}
+                    </p>
+                    <div className="space-y-1.5">
+                      {values.slice(0, 5).map(v => {
+                        const maxClicks = values[0].clicks;
+                        const pctWidth = maxClicks > 0 ? (v.clicks / maxClicks) * 100 : 0;
+                        return (
+                          <div key={v.value}>
+                            <div className="flex items-center justify-between text-xs mb-0.5">
+                              <span className="text-gray-700 truncate mr-2">{v.value}</span>
+                              <span className="text-gray-500 shrink-0">{v.clicks.toLocaleString()}</span>
+                            </div>
+                            <div className="h-1.5 bg-gray-100 rounded-full overflow-hidden">
+                              <div
+                                className="h-full bg-blue-400 rounded-full"
+                                style={{ width: `${pctWidth}%` }}
+                              />
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="h-40 flex items-center justify-center text-gray-400 text-sm">
+                No UTM parameters detected
+              </div>
+            )}
           </div>
         </div>
       )}
