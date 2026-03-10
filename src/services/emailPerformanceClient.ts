@@ -7,7 +7,8 @@ export async function getCampaigns(): Promise<CampaignSummary[]> {
 }
 
 export async function syncCampaigns(): Promise<void> {
-  const res = await fetch('/api/email-performance-backfill', { method: 'POST' });
+  // Bust Redis cache and re-fetch live data from Knock + SendGrid
+  const res = await fetch('/api/email-performance?bust=1');
   if (!res.ok) throw new Error(`HTTP ${res.status}`);
 }
 

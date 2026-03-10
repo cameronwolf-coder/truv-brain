@@ -1,4 +1,5 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
+import { cached, bustCache, SEVEN_DAYS, STALE_TTL, FRESH_TTL } from './_lib/cache';
 
 const SENDGRID_API_KEY = process.env.SENDGRID_API_KEY;
 const SENDGRID_BASE = 'https://api.sendgrid.com/v3';
@@ -184,65 +185,60 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     return res.status(500).json({ error: 'Knock API key not configured' });
   }
 
+  // Sync button sends ?bust=1 to clear cached data
+  const bust = req.query.bust === '1';
+  if (bust) {
+    await bustCache('ep:');
+  }
+
   try {
     const entries = Object.entries(WORKFLOWS);
+    const now = Math.floor(Date.now() / 1000);
 
-    // Fetch Knock counts and SendGrid engagement in parallel
-    const [knockResults, sgResults] = await Promise.all([
-      Promise.all(entries.map(([key]) => getKnockStats(key))),
-      Promise.all(entries.map(([, { templateId }]) => getSendGridEngagement(templateId))),
-    ]);
+    // Fetch each workflow's stats, cached per-workflow in Redis.
+    // Old workflows (>7 days) cache for 30 days; recent ones cache for 15 min.
+    const campaigns = (await Promise.all(
+      entries.map(([key, { templateId, name }]) =>
+        cached(
+          `ep:wf:${key}`,
+          (val) => val && (now - val.last_event) > SEVEN_DAYS ? STALE_TTL : FRESH_TTL,
+          async () => {
+            const [knock, sg] = await Promise.all([
+              getKnockStats(key),
+              getSendGridEngagement(templateId),
+            ]);
 
-    const campaigns = entries
-      .map(([key, { templateId, name }], i) => {
-        const knock = knockResults[i];
-        const sg = sgResults[i];
+            if (knock.total === 0) return null;
 
-        if (knock.total === 0) return null;
+            const processed = knock.total;
+            const delivered = knock.delivered;
+            const sgSample = sg.sgDelivered + sg.sgBounced;
+            const scaleFactor = sgSample > 0 ? delivered / sgSample : 0;
 
-        // Use Knock for send/delivery counts (accurate, uncapped)
-        const processed = knock.total;
-        const delivered = knock.delivered;
-
-        // Use SendGrid for engagement (opens/clicks)
-        // Scale engagement rates: if SG only sampled 1000 of 5000 messages,
-        // the *rate* from the sample is still representative.
-        // For absolute counts, scale up proportionally.
-        const sgSample = sg.sgDelivered + sg.sgBounced;
-        const scaleFactor = sgSample > 0 ? delivered / sgSample : 0;
-
-        const uniqueOpens = sgSample > 0 ? Math.round(sg.uniqueOpens * scaleFactor) : 0;
-        const uniqueClicks = sgSample > 0 ? Math.round(sg.uniqueClicks * scaleFactor) : 0;
-        const bounces = sgSample > 0 ? Math.round(sg.sgBounced * scaleFactor) : 0;
-
-        // Rates come directly from the SG sample (no scaling needed)
-        const openRate = sg.sgDelivered > 0 ? sg.uniqueOpens / sg.sgDelivered : 0;
-        const clickRate = sg.sgDelivered > 0 ? sg.uniqueClicks / sg.sgDelivered : 0;
-        const bounceRate = sgSample > 0 ? sg.sgBounced / sgSample : 0;
-        const clickToOpen = sg.uniqueOpens > 0 ? sg.uniqueClicks / sg.uniqueOpens : 0;
-
-        return {
-          workflow_key: key,
-          name,
-          template_id: templateId,
-          first_event: knock.firstEvent,
-          last_event: knock.lastEvent,
-          metrics: {
-            processed,
-            delivered,
-            opens: sgSample > 0 ? Math.round(sg.totalOpens * scaleFactor) : 0,
-            unique_opens: uniqueOpens,
-            clicks: sgSample > 0 ? Math.round(sg.totalClicks * scaleFactor) : 0,
-            unique_clicks: uniqueClicks,
-            bounces,
-            open_rate: openRate,
-            click_rate: clickRate,
-            bounce_rate: bounceRate,
-            click_to_open: clickToOpen,
-          },
-        };
-      })
-      .filter((c): c is NonNullable<typeof c> => c !== null);
+            return {
+              workflow_key: key,
+              name,
+              template_id: templateId,
+              first_event: knock.firstEvent,
+              last_event: knock.lastEvent,
+              metrics: {
+                processed,
+                delivered,
+                opens: sgSample > 0 ? Math.round(sg.totalOpens * scaleFactor) : 0,
+                unique_opens: sgSample > 0 ? Math.round(sg.uniqueOpens * scaleFactor) : 0,
+                clicks: sgSample > 0 ? Math.round(sg.totalClicks * scaleFactor) : 0,
+                unique_clicks: sgSample > 0 ? Math.round(sg.uniqueClicks * scaleFactor) : 0,
+                bounces: sgSample > 0 ? Math.round(sg.sgBounced * scaleFactor) : 0,
+                open_rate: sg.sgDelivered > 0 ? sg.uniqueOpens / sg.sgDelivered : 0,
+                click_rate: sg.sgDelivered > 0 ? sg.uniqueClicks / sg.sgDelivered : 0,
+                bounce_rate: sgSample > 0 ? sg.sgBounced / sgSample : 0,
+                click_to_open: sg.uniqueOpens > 0 ? sg.uniqueClicks / sg.uniqueOpens : 0,
+              },
+            };
+          }
+        )
+      )
+    )).filter((c): c is NonNullable<typeof c> => c !== null);
 
     // Sort newest first
     campaigns.sort((a, b) => b.last_event - a.last_event);
