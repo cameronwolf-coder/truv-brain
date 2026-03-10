@@ -1,8 +1,11 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
+import {
+  BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer,
+  CartesianGrid, PieChart, Pie, Cell, Legend,
+} from 'recharts';
 import { getCampaignDetail } from '../../services/emailPerformanceClient';
 import { exportCampaignPdf } from '../../utils/exportCampaignPdf';
 import type { CampaignSummary, RecipientActivity } from '../../types/emailPerformance';
-import { MetricCard } from './MetricCard';
 
 interface CampaignDetailProps {
   campaign: CampaignSummary;
@@ -23,12 +26,10 @@ function pct(value: number): string {
   return `${(value * 100).toFixed(1)}%`;
 }
 
-function statusColor(summary: RecipientActivity['summary']): string {
-  if (summary.bounced) return 'bg-red-50';
-  if (summary.clicked) return 'bg-green-50';
-  if (summary.opened) return 'bg-yellow-50';
-  if (summary.delivered) return 'bg-white';
-  return 'bg-white';
+function rateColor(rate: number, thresholds: { good: number; ok: number }): string {
+  if (rate >= thresholds.good) return 'text-green-600';
+  if (rate >= thresholds.ok) return 'text-yellow-600';
+  return 'text-red-500';
 }
 
 function statusBadge(summary: RecipientActivity['summary']): { text: string; className: string } {
@@ -37,6 +38,30 @@ function statusBadge(summary: RecipientActivity['summary']): { text: string; cla
   if (summary.opened) return { text: 'Opened', className: 'bg-yellow-100 text-yellow-800' };
   if (summary.delivered) return { text: 'Delivered', className: 'bg-gray-100 text-gray-700' };
   return { text: 'Pending', className: 'bg-gray-100 text-gray-500' };
+}
+
+function statusColor(summary: RecipientActivity['summary']): string {
+  if (summary.bounced) return 'bg-red-50';
+  if (summary.clicked) return 'bg-green-50';
+  if (summary.opened) return 'bg-yellow-50';
+  return 'bg-white';
+}
+
+const DONUT_COLORS = ['#dc2626', '#3b82f6', '#f59e0b', '#22c55e'];
+
+function KpiCard({ label, value, subtitle, valueColor }: {
+  label: string;
+  value: string;
+  subtitle?: string;
+  valueColor?: string;
+}) {
+  return (
+    <div className="bg-white rounded-lg border border-gray-200 p-5">
+      <p className="text-sm text-gray-500 font-medium">{label}</p>
+      <p className={`text-2xl font-semibold mt-1 ${valueColor || 'text-gray-900'}`}>{value}</p>
+      {subtitle && <p className="text-xs text-gray-400 mt-1">{subtitle}</p>}
+    </div>
+  );
 }
 
 export function CampaignDetail({ campaign, onBack }: CampaignDetailProps) {
@@ -61,6 +86,28 @@ export function CampaignDetail({ campaign, onBack }: CampaignDetailProps) {
   }, [campaign.workflow_key, offset]);
 
   const m = campaign.metrics;
+
+  // Funnel data
+  const funnelData = useMemo(() => [
+    { stage: 'Sent', value: m.processed, fill: '#6b7280' },
+    { stage: 'Delivered', value: m.delivered, fill: '#3b82f6' },
+    { stage: 'Opened', value: m.unique_opens, fill: '#f59e0b' },
+    { stage: 'Clicked', value: m.unique_clicks, fill: '#22c55e' },
+  ], [m]);
+
+  // Engagement donut
+  const donutData = useMemo(() => {
+    const bounced = m.bounces;
+    const deliveredOnly = Math.max(0, m.delivered - m.unique_opens);
+    const openedOnly = Math.max(0, m.unique_opens - m.unique_clicks);
+    const clicked = m.unique_clicks;
+    return [
+      { name: 'Bounced', value: bounced },
+      { name: 'Delivered Only', value: deliveredOnly },
+      { name: 'Opened Only', value: openedOnly },
+      { name: 'Clicked', value: clicked },
+    ].filter(d => d.value > 0);
+  }, [m]);
 
   return (
     <div>
@@ -92,15 +139,95 @@ export function CampaignDetail({ campaign, onBack }: CampaignDetailProps) {
         </button>
       </div>
 
-      {/* Summary Metrics */}
-      <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 mb-6">
-        <MetricCard label="Delivered" value={m.delivered.toLocaleString()} />
-        <MetricCard label="Unique Opens" value={m.unique_opens.toLocaleString()} />
-        <MetricCard label="Unique Clicks" value={m.unique_clicks.toLocaleString()} />
-        <MetricCard label="Open Rate" value={pct(m.open_rate)} />
-        <MetricCard label="Click Rate" value={pct(m.click_rate)} />
-        <MetricCard label="Click-to-Open" value={pct(m.click_to_open)} />
+      {/* KPI Cards */}
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-6">
+        <KpiCard label="Sent" value={m.processed.toLocaleString()} />
+        <KpiCard label="Delivered" value={m.delivered.toLocaleString()} subtitle={pct(m.delivered / (m.processed || 1))} />
+        <KpiCard label="Unique Opens" value={m.unique_opens.toLocaleString()} />
+        <KpiCard
+          label="Open Rate"
+          value={pct(m.open_rate)}
+          valueColor={rateColor(m.open_rate, { good: 0.25, ok: 0.15 })}
+          subtitle={m.open_rate >= 0.25 ? 'Above benchmark' : m.open_rate >= 0.15 ? 'Average' : 'Below benchmark'}
+        />
+        <KpiCard
+          label="Click Rate"
+          value={pct(m.click_rate)}
+          valueColor={rateColor(m.click_rate, { good: 0.03, ok: 0.015 })}
+          subtitle={m.click_rate >= 0.03 ? 'Above benchmark' : m.click_rate >= 0.015 ? 'Average' : 'Below benchmark'}
+        />
+        <KpiCard
+          label="Click-to-Open"
+          value={pct(m.click_to_open)}
+          valueColor={rateColor(m.click_to_open, { good: 0.10, ok: 0.05 })}
+        />
       </div>
+
+      {/* Charts Row */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-6">
+        {/* Engagement Funnel */}
+        <div className="lg:col-span-2 bg-white rounded-lg border border-gray-200 p-5">
+          <h3 className="text-sm font-semibold text-gray-700 mb-4">Engagement Funnel</h3>
+          <ResponsiveContainer width="100%" height={240}>
+            <BarChart data={funnelData} layout="vertical" margin={{ left: 20, right: 30, top: 0, bottom: 0 }}>
+              <CartesianGrid strokeDasharray="3 3" horizontal={false} />
+              <XAxis type="number" tickFormatter={(v: number) => v >= 1000 ? `${(v/1000).toFixed(0)}K` : String(v)} />
+              <YAxis type="category" dataKey="stage" width={80} tick={{ fontSize: 13 }} />
+              <Tooltip formatter={(value: number) => value.toLocaleString()} />
+              <Bar dataKey="value" radius={[0, 6, 6, 0]} barSize={36}>
+                {funnelData.map((entry, i) => (
+                  <Cell key={i} fill={entry.fill} />
+                ))}
+              </Bar>
+            </BarChart>
+          </ResponsiveContainer>
+        </div>
+
+        {/* Engagement Breakdown Donut */}
+        <div className="bg-white rounded-lg border border-gray-200 p-5">
+          <h3 className="text-sm font-semibold text-gray-700 mb-4">Engagement Breakdown</h3>
+          {donutData.length > 0 ? (
+            <ResponsiveContainer width="100%" height={240}>
+              <PieChart>
+                <Pie
+                  data={donutData}
+                  cx="50%"
+                  cy="50%"
+                  innerRadius={55}
+                  outerRadius={85}
+                  dataKey="value"
+                  paddingAngle={2}
+                  label={({ name, percent }: { name: string; percent: number }) => `${name} ${(percent * 100).toFixed(0)}%`}
+                  labelLine={false}
+                >
+                  {donutData.map((_, i) => (
+                    <Cell key={i} fill={DONUT_COLORS[i % DONUT_COLORS.length]} />
+                  ))}
+                </Pie>
+                <Legend iconType="circle" iconSize={8} wrapperStyle={{ fontSize: 12 }} />
+                <Tooltip formatter={(value: number) => value.toLocaleString()} />
+              </PieChart>
+            </ResponsiveContainer>
+          ) : (
+            <div className="h-60 flex items-center justify-center text-gray-400 text-sm">
+              No engagement data
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* Bounce Rate Banner (if high) */}
+      {m.bounce_rate > 0.05 && (
+        <div className="bg-red-50 border border-red-200 rounded-lg p-4 mb-6 flex items-center gap-3">
+          <svg className="w-5 h-5 text-red-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.072 16.5c-.77.833.192 2.5 1.732 2.5z" />
+          </svg>
+          <div>
+            <p className="text-sm font-medium text-red-800">High bounce rate: {pct(m.bounce_rate)}</p>
+            <p className="text-xs text-red-600 mt-0.5">{m.bounces.toLocaleString()} bounces out of {m.processed.toLocaleString()} sent. Review list hygiene.</p>
+          </div>
+        </div>
+      )}
 
       {/* Error */}
       {error && (
