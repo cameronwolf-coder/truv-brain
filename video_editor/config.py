@@ -11,7 +11,7 @@ class VideoEditorSettings(BaseSettings):
     caption_font: str = "Arial"
     caption_font_size_pct: float = 0.05
 
-    model_config = {"env_prefix": "", "env_file": ".env"}
+    model_config = {"env_prefix": "", "env_file": ".env", "extra": "ignore"}
 
 
 settings = VideoEditorSettings()
