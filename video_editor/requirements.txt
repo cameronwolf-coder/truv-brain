@@ -1,0 +1,6 @@
+google-genai>=1.0
+moviepy>=2.0
+typer>=0.15
+pydantic-settings>=2.0
+python-dotenv>=1.0
+Pillow>=11.0
