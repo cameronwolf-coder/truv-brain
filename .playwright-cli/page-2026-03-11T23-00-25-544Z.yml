@@ -1,0 +1,724 @@
+- generic [ref=e1]:
+  - dialog "New ad set or ad" [ref=e2165]:
+    - generic [ref=e2166]: Dialog content start.
+    - button "Dismiss" [ref=e2167] [cursor=pointer]:
+      - img [ref=e2169]
+      - generic [ref=e2171]: Dismiss
+    - heading "New ad set or ad" [level=2] [ref=e2173]
+    - generic [ref=e2174]:
+      - generic [ref=e2177]:
+        - generic [ref=e2178]:
+          - img [ref=e2179]
+          - generic [ref=e2181]:
+            - generic [ref=e2182]:
+              - text: Campaign
+              - button [ref=e2183] [cursor=pointer]:
+                - img [ref=e2184]
+            - link "Create new campaign" [ref=e2186] [cursor=pointer]:
+              - /url: /campaignmanager/accounts/517969837/campaign-groups/new?businessId=7404539754668773386
+              - generic [ref=e2187]: New campaign
+        - generic [ref=e2188]:
+          - generic [ref=e2190]:
+            - generic [ref=e2192]: CCM Document Ad - Lending
+            - generic [ref=e2195]:
+              - generic [ref=e2196]: Active
+              - generic [ref=e2197]: •
+              - text: "843810786"
+              - generic [ref=e2198]: •
+              - text: Lead generation
+              - generic [ref=e2199]: •
+              - text: "Schedule: 3/11/2026"
+          - button "Change" [ref=e2202] [cursor=pointer]:
+            - generic [ref=e2203]: Change
+      - generic [ref=e2204]:
+        - generic [ref=e2205]:
+          - img [ref=e2206]
+          - generic [ref=e2208]: Ad set
+        - generic [ref=e2209]:
+          - combobox "Ad set" [ref=e2212] [cursor=pointer]:
+            - option "Existing" [selected]
+            - option "New"
+          - combobox "Search by name or choose from the list" [expanded] [active] [ref=e2218]:
+            - listbox [ref=e2483]:
+              - option "CCM Document Ad - Ops & Lending" [ref=e2484]:
+                - generic [ref=e2486]:
+                  - generic [ref=e2488]: CCM Document Ad - Ops & Lending
+                  - generic [ref=e2491]:
+                    - generic [ref=e2492]: Active
+                    - generic [ref=e2493]: •
+                    - generic [ref=e2494]: "558208226"
+                    - 'generic "ID: 5 5 8 2 0 8 2 2 6" [ref=e2495]'
+                    - generic [ref=e2496]: •
+                    - text: Lead generation
+                    - generic [ref=e2497]: •
+                    - generic [ref=e2498]: Document ad
+                    - generic [ref=e2499]: •
+                    - text: "Schedule: 3/11/2026"
+    - generic [ref=e2219]:
+      - button "Cancel" [ref=e2220] [cursor=pointer]:
+        - generic [ref=e2221]: Cancel
+      - button "Continue" [disabled] [ref=e2222]:
+        - generic [ref=e2223]: Continue
+    - generic [ref=e2224]: Dialog content end.
+  - generic:
+    - region "Notification Toasts":
+      - heading "0 notifications total" [level=2] [ref=e2]
+  - generic [ref=e2225]: One suggestion. Use up and down arrow keys to navigate, or keep typing for new suggestions.
+  - button [ref=e2226] [cursor=pointer]:
+    - img [ref=e12]
+  - generic [ref=e15]:
+    - generic [ref=e18]:
+      - button [ref=e2227] [cursor=pointer]: Skip to main content
+      - button [ref=e2228] [cursor=pointer]:
+        - img [ref=e21]
+        - generic [ref=e23]: Close jump menu
+    - banner [ref=e24]:
+      - generic [ref=e25]:
+        - button [ref=e2229] [cursor=pointer]:
+          - img [ref=e28]
+        - button [ref=e32] [cursor=pointer]:
+          - generic [ref=e34]:
+            - generic [ref=e35]:
+              - img [ref=e37]:
+                - img [ref=e38]
+              - img [ref=e41]
+            - img [ref=e44]
+        - heading [level=2] [ref=e2230]: Actions List
+        - button [ref=e2231] [cursor=pointer]:
+          - generic [ref=e49]:
+            - generic [ref=e50]: No unseen notifications, click to enter notifications experience
+            - img [ref=e53]
+        - button [ref=e2232] [cursor=pointer]:
+          - img [ref=e2233]:
+            - img [ref=e60]
+        - button [ref=e2234] [cursor=pointer]:
+          - generic [ref=e63]:
+            - generic [ref=e64]: Open user menu
+            - img [ref=e2235]
+    - generic [ref=e67]:
+      - navigation [ref=e68]:
+        - complementary [ref=e70]:
+          - button [ref=e2236] [cursor=pointer]:
+            - img [ref=e2237]
+            - generic [ref=e75]:
+              - generic [ref=e76]: Truv Ad Account
+              - generic [ref=e77]:
+                - text: "517969837"
+                - generic [ref=e78]: Active
+            - img [ref=e79]
+        - generic [ref=e81]:
+          - link [ref=e2238] [cursor=pointer]:
+            - /url: /campaignmanager/accounts/517969837/overview?businessId=7404539754668773386
+            - generic [ref=e84]: Overview
+          - button [ref=e2239] [cursor=pointer]:
+            - generic [ref=e88]:
+              - generic [ref=e90]: Plan
+              - img [ref=e92]
+          - link [ref=e2240] [cursor=pointer]:
+            - /url: /campaignmanager/accounts/517969837/campaign-groups?businessId=7404539754668773386&campaignGroupIds=%5B843810786%5D
+            - generic [ref=e96]: Advertise
+          - link [ref=e2241] [cursor=pointer]:
+            - /url: /campaignmanager/accounts/517969837/experiments?businessId=7404539754668773386
+            - generic [ref=e99]: Test
+          - button [ref=e2242] [cursor=pointer]:
+            - generic [ref=e103]:
+              - generic [ref=e105]: Measurement
+              - img [ref=e107]
+          - button [ref=e2243] [cursor=pointer]:
+            - generic [ref=e112]:
+              - generic [ref=e114]: Data
+              - img [ref=e116]
+          - link [ref=e2244] [cursor=pointer]:
+            - /url: /campaignmanager/accounts/517969837/recommendations?businessId=7404539754668773386&campaignStatuses=%5B%22ACTIVE%22%5D
+            - generic [ref=e120]:
+              - text: Recommendations
+              - generic [ref=e123]: Some new recommendations notifications
+          - separator [ref=e125]
+          - link [ref=e2245] [cursor=pointer]:
+            - /url: /campaignmanager/accounts/517969837/partnership?businessId=7404539754668773386
+            - generic [ref=e128]:
+              - text: Partnerships
+              - generic [ref=e129]: NEW
+          - button [ref=e2246] [cursor=pointer]:
+            - generic [ref=e133]:
+              - generic [ref=e135]: Assets
+              - img [ref=e137]
+          - separator [ref=e140]
+          - button [ref=e2247] [cursor=pointer]:
+            - generic [ref=e144]:
+              - generic [ref=e146]: Account settings
+              - img [ref=e148]
+          - separator [ref=e151]
+          - link [ref=e2248] [cursor=pointer]:
+            - /url: https://www.linkedin.com/company/68059038
+            - generic [ref=e154]:
+              - generic [ref=e155]: Company page
+              - img [ref=e157]
+      - generic [ref=e159]:
+        - main [ref=e160]:
+          - generic [ref=e1490]:
+            - tablist [ref=e1493]:
+              - tab [ref=e2249] [cursor=pointer]:
+                - generic [ref=e1495]:
+                  - heading [level=1] [ref=e2250]:
+                    - img [ref=e1497]
+                    - text: Campaigns
+                  - generic [ref=e1499]: 1 selected
+              - tab [ref=e2251] [cursor=pointer]:
+                - generic [ref=e1501]:
+                  - heading [level=1] [ref=e2252]:
+                    - img [ref=e1503]
+                    - text: Ad sets for 1 campaign
+                  - paragraph [ref=e1505]: 1 total
+              - tab [selected] [ref=e2253] [cursor=pointer]:
+                - generic [ref=e1507]:
+                  - heading [level=1] [ref=e2254]:
+                    - img [ref=e1509]
+                    - text: Ads for 1 campaign
+                  - paragraph [ref=e1511]: 5 total
+            - generic [ref=e1513]:
+              - generic [ref=e1514]:
+                - generic [ref=e1515]:
+                  - button [ref=e2255] [cursor=pointer]:
+                    - img [ref=e1518]
+                    - generic [ref=e1520]: Create
+                  - button [ref=e2256] [cursor=pointer]:
+                    - img [ref=e1524]
+                    - generic [ref=e1526]: Bulk actions
+                  - button [disabled] [ref=e2257]:
+                    - img [ref=e1529]
+                    - generic [ref=e1531]: Delete a selected add
+                  - button [disabled] [ref=e2258]:
+                    - generic [ref=e1533]: Duplicate
+                - generic [ref=e1534]:
+                  - link [ref=e2259] [cursor=pointer]:
+                    - /url: /campaignmanager/accounts/517969837/performance-chart?businessId=7404539754668773386&campaignGroupIds=%5B843810786%5D&campaignIds=%5B%5D&creativeIds=%5B1369145986%2C1369184666%2C1369245486%2C1369255076%2C1369262196%5D&dateRange=%7B%22startDate%22%3A%222%2F10%2F2026%22%2C%22endDate%22%3A%223%2F11%2F2026%22%7D&isChartingAll=true
+                    - generic [ref=e1536]: Performance chart
+                  - link [ref=e2260] [cursor=pointer]:
+                    - /url: /campaignmanager/accounts/517969837/demographics?businessId=7404539754668773386&campaignGroupIds=%5B843810786%5D&campaignIds=%5B%5D&creativeIds=%5B1369145986%2C1369184666%2C1369245486%2C1369255076%2C1369262196%5D&dateRange=%7B%22startDate%22%3A%222%2F10%2F2026%22%2C%22endDate%22%3A%223%2F11%2F2026%22%7D&isChartingAll=true&pivot=MEMBER_JOB_FUNCTION
+                    - generic [ref=e1538]: Professional demographics
+                  - link [disabled] [ref=e2261]:
+                    - /url: /campaignmanager/accounts/517969837/flowchart?businessId=7404539754668773386&campaignGroupIds=%5B843810786%5D&campaignIds=%5B%5D&creativeIds=%5B1369145986%2C1369184666%2C1369245486%2C1369255076%2C1369262196%5D&dateRange=%7B%22startDate%22%3A%222%2F10%2F2026%22%2C%22endDate%22%3A%223%2F11%2F2026%22%7D&isChartingAll=true
+                    - generic [ref=e1540]: Flowchart
+                  - button [ref=e2262] [cursor=pointer]:
+                    - generic [ref=e1542]: Export
+              - generic [ref=e1543]:
+                - searchbox [ref=e2263]
+                - generic [ref=e1547]:
+                  - button [ref=e2264] [cursor=pointer]:
+                    - img [ref=e1551]
+                    - generic [ref=e1554]:
+                      - generic [ref=e1555]: Filters
+                      - text: (
+                      - strong [ref=e1556]: "1"
+                      - text: )
+                  - button [ref=e2265] [cursor=pointer]:
+                    - img [ref=e1560]
+                    - generic [ref=e1563]:
+                      - generic [ref=e1564]: "Columns:"
+                      - generic [ref=e1565]: Performance
+                  - button [ref=e2266] [cursor=pointer]:
+                    - img [ref=e1569]
+                    - generic [ref=e1573]: Breakdown
+                  - generic [ref=e1574]:
+                    - button [ref=e2267] [cursor=pointer]:
+                      - generic [ref=e1576]:
+                        - generic [ref=e1577]: "Time range:"
+                        - generic [ref=e1578]:
+                          - time [ref=e1580]: 2/10/2026 - 3/11/2026
+                          - img [ref=e1581]
+                    - button [ref=e2268] [cursor=pointer]:
+                      - img [ref=e1585]
+                      - generic [ref=e1588]:
+                        - text: "Compare:"
+                        - generic [ref=e1589]: Previous period
+                    - button [ref=e2269] [cursor=pointer]:
+                      - generic [ref=e1591]:
+                        - generic [ref=e1592]: "Period range:"
+                        - generic [ref=e1593]:
+                          - time [ref=e1595]: 1/11/2026 - 2/9/2026
+                          - img [ref=e1596]
+              - generic [ref=e1602]:
+                - table [ref=e2270]:
+                  - caption [ref=e1605]: List of ads in the table
+                  - rowgroup [ref=e1606]:
+                    - row [ref=e2271]:
+                      - columnheader [ref=e2272]:
+                        - generic [ref=e1609]: row selection
+                      - columnheader [ref=e2273]:
+                        - generic [ref=e1611]:
+                          - generic [ref=e1612]: Ad name
+                          - button [ref=e2274] [cursor=pointer]:
+                            - img [ref=e1615]
+                      - columnheader [ref=e2275]:
+                        - button [ref=e2276] [cursor=pointer]:
+                          - generic [ref=e1622]: Off/On
+                      - columnheader [ref=e2277]:
+                        - generic [ref=e1624]:
+                          - button [ref=e2278] [cursor=pointer]:
+                            - generic [ref=e1627]: Status
+                          - button [ref=e2279] [cursor=pointer]:
+                            - img [ref=e1630]
+                      - columnheader [ref=e2280]:
+                        - generic [ref=e1634]:
+                          - generic [ref=e1635]: Ad set
+                          - button [ref=e2281] [cursor=pointer]:
+                            - img [ref=e1638]
+                      - columnheader [ref=e2282]:
+                        - generic [ref=e1642]:
+                          - button [ref=e2283] [cursor=pointer]:
+                            - generic [ref=e1645]: Spent
+                          - button [ref=e2284] [cursor=pointer]:
+                            - img [ref=e1648]
+                      - columnheader [ref=e2285]:
+                        - generic [ref=e1652]:
+                          - button [ref=e2286] [cursor=pointer]:
+                            - generic [ref=e1655]: Key results
+                          - button [ref=e2287] [cursor=pointer]:
+                            - img [ref=e1658]
+                      - columnheader [ref=e2288]:
+                        - generic [ref=e1662]:
+                          - button [ref=e2289] [cursor=pointer]:
+                            - generic [ref=e1665]: Cost per result
+                          - button [ref=e2290] [cursor=pointer]:
+                            - img [ref=e1668]
+                      - columnheader [ref=e2291]:
+                        - generic [ref=e1672]:
+                          - button [ref=e2292] [cursor=pointer]:
+                            - generic [ref=e1675]: Impressions
+                          - button [ref=e2293] [cursor=pointer]:
+                            - img [ref=e1678]
+                      - columnheader [ref=e2294]:
+                        - generic [ref=e1682]:
+                          - button [ref=e2295] [cursor=pointer]:
+                            - generic [ref=e1685]: Clicks
+                          - button [ref=e2296] [cursor=pointer]:
+                            - img [ref=e1688]
+                      - columnheader [ref=e2297]:
+                        - generic [ref=e1692]:
+                          - button [ref=e2298] [cursor=pointer]:
+                            - generic [ref=e1695]: Average CTR
+                          - button [ref=e2299] [cursor=pointer]:
+                            - img [ref=e1698]
+                      - columnheader [ref=e2300]:
+                        - generic [ref=e1702]:
+                          - generic [ref=e1703]: Bid
+                          - button [ref=e2301] [cursor=pointer]:
+                            - img [ref=e1706]
+                      - columnheader [ref=e2302]:
+                        - generic [ref=e1710]:
+                          - button [ref=e2303] [cursor=pointer]:
+                            - generic [ref=e1713]: Average CPM
+                          - button [ref=e2304] [cursor=pointer]:
+                            - img [ref=e1716]
+                      - columnheader [ref=e2305]:
+                        - generic [ref=e1720]:
+                          - button [ref=e2306] [cursor=pointer]:
+                            - generic [ref=e1723]: Average CPC
+                          - button [ref=e2307] [cursor=pointer]:
+                            - img [ref=e1726]
+                      - columnheader [ref=e2308]:
+                        - generic [ref=e1730]:
+                          - button [ref=e2309] [cursor=pointer]:
+                            - generic [ref=e1733]: Conversions
+                          - button [ref=e2310] [cursor=pointer]:
+                            - img [ref=e1736]
+                      - columnheader [ref=e2311]:
+                        - generic [ref=e1740]:
+                          - button [ref=e2312] [cursor=pointer]:
+                            - generic [ref=e1743]: Cost per conversion
+                          - button [ref=e2313] [cursor=pointer]:
+                            - img [ref=e1746]
+                      - columnheader [ref=e2314]:
+                        - generic [ref=e1750]:
+                          - button [ref=e2315] [cursor=pointer]:
+                            - generic [ref=e1753]: Leads
+                          - button [ref=e2316] [cursor=pointer]:
+                            - img [ref=e1756]
+                      - columnheader [ref=e2317]:
+                        - generic [ref=e1760]:
+                          - button [ref=e2318] [cursor=pointer]:
+                            - generic [ref=e1763]: Cost per lead
+                          - button [ref=e2319] [cursor=pointer]:
+                            - img [ref=e1766]
+                      - columnheader [ref=e2320]:
+                        - generic [ref=e1770]:
+                          - button [ref=e2321] [cursor=pointer]:
+                            - generic [ref=e1773]: Event registrations
+                          - button [ref=e2322] [cursor=pointer]:
+                            - img [ref=e1776]
+                      - columnheader [ref=e2323]:
+                        - generic [ref=e1780]:
+                          - button [ref=e2324] [cursor=pointer]:
+                            - generic [ref=e1783]: Leads (Work email)
+                          - button [ref=e2325] [cursor=pointer]:
+                            - img [ref=e1786]
+                      - columnheader [ref=e2326]:
+                        - generic [ref=e1790]:
+                          - button [ref=e2327] [cursor=pointer]:
+                            - generic [ref=e1793]: Cost per lead (Work email)
+                          - button [ref=e2328] [cursor=pointer]:
+                            - img [ref=e1796]
+                    - row [ref=e2329]:
+                      - columnheader [ref=e2330]:
+                        - generic [ref=e1801]:
+                          - checkbox
+                          - generic [ref=e1803]: Select all rows
+                      - columnheader [ref=e2331]:
+                        - generic [ref=e1805]: 5 ads
+                      - columnheader [ref=e2332]: "-"
+                      - columnheader [ref=e2333]: "-"
+                      - columnheader [ref=e2334]:
+                        - generic [ref=e1809]: "-"
+                      - columnheader [ref=e2335]:
+                        - generic [ref=e1811]: $105.00
+                      - columnheader [ref=e2336]: "-"
+                      - columnheader [ref=e2337]: "-"
+                      - columnheader [ref=e2338]:
+                        - generic [ref=e1815]: 1,230
+                      - columnheader [ref=e2339]:
+                        - generic [ref=e1817]: "4"
+                      - columnheader [ref=e2340]:
+                        - generic [ref=e1819]: 0.33%
+                      - columnheader [ref=e2341]: "-"
+                      - columnheader [ref=e2342]:
+                        - generic [ref=e1822]: $85.37
+                      - columnheader [ref=e2343]:
+                        - generic [ref=e1824]: $26.25
+                      - columnheader [ref=e2344]:
+                        - generic [ref=e1826]: "-"
+                      - columnheader [ref=e2345]:
+                        - generic [ref=e1828]: "-"
+                      - columnheader [ref=e2346]:
+                        - generic [ref=e1830]: "0"
+                      - columnheader [ref=e2347]:
+                        - generic [ref=e1832]: "-"
+                      - columnheader [ref=e2348]:
+                        - generic [ref=e1834]: "-"
+                      - columnheader [ref=e2349]:
+                        - generic [ref=e1836]: "0"
+                      - columnheader [ref=e2350]:
+                        - generic [ref=e1838]: "-"
+                  - rowgroup [ref=e1839]:
+                    - row [ref=e2351]:
+                      - cell [ref=e2352]:
+                        - generic [ref=e1842]:
+                          - checkbox
+                          - generic [ref=e1844]: Select data row 1
+                      - cell [ref=e2353]:
+                        - generic [ref=e1846]:
+                          - generic [ref=e1847]:
+                            - paragraph [ref=e1848]:
+                              - text: How CCM Saves $10M/Year on Verifications
+                              - button [ref=e1849]:
+                                - img [ref=e1850]
+                              - generic [ref=e1852]: Below are ads in this ad set. You can also create a new ad.
+                            - generic [ref=e2354] [cursor=pointer]: "Name: CCM Case Study - Document Ad"
+                            - paragraph [ref=e1854]: "ID: 1369145986 · Document ad"
+                          - img [ref=e2355]
+                      - cell [ref=e2356]:
+                        - generic [ref=e1859] [cursor=pointer]:
+                          - generic [ref=e1860]: "On"
+                          - switch [checked]
+                      - cell [ref=e2357]:
+                        - paragraph [ref=e1863]: Active
+                      - cell [ref=e2358]:
+                        - generic [ref=e2359]: CCM Document Ad - Ops & Lending
+                      - cell [ref=e2360]:
+                        - generic [ref=e1867]: $0.00
+                      - cell [ref=e2361]:
+                        - generic [ref=e1870]:
+                          - generic [ref=e1871]: "0"
+                          - generic [ref=e1872]: Leads
+                      - cell [ref=e2362]:
+                        - generic [ref=e1875]: "-"
+                      - cell [ref=e2363]:
+                        - generic [ref=e1877]: "127"
+                      - cell [ref=e2364]:
+                        - generic [ref=e1879]: "0"
+                      - cell [ref=e2365]:
+                        - generic [ref=e1881]: 0%
+                      - cell [ref=e2366]: "-"
+                      - cell [ref=e2367]:
+                        - generic [ref=e1884]: $0.00
+                      - cell [ref=e2368]:
+                        - generic [ref=e1886]: "-"
+                      - cell [ref=e2369]:
+                        - generic [ref=e1888]: "-"
+                      - cell [ref=e2370]:
+                        - generic [ref=e1890]: "-"
+                      - cell [ref=e2371]:
+                        - generic [ref=e1892]: "0"
+                      - cell [ref=e2372]:
+                        - generic [ref=e1894]: "-"
+                      - cell [ref=e2373]:
+                        - generic [ref=e1896]: "-"
+                      - cell [ref=e2374]:
+                        - generic [ref=e1898]: "0"
+                      - cell [ref=e2375]:
+                        - generic [ref=e1900]: "-"
+                    - row [ref=e2376]:
+                      - cell [ref=e2377]:
+                        - generic [ref=e1903]:
+                          - checkbox
+                          - generic [ref=e1905]: Select data row 2
+                      - cell [ref=e2378]:
+                        - generic [ref=e1907]:
+                          - generic [ref=e1908]:
+                            - paragraph [ref=e1909]:
+                              - text: 70%+ Borrowers Complete Verification on First Try
+                              - button [ref=e1910]:
+                                - img [ref=e1911]
+                              - generic [ref=e1913]: Below are ads in this ad set. You can also create a new ad.
+                            - generic [ref=e2379] [cursor=pointer]: "Name: CCM Case Study - Document Ad V2"
+                            - paragraph [ref=e1915]: "ID: 1369184666 · Document ad"
+                          - img [ref=e2380]
+                      - cell [ref=e2381]:
+                        - generic [ref=e1920] [cursor=pointer]:
+                          - generic [ref=e1921]: "On"
+                          - switch [checked]
+                      - cell [ref=e2382]:
+                        - paragraph [ref=e1924]: Active
+                      - cell [ref=e2383]:
+                        - generic [ref=e2384]: CCM Document Ad - Ops & Lending
+                      - cell [ref=e2385]:
+                        - generic [ref=e1928]: $105.00
+                      - cell [ref=e2386]:
+                        - generic [ref=e1931]:
+                          - generic [ref=e1932]: "0"
+                          - generic [ref=e1933]: Leads
+                      - cell [ref=e2387]:
+                        - generic [ref=e1936]: "-"
+                      - cell [ref=e2388]:
+                        - generic [ref=e1938]: "387"
+                      - cell [ref=e2389]:
+                        - generic [ref=e1940]: "2"
+                      - cell [ref=e2390]:
+                        - generic [ref=e1942]: 0.52%
+                      - cell [ref=e2391]: "-"
+                      - cell [ref=e2392]:
+                        - generic [ref=e1945]: $271.32
+                      - cell [ref=e2393]:
+                        - generic [ref=e1947]: $52.50
+                      - cell [ref=e2394]:
+                        - generic [ref=e1949]: "-"
+                      - cell [ref=e2395]:
+                        - generic [ref=e1951]: "-"
+                      - cell [ref=e2396]:
+                        - generic [ref=e1953]: "0"
+                      - cell [ref=e2397]:
+                        - generic [ref=e1955]: "-"
+                      - cell [ref=e2398]:
+                        - generic [ref=e1957]: "-"
+                      - cell [ref=e2399]:
+                        - generic [ref=e1959]: "0"
+                      - cell [ref=e2400]:
+                        - generic [ref=e1961]: "-"
+                    - row [ref=e2401]:
+                      - cell [ref=e2402]:
+                        - generic [ref=e1964]:
+                          - checkbox
+                          - generic [ref=e1966]: Select data row 3
+                      - cell [ref=e2403]:
+                        - generic [ref=e1968]:
+                          - generic [ref=e1969]:
+                            - paragraph [ref=e1970]:
+                              - text: 8% More Loans Qualifying for R&W Relief
+                              - button [ref=e1971]:
+                                - img [ref=e1972]
+                              - generic [ref=e1974]: Below are ads in this ad set. You can also create a new ad.
+                            - generic [ref=e2404] [cursor=pointer]: "Name: CCM Case Study - White Cover (R&W Relief)"
+                            - paragraph [ref=e1976]: "ID: 1369245486 · Document ad"
+                          - img [ref=e2405]
+                      - cell [ref=e2406]:
+                        - generic [ref=e1981] [cursor=pointer]:
+                          - generic [ref=e1982]: "On"
+                          - switch [checked]
+                      - cell [ref=e2407]:
+                        - paragraph [ref=e1985]: Active
+                      - cell [ref=e2408]:
+                        - generic [ref=e2409]: CCM Document Ad - Ops & Lending
+                      - cell [ref=e2410]:
+                        - generic [ref=e1989]: $0.00
+                      - cell [ref=e2411]:
+                        - generic [ref=e1992]:
+                          - generic [ref=e1993]: "0"
+                          - generic [ref=e1994]: Leads
+                      - cell [ref=e2412]:
+                        - generic [ref=e1997]: "-"
+                      - cell [ref=e2413]:
+                        - generic [ref=e1999]: "150"
+                      - cell [ref=e2414]:
+                        - generic [ref=e2001]: "0"
+                      - cell [ref=e2415]:
+                        - generic [ref=e2003]: 0%
+                      - cell [ref=e2416]: "-"
+                      - cell [ref=e2417]:
+                        - generic [ref=e2006]: $0.00
+                      - cell [ref=e2418]:
+                        - generic [ref=e2008]: "-"
+                      - cell [ref=e2419]:
+                        - generic [ref=e2010]: "-"
+                      - cell [ref=e2420]:
+                        - generic [ref=e2012]: "-"
+                      - cell [ref=e2421]:
+                        - generic [ref=e2014]: "0"
+                      - cell [ref=e2422]:
+                        - generic [ref=e2016]: "-"
+                      - cell [ref=e2423]:
+                        - generic [ref=e2018]: "-"
+                      - cell [ref=e2424]:
+                        - generic [ref=e2020]: "0"
+                      - cell [ref=e2425]:
+                        - generic [ref=e2022]: "-"
+                    - row [ref=e2426]:
+                      - cell [ref=e2427]:
+                        - generic [ref=e2025]:
+                          - checkbox
+                          - generic [ref=e2027]: Select data row 4
+                      - cell [ref=e2428]:
+                        - generic [ref=e2029]:
+                          - generic [ref=e2030]:
+                            - paragraph [ref=e2031]:
+                              - text: Verifications Inside Blend and Encompass, Zero Workflow Change
+                              - button [ref=e2032]:
+                                - img [ref=e2033]
+                              - generic [ref=e2035]: Below are ads in this ad set. You can also create a new ad.
+                            - generic [ref=e2429] [cursor=pointer]: "Name: CCM Case Study - White Cover (Integration)"
+                            - paragraph [ref=e2037]: "ID: 1369255076 · Document ad"
+                          - img [ref=e2430]
+                      - cell [ref=e2431]:
+                        - generic [ref=e2042] [cursor=pointer]:
+                          - generic [ref=e2043]: "On"
+                          - switch [checked]
+                      - cell [ref=e2432]:
+                        - paragraph [ref=e2046]: Active
+                      - cell [ref=e2433]:
+                        - generic [ref=e2434]: CCM Document Ad - Ops & Lending
+                      - cell [ref=e2435]:
+                        - generic [ref=e2050]: $0.00
+                      - cell [ref=e2436]:
+                        - generic [ref=e2053]:
+                          - generic [ref=e2054]: "0"
+                          - generic [ref=e2055]: Leads
+                      - cell [ref=e2437]:
+                        - generic [ref=e2058]: "-"
+                      - cell [ref=e2438]:
+                        - generic [ref=e2060]: "436"
+                      - cell [ref=e2439]:
+                        - generic [ref=e2062]: "2"
+                      - cell [ref=e2440]:
+                        - generic [ref=e2064]: 0.46%
+                      - cell [ref=e2441]: "-"
+                      - cell [ref=e2442]:
+                        - generic [ref=e2067]: $0.00
+                      - cell [ref=e2443]:
+                        - generic [ref=e2069]: $0.00
+                      - cell [ref=e2444]:
+                        - generic [ref=e2071]: "-"
+                      - cell [ref=e2445]:
+                        - generic [ref=e2073]: "-"
+                      - cell [ref=e2446]:
+                        - generic [ref=e2075]: "0"
+                      - cell [ref=e2447]:
+                        - generic [ref=e2077]: "-"
+                      - cell [ref=e2448]:
+                        - generic [ref=e2079]: "-"
+                      - cell [ref=e2449]:
+                        - generic [ref=e2081]: "0"
+                      - cell [ref=e2450]:
+                        - generic [ref=e2083]: "-"
+                    - row [ref=e2451]:
+                      - cell [ref=e2452]:
+                        - generic [ref=e2086]:
+                          - checkbox
+                          - generic [ref=e2088]: Select data row 5
+                      - cell [ref=e2453]:
+                        - generic [ref=e2090]:
+                          - generic [ref=e2091]:
+                            - paragraph [ref=e2092]:
+                              - text: Live in Under 30 Days Across All 50 States
+                              - button [ref=e2093]:
+                                - img [ref=e2094]
+                              - generic [ref=e2096]: Below are ads in this ad set. You can also create a new ad.
+                            - generic [ref=e2454] [cursor=pointer]: "Name: CCM Case Study - Document Ad V3"
+                            - paragraph [ref=e2098]: "ID: 1369262196 · Document ad"
+                          - img [ref=e2455]
+                      - cell [ref=e2456]:
+                        - generic [ref=e2103] [cursor=pointer]:
+                          - generic [ref=e2104]: "On"
+                          - switch [checked]
+                      - cell [ref=e2457]:
+                        - paragraph [ref=e2107]: Active
+                      - cell [ref=e2458]:
+                        - generic [ref=e2459]: CCM Document Ad - Ops & Lending
+                      - cell [ref=e2460]:
+                        - generic [ref=e2111]: $0.00
+                      - cell [ref=e2461]:
+                        - generic [ref=e2114]:
+                          - generic [ref=e2115]: "0"
+                          - generic [ref=e2116]: Leads
+                      - cell [ref=e2462]:
+                        - generic [ref=e2119]: "-"
+                      - cell [ref=e2463]:
+                        - generic [ref=e2121]: "130"
+                      - cell [ref=e2464]:
+                        - generic [ref=e2123]: "0"
+                      - cell [ref=e2465]:
+                        - generic [ref=e2125]: 0%
+                      - cell [ref=e2466]: "-"
+                      - cell [ref=e2467]:
+                        - generic [ref=e2128]: $0.00
+                      - cell [ref=e2468]:
+                        - generic [ref=e2130]: "-"
+                      - cell [ref=e2469]:
+                        - generic [ref=e2132]: "-"
+                      - cell [ref=e2470]:
+                        - generic [ref=e2134]: "-"
+                      - cell [ref=e2471]:
+                        - generic [ref=e2136]: "0"
+                      - cell [ref=e2472]:
+                        - generic [ref=e2138]: "-"
+                      - cell [ref=e2473]:
+                        - generic [ref=e2140]: "-"
+                      - cell [ref=e2474]:
+                        - generic [ref=e2142]: "0"
+                      - cell [ref=e2475]:
+                        - generic [ref=e2144]: "-"
+                - generic [ref=e2146]:
+                  - navigation [ref=e2148]:
+                    - generic [ref=e2149]:
+                      - combobox [ref=e2151] [cursor=pointer]
+                      - list [ref=e2152]:
+                        - listitem [ref=e2153]:
+                          - button [ref=e2476] [cursor=pointer]: "1"
+                  - button [ref=e2477] [cursor=pointer]:
+                    - img [ref=e2157]
+                    - generic [ref=e2159]: Show 15 per page
+        - contentinfo [ref=e973]:
+          - list [ref=e975]:
+            - listitem [ref=e976]:
+              - link [ref=e2478] [cursor=pointer]:
+                - /url: https://www.linkedin.com/help/lms
+                - text: Help center
+            - listitem [ref=e978]:
+              - link [ref=e2479] [cursor=pointer]:
+                - /url: /campaignmanager/accounts/517969837/metric-restatements?businessId=7404539754668773386
+                - text: Metric restatements
+            - listitem [ref=e980]:
+              - link [ref=e2480] [cursor=pointer]:
+                - /url: https://business.linkedin.com/marketing-solutions/certified-marketing-partners/ads-partners
+                - text: Certified partners
+            - listitem [ref=e982]:
+              - link [ref=e2481] [cursor=pointer]:
+                - /url: https://www.linkedin.com/accessibility
+                - text: Accessibility
+            - listitem [ref=e984]:
+              - button [ref=e2482] [cursor=pointer]:
+                - img [ref=e987]
+                - generic [ref=e989]: Privacy & terms
+          - generic [ref=e990]:
+            - img [ref=e991]:
+              - img [ref=e992]
+            - generic [ref=e994]: LinkedIn Corporation © 2026
+  - generic [ref=e996]: Your search has 0 results

@@ -1,0 +1,215 @@
+- generic [ref=e1]:
+  - iframe [ref=e572]:
+    
+  - generic [ref=e574]: Screen reader support enabled.
+  - generic [ref=e4]:
+    - generic [ref=e5]:
+      - generic [ref=e6]:
+        - link "Forms Home" [ref=e8] [cursor=pointer]:
+          - img [ref=e12]
+        - textbox "Document title" [ref=e22]: Can/Am Hockey Tournament Interest Form - Austin, TX
+        - button "Move to folder" [ref=e577] [cursor=pointer]
+        - checkbox "Star" [ref=e585] [cursor=pointer]
+      - generic [ref=e25]:
+        - button "Help me create a form" [ref=e29] [cursor=pointer]
+        - button "Customize Theme" [ref=e35] [cursor=pointer]
+        - link "Preview" [ref=e41] [cursor=pointer]
+        - button "Undo" [ref=e47] [cursor=pointer]
+        - button "Redo" [ref=e53] [cursor=pointer]
+        - button "Copy responder link" [ref=e59] [cursor=pointer]
+        - button "Share" [ref=e65] [cursor=pointer]
+        - button "Open published form settings" [ref=e72] [cursor=pointer]:
+          - generic [ref=e74]:
+            - img [ref=e76]
+            - generic [ref=e78]: Published
+        - button "More" [ref=e80] [cursor=pointer]
+        - 'button "Google Account: Cameron Wolf (cameron.wolf.8@gmail.com)" [ref=e87] [cursor=pointer]':
+          - img [ref=e89]
+          - img [ref=e94]
+    - tablist [ref=e98]:
+      - tab "Questions" [ref=e99] [cursor=pointer]:
+        - generic [ref=e100]: Questions
+      - tab "Responses 12" [active] [selected] [ref=e591] [cursor=pointer]:
+        - generic [ref=e103]:
+          - text: Responses
+          - generic [ref=e593]: "12"
+      - tab "Settings" [ref=e104] [cursor=pointer]:
+        - generic [ref=e105]: Settings
+  - generic [ref=e596]:
+    - generic [ref=e597]:
+      - generic [ref=e598]:
+        - generic [ref=e599]: 12 responses
+        - generic [ref=e600]:
+          - button "View in Sheets. Opens linked spreadsheet" [ref=e603] [cursor=pointer]:
+            - generic [ref=e610]: View in Sheets
+          - button "More options for responses" [ref=e613] [cursor=pointer]
+      - generic [ref=e620]:
+        - tablist [ref=e621]:
+          - tab "Summary of responses" [selected] [ref=e622] [cursor=pointer]:
+            - generic [ref=e623]: Summary
+          - tab "Question by question view" [ref=e624] [cursor=pointer]:
+            - generic [ref=e625]: Question
+          - tab "Individual response view" [ref=e626] [cursor=pointer]:
+            - generic [ref=e627]: Individual
+        - generic:
+          - tabpanel
+    - generic [ref=e632]:
+      - generic [ref=e635]:
+        - heading "Full Name 12 responses" [ref=e638]:
+          - generic [ref=e639]: Full Name
+          - generic [ref=e640]: 12 responses
+        - generic [ref=e642]:
+          - generic [ref=e643]: Corey Chess
+          - generic [ref=e644]: Patrick McLendon
+          - generic [ref=e645]: Andrew Barlet
+          - generic [ref=e646]: Ed Foley
+          - generic [ref=e647]: Adam Stefanick
+          - generic [ref=e648]: Ryan Pedley
+          - generic [ref=e649]: Wesley Given
+          - generic [ref=e650]: Sam Roberts
+          - generic [ref=e651]: Ryan Forbes
+          - generic [ref=e652]: William Knauss
+          - generic [ref=e653]: Noah Leggett
+          - generic [ref=e654]: Alex nobel
+      - generic [ref=e657]:
+        - heading "Email Address 12 responses" [ref=e660]:
+          - generic [ref=e661]: Email Address
+          - generic [ref=e662]: 12 responses
+        - generic [ref=e664]:
+          - generic [ref=e665]: cchess30@gmail.com
+          - generic [ref=e666]: patrickmclendon93@gmail.com
+          - generic [ref=e667]: andybarlet@gmail.com
+          - generic [ref=e668]: Ed.foley@dimensional.com
+          - generic [ref=e669]: astefanick@gmail.com
+          - generic [ref=e670]: pedley@live.com
+          - generic [ref=e671]: wesleygiven13@gmail.com
+          - generic [ref=e672]: sroberts2619@gmail.com
+          - generic [ref=e673]: rcforbes94@gmail.com
+          - generic [ref=e674]: bill@pearlstonepartners.com
+          - generic [ref=e675]: nmleggett@gmail.com
+          - generic [ref=e676]: Nobelalex@gmail.com
+      - generic [ref=e679]:
+        - heading "Mobile Phone Number 12 responses" [ref=e682]:
+          - generic [ref=e683]: Mobile Phone Number
+          - generic [ref=e684]: 12 responses
+        - generic [ref=e686]:
+          - generic [ref=e687]: "9084191933"
+          - generic [ref=e688]: "8172297328"
+          - generic [ref=e689]: "8457722349"
+          - generic [ref=e690]: 512-800-1887
+          - generic [ref=e691]: "2488605645"
+          - generic [ref=e692]: "7272372249"
+          - generic [ref=e693]: "5128516805"
+          - generic [ref=e694]: "9728980146"
+          - generic [ref=e695]: "5129400736"
+          - generic [ref=e696]: "5124131132"
+          - generic [ref=e697]: "8086359965"
+          - generic [ref=e698]: "8587756644"
+      - generic [ref=e701]:
+        - generic [ref=e702]:
+          - heading "Preferred Position 12 responses" [ref=e704]:
+            - generic [ref=e705]: Preferred Position
+            - generic [ref=e706]: 12 responses
+          - button "Copy chart to clipboard" [ref=e708] [cursor=pointer]:
+            - generic [ref=e714]: Copy chart
+        - generic "A chart." [ref=e718]:
+          - img "A chart." [ref=e719]:
+            - generic [ref=e721]:
+              - generic [ref=e726]: Forward (F)
+              - generic [ref=e731]: Defense (D)
+              - generic [ref=e736]: Goaltender (G)
+            - generic [ref=e740]: 25%
+            - generic [ref=e743]: 75%
+          - generic "A tabular representation of the data in the chart." [ref=e744]:
+            - table [ref=e745]:
+              - rowgroup [ref=e746]:
+                - row [ref=e747]:
+                  - columnheader [ref=e748]
+                  - columnheader [ref=e749]
+              - rowgroup [ref=e750]:
+                - row "Forward (F) 9" [ref=e751]:
+                  - cell "Forward (F)" [ref=e752]
+                  - cell "9" [ref=e753]
+                - row "Defense (D) 3" [ref=e754]:
+                  - cell "Defense (D)" [ref=e755]
+                  - cell "3" [ref=e756]
+                - row "Goaltender (G) 0" [ref=e757]:
+                  - cell "Goaltender (G)" [ref=e758]
+                  - cell "0" [ref=e759]
+      - generic [ref=e762]:
+        - generic [ref=e763]:
+          - heading "The tournament runs from April 10th to April 12th. Please confirm your availability for all dates. 12 responses" [ref=e765]:
+            - generic [ref=e766]: The tournament runs from April 10th to April 12th. Please confirm your availability for all dates.
+            - generic [ref=e767]: 12 responses
+          - button "Copy chart to clipboard" [ref=e769] [cursor=pointer]:
+            - generic [ref=e775]: Copy chart
+        - generic "A chart." [ref=e779]:
+          - img "A chart." [ref=e780]:
+            - generic [ref=e782]:
+              - generic [ref=e786]:
+                - generic [ref=e787]: Yes, I am fully available for all dates
+                - generic [ref=e788]: (April 10-12).
+              - generic [ref=e792]:
+                - generic [ref=e793]: I am available, but may miss a portion
+                - generic [ref=e794]: (Please specify below).
+              - generic [ref=e798]:
+                - generic [ref=e799]: I am only interested in being an
+                - generic [ref=e800]: alternate/substitute.
+            - generic [ref=e804]: 100%
+          - generic "A tabular representation of the data in the chart." [ref=e805]:
+            - table [ref=e806]:
+              - rowgroup [ref=e807]:
+                - row [ref=e808]:
+                  - columnheader [ref=e809]
+                  - columnheader [ref=e810]
+              - rowgroup [ref=e811]:
+                - row "Yes, I am fully available for all dates (April 10-12). 12" [ref=e812]:
+                  - cell "Yes, I am fully available for all dates (April 10-12)." [ref=e813]
+                  - cell "12" [ref=e814]
+                - row "I am available, but may miss a portion (Please specify below). 0" [ref=e815]:
+                  - cell "I am available, but may miss a portion (Please specify below)." [ref=e816]
+                  - cell "0" [ref=e817]
+                - row "I am only interested in being an alternate/substitute. 0" [ref=e818]:
+                  - cell "I am only interested in being an alternate/substitute." [ref=e819]
+                  - cell "0" [ref=e820]
+      - generic [ref=e823]:
+        - heading "If you selected partial availability, please specify which dates/times you might be unavailable. 0 responses" [ref=e826]:
+          - generic [ref=e827]: If you selected partial availability, please specify which dates/times you might be unavailable.
+          - generic [ref=e828]: 0 responses
+        - generic [ref=e830]: No responses yet for this question.
+      - generic [ref=e833]:
+        - generic [ref=e834]:
+          - heading "The total team fee is $2,575.00. Based on the number of players, the individual cost will be determined. Do you acknowledge and accept the responsibility for your share of the team fee? 12 responses" [ref=e836]:
+            - generic [ref=e837]: The total team fee is $2,575.00. Based on the number of players, the individual cost will be determined. Do you acknowledge and accept the responsibility for your share of the team fee?
+            - generic [ref=e838]: 12 responses
+          - button "Copy chart to clipboard" [ref=e840] [cursor=pointer]:
+            - generic [ref=e846]: Copy chart
+        - generic "A chart." [ref=e850]:
+          - img "A chart." [ref=e851]:
+            - generic [ref=e853]:
+              - generic [ref=e857]:
+                - generic [ref=e858]: Yes, I acknowledge and accept the
+                - generic [ref=e859]: financial commitment.
+              - generic [ref=e863]:
+                - generic [ref=e864]: I need more information on the final
+                - generic [ref=e865]: player count/cost before committing.
+            - generic [ref=e869]: 8.3%
+            - generic [ref=e872]: 91.7%
+          - generic "A tabular representation of the data in the chart." [ref=e873]:
+            - table [ref=e874]:
+              - rowgroup [ref=e875]:
+                - row [ref=e876]:
+                  - columnheader [ref=e877]
+                  - columnheader [ref=e878]
+              - rowgroup [ref=e879]:
+                - row "Yes, I acknowledge and accept the financial commitment. 11" [ref=e880]:
+                  - cell "Yes, I acknowledge and accept the financial commitment." [ref=e881]
+                  - cell "11" [ref=e882]
+                - row "I need more information on the final player count/cost before committing. 1" [ref=e883]:
+                  - cell "I need more information on the final player count/cost before committing." [ref=e884]
+                  - cell "1" [ref=e885]
+  - button "Help and feedback" [ref=e563] [cursor=pointer]
+  - iframe [ref=e568]:
+    
+  - generic [ref=e570]: .
+  - generic [ref=e886]: Banner hidden

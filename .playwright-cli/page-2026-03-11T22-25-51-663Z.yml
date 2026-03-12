@@ -1,0 +1,363 @@
+- generic [active] [ref=e1]:
+  - generic:
+    - region "Notification Toasts":
+      - heading "0 notifications total" [level=2] [ref=e2]
+  - button "Chat with us" [ref=e10] [cursor=pointer]:
+    - img [ref=e12]
+  - generic [ref=e15]:
+    - generic [ref=e18]:
+      - button "Skip to main content" [ref=e19] [cursor=pointer]
+      - button "Close jump menu" [ref=e20] [cursor=pointer]:
+        - img [ref=e21]
+        - generic [ref=e23]: Close jump menu
+    - banner [ref=e24]:
+      - generic [ref=e25]:
+        - button [ref=e27] [cursor=pointer]:
+          - generic [ref=e29]:
+            - generic [ref=e30]:
+              - img [ref=e32]:
+                - img [ref=e33]
+              - img [ref=e36]
+            - img [ref=e39]
+        - generic [ref=e41]:
+          - heading "Actions List" [level=2] [ref=e42]
+          - list [ref=e43]:
+            - listitem [ref=e44]:
+              - generic [ref=e46]: Truv Ad Account
+              - img "Truv company icon" [ref=e49]
+          - separator [ref=e50]
+        - button "No unseen notifications, click to enter notifications experience" [ref=e52] [cursor=pointer]:
+          - generic [ref=e53]:
+            - generic [ref=e54]: No unseen notifications, click to enter notifications experience
+            - img [ref=e57]
+        - button "Learn more about campaign manager" [ref=e60] [cursor=pointer]:
+          - img "Help" [ref=e62]:
+            - img [ref=e64]
+        - button "Open user menu Icon for Truv" [ref=e66] [cursor=pointer]:
+          - generic [ref=e67]:
+            - generic [ref=e68]: Open user menu
+            - img "Icon for Truv" [ref=e70]
+    - main [ref=e73]:
+      - generic [ref=e76]:
+        - button "Back to account" [ref=e77] [cursor=pointer]:
+          - img [ref=e79]
+          - generic [ref=e81]: Back to account
+        - list [ref=e83]:
+          - listitem [ref=e84]:
+            - generic [ref=e85]: Truv Ad Account / CCM Document Ad - Lending
+          - listitem [ref=e86]:
+            - generic [ref=e87]: CCM Document Ad - Ops & Lending
+        - generic [ref=e88]:
+          - generic [ref=e90]:
+            - generic [ref=e91]: Active
+            - generic [ref=e93] [cursor=pointer]:
+              - generic [ref=e94]: "On"
+              - switch "Toggle on or off the ad set status" [checked]
+          - button [ref=e96] [cursor=pointer]:
+            - img [ref=e98]
+      - generic [ref=e102]:
+        - complementary [ref=e103]:
+          - generic [ref=e104]:
+            - generic [ref=e105]:
+              - heading "Campaign" [level=4] [ref=e106]
+              - button "CCM Document Ad - Lending" [ref=e107] [cursor=pointer]:
+                - button "CCM Document Ad - Lending" [ref=e108]:
+                  - paragraph [ref=e110]: CCM Document Ad - Lending
+            - generic [ref=e111]:
+              - heading "Ad set" [level=4] [ref=e112]
+              - button "CCM Document Ad - Ops & Lending" [ref=e113] [cursor=pointer]:
+                - button "CCM Document Ad - Ops & Lending" [ref=e114]:
+                  - paragraph [ref=e116]: CCM Document Ad - Ops & Lending
+              - list [ref=e117]:
+                - listitem [ref=e118]:
+                  - button "Scroll down to in the page" [ref=e120] [cursor=pointer]: Ad set details
+                - listitem [ref=e121]:
+                  - button "Scroll down to Audience in the page" [ref=e123] [cursor=pointer]: Audience
+                - listitem [ref=e124]:
+                  - button "Scroll down to Ad format in the page" [ref=e126] [cursor=pointer]: Ad format
+                - listitem [ref=e127]:
+                  - button "Scroll down to in the page" [ref=e129] [cursor=pointer]: URL parameters
+                - listitem [ref=e130]:
+                  - button "Scroll down to Placement in the page" [ref=e132] [cursor=pointer]: Placement
+                - listitem [ref=e133]:
+                  - button "Scroll down to Budget and Schedule in the page" [ref=e135] [cursor=pointer]: Budget and schedule
+                - listitem [ref=e136]:
+                  - button "Scroll down to Conversion Tracking in the page" [ref=e138] [cursor=pointer]: Conversion tracking
+            - generic [ref=e139]:
+              - heading "Ads in this ad set" [level=4] [ref=e140]
+              - button "Set up ads" [ref=e141] [cursor=pointer]
+              - list [ref=e142]:
+                - listitem [ref=e143]:
+                  - button "Set up ads" [ref=e145] [cursor=pointer]: Document Ad
+            - heading "Review & Launch" [level=3] [ref=e147]
+        - generic [ref=e149]:
+          - generic [ref=e150]:
+            - generic [ref=e151]:
+              - generic "Review and launch" [ref=e152]:
+                - heading "Review and launch" [level=2] [ref=e153]
+                - paragraph [ref=e154]: You’re almost there! Let’s review your ad set settings before you launch.
+              - generic [ref=e155]:
+                - heading "Campaign" [level=2] [ref=e156]
+                - generic [ref=e157]:
+                  - generic [ref=e158]:
+                    - heading "Campaign name" [level=3] [ref=e159]
+                    - paragraph [ref=e160]: CCM Document Ad - Lending
+                  - generic [ref=e162]:
+                    - paragraph [ref=e164]: Objective
+                    - generic [ref=e165]:
+                      - img [ref=e166]:
+                        - img [ref=e167]
+                      - generic [ref=e169]:
+                        - heading "Lead generation" [level=4] [ref=e171]
+                        - paragraph [ref=e172]: Gather info from people interested in your business
+                  - generic [ref=e175]:
+                    - term [ref=e176]: Schedule
+                    - definition [ref=e177]: Ad sets will run continuously from 3/11/2026
+              - generic [ref=e178]:
+                - heading "Ad set details" [level=2] [ref=e179]
+                - generic [ref=e181]:
+                  - generic [ref=e182]:
+                    - heading "Ad set name" [level=3] [ref=e183]
+                    - paragraph [ref=e184]: CCM Document Ad - Ops & Lending
+                  - generic [ref=e186]:
+                    - paragraph [ref=e187]:
+                      - generic [ref=e188]: INCLUDE
+                    - paragraph [ref=e189]: People with English as their profile language in
+                    - generic [ref=e190]:
+                      - paragraph [ref=e191]: Locations (recent or permanent)
+                      - paragraph [ref=e192]: United States
+                    - paragraph [ref=e193]: AND who meet ANY of the following criteria
+                    - generic [ref=e194]:
+                      - paragraph [ref=e195]: Job Titles (Current)
+                      - paragraph [ref=e196]: Vice President of Products, Executive Vice President of Finance, Head, Senior Underwriter, Head of Finance, Vice President of Sales, Vice President of Mortgage Lending, Chief Technology Officer, Loan Operations Manager, Vice President Operations, Director of Risk Management, Underwriting Manager, Chief Information Officer, Quality Assurance Manager, Vice President of Risk, Vice President of Business Development, Loan Manager, Chief Operating Officer, Risk Director, Chief Experience Officer, Chief Compliance Officer, Executive Vice President of Operations, Underwriter, Vice President Finance, Head of Risk, Executive Vice President of Sales, Senior Quality Assurance Manager, Vice President of Lending, Mortgage Manager, Commercial Underwriter, Underwriting Assistant, Chief Risk Officer, Risk Manager, Mortgage Underwriter, Vice President of Services, Head of Operations, Process Manager, Chief Financial Officer, Director of Quality Control, Chief Credit Officer, Vice President Commercial Lending, Director of Operations, Senior Loan Officer, Mortgage Processor, Risk Management Specialist, Director of Lending, Mortgage Loan Processor, Risk Analyst, Credit Underwriter
+                    - paragraph [ref=e197]: AND who meet ANY of the following criteria
+                    - generic [ref=e198]:
+                      - paragraph [ref=e199]: Company List
+                      - paragraph [ref=e200]: Top 250 Lenders 2024
+                    - generic [ref=e201]:
+                      - paragraph [ref=e202]: Audience expansion
+                      - paragraph [ref=e203]: Disabled
+                  - generic [ref=e204]:
+                    - heading "Ad format" [level=3] [ref=e205]
+                    - generic [ref=e206]:
+                      - img [ref=e207]:
+                        - img [ref=e208]
+                      - paragraph [ref=e210]: Document ad
+                  - generic [ref=e213]:
+                    - generic [ref=e217]:
+                      - paragraph [ref=e218]: LinkedIn
+                      - paragraph [ref=e220]: Enabled
+                    - generic [ref=e224]:
+                      - paragraph [ref=e225]: LinkedIn Audience Network
+                      - generic [ref=e226]:
+                        - paragraph [ref=e227]: Disabled
+                        - button [ref=e228] [cursor=pointer]:
+                          - img [ref=e230]
+                  - generic [ref=e234]:
+                    - generic [ref=e235]:
+                      - paragraph [ref=e236]: Daily Budget
+                      - paragraph [ref=e237]: $70.00
+                    - generic [ref=e238]:
+                      - paragraph [ref=e239]: Bid type
+                      - paragraph [ref=e240]: Manual bid
+                    - generic [ref=e241]:
+                      - paragraph [ref=e242]: Bid amount
+                      - paragraph [ref=e243]: $65.00
+                    - generic [ref=e244]:
+                      - paragraph [ref=e245]:
+                        - text: Lead Optimization
+                        - button "Learn more about Lead Gen Form Optimization" [ref=e246] [cursor=pointer]:
+                          - img [ref=e247]
+                      - paragraph [ref=e249]: Enabled
+                    - generic [ref=e250]:
+                      - paragraph [ref=e251]:
+                        - button "Schedule" [ref=e252] [cursor=pointer]:
+                          - generic [ref=e253]: Schedule
+                      - paragraph [ref=e254]: Run continuously starting 3/11/2026
+                  - generic [ref=e256]:
+                    - heading "Conversions" [level=3] [ref=e257]
+                    - alert
+                    - button "Case Study Lead" [ref=e260] [cursor=pointer]:
+                      - generic [ref=e261]: Case Study Lead
+              - generic [ref=e263]:
+                - heading "Ads" [level=2] [ref=e264]
+                - generic [ref=e265]:
+                  - alert
+                  - generic [ref=e269]:
+                    - table [ref=e271]:
+                      - rowgroup
+                      - rowgroup [ref=e272]:
+                        - 'row "Image of the ad How CCM Saves $10M/Year on Verifications CrossCountry Mortgage cut verification costs and closed loans faster with Truv. See how they saved $10M annually — swipe through the results. Ad name: CCM Case Study - Document Ad Linked Lead Gen Form: CrossCountry Mortgage Case Study B Active" [ref=e273]':
+                          - 'cell "Image of the ad How CCM Saves $10M/Year on Verifications CrossCountry Mortgage cut verification costs and closed loans faster with Truv. See how they saved $10M annually — swipe through the results. Ad name: CCM Case Study - Document Ad Linked Lead Gen Form: CrossCountry Mortgage Case Study B" [ref=e274]':
+                            - generic [ref=e276]:
+                              - img "Image of the ad" [ref=e278]
+                              - generic [ref=e279]:
+                                - paragraph [ref=e282]: How CCM Saves $10M/Year on Verifications
+                                - generic [ref=e284]: CrossCountry Mortgage cut verification costs and closed loans faster with Truv. See how they saved $10M annually — swipe through the results.
+                                - generic [ref=e285]:
+                                  - paragraph [ref=e286]: "Ad name: CCM Case Study - Document Ad"
+                                  - generic [ref=e287]: "Linked Lead Gen Form:"
+                                  - generic [ref=e288]: CrossCountry Mortgage Case Study B
+                                - alert
+                          - cell "Active" [ref=e289]:
+                            - paragraph [ref=e291]: Active
+                        - 'row "Image of the ad 70%+ Borrowers Complete Verification on First Try CrossCountry Mortgage cut verification costs and closed loans faster with Truv. See how they saved $10M annually — swipe through the results. Ad name: CCM Case Study - Document Ad V2 Linked Lead Gen Form: CrossCountry Mortgage Case Study B Active" [ref=e292]':
+                          - 'cell "Image of the ad 70%+ Borrowers Complete Verification on First Try CrossCountry Mortgage cut verification costs and closed loans faster with Truv. See how they saved $10M annually — swipe through the results. Ad name: CCM Case Study - Document Ad V2 Linked Lead Gen Form: CrossCountry Mortgage Case Study B" [ref=e293]':
+                            - generic [ref=e295]:
+                              - img "Image of the ad" [ref=e297]
+                              - generic [ref=e298]:
+                                - paragraph [ref=e301]: 70%+ Borrowers Complete Verification on First Try
+                                - generic [ref=e303]: CrossCountry Mortgage cut verification costs and closed loans faster with Truv. See how they saved $10M annually — swipe through the results.
+                                - generic [ref=e304]:
+                                  - paragraph [ref=e305]: "Ad name: CCM Case Study - Document Ad V2"
+                                  - generic [ref=e306]: "Linked Lead Gen Form:"
+                                  - generic [ref=e307]: CrossCountry Mortgage Case Study B
+                                - alert
+                          - cell "Active" [ref=e308]:
+                            - paragraph [ref=e310]: Active
+                        - 'row "Image of the ad 8% More Loans Qualifying for R&W Relief CrossCountry Mortgage cut verification costs and closed loans faster with Truv. See how they saved $10M annually. Swipe through the results. Ad name: CCM Case Study - White Cover (R&W Relief) Linked Lead Gen Form: CrossCountry Mortgage Case Study B Active" [ref=e311]':
+                          - 'cell "Image of the ad 8% More Loans Qualifying for R&W Relief CrossCountry Mortgage cut verification costs and closed loans faster with Truv. See how they saved $10M annually. Swipe through the results. Ad name: CCM Case Study - White Cover (R&W Relief) Linked Lead Gen Form: CrossCountry Mortgage Case Study B" [ref=e312]':
+                            - generic [ref=e314]:
+                              - img "Image of the ad" [ref=e316]
+                              - generic [ref=e317]:
+                                - paragraph [ref=e320]: 8% More Loans Qualifying for R&W Relief
+                                - generic [ref=e322]: CrossCountry Mortgage cut verification costs and closed loans faster with Truv. See how they saved $10M annually. Swipe through the results.
+                                - generic [ref=e323]:
+                                  - paragraph [ref=e324]: "Ad name: CCM Case Study - White Cover (R&W Relief)"
+                                  - generic [ref=e325]: "Linked Lead Gen Form:"
+                                  - generic [ref=e326]: CrossCountry Mortgage Case Study B
+                                - alert
+                          - cell "Active" [ref=e327]:
+                            - paragraph [ref=e329]: Active
+                        - 'row "Image of the ad Verifications Inside Blend and Encompass, Zero Workflow Change CrossCountry Mortgage cut verification costs and closed loans faster with Truv. See how they saved $10M annually. Swipe through the results. Ad name: CCM Case Study - White Cover (Integration) Linked Lead Gen Form: CrossCountry Mortgage Case Study B Active" [ref=e330]':
+                          - 'cell "Image of the ad Verifications Inside Blend and Encompass, Zero Workflow Change CrossCountry Mortgage cut verification costs and closed loans faster with Truv. See how they saved $10M annually. Swipe through the results. Ad name: CCM Case Study - White Cover (Integration) Linked Lead Gen Form: CrossCountry Mortgage Case Study B" [ref=e331]':
+                            - generic [ref=e333]:
+                              - img "Image of the ad" [ref=e335]
+                              - generic [ref=e336]:
+                                - paragraph [ref=e339]: Verifications Inside Blend and Encompass, Zero Workflow Change
+                                - generic [ref=e341]: CrossCountry Mortgage cut verification costs and closed loans faster with Truv. See how they saved $10M annually. Swipe through the results.
+                                - generic [ref=e342]:
+                                  - paragraph [ref=e343]: "Ad name: CCM Case Study - White Cover (Integration)"
+                                  - generic [ref=e344]: "Linked Lead Gen Form:"
+                                  - generic [ref=e345]: CrossCountry Mortgage Case Study B
+                                - alert
+                          - cell "Active" [ref=e346]:
+                            - paragraph [ref=e348]: Active
+                        - 'row "Image of the ad Live in Under 30 Days Across All 50 States CrossCountry Mortgage cut verification costs and closed loans faster with Truv. See how they saved $10M annually — swipe through the results. Ad name: CCM Case Study - Document Ad V3 Linked Lead Gen Form: CrossCountry Mortgage Case Study B Active" [ref=e349]':
+                          - 'cell "Image of the ad Live in Under 30 Days Across All 50 States CrossCountry Mortgage cut verification costs and closed loans faster with Truv. See how they saved $10M annually — swipe through the results. Ad name: CCM Case Study - Document Ad V3 Linked Lead Gen Form: CrossCountry Mortgage Case Study B" [ref=e350]':
+                            - generic [ref=e352]:
+                              - img "Image of the ad" [ref=e354]
+                              - generic [ref=e355]:
+                                - paragraph [ref=e358]: Live in Under 30 Days Across All 50 States
+                                - generic [ref=e360]: CrossCountry Mortgage cut verification costs and closed loans faster with Truv. See how they saved $10M annually — swipe through the results.
+                                - generic [ref=e361]:
+                                  - paragraph [ref=e362]: "Ad name: CCM Case Study - Document Ad V3"
+                                  - generic [ref=e363]: "Linked Lead Gen Form:"
+                                  - generic [ref=e364]: CrossCountry Mortgage Case Study B
+                                - alert
+                          - cell "Active" [ref=e365]:
+                            - paragraph [ref=e367]: Active
+                    - navigation [ref=e370]:
+                      - generic [ref=e371]:
+                        - combobox [ref=e373] [cursor=pointer]
+                        - list [ref=e374]:
+                          - listitem [ref=e375]:
+                            - button "Page 1" [ref=e376] [cursor=pointer]: "1"
+            - generic [ref=e377]:
+              - button "Previous" [ref=e378] [cursor=pointer]:
+                - generic [ref=e379]: Previous
+              - button "Save and exit" [ref=e381] [cursor=pointer]:
+                - generic [ref=e382]: Save and exit
+          - generic [ref=e384]:
+            - generic [ref=e385]:
+              - generic [ref=e386]:
+                - heading "Forecasted results" [level=5] [ref=e387]:
+                  - generic [ref=e389]: Forecasted results
+                - button "Learn more about forecasted results" [ref=e390] [cursor=pointer]:
+                  - img [ref=e392]
+                  - generic [ref=e394]: Learn more about forecasted results
+              - button "Toggle forecast settings menu" [ref=e397] [cursor=pointer]:
+                - img [ref=e398]
+            - generic [ref=e400]:
+              - generic [ref=e401]:
+                - generic [ref=e402]:
+                  - button "Target audience size" [ref=e403] [cursor=pointer]
+                  - heading "130,000+" [level=5] [ref=e404]:
+                    - generic [ref=e407]: 130,000+
+                - alert
+                - alert
+                - generic [ref=e409]:
+                  - generic:
+                    - paragraph [ref=e410]:
+                      - generic [ref=e411]: Segment breakdown
+                      - button "Learn more about audience segmentation" [ref=e412] [cursor=pointer]:
+                        - img [ref=e414]
+                        - generic [ref=e416]: Learn more about audience segmentation
+                    - button "Function" [ref=e417] [cursor=pointer]:
+                      - img [ref=e419]
+                      - generic [ref=e421]: Function
+                  - button "Show segments" [ref=e422] [cursor=pointer]
+              - generic [ref=e423]:
+                - tablist [ref=e427]:
+                  - tab "1-day" [ref=e428] [cursor=pointer]
+                  - tab "7-day" [ref=e429] [cursor=pointer]
+                  - tab "30-day" [selected] [ref=e430] [cursor=pointer]
+                - generic [ref=e431]:
+                  - generic [ref=e432]:
+                    - button "30-day spend" [ref=e433] [cursor=pointer]
+                    - paragraph [ref=e434]:
+                      - generic [ref=e437]: $1,200.00 - $2,100.00
+                  - generic [ref=e438]:
+                    - button "30-day impressions" [ref=e440] [cursor=pointer]
+                    - paragraph [ref=e441]:
+                      - generic [ref=e444]: 10,000 - 28,000
+                  - generic [ref=e445]:
+                    - button "CTR" [ref=e447] [cursor=pointer]
+                    - paragraph [ref=e448]:
+                      - generic [ref=e451]: 0.29% - 0.45%
+                  - generic [ref=e452]:
+                    - button "30-day clicks" [ref=e454] [cursor=pointer]
+                    - paragraph [ref=e455]:
+                      - generic [ref=e458]: 42 - 130
+                  - generic [ref=e459]:
+                    - generic [ref=e460]:
+                      - button "30-day leads" [ref=e461] [cursor=pointer]
+                      - generic [ref=e462]: Key Result
+                    - paragraph [ref=e463]:
+                      - generic [ref=e466]: 0 - 26
+                  - generic [ref=e467]:
+                    - button "30-day cost per lead" [ref=e469] [cursor=pointer]
+                    - paragraph [ref=e470]:
+                      - generic [ref=e473]: $136.51 - $160.49
+                  - generic [ref=e475]:
+                    - text: Forecasted results are directional estimates and do not guarantee performance. Note that some products are not yet incorporated in the results.
+                    - link "Learn more about forecasted results" [ref=e476] [cursor=pointer]:
+                      - /url: https://www.linkedin.com/help/lms/answer/94703?accountId=517969837
+                      - text: Learn more
+                - generic:
+                  - alert
+                  - status
+                  - status
+                  - status
+                  - status
+                  - status
+                  - status
+                  - status
+                  - status
+                  - status
+                  - alert
+                  - status
+                  - status
+                  - status
+                  - status
+                  - status
+                  - status
+                  - status
+            - generic [ref=e477]:
+              - paragraph [ref=e478]: Is this helpful?
+              - generic [ref=e479]:
+                - button "Yes" [ref=e480] [cursor=pointer]:
+                  - generic [ref=e481]: "Yes"
+                - button "No" [ref=e482] [cursor=pointer]:
+                  - generic [ref=e483]: "No"
+  - generic [ref=e484]: 130000 potential LinkedIn members reached

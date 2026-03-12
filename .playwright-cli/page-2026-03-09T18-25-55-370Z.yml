@@ -1,0 +1,520 @@
+- generic [ref=e1]:
+  - generic [ref=e1526]:
+    - banner [ref=e1527]:
+      - navigation [ref=e1529]:
+        - generic [ref=e1530]:
+          - link [ref=e3283] [cursor=pointer]:
+            - /url: /workspaces/276559/home
+            - img [ref=e3284]
+          - generic [ref=e1535]:
+            - button [ref=e3285] [cursor=pointer]:
+              - img [ref=e1537]
+              - paragraph [ref=e1540]: All Files
+              - img [ref=e1541]
+            - generic [ref=e1543]: /
+            - link [ref=e3286] [cursor=pointer]:
+              - /url: /workspaces/276559/workbooks/wb_0tbn9peQUdDP3THN6ws/all-tables
+              - img [ref=e1546]
+              - paragraph [ref=e1549]: ICE-X26-Registrants
+            - generic [ref=e1550]: /
+            - button [ref=e3287] [cursor=pointer]:
+              - img [ref=e1553]
+              - paragraph [ref=e1556]: ICE-X26-Registrants
+              - img [ref=e1557]
+        - generic [ref=e1559]:
+          - button [ref=e3288] [cursor=pointer]:
+            - generic [ref=e1562]:
+              - img [ref=e1564]
+              - paragraph [ref=e1577]: Credits
+          - button [ref=e1579] [cursor=pointer]:
+            - img [ref=e1580]
+        - button [ref=e3289] [cursor=pointer]:
+          - generic [ref=e1585]:
+            - paragraph [ref=e1586]: Cam Wolf
+            - paragraph [ref=e1587]: truv.com
+    - main [ref=e1588]:
+      - generic [ref=e1593]:
+        - generic [ref=e1597]:
+          - generic [ref=e1598]:
+            - generic [ref=e1599]:
+              - generic [ref=e1600]:
+                - button [ref=e3290] [cursor=pointer]:
+                  - img [ref=e1603]
+                  - paragraph [ref=e1605]: Auto-run
+                - button [ref=e1606] [cursor=pointer]:
+                  - img [ref=e1607]
+                  - img [ref=e1609]
+                - button [ref=e3291] [cursor=pointer]:
+                  - img [ref=e1612]
+                  - generic [ref=e1614]: 5/7
+                - button [ref=e3292] [cursor=pointer]:
+                  - img [ref=e1616]
+                  - generic [ref=e1618]: 2,361/2,361
+                - button [ref=e1619] [cursor=pointer]:
+                  - img [ref=e1620]
+                - button [ref=e1622] [cursor=pointer]:
+                  - img [ref=e1624]
+                - button [ref=e1628] [cursor=pointer]:
+                  - img [ref=e1629]
+              - generic [ref=e1631]:
+                - button [ref=e3293] [cursor=pointer]:
+                  - img [ref=e1634]
+                  - text: Sandbox Mode
+                - button [ref=e3294] [cursor=pointer]:
+                  - img [ref=e3295]
+                  - text: Chat with Sculptor
+            - generic [ref=e1641]:
+              - generic [ref=e1642]:
+                - generic [ref=e1643]:
+                  - generic [ref=e1644]:
+                    - generic [ref=e1646]:
+                      - checkbox [ref=e1647] [cursor=pointer]:
+                        - img [ref=e1649]
+                      - checkbox [ref=e1650]
+                    - generic [ref=e1652]:
+                      - button [ref=e3296] [cursor=pointer]:
+                        - menuitem [ref=e3297]:
+                          - generic [ref=e1659]:
+                            - img [ref=e1660]
+                            - paragraph [ref=e1664]: Company Name
+                      - button [ref=e3298] [cursor=pointer]:
+                        - menuitem [ref=e3299]:
+                          - generic [ref=e1672]:
+                            - img [ref=e1673]
+                            - paragraph [ref=e1677]: First Name
+                      - button [ref=e3300] [cursor=pointer]:
+                        - menuitem [ref=e3301]:
+                          - generic [ref=e1685]:
+                            - img [ref=e1686]
+                            - paragraph [ref=e1690]: Last Name
+                      - button [ref=e3302] [cursor=pointer]:
+                        - menuitem [ref=e3303]:
+                          - generic [ref=e1698]:
+                            - img [ref=e1699]
+                            - paragraph [ref=e1703]: Title
+                      - button [ref=e3304] [cursor=pointer]:
+                        - menuitem [ref=e3305]:
+                          - generic [ref=e3010]:
+                            - img [ref=e3011]
+                            - img [ref=e3013]
+                            - paragraph [ref=e3017]: New Column
+                    - status [ref=e1705]
+                    - button [ref=e3306] [cursor=pointer]:
+                      - img [ref=e1708]
+                      - generic [ref=e1710]: Add column
+                      - img [ref=e1711]
+                  - generic [ref=e1713]:
+                    - paragraph [ref=e1715]: "%"
+                    - generic [ref=e1716]:
+                      - img [ref=e1719]
+                      - img [ref=e1723]
+                      - img [ref=e1727]
+                      - img [ref=e1731]
+                      - img [ref=e3021]
+                - generic [ref=e1736]:
+                  - generic [ref=e1737]:
+                    - generic [ref=e1740]:
+                      - paragraph [ref=e1742]: "1"
+                      - checkbox [ref=e1743]
+                    - generic [ref=e1744]:
+                      - paragraph [ref=e1750]: 1st Security Bank of Washington
+                      - paragraph [ref=e1756]: Stephanie
+                      - paragraph [ref=e1762]: Bokath
+                      - paragraph [ref=e1768]: Encompass Tech Support Analyst
+                  - generic [ref=e1770]:
+                    - generic [ref=e1773]:
+                      - paragraph [ref=e1775]: "2"
+                      - checkbox [ref=e1776]
+                    - generic [ref=e1777]:
+                      - paragraph [ref=e1783]: 1st Security Bank of Washington
+                      - paragraph [ref=e1789]: Dezerae
+                      - paragraph [ref=e1795]: Peasley
+                      - paragraph [ref=e1801]: Encompass Team Assistant Manager
+                  - generic [ref=e1803]:
+                    - generic [ref=e1806]:
+                      - paragraph [ref=e1808]: "3"
+                      - checkbox [ref=e1809]
+                    - generic [ref=e1810]:
+                      - paragraph [ref=e1816]: 1st Source Bank
+                      - paragraph [ref=e1822]: Kim
+                      - paragraph [ref=e1828]: Latson
+                      - paragraph [ref=e1834]: Sr Supervisor Mortgage Servicing
+                  - generic [ref=e1836]:
+                    - generic [ref=e1839]:
+                      - paragraph [ref=e1841]: "4"
+                      - checkbox [ref=e1842]
+                    - generic [ref=e1843]:
+                      - paragraph [ref=e1849]: 1st Source Bank
+                      - paragraph [ref=e1855]: Amy
+                      - paragraph [ref=e1861]: Browning
+                      - paragraph [ref=e1867]: Collection Manager, VP
+                  - generic [ref=e1869]:
+                    - generic [ref=e1872]:
+                      - paragraph [ref=e1874]: "5"
+                      - checkbox [ref=e1875]
+                    - generic [ref=e1876]:
+                      - paragraph [ref=e1882]: 1st Source Bank
+                      - paragraph [ref=e1888]: Larry
+                      - paragraph [ref=e1894]: Cripe
+                      - paragraph [ref=e1900]: Sr. Manager Mortgage Servicing
+                  - generic [ref=e1902]:
+                    - generic [ref=e1905]:
+                      - paragraph [ref=e1907]: "6"
+                      - checkbox [ref=e1908]
+                    - generic [ref=e1909]:
+                      - paragraph [ref=e1915]: 1st Source Bank
+                      - paragraph [ref=e1921]: Kendra
+                      - paragraph [ref=e1927]: Hicks
+                      - paragraph [ref=e1933]: Assistant Collection Manager
+                  - generic [ref=e1935]:
+                    - generic [ref=e1938]:
+                      - paragraph [ref=e1940]: "7"
+                      - checkbox [ref=e1941]
+                    - generic [ref=e1942]:
+                      - paragraph [ref=e1948]: 2Win! Global
+                      - paragraph [ref=e1954]: John
+                      - paragraph [ref=e1960]: Coker
+                      - paragraph [ref=e1966]: Global VP of Sales
+                  - generic [ref=e1968]:
+                    - generic [ref=e1971]:
+                      - paragraph [ref=e1973]: "8"
+                      - checkbox [ref=e1974]
+                    - generic [ref=e1975]:
+                      - paragraph [ref=e1981]: Absolute Home Mortgage
+                      - paragraph [ref=e1987]: Matthew
+                      - paragraph [ref=e1993]: VanFossen
+                      - paragraph [ref=e1999]: CEO
+                  - generic [ref=e2001]:
+                    - generic [ref=e2004]:
+                      - paragraph [ref=e2006]: "9"
+                      - checkbox [ref=e2007]
+                    - generic [ref=e2008]:
+                      - paragraph [ref=e2014]: Absolute Home Mortgage
+                      - paragraph [ref=e2020]: Brent
+                      - paragraph [ref=e2026]: Emler
+                      - paragraph [ref=e2032]: loan officer
+                  - generic [ref=e2034]:
+                    - generic [ref=e2037]:
+                      - paragraph [ref=e2039]: "10"
+                      - checkbox [ref=e2040]
+                    - generic [ref=e2041]:
+                      - paragraph [ref=e2047]: Absolute Home Mortgage Corporation
+                      - paragraph [ref=e2053]: Joseph
+                      - paragraph [ref=e2059]: Rodriguez
+                      - paragraph [ref=e2065]: Chief Operating Officer
+                  - generic [ref=e2067]:
+                    - generic [ref=e2070]:
+                      - paragraph [ref=e2072]: "11"
+                      - checkbox [ref=e2073]
+                    - generic [ref=e2074]:
+                      - paragraph [ref=e2080]: Academy Bank
+                      - paragraph [ref=e2086]: Holly
+                      - paragraph [ref=e2092]: Dowd
+                      - paragraph [ref=e2098]: SVP, Director of Mortgage Operations
+                  - generic [ref=e2100]:
+                    - generic [ref=e2103]:
+                      - paragraph [ref=e2105]: "12"
+                      - checkbox [ref=e2106]
+                    - generic [ref=e2107]:
+                      - paragraph [ref=e2113]: Accurate Group
+                      - paragraph [ref=e2119]: Josh
+                      - paragraph [ref=e2125]: Livingston
+                      - paragraph [ref=e2131]: CRO
+                  - generic [ref=e2133]:
+                    - generic [ref=e2136]:
+                      - paragraph [ref=e2138]: "13"
+                      - checkbox [ref=e2139]
+                    - generic [ref=e2140]:
+                      - paragraph [ref=e2146]: Acrisure
+                      - paragraph [ref=e2152]: Casey
+                      - paragraph [ref=e2158]: Hughes Wade
+                      - paragraph [ref=e2164]: Strategic Partnership Manager
+                  - generic [ref=e2166]:
+                    - generic [ref=e2169]:
+                      - paragraph [ref=e2171]: "14"
+                      - checkbox [ref=e2172]
+                    - generic [ref=e2173]:
+                      - paragraph [ref=e2179]: Acrisure
+                      - paragraph [ref=e2185]: Jimson
+                      - paragraph [ref=e2191]: Tharayil
+                      - paragraph [ref=e2197]: EVP Partnerships
+                  - generic [ref=e2199]:
+                    - generic [ref=e2202]:
+                      - paragraph [ref=e2204]: "15"
+                      - checkbox [ref=e2205]
+                    - generic [ref=e2206]:
+                      - paragraph [ref=e2212]: Acrisure
+                      - paragraph [ref=e2218]: Derek
+                      - paragraph [ref=e2224]: Batt
+                      - paragraph [ref=e2230]: Vice President
+                  - generic [ref=e2232]:
+                    - generic [ref=e2235]:
+                      - paragraph [ref=e2237]: "16"
+                      - checkbox [ref=e2238]
+                    - generic [ref=e2239]:
+                      - paragraph [ref=e2245]: Acrisure Mortgage, LLC
+                      - paragraph [ref=e2251]: Adam
+                      - paragraph [ref=e2257]: Vinson
+                      - paragraph [ref=e2263]: Senior Encompass Administrator
+                  - generic [ref=e2265]:
+                    - generic [ref=e2268]:
+                      - paragraph [ref=e2270]: "17"
+                      - checkbox [ref=e2271]
+                    - generic [ref=e2272]:
+                      - paragraph [ref=e2278]: Acrisure Mortgage, LLC
+                      - paragraph [ref=e2284]: Scott
+                      - paragraph [ref=e2290]: DeNicholas
+                      - paragraph [ref=e2296]: Director of Encompass Administration
+                  - generic [ref=e2298]:
+                    - generic [ref=e2301]:
+                      - paragraph [ref=e2303]: "18"
+                      - checkbox [ref=e2304]
+                    - generic [ref=e2305]:
+                      - paragraph [ref=e2311]: Acumidata
+                      - paragraph [ref=e2317]: David
+                      - paragraph [ref=e2323]: Sanchez
+                      - paragraph [ref=e2329]: CEO
+                  - generic [ref=e2331]:
+                    - generic [ref=e2334]:
+                      - paragraph [ref=e2336]: "19"
+                      - checkbox [ref=e2337]
+                    - paragraph [ref=e2344]: Acumidata
+                  - generic [ref=e2361]:
+                    - generic [ref=e2364]:
+                      - paragraph [ref=e2366]: "20"
+                      - checkbox [ref=e2367]
+                    - generic [ref=e2368]:
+                      - paragraph [ref=e2374]: Addy AI
+                      - paragraph [ref=e2380]: Michael
+                      - paragraph [ref=e2386]: Vandi
+                      - paragraph [ref=e2392]: CEO
+                  - generic [ref=e2394]:
+                    - generic [ref=e2397]:
+                      - paragraph [ref=e2399]: "21"
+                      - checkbox [ref=e2400]
+                    - generic [ref=e2401]:
+                      - paragraph [ref=e2407]: Addy AI
+                      - paragraph [ref=e2413]: Polyhronis
+                      - paragraph [ref=e2419]: Apostolakis
+                      - paragraph [ref=e2425]: Head of AI Adoption
+                  - generic [ref=e2427]:
+                    - generic [ref=e2430]:
+                      - paragraph [ref=e2432]: "22"
+                      - checkbox [ref=e2433]
+                    - generic [ref=e2434]:
+                      - paragraph [ref=e2440]: Advantage Partn
+                      - paragraph [ref=e2446]: Patrick
+                      - paragraph [ref=e2452]: Tynan
+                      - paragraph [ref=e2458]: EVP Sales Operations
+                  - generic [ref=e2460]:
+                    - generic [ref=e2463]:
+                      - paragraph [ref=e2465]: "23"
+                      - checkbox [ref=e2466]
+                    - generic [ref=e2467]:
+                      - paragraph [ref=e2473]: Advantage Partners Solutions
+                      - paragraph [ref=e2479]: Dominic
+                      - paragraph [ref=e2485]: Lavoie
+                      - paragraph [ref=e2491]: Regional Director
+                  - generic [ref=e2493]:
+                    - generic [ref=e2496]:
+                      - paragraph [ref=e2498]: "24"
+                      - checkbox [ref=e2499]
+                    - generic [ref=e2500]:
+                      - paragraph [ref=e2506]: Advantage Partners Solutions
+                      - paragraph [ref=e2512]: Tracie
+                      - paragraph [ref=e2518]: Panish
+                      - paragraph [ref=e2524]: National Account Executive
+                  - generic [ref=e2526]:
+                    - generic [ref=e2529]:
+                      - paragraph [ref=e2531]: "25"
+                      - checkbox [ref=e2532]
+                    - generic [ref=e2533]:
+                      - paragraph [ref=e2539]: Advantage Partners Solutions
+                      - paragraph [ref=e2545]: John
+                      - paragraph [ref=e2551]: Labriola
+                      - paragraph [ref=e2557]: Regional Director
+                  - generic [ref=e2559]:
+                    - generic [ref=e2562]:
+                      - paragraph [ref=e2564]: "26"
+                      - checkbox [ref=e2565]
+                    - generic [ref=e2566]:
+                      - paragraph [ref=e2572]: Advantage Partners Solutions
+                      - paragraph [ref=e2578]: Dena
+                      - paragraph [ref=e2584]: Falbo
+                      - paragraph [ref=e2590]: Senior Corporate Account Manager
+                  - generic [ref=e2592]:
+                    - generic [ref=e2595]:
+                      - paragraph [ref=e2597]: "27"
+                      - checkbox [ref=e2598]
+                    - generic [ref=e2599]:
+                      - paragraph [ref=e2605]: Advantage Partners Solutions
+                      - paragraph [ref=e2611]: Amber
+                      - paragraph [ref=e2617]: Moreno
+                      - paragraph [ref=e2623]: Corporate Account Manager
+                  - generic [ref=e2625]:
+                    - generic [ref=e2628]:
+                      - paragraph [ref=e2630]: "28"
+                      - checkbox [ref=e2631]
+                    - generic [ref=e2632]:
+                      - paragraph [ref=e2638]: Advantage Partners Solutions
+                      - paragraph [ref=e2644]: Jinger
+                      - paragraph [ref=e2650]: Lee
+                      - paragraph [ref=e2656]: Director of Mortgage Solutions
+                  - generic [ref=e2658]:
+                    - generic [ref=e2661]:
+                      - paragraph [ref=e2663]: "29"
+                      - checkbox [ref=e2664]
+                    - generic [ref=e2665]:
+                      - paragraph [ref=e2671]: Advantage Partners Solutions
+                      - paragraph [ref=e2677]: Mark
+                      - paragraph [ref=e2683]: Yoder
+                      - paragraph [ref=e2689]: Vp of Strategic Partnerships
+              - generic [ref=e2694]:
+                - button [ref=e3307] [cursor=pointer]:
+                  - img [ref=e2696]
+                  - text: Add
+                - spinbutton [ref=e2702]: "10"
+                - paragraph [ref=e2703]: more rows at the bottom
+          - navigation [ref=e2706]:
+            - generic [ref=e3176]:
+              - generic [ref=e3177]:
+                - generic [ref=e3179]:
+                  - generic [ref=e3180]:
+                    - img [ref=e3181]
+                    - img [ref=e3183]
+                    - heading [level=2] [ref=e3308]:
+                      - generic [ref=e3186]: New Column
+                  - button [ref=e3187] [cursor=pointer]:
+                    - img [ref=e3188]
+                - button [ref=e3309] [cursor=pointer]:
+                  - img [ref=e3191]
+              - generic [ref=e3196]:
+                - generic [ref=e3197]:
+                  - generic [ref=e3198]: Data type
+                  - button [ref=e3310] [cursor=pointer]:
+                    - generic [ref=e3202]:
+                      - img [ref=e3203]
+                      - generic [ref=e3205]: Text
+                    - img
+                - generic [ref=e3207]: Merge data from other columns in a defined order.
+                - generic [ref=e3208]:
+                  - generic [ref=e3209]:
+                    - button [ref=e3311] [cursor=pointer]:
+                      - img [ref=e3211]
+                      - generic [ref=e3217]: First try
+                    - generic [ref=e3220]:
+                      - textbox [ref=e3223]:
+                        - generic [ref=e3224]:
+                          - generic: "\"Hello \" + {{First Name}}"
+                      - generic [ref=e3225]:
+                        - paragraph [ref=e3226]: Type / to insert column
+                        - generic [ref=e3227]:
+                          - button [ref=e3312] [cursor=pointer]:
+                            - img [ref=e3229]
+                            - paragraph [ref=e3231]: Use AI
+                          - paragraph [ref=e3232]:
+                            - link [ref=e3233] [cursor=pointer]:
+                              - /url: https://www.clay.com/university/guide/formula-generator
+                              - img [ref=e3234]
+                    - button [ref=e3236] [cursor=pointer]:
+                      - img [ref=e3237]
+                  - generic [ref=e3239]:
+                    - button [ref=e3313] [cursor=pointer]:
+                      - img [ref=e3241]
+                      - generic [ref=e3247]: Then try
+                    - generic [ref=e3250]:
+                      - textbox [ref=e3253]:
+                        - generic [ref=e3254]:
+                          - generic: "\"Hello \" + {{First Name}}"
+                      - generic [ref=e3255]:
+                        - paragraph [ref=e3256]: Type / to insert column
+                        - generic [ref=e3257]:
+                          - button [ref=e3314] [cursor=pointer]:
+                            - img [ref=e3259]
+                            - paragraph [ref=e3261]: Use AI
+                          - paragraph [ref=e3262]:
+                            - link [ref=e3263] [cursor=pointer]:
+                              - /url: https://www.clay.com/university/guide/formula-generator
+                              - img [ref=e3264]
+                    - button [ref=e3266] [cursor=pointer]:
+                      - img [ref=e3267]
+                  - status [ref=e3269]
+                - button [ref=e3315] [cursor=pointer]: Add input
+              - generic [ref=e3273]:
+                - button [ref=e3316] [cursor=pointer]: Save and don't run enrichments
+                - button [ref=e3317] [cursor=pointer]: Save
+        - generic [ref=e2902]:
+          - generic [ref=e2903]:
+            - generic [ref=e2904]:
+              - generic [ref=e2905]:
+                - link [ref=e3318] [cursor=pointer]:
+                  - /url: /workspaces/276559/workbooks/wb_0tbn9peQUdDP3THN6ws/all-tables
+                  - img [ref=e2908]
+                  - paragraph [ref=e2910]: Overview
+                - button [ref=e3319] [cursor=pointer]:
+                  - button [ref=e3320]:
+                    - generic [ref=e2915]:
+                      - generic [ref=e2916]:
+                        - img [ref=e2917]
+                        - paragraph [ref=e2919]: ICE-X26-Registrants
+                      - img [ref=e2920]
+              - status [ref=e2922]
+            - button [ref=e3321] [cursor=pointer]:
+              - img [ref=e2924]
+              - text: Add
+          - generic [ref=e2927]:
+            - generic [ref=e2930]:
+              - img [ref=e2931]
+              - generic [ref=e2933]: Table up to date
+            - button [disabled] [ref=e3322]:
+              - img [ref=e2936]
+              - text: Stop
+            - button [ref=e3323] [cursor=pointer]:
+              - img [ref=e2939]
+              - text: History
+            - button [ref=e3324] [cursor=pointer]:
+              - img [ref=e2942]
+  - iframe [ref=e964]:
+    
+  - dialog [ref=e3331]:
+    - generic [ref=e3332]:
+      - img [ref=e3334]
+      - generic [ref=e3336]:
+        - paragraph [ref=e3337]: Formula generator
+        - button "Documentation" [ref=e3338] [cursor=pointer]:
+          - img [ref=e3339]
+          - text: Documentation
+      - button "Close" [ref=e3341] [cursor=pointer]:
+        - img [ref=e3342]
+    - generic [ref=e3345]:
+      - generic [ref=e3346]:
+        - heading "Describe the formula you want" [level=5] [ref=e3347]
+        - generic [ref=e3349]:
+          - generic [ref=e3351]:
+            - paragraph [ref=e3356]: Get the first name from column "Full Name", remove all special characters, and add "Hey" to the beginning
+            - paragraph [ref=e3358]: Type / to Insert column
+          - button "Generate formula" [ref=e3361] [cursor=pointer]:
+            - img [ref=e3362]
+            - text: Generate formula
+        - heading "or write your own formula" [level=5] [ref=e3364]
+        - generic [ref=e3366]:
+          - textbox [active] [ref=e3369]:
+            - generic [ref=e3370]:
+              - generic:
+                - generic:
+                  - generic: "\"Hello \" + {{First Name}}"
+          - generic [ref=e3371]:
+            - paragraph [ref=e3372]: Type / to insert column
+            - paragraph [ref=e3374]:
+              - link [ref=e3375] [cursor=pointer]:
+                - /url: https://www.clay.com/university/guide/formula-generator
+                - img [ref=e3376]
+      - generic [ref=e3378]:
+        - heading "Example prompts" [level=5] [ref=e3380]
+        - generic [ref=e3381]:
+          - paragraph [ref=e3382]: 1. Generate a random number between 1 and 100.
+          - paragraph [ref=e3383]: 2. Get the domain from the column named "Email".
+          - paragraph [ref=e3384]: 3. Get the value after @ in the column named "Twitter Handle".
+          - paragraph [ref=e3385]: "4. Split {{city}} by the comma and give me everything before the first comma. If it says \"Area\" in the input, delete Area. After that, add \"\" to every input."
+          - paragraph [ref=e3386]: 5. Get the first word from "Column 1" and add it to "Column 2". Then remove all non letters.
+          - paragraph [ref=e3387]: "6. Get the amount of days between {{Created Date}} and {{Closed Date}}."

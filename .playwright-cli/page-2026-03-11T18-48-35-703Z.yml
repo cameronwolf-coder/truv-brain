@@ -1,0 +1,470 @@
+- generic [active] [ref=e1]:
+  - generic:
+    - region "Notification Toasts":
+      - heading "0 notifications total" [level=2] [ref=e1068]
+  - dialog [ref=e1351]:
+    - generic [ref=e1353]:
+      - heading "Launch your ad set with confidence" [level=4] [ref=e1354]
+      - alert [ref=e1355]: Forecasted results will update when you adjust your audience, format, budget or bid.
+    - button "Dismiss" [ref=e1357] [cursor=pointer]:
+      - img [ref=e1359]
+      - generic [ref=e1361]: Dismiss
+  - button [ref=e1362] [cursor=pointer]:
+    - img [ref=e29]
+  - generic [ref=e32]:
+    - generic [ref=e35]:
+      - button [ref=e1363] [cursor=pointer]: Skip to main content
+      - button [ref=e1364] [cursor=pointer]:
+        - img [ref=e38]
+        - generic [ref=e40]: Close jump menu
+    - banner [ref=e41]:
+      - generic [ref=e42]:
+        - button [ref=e49] [cursor=pointer]:
+          - generic [ref=e51]:
+            - generic [ref=e52]:
+              - img [ref=e54]:
+                - img [ref=e55]
+              - img [ref=e58]
+            - img [ref=e61]
+        - generic [ref=e1071]:
+          - heading [level=2] [ref=e1365]: Actions List
+          - list [ref=e1072]:
+            - listitem [ref=e1073]:
+              - generic [ref=e1075]: Truv Ad Account
+              - img [ref=e1366]
+          - separator [ref=e1079]
+        - button [ref=e1367] [cursor=pointer]:
+          - generic [ref=e66]:
+            - generic [ref=e67]: At least one account has unseen notifications, click to enter notifications experience
+            - generic [ref=e68]:
+              - generic [ref=e69]:
+                - generic [ref=e70]: "2"
+                - generic [ref=e71]: 2 new account notifications
+              - img [ref=e73]
+        - button [ref=e1368] [cursor=pointer]:
+          - img [ref=e1369]:
+            - img [ref=e80]
+        - button [ref=e1370] [cursor=pointer]:
+          - generic [ref=e83]:
+            - generic [ref=e84]: Open user menu
+            - img [ref=e1371]
+    - main [ref=e180]:
+      - generic [ref=e1374]:
+        - button [ref=e1375] [cursor=pointer]:
+          - img [ref=e1377]
+          - generic [ref=e1379]: Back to account
+        - list [ref=e1381]:
+          - listitem [ref=e1382]:
+            - generic [ref=e1383]: Truv Ad Account / CCM Document Ad - Lending
+          - listitem [ref=e1384]:
+            - generic [ref=e1385]: Lead generation - Mar 11, 2026
+        - paragraph [ref=e1389]: New ad set
+      - generic [ref=e1391]:
+        - complementary [ref=e1392]:
+          - generic [ref=e1393]:
+            - generic [ref=e1394]:
+              - heading [level=4] [ref=e1395]: Campaign
+              - button [ref=e1396] [cursor=pointer]:
+                - button [ref=e1397]:
+                  - paragraph [ref=e1399]: CCM Document Ad - Lending
+            - generic [ref=e1400]:
+              - heading [level=4] [ref=e1401]: Ad set
+              - button [ref=e1402] [cursor=pointer]: Skip to the main content
+              - heading [level=3] [ref=e1403]: Set up ad set
+              - list [ref=e1404]:
+                - listitem [ref=e1405]:
+                  - button [ref=e1407] [cursor=pointer]: Ad set details
+                - listitem [ref=e1408]:
+                  - button [ref=e1410] [cursor=pointer]: What you’re marketing
+                - listitem [ref=e1411]:
+                  - button [ref=e1413] [cursor=pointer]: Audience
+                - listitem [ref=e1414]:
+                  - button [ref=e1416] [cursor=pointer]: Ad format
+                - listitem [ref=e1417]:
+                  - button [ref=e1419] [cursor=pointer]: URL parameters
+                - listitem [ref=e1420]:
+                  - button [ref=e1422] [cursor=pointer]: Placement
+                - listitem [ref=e1423]:
+                  - button [ref=e1425] [cursor=pointer]: Budget and schedule
+                - listitem [ref=e1426]:
+                  - button [ref=e1428] [cursor=pointer]: Conversion tracking
+            - generic [ref=e1429]:
+              - heading [level=4] [ref=e1430]: Ads in this ad set
+              - button [disabled] [ref=e1431]: Set up ads
+              - list [ref=e1432]
+            - button [disabled] [ref=e1434]: Review & Launch
+        - generic [ref=e1436]:
+          - generic [ref=e1437]:
+            - generic [ref=e1439]:
+              - heading [level=5] [ref=e1440]: Ad set details
+              - generic [ref=e1441]:
+                - generic [ref=e1442]: Ad set name
+                - generic [ref=e1444]:
+                  - textbox [ref=e1445]: Lead generation - Mar 11, 2026
+                  - generic [ref=e1447]: 30/200
+              - generic [ref=e1450]:
+                - text: Campaign objective
+                - paragraph [ref=e1451]: Lead generation
+            - generic [ref=e1453]:
+              - generic [ref=e1454]:
+                - heading [level=5] [ref=e1456]: What you’re marketing
+                - button [ref=e1458] [cursor=pointer]:
+                  - generic [ref=e1459]: Add new
+              - paragraph [ref=e1460]: We’ll analyze the source URL to optimize your audiences and create draft ads
+              - generic [ref=e1463]:
+                - generic [ref=e1464]: Cross Country Mortgage Case Study • https://truv.com/lp/crosscountry-mortgage-case-study
+                - button [ref=e1466] [cursor=pointer]:
+                  - img [ref=e1468]
+                  - generic [ref=e1470]: Remove Cross Country Mortgage Case Study
+            - generic [ref=e1472]:
+              - img [ref=e1473]
+              - generic [ref=e1475]:
+                - paragraph [ref=e1476]: Use Auto-Targeting to maximize results
+                - paragraph [ref=e1477]: AI-powered targeting based on your product listing to optimize for key results
+                - generic [ref=e1478]:
+                  - button [ref=e1479] [cursor=pointer]:
+                    - generic [ref=e1480]: Try it now
+                  - button [ref=e1481] [cursor=pointer]:
+                    - generic [ref=e1482]: Dismiss
+            - generic [ref=e1484]:
+              - region [ref=e1485]:
+                - generic [ref=e1487]:
+                  - generic [ref=e1488]:
+                    - heading [level=2] [ref=e1489]: Audience
+                    - button [ref=e1491] [cursor=pointer]:
+                      - img [ref=e1493]
+                      - generic [ref=e1495]: Saved Audiences
+                    - button [ref=e1497] [cursor=pointer]:
+                      - img [ref=e1499]
+                      - generic [ref=e1501]:
+                        - img [ref=e1502]:
+                          - img [ref=e1503]
+                        - text: Audiences
+                  - button [ref=e1506] [cursor=pointer]:
+                    - img [ref=e1508]
+                    - generic [ref=e1510]: Use Auto-Targeting
+                - paragraph [ref=e1512]: Create a new audience
+              - generic [ref=e1513]:
+                - heading [level=3] [ref=e1514]: Where is your target audience?
+                - article [ref=e1515]:
+                  - generic [ref=e1516]:
+                    - paragraph [ref=e1517]:
+                      - generic [ref=e1518]: Locations (recent or permanent)
+                      - button [ref=e1519] [cursor=pointer]:
+                        - img [ref=e1521]
+                    - generic [ref=e1525]: United States
+                - paragraph [ref=e1526]:
+                  - button [ref=e1527] [cursor=pointer]:
+                    - generic [ref=e1528]: Exclude
+                  - generic [ref=e1529]: people in other locations
+                - article [ref=e1530]:
+                  - generic [ref=e1531]:
+                    - generic [ref=e1532]:
+                      - generic [ref=e1533]: Your audience has their Profile Language set to
+                      - combobox [ref=e1536] [cursor=pointer]
+                      - button [ref=e1538] [cursor=pointer]:
+                        - img [ref=e1540]
+                        - generic [ref=e1542]: Learn more about Profile language
+                    - paragraph [ref=e1543]: Your audience size will vary depending on the language you select. By selecting English, your ad set will target all member accounts in the location your ad set is targeting, regardless of the language member accounts have selected on their profiles.*
+                    - paragraph [ref=e1544]: "*This does not apply for Sponsored Messaging."
+                - heading [level=3] [ref=e1545]: Who is your target audience?
+                - region [ref=e1546]:
+                  - generic [ref=e1547]:
+                    - button [ref=e1548] [cursor=pointer]:
+                      - generic [ref=e1549]: Add buyer groups
+                    - paragraph [ref=e1550]:
+                      - generic [ref=e1551]:
+                        - text: Reach more decision-makers and key stakeholders for your product to drive more sales conversions.
+                        - link [ref=e1552] [cursor=pointer]:
+                          - /url: https://www.linkedin.com/help/lms/answer/a7437052?accountId=517969837
+                          - text: Learn more
+                - article [ref=e1553]:
+                  - paragraph [ref=e1556]:
+                    - generic [ref=e1557]: Start building your audience by searching for attributes of professionals you want to reach
+                    - button [ref=e1559] [cursor=pointer]:
+                      - generic [ref=e1560]: Close
+                  - generic [ref=e1562]:
+                    - status [ref=e1563]: Loading
+                    - progressbar [ref=e1564]
+                    - paragraph [ref=e1565]: Loading
+                - paragraph [ref=e1566]:
+                  - button [ref=e1567] [cursor=pointer]:
+                    - generic [ref=e1568]: Exclude
+                  - generic [ref=e1569]: people by audience attributes and Matched Audiences
+                - paragraph [ref=e1570]:
+                  - text: LinkedIn tools may not be used to discriminate based on personal characteristics like gender, age, or actual or perceived race/ethnicity.
+                  - link [ref=e1572] [cursor=pointer]:
+                    - /url: https://www.linkedin.com/help/lms/answer/86856?accountId=517969837
+                    - text: Learn more
+                - paragraph [ref=e1573]:
+                  - generic [ref=e1574]:
+                    - checkbox [checked] [ref=e1576] [cursor=pointer]
+                    - generic [ref=e1577] [cursor=pointer]: Enable Audience Expansion
+                    - button [ref=e1578] [cursor=pointer]:
+                      - img [ref=e1580]
+                      - generic [ref=e1582]: Learn more about Enable Audience Expansion
+              - generic [ref=e1583]:
+                - button [ref=e1585] [cursor=pointer]:
+                  - generic [ref=e1586]: Reset audience
+                - button [ref=e1588] [cursor=pointer]:
+                  - generic [ref=e1589]: View audience summary
+                - button [ref=e1591] [cursor=pointer]:
+                  - generic [ref=e1592]: Save audience
+            - generic [ref=e1595]:
+              - heading [level=5] [ref=e1598]: Ad format
+              - group [ref=e1601]:
+                - generic [ref=e1602]: Select an ad format that will perform best with your ad set objective.
+                - generic [ref=e1605]:
+                  - generic [ref=e1606] [cursor=pointer]:
+                    - radio [checked]
+                    - img [ref=e1607]
+                    - generic [ref=e1610]:
+                      - img [ref=e1611]:
+                        - img [ref=e1612]
+                      - paragraph [ref=e1614]: Single image
+                  - generic [ref=e1615] [cursor=pointer]:
+                    - radio
+                    - generic [ref=e1617]:
+                      - img [ref=e1618]:
+                        - img [ref=e1619]
+                      - paragraph [ref=e1621]: Carousel image
+                  - generic [ref=e1622] [cursor=pointer]:
+                    - radio
+                    - generic [ref=e1624]:
+                      - img [ref=e1625]:
+                        - img [ref=e1626]
+                      - paragraph [ref=e1628]: Video
+                  - generic [ref=e1629] [cursor=pointer]:
+                    - radio
+                    - generic [ref=e1631]:
+                      - img [ref=e1632]:
+                        - img [ref=e1633]
+                      - paragraph [ref=e1635]: Message
+                  - generic [ref=e1636] [cursor=pointer]:
+                    - radio
+                    - generic [ref=e1638]:
+                      - img [ref=e1639]:
+                        - img [ref=e1640]
+                      - paragraph [ref=e1642]: Conversation
+                  - generic [ref=e1643] [cursor=pointer]:
+                    - radio
+                    - generic [ref=e1645]:
+                      - img [ref=e1646]:
+                        - img [ref=e1647]
+                      - paragraph [ref=e1649]: Document
+                  - generic [ref=e1650] [cursor=pointer]:
+                    - radio
+                    - generic [ref=e1651]: New
+                    - generic [ref=e1653]:
+                      - img [ref=e1654]:
+                        - img [ref=e1655]
+                      - paragraph [ref=e1657]: Article and newsletter
+            - generic [ref=e1659]:
+              - heading [level=5] [ref=e1661]: URL tracking parameters (optional)
+              - paragraph [ref=e1662]:
+                - generic [ref=e1663]:
+                  - text: Dynamic URL tracking parameters track the performance of your ad set and ads. Parameters will apply to all ads in your ad set. The full URL parameter will be a combination of account level, ad set level, and ad level parameters.
+                  - link [ref=e1664] [cursor=pointer]:
+                    - /url: https://www.linkedin.com/help/lms/answer/a5968064?accountId=517969837
+                    - text: Learn more
+              - generic [ref=e1665]: Account tracking parameters
+              - link [ref=e1666] [cursor=pointer]:
+                - /url: /campaignmanager/accounts/517969837/tracking-parameters?businessId=7404539754668773386
+                - generic [ref=e1667]: Add account level parameters
+              - generic [ref=e1668]:
+                - generic [ref=e1669]: Ad set tracking parameters
+                - textbox [ref=e1670]:
+                  - /placeholder: "account_id={{ACCOUNT_ID}}&utm_source=LinkedIn"
+            - generic [ref=e1672]:
+              - heading [level=5] [ref=e1675]: Placements
+              - generic [ref=e1676]:
+                - paragraph [ref=e1677]: Show your ads to the right people in the right places. We will optimize delivery of your ads across all available placements based on where we estimate you’ll get the most leads.
+                - generic [ref=e1679]: "Selected placements: LinkedIn"
+                - generic [ref=e1680]:
+                  - generic [ref=e1682]:
+                    - checkbox [checked] [disabled] [ref=e1684]
+                    - generic [ref=e1685]:
+                      - paragraph [ref=e1686]: LinkedIn
+                      - paragraph [ref=e1687]: Place ads on LinkedIn properties, like the website or mobile app
+                  - generic [ref=e1688]:
+                    - checkbox [disabled] [ref=e1690]
+                    - generic [ref=e1691]:
+                      - button [ref=e1692] [cursor=pointer]:
+                        - generic [ref=e1693]: LinkedIn Audience Network
+                      - paragraph [ref=e1694]: Place ads on trusted 3rd party publishers where LinkedIn audiences engage
+                - status [ref=e1695]:
+                  - generic [ref=e1696]:
+                    - img [ref=e1698]
+                    - generic [ref=e1701]: The LinkedIn Audience Network is not currently available for the objective or ad format you selected.
+              - generic [ref=e1702]:
+                - separator [ref=e1703]
+                - generic [ref=e1704]:
+                  - heading [level=2] [ref=e1705]: Brand suitability
+                  - paragraph [ref=e1706]:
+                    - text: Prevent your ads from showing near content that doesn’t align with your brand.
+                    - link [ref=e1708] [cursor=pointer]:
+                      - /url: https://www.linkedin.com/help/lms/answer/a1337901?accountId=517969837
+                      - text: Learn more
+                  - status [ref=e1709]:
+                    - generic [ref=e1710]:
+                      - img [ref=e1712]
+                      - generic [ref=e1715]:
+                        - text: These lists are controlled in the brand safety hub. To make changes to them,
+                        - link [ref=e1716] [cursor=pointer]:
+                          - /url: /campaignmanager/accounts/517969837/brand-safety
+                          - text: go to the brand safety hub
+                        - text: .
+                  - button [ref=e1717] [cursor=pointer]:
+                    - generic [ref=e1718]: Upload block list
+            - generic [ref=e1721]:
+              - heading [level=5] [ref=e1723]: Budget and schedule
+              - status [ref=e1725]:
+                - generic [ref=e1726]:
+                  - img [ref=e1728]
+                  - generic [ref=e1731]: Your campaign is scheduled to run from 3/11/2026
+              - generic [ref=e1734]:
+                - generic [ref=e1736]:
+                  - generic [ref=e1737]: Budget
+                  - combobox [ref=e1738] [cursor=pointer]
+                - generic [ref=e1741]:
+                  - button [ref=e1742] [cursor=pointer]:
+                    - generic [ref=e1743]: Daily budget
+                  - generic [ref=e1745]:
+                    - generic [ref=e1746]:
+                      - generic [ref=e1747]: Daily budget Currency in United States of America, Dollar (USD)
+                      - textbox [ref=e1750]: $250.00
+                    - generic [ref=e1751]:
+                      - paragraph [ref=e1752]: Actual amount may exceed daily target
+                      - button [ref=e1753] [cursor=pointer]:
+                        - img [ref=e1755]
+                        - generic [ref=e1757]: Learn more about Actual amount may exceed daily target
+              - group [ref=e1758]:
+                - generic [ref=e1761]: Schedule
+                - generic [ref=e1762]:
+                  - generic [ref=e1763]:
+                    - radio [checked] [ref=e1764] [cursor=pointer]
+                    - generic [ref=e1765]:
+                      - generic [ref=e1766]: Select ad set run schedule type
+                      - text: Run ad set continuously
+                    - generic [ref=e1767]:
+                      - generic [ref=e1770]:
+                        - generic [ref=e1771]: Start date
+                        - textbox [ref=e1772]: 3/11/2026
+                        - generic [ref=e1774]: mm/dd/yyyy
+                      - paragraph [ref=e1775]: Your ad set will run continuously starting from March 11, 2026. Your ad set will spend no more than $1,250.00 this week. From next week, your ad set will spend no more than $1,750.00 in a week.
+                  - generic [ref=e1776]:
+                    - radio [ref=e1777] [cursor=pointer]
+                    - generic [ref=e1778]:
+                      - generic [ref=e1779]: Select ad set run schedule type
+                      - text: Set a start and end date
+              - separator [ref=e1780]
+              - generic [ref=e1781]:
+                - heading [level=5] [ref=e1784]: Bidding
+                - status [ref=e1785]:
+                  - generic [ref=e1786]:
+                    - img [ref=e1788]
+                    - generic [ref=e1792]:
+                      - text: Enable the qualified leads optimization goal to drive more qualified leads and reduce your cost per qualified lead by up to 30%.
+                      - link [ref=e1793] [cursor=pointer]:
+                        - /url: https://www.linkedin.com/help/lms/answer/a6553958?accountId=517969837
+                        - text: Learn more
+                - generic [ref=e1794]:
+                  - heading [level=5] [ref=e1795]: Optimization goal
+                  - button [ref=e1796] [cursor=pointer]:
+                    - img [ref=e1798]
+                    - generic [ref=e1800]: Learn more about Optimization goal
+                - generic [ref=e1801]:
+                  - paragraph [ref=e1802]: Leads
+                  - button [ref=e1803] [cursor=pointer]: Change
+                - generic [ref=e1804]:
+                  - heading [level=5] [ref=e1805]: Bidding strategy
+                  - button [ref=e1806] [cursor=pointer]:
+                    - img [ref=e1808]
+                    - generic [ref=e1810]: Learn more about Bidding strategy
+                - group [ref=e1811]:
+                  - generic [ref=e1812]: Bidding strategy
+                  - generic [ref=e1814]:
+                    - radio [checked] [ref=e1816] [cursor=pointer]
+                    - generic [ref=e1817]:
+                      - button [ref=e1819] [cursor=pointer]:
+                        - generic [ref=e1820]: Maximum delivery
+                      - generic [ref=e1821]: "- Get the most results possible with your full budget"
+                  - generic [ref=e1823]:
+                    - radio [ref=e1825] [cursor=pointer]
+                    - generic [ref=e1826]:
+                      - button [ref=e1828] [cursor=pointer]:
+                        - generic [ref=e1829]: Cost cap
+                      - generic [ref=e1830]: "- Get as many results as possible while staying under your desired maximum cost per result"
+                - button [ref=e1832] [cursor=pointer]:
+                  - text: Show additional options
+                  - img [ref=e1834]
+                - status [ref=e1837]:
+                  - generic [ref=e1838]:
+                    - img [ref=e1840]
+                    - generic [ref=e1843]:
+                      - paragraph [ref=e1844]: Focus your budget on an audience ready to become qualified leads.
+                      - generic [ref=e1845]:
+                        - text: Connect your integration partner with our conversions API to seamlessly track engagement through the marketing funnel.
+                        - link [ref=e1846] [cursor=pointer]:
+                          - /url: https://www.linkedin.com/help/lms/answer/a6553958?accountId=517969837
+                          - text: Learn more
+            - generic [ref=e1848]:
+              - generic [ref=e1850]:
+                - generic [ref=e1851]:
+                  - heading [level=5] [ref=e1852]: Conversion tracking (optional)
+                  - button [ref=e1853] [cursor=pointer]:
+                    - img [ref=e1855]
+                    - generic [ref=e1857]: Information for conversion tracking
+                - button [ref=e1859] [cursor=pointer]:
+                  - img [ref=e1861]
+                  - generic [ref=e1863]: Create new conversion
+              - paragraph [ref=e1864]: Measure the actions members take on your website after clicking or viewing your LinkedIn ad.
+              - generic [ref=e1866]:
+                - img [ref=e1868]
+                - generic [ref=e1870]:
+                  - heading [level=5] [ref=e1871]: Create a Qualified lead conversion to gain better insights into your ad set
+                  - paragraph [ref=e1872]: We’ll help you set up the conversion based on your data source and business needs. Review and confirm the details to create the conversion.
+                  - generic [ref=e1873]:
+                    - button [ref=e1875] [cursor=pointer]:
+                      - generic [ref=e1876]: Create Qualified lead conversion
+                    - button [ref=e1878] [cursor=pointer]:
+                      - generic [ref=e1879]: Dismiss
+              - region [ref=e1880]: Selected Conversions (1)
+              - button [ref=e1882] [cursor=pointer]:
+                - generic [ref=e1883]: Case Study Lead
+                - img [ref=e1885]
+              - generic [ref=e1889]:
+                - status [ref=e1890]: Loading
+                - progressbar [ref=e1891]
+              - region [ref=e1892]: There are 0 search results
+              - status [ref=e1894]:
+                - generic [ref=e1895]:
+                  - img [ref=e1897]
+                  - generic [ref=e1900]:
+                    - text: To optimize and report conversions, you need an
+                    - strong [ref=e1901]: active conversion
+                    - text: . Relevant conversions are pre-selected based on when they were recently used or modified. You can edit or add more conversions later by going to the
+                    - link [ref=e1902] [cursor=pointer]:
+                      - /url: https://www.linkedin.com/ad/accounts/517969837/conversions
+                      - text: Conversions
+                    - text: page under Account Assets.
+            - generic [ref=e1903]:
+              - button [ref=e1905] [cursor=pointer]:
+                - generic [ref=e1906]: Previous
+              - generic [ref=e1907]:
+                - button [ref=e1908] [cursor=pointer]:
+                  - generic [ref=e1909]: Save and exit
+                - button [ref=e1911] [cursor=pointer]:
+                  - generic [ref=e1912]: Next
+          - generic [ref=e1914]:
+            - generic [ref=e1916]:
+              - heading [level=5] [ref=e1917]:
+                - generic [ref=e1920]: Forecasted results
+              - button [ref=e1921] [cursor=pointer]:
+                - img [ref=e1923]
+                - generic [ref=e1925]: Learn more about forecasted results
+            - generic [ref=e1928]:
+              - button [ref=e1929] [cursor=pointer]: Target audience size
+              - heading [level=5] [ref=e1930]:
+                - generic [ref=e1933]: 280,000,000+
+  - generic [ref=e909]: Your search has 0 results

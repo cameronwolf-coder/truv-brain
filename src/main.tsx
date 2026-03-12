@@ -22,6 +22,7 @@ import { UrlToEmail } from './pages/UrlToEmail';
 import { EmailPerformance } from './pages/EmailPerformance';
 const MarketingHub = lazy(() => import('./pages/MarketingHub').then((m) => ({ default: m.MarketingHub })));
 const Hub = lazy(() => import('./pages/Hub').then((m) => ({ default: m.Hub })));
+const VideoEditor = lazy(() => import('./pages/VideoEditor').then((m) => ({ default: m.VideoEditor })));
 import './index.css';
 
 const router = createBrowserRouter([
@@ -92,6 +93,10 @@ const router = createBrowserRouter([
       {
         path: 'email-performance',
         element: <EmailPerformance />,
+      },
+      {
+        path: 'video-editor',
+        element: <Suspense fallback={<div className="p-8 text-gray-500">Loading...</div>}><VideoEditor /></Suspense>,
       },
       {
         path: 'marketing-hub',

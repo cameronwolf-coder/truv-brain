@@ -1,0 +1,509 @@
+- generic [active] [ref=e1]:
+  - generic:
+    - region "Notification Toasts":
+      - heading "4 notifications total" [level=2] [ref=e9]
+      - paragraph [ref=e10]: Dismiss the current notification to hear the previous.
+      - generic [ref=e11]:
+        - generic [ref=e12]:
+          - img [ref=e14]
+          - alert [ref=e17]:
+            - generic [ref=e19]: Your ad has been saved successfully.
+          - button "Dismiss “Your ad has been saved successfully.” notification 1 of 4." [ref=e21] [cursor=pointer]:
+            - img [ref=e23]
+        - generic [ref=e26]:
+          - time [ref=e28]: 8m ago
+          - generic [ref=e29]: 1/4
+  - button "Chat with us" [ref=e31] [cursor=pointer]:
+    - img [ref=e33]
+  - generic [ref=e36]:
+    - generic [ref=e39]:
+      - button "Skip to main content" [ref=e40] [cursor=pointer]
+      - button "Close jump menu" [ref=e41] [cursor=pointer]:
+        - img [ref=e42]
+        - generic [ref=e44]: Close jump menu
+    - banner [ref=e45]:
+      - generic [ref=e46]:
+        - button [ref=e48] [cursor=pointer]:
+          - generic [ref=e50]:
+            - generic [ref=e51]:
+              - img [ref=e53]:
+                - img [ref=e54]
+              - img [ref=e57]
+            - img [ref=e60]
+        - generic [ref=e62]:
+          - heading "Actions List" [level=2] [ref=e63]
+          - list [ref=e64]:
+            - listitem [ref=e65]:
+              - generic [ref=e67]: Truv Ad Account
+              - img "Truv company icon" [ref=e70]
+          - separator [ref=e71]
+        - button "At least one account has unseen notifications, click to enter notifications experience 1 new account notification" [ref=e73] [cursor=pointer]:
+          - generic [ref=e74]:
+            - generic [ref=e75]: At least one account has unseen notifications, click to enter notifications experience
+            - generic [ref=e76]:
+              - generic [ref=e77]:
+                - generic [ref=e78]: "1"
+                - generic [ref=e79]: 1 new account notification
+              - img [ref=e81]
+        - button "Learn more about campaign manager" [ref=e84] [cursor=pointer]:
+          - img "Help" [ref=e86]:
+            - img [ref=e88]
+        - button "Open user menu Icon for Truv" [ref=e90] [cursor=pointer]:
+          - generic [ref=e91]:
+            - generic [ref=e92]: Open user menu
+            - img "Icon for Truv" [ref=e94]
+    - main [ref=e97]:
+      - generic [ref=e100]:
+        - button "Back to account" [ref=e101] [cursor=pointer]:
+          - img [ref=e103]
+          - generic [ref=e105]: Back to account
+        - list [ref=e107]:
+          - listitem [ref=e108]:
+            - generic [ref=e109]: Truv Ad Account / CCM Document Ad - Lending
+          - listitem [ref=e110]:
+            - generic [ref=e111]: Ads in this ad set
+        - generic [ref=e112]:
+          - generic [ref=e114]:
+            - generic [ref=e115]: Active
+            - generic [ref=e117] [cursor=pointer]:
+              - generic [ref=e118]: "On"
+              - switch "Toggle on or off the ad set status" [checked]
+          - button [ref=e120] [cursor=pointer]:
+            - img [ref=e122]
+      - generic [ref=e127]:
+        - complementary [ref=e128]:
+          - generic [ref=e129]:
+            - generic [ref=e130]:
+              - heading "Campaign" [level=4] [ref=e131]
+              - button "CCM Document Ad - Lending" [ref=e132] [cursor=pointer]:
+                - button "CCM Document Ad - Lending" [ref=e133]:
+                  - paragraph [ref=e135]: CCM Document Ad - Lending
+            - generic [ref=e136]:
+              - heading "Ad set" [level=4] [ref=e137]
+              - button "Document Ads - Ops & Lending Case Studies" [ref=e138] [cursor=pointer]:
+                - button "Document Ads - Ops & Lending Case Studies" [ref=e139]:
+                  - paragraph [ref=e141]: Document Ads - Ops & Lending Case Studies
+              - list [ref=e142]:
+                - listitem [ref=e143]:
+                  - button "Scroll down to in the page" [ref=e145] [cursor=pointer]: Ad set details
+                - listitem [ref=e146]:
+                  - button "Scroll down to Audience in the page" [ref=e148] [cursor=pointer]: Audience
+                - listitem [ref=e149]:
+                  - button "Scroll down to Ad format in the page" [ref=e151] [cursor=pointer]: Ad format
+                - listitem [ref=e152]:
+                  - button "Scroll down to in the page" [ref=e154] [cursor=pointer]: URL parameters
+                - listitem [ref=e155]:
+                  - button "Scroll down to Placement in the page" [ref=e157] [cursor=pointer]: Placement
+                - listitem [ref=e158]:
+                  - button "Scroll down to Budget and Schedule in the page" [ref=e160] [cursor=pointer]: Budget and schedule
+                - listitem [ref=e161]:
+                  - button "Scroll down to Conversion Tracking in the page" [ref=e163] [cursor=pointer]: Conversion tracking
+            - generic [ref=e164]:
+              - heading "13 ads in this ad set" [level=4] [ref=e165]
+              - heading "Manage ads" [level=3] [ref=e166]
+              - list [ref=e167]:
+                - listitem [ref=e168]:
+                  - generic [ref=e170]: Document Ad
+            - button "Review & Launch" [ref=e172] [cursor=pointer]
+        - generic [ref=e174]:
+          - generic [ref=e175]:
+            - alert
+            - generic "Section for Document Ads" [ref=e176]:
+              - generic [ref=e177]:
+                - generic [ref=e178]:
+                  - generic [ref=e179]:
+                    - heading "Ads in this ad set" [level=2] [ref=e180]
+                    - button "Ad rotation options" [ref=e182] [cursor=pointer]:
+                      - img [ref=e184]
+                      - generic [ref=e186]: Ad rotation options
+                  - generic [ref=e188]:
+                    - button "Create new ad" [ref=e190] [cursor=pointer]:
+                      - generic [ref=e191]: Create new ad
+                    - button "Browse existing content" [ref=e192] [cursor=pointer]:
+                      - generic [ref=e193]: Browse existing content
+                - generic [ref=e197]:
+                  - generic [ref=e199]:
+                    - textbox "Filter table contents" [ref=e202]:
+                      - /placeholder: Search
+                    - status
+                  - table "List of ads in this ad set" [ref=e203]:
+                    - caption [ref=e204]: List of ads in this ad set
+                    - rowgroup [ref=e205]:
+                      - row "Feed Ads" [ref=e206]:
+                        - columnheader "Feed Ads" [ref=e207]:
+                          - button "Feed Ads" [ref=e208]:
+                            - generic [ref=e209]: Feed Ads
+                            - img [ref=e210]
+                    - rowgroup [ref=e212]:
+                      - row "Draft Open actions menu" [ref=e213]:
+                        - cell [ref=e214]:
+                          - article [ref=e215]:
+                            - generic [ref=e219]:
+                              - paragraph [ref=e221]: Prosperity Case Study - Document Ad (White)
+                              - paragraph [ref=e222]:
+                                - generic [ref=e223]: How Prosperity Cut Verification Costs by 60%
+                                - generic [ref=e224]: · 6 pages
+                              - paragraph [ref=e225]: Prosperity Home Mortgage reduced verification costs by 60% and accelerated closings with Truv. See how they modernized their operations.
+                              - paragraph [ref=e226]:
+                                - text: Document ad
+                                - generic [ref=e227]: · Direct sponsored
+                                - generic [ref=e228]: "· ID: 1370147026"
+                                - button "· 1 ad set" [ref=e229] [cursor=pointer]:
+                                  - generic:
+                                    - text: ·
+                                    - generic: 1 ad set
+                              - generic [ref=e230]: "Linked Lead Gen Form:"
+                              - button "Prosperity Home Mortgage Case Study" [ref=e231] [cursor=pointer]
+                        - cell "Draft" [ref=e232]:
+                          - button "Draft" [ref=e234] [cursor=pointer]:
+                            - img [ref=e236]
+                            - generic "Draft" [ref=e239]
+                        - cell "Open actions menu" [ref=e240]:
+                          - button "Open actions menu" [ref=e243] [cursor=pointer]:
+                            - img [ref=e244]
+                      - row "Draft Open actions menu" [ref=e246]:
+                        - cell [ref=e247]:
+                          - article [ref=e248]:
+                            - generic [ref=e252]:
+                              - paragraph [ref=e254]: Prosperity Case Study - Document Ad (Dark)
+                              - paragraph [ref=e255]:
+                                - generic [ref=e256]: How Prosperity Cut Verification Costs by 60%
+                                - generic [ref=e257]: · 6 pages
+                              - paragraph [ref=e258]: Prosperity Home Mortgage reduced verification costs by 60% and accelerated closings with Truv. See how they modernized their operations.
+                              - paragraph [ref=e259]:
+                                - text: Document ad
+                                - generic [ref=e260]: · Direct sponsored
+                                - generic [ref=e261]: "· ID: 1370272946"
+                                - button "· 1 ad set" [ref=e262] [cursor=pointer]:
+                                  - generic:
+                                    - text: ·
+                                    - generic: 1 ad set
+                              - generic [ref=e263]: "Linked Lead Gen Form:"
+                              - button "Prosperity Home Mortgage Case Study" [ref=e264] [cursor=pointer]
+                        - cell "Draft" [ref=e265]:
+                          - button "Draft" [ref=e267] [cursor=pointer]:
+                            - img [ref=e269]
+                            - generic "Draft" [ref=e272]
+                        - cell "Open actions menu" [ref=e273]:
+                          - button "Open actions menu" [ref=e276] [cursor=pointer]:
+                            - img [ref=e277]
+                      - row "Draft Open actions menu" [ref=e279]:
+                        - cell [ref=e280]:
+                          - article [ref=e281]:
+                            - generic [ref=e285]:
+                              - paragraph [ref=e287]: FCM Case Study - Document Ad (White)
+                              - paragraph [ref=e288]:
+                                - generic [ref=e289]: How First Continental Cut Verification Time by 85%
+                                - generic [ref=e290]: · 6 pages
+                              - paragraph [ref=e291]: First Continental Mortgage slashed verification turnaround by 85% and improved borrower experience with Truv. See how they did it.
+                              - paragraph [ref=e292]:
+                                - text: Document ad
+                                - generic [ref=e293]: · Direct sponsored
+                                - generic [ref=e294]: "· ID: 1370262716"
+                                - button "· 1 ad set" [ref=e295] [cursor=pointer]:
+                                  - generic:
+                                    - text: ·
+                                    - generic: 1 ad set
+                              - generic [ref=e296]: "Linked Lead Gen Form:"
+                              - button "First Continental Mortgage Case Study" [ref=e297] [cursor=pointer]
+                        - cell "Draft" [ref=e298]:
+                          - button "Draft" [ref=e300] [cursor=pointer]:
+                            - img [ref=e302]
+                            - generic "Draft" [ref=e305]
+                        - cell "Open actions menu" [ref=e306]:
+                          - button "Open actions menu" [ref=e309] [cursor=pointer]:
+                            - img [ref=e310]
+                      - row "Draft Open actions menu" [ref=e312]:
+                        - cell [ref=e313]:
+                          - article [ref=e314]:
+                            - generic [ref=e318]:
+                              - paragraph [ref=e320]: FCM Case Study - Document Ad (Dark)
+                              - paragraph [ref=e321]:
+                                - generic [ref=e322]: How First Continental Cut Verification Time by 85%
+                                - generic [ref=e323]: · 6 pages
+                              - paragraph [ref=e324]: First Continental Mortgage slashed verification turnaround by 85% and improved borrower experience with Truv. See how they did it.
+                              - paragraph [ref=e325]:
+                                - text: Document ad
+                                - generic [ref=e326]: · Direct sponsored
+                                - generic [ref=e327]: "· ID: 1370350166"
+                                - button "· 1 ad set" [ref=e328] [cursor=pointer]:
+                                  - generic:
+                                    - text: ·
+                                    - generic: 1 ad set
+                              - generic [ref=e329]: "Linked Lead Gen Form:"
+                              - button "First Continental Mortgage Case Study" [ref=e330] [cursor=pointer]
+                        - cell "Draft" [ref=e331]:
+                          - button "Draft" [ref=e333] [cursor=pointer]:
+                            - img [ref=e335]
+                            - generic "Draft" [ref=e338]
+                        - cell "Open actions menu" [ref=e339]:
+                          - button "Open actions menu" [ref=e342] [cursor=pointer]:
+                            - img [ref=e343]
+                      - row "Draft Open actions menu" [ref=e345]:
+                        - cell [ref=e346]:
+                          - article [ref=e347]:
+                            - generic [ref=e351]:
+                              - paragraph [ref=e353]: CMG Case Study - Document Ad (White)
+                              - paragraph [ref=e354]:
+                                - generic [ref=e355]: How CMG Saves 45 Minutes Per Loan on Verifications
+                                - generic [ref=e356]: · 6 pages
+                              - paragraph [ref=e357]: CrossCountry Mortgage Group streamlined verification with Truv — saving 45 minutes per loan and boosting completion rates. See the full results.
+                              - paragraph [ref=e358]:
+                                - text: Document ad
+                                - generic [ref=e359]: · Direct sponsored
+                                - generic [ref=e360]: "· ID: 1370098246"
+                                - button "· 1 ad set" [ref=e361] [cursor=pointer]:
+                                  - generic:
+                                    - text: ·
+                                    - generic: 1 ad set
+                              - generic [ref=e362]: "Linked Lead Gen Form:"
+                              - button "CMG Financial Case Study B" [ref=e363] [cursor=pointer]
+                        - cell "Draft" [ref=e364]:
+                          - button "Draft" [ref=e366] [cursor=pointer]:
+                            - img [ref=e368]
+                            - generic "Draft" [ref=e371]
+                        - cell "Open actions menu" [ref=e372]:
+                          - button "Open actions menu" [ref=e375] [cursor=pointer]:
+                            - img [ref=e376]
+                      - row "Draft Open actions menu" [ref=e378]:
+                        - cell [ref=e379]:
+                          - article [ref=e380]:
+                            - generic [ref=e384]:
+                              - paragraph [ref=e386]: CMG Case Study - Document Ad (Dark)
+                              - paragraph [ref=e387]:
+                                - generic [ref=e388]: How CMG Saves 45 Minutes Per Loan on Verifications
+                                - generic [ref=e389]: · 6 pages
+                              - paragraph [ref=e390]: CrossCountry Mortgage Group streamlined verification with Truv — saving 45 minutes per loan and boosting completion rates. See the full results.
+                              - paragraph [ref=e391]:
+                                - text: Document ad
+                                - generic [ref=e392]: · Direct sponsored
+                                - generic [ref=e393]: "· ID: 1370156296"
+                                - button "· 1 ad set" [ref=e394] [cursor=pointer]:
+                                  - generic:
+                                    - text: ·
+                                    - generic: 1 ad set
+                              - generic [ref=e395]: "Linked Lead Gen Form:"
+                              - button "CMG Financial Case Study B" [ref=e396] [cursor=pointer]
+                        - cell "Draft" [ref=e397]:
+                          - button "Draft" [ref=e399] [cursor=pointer]:
+                            - img [ref=e401]
+                            - generic "Draft" [ref=e404]
+                        - cell "Open actions menu" [ref=e405]:
+                          - button "Open actions menu" [ref=e408] [cursor=pointer]:
+                            - img [ref=e409]
+                      - row "Draft Open actions menu" [ref=e411]:
+                        - cell [ref=e412]:
+                          - article [ref=e413]:
+                            - generic [ref=e417]:
+                              - paragraph [ref=e419]: BankSouth Case Study - Document Ad (White)
+                              - paragraph [ref=e420]:
+                                - generic [ref=e421]: How BankSouth Cut Verification Costs by 80%
+                                - generic [ref=e422]: · 6 pages
+                              - paragraph [ref=e423]: BankSouth reduced verification costs by 80% and cut turnaround from days to under 2 minutes with Truv. See how they transformed their lending operations.
+                              - paragraph [ref=e424]:
+                                - text: Document ad
+                                - generic [ref=e425]: · Direct sponsored
+                                - generic [ref=e426]: "· ID: 1370254316"
+                                - button "· 1 ad set" [ref=e427] [cursor=pointer]:
+                                  - generic:
+                                    - text: ·
+                                    - generic: 1 ad set
+                              - generic [ref=e428]: "Linked Lead Gen Form:"
+                              - button "BankSouth Case Study B" [ref=e429] [cursor=pointer]
+                        - cell "Draft" [ref=e430]:
+                          - button "Draft" [ref=e432] [cursor=pointer]:
+                            - img [ref=e434]
+                            - generic "Draft" [ref=e437]
+                        - cell "Open actions menu" [ref=e438]:
+                          - button "Open actions menu" [ref=e441] [cursor=pointer]:
+                            - img [ref=e442]
+                      - row "Draft Open actions menu" [ref=e444]:
+                        - cell [ref=e445]:
+                          - article [ref=e446]:
+                            - generic [ref=e450]:
+                              - paragraph [ref=e452]: BankSouth Case Study - Document Ad (Dark)
+                              - paragraph [ref=e453]:
+                                - generic [ref=e454]: How BankSouth Cut Verification Costs by 80%
+                                - generic [ref=e455]: · 6 pages
+                              - paragraph [ref=e456]: BankSouth reduced verification costs by 80% and cut turnaround from days to under 2 minutes with Truv. See how they transformed their lending operations.
+                              - paragraph [ref=e457]:
+                                - text: Document ad
+                                - generic [ref=e458]: · Direct sponsored
+                                - generic [ref=e459]: "· ID: 1370215426"
+                                - button "· 1 ad set" [ref=e460] [cursor=pointer]:
+                                  - generic:
+                                    - text: ·
+                                    - generic: 1 ad set
+                              - generic [ref=e461]: "Linked Lead Gen Form:"
+                              - button "BankSouth Case Study B" [ref=e462] [cursor=pointer]
+                        - cell "Draft" [ref=e463]:
+                          - button "Draft" [ref=e465] [cursor=pointer]:
+                            - img [ref=e467]
+                            - generic "Draft" [ref=e470]
+                        - cell "Open actions menu" [ref=e471]:
+                          - button "Open actions menu" [ref=e474] [cursor=pointer]:
+                            - img [ref=e475]
+                      - row "Active Open actions menu" [ref=e477]:
+                        - cell [ref=e478]:
+                          - article [ref=e479]:
+                            - generic [ref=e483]:
+                              - paragraph [ref=e485]: CCM Case Study - Document Ad
+                              - paragraph [ref=e486]:
+                                - generic [ref=e487]: How CCM Saves $10M/Year on Verifications
+                                - generic [ref=e488]: · 6 pages
+                              - paragraph [ref=e489]: CrossCountry Mortgage cut verification costs and closed loans faster with Truv. See how they saved $10M annually — swipe through the results.
+                              - paragraph [ref=e490]:
+                                - text: Document ad
+                                - generic [ref=e491]: · Direct sponsored
+                                - generic [ref=e492]: "· ID: 1369145986"
+                                - button "· 1 ad set" [ref=e493] [cursor=pointer]:
+                                  - generic:
+                                    - text: ·
+                                    - generic: 1 ad set
+                              - generic [ref=e494]: "Linked Lead Gen Form:"
+                              - generic [ref=e495]: CrossCountry Mortgage Case Study B
+                        - cell "Active" [ref=e496]:
+                          - button "Active" [ref=e498] [cursor=pointer]:
+                            - img [ref=e500]
+                            - generic "Active" [ref=e503]
+                        - cell "Open actions menu" [ref=e504]:
+                          - button "Open actions menu" [ref=e507] [cursor=pointer]:
+                            - img [ref=e508]
+                      - row "Active Open actions menu" [ref=e510]:
+                        - cell [ref=e511]:
+                          - article [ref=e512]:
+                            - generic [ref=e516]:
+                              - paragraph [ref=e518]: CCM Case Study - Document Ad V2
+                              - paragraph [ref=e519]:
+                                - generic [ref=e520]: 70%+ Borrowers Complete Verification on First Try
+                                - generic [ref=e521]: · 6 pages
+                              - paragraph [ref=e522]: CrossCountry Mortgage cut verification costs and closed loans faster with Truv. See how they saved $10M annually — swipe through the results.
+                              - paragraph [ref=e523]:
+                                - text: Document ad
+                                - generic [ref=e524]: · Direct sponsored
+                                - generic [ref=e525]: "· ID: 1369184666"
+                                - button "· 1 ad set" [ref=e526] [cursor=pointer]:
+                                  - generic:
+                                    - text: ·
+                                    - generic: 1 ad set
+                              - generic [ref=e527]: "Linked Lead Gen Form:"
+                              - generic [ref=e528]: CrossCountry Mortgage Case Study B
+                        - cell "Active" [ref=e529]:
+                          - button "Active" [ref=e531] [cursor=pointer]:
+                            - img [ref=e533]
+                            - generic "Active" [ref=e536]
+                        - cell "Open actions menu" [ref=e537]:
+                          - button "Open actions menu" [ref=e540] [cursor=pointer]:
+                            - img [ref=e541]
+                  - navigation [ref=e545]:
+                    - generic [ref=e546]:
+                      - combobox [ref=e548] [cursor=pointer]
+                      - list [ref=e549]:
+                        - listitem [ref=e550]:
+                          - button "Page 1" [ref=e551] [cursor=pointer]: "1"
+                        - listitem [ref=e552]:
+                          - button "Page 2" [ref=e553] [cursor=pointer]: "2"
+                    - button "Next" [ref=e554] [cursor=pointer]:
+                      - img [ref=e556]
+                      - generic [ref=e558]: Next
+            - generic [ref=e559]:
+              - button "Previous" [ref=e561] [cursor=pointer]:
+                - generic [ref=e562]: Previous
+              - generic [ref=e563]:
+                - button "Save and exit" [ref=e564] [cursor=pointer]:
+                  - generic [ref=e565]: Save and exit
+                - button "Next" [ref=e566] [cursor=pointer]:
+                  - generic [ref=e567]: Next
+          - generic [ref=e569]:
+            - generic [ref=e570]:
+              - generic [ref=e571]:
+                - heading "Forecasted results" [level=5] [ref=e572]:
+                  - generic [ref=e574]: Forecasted results
+                - button "Learn more about forecasted results" [ref=e575] [cursor=pointer]:
+                  - img [ref=e577]
+                  - generic [ref=e579]: Learn more about forecasted results
+              - button "Toggle forecast settings menu" [ref=e582] [cursor=pointer]:
+                - img [ref=e583]
+            - generic [ref=e585]:
+              - generic [ref=e586]:
+                - generic [ref=e587]:
+                  - button "Target audience size" [ref=e588] [cursor=pointer]
+                  - heading "130,000+" [level=5] [ref=e589]:
+                    - generic [ref=e592]: 130,000+
+                - alert
+                - alert
+                - generic [ref=e594]:
+                  - generic:
+                    - paragraph [ref=e595]:
+                      - generic [ref=e596]: Segment breakdown
+                      - button "Learn more about audience segmentation" [ref=e597] [cursor=pointer]:
+                        - img [ref=e599]
+                        - generic [ref=e601]: Learn more about audience segmentation
+                    - button "Function" [ref=e602] [cursor=pointer]:
+                      - img [ref=e604]
+                      - generic [ref=e606]: Function
+                  - button "Show segments" [ref=e607] [cursor=pointer]
+              - generic [ref=e608]:
+                - tablist [ref=e612]:
+                  - tab "1-day" [ref=e613] [cursor=pointer]
+                  - tab "7-day" [ref=e614] [cursor=pointer]
+                  - tab "30-day" [selected] [ref=e615] [cursor=pointer]
+                - generic [ref=e616]:
+                  - generic [ref=e617]:
+                    - button "30-day spend" [ref=e618] [cursor=pointer]
+                    - paragraph [ref=e619]:
+                      - generic [ref=e622]: $1,200.00 - $2,100.00
+                  - generic [ref=e623]:
+                    - button "30-day impressions" [ref=e625] [cursor=pointer]
+                    - paragraph [ref=e626]:
+                      - generic [ref=e629]: 10,000 - 28,000
+                  - generic [ref=e630]:
+                    - button "CTR" [ref=e632] [cursor=pointer]
+                    - paragraph [ref=e633]:
+                      - generic [ref=e636]: 0.29% - 0.45%
+                  - generic [ref=e637]:
+                    - button "30-day clicks" [ref=e639] [cursor=pointer]
+                    - paragraph [ref=e640]:
+                      - generic [ref=e643]: 43 - 130
+                  - generic [ref=e644]:
+                    - generic [ref=e645]:
+                      - button "30-day leads" [ref=e646] [cursor=pointer]
+                      - generic [ref=e647]: Key Result
+                    - paragraph [ref=e648]:
+                      - generic [ref=e651]: 0 - 23
+                  - generic [ref=e652]:
+                    - button "30-day cost per lead" [ref=e654] [cursor=pointer]
+                    - paragraph [ref=e655]:
+                      - generic [ref=e658]: $139.22 - $163.67
+                  - generic [ref=e660]:
+                    - text: Forecasted results are directional estimates and do not guarantee performance. Note that some products are not yet incorporated in the results.
+                    - link "Learn more about forecasted results" [ref=e661] [cursor=pointer]:
+                      - /url: https://www.linkedin.com/help/lms/answer/94703?accountId=517969837
+                      - text: Learn more
+                - generic:
+                  - alert
+                  - status
+                  - status
+                  - status
+                  - status
+                  - status
+                  - status
+                  - status
+                  - status
+                  - status
+                  - alert
+                  - status
+                  - status
+                  - status
+                  - status
+                  - status
+                  - status
+                  - status
+            - generic [ref=e662]:
+              - paragraph [ref=e663]: Is this helpful?
+              - generic [ref=e664]:
+                - button "Yes" [ref=e665] [cursor=pointer]:
+                  - generic [ref=e666]: "Yes"
+                - button "No" [ref=e667] [cursor=pointer]:
+                  - generic [ref=e668]: "No"
+  - generic [ref=e670]: Saving your ad

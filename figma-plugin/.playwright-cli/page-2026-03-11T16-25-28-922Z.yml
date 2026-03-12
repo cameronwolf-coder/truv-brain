@@ -1,0 +1,474 @@
+- generic [ref=e3]:
+  - link "Skip to content" [ref=e4] [cursor=pointer]:
+    - /url: "#main-content"
+  - generic [ref=e5]:
+    - navigation [ref=e8]:
+      - button "T Dashboard" [ref=e11] [cursor=pointer]:
+        - generic [ref=e12]: T
+        - generic [ref=e13]: Dashboard
+        - img [ref=e14]
+      - generic [ref=e16]:
+        - listbox [ref=e17]:
+          - generic [ref=e18]:
+            - option "PostHog AI" [ref=e19] [cursor=pointer]:
+              - link "PostHog AI" [ref=e21]:
+                - /url: /project/162662/ai
+                - img [ref=e23]
+                - generic [ref=e25]: PostHog AI
+            - option "Home" [ref=e26] [cursor=pointer]:
+              - link "Home" [ref=e28]:
+                - /url: /project/162662
+                - img [ref=e30]
+                - generic [ref=e32]: Home
+              - button [ref=e33]:
+                - img [ref=e34]
+            - option "Search" [ref=e36] [cursor=pointer]:
+              - button "Search" [ref=e38]:
+                - img [ref=e40]
+                - generic [ref=e42]: Search
+            - option "Activity" [ref=e43] [cursor=pointer]:
+              - link "Activity" [ref=e45]:
+                - /url: /project/162662/activity/explore
+                - img [ref=e47]
+                - generic [ref=e49]: Activity
+            - option "Data management" [ref=e50] [cursor=pointer]:
+              - img [ref=e52]
+              - generic [ref=e54]: Data management
+              - img [ref=e56]
+            - option "People & groups" [ref=e58] [cursor=pointer]:
+              - img [ref=e60]
+              - generic [ref=e62]: People & groups
+              - img [ref=e64]
+            - option "Shortcuts" [ref=e66] [cursor=pointer]:
+              - img [ref=e68]
+              - generic [ref=e70]: Shortcuts
+              - img [ref=e72]
+            - option "Project" [ref=e74] [cursor=pointer]:
+              - img [ref=e76]
+              - generic [ref=e79]: Project
+              - img [ref=e81]
+            - option "All apps" [ref=e83] [cursor=pointer]:
+              - img [ref=e85]
+              - generic [ref=e87]: All apps
+              - img [ref=e89]
+          - generic [ref=e92]:
+            - button [ref=e94] [cursor=pointer]:
+              - img [ref=e95]
+            - generic [ref=e97]:
+              - tree "Tree navigation" [ref=e98]:
+                - generic [ref=e100]:
+                  - generic [ref=e102]: Analytics
+                  - generic [ref=e106] [cursor=pointer]:
+                    - 'treeitem "tree item: Dashboards" [level=1] [ref=e108]':
+                      - img [ref=e113]
+                      - generic [ref=e117]: Dashboards
+                    - button [ref=e118]:
+                      - img [ref=e119]
+                  - generic [ref=e124] [cursor=pointer]:
+                    - 'treeitem "tree item: Marketing analytics" [level=1] [ref=e126]':
+                      - img [ref=e131]
+                      - generic [ref=e134]:
+                        - generic [ref=e135]: Marketing analytics
+                        - generic [ref=e136]: BETA
+                    - button [ref=e137]:
+                      - img [ref=e138]
+                  - generic [ref=e143] [cursor=pointer]:
+                    - 'treeitem "tree item: Product analytics" [level=1] [ref=e145]':
+                      - img [ref=e150]
+                      - generic [ref=e154]: Product analytics
+                    - button [ref=e155]:
+                      - img [ref=e156]
+                  - generic [ref=e161] [cursor=pointer]:
+                    - 'treeitem "tree item: SQL editor" [level=1] [ref=e163]':
+                      - img [ref=e168]
+                      - generic [ref=e174]: SQL editor
+                    - button [ref=e175]:
+                      - img [ref=e176]
+                  - generic [ref=e181] [cursor=pointer]:
+                    - 'treeitem "tree item: Web analytics" [level=1] [ref=e183]':
+                      - img [ref=e188]
+                      - generic [ref=e193]: Web analytics
+                    - button [ref=e194]:
+                      - img [ref=e195]
+                  - generic [ref=e198]: AI engineering
+                  - generic [ref=e202] [cursor=pointer]:
+                    - 'treeitem "tree item: LLM analytics" [level=1] [ref=e204]':
+                      - img [ref=e209]
+                      - generic [ref=e214]: LLM analytics
+                    - button [ref=e215]:
+                      - img [ref=e216]
+                  - generic [ref=e221] [cursor=pointer]:
+                    - 'treeitem "tree item: Clusters" [level=1] [ref=e223]':
+                      - img [ref=e228]
+                      - generic [ref=e233]: Clusters
+                    - button [ref=e234]:
+                      - img [ref=e235]
+                  - generic [ref=e240] [cursor=pointer]:
+                    - 'treeitem "tree item: Evaluations" [level=1] [ref=e242]':
+                      - img [ref=e247]
+                      - generic [ref=e250]:
+                        - generic [ref=e251]: Evaluations
+                        - generic [ref=e252]: BETA
+                    - button [ref=e253]:
+                      - img [ref=e254]
+                  - generic [ref=e259] [cursor=pointer]:
+                    - 'treeitem "tree item: Prompts" [level=1] [ref=e261]':
+                      - img [ref=e266]
+                      - generic [ref=e270]:
+                        - generic [ref=e271]: Prompts
+                        - generic [ref=e272]: BETA
+                    - button [ref=e273]:
+                      - img [ref=e274]
+                  - generic [ref=e277]: Behavior
+                  - generic [ref=e281] [cursor=pointer]:
+                    - 'treeitem "tree item: Error tracking" [level=1] [ref=e283]':
+                      - img [ref=e288]
+                      - generic [ref=e293]: Error tracking
+                    - button [ref=e294]:
+                      - img [ref=e295]
+                  - generic [ref=e300] [cursor=pointer]:
+                    - 'treeitem "tree item: Heatmaps" [level=1] [ref=e302]':
+                      - img [ref=e307]
+                      - generic [ref=e312]:
+                        - generic [ref=e313]: Heatmaps
+                        - generic [ref=e314]: BETA
+                    - button [ref=e315]:
+                      - img [ref=e316]
+                  - generic [ref=e321] [cursor=pointer]:
+                    - 'treeitem "tree item: Logs" [level=1] [ref=e323]':
+                      - img [ref=e328]
+                      - generic [ref=e332]: Logs
+                    - button [ref=e333]:
+                      - img [ref=e334]
+                  - generic [ref=e339] [cursor=pointer]:
+                    - 'treeitem "tree item: Session replay" [level=1] [ref=e341]':
+                      - img [ref=e346]
+                      - generic [ref=e351]: Session replay
+                    - button [ref=e352]:
+                      - img [ref=e353]
+                  - generic [ref=e358] [cursor=pointer]:
+                    - 'treeitem "tree item: Surveys" [level=1] [ref=e360]':
+                      - img [ref=e365]
+                      - generic [ref=e371]: Surveys
+                    - button [ref=e372]:
+                      - img [ref=e373]
+                  - generic [ref=e376]: Features
+                  - generic [ref=e380] [cursor=pointer]:
+                    - 'treeitem "tree item: Experiments" [level=1] [ref=e382]':
+                      - img [ref=e387]
+                      - generic [ref=e392]: Experiments
+                    - button [ref=e393]:
+                      - img [ref=e394]
+                  - generic [ref=e399] [cursor=pointer]:
+                    - 'treeitem "tree item: Feature flags" [level=1] [ref=e401]':
+                      - img [ref=e406]
+                      - generic [ref=e411]: Feature flags
+                    - button [ref=e412]:
+                      - img [ref=e413]
+                  - generic [ref=e416]: Tools
+                  - generic [ref=e420] [cursor=pointer]:
+                    - 'treeitem "tree item: Workflows" [level=1] [ref=e422]':
+                      - img [ref=e427]
+                      - generic [ref=e432]: Workflows
+                    - button [ref=e433]:
+                      - img [ref=e434]
+              - status [ref=e439]
+        - generic [ref=e442]:
+          - link "Settings" [ref=e444] [cursor=pointer]:
+            - /url: /project/162662/settings/project
+            - img [ref=e445]
+            - text: Settings
+          - link "Exports" [ref=e448] [cursor=pointer]:
+            - /url: /project/162662/exports
+            - img [ref=e449]
+            - text: Exports
+          - button "! Health" [ref=e451] [cursor=pointer]:
+            - generic [ref=e453]:
+              - img [ref=e454]
+              - generic: "!"
+            - generic [ref=e456]: Health
+            - img [ref=e457]
+          - button "Help" [ref=e459] [cursor=pointer]:
+            - img [ref=e462]
+            - generic [ref=e466]: Help
+            - img [ref=e467]
+    - generic [ref=e472]:
+      - generic [ref=e475]:
+        - button "Home" [ref=e476]:
+          - button "Home" [ref=e480]:
+            - img [ref=e482]
+            - generic [ref=e484]: Home
+        - link [ref=e487] [cursor=pointer]:
+          - /url: /project/162662/search
+          - img [ref=e488]
+        - button "Where's the panel? 🤔" [ref=e490] [cursor=pointer]
+      - status [ref=e491]
+    - main [ref=e493]:
+      - generic [ref=e494]:
+        - generic [ref=e496]:
+          - generic [ref=e497]:
+            - img [ref=e500]
+            - heading "Truv Dashboard" [level=1] [ref=e503]:
+              - generic [ref=e504]: Truv Dashboard
+          - generic [ref=e505]:
+            - button "View dashboard" [ref=e506] [cursor=pointer]:
+              - generic [ref=e508]: View dashboard
+            - button "Customize homepage" [ref=e509] [cursor=pointer]:
+              - generic [ref=e511]: Customize homepage
+            - button "Invite members" [ref=e512] [cursor=pointer]:
+              - generic [ref=e514]: Invite members
+            - button [ref=e515] [cursor=pointer]:
+              - img [ref=e517]
+            - button [ref=e519] [cursor=pointer]:
+              - img [ref=e520]
+        - generic [ref=e523]:
+          - generic [ref=e525]:
+            - generic [ref=e526]:
+              - button "No date range override" [ref=e528] [cursor=pointer]:
+                - generic [ref=e529]:
+                  - img [ref=e531]
+                  - generic [ref=e535]: No date range override
+                  - img [ref=e537]
+              - button "Filter" [ref=e543] [cursor=pointer]:
+                - generic [ref=e544]:
+                  - img [ref=e546]
+                  - generic [ref=e548]: Filter
+              - button "Breakdown" [ref=e551] [cursor=pointer]:
+                - generic [ref=e552]:
+                  - img [ref=e554]
+                  - generic [ref=e556]: Breakdown
+            - generic [ref=e559]:
+              - generic [ref=e562]:
+                - generic [ref=e563]: Last refreshed
+                - generic [ref=e564]: a few seconds ago
+              - generic [ref=e565]:
+                - generic [ref=e566]:
+                  - button "Refresh" [ref=e567] [cursor=pointer]:
+                    - generic [ref=e568]:
+                      - img [ref=e570]
+                      - generic [ref=e572]: Refresh
+                  - button [ref=e576] [cursor=pointer]:
+                    - img [ref=e579]
+                - button "Refresh and analyze with AI" [ref=e581] [cursor=pointer]:
+                  - img [ref=e582]
+          - generic [ref=e585]:
+            - generic [ref=e586]:
+              - generic [ref=e590]:
+                - generic [ref=e591]:
+                  - heading "Last 30 days" [level=5] [ref=e592]:
+                    - generic [ref=e593]:
+                      - generic [ref=e594]: Last 30 days
+                      - img [ref=e596]
+                  - button "more" [ref=e599] [cursor=pointer]:
+                    - img [ref=e602]
+                - generic [ref=e604]:
+                  - link "Daily active users (DAUs)" [ref=e606] [cursor=pointer]:
+                    - /url: /project/162662/insights/ic1ZpkWp?dashboard=406616&variables_override=%7B%7D&filters_override=%7B%7D&tile_filters_override=%7B%7D
+                    - heading "Daily active users (DAUs)" [level=4] [ref=e607]
+                  - paragraph [ref=e609]: Number of unique users visiting a url that contains (dashboard.truv.com)
+              - generic [ref=e618]:
+                - button [ref=e619] [cursor=pointer]:
+                  - generic:
+                    - img
+                - button [ref=e620] [cursor=pointer]:
+                  - generic:
+                    - img
+                - button [ref=e621] [cursor=pointer]:
+                  - generic:
+                    - img
+                - button [ref=e622] [cursor=pointer]:
+                  - generic:
+                    - img
+                - button [ref=e623] [cursor=pointer]:
+                  - generic:
+                    - img
+                - button [ref=e624] [cursor=pointer]:
+                  - generic:
+                    - img
+                - button [ref=e625] [cursor=pointer]:
+                  - generic:
+                    - img
+            - generic [ref=e633]:
+              - generic [ref=e634]:
+                - heading "Last 30 days" [level=5] [ref=e635]:
+                  - generic [ref=e636]:
+                    - generic [ref=e637]: Last 30 days
+                    - img [ref=e639]
+                - button "more" [ref=e642] [cursor=pointer]:
+                  - img [ref=e645]
+              - generic [ref=e647]:
+                - link "Monthly active users (MAUs)" [ref=e649] [cursor=pointer]:
+                  - /url: /project/162662/insights/5Ug3R7Ny?dashboard=406616&variables_override=%7B%7D&filters_override=%7B%7D&tile_filters_override=%7B%7D
+                  - heading "Monthly active users (MAUs)" [level=4] [ref=e650]
+                - paragraph [ref=e652]: Shows the number of unique users that use your app every day.
+            - generic [ref=e658]:
+              - generic [ref=e662]:
+                - generic [ref=e663]:
+                  - heading "Last 90 days" [level=5] [ref=e664]:
+                    - generic [ref=e665]:
+                      - generic [ref=e666]: Last 90 days
+                      - img [ref=e668]
+                  - button "more" [ref=e671] [cursor=pointer]:
+                    - img [ref=e674]
+                - generic [ref=e676]:
+                  - link "Weekly active users (WAUs)" [ref=e678] [cursor=pointer]:
+                    - /url: /project/162662/insights/CCEoFrDJ?dashboard=406616&variables_override=%7B%7D&filters_override=%7B%7D&tile_filters_override=%7B%7D
+                    - heading "Weekly active users (WAUs)" [level=4] [ref=e679]
+                  - paragraph [ref=e681]: Weekly users who visit page that contains (dashboard.truv.com)
+              - generic [ref=e690]:
+                - button [ref=e691] [cursor=pointer]:
+                  - generic:
+                    - img
+                - button [ref=e692] [cursor=pointer]:
+                  - generic:
+                    - img
+                - button [ref=e693] [cursor=pointer]:
+                  - generic:
+                    - img
+                - button [ref=e694] [cursor=pointer]:
+                  - generic:
+                    - img
+            - generic [ref=e703]:
+              - generic [ref=e704]:
+                - heading "Last 30 days" [level=5] [ref=e705]:
+                  - generic [ref=e706]:
+                    - generic [ref=e707]: Last 30 days
+                    - img [ref=e709]
+                - button "more" [ref=e712] [cursor=pointer]:
+                  - img [ref=e715]
+              - generic [ref=e717]:
+                - link "Growth accounting" [ref=e719] [cursor=pointer]:
+                  - /url: /project/162662/insights/CRUWCe4J?dashboard=406616&variables_override=%7B%7D&filters_override=%7B%7D&tile_filters_override=%7B%7D
+                  - heading "Growth accounting" [level=4] [ref=e720]
+                - paragraph [ref=e722]: How many of your users are new, returning, resurrecting, or dormant each week.
+            - generic [ref=e735]:
+              - generic [ref=e739]:
+                - generic [ref=e740]:
+                  - heading [level=5] [ref=e741]:
+                    - img [ref=e744]
+                  - button "more" [ref=e747] [cursor=pointer]:
+                    - img [ref=e750]
+                - generic [ref=e752]:
+                  - link "Retention" [ref=e754] [cursor=pointer]:
+                    - /url: /project/162662/insights/eyPSc3G4?dashboard=406616&variables_override=%7B%7D&filters_override=%7B%7D&tile_filters_override=%7B%7D
+                    - heading "Retention" [level=4] [ref=e755]
+                  - paragraph [ref=e757]: Weekly retention of your users.
+              - table [ref=e765]:
+                - rowgroup [ref=e766]:
+                  - row "Cohort Size Week 0 Week 1" [ref=e767]:
+                    - columnheader "Cohort" [ref=e768]
+                    - columnheader "Size" [ref=e769]
+                    - columnheader "Week 0" [ref=e770]
+                    - columnheader "Week 1" [ref=e771]
+                  - row "Mean 18095 100.0% 0.0%" [ref=e772] [cursor=pointer]:
+                    - cell "Mean" [ref=e773]:
+                      - generic [ref=e774]:
+                        - img [ref=e775]
+                        - generic [ref=e777]: Mean
+                    - cell "18095" [ref=e778]
+                    - cell "100.0%" [ref=e779]:
+                      - generic [ref=e780]: 100.0%
+                    - cell "0.0%" [ref=e781]:
+                      - generic [ref=e782]: 0.0%
+                  - row "Mar 1 to Mar 7 23016 100.0% 1.5%" [ref=e783] [cursor=pointer]:
+                    - cell "Mar 1 to Mar 7" [ref=e784]
+                    - cell "23016" [ref=e785]
+                    - cell "100.0%" [ref=e786]:
+                      - generic [ref=e787]: 100.0%
+                    - cell "1.5%" [ref=e788]:
+                      - generic [ref=e789]: 1.5%
+                  - row "Mar 8 to Mar 14 13174 100.0%" [ref=e790] [cursor=pointer]:
+                    - cell "Mar 8 to Mar 14" [ref=e791]
+                    - cell "13174" [ref=e792]
+                    - cell "100.0%" [ref=e793]:
+                      - generic [ref=e794]: 100.0%
+                    - cell [ref=e795]
+            - generic [ref=e804]:
+              - generic [ref=e805]:
+                - heading "Last 14 days" [level=5] [ref=e806]:
+                  - generic [ref=e807]:
+                    - generic [ref=e808]: Last 14 days
+                    - img [ref=e810]
+                - button "more" [ref=e813] [cursor=pointer]:
+                  - img [ref=e816]
+              - generic [ref=e818]:
+                - link "Referring domain (last 14 days)" [ref=e820] [cursor=pointer]:
+                  - /url: /project/162662/insights/AkdB2ExR?dashboard=406616&variables_override=%7B%7D&filters_override=%7B%7D&tile_filters_override=%7B%7D
+                  - heading "Referring domain (last 14 days)" [level=4] [ref=e821]
+                - paragraph [ref=e823]: Shows the most common referring domains for your users over the past 14 days.
+            - generic [ref=e836]:
+              - generic [ref=e840]:
+                - generic [ref=e841]:
+                  - heading "Last 7 days" [level=5] [ref=e842]:
+                    - generic [ref=e843]:
+                      - generic [ref=e844]: Last 7 days
+                      - img [ref=e846]
+                  - button "more" [ref=e849] [cursor=pointer]:
+                    - img [ref=e852]
+                - generic [ref=e854]:
+                  - link "Pageview funnel, by browser" [ref=e856] [cursor=pointer]:
+                    - /url: /project/162662/insights/JzECMxtD?dashboard=406616&variables_override=%7B%7D&filters_override=%7B%7D&tile_filters_override=%7B%7D
+                    - heading "Pageview funnel, by browser" [level=4] [ref=e857]
+                  - paragraph [ref=e859]: This example funnel shows how many of your users have completed 3 page views, broken down by browser.
+              - generic [ref=e866]:
+                - generic [ref=e867]:
+                  - generic [ref=e868]:
+                    - generic: "1"
+                  - generic [ref=e871]:
+                    - generic [ref=e873]:
+                      - generic [ref=e874]: First page view
+                      - text: Pageview
+                    - button "more" [ref=e875] [cursor=pointer]:
+                      - img [ref=e878]
+                  - button "30,012 persons" [ref=e896] [cursor=pointer]:
+                    - img [ref=e897]
+                    - text: 30,012 persons
+                - generic [ref=e899]:
+                  - generic [ref=e900]:
+                    - generic: "2"
+                  - generic [ref=e903]:
+                    - generic [ref=e904]:
+                      - generic [ref=e906]:
+                        - generic [ref=e907]: Second page view
+                        - text: Pageview
+                      - img [ref=e908]
+                      - button "more" [ref=e912] [cursor=pointer]:
+                        - img [ref=e915]
+                    - generic "Average time of conversion from previous step" [ref=e917]: "Average time to convert: 1h 36m"
+                  - generic [ref=e930]: 42.59%
+                  - generic [ref=e931]:
+                    - generic [ref=e932]:
+                      - button "12,781 persons" [ref=e934] [cursor=pointer]:
+                        - img [ref=e935]
+                        - text: 12,781 persons
+                      - text: (42.59%) completed step
+                    - generic [ref=e938]:
+                      - button "17,231 persons" [ref=e940] [cursor=pointer]:
+                        - img [ref=e941]
+                        - text: 17,231 persons
+                      - text: (57.41%) dropped off
+                - generic [ref=e943]:
+                  - generic [ref=e944]:
+                    - generic: "3"
+                  - generic [ref=e946]:
+                    - generic [ref=e947]:
+                      - generic [ref=e949]:
+                        - generic [ref=e950]: Third page view
+                        - text: Pageview
+                      - img [ref=e951]
+                      - button "more" [ref=e955] [cursor=pointer]:
+                        - img [ref=e958]
+                    - generic "Average time of conversion from previous step" [ref=e960]: "Average time to convert: 2h 34m"
+                  - generic [ref=e973]: 23.41%
+                  - generic [ref=e974]:
+                    - generic [ref=e975]:
+                      - button "7,026 persons" [ref=e977] [cursor=pointer]:
+                        - img [ref=e978]
+                        - text: 7,026 persons
+                      - text: (23.41%) completed step
+                    - generic [ref=e981]:
+                      - button "5,755 persons" [ref=e983] [cursor=pointer]:
+                        - img [ref=e984]
+                        - text: 5,755 persons
+                      - text: (76.59%) dropped off
+    - status [ref=e990]

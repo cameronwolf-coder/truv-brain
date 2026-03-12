@@ -1,0 +1,115 @@
+- generic [ref=e3]:
+  - generic [ref=e5]:
+    - img "Google" [ref=e8]
+    - generic [ref=e9]:
+      - generic [ref=e11]:
+        - heading "Welcome" [level=1] [ref=e12]
+        - link "cameron.wolf@truv.com selected. Switch account" [ref=e14] [cursor=pointer]:
+          - /url: /v3/signin/identifier?continue=https://console.cloud.google.com/iam-admin/service-accounts?project%3Dgtm-pipelines&dsh=S-602937723:1773072593165450&flowEntry=ServiceLogin&flowName=WebLiteSignIn&followup=https://console.cloud.google.com/iam-admin/service-accounts?project%3Dgtm-pipelines&ifkv=ASfE1-p-vOD52F55R0ilGefXHnWx37_y2eKSeuxTuNeMh0aILxmljlFLUPVFa_FeXItQL8LvbQP1Lg&osid=1&service=cloudconsole
+          - generic [ref=e15]:
+            - img [ref=e18]
+            - generic [ref=e20]: cameron.wolf@truv.com
+            - img [ref=e22]
+      - generic [ref=e24]:
+        - generic [ref=e32]:
+          - textbox "Enter your password" [active] [ref=e33]
+          - generic:
+            - generic: Enter your password
+        - generic [ref=e35]:
+          - button "Next" [ref=e37]
+          - button "Forgot password?" [ref=e39]
+  - contentinfo [ref=e40]:
+    - combobox [ref=e43] [cursor=pointer]:
+      - option "Afrikaans"
+      - option "azərbaycan"
+      - option "bosanski"
+      - option "català"
+      - option "Čeština"
+      - option "Cymraeg"
+      - option "Dansk"
+      - option "Deutsch"
+      - option "eesti"
+      - option "English (United Kingdom)"
+      - option "English (United States)" [selected]
+      - option "Español (España)"
+      - option "Español (Latinoamérica)"
+      - option "euskara"
+      - option "Filipino"
+      - option "Français (Canada)"
+      - option "Français (France)"
+      - option "Gaeilge"
+      - option "galego"
+      - option "Hrvatski"
+      - option "Indonesia"
+      - option "isiZulu"
+      - option "íslenska"
+      - option "Italiano"
+      - option "Kiswahili"
+      - option "latviešu"
+      - option "lietuvių"
+      - option "magyar"
+      - option "Melayu"
+      - option "Nederlands"
+      - option "norsk"
+      - option "o‘zbek"
+      - option "polski"
+      - option "Português (Brasil)"
+      - option "Português (Portugal)"
+      - option "română"
+      - option "shqip"
+      - option "Slovenčina"
+      - option "slovenščina"
+      - option "srpski (latinica)"
+      - option "Suomi"
+      - option "Svenska"
+      - option "Tiếng Việt"
+      - option "Türkçe"
+      - option "Ελληνικά"
+      - option "беларуская"
+      - option "български"
+      - option "кыргызча"
+      - option "қазақ тілі"
+      - option "македонски"
+      - option "монгол"
+      - option "Русский"
+      - option "српски (ћирилица)"
+      - option "Українська"
+      - option "ქართული"
+      - option "հայերեն"
+      - option "‫עברית‬‎"
+      - option "‫اردو‬‎"
+      - option "‫العربية‬‎"
+      - option "‫فارسی‬‎"
+      - option "አማርኛ"
+      - option "नेपाली"
+      - option "मराठी"
+      - option "हिन्दी"
+      - option "অসমীয়া"
+      - option "বাংলা"
+      - option "ਪੰਜਾਬੀ"
+      - option "ગુજરાતી"
+      - option "ଓଡ଼ିଆ"
+      - option "தமிழ்"
+      - option "తెలుగు"
+      - option "ಕನ್ನಡ"
+      - option "മലയാളം"
+      - option "සිංහල"
+      - option "ไทย"
+      - option "ລາວ"
+      - option "မြန်မာ"
+      - option "ខ្មែរ"
+      - option "한국어"
+      - option "中文（香港）"
+      - option "日本語"
+      - option "简体中文"
+      - option "繁體中文"
+    - list [ref=e44]:
+      - listitem [ref=e45]:
+        - link "Help" [ref=e46] [cursor=pointer]:
+          - /url: https://support.google.com/accounts?hl=en-US&p=account_iph
+      - listitem [ref=e47]:
+        - link "Privacy" [ref=e48] [cursor=pointer]:
+          - /url: https://accounts.google.com/TOS?loc=US&hl=en-US&privacy=true
+      - listitem [ref=e49]:
+        - link "Terms" [ref=e50] [cursor=pointer]:
+          - /url: https://accounts.google.com/TOS?loc=US&hl=en-US

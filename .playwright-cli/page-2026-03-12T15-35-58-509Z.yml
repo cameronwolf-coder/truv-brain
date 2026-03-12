@@ -1,0 +1,115 @@
+- generic [active] [ref=e1]:
+  - generic:
+    - region "Notification Toasts":
+      - heading "0 notifications total" [level=2] [ref=e2]
+  - button "Chat with us" [ref=e10] [cursor=pointer]:
+    - img [ref=e12]
+  - generic [ref=e15]:
+    - generic [ref=e18]:
+      - button "Skip to main content" [ref=e19] [cursor=pointer]
+      - button "Close jump menu" [ref=e20] [cursor=pointer]:
+        - img [ref=e21]
+        - generic [ref=e23]: Close jump menu
+    - banner [ref=e24]:
+      - generic [ref=e25]:
+        - button [ref=e27] [cursor=pointer]:
+          - generic [ref=e29]:
+            - generic [ref=e30]:
+              - img [ref=e32]:
+                - img [ref=e33]
+              - img [ref=e36]
+            - img [ref=e39]
+        - generic [ref=e41]:
+          - heading "Actions List" [level=2] [ref=e42]
+          - list [ref=e43]:
+            - listitem [ref=e44]:
+              - generic [ref=e46]: Truv Ad Account
+              - img "Truv company icon" [ref=e49]
+          - separator [ref=e50]
+        - button "No unseen notifications, click to enter notifications experience" [ref=e52] [cursor=pointer]:
+          - generic [ref=e53]:
+            - generic [ref=e54]: No unseen notifications, click to enter notifications experience
+            - img [ref=e57]
+        - button "Learn more about campaign manager" [ref=e60] [cursor=pointer]:
+          - img "Help" [ref=e62]:
+            - img [ref=e64]
+        - button "Open user menu Icon for Truv" [ref=e66] [cursor=pointer]:
+          - generic [ref=e67]:
+            - generic [ref=e68]: Open user menu
+            - img "Icon for Truv" [ref=e70]
+    - main [ref=e73]:
+      - generic [ref=e648]:
+        - generic [ref=e651]:
+          - button "Back to ad set" [ref=e652] [cursor=pointer]:
+            - img [ref=e654]
+            - generic [ref=e656]: Back to ad set
+          - list [ref=e658]:
+            - listitem [ref=e659]:
+              - generic [ref=e660]: ... / CCM Document Ad - Lending / CCM Document Ad - Ops & Lending
+            - listitem [ref=e661]:
+              - generic [ref=e662]: BankSouth Case Study - Document Ad (Dark)
+        - generic [ref=e664]:
+          - generic [ref=e665]:
+            - generic [ref=e666]:
+              - heading "Ad" [level=3] [ref=e668]:
+                - button "Ad" [ref=e669] [cursor=pointer]:
+                  - generic [ref=e670]:
+                    - text: Ad
+                    - generic [ref=e671]:
+                      - alert
+                      - img [ref=e672]
+              - generic [ref=e675]:
+                - heading "Form details" [level=2] [ref=e676]:
+                  - button "Form details" [disabled] [expanded] [ref=e677] [cursor=pointer]:
+                    - generic [ref=e678]:
+                      - generic [ref=e679]: Form details
+                      - generic [ref=e680]:
+                        - alert
+                        - img [ref=e681]
+                - region "Form details" [ref=e683]:
+                  - generic [ref=e684]:
+                    - status [ref=e685]:
+                      - img [ref=e688]
+                      - generic [ref=e690]:
+                        - paragraph [ref=e692]: After your ad becomes active, you can’t change the lead gen form associated with it.
+                        - button "Dismiss notice" [ref=e693] [cursor=pointer]:
+                          - img [ref=e696]
+                    - generic [ref=e698]:
+                      - text: Call-to-action
+                      - button "Learn more about Call To Action for this ad" [ref=e699] [cursor=pointer]:
+                        - img [ref=e701]
+                        - generic [ref=e703]: Learn more about Call To Action for this ad
+                    - combobox "Call-to-action Learn more about Call To Action for this ad" [disabled] [ref=e706]:
+                      - option "Unlock full document" [selected]
+                      - option "Unlock article"
+                    - generic [ref=e708]: Lead gen form
+                    - generic [ref=e711]:
+                      - generic [ref=e713]:
+                        - generic [ref=e715]: CrossCountry Mortgage Case Study B
+                        - generic [ref=e717]: 1003767085 · Active
+                      - button "Remove CrossCountry Mortgage Case Study B" [ref=e720] [cursor=pointer]:
+                        - img [ref=e722]
+                        - generic [ref=e724]: Remove CrossCountry Mortgage Case Study B
+                    - button "Create new form" [ref=e725] [cursor=pointer]:
+                      - img [ref=e727]
+                      - generic [ref=e729]: Create new form
+            - alert
+            - generic:
+              - alert
+          - generic [ref=e732]:
+            - heading "Preview" [level=2] [ref=e734]
+            - button "Select a platform for the ad preview. Mobile Feed" [ref=e735] [cursor=pointer]:
+              - img [ref=e737]
+              - generic [ref=e739]: Mobile Feed
+            - generic [ref=e742]:
+              - status [ref=e743]:
+                - generic [ref=e744]:
+                  - img [ref=e746]
+                  - generic [ref=e749]: This is a static image of a mobile document ad.
+              - img "Document ad mobile preview" [ref=e750]
+        - generic [ref=e752]:
+          - button "Cancel" [ref=e754] [cursor=pointer]:
+            - generic [ref=e755]: Cancel
+          - button "Save" [ref=e757] [cursor=pointer]:
+            - generic [ref=e758]: Save
+  - generic [ref=e646]: Your file Upload Complete

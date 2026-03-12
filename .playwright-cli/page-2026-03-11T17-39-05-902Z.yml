@@ -1,0 +1,9 @@
+- generic [active] [ref=e1]:
+  - generic:
+    - region "Notification Toasts":
+      - heading "0 notifications total" [level=2] [ref=e2]
+  - generic [ref=e3]:
+    - img [ref=e4]:
+      - img [ref=e5]
+    - status [ref=e7]: Campaign manager is loading
+    - progressbar [ref=e8]

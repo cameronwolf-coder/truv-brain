@@ -1,0 +1,794 @@
+- generic [ref=e1]:
+  - generic [ref=e1526]:
+    - banner [ref=e1527]:
+      - navigation [ref=e1529]:
+        - generic [ref=e1530]:
+          - link "logo" [ref=e19691] [cursor=pointer]:
+            - /url: /workspaces/276559/home
+            - img "Clay Logo" [ref=e19692]
+          - generic [ref=e1535]:
+            - button "All Files" [ref=e19693] [cursor=pointer]:
+              - img [ref=e1537]
+              - paragraph [ref=e1540]: All Files
+              - img [ref=e1541]
+            - generic [ref=e1543]: /
+            - link "ICE-X26-Registrants" [ref=e19694] [cursor=pointer]:
+              - /url: /workspaces/276559/workbooks/wb_0tbn9peQUdDP3THN6ws/all-tables
+              - img [ref=e1546]
+              - paragraph [ref=e1549]: ICE-X26-Registrants
+            - generic [ref=e1550]: /
+            - button "ICE-X26-Registrants" [ref=e19695] [cursor=pointer]:
+              - img [ref=e1553]
+              - paragraph [ref=e1556]: ICE-X26-Registrants
+              - img [ref=e1557]
+        - generic [ref=e1559]:
+          - button "Billing menu" [ref=e19696] [cursor=pointer]:
+            - generic [ref=e1562]:
+              - img [ref=e1564]
+              - paragraph [ref=e1577]: Credits
+          - button [ref=e1579] [cursor=pointer]:
+            - img [ref=e1580]
+        - button "Profile menu" [ref=e19697] [cursor=pointer]:
+          - generic [ref=e1585]:
+            - paragraph [ref=e1586]: Cam Wolf
+            - paragraph [ref=e1587]: truv.com
+    - main [ref=e1588]:
+      - generic [ref=e1593]:
+        - generic [ref=e1597]:
+          - generic [ref=e1598]:
+            - generic [ref=e1599]:
+              - generic [ref=e1600]:
+                - button "Auto-run" [ref=e19698] [cursor=pointer]:
+                  - img [ref=e1603]
+                  - paragraph [ref=e1605]: Auto-run
+                - button [ref=e1606] [cursor=pointer]:
+                  - img [ref=e1607]
+                  - img [ref=e1609]
+                - button "9/33" [ref=e26458] [cursor=pointer]:
+                  - img [ref=e1612]
+                  - generic [ref=e1614]: 9/33
+                - button "2,363/2,363" [ref=e19700] [cursor=pointer]:
+                  - img [ref=e1616]
+                  - generic [ref=e1618]: 2,363/2,363
+                - button [ref=e1619] [cursor=pointer]:
+                  - img [ref=e1620]
+                - button [ref=e1622] [cursor=pointer]:
+                  - img [ref=e1624]
+                - button [ref=e1628] [cursor=pointer]:
+                  - img [ref=e1629]
+              - generic [ref=e1631]:
+                - button "Sandbox Mode" [ref=e19701] [cursor=pointer]:
+                  - img [ref=e1634]
+                  - text: Sandbox Mode
+                - button "Sculptor Chat with Sculptor" [ref=e19702] [cursor=pointer]:
+                  - img "Sculptor" [ref=e19703]
+                  - text: Chat with Sculptor
+            - generic [ref=e1641]:
+              - generic [ref=e1642]:
+                - generic [ref=e1643]:
+                  - generic [ref=e1644]:
+                    - generic [ref=e1646]:
+                      - checkbox [ref=e1647] [cursor=pointer]:
+                        - img [ref=e1649]
+                      - checkbox [ref=e1650]
+                    - generic [ref=e1652]:
+                      - button "Company Name" [ref=e19704] [cursor=pointer]:
+                        - menuitem "Company Name" [ref=e19705]:
+                          - generic [ref=e1659]:
+                            - img [ref=e1660]
+                            - paragraph [ref=e1664]: Company Name
+                      - button "First Name" [ref=e19706] [cursor=pointer]:
+                        - menuitem "First Name" [ref=e19707]:
+                          - generic [ref=e1672]:
+                            - img [ref=e1673]
+                            - paragraph [ref=e1677]: First Name
+                      - button "Last Name" [ref=e19708] [cursor=pointer]:
+                        - menuitem "Last Name" [ref=e19709]:
+                          - generic [ref=e1685]:
+                            - img [ref=e1686]
+                            - paragraph [ref=e1690]: Last Name
+                      - button "Title" [ref=e19710] [cursor=pointer]:
+                        - menuitem "Title" [ref=e19711]:
+                          - generic [ref=e1698]:
+                            - img [ref=e1699]
+                            - paragraph [ref=e1703]: Title
+                      - button "Full Name" [ref=e19712] [cursor=pointer]:
+                        - menuitem "Full Name" [ref=e19713]:
+                          - generic [ref=e7815]:
+                            - img [ref=e7816]
+                            - img [ref=e7818]
+                            - paragraph [ref=e7822]: Full Name
+                      - button "Work Email Work Email" [ref=e19714] [cursor=pointer]:
+                        - generic [ref=e8536]:
+                          - button "Work Email" [ref=e19715]:
+                            - generic [ref=e8538]:
+                              - img [ref=e8539]
+                              - text: Work Email
+                          - button [ref=e8541]:
+                            - img [ref=e27046]
+                        - button [ref=e8544]
+                        - generic [ref=e8547]:
+                          - menuitem "Work Email" [ref=e28527]:
+                            - generic [ref=e28530]:
+                              - img [ref=e28531]
+                              - img [ref=e28533]
+                              - paragraph [ref=e28537]: Work Email
+                          - menuitem [ref=e28539]:
+                            - img [ref=e28540]
+                      - button "Action icon Lookup object" [ref=e19717] [cursor=pointer]:
+                        - generic [ref=e10404]:
+                          - menuitem "Action icon Lookup object" [ref=e19718]:
+                            - generic [ref=e10408]:
+                              - img "Action icon" [ref=e19719]
+                              - paragraph [ref=e10412]: Lookup object
+                          - menuitem [ref=e27950]:
+                            - img [ref=e27951]
+                      - button "Action icon Update object" [ref=e19720] [cursor=pointer]:
+                        - generic [ref=e18448]:
+                          - menuitem "Action icon Update object" [ref=e19721]:
+                            - generic [ref=e18452]:
+                              - img "Action icon" [ref=e19722]
+                              - paragraph [ref=e18456]: Update object
+                          - menuitem [ref=e18458]:
+                            - img [ref=e18459]
+                      - button "Action icon Create object" [ref=e26462] [cursor=pointer]:
+                        - generic [ref=e26465]:
+                          - menuitem "Action icon Create object" [ref=e26466]:
+                            - generic [ref=e26469]:
+                              - img "Action icon" [ref=e26470]
+                              - paragraph [ref=e26473]: Create object
+                          - menuitem [ref=e27953]:
+                            - img [ref=e27954]
+                    - status [ref=e1705]
+                    - button "Add column" [ref=e19723] [cursor=pointer]:
+                      - img [ref=e1708]
+                      - generic [ref=e1710]: Add column
+                      - img [ref=e1711]
+                  - generic [ref=e1713]:
+                    - paragraph [ref=e1715]: "%"
+                    - generic [ref=e1716]:
+                      - img [ref=e1719]
+                      - img [ref=e1723]
+                      - img [ref=e1727]
+                      - img [ref=e1731]
+                      - img [ref=e3620]
+                      - generic [ref=e8565]: <1%
+                      - generic [ref=e10420]: <1%
+                      - generic [ref=e18464]: <1%
+                      - generic [ref=e26481]: <1%
+                - generic [ref=e1736]:
+                  - generic [ref=e27956]:
+                    - generic [ref=e27959]:
+                      - paragraph [ref=e27961]: "1"
+                      - checkbox [ref=e27962]
+                    - generic [ref=e27963]:
+                      - paragraph [ref=e27969]: Bokath
+                      - paragraph [ref=e27975]: Encompass Tech Support Analyst
+                      - paragraph [ref=e27981]: Stephanie Bokath
+                      - generic [ref=e27986]:
+                        - paragraph
+                      - paragraph [ref=e27993] [cursor=pointer]: Missing input
+                      - paragraph [ref=e28000] [cursor=pointer]: Missing input
+                      - generic [ref=e28007] [cursor=pointer]:
+                        - img "Table cell" [ref=e28008]
+                        - paragraph [ref=e28009]: ✅ Object created
+                  - generic [ref=e28011]:
+                    - generic [ref=e28014]:
+                      - paragraph [ref=e28016]: "2"
+                      - checkbox [ref=e28017]
+                    - generic [ref=e28018]:
+                      - paragraph [ref=e28024]: Peasley
+                      - paragraph [ref=e28030]: Encompass Team Assistant Manager
+                      - paragraph [ref=e28036]: Dezerae Peasley
+                      - generic [ref=e28041]:
+                        - paragraph
+                      - paragraph [ref=e28048] [cursor=pointer]: Missing input
+                      - paragraph [ref=e28055] [cursor=pointer]: Missing input
+                      - generic [ref=e28062] [cursor=pointer]:
+                        - img "Table cell" [ref=e28063]
+                        - paragraph [ref=e28064]: ✅ Object created
+                  - generic [ref=e28066]:
+                    - generic [ref=e28069]:
+                      - paragraph [ref=e28071]: "3"
+                      - checkbox [ref=e28072]
+                    - generic [ref=e28073]:
+                      - paragraph [ref=e28079]: Latson
+                      - paragraph [ref=e28085]: Sr Supervisor Mortgage Servicing
+                      - paragraph [ref=e28091]: Kim Latson
+                      - generic [ref=e28096]:
+                        - paragraph
+                      - paragraph [ref=e28103] [cursor=pointer]: Missing input
+                      - paragraph [ref=e28110] [cursor=pointer]: Missing input
+                      - generic [ref=e28117] [cursor=pointer]:
+                        - img "Table cell" [ref=e28118]
+                        - paragraph [ref=e28119]: ✅ Object created
+                  - generic [ref=e28121]:
+                    - generic [ref=e28124]:
+                      - paragraph [ref=e28126]: "4"
+                      - checkbox [ref=e28127]
+                    - generic [ref=e28128]:
+                      - paragraph [ref=e28134]: Browning
+                      - paragraph [ref=e28140]: Collection Manager, VP
+                      - paragraph [ref=e28146]: Amy Browning
+                      - generic [ref=e28151]:
+                        - paragraph
+                      - paragraph [ref=e28158] [cursor=pointer]: Missing input
+                      - paragraph [ref=e28165] [cursor=pointer]: Missing input
+                      - generic [ref=e28172] [cursor=pointer]:
+                        - img "Table cell" [ref=e28173]
+                        - paragraph [ref=e28174]: ✅ Object created
+                  - generic [ref=e1869]:
+                    - generic [ref=e1872]:
+                      - paragraph [ref=e1874]: "5"
+                      - checkbox [ref=e1875]
+                    - generic [ref=e1876]:
+                      - paragraph [ref=e1894]: Cripe
+                      - paragraph [ref=e1900]: Sr. Manager Mortgage Servicing
+                      - paragraph [ref=e3626]: Larry Cripe
+                      - generic [ref=e27052]:
+                        - paragraph
+                      - paragraph [ref=e27901] [cursor=pointer]: Missing input
+                      - paragraph [ref=e27903] [cursor=pointer]: Missing input
+                      - generic [ref=e27905] [cursor=pointer]:
+                        - img "Table cell" [ref=e27906]
+                        - paragraph [ref=e27907]: ✅ Object created
+                  - generic [ref=e1902]:
+                    - generic [ref=e1905]:
+                      - paragraph [ref=e1907]: "6"
+                      - checkbox [ref=e1908]
+                    - generic [ref=e1909]:
+                      - paragraph [ref=e1927]: Hicks
+                      - paragraph [ref=e1933]: Assistant Collection Manager
+                      - paragraph [ref=e3627]: Kendra Hicks
+                      - generic [ref=e27072]:
+                        - paragraph
+                      - paragraph [ref=e27909] [cursor=pointer]: Missing input
+                      - paragraph [ref=e27911] [cursor=pointer]: Missing input
+                      - generic [ref=e27913] [cursor=pointer]:
+                        - img "Table cell" [ref=e27914]
+                        - paragraph [ref=e27915]: ✅ Object created
+                  - generic [ref=e1935]:
+                    - generic [ref=e1938]:
+                      - paragraph [ref=e1940]: "7"
+                      - checkbox [ref=e1941]
+                    - generic [ref=e1942]:
+                      - paragraph [ref=e1960]: Coker
+                      - paragraph [ref=e1966]: Global VP of Sales
+                      - paragraph [ref=e3628]: John Coker
+                      - generic [ref=e27092]:
+                        - paragraph
+                      - paragraph [ref=e27917] [cursor=pointer]: Missing input
+                      - paragraph [ref=e27919] [cursor=pointer]: Missing input
+                      - generic [ref=e27921] [cursor=pointer]:
+                        - img "Table cell" [ref=e27922]
+                        - paragraph [ref=e27923]: ✅ Object created
+                  - generic [ref=e1968]:
+                    - generic [ref=e1971]:
+                      - paragraph [ref=e1973]: "8"
+                      - checkbox [ref=e1974]
+                    - generic [ref=e1975]:
+                      - paragraph [ref=e1993]: VanFossen
+                      - paragraph [ref=e1999]: CEO
+                      - paragraph [ref=e3629]: Matthew VanFossen
+                      - generic [ref=e27112]:
+                        - paragraph
+                      - paragraph [ref=e27925] [cursor=pointer]: Missing input
+                      - paragraph [ref=e27927] [cursor=pointer]: Missing input
+                      - generic [ref=e27929] [cursor=pointer]:
+                        - img "Table cell" [ref=e27930]
+                        - paragraph [ref=e27931]: ✅ Object created
+                  - generic [ref=e2001]:
+                    - generic [ref=e2004]:
+                      - paragraph [ref=e2006]: "9"
+                      - checkbox [ref=e2007]
+                    - generic [ref=e2008]:
+                      - paragraph [ref=e2026]: Emler
+                      - paragraph [ref=e2032]: loan officer
+                      - paragraph [ref=e3630]: Brent Emler
+                      - generic [ref=e27132]:
+                        - paragraph
+                      - paragraph [ref=e27933] [cursor=pointer]: Missing input
+                      - paragraph [ref=e27935] [cursor=pointer]: Missing input
+                      - generic [ref=e27937] [cursor=pointer]:
+                        - img "Table cell" [ref=e27938]
+                        - paragraph [ref=e27939]: ✅ Object created
+                  - generic [ref=e2034]:
+                    - generic [ref=e2037]:
+                      - paragraph [ref=e2039]: "10"
+                      - checkbox [ref=e2040]
+                    - generic [ref=e2041]:
+                      - paragraph [ref=e2059]: Rodriguez
+                      - paragraph [ref=e2065]: Chief Operating Officer
+                      - paragraph [ref=e3631]: Joseph Rodriguez
+                      - generic [ref=e27152]:
+                        - paragraph
+                      - paragraph [ref=e27941] [cursor=pointer]: Missing input
+                      - paragraph [ref=e27943] [cursor=pointer]: Missing input
+                      - generic [ref=e27945] [cursor=pointer]:
+                        - img "Table cell" [ref=e27946]
+                        - paragraph [ref=e27947]: ✅ Object created
+                  - generic [ref=e2067]:
+                    - generic [ref=e2070]:
+                      - paragraph [ref=e2072]: "11"
+                      - checkbox [ref=e2073]
+                    - generic [ref=e2074]:
+                      - paragraph [ref=e2092]: Dowd
+                      - paragraph [ref=e2098]: SVP, Director of Mortgage Operations
+                      - paragraph [ref=e3632]: Holly Dowd
+                      - generic [ref=e27172]:
+                        - paragraph
+                      - generic [ref=e27177] [cursor=pointer]:
+                        - generic:
+                          - paragraph
+                      - generic [ref=e27182] [cursor=pointer]:
+                        - generic:
+                          - paragraph
+                      - generic [ref=e27187] [cursor=pointer]:
+                        - generic:
+                          - paragraph
+                  - generic [ref=e2100]:
+                    - generic [ref=e2103]:
+                      - paragraph [ref=e2105]: "12"
+                      - checkbox [ref=e2106]
+                    - generic [ref=e2107]:
+                      - paragraph [ref=e2125]: Livingston
+                      - paragraph [ref=e2131]: CRO
+                      - paragraph [ref=e3633]: Josh Livingston
+                      - generic [ref=e27192]:
+                        - paragraph
+                      - generic [ref=e27197] [cursor=pointer]:
+                        - generic:
+                          - paragraph
+                      - generic [ref=e27202] [cursor=pointer]:
+                        - generic:
+                          - paragraph
+                      - generic [ref=e27207] [cursor=pointer]:
+                        - generic:
+                          - paragraph
+                  - generic [ref=e2133]:
+                    - generic [ref=e2136]:
+                      - paragraph [ref=e2138]: "13"
+                      - checkbox [ref=e2139]
+                    - generic [ref=e2140]:
+                      - paragraph [ref=e2158]: Hughes Wade
+                      - paragraph [ref=e2164]: Strategic Partnership Manager
+                      - paragraph [ref=e3634]: Casey Hughes Wade
+                      - generic [ref=e27212]:
+                        - paragraph
+                      - generic [ref=e27217] [cursor=pointer]:
+                        - generic:
+                          - paragraph
+                      - generic [ref=e27222] [cursor=pointer]:
+                        - generic:
+                          - paragraph
+                      - generic [ref=e27227] [cursor=pointer]:
+                        - generic:
+                          - paragraph
+                  - generic [ref=e2166]:
+                    - generic [ref=e2169]:
+                      - paragraph [ref=e2171]: "14"
+                      - checkbox [ref=e2172]
+                    - generic [ref=e2173]:
+                      - paragraph [ref=e2191]: Tharayil
+                      - paragraph [ref=e2197]: EVP Partnerships
+                      - paragraph [ref=e3635]: Jimson Tharayil
+                      - generic [ref=e27232]:
+                        - paragraph
+                      - generic [ref=e27237] [cursor=pointer]:
+                        - generic:
+                          - paragraph
+                      - generic [ref=e27242] [cursor=pointer]:
+                        - generic:
+                          - paragraph
+                      - generic [ref=e27247] [cursor=pointer]:
+                        - generic:
+                          - paragraph
+                  - generic [ref=e2199]:
+                    - generic [ref=e2202]:
+                      - paragraph [ref=e2204]: "15"
+                      - checkbox [ref=e2205]
+                    - generic [ref=e2206]:
+                      - paragraph [ref=e2224]: Batt
+                      - paragraph [ref=e2230]: Vice President
+                      - paragraph [ref=e3636]: Derek Batt
+                      - generic [ref=e27252]:
+                        - paragraph
+                      - generic [ref=e27257] [cursor=pointer]:
+                        - generic:
+                          - paragraph
+                      - generic [ref=e27262] [cursor=pointer]:
+                        - generic:
+                          - paragraph
+                      - generic [ref=e27267] [cursor=pointer]:
+                        - generic:
+                          - paragraph
+                  - generic [ref=e2232]:
+                    - generic [ref=e2235]:
+                      - paragraph [ref=e2237]: "16"
+                      - checkbox [ref=e2238]
+                    - generic [ref=e2239]:
+                      - paragraph [ref=e2257]: Vinson
+                      - paragraph [ref=e2263]: Senior Encompass Administrator
+                      - paragraph [ref=e3644]: Adam Vinson
+                      - generic [ref=e27272]:
+                        - paragraph
+                      - generic [ref=e27277] [cursor=pointer]:
+                        - generic:
+                          - paragraph
+                      - generic [ref=e27282] [cursor=pointer]:
+                        - generic:
+                          - paragraph
+                      - generic [ref=e27287] [cursor=pointer]:
+                        - generic:
+                          - paragraph
+                  - generic [ref=e2265]:
+                    - generic [ref=e2268]:
+                      - paragraph [ref=e2270]: "17"
+                      - checkbox [ref=e2271]
+                    - generic [ref=e2272]:
+                      - paragraph [ref=e2290]: DeNicholas
+                      - paragraph [ref=e2296]: Director of Encompass Administration
+                      - paragraph [ref=e3645]: Scott DeNicholas
+                      - generic [ref=e27292]:
+                        - paragraph
+                      - generic [ref=e27297] [cursor=pointer]:
+                        - generic:
+                          - paragraph
+                      - generic [ref=e27302] [cursor=pointer]:
+                        - generic:
+                          - paragraph
+                      - generic [ref=e27307] [cursor=pointer]:
+                        - generic:
+                          - paragraph
+                  - generic [ref=e2298]:
+                    - generic [ref=e2301]:
+                      - paragraph [ref=e2303]: "18"
+                      - checkbox [ref=e2304]
+                    - generic [ref=e2305]:
+                      - paragraph [ref=e2323]: Sanchez
+                      - paragraph [ref=e2329]: CEO
+                      - paragraph [ref=e3646]: David Sanchez
+                      - generic [ref=e27312]:
+                        - paragraph
+                      - generic [ref=e27317] [cursor=pointer]:
+                        - generic:
+                          - paragraph
+                      - generic [ref=e27322] [cursor=pointer]:
+                        - generic:
+                          - paragraph
+                      - generic [ref=e27327] [cursor=pointer]:
+                        - generic:
+                          - paragraph
+                  - generic [ref=e2331]:
+                    - generic [ref=e2334]:
+                      - paragraph [ref=e2336]: "19"
+                      - checkbox [ref=e2337]
+                    - generic [ref=e2338]:
+                      - generic [ref=e2354]:
+                        - paragraph
+                      - generic [ref=e2359]:
+                        - paragraph
+                      - generic [ref=e3124]:
+                        - paragraph
+                      - generic [ref=e27332]:
+                        - paragraph
+                      - generic [ref=e27337] [cursor=pointer]:
+                        - generic:
+                          - paragraph
+                      - generic [ref=e27342] [cursor=pointer]:
+                        - generic:
+                          - paragraph
+                      - generic [ref=e27347] [cursor=pointer]:
+                        - generic:
+                          - paragraph
+                  - generic [ref=e2361]:
+                    - generic [ref=e2364]:
+                      - paragraph [ref=e2366]: "20"
+                      - checkbox [ref=e2367]
+                    - generic [ref=e2368]:
+                      - paragraph [ref=e2386]: Vandi
+                      - paragraph [ref=e2392]: CEO
+                      - paragraph [ref=e3647]: Michael Vandi
+                      - generic [ref=e27352]:
+                        - paragraph
+                      - generic [ref=e27357] [cursor=pointer]:
+                        - generic:
+                          - paragraph
+                      - generic [ref=e27362] [cursor=pointer]:
+                        - generic:
+                          - paragraph
+                      - generic [ref=e27367] [cursor=pointer]:
+                        - generic:
+                          - paragraph
+                  - generic [ref=e2394]:
+                    - generic [ref=e2397]:
+                      - paragraph [ref=e2399]: "21"
+                      - checkbox [ref=e2400]
+                    - generic [ref=e2401]:
+                      - paragraph [ref=e2419]: Apostolakis
+                      - paragraph [ref=e2425]: Head of AI Adoption
+                      - paragraph [ref=e3648]: Polyhronis Apostolakis
+                      - generic [ref=e27372]:
+                        - paragraph
+                      - generic [ref=e27377] [cursor=pointer]:
+                        - generic:
+                          - paragraph
+                      - generic [ref=e27382] [cursor=pointer]:
+                        - generic:
+                          - paragraph
+                      - generic [ref=e27387] [cursor=pointer]:
+                        - generic:
+                          - paragraph
+                  - generic [ref=e2427]:
+                    - generic [ref=e2430]:
+                      - paragraph [ref=e2432]: "22"
+                      - checkbox [ref=e2433]
+                    - generic [ref=e2434]:
+                      - paragraph [ref=e2452]: Tynan
+                      - paragraph [ref=e2458]: EVP Sales Operations
+                      - paragraph [ref=e3649]: Patrick Tynan
+                      - generic [ref=e27392]:
+                        - paragraph
+                      - generic [ref=e27397] [cursor=pointer]:
+                        - generic:
+                          - paragraph
+                      - generic [ref=e27402] [cursor=pointer]:
+                        - generic:
+                          - paragraph
+                      - generic [ref=e27407] [cursor=pointer]:
+                        - generic:
+                          - paragraph
+                  - generic [ref=e2460]:
+                    - generic [ref=e2463]:
+                      - paragraph [ref=e2465]: "23"
+                      - checkbox [ref=e2466]
+                    - generic [ref=e2467]:
+                      - paragraph [ref=e2485]: Lavoie
+                      - paragraph [ref=e2491]: Regional Director
+                      - paragraph [ref=e3650]: Dominic Lavoie
+                      - generic [ref=e27412]:
+                        - paragraph
+                      - generic [ref=e27417] [cursor=pointer]:
+                        - generic:
+                          - paragraph
+                      - generic [ref=e27422] [cursor=pointer]:
+                        - generic:
+                          - paragraph
+                      - generic [ref=e27427] [cursor=pointer]:
+                        - generic:
+                          - paragraph
+                  - generic [ref=e2493]:
+                    - generic [ref=e2496]:
+                      - paragraph [ref=e2498]: "24"
+                      - checkbox [ref=e2499]
+                    - generic [ref=e2500]:
+                      - paragraph [ref=e2518]: Panish
+                      - paragraph [ref=e2524]: National Account Executive
+                      - paragraph [ref=e3651]: Tracie Panish
+                      - generic [ref=e27432]:
+                        - paragraph
+                      - generic [ref=e27437] [cursor=pointer]:
+                        - generic:
+                          - paragraph
+                      - generic [ref=e27442] [cursor=pointer]:
+                        - generic:
+                          - paragraph
+                      - generic [ref=e27447] [cursor=pointer]:
+                        - generic:
+                          - paragraph
+                  - generic [ref=e2526]:
+                    - generic [ref=e2529]:
+                      - paragraph [ref=e2531]: "25"
+                      - checkbox [ref=e2532]
+                    - generic [ref=e2533]:
+                      - paragraph [ref=e2551]: Labriola
+                      - paragraph [ref=e2557]: Regional Director
+                      - paragraph [ref=e3652]: John Labriola
+                      - generic [ref=e27452]:
+                        - paragraph
+                      - generic [ref=e27457] [cursor=pointer]:
+                        - generic:
+                          - paragraph
+                      - generic [ref=e27462] [cursor=pointer]:
+                        - generic:
+                          - paragraph
+                      - generic [ref=e27467] [cursor=pointer]:
+                        - generic:
+                          - paragraph
+                  - generic [ref=e2559]:
+                    - generic [ref=e2562]:
+                      - paragraph [ref=e2564]: "26"
+                      - checkbox [ref=e2565]
+                    - generic [ref=e2566]:
+                      - paragraph [ref=e2584]: Falbo
+                      - paragraph [ref=e2590]: Senior Corporate Account Manager
+                      - paragraph [ref=e3653]: Dena Falbo
+                      - generic [ref=e27472]:
+                        - paragraph
+                      - generic [ref=e27477] [cursor=pointer]:
+                        - generic:
+                          - paragraph
+                      - generic [ref=e27482] [cursor=pointer]:
+                        - generic:
+                          - paragraph
+                      - generic [ref=e27487] [cursor=pointer]:
+                        - generic:
+                          - paragraph
+                  - generic [ref=e2592]:
+                    - generic [ref=e2595]:
+                      - paragraph [ref=e2597]: "27"
+                      - checkbox [ref=e2598]
+                    - generic [ref=e2599]:
+                      - paragraph [ref=e2617]: Moreno
+                      - paragraph [ref=e2623]: Corporate Account Manager
+                      - paragraph [ref=e3654]: Amber Moreno
+                      - generic [ref=e27492]:
+                        - paragraph
+                      - generic [ref=e27497] [cursor=pointer]:
+                        - generic:
+                          - paragraph
+                      - generic [ref=e27502] [cursor=pointer]:
+                        - generic:
+                          - paragraph
+                      - generic [ref=e27507] [cursor=pointer]:
+                        - generic:
+                          - paragraph
+                  - generic [ref=e2625]:
+                    - generic [ref=e2628]:
+                      - paragraph [ref=e2630]: "28"
+                      - checkbox [ref=e2631]
+                    - generic [ref=e2632]:
+                      - paragraph [ref=e2650]: Lee
+                      - paragraph [ref=e2656]: Director of Mortgage Solutions
+                      - paragraph [ref=e3655]: Jinger Lee
+                      - generic [ref=e27512]:
+                        - paragraph
+                      - generic [ref=e27517] [cursor=pointer]:
+                        - generic:
+                          - paragraph
+                      - generic [ref=e27522] [cursor=pointer]:
+                        - generic:
+                          - paragraph
+                      - generic [ref=e27527] [cursor=pointer]:
+                        - generic:
+                          - paragraph
+                  - generic [ref=e2658]:
+                    - generic [ref=e2661]:
+                      - paragraph [ref=e2663]: "29"
+                      - checkbox [ref=e2664]
+                    - generic [ref=e2665]:
+                      - paragraph [ref=e2683]: Yoder
+                      - paragraph [ref=e2689]: Vp of Strategic Partnerships
+                      - paragraph [ref=e3656]: Mark Yoder
+                      - generic [ref=e27532]:
+                        - paragraph
+                      - generic [ref=e27537] [cursor=pointer]:
+                        - generic:
+                          - paragraph
+                      - generic [ref=e27542] [cursor=pointer]:
+                        - generic:
+                          - paragraph
+                      - generic [ref=e27547] [cursor=pointer]:
+                        - generic:
+                          - paragraph
+                  - button [ref=e28186]
+              - generic [ref=e2694]:
+                - button "Add" [ref=e19724] [cursor=pointer]:
+                  - img [ref=e2696]
+                  - text: Add
+                - spinbutton [ref=e2702]: "10"
+                - paragraph [ref=e2703]: more rows at the bottom
+          - navigation [ref=e28764]:
+            - generic [ref=e29391]:
+              - generic [ref=e29392]:
+                - button "Back" [ref=e29393] [cursor=pointer]:
+                  - img [ref=e29394]
+                - heading "Company URL Edit name Templates" [level=5] [ref=e29515]:
+                  - generic [ref=e29397]:
+                    - generic [ref=e29516]:
+                      - generic [ref=e29517]: Company URL
+                      - button "Edit name" [ref=e29518] [cursor=pointer]:
+                        - img [ref=e29519]
+                    - button "Templates" [ref=e29403] [cursor=pointer]:
+                      - img [ref=e29404]
+                      - generic [ref=e29406]: Templates
+                      - img [ref=e29407]
+                - button "Close" [ref=e29409] [cursor=pointer]:
+                  - img [ref=e29410]
+              - generic [ref=e29412]:
+                - generic [ref=e29413]:
+                  - paragraph [ref=e29414]: Action
+                  - generic [ref=e29415]:
+                    - img [ref=e29416]
+                    - text: Waterfall
+                  - paragraph [ref=e29419]:
+                    - paragraph [ref=e29421]: Need to find a domain address from a company name? The system automatically searches through multiple sources to ensure you get the information you need without any extra effort.
+                    - link "Learn more" [ref=e29422] [cursor=pointer]:
+                      - /url: https://www.clay.com/university/guide/building-a-data-waterfall
+                - generic [ref=e29423]:
+                  - tablist [ref=e29425]:
+                    - generic [ref=e29426]:
+                      - tab "Quick setup" [selected] [ref=e29427] [cursor=pointer]:
+                        - paragraph [ref=e29429]: Quick setup
+                      - tab "Full configuration" [ref=e29430] [cursor=pointer]:
+                        - paragraph [ref=e29432]: Full configuration
+                  - tabpanel "Quick setup" [ref=e29434]:
+                    - generic [ref=e29435]:
+                      - button "Inputs" [expanded] [ref=e29437] [cursor=pointer]:
+                        - paragraph [ref=e29439]: Inputs
+                        - img [ref=e29441]
+                      - generic [ref=e29443]:
+                        - generic [ref=e29444]:
+                          - paragraph [ref=e29445]: Data providers configured (4/4)
+                          - generic [ref=e29446]:
+                            - generic [ref=e29447]:
+                              - img "Snov.io" [ref=e29449]
+                              - img "Google" [ref=e29451]
+                              - img "Clearbit" [ref=e29453]
+                              - img "HG Insights" [ref=e29455]
+                            - paragraph [ref=e29457]: Required inputs mapped for 4/4 data providers!
+                          - generic [ref=e29458]:
+                            - img [ref=e29459]
+                            - paragraph [ref=e29461]: You're ready to run the waterfall
+                        - generic [ref=e29465]:
+                          - paragraph [ref=e29470]: Company Name
+                          - generic [ref=e29474] [cursor=pointer]:
+                            - button "Company Name" [ref=e29476]:
+                              - generic [ref=e29478]:
+                                - img [ref=e29479]
+                                - paragraph [ref=e29483]: Company Name
+                            - img [ref=e29485]
+                            - img [ref=e29488]
+                    - button "Run settings" [ref=e29492] [cursor=pointer]:
+                      - paragraph [ref=e29494]: Run settings
+                      - img [ref=e29496]
+              - generic [ref=e29499]:
+                - generic [ref=e29500]:
+                  - img [ref=e29501]
+                  - paragraph [ref=e29504]: ~1 / row
+                - button "Save" [expanded] [ref=e29505] [cursor=pointer]:
+                  - text: Save
+                  - img [ref=e29506]
+                - menu "Save" [active] [ref=e29525]:
+                  - menuitem "Save and run 10 rows" [ref=e29526] [cursor=pointer]:
+                    - text: Save and run 10 rows
+                    - generic [ref=e29527]:
+                      - img [ref=e29528]
+                      - paragraph [ref=e29531]: ~10 total
+                  - menuitem "Save and run all rows" [ref=e29532] [cursor=pointer]:
+                    - text: Save and run 2.3K rows in this view
+                    - generic [ref=e29533]:
+                      - img [ref=e29534]
+                      - paragraph [ref=e29537]: ~2.3K total
+                  - menuitem "Save and don't run" [ref=e29539] [cursor=pointer]
+        - generic [ref=e2902]:
+          - generic [ref=e2903]:
+            - generic [ref=e2904]:
+              - generic [ref=e2905]:
+                - link "Overview" [ref=e25980] [cursor=pointer]:
+                  - /url: /workspaces/276559/workbooks/wb_0tbn9peQUdDP3THN6ws/all-tables
+                  - img [ref=e2908]
+                  - paragraph [ref=e2910]: Overview
+                - button "ICE-X26-Registrants" [ref=e25981] [cursor=pointer]:
+                  - button "ICE-X26-Registrants" [ref=e25982]:
+                    - generic [ref=e2915]:
+                      - generic [ref=e2916]:
+                        - img [ref=e2917]
+                        - paragraph [ref=e2919]: ICE-X26-Registrants
+                      - img [ref=e2920]
+              - status [ref=e2922]
+            - button "Add" [ref=e25983] [cursor=pointer]:
+              - img [ref=e2924]
+              - text: Add
+          - generic [ref=e2927]:
+            - generic [ref=e8837]: <1% of table completed
+            - button "Stop" [disabled] [ref=e25984]:
+              - img [ref=e2936]
+              - text: Stop
+            - button "History" [ref=e25985] [cursor=pointer]:
+              - img [ref=e2939]
+              - text: History
+            - button "Table settings" [ref=e25986] [cursor=pointer]:
+              - img [ref=e2942]
+  - iframe [ref=e964]:
+    

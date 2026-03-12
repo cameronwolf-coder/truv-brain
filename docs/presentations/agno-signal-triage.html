@@ -1,0 +1,1324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lead Signal Detection — Stakeholder Triage</title>
+    <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600,700&f[]=satoshi@400,500,700&display=swap">
+    <style>
+        /* ===========================================
+           THEME: Light — clean, professional
+           =========================================== */
+        :root {
+            --bg-primary: #f8f9fb;
+            --bg-card: #ffffff;
+            --bg-elevated: #f1f3f7;
+            --border: rgba(0,0,0,0.08);
+            --border-hover: rgba(0,0,0,0.14);
+            --text-primary: #111827;
+            --text-secondary: #4b5563;
+            --text-muted: #9ca3af;
+
+            /* Audience colors */
+            --marketing: #ea580c;
+            --marketing-glow: rgba(234, 88, 12, 0.1);
+            --marketing-soft: rgba(234, 88, 12, 0.05);
+            --engineering: #0891b2;
+            --engineering-glow: rgba(8, 145, 178, 0.1);
+            --engineering-soft: rgba(8, 145, 178, 0.05);
+            --csuite: #7c3aed;
+            --csuite-glow: rgba(124, 58, 237, 0.1);
+            --csuite-soft: rgba(124, 58, 237, 0.05);
+
+            /* Utility */
+            --green: #16a34a;
+            --green-glow: rgba(22, 163, 74, 0.1);
+            --amber: #d97706;
+            --red: #dc2626;
+            --blue: #2563eb;
+            --blue-glow: rgba(37, 99, 235, 0.1);
+            --truv-blue: #2c64e3;
+
+            --font-display: 'Clash Display', sans-serif;
+            --font-body: 'Satoshi', sans-serif;
+            --title-size: clamp(1.8rem, 5vw, 4rem);
+            --h2-size: clamp(1.3rem, 3.2vw, 2.25rem);
+            --h3-size: clamp(1rem, 2vw, 1.4rem);
+            --body-size: clamp(0.72rem, 1.2vw, 1rem);
+            --small-size: clamp(0.62rem, 0.95vw, 0.82rem);
+            --label-size: clamp(0.58rem, 0.8vw, 0.72rem);
+            --slide-padding: clamp(1.25rem, 3.5vw, 3.5rem);
+            --content-gap: clamp(0.6rem, 1.5vw, 1.5rem);
+            --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html {
+            scroll-snap-type: y mandatory;
+            scroll-behavior: smooth;
+            height: 100%;
+            overflow-x: hidden;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            height: 100%;
+            overflow-x: hidden;
+        }
+
+        /* Subtle dot grid */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image: radial-gradient(circle, rgba(0,0,0,0.04) 1px, transparent 1px);
+            background-size: 32px 32px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* ===========================================
+           SLIDE SYSTEM
+           =========================================== */
+        .slide {
+            width: 100vw;
+            height: 100vh;
+            height: 100dvh;
+            overflow: hidden;
+            scroll-snap-align: start;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            z-index: 1;
+        }
+
+        .slide-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            max-height: 100%;
+            overflow: hidden;
+            padding: var(--slide-padding);
+        }
+
+        /* ===========================================
+           TYPOGRAPHY
+           =========================================== */
+        h1 { font-family: var(--font-display); font-size: var(--title-size); font-weight: 700; line-height: 1.05; letter-spacing: -0.025em; color: var(--text-primary); }
+        h2 { font-family: var(--font-display); font-size: var(--h2-size); font-weight: 600; line-height: 1.15; letter-spacing: -0.015em; color: var(--text-primary); }
+        h3 { font-family: var(--font-display); font-size: var(--h3-size); font-weight: 600; line-height: 1.2; color: var(--text-primary); }
+        p, li { font-size: var(--body-size); line-height: 1.55; color: var(--text-secondary); }
+
+        .label {
+            font-size: var(--label-size);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.14em;
+        }
+
+        .subtitle {
+            font-size: clamp(0.85rem, 1.6vw, 1.15rem);
+            color: var(--text-secondary);
+            max-width: 640px;
+        }
+
+        /* ===========================================
+           ANIMATIONS
+           =========================================== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.65s var(--ease-out-expo), transform 0.65s var(--ease-out-expo);
+        }
+        .slide.visible .reveal { opacity: 1; transform: translateY(0); }
+        .slide.visible .reveal:nth-child(1) { transition-delay: 0.04s; }
+        .slide.visible .reveal:nth-child(2) { transition-delay: 0.12s; }
+        .slide.visible .reveal:nth-child(3) { transition-delay: 0.2s; }
+        .slide.visible .reveal:nth-child(4) { transition-delay: 0.28s; }
+        .slide.visible .reveal:nth-child(5) { transition-delay: 0.36s; }
+        .slide.visible .reveal:nth-child(6) { transition-delay: 0.44s; }
+        .slide.visible .reveal:nth-child(7) { transition-delay: 0.52s; }
+
+        /* ===========================================
+           COMPONENTS
+           =========================================== */
+        .accent-line {
+            width: 48px;
+            height: 3px;
+            border-radius: 2px;
+        }
+        .accent-line--marketing { background: var(--marketing); }
+        .accent-line--engineering { background: var(--engineering); }
+        .accent-line--csuite { background: var(--csuite); }
+        .accent-line--blue { background: var(--blue); }
+
+        /* Cards */
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: clamp(0.65rem, 1.3vw, 1.1rem);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+        }
+        .card h3 { margin-bottom: clamp(0.2rem, 0.4vw, 0.35rem); }
+
+        .card--marketing { border-left: 3px solid var(--marketing); }
+        .card--engineering { border-left: 3px solid var(--engineering); }
+        .card--csuite { border-left: 3px solid var(--csuite); }
+        .card--blue { border-left: 3px solid var(--blue); }
+        .card--truv { border-left: 3px solid var(--truv-blue); }
+
+        .card-grid {
+            display: grid;
+            gap: clamp(0.4rem, 1vw, 0.8rem);
+        }
+        .card-grid-2 { grid-template-columns: 1fr 1fr; }
+        .card-grid-3 { grid-template-columns: 1fr 1fr 1fr; }
+        .card-grid-4 { grid-template-columns: 1fr 1fr 1fr 1fr; }
+
+        /* Tags */
+        .tag {
+            display: inline-block;
+            font-size: var(--label-size);
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+        }
+        .tag--marketing { background: var(--marketing-glow); color: var(--marketing); }
+        .tag--engineering { background: var(--engineering-glow); color: var(--engineering); }
+        .tag--csuite { background: var(--csuite-glow); color: var(--csuite); }
+        .tag--green { background: var(--green-glow); color: var(--green); }
+        .tag--blue { background: var(--blue-glow); color: var(--blue); }
+
+        /* Bullet list */
+        .bullet-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: clamp(0.2rem, 0.5vw, 0.4rem);
+        }
+        .bullet-list li {
+            padding-left: 1.1em;
+            position: relative;
+            font-size: var(--small-size);
+        }
+        .bullet-list li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0.55em;
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: var(--text-muted);
+        }
+        .bullet-list--marketing li::before { background: var(--marketing); }
+        .bullet-list--engineering li::before { background: var(--engineering); }
+        .bullet-list--csuite li::before { background: var(--csuite); }
+        .bullet-list--blue li::before { background: var(--blue); }
+
+        /* Metric */
+        .metric-value {
+            font-family: var(--font-display);
+            font-size: clamp(1.4rem, 2.8vw, 2.2rem);
+            font-weight: 700;
+        }
+        .metric-label {
+            font-size: var(--label-size);
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-top: 2px;
+        }
+
+        /* Table */
+        .compare-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: var(--small-size);
+        }
+        .compare-table th {
+            font-family: var(--font-display);
+            font-weight: 600;
+            font-size: var(--small-size);
+            text-align: left;
+            padding: clamp(0.3rem, 0.5vw, 0.45rem) clamp(0.4rem, 0.8vw, 0.65rem);
+            border-bottom: 2px solid var(--border-hover);
+            color: var(--text-primary);
+        }
+        .compare-table td {
+            padding: clamp(0.3rem, 0.5vw, 0.45rem) clamp(0.4rem, 0.8vw, 0.65rem);
+            border-bottom: 1px solid var(--border);
+            color: var(--text-secondary);
+            font-size: var(--small-size);
+        }
+        .compare-table tr:last-child td { border-bottom: none; }
+
+        /* Section icon */
+        .section-icon {
+            width: clamp(40px, 5vw, 56px);
+            height: clamp(40px, 5vw, 56px);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: clamp(20px, 2.5vw, 28px);
+            flex-shrink: 0;
+        }
+        .section-icon--marketing { background: var(--marketing-glow); }
+        .section-icon--engineering { background: var(--engineering-glow); }
+        .section-icon--csuite { background: var(--csuite-glow); }
+
+        .persona-header {
+            display: flex;
+            align-items: center;
+            gap: clamp(0.5rem, 1.2vw, 1rem);
+        }
+
+        /* Node */
+        .node {
+            display: flex;
+            align-items: center;
+            gap: clamp(0.25rem, 0.5vw, 0.4rem);
+            padding: clamp(0.35rem, 0.7vw, 0.55rem) clamp(0.55rem, 1.1vw, 0.9rem);
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            background: var(--bg-card);
+            font-size: var(--small-size);
+            font-weight: 500;
+            white-space: nowrap;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+        }
+        .node-em { font-size: clamp(11px, 1.2vw, 15px); }
+
+        /* Stack badge */
+        .stack-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 3px 10px;
+            border-radius: 6px;
+            background: var(--bg-elevated);
+            border: 1px solid var(--border);
+            font-size: var(--label-size);
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+
+        /* Timeline */
+        .timeline {
+            display: flex;
+            flex-direction: column;
+            gap: clamp(0.3rem, 0.6vw, 0.5rem);
+            border-left: 2px solid var(--border-hover);
+            padding-left: clamp(0.75rem, 1.5vw, 1.25rem);
+            margin-left: clamp(0.3rem, 0.6vw, 0.5rem);
+        }
+        .timeline-item { position: relative; }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: calc(clamp(-0.75rem, -1.5vw, -1.25rem) - 4px);
+            top: 0.4em;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            border: 2px solid var(--text-muted);
+            background: var(--bg-primary);
+        }
+        .timeline-item.active::before {
+            border-color: var(--green);
+            background: var(--green);
+        }
+        .timeline-item h3 { font-size: var(--body-size); }
+        .timeline-item p { font-size: var(--small-size); margin-top: 1px; }
+
+        /* Truv-specific flow diagram */
+        .truv-flow {
+            display: flex;
+            flex-direction: column;
+            gap: clamp(0.3rem, 0.6vw, 0.5rem);
+            align-items: center;
+            width: 100%;
+            max-width: 850px;
+        }
+
+        .truv-flow-row {
+            display: flex;
+            align-items: center;
+            gap: clamp(0.3rem, 0.8vw, 0.6rem);
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .truv-flow-node {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2px;
+            padding: clamp(0.4rem, 0.8vw, 0.6rem) clamp(0.6rem, 1.2vw, 1rem);
+            border-radius: 10px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            text-align: center;
+            min-width: 100px;
+        }
+
+        .truv-flow-node-icon {
+            font-size: clamp(16px, 2vw, 22px);
+        }
+
+        .truv-flow-node-title {
+            font-family: var(--font-display);
+            font-size: var(--small-size);
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .truv-flow-node-sub {
+            font-size: var(--label-size);
+            color: var(--text-muted);
+        }
+
+        .truv-flow-node--active {
+            border-color: var(--truv-blue);
+            background: rgba(44, 100, 227, 0.04);
+            box-shadow: 0 1px 6px rgba(44, 100, 227, 0.1);
+        }
+
+        .truv-flow-arrow {
+            color: var(--text-muted);
+            font-size: clamp(14px, 1.5vw, 18px);
+        }
+
+        .truv-flow-arrow-down {
+            color: var(--text-muted);
+            font-size: clamp(14px, 1.5vw, 18px);
+        }
+
+        .truv-flow-bracket {
+            border: 1px dashed var(--border-hover);
+            border-radius: 10px;
+            padding: clamp(0.4rem, 0.8vw, 0.6rem);
+            display: flex;
+            flex-direction: column;
+            gap: clamp(0.2rem, 0.4vw, 0.3rem);
+            align-items: center;
+        }
+
+        .truv-flow-bracket-label {
+            font-size: var(--label-size);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--truv-blue);
+        }
+
+        /* Code box - light theme */
+        .code-box {
+            background: var(--bg-elevated);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: clamp(0.4rem, 0.8vw, 0.6rem) clamp(0.6rem, 1.2vw, 0.9rem);
+            font-family: 'SF Mono', 'Fira Code', monospace;
+            font-size: var(--label-size);
+            color: var(--text-secondary);
+            overflow: hidden;
+        }
+
+        /* Progress bar */
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--marketing), var(--engineering), var(--csuite));
+            z-index: 100;
+            transition: width 0.3s ease;
+        }
+
+        /* Nav dots */
+        .nav-dots {
+            position: fixed;
+            right: clamp(0.6rem, 1.2vw, 1rem);
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            z-index: 99;
+        }
+        .nav-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: var(--text-muted);
+            opacity: 0.3;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+        }
+        .nav-dot.active { opacity: 1; background: var(--text-primary); transform: scale(1.3); }
+
+        .centered .slide-content { align-items: center; text-align: center; }
+
+        /* ===========================================
+           RESPONSIVE
+           =========================================== */
+        @media (max-width: 768px) {
+            .card-grid-2, .card-grid-3, .card-grid-4 { grid-template-columns: 1fr; }
+            .nav-dots { display: none; }
+        }
+        @media (max-height: 700px) {
+            :root { --slide-padding: clamp(1rem, 2.5vw, 2rem); --content-gap: clamp(0.4rem, 1vw, 0.8rem); }
+        }
+        @media (max-height: 600px) {
+            :root { --slide-padding: clamp(0.75rem, 2vw, 1.5rem); --title-size: clamp(1.4rem, 4.5vw, 2.5rem); --h2-size: clamp(1.1rem, 2.8vw, 1.6rem); }
+            .nav-dots { display: none; }
+        }
+        @media (max-height: 500px) {
+            :root { --slide-padding: clamp(0.5rem, 1.5vw, 1rem); --title-size: clamp(1.2rem, 4vw, 1.8rem); --body-size: clamp(0.6rem, 0.9vw, 0.8rem); }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .reveal { transition: opacity 0.3s ease; transform: none; }
+            html { scroll-behavior: auto; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="progress-bar" id="progressBar"></div>
+<nav class="nav-dots" id="navDots"></nav>
+
+<!-- =============================================
+     SLIDE 1: TITLE
+     ============================================= -->
+<section class="slide" data-slide="0">
+    <div class="slide-content" style="gap: var(--content-gap);">
+        <div class="accent-line accent-line--blue reveal"></div>
+        <div class="label reveal" style="color: var(--blue);">Agno + Claude SDK</div>
+        <h1 class="reveal">AI Lead Signal<br>Detection</h1>
+        <p class="subtitle reveal">What it means for your team: capabilities, lift, and trade-offs across marketing, engineering, and leadership.</p>
+
+        <div class="card-grid card-grid-3 reveal" style="margin-top: clamp(0.3rem, 0.8vw, 0.6rem); max-width: 700px; width: 100%;">
+            <div class="card card--marketing" style="text-align: center; padding: clamp(0.5rem, 1vw, 0.8rem);">
+                <div style="font-size: clamp(18px, 2vw, 24px); margin-bottom: 4px;">📣</div>
+                <div style="font-size: var(--small-size); font-weight: 600; color: var(--marketing);">Marketers</div>
+                <div style="font-size: var(--label-size); color: var(--text-muted);">What you get</div>
+            </div>
+            <div class="card card--engineering" style="text-align: center; padding: clamp(0.5rem, 1vw, 0.8rem);">
+                <div style="font-size: clamp(18px, 2vw, 24px); margin-bottom: 4px;">⚙️</div>
+                <div style="font-size: var(--small-size); font-weight: 600; color: var(--engineering);">Engineers</div>
+                <div style="font-size: var(--label-size); color: var(--text-muted);">What you build</div>
+            </div>
+            <div class="card card--csuite" style="text-align: center; padding: clamp(0.5rem, 1vw, 0.8rem);">
+                <div style="font-size: clamp(18px, 2vw, 24px); margin-bottom: 4px;">📊</div>
+                <div style="font-size: var(--small-size); font-weight: 600; color: var(--csuite);">C-Suite</div>
+                <div style="font-size: var(--label-size); color: var(--text-muted);">Why it matters</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- =============================================
+     SLIDE 2: WHAT IS AGNO
+     ============================================= -->
+<section class="slide" data-slide="1">
+    <div class="slide-content" style="gap: var(--content-gap);">
+        <div class="accent-line accent-line--blue reveal"></div>
+        <div class="label reveal" style="color: var(--blue);">What is Agno?</div>
+        <h2 class="reveal">The framework GTM teams use<br>to run AI agents</h2>
+        <p class="reveal" style="max-width: 660px;">Agno is an open-source Python framework (formerly Phidata) for building AI agents that can use tools, reason over data, and work together in teams. It's becoming the standard for GTM signal detection.</p>
+
+        <div class="card-grid card-grid-3 reveal" style="max-width: 850px; width: 100%;">
+            <div class="card card--blue">
+                <div style="font-size: clamp(16px, 1.8vw, 22px); margin-bottom: 4px;">🤖</div>
+                <h3 style="font-size: var(--body-size); color: var(--blue);">Agents</h3>
+                <p style="font-size: var(--small-size);">An AI model (Claude) wrapped with instructions and tools. It reasons about what to do, calls functions, and returns structured results.</p>
+            </div>
+            <div class="card card--blue">
+                <div style="font-size: clamp(16px, 1.8vw, 22px); margin-bottom: 4px;">🔧</div>
+                <h3 style="font-size: var(--body-size); color: var(--blue);">Tools</h3>
+                <p style="font-size: var(--small-size);">Plain Python functions the agent can call. Search the web, query HubSpot, check for job changes. Claude decides when to use each one.</p>
+            </div>
+            <div class="card card--blue">
+                <div style="font-size: clamp(16px, 1.8vw, 22px); margin-bottom: 4px;">👥</div>
+                <h3 style="font-size: var(--body-size); color: var(--blue);">Teams</h3>
+                <p style="font-size: var(--small-size);">Multiple specialized agents working together. A leader delegates tasks, members gather signals in parallel, results get synthesized.</p>
+            </div>
+        </div>
+
+        <div style="display: flex; gap: clamp(0.4rem, 1vw, 0.75rem); flex-wrap: wrap; justify-content: center;" class="reveal">
+            <span class="stack-badge"><span style="color: var(--blue);">pip install agno</span></span>
+            <span class="stack-badge">Open source</span>
+            <span class="stack-badge">Model-agnostic</span>
+            <span class="stack-badge">Claude native support</span>
+        </div>
+    </div>
+</section>
+
+<!-- =============================================
+     SLIDE 3: HOW AGNO WORKS - VISUAL
+     ============================================= -->
+<section class="slide" data-slide="2">
+    <div class="slide-content" style="gap: var(--content-gap); align-items: center;">
+        <div class="label reveal" style="color: var(--blue);">How It Works</div>
+        <h2 class="reveal">Agent = Model + Tools + Instructions</h2>
+
+        <div class="reveal" style="max-width: 800px; width: 100%;">
+            <div class="card" style="border-top: 3px solid var(--blue); padding: clamp(0.8rem, 1.5vw, 1.25rem);">
+                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: clamp(0.4rem, 0.8vw, 0.6rem);">
+                    <span style="font-size: clamp(14px, 1.5vw, 18px);">🧠</span>
+                    <h3 style="font-size: var(--body-size); color: var(--blue);">Agno Agent</h3>
+                </div>
+                <div class="card-grid card-grid-3" style="gap: clamp(0.3rem, 0.6vw, 0.5rem);">
+                    <div style="background: var(--bg-elevated); border-radius: 8px; padding: clamp(0.4rem, 0.8vw, 0.6rem); text-align: center;">
+                        <div style="font-size: var(--label-size); color: var(--csuite); font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 4px;">Model</div>
+                        <div style="font-size: var(--small-size); color: var(--text-primary); font-weight: 600;">Claude Sonnet</div>
+                        <div style="font-size: var(--label-size); color: var(--text-muted);">Reasons, decides, writes</div>
+                    </div>
+                    <div style="background: var(--bg-elevated); border-radius: 8px; padding: clamp(0.4rem, 0.8vw, 0.6rem); text-align: center;">
+                        <div style="font-size: var(--label-size); color: var(--engineering); font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 4px;">Tools</div>
+                        <div style="font-size: var(--small-size); color: var(--text-primary); font-weight: 600;">Python Functions</div>
+                        <div style="font-size: var(--label-size); color: var(--text-muted);">Search, query, enrich</div>
+                    </div>
+                    <div style="background: var(--bg-elevated); border-radius: 8px; padding: clamp(0.4rem, 0.8vw, 0.6rem); text-align: center;">
+                        <div style="font-size: var(--label-size); color: var(--marketing); font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 4px;">Instructions</div>
+                        <div style="font-size: var(--small-size); color: var(--text-primary); font-weight: 600;">Your Playbook</div>
+                        <div style="font-size: var(--label-size); color: var(--text-muted);">Score leads, explain why</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div style="display: flex; align-items: center; gap: clamp(0.2rem, 0.6vw, 0.5rem); flex-wrap: wrap; justify-content: center;" class="reveal">
+            <div class="node"><span class="node-em">1️⃣</span> You pass a lead</div>
+            <span style="color: var(--text-muted);">→</span>
+            <div class="node"><span class="node-em">2️⃣</span> Claude reads the data</div>
+            <span style="color: var(--text-muted);">→</span>
+            <div class="node"><span class="node-em">3️⃣</span> Calls tools if needed</div>
+            <span style="color: var(--text-muted);">→</span>
+            <div class="node"><span class="node-em">4️⃣</span> Returns score + reasoning</div>
+        </div>
+
+        <p class="reveal" style="font-size: var(--small-size); color: var(--text-muted); max-width: 600px; text-align: center;">The key difference from a script: Claude <strong style="color: var(--text-primary);">decides</strong> what to investigate per lead. It doesn't run the same steps every time. It adapts based on what it sees.</p>
+    </div>
+</section>
+
+<!-- =============================================
+     SLIDE 4: AGNO FOR TRUV - SPECIFIC USE CASE
+     ============================================= -->
+<section class="slide" data-slide="3">
+    <div class="slide-content" style="gap: var(--content-gap); align-items: center;">
+        <div class="label reveal" style="color: var(--truv-blue);">Agno for Truv</div>
+        <h2 class="reveal">How the agent processes a Truv lead</h2>
+
+        <div class="truv-flow reveal">
+            <!-- Row 1: Input -->
+            <div class="truv-flow-row">
+                <div class="truv-flow-node">
+                    <div class="truv-flow-node-icon">📋</div>
+                    <div class="truv-flow-node-title">HubSpot Contact</div>
+                    <div class="truv-flow-node-sub">VP Lending at a bank</div>
+                </div>
+                <div class="truv-flow-arrow">→</div>
+                <div class="truv-flow-node truv-flow-node--active">
+                    <div class="truv-flow-node-icon">🧠</div>
+                    <div class="truv-flow-node-title">Claude Agent</div>
+                    <div class="truv-flow-node-sub">Reads contact + decides</div>
+                </div>
+                <div class="truv-flow-arrow">→</div>
+                <div class="truv-flow-bracket">
+                    <div class="truv-flow-bracket-label">Tools called per lead</div>
+                    <div style="display: flex; gap: clamp(0.2rem, 0.4vw, 0.3rem); flex-wrap: wrap; justify-content: center;">
+                        <div class="truv-flow-node" style="min-width: auto; padding: clamp(0.25rem, 0.5vw, 0.4rem) clamp(0.4rem, 0.8vw, 0.6rem);">
+                            <div class="truv-flow-node-title" style="font-size: var(--label-size);">get_hubspot_activity()</div>
+                            <div class="truv-flow-node-sub">Opens, clicks, form fills</div>
+                        </div>
+                        <div class="truv-flow-node" style="min-width: auto; padding: clamp(0.25rem, 0.5vw, 0.4rem) clamp(0.4rem, 0.8vw, 0.6rem);">
+                            <div class="truv-flow-node-title" style="font-size: var(--label-size);">search_company_news()</div>
+                            <div class="truv-flow-node-sub">Hiring, expansion, reg</div>
+                        </div>
+                        <div class="truv-flow-node" style="min-width: auto; padding: clamp(0.25rem, 0.5vw, 0.4rem) clamp(0.4rem, 0.8vw, 0.6rem);">
+                            <div class="truv-flow-node-title" style="font-size: var(--label-size);">check_job_changes()</div>
+                            <div class="truv-flow-node-sub">New VP, title change</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Arrow down -->
+            <div class="truv-flow-arrow-down">↓ Claude synthesizes all signals</div>
+
+            <!-- Row 2: Output -->
+            <div class="card" style="width: 100%; border-top: 3px solid var(--truv-blue);">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: clamp(0.2rem, 0.4vw, 0.3rem);">
+                    <div>
+                        <div style="font-weight: 600; font-size: var(--body-size);">Sarah Chen, VP Lending, Pacific Federal Credit Union</div>
+                        <div style="font-size: var(--label-size); color: var(--text-muted);">Lifecycle: Closed Lost (Q3) | Vertical: Credit Unions | Last Deal: Income Verification</div>
+                    </div>
+                    <div style="font-family: var(--font-display); font-size: clamp(1.2rem, 2.2vw, 1.8rem); font-weight: 700; color: var(--green);">92</div>
+                </div>
+                <div style="font-size: var(--small-size); color: var(--text-secondary); font-style: italic; line-height: 1.4; margin-bottom: clamp(0.15rem, 0.3vw, 0.25rem);">
+                    "Opened 3 product update emails in 2 weeks after 6 months of silence. Company posted 4 lending ops roles on LinkedIn, scaling verification volume. Title changed from Director to VP since our last deal, suggesting expanded budget authority. NCUA just published new income verification guidance that creates urgency."
+                </div>
+                <div style="display: flex; gap: 8px; align-items: center;">
+                    <span class="tag tag--green">Route to Sales</span>
+                    <span style="font-size: var(--label-size); color: var(--text-muted);">Assign to rep who owned original deal</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- =============================================
+     SLIDE 5: TRUV-SPECIFIC SIGNALS
+     ============================================= -->
+<section class="slide" data-slide="4">
+    <div class="slide-content" style="gap: var(--content-gap);">
+        <div class="label reveal" style="color: var(--truv-blue);">Truv-Specific Signals</div>
+        <h2 class="reveal">What the agent looks for in our pipeline</h2>
+
+        <div class="card-grid card-grid-4 reveal" style="max-width: 900px; width: 100%;">
+            <div class="card card--truv">
+                <h3 style="font-size: var(--small-size); color: var(--truv-blue);">CRM Re-engagement</h3>
+                <ul class="bullet-list bullet-list--blue">
+                    <li>Closed Lost contacts opening emails again</li>
+                    <li>Churned customers visiting pricing page</li>
+                    <li>SAL contacts stalled 90+ days</li>
+                    <li>Job title changes (Director → VP)</li>
+                </ul>
+            </div>
+            <div class="card card--truv">
+                <h3 style="font-size: var(--small-size); color: var(--truv-blue);">Hiring Signals</h3>
+                <ul class="bullet-list bullet-list--blue">
+                    <li>Lending ops roles posted</li>
+                    <li>Verification team expansion</li>
+                    <li>New Head of Risk/Compliance</li>
+                    <li>Engineering hiring for integrations</li>
+                </ul>
+            </div>
+            <div class="card card--truv">
+                <h3 style="font-size: var(--small-size); color: var(--truv-blue);">Regulatory Triggers</h3>
+                <ul class="bullet-list bullet-list--blue">
+                    <li>CFPB income verification guidance</li>
+                    <li>State-level lending regulation changes</li>
+                    <li>NCUA/OCC compliance deadlines</li>
+                    <li>Fair lending audit announcements</li>
+                </ul>
+            </div>
+            <div class="card card--truv">
+                <h3 style="font-size: var(--small-size); color: var(--truv-blue);">Company Events</h3>
+                <ul class="bullet-list bullet-list--blue">
+                    <li>Digital lending product launches</li>
+                    <li>M&A activity (new entity = new verification need)</li>
+                    <li>Vendor contract renewals (competitor churn)</li>
+                    <li>Expansion into new lending verticals</li>
+                </ul>
+            </div>
+        </div>
+
+        <p class="reveal" style="font-size: var(--small-size); color: var(--text-muted); max-width: 700px;">These signals map directly to Truv's ICP: lenders, fintechs, and HR platforms that need income and employment verification at scale. The agent understands our vertical and scores accordingly.</p>
+    </div>
+</section>
+
+<!-- =============================================
+     SLIDE 6: THE PROBLEM - CURRENT STATE
+     ============================================= -->
+<section class="slide" data-slide="5">
+    <div class="slide-content" style="gap: var(--content-gap);">
+        <div class="label reveal" style="color: var(--text-muted);">Context</div>
+        <h2 class="reveal">An AI agent that watches your pipeline<br>and tells you who's ready to buy</h2>
+        <p class="reveal" style="max-width: 680px;">Today, our scorer runs math formulas on CRM data and returns a number. It can't reason about <em>why</em> a lead is hot, check for job changes, or read company news. This project adds Claude as a reasoning layer, turning raw HubSpot data into prioritized, explained recommendations.</p>
+
+        <div class="card-grid card-grid-3 reveal" style="max-width: 800px; width: 100%;">
+            <div class="card" style="text-align: center;">
+                <div style="font-size: var(--small-size); color: var(--text-muted); margin-bottom: 4px;">Today</div>
+                <div style="font-family: var(--font-display); font-size: var(--h3-size); font-weight: 700; color: var(--red);">Score: 72</div>
+                <div style="font-size: var(--label-size); color: var(--text-muted); margin-top: 2px;">That's it. Just a number.</div>
+            </div>
+            <div class="card" style="text-align: center;">
+                <div style="font-size: clamp(16px, 2vw, 22px);">→</div>
+            </div>
+            <div class="card" style="text-align: center;">
+                <div style="font-size: var(--small-size); color: var(--text-muted); margin-bottom: 4px;">With Agno</div>
+                <div style="font-family: var(--font-display); font-size: var(--h3-size); font-weight: 700; color: var(--green);">Score: 92</div>
+                <div style="font-size: var(--label-size); color: var(--text-secondary); margin-top: 2px; line-height: 1.4;">"Re-engaged after 6 months, title changed to VP, company hiring ops roles"</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- =============================================
+     SLIDE 7: MARKETING - SECTION HEADER
+     ============================================= -->
+<section class="slide" data-slide="6">
+    <div class="slide-content" style="gap: var(--content-gap);">
+        <div class="persona-header reveal">
+            <div class="section-icon section-icon--marketing">📣</div>
+            <div>
+                <div class="tag tag--marketing">For Marketers</div>
+                <h1 style="font-size: var(--h2-size); margin-top: 4px;">What You Get</h1>
+            </div>
+        </div>
+        <div class="accent-line accent-line--marketing reveal"></div>
+        <p class="subtitle reveal">Stop guessing which leads to work. The agent reads every signal in your CRM and tells you exactly who to prioritize, why, and what to do next.</p>
+    </div>
+</section>
+
+<!-- =============================================
+     SLIDE 8: MARKETING - CAPABILITIES
+     ============================================= -->
+<section class="slide" data-slide="7">
+    <div class="slide-content" style="gap: var(--content-gap);">
+        <div class="label reveal" style="color: var(--marketing);">Marketing Capabilities</div>
+        <h2 class="reveal">From a spreadsheet of scores to a brief</h2>
+
+        <div class="card-grid card-grid-2 reveal" style="max-width: 850px; width: 100%;">
+            <div class="card card--marketing">
+                <h3 style="color: var(--marketing);">AI-Powered Lead Prioritization</h3>
+                <ul class="bullet-list bullet-list--marketing">
+                    <li>Claude reads every contact's full engagement history</li>
+                    <li>Explains <em>why</em> someone is hot, with reasoning behind every recommendation</li>
+                    <li>Catches re-engagement patterns humans miss</li>
+                    <li>Recommends next action: route to sales, nurture, or wait</li>
+                </ul>
+            </div>
+            <div class="card card--marketing">
+                <h3 style="color: var(--marketing);">Automated Weekly Intel</h3>
+                <ul class="bullet-list bullet-list--marketing">
+                    <li>Replaces Friday manual review with agent-generated brief</li>
+                    <li>Top 25 leads ranked with reasoning paragraphs</li>
+                    <li>Slack notification with actionable summary</li>
+                    <li>Feeds directly into existing Pipedream automation</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="card reveal" style="max-width: 850px; width: 100%;">
+            <div style="display: flex; align-items: center; gap: clamp(0.3rem, 0.6vw, 0.5rem); margin-bottom: clamp(0.2rem, 0.4vw, 0.3rem);">
+                <span class="tag tag--marketing">Future (v2)</span>
+                <h3 style="font-size: var(--small-size);">External signal detection</h3>
+            </div>
+            <p style="font-size: var(--small-size);">Job change alerts, company news monitoring, hiring surge detection. Real buying intent from outside the CRM. Add when v1 proves which signals matter.</p>
+        </div>
+    </div>
+</section>
+
+<!-- =============================================
+     SLIDE 9: MARKETING - LIFT & WORKFLOW
+     ============================================= -->
+<section class="slide" data-slide="8">
+    <div class="slide-content" style="gap: var(--content-gap);">
+        <div class="label reveal" style="color: var(--marketing);">Marketing Lift</div>
+        <h2 class="reveal">What changes in your day-to-day</h2>
+
+        <div class="card-grid card-grid-3 reveal" style="max-width: 850px; width: 100%;">
+            <div class="card" style="text-align: center;">
+                <div class="metric-value" style="color: var(--green);">Zero</div>
+                <div class="metric-label">New tools to learn</div>
+                <p style="font-size: var(--label-size); margin-top: 4px;">Output shows up in Slack, same as today</p>
+            </div>
+            <div class="card" style="text-align: center;">
+                <div class="metric-value" style="color: var(--marketing);">Friday</div>
+                <div class="metric-label">Automated cadence</div>
+                <p style="font-size: var(--label-size); margin-top: 4px;">Drops into #outreach-intelligence weekly</p>
+            </div>
+            <div class="card" style="text-align: center;">
+                <div class="metric-value" style="color: var(--amber);">CLI</div>
+                <div class="metric-label">On-demand option</div>
+                <p style="font-size: var(--label-size); margin-top: 4px;">Run anytime: <code style="font-size: var(--label-size); background: var(--bg-elevated); padding: 1px 4px; border-radius: 3px;">signals --limit 25</code></p>
+            </div>
+        </div>
+
+        <div class="card reveal" style="max-width: 850px; width: 100%;">
+            <h3 style="font-size: var(--small-size); color: var(--marketing); margin-bottom: clamp(0.2rem, 0.4vw, 0.3rem);">Your workflow, before and after</h3>
+            <div class="card-grid card-grid-2" style="gap: clamp(0.3rem, 0.6vw, 0.5rem);">
+                <div>
+                    <div style="font-size: var(--label-size); color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 4px;">Before</div>
+                    <ul class="bullet-list">
+                        <li>Review scored list manually</li>
+                        <li>Check each lead's history in HubSpot</li>
+                        <li>Decide who to route, who to nurture</li>
+                        <li>Write Slack summary for sales</li>
+                    </ul>
+                </div>
+                <div>
+                    <div style="font-size: var(--label-size); color: var(--green); font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 4px;">After</div>
+                    <ul class="bullet-list bullet-list--marketing">
+                        <li>Agent delivers ranked list with reasoning</li>
+                        <li>Scan the brief, approve or adjust</li>
+                        <li>Routing recommendations already included</li>
+                        <li>Slack summary auto-generated</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- =============================================
+     SLIDE 10: ENGINEERING - SECTION HEADER
+     ============================================= -->
+<section class="slide" data-slide="9">
+    <div class="slide-content" style="gap: var(--content-gap);">
+        <div class="persona-header reveal">
+            <div class="section-icon section-icon--engineering">⚙️</div>
+            <div>
+                <div class="tag tag--engineering">For Engineers</div>
+                <h1 style="font-size: var(--h2-size); margin-top: 4px;">What You Build</h1>
+            </div>
+        </div>
+        <div class="accent-line accent-line--engineering reveal"></div>
+        <p class="subtitle reveal">A Python agent pipeline using Agno + Claude SDK. Wraps existing HubSpot infrastructure with AI reasoning. Minimal new surface area.</p>
+    </div>
+</section>
+
+<!-- =============================================
+     SLIDE 11: ENGINEERING - TECH STACK
+     ============================================= -->
+<section class="slide" data-slide="10">
+    <div class="slide-content" style="gap: var(--content-gap);">
+        <div class="label reveal" style="color: var(--engineering);">Tech Stack</div>
+        <h2 class="reveal">What gets installed, what gets reused</h2>
+
+        <div class="card-grid card-grid-2 reveal" style="max-width: 850px; width: 100%;">
+            <div class="card card--engineering">
+                <h3 style="color: var(--engineering);">New Dependencies</h3>
+                <div style="display: flex; flex-wrap: wrap; gap: 6px; margin-top: clamp(0.2rem, 0.4vw, 0.3rem);">
+                    <span class="stack-badge"><span style="color: var(--engineering);">agno</span> Agent framework</span>
+                    <span class="stack-badge"><span style="color: var(--engineering);">anthropic</span> Claude SDK</span>
+                </div>
+                <p style="font-size: var(--label-size); margin-top: clamp(0.2rem, 0.5vw, 0.4rem); color: var(--text-muted);">pip install agno anthropic. That's it for v1</p>
+            </div>
+            <div class="card">
+                <h3 style="color: var(--green);">Reused Infrastructure</h3>
+                <div style="display: flex; flex-wrap: wrap; gap: 6px; margin-top: clamp(0.2rem, 0.4vw, 0.3rem);">
+                    <span class="stack-badge"><span style="color: var(--green);">hubspot_client.py</span></span>
+                    <span class="stack-badge"><span style="color: var(--green);">scorer.py</span></span>
+                    <span class="stack-badge"><span style="color: var(--green);">service.py</span></span>
+                    <span class="stack-badge"><span style="color: var(--green);">cli.py</span></span>
+                    <span class="stack-badge"><span style="color: var(--green);">Pipedream</span></span>
+                </div>
+                <p style="font-size: var(--label-size); margin-top: clamp(0.2rem, 0.5vw, 0.4rem); color: var(--text-muted);">Entire outreach_intel/ module stays intact</p>
+            </div>
+        </div>
+
+        <div class="card reveal" style="max-width: 850px; width: 100%;">
+            <h3 style="font-size: var(--small-size); color: var(--engineering); margin-bottom: clamp(0.2rem, 0.4vw, 0.3rem);">Architecture</h3>
+            <div style="display: flex; align-items: center; gap: clamp(0.3rem, 0.8vw, 0.6rem); flex-wrap: wrap; justify-content: center; font-size: var(--small-size);">
+                <div class="node"><span class="node-em">📋</span> HubSpot Client</div>
+                <span style="color: var(--text-muted);">→</span>
+                <div class="node"><span class="node-em">⚡</span> Existing Scorer</div>
+                <span style="color: var(--text-muted);">→</span>
+                <div class="node" style="border-color: var(--truv-blue); background: rgba(44,100,227,0.04);"><span class="node-em">🧠</span> <strong>Agno Agent (new)</strong></div>
+                <span style="color: var(--text-muted);">→</span>
+                <div class="node"><span class="node-em">💬</span> Slack / CLI</div>
+            </div>
+            <p style="font-size: var(--label-size); color: var(--text-muted); text-align: center; margin-top: clamp(0.2rem, 0.4vw, 0.3rem);">One new module (<code style="font-size: var(--label-size); background: var(--bg-elevated); padding: 1px 4px; border-radius: 3px;">outreach_intel/signal_agent.py</code>), everything else stays the same</p>
+        </div>
+    </div>
+</section>
+
+<!-- =============================================
+     SLIDE 12: ENGINEERING - LIFT & EFFORT
+     ============================================= -->
+<section class="slide" data-slide="11">
+    <div class="slide-content" style="gap: var(--content-gap);">
+        <div class="label reveal" style="color: var(--engineering);">Engineering Lift</div>
+        <h2 class="reveal">Build effort by phase</h2>
+
+        <div class="card-grid card-grid-3 reveal" style="max-width: 850px; width: 100%;">
+            <div class="card card--engineering">
+                <div class="tag tag--green">v1: Smart Scorer</div>
+                <div class="metric-value" style="color: var(--green); font-size: clamp(1.2rem, 2.2vw, 1.8rem); margin: clamp(0.2rem, 0.4vw, 0.3rem) 0;">Half day</div>
+                <ul class="bullet-list bullet-list--engineering">
+                    <li>Wrap scorer output in Agno agent</li>
+                    <li>Claude prompt for reasoning</li>
+                    <li>New CLI command</li>
+                    <li>Structured JSON output</li>
+                </ul>
+            </div>
+            <div class="card card--engineering">
+                <div class="tag tag--engineering">v2: Signal Enricher</div>
+                <div class="metric-value" style="color: var(--engineering); font-size: clamp(1.2rem, 2.2vw, 1.8rem); margin: clamp(0.2rem, 0.4vw, 0.3rem) 0;">1-2 days</div>
+                <ul class="bullet-list bullet-list--engineering">
+                    <li>Define tool functions for Firecrawl</li>
+                    <li>Job change search tool</li>
+                    <li>Company news search tool</li>
+                    <li>Rate limiting + error handling</li>
+                </ul>
+            </div>
+            <div class="card card--engineering">
+                <div class="tag tag--csuite">v3: Multi-Agent</div>
+                <div class="metric-value" style="color: var(--csuite); font-size: clamp(1.2rem, 2.2vw, 1.8rem); margin: clamp(0.2rem, 0.4vw, 0.3rem) 0;">3-5 days</div>
+                <ul class="bullet-list bullet-list--engineering">
+                    <li>Agno Team with coordinate mode</li>
+                    <li>3 specialist agents + scorer</li>
+                    <li>Parallel execution pipeline</li>
+                    <li>Persistence + session state</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="card reveal" style="max-width: 850px; width: 100%;">
+            <h3 style="font-size: var(--small-size); color: var(--engineering); margin-bottom: 4px;">Key technical decisions</h3>
+            <div class="card-grid card-grid-2" style="gap: clamp(0.3rem, 0.6vw, 0.5rem);">
+                <ul class="bullet-list bullet-list--engineering">
+                    <li><strong>Model:</strong> claude-sonnet-4 (fast, cheap, tool-capable)</li>
+                    <li><strong>Framework:</strong> Agno (pip install, model-agnostic, Teams built in)</li>
+                </ul>
+                <ul class="bullet-list bullet-list--engineering">
+                    <li><strong>Tools:</strong> Plain Python functions with docstrings</li>
+                    <li><strong>Output:</strong> Structured JSON → Slack / CLI / Pipedream</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- =============================================
+     SLIDE 13: C-SUITE - SECTION HEADER
+     ============================================= -->
+<section class="slide" data-slide="12">
+    <div class="slide-content" style="gap: var(--content-gap);">
+        <div class="persona-header reveal">
+            <div class="section-icon section-icon--csuite">📊</div>
+            <div>
+                <div class="tag tag--csuite">For C-Suite</div>
+                <h1 style="font-size: var(--h2-size); margin-top: 4px;">Why It Matters</h1>
+            </div>
+        </div>
+        <div class="accent-line accent-line--csuite reveal"></div>
+        <p class="subtitle reveal">Better pipeline intelligence with minimal investment. AI reads the signals your team doesn't have time to check, and explains its reasoning so you can trust the output.</p>
+    </div>
+</section>
+
+<!-- =============================================
+     SLIDE 14: C-SUITE - BUSINESS IMPACT
+     ============================================= -->
+<section class="slide" data-slide="13">
+    <div class="slide-content" style="gap: var(--content-gap);">
+        <div class="label reveal" style="color: var(--csuite);">Business Impact</div>
+        <h2 class="reveal">From gut feel to explainable intelligence</h2>
+
+        <div class="card-grid card-grid-3 reveal" style="max-width: 850px; width: 100%;">
+            <div class="card card--csuite">
+                <h3 style="color: var(--csuite); font-size: var(--body-size);">Pipeline Velocity</h3>
+                <ul class="bullet-list bullet-list--csuite">
+                    <li>Hot leads surfaced before they go cold</li>
+                    <li>Re-engagement signals caught automatically</li>
+                    <li>Faster routing to sales with context</li>
+                </ul>
+            </div>
+            <div class="card card--csuite">
+                <h3 style="color: var(--csuite); font-size: var(--body-size);">Team Efficiency</h3>
+                <ul class="bullet-list bullet-list--csuite">
+                    <li>Eliminates manual CRM review time</li>
+                    <li>AI does the research, humans make decisions</li>
+                    <li>Weekly intel brief replaces ad-hoc checking</li>
+                </ul>
+            </div>
+            <div class="card card--csuite">
+                <h3 style="color: var(--csuite); font-size: var(--body-size);">Competitive Edge</h3>
+                <ul class="bullet-list bullet-list--csuite">
+                    <li>GTM teams using AI agents for signal detection</li>
+                    <li>Agno is the emerging standard framework</li>
+                    <li>Builds institutional knowledge over time</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="card reveal" style="max-width: 850px; width: 100%;">
+            <h3 style="font-size: var(--small-size); color: var(--csuite); margin-bottom: 4px;">What this is not</h3>
+            <p style="font-size: var(--small-size);">It gives your team researched, explained recommendations so they spend time <strong>selling</strong> instead of <strong>searching</strong>. Every recommendation comes with reasoning, never a black-box score.</p>
+        </div>
+    </div>
+</section>
+
+<!-- =============================================
+     SLIDE 15: C-SUITE - INVESTMENT
+     ============================================= -->
+<section class="slide" data-slide="14">
+    <div class="slide-content" style="gap: var(--content-gap);">
+        <div class="label reveal" style="color: var(--csuite);">Investment</div>
+        <h2 class="reveal">Low cost, incremental, reversible</h2>
+
+        <div class="card-grid card-grid-2 reveal" style="max-width: 850px; width: 100%;">
+            <div class="card">
+                <h3 style="color: var(--csuite); font-size: var(--body-size);">Cost to operate</h3>
+                <table class="compare-table">
+                    <tr>
+                        <td style="color: var(--text-primary); font-weight: 600;">v1 (weekly)</td>
+                        <td style="color: var(--green); font-weight: 600;">~$0.08/mo</td>
+                        <td>25 leads x 4 Fridays</td>
+                    </tr>
+                    <tr>
+                        <td style="color: var(--text-primary); font-weight: 600;">v2 (weekly)</td>
+                        <td style="color: var(--amber); font-weight: 600;">~$2/mo</td>
+                        <td>+ web search per lead</td>
+                    </tr>
+                    <tr>
+                        <td style="color: var(--text-primary); font-weight: 600;">v3 (weekly)</td>
+                        <td style="color: var(--csuite); font-weight: 600;">~$8/mo</td>
+                        <td>Full multi-agent pipeline</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="card">
+                <h3 style="color: var(--csuite); font-size: var(--body-size);">Risk profile</h3>
+                <ul class="bullet-list bullet-list--csuite">
+                    <li><strong style="color: var(--green);">Incremental</strong>: each phase builds on the last</li>
+                    <li><strong style="color: var(--green);">Reversible</strong>: can stop at any phase</li>
+                    <li><strong style="color: var(--green);">No vendor lock-in</strong>: Agno is open source, Claude is swappable</li>
+                    <li><strong style="color: var(--green);">Existing infra</strong>: wraps HubSpot + Pipedream, no new platforms</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="card reveal" style="max-width: 850px; width: 100%;">
+            <h3 style="font-size: var(--small-size); color: var(--csuite); margin-bottom: clamp(0.2rem, 0.4vw, 0.3rem);">Rollout timeline</h3>
+            <div class="timeline">
+                <div class="timeline-item active">
+                    <h3><strong style="color: var(--green);">Week 1</strong>: Build + ship v1 (Smart Scorer)</h3>
+                    <p>Half-day build. Claude reasons over existing HubSpot data. Immediate value.</p>
+                </div>
+                <div class="timeline-item">
+                    <h3><strong style="color: var(--engineering);">Weeks 2-3</strong>: Evaluate signal gaps</h3>
+                    <p>Review Claude's reasoning. Identify which external signals would improve quality.</p>
+                </div>
+                <div class="timeline-item">
+                    <h3><strong style="color: var(--amber);">Week 4</strong>: Upgrade to v2 if warranted</h3>
+                    <p>Add web search tools for job changes and company news. Data-driven decision.</p>
+                </div>
+                <div class="timeline-item">
+                    <h3><strong style="color: var(--csuite);">Month 2+</strong>: Full pipeline if ROI proven</h3>
+                    <p>Multi-agent team with parallel specialists. Only if v2 demonstrates clear value.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- =============================================
+     SLIDE 16: FULL COMPARISON
+     ============================================= -->
+<section class="slide" data-slide="15">
+    <div class="slide-content" style="gap: var(--content-gap); align-items: center;">
+        <div class="label reveal" style="color: var(--text-muted);">Summary</div>
+        <h2 class="reveal">Three views, one decision</h2>
+
+        <div class="reveal" style="width: 100%; max-width: 900px; overflow: hidden;">
+            <table class="compare-table">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th><span class="tag tag--marketing">Marketing</span></th>
+                        <th><span class="tag tag--engineering">Engineering</span></th>
+                        <th><span class="tag tag--csuite">C-Suite</span></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="color: var(--text-primary); font-weight: 600;">Core question</td>
+                        <td>How does my workflow change?</td>
+                        <td>What do I need to build?</td>
+                        <td>What's the ROI?</td>
+                    </tr>
+                    <tr>
+                        <td style="color: var(--text-primary); font-weight: 600;">v1 impact</td>
+                        <td>Weekly AI brief with reasoning</td>
+                        <td>1 new file, 2 pip packages</td>
+                        <td>~$1/year, half-day build</td>
+                    </tr>
+                    <tr>
+                        <td style="color: var(--text-primary); font-weight: 600;">Biggest win</td>
+                        <td>No more manual CRM diving</td>
+                        <td>Wraps existing code, minimal surface</td>
+                        <td>Pipeline velocity + team efficiency</td>
+                    </tr>
+                    <tr>
+                        <td style="color: var(--text-primary); font-weight: 600;">Biggest risk</td>
+                        <td>Trusting AI recommendations</td>
+                        <td>Prompt tuning for quality</td>
+                        <td>Negligible; incremental and reversible</td>
+                    </tr>
+                    <tr>
+                        <td style="color: var(--text-primary); font-weight: 600;">What's needed</td>
+                        <td>Review + approve agent output</td>
+                        <td>ANTHROPIC_API_KEY in .env</td>
+                        <td>Green light to start</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+<!-- =============================================
+     SLIDE 17: IMPLEMENTATION PLAN
+     ============================================= -->
+<section class="slide" data-slide="16">
+    <div class="slide-content" style="gap: var(--content-gap); align-items: center;">
+        <div class="label reveal" style="color: var(--engineering);">Build Plan</div>
+        <h2 class="reveal">Implementation: 11 tasks, 3 flows</h2>
+
+        <div class="reveal" style="width: 100%; max-width: 900px; overflow: hidden;">
+            <table class="compare-table" style="font-size: var(--small-size);">
+                <thead>
+                    <tr>
+                        <th style="text-align: left;">Flow</th>
+                        <th>Tasks</th>
+                        <th>Build Time</th>
+                        <th>New Files</th>
+                        <th>CLI Command</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="color: var(--green); font-weight: 600;">A: Smart Scorer</td>
+                        <td>4 tasks</td>
+                        <td>3-4 hours</td>
+                        <td><code style="font-size: var(--label-size); background: var(--bg-elevated); padding: 1px 4px; border-radius: 3px;">signal_agent.py</code></td>
+                        <td><code style="font-size: var(--label-size); background: var(--bg-elevated); padding: 1px 4px; border-radius: 3px;">signal-review</code></td>
+                    </tr>
+                    <tr>
+                        <td style="color: var(--engineering); font-weight: 600;">B: Signal Enricher</td>
+                        <td>4 tasks</td>
+                        <td>4-6 hours</td>
+                        <td><code style="font-size: var(--label-size); background: var(--bg-elevated); padding: 1px 4px; border-radius: 3px;">signal_tools.py</code></td>
+                        <td><code style="font-size: var(--label-size); background: var(--bg-elevated); padding: 1px 4px; border-radius: 3px;">signal-enrich</code></td>
+                    </tr>
+                    <tr>
+                        <td style="color: var(--csuite); font-weight: 600;">C: Multi-Agent Team</td>
+                        <td>2 tasks</td>
+                        <td>3-4 hours</td>
+                        <td><code style="font-size: var(--label-size); background: var(--bg-elevated); padding: 1px 4px; border-radius: 3px;">signal_team.py</code></td>
+                        <td><code style="font-size: var(--label-size); background: var(--bg-elevated); padding: 1px 4px; border-radius: 3px;">signal-team</code></td>
+                    </tr>
+                    <tr style="border-top: 2px solid var(--border);">
+                        <td style="color: var(--text-primary); font-weight: 600;">+ Pipedream</td>
+                        <td>1 task</td>
+                        <td>2-3 hours</td>
+                        <td colspan="2" style="text-align: center;">API route + workflow step</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="reveal" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr)); gap: clamp(0.4rem, 1vw, 0.75rem); width: 100%; max-width: 900px;">
+            <div class="card" style="border-left: 3px solid var(--green); padding: clamp(0.5rem, 1vw, 0.75rem);">
+                <div style="font-weight: 600; font-size: var(--small-size); color: var(--green);">Dependencies</div>
+                <div style="font-size: var(--label-size); color: var(--text-secondary); margin-top: 0.25rem;"><code>pip install agno anthropic</code><br>+ Firecrawl key for Flow B</div>
+            </div>
+            <div class="card" style="border-left: 3px solid var(--engineering); padding: clamp(0.5rem, 1vw, 0.75rem);">
+                <div style="font-weight: 600; font-size: var(--small-size); color: var(--engineering);">Testing</div>
+                <div style="font-size: var(--label-size); color: var(--text-secondary); margin-top: 0.25rem;">TDD: every task starts with a failing test. Mocked agents for unit tests, real HubSpot for integration.</div>
+            </div>
+            <div class="card" style="border-left: 3px solid var(--csuite); padding: clamp(0.5rem, 1vw, 0.75rem);">
+                <div style="font-weight: 600; font-size: var(--small-size); color: var(--csuite);">Total Estimate</div>
+                <div style="font-size: var(--label-size); color: var(--text-secondary); margin-top: 0.25rem;"><strong>12-17 hours</strong> across all 3 flows. Each flow ships independently.</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- =============================================
+     SLIDE 18: CLOSE
+     ============================================= -->
+<section class="slide centered" data-slide="17">
+    <div class="slide-content" style="gap: var(--content-gap);">
+        <div class="accent-line accent-line--blue reveal" style="margin: 0 auto;"></div>
+        <div class="label reveal" style="color: var(--blue);">Next Step</div>
+        <h2 class="reveal">Build v1 this week.<br>Let the agent tell us what's next.</h2>
+        <p class="subtitle reveal" style="margin: 0 auto;">Half a day of work. Two pip packages. One new file. The rest of the infrastructure already exists.</p>
+        <div style="display: flex; gap: clamp(0.4rem, 1vw, 0.75rem); flex-wrap: wrap; justify-content: center;" class="reveal">
+            <div class="node" style="border-color: rgba(22,163,74,0.2);"><span class="node-em">✓</span> <strong style="color: var(--green);">pip install agno anthropic</strong></div>
+            <div class="node" style="border-color: rgba(22,163,74,0.2);"><span class="node-em">✓</span> <strong style="color: var(--green);">outreach_intel/signal_agent.py</strong></div>
+            <div class="node" style="border-color: rgba(22,163,74,0.2);"><span class="node-em">✓</span> <strong style="color: var(--green);">python -m outreach_intel.cli signals</strong></div>
+        </div>
+    </div>
+</section>
+
+<script>
+    /* ===========================================
+       SLIDE CONTROLLER
+       =========================================== */
+    class SlidePresentation {
+        constructor() {
+            this.slides = document.querySelectorAll('.slide');
+            this.progressBar = document.getElementById('progressBar');
+            this.navDots = document.getElementById('navDots');
+            this.currentSlide = 0;
+            this.createNavDots();
+            this.setupIntersectionObserver();
+            this.setupKeyboardNav();
+            this.setupTouchNav();
+        }
+
+        createNavDots() {
+            this.slides.forEach((_, i) => {
+                const dot = document.createElement('button');
+                dot.className = 'nav-dot' + (i === 0 ? ' active' : '');
+                dot.setAttribute('aria-label', `Slide ${i + 1}`);
+                dot.addEventListener('click', () => this.goToSlide(i));
+                this.navDots.appendChild(dot);
+            });
+        }
+
+        setupIntersectionObserver() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        const idx = parseInt(entry.target.dataset.slide);
+                        this.currentSlide = idx;
+                        this.updateProgress(idx);
+                        this.updateDots(idx);
+                    }
+                });
+            }, { threshold: 0.4 });
+            this.slides.forEach(s => observer.observe(s));
+        }
+
+        setupKeyboardNav() {
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowDown' || e.key === 'ArrowRight' || e.key === ' ') {
+                    e.preventDefault();
+                    this.goToSlide(Math.min(this.currentSlide + 1, this.slides.length - 1));
+                } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
+                    e.preventDefault();
+                    this.goToSlide(Math.max(this.currentSlide - 1, 0));
+                }
+            });
+        }
+
+        setupTouchNav() {
+            let startY = 0;
+            document.addEventListener('touchstart', (e) => { startY = e.touches[0].clientY; });
+            document.addEventListener('touchend', (e) => {
+                const diff = startY - e.changedTouches[0].clientY;
+                if (Math.abs(diff) > 50) {
+                    if (diff > 0) this.goToSlide(Math.min(this.currentSlide + 1, this.slides.length - 1));
+                    else this.goToSlide(Math.max(this.currentSlide - 1, 0));
+                }
+            });
+        }
+
+        goToSlide(i) { this.slides[i].scrollIntoView({ behavior: 'smooth' }); }
+        updateProgress(i) { this.progressBar.style.width = ((i + 1) / this.slides.length * 100) + '%'; }
+        updateDots(i) { this.navDots.querySelectorAll('.nav-dot').forEach((d, j) => d.classList.toggle('active', j === i)); }
+    }
+
+    new SlidePresentation();
+</script>
+
+</body>
+</html>

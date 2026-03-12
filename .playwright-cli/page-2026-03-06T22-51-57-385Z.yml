@@ -1,0 +1,584 @@
+- generic [active] [ref=e1]:
+  - iframe [ref=e550]:
+    - banner [ref=f88e6]:
+      - generic [ref=f88e7]:
+        - heading "You’ve used all your monthly credits" [level=5] [ref=f88e8]
+        - generic [ref=f88e9]:
+          - generic [ref=f88e12]: Usage is paused until your credits reset on Mar 25, 2026 or you add more.
+          - link "Add credits" [ref=f88e13] [cursor=pointer]:
+            - /url: https://app.hubspot.com/api/notification-station/general/v1/notifications/cta/ad1945e2-7ce6-4b56-b932-753c0738e0c8?notificationPortalId=19933594
+            - generic [ref=f88e14]: Add credits
+      - button "Close" [ref=f88e15] [cursor=pointer]:
+        - img [ref=f88e18]
+  - generic:
+    - iframe
+  - generic [ref=e4]:
+    - generic [ref=e6]:
+      - region "Page Section" [ref=e7]:
+        - group [ref=e9]:
+          - generic [ref=e10]:
+            - button "Back" [ref=e12] [cursor=pointer]:
+              - generic [ref=e14]: Back
+            - heading "Universal Event Form Processor ON" [level=1] [ref=e16]:
+              - generic [ref=e18]:
+                - button "Universal Event Form Processor" [ref=e20] [cursor=pointer]:
+                  - generic [ref=e21]:
+                    - paragraph [ref=e23]: Universal Event Form Processor
+                    - img [ref=e26]
+                - paragraph [ref=e30]: "ON"
+            - generic [ref=e31]:
+              - button "HubSpot Credits icon" [ref=e32] [cursor=pointer]:
+                - img "HubSpot Credits icon" [ref=e34]
+              - button "Enroll" [ref=e38] [cursor=pointer]:
+                - generic [ref=e40]: Enroll
+              - button "Turn off" [ref=e41] [cursor=pointer]:
+                - generic [ref=e43]: Turn off
+        - group [ref=e44]:
+          - generic [ref=e45]:
+            - generic [ref=e47]:
+              - button "File" [ref=e49] [cursor=pointer]:
+                - generic [ref=e52]:
+                  - paragraph [ref=e53]: File
+                  - img [ref=e54]
+              - button "Edit" [ref=e57] [cursor=pointer]:
+                - generic [ref=e60]:
+                  - paragraph [ref=e61]: Edit
+                  - img [ref=e62]
+              - button "Settings" [ref=e65] [cursor=pointer]:
+                - paragraph [ref=e69]: Settings
+              - button "View" [ref=e71] [cursor=pointer]:
+                - generic [ref=e74]:
+                  - paragraph [ref=e75]: View
+                  - img [ref=e76]
+              - button "Help" [ref=e79] [cursor=pointer]:
+                - generic [ref=e82]:
+                  - paragraph [ref=e83]: Help
+                  - img [ref=e84]
+            - generic [ref=e86]:
+              - button "Test" [ref=e88] [cursor=pointer]:
+                - generic [ref=e91]: Test
+              - button "Performance history" [ref=e93] [cursor=pointer]:
+                - generic [ref=e96]: Performance history
+      - region "Page Section" [ref=e100]:
+        - main [ref=e103]:
+          - generic [ref=e109]:
+            - button "Show minimap panel" [ref=e1505] [cursor=pointer]:
+              - generic [ref=e1507]: Show minimap panel
+            - generic [ref=e115]:
+              - generic [ref=e116]:
+                - group [ref=e118]:
+                  - button "Undo" [disabled] [ref=e119]:
+                    - img [ref=e122]
+                  - button "Redo" [disabled] [ref=e124]:
+                    - img [ref=e127]
+                - group [ref=e130]:
+                  - button [disabled] [ref=e131]:
+                    - img [ref=e134]
+                  - button [ref=e136] [cursor=pointer]:
+                    - img [ref=e139]
+                - generic [ref=e142]: 100%
+              - generic [ref=e146]:
+                - img
+                - generic [ref=e147]:
+                  - button "Leave comment" [ref=e149]:
+                    - button "Trigger enrollment for contacts When this happens Group 1 Form submission has been completed any number of times anytime and Form name is any of Upcoming Event Form Only enroll contacts that meet these conditions Choose conditions to filter records Re-enroll off Details" [ref=e551] [cursor=pointer]:
+                      - generic [ref=e151]:
+                        - img [ref=e155]
+                        - heading "Trigger enrollment for contacts" [level=5] [ref=e158]:
+                          - generic [ref=e159]: Trigger enrollment for contacts
+                      - generic [ref=e160]:
+                        - heading "When this happens" [level=6] [ref=e162]
+                        - generic [ref=e174]:
+                          - heading "Group 1" [level=5] [ref=e178]
+                          - generic [ref=e183]:
+                            - generic [ref=e190]:
+                              - strong [ref=e191]: Form submission has been completed
+                              - text: any number of times anytime
+                            - generic [ref=e193]:
+                              - generic [ref=e196]: and
+                              - generic [ref=e207]:
+                                - strong [ref=e208]: Form name
+                                - text: is any of
+                                - generic [ref=e210]: Upcoming Event Form
+                        - heading "Only enroll contacts that meet these conditions" [level=6] [ref=e212]:
+                          - generic [ref=e213]: Only enroll contacts that meet these conditions
+                        - generic [ref=e214]: Choose conditions to filter records
+                      - generic [ref=e215]:
+                        - combobox "Actions" [ref=e1512]:
+                          - img [ref=e1518]
+                        - generic [ref=e1520]:
+                          - generic [ref=e1522]:
+                            - img [ref=e1523]
+                            - generic [ref=e1525]: Re-enroll off
+                          - button "Details" [ref=e1527]:
+                            - generic [ref=e1529]: Details
+                  - button "Add new action" [ref=e241] [cursor=pointer]:
+                    - img [ref=e243]
+                - generic [ref=e245]:
+                  - button "Leave comment" [ref=e247]:
+                    - button "2.Edit record Set Lifecycle Stage to Marketing Qualified Lead. Details" [ref=e574] [cursor=pointer]:
+                      - generic [ref=e249]:
+                        - img [ref=e253]
+                        - heading "2.Edit record" [level=5] [ref=e256]:
+                          - generic [ref=e259]: 2.Edit record
+                      - generic [ref=e261]:
+                        - text: Set
+                        - button "Lifecycle Stage" [ref=e262]
+                        - text: to
+                        - strong [ref=e263]:
+                          - generic [ref=e264]: Marketing Qualified Lead
+                        - text: .
+                      - generic [ref=e265]:
+                        - generic [ref=e1531]:
+                          - combobox "Actions" [ref=e1534]:
+                            - img [ref=e1540]
+                          - combobox "Actions" [ref=e1544]:
+                            - img [ref=e1550]
+                          - combobox "Actions" [ref=e1554]:
+                            - img [ref=e1560]
+                          - combobox "Actions" [ref=e1564]:
+                            - img [ref=e1570]
+                        - button "Details" [ref=e1572]:
+                          - generic [ref=e1574]: Details
+                  - button "Add new action" [ref=e314] [cursor=pointer]:
+                    - img [ref=e316]
+                - generic [ref=e318]:
+                  - button "Leave comment" [ref=e320]:
+                    - button "4.Send Slack notification Send Slack notification to channel or user" [ref=e321] [cursor=pointer]:
+                      - heading "4.Send Slack notification" [level=5] [ref=e326]:
+                        - generic [ref=e329]: 4.Send Slack notification
+                      - generic [ref=e331]: Send Slack notification to channel or user
+                      - generic [ref=e1576]:
+                        - combobox "Actions" [ref=e1579]:
+                          - img [ref=e1585]
+                        - combobox "Actions" [ref=e1589]:
+                          - img [ref=e1595]
+                        - combobox "Actions" [ref=e1599]:
+                          - img [ref=e1605]
+                        - combobox "Actions" [ref=e1609]:
+                          - img [ref=e1615]
+                  - button "Add new action" [ref=e378] [cursor=pointer]:
+                    - img [ref=e380]
+                  - paragraph [ref=e384]: 4. End
+                - generic [ref=e385]:
+                  - button "Leave comment" [ref=e387]:
+                    - button "1.Edit record Set Last Upcoming Event Form Submission Date to the date this action was executed. Details" [ref=e388] [cursor=pointer]:
+                      - generic [ref=e389]:
+                        - img [ref=e393]
+                        - heading "1.Edit record" [level=5] [ref=e396]:
+                          - generic [ref=e399]: 1.Edit record
+                      - generic [ref=e401]:
+                        - text: Set
+                        - button "Last Upcoming Event Form Submission Date" [ref=e402]
+                        - text: to the date this action was executed.
+                      - generic [ref=e403]:
+                        - generic [ref=e1618]:
+                          - combobox "Actions" [ref=e1621]:
+                            - img [ref=e1627]
+                          - combobox "Actions" [ref=e1631]:
+                            - img [ref=e1637]
+                          - combobox "Actions" [ref=e1641]:
+                            - img [ref=e1647]
+                          - combobox "Actions" [ref=e1651]:
+                            - img [ref=e1657]
+                        - button "Details" [ref=e1659]:
+                          - generic [ref=e1661]: Details
+                  - button "Add new action" [ref=e452] [cursor=pointer]:
+                    - img [ref=e454]
+                - generic [ref=e456]:
+                  - button "Leave comment" [ref=e458]:
+                    - button "3.Custom code Defined by custom code. Details" [ref=e459] [cursor=pointer]:
+                      - generic [ref=e460]:
+                        - img [ref=e464]
+                        - heading "3.Custom code" [level=5] [ref=e467]:
+                          - generic [ref=e470]: 3.Custom code
+                      - generic [ref=e472]:
+                        - text: Defined by
+                        - strong [ref=e473]: custom code
+                        - text: .
+                      - generic [ref=e474]:
+                        - generic [ref=e1663]:
+                          - combobox "Actions" [ref=e1666]:
+                            - img [ref=e1672]
+                          - combobox "Actions" [ref=e1676]:
+                            - img [ref=e1682]
+                          - combobox "Actions" [ref=e1686]:
+                            - img [ref=e1692]
+                          - combobox "Actions" [ref=e1696]:
+                            - img [ref=e1702]
+                        - button "Details" [ref=e1704]:
+                          - generic [ref=e1706]: Details
+                  - button "Add new action" [ref=e523] [cursor=pointer]:
+                    - img [ref=e525]
+    - complementary:
+      - region "Collaboration sidebar":
+        - iframe [ref=e527]:
+          - generic [ref=f83e5]:
+            - generic [ref=f83e6]:
+              - paragraph [ref=f83e8]: Comments
+              - generic [ref=f83e9]:
+                - button "Comment mode" [ref=f83e11] [cursor=pointer]:
+                  - generic [ref=f83e13]: Comment mode
+                - button "More" [ref=f83e14] [cursor=pointer]:
+                  - generic [ref=f83e18]: More
+            - generic [ref=f83e20]:
+              - generic [ref=f83e21]:
+                - button "Open comments" [ref=f83e24] [cursor=pointer]:
+                  - option "Open comments" [ref=f83e28]:
+                    - generic [ref=f83e30]: Open comments
+                - button [ref=f83e32] [cursor=pointer]:
+                  - img [ref=f83e34]
+              - paragraph [ref=f83e40]:
+                - heading "There are no comments on this asset" [level=4] [ref=f83e41]
+                - generic [ref=f83e42]:
+                  - text: Collaborate with coworkers with comments. Leave a comment below and notify a coworker using
+                  - strong [ref=f83e43]: "@mentions"
+                  - text: .
+              - generic [ref=f83e44]:
+                - generic [ref=f83e47]:
+                  - generic [ref=f83e49]:
+                    - generic: Write a comment. Send your colleague a notification by typing @ followed by their name.
+                    - paragraph [ref=f83e52]
+                  - generic [ref=f83e55]:
+                    - button [ref=f83e57]:
+                      - img [ref=f83e60]
+                    - button [ref=f83e63]:
+                      - img [ref=f83e66]
+                    - button [ref=f83e69]:
+                      - img [ref=f83e72]
+                    - button [ref=f83e75]:
+                      - img [ref=f83e78]
+                    - group [ref=f83e80]:
+                      - button [ref=f83e81]:
+                        - img [ref=f83e84]
+                      - button [ref=f83e86]
+                    - button [ref=f83e92]:
+                      - img [ref=f83e95]
+                    - button "Insert Emoji" [ref=f83e98]:
+                      - img [ref=f83e101]
+                - generic [ref=f83e104]:
+                  - button "Comment" [disabled] [ref=f83e105]:
+                    - generic [ref=f83e108]: Comment
+                  - button "Cancel" [disabled] [ref=f83e109]:
+                    - generic [ref=f83e111]: Cancel
+    - generic:
+      - generic:
+        - generic:
+          - generic:
+            - complementary
+            - complementary:
+              - generic [ref=e529]:
+                - button [ref=e530]:
+                  - img [ref=e533]
+                - generic [ref=e535]:
+                  - button "Collaborate with Assistant" [ref=e538] [cursor=pointer]:
+                    - img [ref=e540]
+                  - button "Comments" [ref=e544] [cursor=pointer]:
+                    - img [ref=e546]
+            - complementary
+            - complementary
+  - complementary
+  - generic [ref=e1710]:
+    - generic [ref=e1712]:
+      - heading "3.Custom code" [level=5] [ref=e1714]:
+        - generic [ref=e1720]: 3.Custom code
+      - generic [ref=e1722]:
+        - button "Cancel" [ref=e1723] [cursor=pointer]:
+          - generic [ref=e1725]: Cancel
+        - button "Save" [ref=e1726] [cursor=pointer]:
+          - generic [ref=e1727]:
+            - generic [ref=e1729]: Save
+            - status [ref=e1730]:
+              - generic [ref=e1731]:
+                - img [ref=e1733]
+                - img [ref=e1739]
+              - generic [ref=e1741]: Loaded
+    - generic [ref=e1743]:
+      - tablist [ref=e1745]:
+        - tab "Edit action" [selected] [ref=e1746] [cursor=pointer]
+        - tab "Contacts in action" [ref=e1747] [cursor=pointer]:
+          - generic [ref=e1748]: Contacts in action
+      - tabpanel [ref=e1749]:
+        - generic [ref=e1750]:
+          - generic [ref=e1751]:
+            - button "Create action" [expanded] [ref=e1753] [cursor=pointer]:
+              - img [ref=e1754]:
+                - img [ref=e1755]
+              - text: Create action
+            - generic [ref=e1759]:
+              - generic [ref=e1760]:
+                - generic [ref=e1762]:
+                  - generic [ref=e1768]: Language
+                  - button "Language Node.js 20.x" [ref=e1770] [cursor=pointer]:
+                    - listitem [ref=e1774]:
+                      - option "Node.js 20.x" [ref=e1775]:
+                        - generic [ref=e1777]: Node.js 20.x
+                - generic [ref=e1780]:
+                  - generic [ref=e1786]:
+                    - text: Description
+                    - img [ref=e1788]
+                  - textbox "Description" [ref=e1790]
+                - generic [ref=e1792]:
+                  - generic [ref=e1793]:
+                    - generic [ref=e1798]:
+                      - text: Secrets
+                      - img [ref=e1800]
+                    - generic [ref=e1802]: Choose one or multiple secrets to use in this action.
+                  - button "Secrets AGENTTEST_TOKEN Close" [ref=e1804] [cursor=pointer]:
+                    - generic [ref=e1809]:
+                      - option "AGENTTEST_TOKEN" [ref=e1815]:
+                        - generic [ref=e1817]: AGENTTEST_TOKEN
+                      - button "Close" [ref=e1818]:
+                        - img [ref=e1821]
+                - generic [ref=e1826]:
+                  - generic [ref=e1827]:
+                    - generic [ref=e1832]:
+                      - text: Property to include in code
+                      - img [ref=e1834]
+                    - generic [ref=e1837]:
+                      - text: Each property needs to be defined in your code.
+                      - link "Learn more Link opens in a new window" [ref=e1838] [cursor=pointer]:
+                        - /url: https://developers.hubspot.com/docs/api/workflows/custom-code-actions
+                        - generic [ref=e1839]: Learn more
+                        - img "Link opens in a new window" [ref=e1841]
+                  - generic "Property to include in code" [ref=e1843]:
+                    - generic [ref=e1845]:
+                      - generic [ref=e1847]:
+                        - textbox "input variable name" [ref=e1851]:
+                          - /placeholder: Key
+                          - text: utm_campaign
+                        - generic [ref=e1867] [cursor=pointer]:
+                          - img [ref=e1869]
+                          - text: utm_campaign (Enrolled contact)
+                          - img [ref=e1872]
+                      - button [ref=e1875] [cursor=pointer]:
+                        - img [ref=e1877]
+                - button "Add property" [ref=e1879] [cursor=pointer]:
+                  - generic [ref=e1881]: Add property
+              - generic [ref=e1883]:
+                - generic [ref=e1884]:
+                  - generic [ref=e1889]: Code
+                  - generic [ref=e1891]:
+                    - text: Build your own custom logic. To get started, read the
+                    - link "documentation Link opens in a new window" [ref=e1892] [cursor=pointer]:
+                      - /url: https://developers.hubspot.com/docs/api/workflows/custom-code-actions
+                      - generic [ref=e1893]: documentation
+                      - img "Link opens in a new window" [ref=e1895]
+                    - text: or
+                    - link "view code examples Link opens in a new window" [ref=e1897] [cursor=pointer]:
+                      - /url: https://www.hubspot.com/programmable-automation-use-cases
+                      - generic [ref=e1898]: view code examples
+                      - img "Link opens in a new window" [ref=e1900]
+                    - text: of problems that can be solved with code.
+                - generic [ref=e1904]:
+                  - generic [ref=e1905]:
+                    - button "Full screen" [ref=e1906] [cursor=pointer]:
+                      - generic [ref=e1907]:
+                        - img [ref=e1908]
+                        - generic [ref=e1910]: Full screen
+                    - button "HubSpot Client v11" [ref=e1912] [cursor=pointer]:
+                      - option "HubSpot Client v11" [ref=e1916]:
+                        - generic [ref=e1918]: HubSpot Client v11
+                  - radiogroup [ref=e1921]:
+                    - radio "Light" [checked] [ref=e1922] [cursor=pointer]:
+                      - generic [ref=e1924]: Light
+                    - radio "Dark" [ref=e1925] [cursor=pointer]:
+                      - generic [ref=e1927]: Dark
+                - generic [ref=e1930]:
+                  - textbox [ref=e1931]
+                  - generic [ref=e1934]:
+                    - generic [ref=e1935]:
+                      - generic [ref=e1936]: "1"
+                      - text: const axios = require("axios");
+                    - generic [ref=e1938]: "2"
+                    - generic [ref=e1939]:
+                      - generic [ref=e1940]: "3"
+                      - generic [ref=e1942] [cursor=pointer]: ▾
+                      - text: "exports.main = async (event, callback) => {"
+                    - generic [ref=e1943]:
+                      - generic [ref=e1944]: "4"
+                      - text: const accessToken = process.env.AGENTTEST_TOKEN;
+                    - generic [ref=e1945]:
+                      - generic [ref=e1946]: "5"
+                      - text: const contactId = event.object.objectId;
+                    - generic [ref=e1947]:
+                      - generic [ref=e1948]: "6"
+                      - text: const utmCampaign = event.inputFields["utm_campaign"];
+                    - generic [ref=e1949]:
+                      - generic [ref=e1950]: "7"
+                      - text: const eventObjectType = "2-56342751";
+                    - generic [ref=e1952]: "8"
+                    - generic [ref=e1953]:
+                      - generic [ref=e1954]: "9"
+                      - generic [ref=e1957] [cursor=pointer]: x
+                      - generic [ref=e1959] [cursor=pointer]: ▾
+                      - text: "if (\\!utmCampaign) {"
+                    - generic [ref=e1960]:
+                      - generic [ref=e1961]: "10"
+                      - generic [ref=e1963] [cursor=pointer]: ▾
+                      - text: "callback({"
+                    - generic [ref=e1964]:
+                      - generic [ref=e1965]: "11"
+                      - text: "outputFields: { status: \"skipped\", reason: \"no utm_campaign on contact\" },"
+                    - generic [ref=e1966]:
+                      - generic [ref=e1967]: "12"
+                      - text: "});"
+                    - generic [ref=e1968]:
+                      - generic [ref=e1969]: "13"
+                      - text: return;
+                    - generic [ref=e1970]:
+                      - generic [ref=e1971]: "14"
+                      - text: "}"
+                    - generic [ref=e1973]: "15"
+                    - generic [ref=e1974]:
+                      - generic [ref=e1975]: "16"
+                      - generic [ref=e1977] [cursor=pointer]: ▾
+                      - text: "try {"
+                    - generic [ref=e1978]:
+                      - generic [ref=e1979]: "17"
+                      - text: const searchRes = await axios.post(
+                    - generic [ref=e1980]:
+                      - generic [ref=e1981]: "18"
+                      - text: "\"https://api.hubapi.com/crm/v3/objects/\" + eventObjectType + \"/search\","
+                    - generic [ref=e1982]:
+                      - generic [ref=e1983]: "19"
+                      - generic [ref=e1985] [cursor=pointer]: ▾
+                      - text: "{"
+                    - generic [ref=e1986]:
+                      - generic [ref=e1987]: "20"
+                      - text: "filterGroups: [{ filters: [{ propertyName: \"utm_campaign\", operator: \"EQ\", value: utmCampaign }] }],"
+                    - generic [ref=e1988]:
+                      - generic [ref=e1989]: "21"
+                      - text: "properties: [\"event_name\", \"utm_campaign\", \"list_id\"],"
+                    - generic [ref=e1990]:
+                      - generic [ref=e1991]: "22"
+                      - text: "limit: 1,"
+                    - generic [ref=e1992]:
+                      - generic [ref=e1993]: "23"
+                      - text: "},"
+                    - generic [ref=e1994]:
+                      - generic [ref=e1995]: "24"
+                      - text: "{ headers: { Authorization: \"Bearer \" + accessToken, \"Content-Type\": \"application/json\" } }"
+                    - generic [ref=e1996]:
+                      - generic [ref=e1997]: "25"
+                      - text: );
+                    - generic [ref=e1999]: "26"
+                    - generic [ref=e2000]:
+                      - generic [ref=e2001]: "27"
+                      - text: const results = searchRes.data.results || [];
+                    - generic [ref=e2002]:
+                      - generic [ref=e2003]: "28"
+                      - generic [ref=e2005] [cursor=pointer]: ▾
+                      - text: "if (results.length === 0) {"
+                    - generic [ref=e2006]:
+                      - generic [ref=e2007]: "29"
+                      - text: "callback({ outputFields: { status: \"skipped\", reason: \"no event found for utm: \" + utmCampaign } });"
+                    - generic [ref=e2008]:
+                      - generic [ref=e2009]: "30"
+                      - text: return;
+                    - generic [ref=e2010]:
+                      - generic [ref=e2011]: "31"
+                      - text: "}"
+                    - generic [ref=e2013]: "32"
+                    - generic [ref=e2014]:
+                      - generic [ref=e2015]: "33"
+                      - text: const eventRecordId = results[0].id;
+                    - generic [ref=e2016]:
+                      - generic [ref=e2017]: "34"
+                      - text: const eventName = results[0].properties.event_name || "unknown";
+                    - generic [ref=e2018]:
+                      - generic [ref=e2019]: "35"
+                      - text: const listId = results[0].properties.list_id || "";
+                    - generic [ref=e2020]:
+                      - generic [ref=e2021]: "36"
+                      - text: "const listUrl = listId ? \"https://app.hubspot.com/contacts/19933594/lists/\" + listId : \"\";"
+                    - generic [ref=e2023]: "37"
+                    - generic [ref=e2024]:
+                      - generic [ref=e2025]: "38"
+                      - text: await axios.put(
+                    - generic [ref=e2026]:
+                      - generic [ref=e2027]: "39"
+                      - text: "\"https://api.hubapi.com/crm/v4/objects/contacts/\" + contactId + \"/associations/\" + eventObjectType + \"/\" + eventRecordId,"
+                    - generic [ref=e2028]:
+                      - generic [ref=e2029]: "40"
+                      - text: "[{ associationCategory: \"USER_DEFINED\", associationTypeId: 40 }],"
+                    - generic [ref=e2030]:
+                      - generic [ref=e2031]: "41"
+                      - text: "{ headers: { Authorization: \"Bearer \" + accessToken, \"Content-Type\": \"application/json\" } }"
+                    - generic [ref=e2032]:
+                      - generic [ref=e2033]: "42"
+                      - text: );
+                    - generic [ref=e2035]: "43"
+                    - generic [ref=e2036]:
+                      - generic [ref=e2037]: "44"
+                      - generic [ref=e2039] [cursor=pointer]: ▾
+                      - text: "callback({"
+                    - generic [ref=e2040]:
+                      - generic [ref=e2041]: "45"
+                      - generic [ref=e2043] [cursor=pointer]: ▾
+                      - text: "outputFields: {"
+                    - generic [ref=e2044]:
+                      - generic [ref=e2045]: "46"
+                      - text: "status: \"associated\","
+                    - generic [ref=e2046]:
+                      - generic [ref=e2047]: "47"
+                      - text: "contactId: String(contactId),"
+                    - generic [ref=e2048]:
+                      - generic [ref=e2049]: "48"
+                      - text: "eventId: eventRecordId,"
+                    - generic [ref=e2050]:
+                      - generic [ref=e2051]: "49"
+                      - text: "eventName: eventName,"
+                    - generic [ref=e2052]:
+                      - generic [ref=e2053]: "50"
+                      - text: "utmCampaign: utmCampaign,"
+                    - generic [ref=e2054]:
+                      - generic [ref=e2055]: "51"
+                      - text: "listId: listId,"
+                    - generic [ref=e2056]:
+                      - generic [ref=e2057]: "52"
+                      - text: "listUrl: listUrl,"
+                    - generic [ref=e2058]:
+                      - generic [ref=e2059]: "53"
+                      - text: "},"
+                    - generic [ref=e2060]:
+                      - generic [ref=e2061]: "54"
+                      - text: "});"
+                    - generic [ref=e2062]:
+                      - generic [ref=e2063]: "55"
+                      - generic [ref=e2065] [cursor=pointer]: ▾
+                      - text: "} catch (err) {"
+                    - generic [ref=e2066]:
+                      - generic [ref=e2067]: "56"
+                      - text: "const errMsg = err.response ? JSON.stringify(err.response.data) : err.message;"
+                    - generic [ref=e2068]:
+                      - generic [ref=e2069]: "57"
+                      - text: console.log("Error:", errMsg);
+                    - generic [ref=e2070]:
+                      - generic [ref=e2071]: "58"
+                      - text: "callback({ outputFields: { status: \"error\", error: errMsg } });"
+                    - generic [ref=e2072]:
+                      - generic [ref=e2073]: "59"
+                      - text: "}"
+                    - generic [ref=e2074]:
+                      - generic [ref=e2075]: "60"
+                      - text: "};"
+                    - generic [ref=e2077]: "61"
+              - generic [ref=e2084]:
+                - generic [ref=e2085]:
+                  - generic [ref=e2090]: Data outputs
+                  - generic [ref=e2091]: Define the data type and name of outputs from your code. Each output name must be unique and can only be used once.
+                - generic "Data outputs" [ref=e2092]:
+                  - status [ref=e2093]:
+                    - generic [ref=e2094]:
+                      - img [ref=e2097]
+                      - img [ref=e2103]
+                    - generic [ref=e2105]: Loading
+          - button "Configure rate limit" [ref=e2108] [cursor=pointer]:
+            - img [ref=e2109]:
+              - img [ref=e2110]
+            - text: Configure rate limit
+          - button "Test action" [ref=e2114] [cursor=pointer]:
+            - img [ref=e2115]:
+              - img [ref=e2116]
+            - text: Test action

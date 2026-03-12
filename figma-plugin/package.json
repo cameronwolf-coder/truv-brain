@@ -1,0 +1,13 @@
+{
+  "name": "truv-ad-generator",
+  "version": "1.0.0",
+  "description": "Figma plugin to generate ad variations from CSV data by swapping copy into template frames",
+  "scripts": {
+    "build": "tsc && echo 'Build complete: code.js ready'",
+    "watch": "tsc --watch"
+  },
+  "devDependencies": {
+    "@figma/plugin-typings": "^1.100.0",
+    "typescript": "^5.0.0"
+  }
+}

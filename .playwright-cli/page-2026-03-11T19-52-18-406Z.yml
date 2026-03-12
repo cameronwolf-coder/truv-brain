@@ -1,0 +1,165 @@
+- generic [ref=e1]:
+  - dialog "Document Library" [active] [ref=e4239]:
+    - generic [ref=e4240]: Dialog content start.
+    - button "Dismiss" [ref=e4241] [cursor=pointer]:
+      - img [ref=e4243]
+      - generic [ref=e4245]: Dismiss
+    - heading "Document Library" [level=2] [ref=e4248]
+    - generic [ref=e4249]:
+      - generic [ref=e4250]: 0 results found on page 1.
+      - generic [ref=e4251]:
+        - generic [ref=e4252]:
+          - textbox "Search by file name" [ref=e4255]
+          - generic [ref=e4256] [cursor=pointer]:
+            - generic [ref=e4257]: Upload
+            - button "Upload button to choose files to upload" [ref=e4258]
+        - generic [ref=e4260]:
+          - 'button "Filters: All page counts" [ref=e4261] [cursor=pointer]':
+            - img [ref=e4263]
+            - generic [ref=e4265]:
+              - generic [ref=e4266]: "Filters:"
+              - generic [ref=e4267]: All page counts
+          - 'button "Sort by: Newest" [ref=e4268] [cursor=pointer]':
+            - img [ref=e4270]
+            - generic [ref=e4272]:
+              - generic [ref=e4273]: "Sort by:"
+              - generic [ref=e4274]: Newest
+      - generic [ref=e4275]:
+        - generic [ref=e4277]:
+          - generic [ref=e4278]: 0 selected
+          - text: /
+          - button "5 suggested" [ref=e4279] [cursor=pointer]
+        - list
+      - generic [ref=e4281]:
+        - generic [ref=e4283]:
+          - img [ref=e4285]:
+            - img [ref=e4286]
+          - generic [ref=e4288]:
+            - heading "No matching results" [level=2] [ref=e4289]
+            - paragraph [ref=e4290]: Please make sure keywords are between 2-10 characters and adjust your filter
+        - button "Clear Search" [ref=e4291] [cursor=pointer]:
+          - generic [ref=e4292]: Clear Search
+    - generic [ref=e4294]:
+      - button "Cancel action to close the modal" [ref=e4296] [cursor=pointer]:
+        - generic [ref=e4297]: Cancel
+      - generic [ref=e4298]:
+        - alert
+        - status
+        - button "Select action for submitting the selected assets to the form" [ref=e4299] [cursor=pointer]:
+          - generic [ref=e4300]: Select
+    - generic [ref=e4301]: Dialog content end.
+  - generic:
+    - region "Notification Toasts":
+      - heading "0 notifications total" [level=2] [ref=e1068]
+  - button [ref=e4302] [cursor=pointer]:
+    - img [ref=e29]
+  - generic [ref=e32]:
+    - generic [ref=e35]:
+      - button [ref=e4303] [cursor=pointer]: Skip to main content
+      - button [ref=e4304] [cursor=pointer]:
+        - img [ref=e38]
+        - generic [ref=e40]: Close jump menu
+    - banner [ref=e41]:
+      - generic [ref=e42]:
+        - button [ref=e49] [cursor=pointer]:
+          - generic [ref=e51]:
+            - generic [ref=e52]:
+              - img [ref=e54]:
+                - img [ref=e55]
+              - img [ref=e58]
+            - img [ref=e61]
+        - generic [ref=e1071]:
+          - heading [level=2] [ref=e4305]: Actions List
+          - list [ref=e1072]:
+            - listitem [ref=e1073]:
+              - generic [ref=e1075]: Truv Ad Account
+              - img [ref=e4306]
+          - separator [ref=e1079]
+        - button [ref=e4307] [cursor=pointer]:
+          - generic [ref=e66]:
+            - generic [ref=e67]: At least one account has unseen notifications, click to enter notifications experience
+            - generic [ref=e68]:
+              - generic [ref=e69]:
+                - generic [ref=e70]: "2"
+                - generic [ref=e71]: 2 new account notifications
+              - img [ref=e73]
+        - button [ref=e4308] [cursor=pointer]:
+          - img [ref=e4309]:
+            - img [ref=e80]
+        - button [ref=e4310] [cursor=pointer]:
+          - generic [ref=e83]:
+            - generic [ref=e84]: Open user menu
+            - img [ref=e4311]
+    - main [ref=e180]:
+      - generic [ref=e3973]:
+        - generic [ref=e3976]:
+          - button [ref=e4312] [cursor=pointer]:
+            - img [ref=e3979]
+            - generic [ref=e3981]: Back to ad set
+          - list [ref=e3983]:
+            - listitem [ref=e3984]:
+              - generic [ref=e3985]: ... / CCM Document Ad - Lending / CCM Document Ad - Ops & Lending
+            - listitem [ref=e3986]:
+              - generic [ref=e3987]: CCM Case Study - Document Ad
+        - generic [ref=e3989]:
+          - generic [ref=e3991]:
+            - generic [ref=e3992]:
+              - heading [level=3] [ref=e4313]:
+                - button [disabled] [expanded] [ref=e4314] [cursor=pointer]:
+                  - generic [ref=e3995]:
+                    - text: Ad
+                    - img [ref=e4073]
+              - form [ref=e4315]:
+                - generic [ref=e4076]:
+                  - generic [ref=e4077]:
+                    - generic [ref=e4078]:
+                      - generic [ref=e4079]: Name this ad (optional)
+                      - button [ref=e4316] [cursor=pointer]:
+                        - img [ref=e4082]
+                        - generic [ref=e4084]: More information about the ad name
+                    - generic [ref=e4088]:
+                      - textbox [ref=e4317]:
+                        - /placeholder: Example 1
+                        - text: CCM Case Study - Document Ad
+                      - generic [ref=e4318]: 28/255
+                  - generic [ref=e4093]:
+                    - generic [ref=e4094]:
+                      - generic [ref=e4095]: Introductory text
+                      - button [ref=e4319] [cursor=pointer]:
+                        - img [ref=e4098]
+                        - generic [ref=e4100]: Learn more about Introductory text
+                      - text: "*"
+                    - generic [ref=e4104]:
+                      - textbox [ref=e4320]:
+                        - /placeholder: This is your introductory text
+                        - text: CrossCountry Mortgage cut verification costs and closed loans faster with Truv. See how they saved $10M annually — swipe through the results.
+                      - generic [ref=e4321]: 141/600
+                  - generic [ref=e4109]: Document
+                  - generic [ref=e4112]:
+                    - generic [ref=e4113]: Support for PDF documents.
+                    - button [ref=e4322] [cursor=pointer]:
+                      - generic [ref=e4115]: Upload or select
+            - heading [level=2] [ref=e4323]:
+              - button [ref=e4324] [cursor=pointer]:
+                - generic [ref=e4003]:
+                  - generic [ref=e4004]: Form details
+                  - img [ref=e4116]
+          - generic [ref=e4046]:
+            - heading [level=2] [ref=e4325]: Preview
+            - button [ref=e4326] [cursor=pointer]:
+              - img [ref=e4051]
+              - generic [ref=e4053]: Mobile Feed
+            - generic [ref=e4056]:
+              - status [ref=e4057]:
+                - generic [ref=e4058]:
+                  - img [ref=e4060]
+                  - generic [ref=e4063]: This is a static image of a mobile document ad.
+              - img [ref=e4327]
+        - generic [ref=e4066]:
+          - button [ref=e4328] [cursor=pointer]:
+            - generic [ref=e4069]: Cancel
+          - button [ref=e4329] [cursor=pointer]:
+            - generic [ref=e4072]: Save ad
+  - generic:
+    - generic [ref=e908]: Some of your forecast metrics have changed.
+    - generic [ref=e909]: Your search has 0 results

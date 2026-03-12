@@ -1,0 +1,393 @@
+- generic [ref=e1]:
+  - generic [ref=e5]:
+    - generic [ref=e6]:
+      - generic [ref=e9]:
+        - generic [ref=e10]:
+          - button "Back to Home" [ref=e88] [cursor=pointer]:
+            - img: arrow_back
+          - button "Back to Home" [ref=e11] [cursor=pointer]:
+            - img "Tag Manager"
+        - generic [ref=e12]:
+          - generic [ref=e14]:
+            - generic: Tag Manager
+          - button "Open the universal picker." [ref=e17] [cursor=pointer]:
+            - generic:
+              - generic:
+                - generic: All accounts
+                - img: chevron_right
+                - generic: Truv Website
+              - generic:
+                - generic:
+                  - generic: truv.com
+                - img: arrow_drop_down
+          - search [ref=e90]:
+            - img [ref=e91]: search
+            - textbox "Search" [ref=e93]:
+              - /placeholder: Search workspace
+          - button "Switch products" [ref=e19] [cursor=pointer]:
+            - img
+          - generic [ref=e22]:
+            - button "Help" [ref=e23] [cursor=pointer]:
+              - img: help
+            - button "Open overflow menu" [ref=e25] [cursor=pointer]:
+              - img: more_vert
+          - button "Open the user account switcher panel." [ref=e27] [cursor=pointer]:
+            - 'img "Google Account: Cam Wolf (cameron.wolf@truv.com)"'
+      - navigation [ref=e97]:
+        - tablist "Top level navigation" [ref=e98]:
+          - tab "Workspace" [selected] [ref=e99] [cursor=pointer]
+          - tab "Versions" [ref=e100] [cursor=pointer]:
+            - generic [ref=e101]: Versions
+          - tab "Admin" [ref=e102] [cursor=pointer]
+    - button "2 template updates available View Dismiss" [ref=e106]:
+      - generic [ref=e107]: 2 template updates available –
+      - generic [ref=e108]:
+        - button "View" [ref=e109] [cursor=pointer]
+        - button "Dismiss" [ref=e110] [cursor=pointer]
+    - generic [ref=e226]:
+      - banner:
+        - generic [ref=e227]:
+          - link "GTM-PZ8SVRX" [ref=e229] [cursor=pointer]:
+            - /url: ""
+          - generic [ref=e230]: "Workspace Changes: 0"
+          - generic "View more information" [ref=e235] [cursor=pointer]: Read-only mode
+      - generic [ref=e237]:
+        - generic [ref=e240]:
+          - generic [ref=e241]:
+            - generic [ref=e242]: Current Workspace
+            - generic [ref=e243] [cursor=pointer]: Default Workspace
+          - generic [ref=e244]:
+            - link "Overview" [ref=e245] [cursor=pointer]:
+              - /url: "#/container/accounts/6065199010/containers/98210348/workspaces/53"
+              - text: Overview
+            - link "Tags" [ref=e247] [cursor=pointer]:
+              - /url: "#/container/accounts/6065199010/containers/98210348/workspaces/53/tags"
+              - text: Tags
+            - link "Triggers" [ref=e249] [cursor=pointer]:
+              - /url: "#/container/accounts/6065199010/containers/98210348/workspaces/53/triggers"
+              - text: Triggers
+            - link "Variables" [ref=e251] [cursor=pointer]:
+              - /url: "#/container/accounts/6065199010/containers/98210348/workspaces/53/variables"
+              - text: Variables
+            - link "Folders" [ref=e253] [cursor=pointer]:
+              - /url: "#/container/accounts/6065199010/containers/98210348/workspaces/53/folders"
+              - text: Folders
+            - link "Templates" [ref=e255] [cursor=pointer]:
+              - /url: "#/container/accounts/6065199010/containers/98210348/workspaces/53/templates"
+              - text: Templates
+        - generic [ref=e261]:
+          - generic [ref=e262]:
+            - generic [ref=e264]: Tags
+            - generic [ref=e265]:
+              - button "Add filter text" [ref=e269] [cursor=pointer]
+              - button "Consent Overview" [ref=e272] [cursor=pointer]
+          - table [ref=e273]:
+            - rowgroup [ref=e279]:
+              - row "Sort Name column Sorted in ascending order Sort Type column Firing Triggers Sort Last Edited column" [ref=e280]:
+                - columnheader "Sort Name column Sorted in ascending order" [ref=e281]:
+                  - button "Sort Name column Sorted in ascending order" [ref=e282] [cursor=pointer]: Name
+                - columnheader "Sort Type column" [ref=e283]:
+                  - button "Sort Type column" [ref=e284] [cursor=pointer]: Type
+                - columnheader "Firing Triggers" [ref=e285]
+                - columnheader "Sort Last Edited column" [ref=e286]:
+                  - button "Sort Last Edited column" [ref=e287] [cursor=pointer]: Last Edited
+              - 'row "Any click GA4 Google Analytics: GA4 Event any click 3 years ago This tag has been flagged for malware by Google''s malware scanning system. This tag has been paused and will always fail until it is unpaused." [ref=e288]':
+                - cell "Any click GA4" [ref=e289]:
+                  - link "Any click GA4" [ref=e290] [cursor=pointer]:
+                    - /url: "#/container/accounts/6065199010/containers/98210348/workspaces/53/tags/73"
+                - 'cell "Google Analytics: GA4 Event" [ref=e291]'
+                - cell "any click" [ref=e292]:
+                  - link "any click" [ref=e296] [cursor=pointer]:
+                    - /url: "#/container/accounts/6065199010/containers/98210348/workspaces/53/triggers/72"
+                    - text: any click
+                - cell "3 years ago This tag has been flagged for malware by Google's malware scanning system. This tag has been paused and will always fail until it is unpaused." [ref=e298]:
+                  - generic "Jul 28, 2023, 12:11:28 PM" [ref=e299]: 3 years ago
+                  - generic "This tag has been flagged for malware by Google's malware scanning system."
+                  - generic "This tag has been paused and will always fail until it is unpaused."
+              - row "GA4 Google Tag All Pages 3 years ago This tag has been flagged for malware by Google's malware scanning system. This tag has been paused and will always fail until it is unpaused." [ref=e300]:
+                - cell "GA4" [ref=e301]:
+                  - link "GA4" [ref=e302] [cursor=pointer]:
+                    - /url: "#/container/accounts/6065199010/containers/98210348/workspaces/53/tags/8"
+                - cell "Google Tag" [ref=e303]
+                - cell "All Pages" [ref=e304]:
+                  - generic [ref=e308]: All Pages
+                - cell "3 years ago This tag has been flagged for malware by Google's malware scanning system. This tag has been paused and will always fail until it is unpaused." [ref=e310]:
+                  - generic "Dec 6, 2022, 10:23:55 AM" [ref=e311]: 3 years ago
+                  - generic "This tag has been flagged for malware by Google's malware scanning system."
+                  - generic "This tag has been paused and will always fail until it is unpaused."
+              - 'row "GA4 - Government Pricing Page View Google Analytics: GA4 Event Page View - Government Pricing Page a year ago This tag has been flagged for malware by Google''s malware scanning system. This tag has been paused and will always fail until it is unpaused." [ref=e312]':
+                - cell "GA4 - Government Pricing Page View" [ref=e313]:
+                  - link "GA4 - Government Pricing Page View" [ref=e314] [cursor=pointer]:
+                    - /url: "#/container/accounts/6065199010/containers/98210348/workspaces/53/tags/142"
+                - 'cell "Google Analytics: GA4 Event" [ref=e315]'
+                - cell "Page View - Government Pricing Page" [ref=e316]:
+                  - link "Page View - Government Pricing Page" [ref=e320] [cursor=pointer]:
+                    - /url: "#/container/accounts/6065199010/containers/98210348/workspaces/53/triggers/141"
+                    - text: Page View - Government Pricing Page
+                - cell "a year ago This tag has been flagged for malware by Google's malware scanning system. This tag has been paused and will always fail until it is unpaused." [ref=e322]:
+                  - generic "Apr 3, 2025, 3:46:06 PM" [ref=e323]: a year ago
+                  - generic "This tag has been flagged for malware by Google's malware scanning system."
+                  - generic "This tag has been paused and will always fail until it is unpaused."
+              - 'row "GA4 Event - Contact Sales CTA Click Google Analytics: GA4 Event Click – Contact Sales CTA 5 months ago This tag has been flagged for malware by Google''s malware scanning system. This tag has been paused and will always fail until it is unpaused." [ref=e324]':
+                - cell "GA4 Event - Contact Sales CTA Click" [ref=e325]:
+                  - link "GA4 Event - Contact Sales CTA Click" [ref=e326] [cursor=pointer]:
+                    - /url: "#/container/accounts/6065199010/containers/98210348/workspaces/53/tags/161"
+                - 'cell "Google Analytics: GA4 Event" [ref=e327]'
+                - cell "Click – Contact Sales CTA" [ref=e328]:
+                  - link "Click – Contact Sales CTA" [ref=e332] [cursor=pointer]:
+                    - /url: "#/container/accounts/6065199010/containers/98210348/workspaces/53/triggers/158"
+                    - text: Click – Contact Sales CTA
+                - cell "5 months ago This tag has been flagged for malware by Google's malware scanning system. This tag has been paused and will always fail until it is unpaused." [ref=e334]:
+                  - generic "Oct 2, 2025, 11:01:03 AM" [ref=e335]: 5 months ago
+                  - generic "This tag has been flagged for malware by Google's malware scanning system."
+                  - generic "This tag has been paused and will always fail until it is unpaused."
+              - 'row "GA4 Event - Login CTA Click Google Analytics: GA4 Event Click – Login CTA 5 months ago This tag has been flagged for malware by Google''s malware scanning system. This tag has been paused and will always fail until it is unpaused." [ref=e336]':
+                - cell "GA4 Event - Login CTA Click" [ref=e337]:
+                  - link "GA4 Event - Login CTA Click" [ref=e338] [cursor=pointer]:
+                    - /url: "#/container/accounts/6065199010/containers/98210348/workspaces/53/tags/160"
+                - 'cell "Google Analytics: GA4 Event" [ref=e339]'
+                - cell "Click – Login CTA" [ref=e340]:
+                  - link "Click – Login CTA" [ref=e344] [cursor=pointer]:
+                    - /url: "#/container/accounts/6065199010/containers/98210348/workspaces/53/triggers/159"
+                    - text: Click – Login CTA
+                - cell "5 months ago This tag has been flagged for malware by Google's malware scanning system. This tag has been paused and will always fail until it is unpaused." [ref=e346]:
+                  - generic "Oct 2, 2025, 10:35:56 AM" [ref=e347]: 5 months ago
+                  - generic "This tag has been flagged for malware by Google's malware scanning system."
+                  - generic "This tag has been paused and will always fail until it is unpaused."
+              - 'row "GA4 Event - Verify Button Click Google Analytics: GA4 Event Click - Verify Button (Class) Click – Verify Button (URL) 5 months ago This tag has been flagged for malware by Google''s malware scanning system. This tag has been paused and will always fail until it is unpaused." [ref=e348]':
+                - cell "GA4 Event - Verify Button Click" [ref=e349]:
+                  - link "GA4 Event - Verify Button Click" [ref=e350] [cursor=pointer]:
+                    - /url: "#/container/accounts/6065199010/containers/98210348/workspaces/53/tags/153"
+                - 'cell "Google Analytics: GA4 Event" [ref=e351]'
+                - cell "Click - Verify Button (Class) Click – Verify Button (URL)" [ref=e352]:
+                  - generic [ref=e354]:
+                    - link "Click - Verify Button (Class)" [ref=e356] [cursor=pointer]:
+                      - /url: "#/container/accounts/6065199010/containers/98210348/workspaces/53/triggers/152"
+                      - text: Click - Verify Button (Class)
+                    - link "Click – Verify Button (URL)" [ref=e359] [cursor=pointer]:
+                      - /url: "#/container/accounts/6065199010/containers/98210348/workspaces/53/triggers/155"
+                      - text: Click – Verify Button (URL)
+                - cell "5 months ago This tag has been flagged for malware by Google's malware scanning system. This tag has been paused and will always fail until it is unpaused." [ref=e361]:
+                  - generic "Oct 15, 2025, 7:23:17 AM" [ref=e362]: 5 months ago
+                  - generic "This tag has been flagged for malware by Google's malware scanning system."
+                  - generic "This tag has been paused and will always fail until it is unpaused."
+              - 'row "GA4 Event – Create Account CTA Click Google Analytics: GA4 Event Click – Create Account CTA 5 months ago This tag has been flagged for malware by Google''s malware scanning system. This tag has been paused and will always fail until it is unpaused." [ref=e363]':
+                - cell "GA4 Event – Create Account CTA Click" [ref=e364]:
+                  - link "GA4 Event – Create Account CTA Click" [ref=e365] [cursor=pointer]:
+                    - /url: "#/container/accounts/6065199010/containers/98210348/workspaces/53/tags/171"
+                - 'cell "Google Analytics: GA4 Event" [ref=e366]'
+                - cell "Click – Create Account CTA" [ref=e367]:
+                  - link "Click – Create Account CTA" [ref=e371] [cursor=pointer]:
+                    - /url: "#/container/accounts/6065199010/containers/98210348/workspaces/53/triggers/168"
+                    - text: Click – Create Account CTA
+                - cell "5 months ago This tag has been flagged for malware by Google's malware scanning system. This tag has been paused and will always fail until it is unpaused." [ref=e373]:
+                  - generic "Oct 2, 2025, 1:33:24 PM" [ref=e374]: 5 months ago
+                  - generic "This tag has been flagged for malware by Google's malware scanning system."
+                  - generic "This tag has been paused and will always fail until it is unpaused."
+              - 'row "GA4 Event – Email Capture Form Submit Google Analytics: GA4 Event Email Capture Form Submit 5 months ago This tag has been flagged for malware by Google''s malware scanning system. This tag has been paused and will always fail until it is unpaused." [ref=e375]':
+                - cell "GA4 Event – Email Capture Form Submit" [ref=e376]:
+                  - link "GA4 Event – Email Capture Form Submit" [ref=e377] [cursor=pointer]:
+                    - /url: "#/container/accounts/6065199010/containers/98210348/workspaces/53/tags/167"
+                - 'cell "Google Analytics: GA4 Event" [ref=e378]'
+                - cell "Email Capture Form Submit" [ref=e379]:
+                  - link "Email Capture Form Submit" [ref=e383] [cursor=pointer]:
+                    - /url: "#/container/accounts/6065199010/containers/98210348/workspaces/53/triggers/166"
+                    - text: Email Capture Form Submit
+                - cell "5 months ago This tag has been flagged for malware by Google's malware scanning system. This tag has been paused and will always fail until it is unpaused." [ref=e385]:
+                  - generic "Oct 2, 2025, 12:52:05 PM" [ref=e386]: 5 months ago
+                  - generic "This tag has been flagged for malware by Google's malware scanning system."
+                  - generic "This tag has been paused and will always fail until it is unpaused."
+              - 'row "GA4 Event – Single Verification CTA Click Google Analytics: GA4 Event Click – Single Verification CTA 5 months ago This tag has been flagged for malware by Google''s malware scanning system. This tag has been paused and will always fail until it is unpaused." [ref=e387]':
+                - cell "GA4 Event – Single Verification CTA Click" [ref=e388]:
+                  - link "GA4 Event – Single Verification CTA Click" [ref=e389] [cursor=pointer]:
+                    - /url: "#/container/accounts/6065199010/containers/98210348/workspaces/53/tags/172"
+                - 'cell "Google Analytics: GA4 Event" [ref=e390]'
+                - cell "Click – Single Verification CTA" [ref=e391]:
+                  - link "Click – Single Verification CTA" [ref=e395] [cursor=pointer]:
+                    - /url: "#/container/accounts/6065199010/containers/98210348/workspaces/53/triggers/169"
+                    - text: Click – Single Verification CTA
+                - cell "5 months ago This tag has been flagged for malware by Google's malware scanning system. This tag has been paused and will always fail until it is unpaused." [ref=e397]:
+                  - generic "Oct 2, 2025, 1:35:03 PM" [ref=e398]: 5 months ago
+                  - generic "This tag has been flagged for malware by Google's malware scanning system."
+                  - generic "This tag has been paused and will always fail until it is unpaused."
+              - 'row "GA4 Event – Verification Help CTA Click Google Analytics: GA4 Event Click – Verification Help CTA 5 months ago This tag has been flagged for malware by Google''s malware scanning system. This tag has been paused and will always fail until it is unpaused." [ref=e399]':
+                - cell "GA4 Event – Verification Help CTA Click" [ref=e400]:
+                  - link "GA4 Event – Verification Help CTA Click" [ref=e401] [cursor=pointer]:
+                    - /url: "#/container/accounts/6065199010/containers/98210348/workspaces/53/tags/174"
+                - 'cell "Google Analytics: GA4 Event" [ref=e402]'
+                - cell "Click – Verification Help CTA" [ref=e403]:
+                  - link "Click – Verification Help CTA" [ref=e407] [cursor=pointer]:
+                    - /url: "#/container/accounts/6065199010/containers/98210348/workspaces/53/triggers/170"
+                    - text: Click – Verification Help CTA
+                - cell "5 months ago This tag has been flagged for malware by Google's malware scanning system. This tag has been paused and will always fail until it is unpaused." [ref=e409]:
+                  - generic "Oct 3, 2025, 6:42:54 AM" [ref=e410]: 5 months ago
+                  - generic "This tag has been flagged for malware by Google's malware scanning system."
+                  - generic "This tag has been paused and will always fail until it is unpaused."
+              - row "Google Analytics GA4 Google Tag All Pages Initialization - All Pages 6 months ago This tag has been flagged for malware by Google's malware scanning system. This tag has been paused and will always fail until it is unpaused." [ref=e411]:
+                - cell "Google Analytics GA4" [ref=e412]:
+                  - link "Google Analytics GA4" [ref=e413] [cursor=pointer]:
+                    - /url: "#/container/accounts/6065199010/containers/98210348/workspaces/53/tags/148"
+                - cell "Google Tag" [ref=e414]
+                - cell "All Pages Initialization - All Pages" [ref=e415]:
+                  - generic [ref=e417]:
+                    - generic [ref=e419]: All Pages
+                    - generic [ref=e422]: Initialization - All Pages
+                - cell "6 months ago This tag has been flagged for malware by Google's malware scanning system. This tag has been paused and will always fail until it is unpaused." [ref=e424]:
+                  - generic "Aug 29, 2025, 9:29:13 AM" [ref=e425]: 6 months ago
+                  - generic "This tag has been flagged for malware by Google's malware scanning system."
+                  - generic "This tag has been paused and will always fail until it is unpaused."
+              - 'row "Google Analytics GA4 Event Google Analytics: GA4 Event Form Submission 3 years ago This tag has been flagged for malware by Google''s malware scanning system. pause_circle_filled" [ref=e426]':
+                - cell "Google Analytics GA4 Event" [ref=e427]:
+                  - link "Google Analytics GA4 Event" [ref=e428] [cursor=pointer]:
+                    - /url: "#/container/accounts/6065199010/containers/98210348/workspaces/53/tags/7"
+                - 'cell "Google Analytics: GA4 Event" [ref=e429]'
+                - cell "Form Submission" [ref=e430]:
+                  - link "Form Submission" [ref=e434] [cursor=pointer]:
+                    - /url: "#/container/accounts/6065199010/containers/98210348/workspaces/53/triggers/4"
+                    - text: Form Submission
+                - cell "3 years ago This tag has been flagged for malware by Google's malware scanning system. pause_circle_filled" [ref=e436]:
+                  - generic "Jul 19, 2023, 2:45:48 PM" [ref=e437]: 3 years ago
+                  - generic "This tag has been flagged for malware by Google's malware scanning system."
+                  - generic "This tag has been paused and will always fail until it is unpaused." [ref=e438]: pause_circle_filled
+              - row "Google Conversion Linker Conversion Linker All Pages 2 years ago This tag has been flagged for malware by Google's malware scanning system. This tag has been paused and will always fail until it is unpaused." [ref=e439]:
+                - cell "Google Conversion Linker" [ref=e440]:
+                  - link "Google Conversion Linker" [ref=e441] [cursor=pointer]:
+                    - /url: "#/container/accounts/6065199010/containers/98210348/workspaces/53/tags/102"
+                - cell "Conversion Linker" [ref=e442]
+                - cell "All Pages" [ref=e443]:
+                  - generic [ref=e447]: All Pages
+                - cell "2 years ago This tag has been flagged for malware by Google's malware scanning system. This tag has been paused and will always fail until it is unpaused." [ref=e449]:
+                  - generic "Nov 29, 2023, 3:54:14 PM" [ref=e450]: 2 years ago
+                  - generic "This tag has been flagged for malware by Google's malware scanning system."
+                  - generic "This tag has been paused and will always fail until it is unpaused."
+              - row "Hubspot form success - listener Custom HTML All Pages 14 days ago This tag has been flagged for malware by Google's malware scanning system. pause_circle_filled" [ref=e451]:
+                - cell "Hubspot form success - listener" [ref=e452]:
+                  - link "Hubspot form success - listener" [ref=e453] [cursor=pointer]:
+                    - /url: "#/container/accounts/6065199010/containers/98210348/workspaces/53/tags/52"
+                - cell "Custom HTML" [ref=e454]
+                - cell "All Pages" [ref=e455]:
+                  - generic [ref=e459]: All Pages
+                - cell "14 days ago This tag has been flagged for malware by Google's malware scanning system. pause_circle_filled" [ref=e461]:
+                  - generic "Feb 25, 2026, 9:17:30 AM" [ref=e462]: 14 days ago
+                  - generic "This tag has been flagged for malware by Google's malware scanning system."
+                  - generic "This tag has been paused and will always fail until it is unpaused." [ref=e463]: pause_circle_filled
+              - 'row "Hubspot form success GA4 Google Analytics: GA4 Event Hubspot form success 14 days ago This tag has been flagged for malware by Google''s malware scanning system. pause_circle_filled" [ref=e464]':
+                - cell "Hubspot form success GA4" [ref=e465]:
+                  - link "Hubspot form success GA4" [ref=e466] [cursor=pointer]:
+                    - /url: "#/container/accounts/6065199010/containers/98210348/workspaces/53/tags/55"
+                - 'cell "Google Analytics: GA4 Event" [ref=e467]'
+                - cell "Hubspot form success" [ref=e468]:
+                  - link "Hubspot form success" [ref=e472] [cursor=pointer]:
+                    - /url: "#/container/accounts/6065199010/containers/98210348/workspaces/53/triggers/53"
+                    - text: Hubspot form success
+                - cell "14 days ago This tag has been flagged for malware by Google's malware scanning system. pause_circle_filled" [ref=e474]:
+                  - generic "Feb 25, 2026, 9:17:50 AM" [ref=e475]: 14 days ago
+                  - generic "This tag has been flagged for malware by Google's malware scanning system."
+                  - generic "This tag has been paused and will always fail until it is unpaused." [ref=e476]: pause_circle_filled
+    - generic [ref=e85]:
+      - link "Terms of Service" [ref=e86] [cursor=pointer]:
+        - /url: https://support.google.com/tagmanager/answer/7157428?hl=en
+      - text: •
+      - link "Privacy Policy" [ref=e87] [cursor=pointer]:
+        - /url: https://www.google.com/intl/en/policies/privacy/
+  - generic [ref=e479]:
+    - generic [ref=e480]:
+      - button "Close screen" [ref=e481] [cursor=pointer]
+      - generic [ref=e482]:
+        - generic [ref=e483]: Hubspot form success - listener
+        - button "Unfiled items" [ref=e486]:
+          - generic [ref=e487]: Unfiled items
+      - generic "View more information" [ref=e494] [cursor=pointer]: Read-only mode
+    - generic [ref=e496]:
+      - button "Paused in this workspace–This tag is paused and will not fire once published" [ref=e498]:
+        - generic [ref=e499]: Paused in this workspace–This tag is paused and will not fire once published
+      - generic [ref=e500]:
+        - region "Section" [ref=e502]:
+          - generic [ref=e503]:
+            - heading "Tag Configuration" [ref=e504]
+            - generic [ref=e506]:
+              - generic [ref=e508]:
+                - generic [ref=e509]: Tag Type
+                - generic:
+                  - button "Custom HTML Custom HTML Tag":
+                    - generic:
+                      - generic: Custom HTML
+                      - generic: Custom HTML Tag
+              - generic [ref=e514]:
+                - generic [ref=e517]:
+                  - generic [ref=e518]:
+                    - text: HTML
+                    - button "View more information" [ref=e520]: help_outline
+                  - generic [ref=e521]:
+                    - text: 
+                    - generic [ref=e523]:
+                      - textbox [ref=e524]
+                      - generic [ref=e527]:
+                        - generic [ref=e528]:
+                          - generic [ref=e529]: "1"
+                          - text: <script type="text/javascript">
+                        - generic [ref=e530]:
+                          - generic [ref=e531]: "2"
+                          - text: "window.addEventListener(\"message\", function(event) {"
+                        - generic [ref=e532]:
+                          - generic [ref=e533]: "3"
+                          - text: "if(event.data.type === 'hsFormCallback' && event.data.eventName === 'onFormSubmitted') {"
+                        - generic [ref=e534]:
+                          - generic [ref=e535]: "4"
+                          - text: "window.dataLayer.push({"
+                        - generic [ref=e536]:
+                          - generic [ref=e537]: "5"
+                          - text: "'event': 'hubspot-form-success',"
+                        - generic [ref=e538]:
+                          - generic [ref=e539]: "6"
+                          - text: "'hs-form-guid': event.data.id"
+                        - generic [ref=e540]:
+                          - generic [ref=e541]: "7"
+                          - text: "});"
+                        - generic [ref=e542]:
+                          - generic [ref=e543]: "8"
+                          - text: "}"
+                        - generic [ref=e544]:
+                          - generic [ref=e545]: "9"
+                          - text: "});"
+                        - generic [ref=e546]:
+                          - generic [ref=e547]: "10"
+                          - text: </script>
+                - text: help_outline
+                - generic: help_outline
+                - text: help_outline
+              - generic:
+                - generic:
+                  - generic:
+                    - text: help_outline help_outline
+                    - generic:
+                      - generic: help_outline
+                    - generic:
+                      - generic:
+                        - generic: help_outline
+                    - generic:
+                      - generic:
+                        - generic:
+                          - text: help_outline
+                          - generic:
+                            - generic:
+                              - generic: help_outline help_outline
+          - button "Section edit button, click to enable edit mode for this section" [ref=e551]
+        - region "Section" [ref=e553]:
+          - generic [ref=e554]:
+            - heading "Triggering Paused" [ref=e555]:
+              - generic [ref=e556]:
+                - text: Triggering
+                - generic [ref=e557]: Paused
+            - generic [ref=e562]:
+              - generic [ref=e563]: Firing Triggers
+              - button "All Pages Page View" [ref=e568]:
+                - generic [ref=e570]:
+                  - generic [ref=e571]: All Pages
+                  - generic [ref=e572]: Page View
+          - button "Section edit button, click to enable edit mode for this section" [ref=e574]
+        - region "Section" [ref=e577]:
+          - generic [ref=e578]:
+            - heading "Notes" [ref=e579]
+            - generic [ref=e583]: Listening tag. Needed for an event with Hubspot Forms
+          - button "Section edit button, click to enable edit mode for this section" [ref=e585]

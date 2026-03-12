@@ -1,0 +1,68 @@
+- generic [ref=e5]:
+  - generic [ref=e9]:
+    - button "Back to Home" [ref=e11] [cursor=pointer]:
+      - img "Tag Manager"
+    - generic [ref=e12]:
+      - generic [ref=e14]:
+        - generic: Tag Manager
+      - button "Open the universal picker." [ref=e17] [cursor=pointer]:
+        - generic:
+          - generic:
+            - generic:
+              - generic: All accounts
+            - img: arrow_drop_down
+      - button "Switch products" [ref=e19] [cursor=pointer]:
+        - img
+      - generic [ref=e22]:
+        - button "Help" [ref=e23] [cursor=pointer]:
+          - img: help
+        - button "Open overflow menu" [ref=e25] [cursor=pointer]:
+          - img: more_vert
+      - button "Open the user account switcher panel." [ref=e27] [cursor=pointer]:
+        - 'img "Google Account: Cam Wolf (cameron.wolf@truv.com)"'
+  - generic [ref=e33]:
+    - banner [ref=e34]:
+      - navigation [ref=e37]:
+        - tablist "Choose Account or Google tag" [ref=e38]:
+          - tab "Accounts" [selected] [ref=e39] [cursor=pointer]
+          - tab "Google tags" [ref=e40] [cursor=pointer]
+      - button "Open menu filter" [ref=e44] [cursor=pointer]
+      - button "Create Account" [ref=e45] [cursor=pointer]
+    - generic [ref=e47]:
+      - generic [ref=e48]:
+        - generic [ref=e49]: Truv Website
+        - generic [ref=e50]:
+          - button [ref=e51] [cursor=pointer]
+          - button [ref=e52] [cursor=pointer]
+      - table [ref=e53]:
+        - rowgroup [ref=e59]:
+          - row "Container Name Container Type Container ID" [ref=e60]:
+            - columnheader "Container Name" [ref=e61]:
+              - button "Container Name" [ref=e62] [cursor=pointer]
+            - columnheader "Container Type" [ref=e63]:
+              - button "Container Type" [ref=e64] [cursor=pointer]
+            - columnheader "Container ID" [ref=e65]:
+              - button "Container ID" [ref=e66] [cursor=pointer]
+            - columnheader [ref=e67]
+          - row "docs.truv.com Web GTM-KGTMLFMV" [ref=e68]:
+            - cell "docs.truv.com" [ref=e69]:
+              - link "docs.truv.com" [ref=e70] [cursor=pointer]:
+                - /url: "#/container/accounts/6065199010/containers/168692055"
+            - cell "Web" [ref=e71]
+            - cell "GTM-KGTMLFMV" [ref=e72]
+            - cell [ref=e73]:
+              - button [ref=e75] [cursor=pointer]
+          - row "truv.com Web GTM-PZ8SVRX" [ref=e76]:
+            - cell "truv.com" [ref=e77]:
+              - link "truv.com" [ref=e78] [cursor=pointer]:
+                - /url: "#/container/accounts/6065199010/containers/98210348"
+            - cell "Web" [ref=e79]
+            - cell "GTM-PZ8SVRX" [ref=e80]
+            - cell [ref=e81]:
+              - button [ref=e83] [cursor=pointer]
+  - generic [ref=e85]:
+    - link "Terms of Service" [ref=e86] [cursor=pointer]:
+      - /url: https://support.google.com/tagmanager/answer/7157428?hl=en
+    - text: •
+    - link "Privacy Policy" [ref=e87] [cursor=pointer]:
+      - /url: https://www.google.com/intl/en/policies/privacy/

@@ -1,0 +1,306 @@
+- generic [active] [ref=e1]:
+  - generic:
+    - region "Notification Toasts":
+      - heading "1 notification total" [level=2] [ref=e4633]
+      - generic [ref=e4635]:
+        - img [ref=e4637]
+        - alert [ref=e4640]:
+          - generic [ref=e4642]: Your ad has been saved successfully.
+        - button "Dismiss “Your ad has been saved successfully.” notification 1 of 1." [ref=e4644] [cursor=pointer]:
+          - img [ref=e4646]
+  - button [ref=e4302] [cursor=pointer]:
+    - img [ref=e29]
+  - generic [ref=e32]:
+    - generic [ref=e35]:
+      - button [ref=e4303] [cursor=pointer]: Skip to main content
+      - button [ref=e4304] [cursor=pointer]:
+        - img [ref=e38]
+        - generic [ref=e40]: Close jump menu
+    - banner [ref=e41]:
+      - generic [ref=e42]:
+        - button [ref=e49] [cursor=pointer]:
+          - generic [ref=e51]:
+            - generic [ref=e52]:
+              - img [ref=e54]:
+                - img [ref=e55]
+              - img [ref=e58]
+            - img [ref=e61]
+        - generic [ref=e1071]:
+          - heading [level=2] [ref=e4305]: Actions List
+          - list [ref=e1072]:
+            - listitem [ref=e1073]:
+              - generic [ref=e1075]: Truv Ad Account
+              - img [ref=e4306]
+          - separator [ref=e1079]
+        - button [ref=e4307] [cursor=pointer]:
+          - generic [ref=e66]:
+            - generic [ref=e67]: At least one account has unseen notifications, click to enter notifications experience
+            - generic [ref=e68]:
+              - generic [ref=e69]:
+                - generic [ref=e70]: "2"
+                - generic [ref=e71]: 2 new account notifications
+              - img [ref=e73]
+        - button [ref=e4308] [cursor=pointer]:
+          - img [ref=e4309]:
+            - img [ref=e80]
+        - button [ref=e4310] [cursor=pointer]:
+          - generic [ref=e83]:
+            - generic [ref=e84]: Open user menu
+            - img [ref=e4311]
+    - main [ref=e180]:
+      - generic [ref=e4651]:
+        - button [ref=e4652] [cursor=pointer]:
+          - img [ref=e4654]
+          - generic [ref=e4656]: Back to account
+        - list [ref=e4658]:
+          - listitem [ref=e4659]:
+            - generic [ref=e4660]: Truv Ad Account / CCM Document Ad - Lending
+          - listitem [ref=e4661]:
+            - generic [ref=e4662]: CCM Document Ad - Ops & Lending
+        - generic [ref=e4663]:
+          - generic [ref=e4665]:
+            - generic [ref=e4666]: Draft
+            - generic [ref=e4668]:
+              - generic [ref=e4669]: "Off"
+              - switch [disabled]
+          - button [ref=e4671] [cursor=pointer]:
+            - img [ref=e4673]
+      - generic [ref=e4911]:
+        - complementary [ref=e4912]:
+          - generic [ref=e4913]:
+            - generic [ref=e4914]:
+              - heading [level=4] [ref=e4915]: Campaign
+              - button [ref=e4916] [cursor=pointer]:
+                - button [ref=e4917]:
+                  - paragraph [ref=e4919]: CCM Document Ad - Lending
+            - generic [ref=e4920]:
+              - heading [level=4] [ref=e4921]: Ad set
+              - button [ref=e4922] [cursor=pointer]:
+                - button [ref=e4923]:
+                  - paragraph [ref=e4925]: CCM Document Ad - Ops & Lending
+              - list [ref=e4926]:
+                - listitem [ref=e4927]:
+                  - button [ref=e4929] [cursor=pointer]: Ad set details
+                - listitem [ref=e4930]:
+                  - button [ref=e4932] [cursor=pointer]: Audience
+                - listitem [ref=e4933]:
+                  - button [ref=e4935] [cursor=pointer]: Ad format
+                - listitem [ref=e4936]:
+                  - button [ref=e4938] [cursor=pointer]: URL parameters
+                - listitem [ref=e4939]:
+                  - button [ref=e4941] [cursor=pointer]: Placement
+                - listitem [ref=e4942]:
+                  - button [ref=e4944] [cursor=pointer]: Budget and schedule
+                - listitem [ref=e4945]:
+                  - button [ref=e4947] [cursor=pointer]: Conversion tracking
+            - generic [ref=e4948]:
+              - heading [level=4] [ref=e4949]: 1 ad in this ad set
+              - button [ref=e4950] [cursor=pointer]: Manage ads
+              - list [ref=e4951]:
+                - listitem [ref=e4952]:
+                  - button [ref=e4954] [cursor=pointer]: Document Ad
+            - heading [level=3] [ref=e4956]: Review & Launch
+        - generic [ref=e4958]:
+          - generic [ref=e4959]:
+            - generic [ref=e4960]:
+              - generic [ref=e4961]:
+                - heading [level=2] [ref=e4962]: Review and launch
+                - paragraph [ref=e4963]: You’re almost there! Let’s review your ad set settings before you launch.
+              - generic [ref=e4964]:
+                - heading [level=2] [ref=e4965]: Campaign
+                - generic [ref=e4966]:
+                  - generic [ref=e4967]:
+                    - heading [level=3] [ref=e4968]: Campaign name
+                    - paragraph [ref=e4969]: CCM Document Ad - Lending
+                  - generic [ref=e4971]:
+                    - paragraph [ref=e4973]: Objective
+                    - generic [ref=e4974]:
+                      - img [ref=e4975]:
+                        - img [ref=e4976]
+                      - generic [ref=e4978]:
+                        - heading [level=4] [ref=e4980]: Lead generation
+                        - paragraph [ref=e4981]: Gather info from people interested in your business
+                  - generic [ref=e4984]:
+                    - term [ref=e4985]: Schedule
+                    - definition [ref=e4986]: Ad sets will run continuously from 3/11/2026
+              - generic [ref=e4987]:
+                - heading [level=2] [ref=e4988]: Ad set details
+                - generic [ref=e4990]:
+                  - generic [ref=e4991]:
+                    - heading [level=3] [ref=e4992]: Ad set name
+                    - paragraph [ref=e4993]: CCM Document Ad - Ops & Lending
+                  - generic [ref=e4995]:
+                    - paragraph [ref=e4996]:
+                      - generic [ref=e4997]: INCLUDE
+                    - paragraph [ref=e4998]: People with English as their profile language in
+                    - generic [ref=e4999]:
+                      - paragraph [ref=e5000]: Locations (recent or permanent)
+                      - paragraph [ref=e5001]: United States
+                    - paragraph [ref=e5002]: AND who meet ANY of the following criteria
+                    - generic [ref=e5003]:
+                      - paragraph [ref=e5004]: Job Titles (Current)
+                      - paragraph [ref=e5005]: Vice President of Products, Executive Vice President of Finance, Head, Senior Underwriter, Head of Finance, Vice President of Sales, Vice President of Mortgage Lending, Chief Technology Officer, Loan Operations Manager, Vice President Operations, Director of Risk Management, Underwriting Manager, Chief Information Officer, Quality Assurance Manager, Vice President of Risk, Vice President of Business Development, Loan Manager, Chief Operating Officer, Risk Director, Chief Experience Officer, Chief Compliance Officer, Executive Vice President of Operations, Underwriter, Vice President Finance, Head of Risk, Executive Vice President of Sales, Senior Quality Assurance Manager, Vice President of Lending, Mortgage Manager, Commercial Underwriter, Underwriting Assistant, Chief Risk Officer, Risk Manager, Mortgage Underwriter, Vice President of Services, Head of Operations, Process Manager, Chief Financial Officer, Director of Quality Control, Chief Credit Officer, Vice President Commercial Lending, Director of Operations, Senior Loan Officer, Mortgage Processor, Risk Management Specialist, Director of Lending, Mortgage Loan Processor, Risk Analyst, Credit Underwriter
+                    - paragraph [ref=e5006]: AND who meet ANY of the following criteria
+                    - generic [ref=e5007]:
+                      - paragraph [ref=e5008]: Company List
+                      - paragraph [ref=e5009]: Top 250 Lenders 2024
+                    - generic [ref=e5010]:
+                      - paragraph [ref=e5011]: Audience expansion
+                      - paragraph [ref=e5012]: Disabled
+                  - generic [ref=e5013]:
+                    - heading [level=3] [ref=e5014]: Ad format
+                    - generic [ref=e5015]:
+                      - img [ref=e5016]:
+                        - img [ref=e5017]
+                      - paragraph [ref=e5019]: Document ad
+                  - generic [ref=e5022]:
+                    - generic [ref=e5026]:
+                      - paragraph [ref=e5027]: LinkedIn
+                      - paragraph [ref=e5029]: Enabled
+                    - generic [ref=e5033]:
+                      - paragraph [ref=e5034]: LinkedIn Audience Network
+                      - generic [ref=e5035]:
+                        - paragraph [ref=e5036]: Disabled
+                        - button [ref=e5037] [cursor=pointer]:
+                          - img [ref=e5039]
+                  - generic [ref=e5043]:
+                    - generic [ref=e5044]:
+                      - paragraph [ref=e5045]: Daily Budget
+                      - paragraph [ref=e5046]: $70.00
+                    - generic [ref=e5047]:
+                      - paragraph [ref=e5048]: Bid type
+                      - paragraph [ref=e5049]: Manual bid
+                    - generic [ref=e5050]:
+                      - paragraph [ref=e5051]: Bid amount
+                      - paragraph [ref=e5052]: $65.00
+                    - generic [ref=e5053]:
+                      - paragraph [ref=e5054]:
+                        - text: Lead Optimization
+                        - button [ref=e5055] [cursor=pointer]:
+                          - img [ref=e5056]
+                      - paragraph [ref=e5058]: Enabled
+                    - generic [ref=e5059]:
+                      - paragraph [ref=e5060]:
+                        - button [ref=e5061] [cursor=pointer]:
+                          - generic [ref=e5062]: Schedule
+                      - paragraph [ref=e5063]: Run continuously starting 3/11/2026
+                  - generic [ref=e5065]:
+                    - heading [level=3] [ref=e5066]: Conversions
+                    - button [ref=e5069] [cursor=pointer]:
+                      - generic [ref=e5070]: Case Study Lead
+              - generic [ref=e5072]:
+                - heading [level=2] [ref=e5073]: Ads
+                - generic [ref=e5078]:
+                  - table [ref=e5080]:
+                    - rowgroup [ref=e5081]:
+                      - row [ref=e5082]:
+                        - cell [ref=e5083]:
+                          - generic [ref=e5085]:
+                            - img [ref=e5087]
+                            - generic [ref=e5088]:
+                              - paragraph [ref=e5091]: How CCM Saves $10M/Year on Verifications
+                              - generic [ref=e5093]: CrossCountry Mortgage cut verification costs and closed loans faster with Truv. See how they saved $10M annually — swipe through the results.
+                              - generic [ref=e5094]:
+                                - paragraph [ref=e5095]: "Ad name: CCM Case Study - Document Ad"
+                                - generic [ref=e5096]: "Linked Lead Gen Form:"
+                                - generic [ref=e5097]: CrossCountry Mortgage Case Study B
+                        - cell [ref=e5098]:
+                          - paragraph [ref=e5100]: Draft
+                  - navigation [ref=e5103]:
+                    - generic [ref=e5104]:
+                      - combobox [ref=e5106] [cursor=pointer]
+                      - list [ref=e5107]:
+                        - listitem [ref=e5108]:
+                          - button [ref=e5109] [cursor=pointer]: "1"
+            - generic [ref=e5110]:
+              - paragraph [ref=e5111]:
+                - text: By clicking "Launch ad set", you agree that the most recent version of the
+                - link [ref=e5112] [cursor=pointer]:
+                  - /url: https://www.linkedin.com/legal/sas-terms
+                  - text: LinkedIn Ads Agreement
+                - text: and
+                - link [ref=e5113] [cursor=pointer]:
+                  - /url: https://www.linkedin.com/legal/ads-policy
+                  - text: Advertising Guidelines
+                - text: apply to your ongoing use of the Ads Services, including this ad set.
+              - generic [ref=e5114]:
+                - button [ref=e5115] [cursor=pointer]:
+                  - generic [ref=e5116]: Previous
+                - generic [ref=e5117]:
+                  - button [ref=e5118] [cursor=pointer]:
+                    - generic [ref=e5119]: Save and exit
+                  - button [ref=e5120] [cursor=pointer]:
+                    - generic [ref=e5121]: Launch ad set
+          - generic [ref=e5123]:
+            - generic [ref=e5124]:
+              - generic [ref=e5125]:
+                - heading [level=5] [ref=e5126]:
+                  - generic [ref=e5128]: Forecasted results
+                - button [ref=e5129] [cursor=pointer]:
+                  - img [ref=e5131]
+                  - generic [ref=e5133]: Learn more about forecasted results
+              - button [ref=e5136] [cursor=pointer]:
+                - img [ref=e5137]
+            - generic [ref=e5139]:
+              - generic [ref=e5140]:
+                - generic [ref=e5141]:
+                  - button [ref=e5142] [cursor=pointer]: Target audience size
+                  - heading [level=5] [ref=e5143]:
+                    - generic [ref=e5146]: 130,000+
+                - generic [ref=e5148]:
+                  - paragraph [ref=e5149]:
+                    - generic [ref=e5150]: Segment breakdown
+                    - button [ref=e5151] [cursor=pointer]:
+                      - img [ref=e5153]
+                      - generic [ref=e5155]: Learn more about audience segmentation
+                  - button [ref=e5156] [cursor=pointer]:
+                    - img [ref=e5158]
+                    - generic [ref=e5160]: Function
+                  - button [ref=e5161] [cursor=pointer]: Show segments
+              - generic [ref=e5162]:
+                - tablist [ref=e5166]:
+                  - tab [ref=e5167] [cursor=pointer]: 1-day
+                  - tab [ref=e5168] [cursor=pointer]: 7-day
+                  - tab [selected] [ref=e5169] [cursor=pointer]: 30-day
+                - generic [ref=e5170]:
+                  - generic [ref=e5171]:
+                    - button [ref=e5172] [cursor=pointer]: 30-day spend
+                    - paragraph [ref=e5173]:
+                      - generic [ref=e5176]: $1,200.00 - $2,100.00
+                  - generic [ref=e5177]:
+                    - button [ref=e5179] [cursor=pointer]: 30-day impressions
+                    - paragraph [ref=e5180]:
+                      - generic [ref=e5183]: 10,000 - 28,000
+                  - generic [ref=e5184]:
+                    - button [ref=e5186] [cursor=pointer]: CTR
+                    - paragraph [ref=e5187]:
+                      - generic [ref=e5190]: 0.29% - 0.45%
+                  - generic [ref=e5191]:
+                    - button [ref=e5193] [cursor=pointer]: 30-day clicks
+                    - paragraph [ref=e5194]:
+                      - generic [ref=e5197]: 42 - 130
+                  - generic [ref=e5198]:
+                    - generic [ref=e5199]:
+                      - button [ref=e5200] [cursor=pointer]: 30-day leads
+                      - generic [ref=e5201]: Key Result
+                    - paragraph [ref=e5202]:
+                      - generic [ref=e5205]: 0 - 26
+                  - generic [ref=e5206]:
+                    - button [ref=e5208] [cursor=pointer]: 30-day cost per lead
+                    - paragraph [ref=e5209]:
+                      - generic [ref=e5212]: $136.51 - $160.49
+                  - generic [ref=e5214]:
+                    - text: Forecasted results are directional estimates and do not guarantee performance. Note that some products are not yet incorporated in the results.
+                    - link [ref=e5215] [cursor=pointer]:
+                      - /url: https://www.linkedin.com/help/lms/answer/94703?accountId=517969837
+                      - text: Learn more
+            - generic [ref=e5216]:
+              - paragraph [ref=e5217]: Is this helpful?
+              - generic [ref=e5218]:
+                - button [ref=e5219] [cursor=pointer]:
+                  - generic [ref=e5220]: "Yes"
+                - button [ref=e5221] [cursor=pointer]:
+                  - generic [ref=e5222]: "No"
+  - generic:
+    - generic [ref=e908]: 130000 potential LinkedIn members reached
+    - generic [ref=e909]: Saving your ad

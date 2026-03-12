@@ -1,0 +1,170 @@
+- generic [ref=e1]:
+  - generic:
+    - region "Notification Toasts":
+      - heading "1 notification total" [level=2] [ref=e484]
+      - generic [ref=e486]:
+        - img [ref=e488]
+        - alert [ref=e491]:
+          - generic [ref=e493]: 1 document has been selected successfully
+        - button "Dismiss “1 document has been selected successfully” notification 1 of 1." [ref=e495] [cursor=pointer]:
+          - img [ref=e497]
+  - button "Chat with us" [ref=e500] [cursor=pointer]:
+    - img [ref=e7]
+  - generic [ref=e10]:
+    - generic [ref=e13]:
+      - button "Skip to main content" [ref=e501] [cursor=pointer]
+      - button "Close jump menu" [ref=e502] [cursor=pointer]:
+        - img [ref=e16]
+        - generic [ref=e18]: Close jump menu
+    - banner [ref=e19]:
+      - generic [ref=e20]:
+        - button [ref=e22] [cursor=pointer]:
+          - generic [ref=e24]:
+            - generic [ref=e25]:
+              - img [ref=e27]:
+                - img [ref=e28]
+              - img [ref=e31]
+            - img [ref=e34]
+        - generic [ref=e36]:
+          - heading "Actions List" [level=2] [ref=e503]
+          - list [ref=e38]:
+            - listitem [ref=e39]:
+              - generic [ref=e41]: Truv Ad Account
+              - img "Truv company icon" [ref=e504]
+          - separator [ref=e45]
+        - button "No unseen notifications, click to enter notifications experience" [ref=e505] [cursor=pointer]:
+          - generic [ref=e48]:
+            - generic [ref=e49]: No unseen notifications, click to enter notifications experience
+            - img [ref=e52]
+        - button "Learn more about campaign manager" [ref=e506] [cursor=pointer]:
+          - img "Help" [ref=e507]:
+            - img [ref=e59]
+        - button "Open user menu Icon for Truv" [ref=e508] [cursor=pointer]:
+          - generic [ref=e62]:
+            - generic [ref=e63]: Open user menu
+            - img "Icon for Truv" [ref=e509]
+    - main [ref=e68]:
+      - generic [ref=e70]:
+        - generic [ref=e73]:
+          - button "Back to ad set" [ref=e510] [cursor=pointer]:
+            - img [ref=e76]
+            - generic [ref=e78]: Back to ad set
+          - list [ref=e80]:
+            - listitem [ref=e81]:
+              - generic [ref=e82]: ... / CCM Document Ad - Lending / CCM Document Ad - Ops & Lending
+            - listitem [ref=e83]:
+              - generic [ref=e84]: Create new document ads for this ad set
+        - generic [ref=e86]:
+          - generic [ref=e87]:
+            - generic [ref=e88]:
+              - generic [ref=e89]:
+                - heading "Ad" [level=3] [ref=e511]:
+                  - button "Ad" [disabled] [expanded] [ref=e512] [cursor=pointer]:
+                    - generic [ref=e92]:
+                      - text: Ad
+                      - generic [ref=e93]:
+                        - alert
+                        - img [ref=e172]
+                - form "Ad" [ref=e513]:
+                  - generic [ref=e175]:
+                    - generic [ref=e176]:
+                      - generic [ref=e177]:
+                        - generic [ref=e178]: Name this ad (optional)
+                        - button "More information about the ad name" [ref=e514] [cursor=pointer]:
+                          - img [ref=e181]
+                          - generic [ref=e183]: More information about the ad name
+                      - generic [ref=e184]:
+                        - generic [ref=e187]:
+                          - textbox "Name this ad (optional) More information about the ad name" [ref=e515]:
+                            - /placeholder: Example 1
+                          - generic "Maximum 255 characters" [ref=e516]: 0/255
+                        - generic:
+                          - alert
+                    - generic [ref=e192]:
+                      - generic [ref=e193]:
+                        - generic [ref=e194]: Introductory text
+                        - button "Learn more about Introductory text" [ref=e517] [cursor=pointer]:
+                          - img [ref=e197]
+                          - generic [ref=e199]: Learn more about Introductory text
+                        - text: "*"
+                      - generic [ref=e200]:
+                        - generic [ref=e203]:
+                          - textbox "Introductory text" [ref=e518]:
+                            - /placeholder: This is your introductory text
+                          - generic "Maximum 600 characters" [ref=e519]: 0/600
+                        - generic:
+                          - alert
+                    - generic [ref=e208]: Document
+                    - generic [ref=e209]:
+                      - list [ref=e520]:
+                        - listitem [ref=e521]:
+                          - generic [ref=e522]:
+                            - img "Preview image for uploaded file" [ref=e524]
+                            - generic [ref=e525]:
+                              - generic [ref=e526]:
+                                - button "BankSouth_x_Truv_LinkedIn_Document_Ad_2026.pdf" [active] [ref=e527] [cursor=pointer]:
+                                  - generic [ref=e528]: BankSouth_x_Truv_LinkedIn_Document_Ad_2026.pdf
+                                - region [ref=e529]
+                              - button "Remove BankSouth_x_Truv_LinkedIn_Document_Ad_2026.pdf" [ref=e530] [cursor=pointer]:
+                                - img [ref=e532]
+                          - generic [ref=e535]:
+                            - text: Previewable pages
+                            - generic [ref=e536]: "1"
+                            - button "Learn more about previewable pages" [ref=e537] [cursor=pointer]:
+                              - img [ref=e539]
+                              - generic [ref=e541]: Learn more about previewable pages
+                          - generic [ref=e545]:
+                            - slider "Previewable pages 1 Learn more about previewable pages" [ref=e546] [cursor=pointer]: "1"
+                            - list [ref=e547]:
+                              - listitem [ref=e548]: "1"
+                              - listitem [ref=e549]: "2"
+                              - listitem [ref=e550]: "3"
+                              - listitem [ref=e551]: "4"
+                              - listitem [ref=e552]: "5"
+                          - generic [ref=e553]:
+                            - generic [ref=e554]:
+                              - generic [ref=e555]: Headline
+                              - button "Learn more about Headline text" [ref=e556] [cursor=pointer]:
+                                - img [ref=e558]
+                                - generic [ref=e560]: Learn more about Headline text
+                              - text: "*"
+                            - generic [ref=e561]:
+                              - generic [ref=e564]:
+                                - textbox "Headline" [ref=e565]:
+                                  - /placeholder: This is your ad headline.
+                                  - text: BankSouth_x_Truv_LinkedIn_Document_Ad_2026.pdf
+                                - generic "Maximum 200 characters" [ref=e567]: 46/200
+                              - generic:
+                                - alert
+                      - generic [ref=e211]:
+                        - generic [ref=e212]: Support for PDF documents.
+                        - button "Upload or select" [ref=e569] [cursor=pointer]:
+                          - generic [ref=e214]: Upload or select
+                      - alert
+              - heading "Form details" [level=2] [ref=e570]:
+                - button "Form details" [ref=e571] [cursor=pointer]:
+                  - generic [ref=e100]:
+                    - generic [ref=e101]: Form details
+                    - generic [ref=e102]:
+                      - alert
+                      - img [ref=e215]
+            - alert
+            - generic:
+              - alert
+          - generic [ref=e143]:
+            - heading "Preview" [level=2] [ref=e572]
+            - button "Select a platform for the ad preview. Mobile Feed" [ref=e573] [cursor=pointer]:
+              - img [ref=e148]
+              - generic [ref=e150]: Mobile Feed
+            - generic [ref=e153]:
+              - status [ref=e154]:
+                - generic [ref=e155]:
+                  - img [ref=e157]
+                  - generic [ref=e160]: This is a static image of a mobile document ad.
+              - img "Document ad mobile preview" [ref=e574]
+        - generic [ref=e163]:
+          - button "Cancel" [ref=e575] [cursor=pointer]:
+            - generic [ref=e166]: Cancel
+          - button "Save ad" [ref=e576] [cursor=pointer]:
+            - generic [ref=e169]: Save ad
+  - generic [ref=e171]: BankSouth_x_Truv_LinkedIn_Document_Ad_2026.pdf

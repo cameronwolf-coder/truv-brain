@@ -1,0 +1,105 @@
+{
+  "source": "2023-11-20_truv_FCM_webinar_short_edits.mp4",
+  "duration": "25:56",
+  "segments": [
+    {
+      "start": "03:25",
+      "end": "04:13",
+      "topic": "Introduction to Jessica Krone and her background in the mortgage industry.",
+      "personas": [
+        "lending"
+      ],
+      "relevance": 7,
+      "suggested_title": "Meet Jessica Krone: COO of First Continental Mortgage",
+      "type": "highlight"
+    },
+    {
+      "start": "04:13",
+      "end": "07:40",
+      "topic": "Challenges with traditional income verification methods (The Work Number) and why First Continental Mortgage partnered with Truv.",
+      "personas": [
+        "lending"
+      ],
+      "relevance": 9,
+      "suggested_title": "Why Our Old Verification Process Was 'Draining'",
+      "type": "recap"
+    },
+    {
+      "start": "07:40",
+      "end": "09:21",
+      "topic": "Discussion on the improvements in the verification process after implementing Truv, including an 'uptick' in success and plans for further automation (10-day VOE).",
+      "personas": [
+        "lending"
+      ],
+      "relevance": 9,
+      "suggested_title": "Huge Uptick in Verification Success with Truv",
+      "type": "highlight"
+    },
+    {
+      "start": "09:21",
+      "end": "12:33",
+      "topic": "Truv's customer success manager, Jacob, details how they provide weekly support, reporting, and customized training to First Continental Mortgage, achieving an 85% VOA login success rate.",
+      "personas": [
+        "lending"
+      ],
+      "relevance": 8,
+      "suggested_title": "85% VOA Success: Our Partnership Approach",
+      "type": "highlight"
+    },
+    {
+      "start": "12:33",
+      "end": "15:15",
+      "topic": "Jessica shares insights into the initial difficulties and lessons learned during Truv's implementation, emphasizing the importance of piloting new products and the significant conversion rate lift post-rollout.",
+      "personas": [
+        "lending"
+      ],
+      "relevance": 9,
+      "suggested_title": "Real Talk: The Reality of Implementation & Big Wins",
+      "type": "recap"
+    },
+    {
+      "start": "15:15",
+      "end": "19:36",
+      "topic": "Jessica discusses the value of the partnership with Truv, highlighting the importance of relationship-building, proactive communication, and how Truv acts as a collaborative partner rather than just a vendor.",
+      "personas": [
+        "lending"
+      ],
+      "relevance": 8,
+      "suggested_title": "Beyond a Vendor: Why Partnership is Key",
+      "type": "recap"
+    },
+    {
+      "start": "19:36",
+      "end": "22:27",
+      "topic": "Chris and Jessica discuss the underlying issues in the lending industry, emphasizing the need for efficient processes to save time and provide the best borrower experience. Jessica highlights the proactive communication from Truv's team regarding dashboard dips and problem-solving.",
+      "personas": [
+        "lending"
+      ],
+      "relevance": 8,
+      "suggested_title": "Solving Lending's Core Problems: Efficiency & Borrower Experience",
+      "type": "recap"
+    },
+    {
+      "start": "22:27",
+      "end": "23:59",
+      "topic": "Addressing borrower hesitations about sharing login credentials for verification, Jessica shares their approach: asking once and moving on if uncomfortable, while noting convenience of pre-saved bank sign-ins.",
+      "personas": [
+        "lending"
+      ],
+      "relevance": 7,
+      "suggested_title": "Navigating Borrower Login Hesitations",
+      "type": "highlight"
+    },
+    {
+      "start": "23:59",
+      "end": "25:27",
+      "topic": "Jacob highlights significant cost savings (approx. 80%) compared to their previous Work Number provider, and Jessica confirms improvements in GSE validation rates and overall efficiency.",
+      "personas": [
+        "lending"
+      ],
+      "relevance": 9,
+      "suggested_title": "80% Cost Savings & Improved GSE Validation Rates",
+      "type": "highlight"
+    }
+  ]
+}

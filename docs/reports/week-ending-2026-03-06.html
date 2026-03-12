@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"></head>
+<body style="margin:0;padding:0;background:#ffffff;font-family:Arial,Helvetica,sans-serif;color:#333333;font-size:14px;line-height:1.5;">
+
+<table width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width:680px;margin:0 auto;">
+<tr><td style="padding:20px 24px;">
+
+<!-- HEADER -->
+<table width="100%" cellpadding="0" cellspacing="0" border="0">
+<tr>
+<td style="padding-bottom:16px;border-bottom:3px solid #1B2A4A;">
+<span style="font-size:22px;font-weight:bold;color:#1B2A4A;">Growth Marketing Week-Ending Report</span><br>
+<span style="font-size:14px;color:#666;">Week of February 27 &ndash; March 6, 2026 &nbsp;|&nbsp; Cameron Wolf</span>
+</td>
+</tr>
+</table>
+
+<!-- EXECUTIVE SUMMARY -->
+<table width="100%" cellpadding="0" cellspacing="0" border="0">
+<tr><td style="padding:20px 0 6px 0;font-size:17px;font-weight:bold;color:#1B2A4A;">Executive Summary</td></tr>
+<tr><td style="padding-bottom:16px;font-size:14px;color:#333;">
+This week we generated 10 deduplicated Contact Sales submissions, completed outreach on 5, and scheduled 3 meetings &mdash; with 3 hot leads still requiring immediate follow-up. Total paid media spend came in at $1,203.54 across LinkedIn ($923.79), Meta ($235.86), and Google/YouTube ($43.89). That's a <strong>43.9% decrease from last week's $2,145.22</strong>, landing us closer to our $137/day target ($50K annual). The budget pullback we started last week is working.
+<br><br>
+The biggest win this week was on the GTM engineering side. We shipped a full event operations automation system: when Melissa creates a new event in HubSpot, a Pipedream workflow pulls the Notion playbook, auto-creates ~31 tasks in HubSpot and Linear with the right owners and due dates, and keeps status synced bi-directionally between both platforms (~5-10s latency, loop prevention verified). On top of that, we built a Universal Event Form Processor that reads <code>utm_campaign</code> from form submissions and automatically associates contacts with the correct Event custom object &mdash; no per-event workflow needed. This eliminates the manual event setup and registrant tracking work that was eating hours every week.
+<br><br>
+On the email front, this was a heavy execution week. We sent FCM Webinar invites 1 and 2 to our warm audience, the closed-lost invite email to 494 contacts, the CMG Case Study send, and a follow-up to warm audiences. The FCM Webinar is March 10th &mdash; three more sends are queued for the weekend and day-of. On LinkedIn, the CCM Case Study Lead Gen campaign consumed the lion's share of spend at $870.41 with 1 lead and 24 lead form opens. Google/YouTube pre-roll is effectively paused due to audience saturation (impressions down 99.2% WoW). Meta continues at $235.86 with frequency at 2.93 &mdash; watching for fatigue.
+</td></tr>
+</table>
+
+<hr style="border:none;border-top:1px solid #ddd;margin:4px 0 16px 0;">
+
+<!-- COMPLETED THIS WEEK -->
+<table width="100%" cellpadding="0" cellspacing="0" border="0">
+<tr><td style="padding:4px 0 10px 0;font-size:17px;font-weight:bold;color:#1B2A4A;">Completed This Week</td></tr>
+<tr><td style="padding-bottom:4px;">
+
+<p style="margin:0 0 4px 0;font-size:14px;font-weight:bold;color:#2E5090;">Email Campaigns</p>
+<ul style="margin:0 0 12px 0;padding-left:20px;font-size:14px;">
+<li>Sent CMG Case Study email to lender audience (MKTG-712)</li>
+<li>Sent FCM Webinar Invite 1 of 3 to warm audience (MKTG-922)</li>
+<li>Sent FCM Webinar Invite 2 of 3 to warm audience (MKTG-923)</li>
+<li>Sent FCM Webinar follow-up email to warm audiences (MKTG-905)</li>
+<li>Sent FCM Webinar awareness email &mdash; non-urgent (MKTG-906)</li>
+<li>Sent FCM Webinar invite to 494 closed-lost contacts (MKTG-783)</li>
+</ul>
+
+<p style="margin:0 0 4px 0;font-size:14px;font-weight:bold;color:#2E5090;">Analytics &amp; Tracking</p>
+<ul style="margin:0 0 12px 0;padding-left:20px;font-size:14px;">
+<li>Built Universal Event Form Processor workflow in HubSpot (MKTG-943)</li>
+<li>Added custom object scopes to AgentTest private app (MKTG-944)</li>
+<li>Added utm_campaign property to Event custom object records (MKTG-945)</li>
+</ul>
+
+<p style="margin:0 0 4px 0;font-size:14px;font-weight:bold;color:#2E5090;">Tools &amp; Automation</p>
+<ul style="margin:0 0 12px 0;padding-left:20px;font-size:14px;">
+<li>Configured Knock/Wrapper triggers and dry-run QA for FCM Webinar (MKTG-904)</li>
+<li>Built HTML email templates in Knock for FCM Webinar (MKTG-903)</li>
+<li>Confirmed email/Knock/Wrapper/SendGrid readiness (MKTG-900)</li>
+<li>Created Clay registrant table schema (MKTG-901)</li>
+<li>Created Drip Sender presets for closed-lost campaign (MKTG-780)</li>
+<li>Created Knock workflows for closed-lost invite + reminder (MKTG-778)</li>
+<li>Synced HubSpot list 4558 to Knock audience (MKTG-779)</li>
+</ul>
+
+<p style="margin:0 0 4px 0;font-size:14px;font-weight:bold;color:#2E5090;">Other</p>
+<ul style="margin:0 0 12px 0;padding-left:20px;font-size:14px;">
+<li>Published first LinkedIn post for FCM Webinar &mdash; speaker POV (MKTG-908)</li>
+<li>Finalized FCM Webinar audience segments in HubSpot (MKTG-897)</li>
+<li>Created FCM Webinar project plan and owner map (MKTG-894)</li>
+<li>Confirmed ICP definition and priority personas (MKTG-893)</li>
+<li>Locked target account strategy (MKTG-890)</li>
+<li>Completed lending persona audience build &amp; vertical tagging (MKTG-790-795)</li>
+</ul>
+
+</td></tr>
+</table>
+
+<hr style="border:none;border-top:1px solid #ddd;margin:4px 0 16px 0;">
+
+<!-- GTM ENGINEERING -->
+<table width="100%" cellpadding="0" cellspacing="0" border="0">
+<tr><td style="padding:4px 0 10px 0;font-size:17px;font-weight:bold;color:#1B2A4A;">GTM Engineering</td></tr>
+<tr><td style="padding-bottom:10px;font-size:13px;color:#666;">New infrastructure shipped this week to automate event operations and centralize campaign attribution.</td></tr>
+</table>
+
+<!-- Event Dashboard -->
+<table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-bottom:16px;">
+<tr><td style="background:#f0f4fa;border:1px solid #b3c7e6;border-left:4px solid #2E5090;border-radius:4px;padding:14px 16px;font-size:13px;color:#1B2A4A;">
+<span style="font-weight:bold;">&#127919; Event Dashboard &amp; Automation System &mdash; Live</span><br>
+Built a full-stack event operations system this week. When Melissa creates a new event in HubSpot's custom Event objects, the entire task pipeline fires automatically &mdash; no manual setup needed.<br>
+<strong>Dashboard:</strong> <a href="https://truv-brain.vercel.app/hub" style="color:#2E5090;">truv-brain.vercel.app/hub</a>
+</td></tr>
+</table>
+
+<p style="margin:0 0 4px 0;font-size:14px;font-weight:bold;color:#2E5090;">Event Task Automation Pipeline</p>
+<p style="margin:0 0 8px 0;font-size:13px;color:#333;">A 4-step Pipedream workflow that triggers when a new Event is created in HubSpot:</p>
+<table width="100%" cellpadding="7" cellspacing="0" border="0" style="border:1px solid #ddd;border-collapse:collapse;font-size:13px;margin-bottom:16px;">
+<tr style="background:#1B2A4A;">
+<td style="border:1px solid #ccc;color:#fff;font-weight:bold;">Step</td>
+<td style="border:1px solid #ccc;color:#fff;font-weight:bold;">Action</td>
+</tr>
+<tr>
+<td style="border:1px solid #ddd;font-weight:bold;">1. HubSpot Trigger</td>
+<td style="border:1px solid #ddd;">New Event custom object created (webinar, conference, etc.)</td>
+</tr>
+<tr style="background:#f9f9f9;">
+<td style="border:1px solid #ddd;font-weight:bold;">2. Notion Playbook</td>
+<td style="border:1px solid #ddd;">Fetches the Webinar Event Marketing Playbook (~31 tasks covering landing page creation through post-event follow-up)</td>
+</tr>
+<tr>
+<td style="border:1px solid #ddd;font-weight:bold;">3. HubSpot Tasks</td>
+<td style="border:1px solid #ddd;">Auto-creates each playbook task with the right owner (Cam, Melissa, or Kaytren), due date (calculated relative to event date), and priority</td>
+</tr>
+<tr style="background:#f9f9f9;">
+<td style="border:1px solid #ddd;font-weight:bold;">4. Linear Issues</td>
+<td style="border:1px solid #ddd;">Mirrors every HubSpot task as a Linear issue under a <code>[MKTG-EVENT]</code> project with matching assignee, due date, and priority</td>
+</tr>
+</table>
+
+<p style="margin:0 0 4px 0;font-size:14px;font-weight:bold;color:#2E5090;">Bi-Directional HubSpot &harr; Linear Status Sync</p>
+<p style="margin:0 0 8px 0;font-size:13px;color:#333;">Three sync directions keep both platforms in lockstep. The team works wherever they prefer &mdash; HubSpot or Linear &mdash; and everything stays in sync.</p>
+
+<table width="100%" cellpadding="7" cellspacing="0" border="0" style="border:1px solid #ddd;border-collapse:collapse;font-size:13px;margin-bottom:8px;">
+<tr style="background:#1B2A4A;">
+<td style="border:1px solid #ccc;color:#fff;font-weight:bold;">Direction</td>
+<td style="border:1px solid #ccc;color:#fff;font-weight:bold;">Mechanism</td>
+<td style="border:1px solid #ccc;color:#fff;font-weight:bold;">Latency</td>
+</tr>
+<tr>
+<td style="border:1px solid #ddd;">HubSpot &rarr; Linear (task creation)</td>
+<td style="border:1px solid #ddd;">Pipedream step 4 after webinar task creation</td>
+<td style="border:1px solid #ddd;">Immediate</td>
+</tr>
+<tr style="background:#f9f9f9;">
+<td style="border:1px solid #ddd;">Linear &rarr; HubSpot (status sync)</td>
+<td style="border:1px solid #ddd;">Team-scoped Linear webhook &rarr; Pipedream &rarr; HubSpot task update</td>
+<td style="border:1px solid #ddd;">~5s</td>
+</tr>
+<tr>
+<td style="border:1px solid #ddd;">HubSpot &rarr; Linear (status sync)</td>
+<td style="border:1px solid #ddd;">HubSpot workflow &rarr; Pipedream &rarr; Linear issue update</td>
+<td style="border:1px solid #ddd;">~10s</td>
+</tr>
+</table>
+<p style="margin:0 0 16px 0;font-size:12px;color:#666;font-style:italic;">Loop prevention built in: both sync directions check current status before writing. If status already matches, the workflow exits early &mdash; no infinite update cycles. Verified in production.</p>
+
+<p style="margin:0 0 4px 0;font-size:14px;font-weight:bold;color:#2E5090;">Universal Event Form Processor (MKTG-943)</p>
+<p style="margin:0 0 8px 0;font-size:13px;color:#333;">Built a single HubSpot workflow that handles <strong>all</strong> event form submissions automatically. When someone submits the "Upcoming Event Form," the workflow reads their <code>utm_campaign</code> value, searches Event custom objects for a match, and creates a contact &harr; event association. No per-event workflow needed.</p>
+<table width="100%" cellpadding="7" cellspacing="0" border="0" style="border:1px solid #ddd;border-collapse:collapse;font-size:13px;margin-bottom:16px;">
+<tr style="background:#1B2A4A;">
+<td style="border:1px solid #ccc;color:#fff;font-weight:bold;">Step</td>
+<td style="border:1px solid #ccc;color:#fff;font-weight:bold;">Action</td>
+</tr>
+<tr>
+<td style="border:1px solid #ddd;">1</td>
+<td style="border:1px solid #ddd;">Set "Last Upcoming Event Form Submission Date" on contact</td>
+</tr>
+<tr style="background:#f9f9f9;">
+<td style="border:1px solid #ddd;">2</td>
+<td style="border:1px solid #ddd;">Set lifecycle stage to MQL</td>
+</tr>
+<tr>
+<td style="border:1px solid #ddd;">3</td>
+<td style="border:1px solid #ddd;">Send Slack notification to #webinar-signups</td>
+</tr>
+<tr style="background:#f9f9f9;">
+<td style="border:1px solid #ddd;">4</td>
+<td style="border:1px solid #ddd;">Custom code: read <code>utm_campaign</code> &rarr; search Event objects &rarr; create contact &harr; event association (type 40)</td>
+</tr>
+</table>
+
+<p style="margin:0 0 4px 0;font-size:14px;font-weight:bold;color:#2E5090;">UTM-Based Event Tagging (MKTG-945)</p>
+<p style="margin:0 0 16px 0;font-size:13px;color:#333;">Added <code>utm_campaign</code> as a property on Event custom object records, visible in the "About this Event" sidebar card. This is the key that links form submissions to the right event. To onboard a new event, just set its <code>utm_campaign</code> value to match the UTM used in the form's landing page &mdash; the Universal Event Form Processor handles the rest. First event configured: March Insider Public Sector (<code>insider-gov-webinar</code>).</p>
+
+<table width="100%" cellpadding="10" cellspacing="0" border="0" style="border:2px solid #2E5090;border-radius:4px;margin-bottom:16px;background:#f0f4fa;">
+<tr><td>
+<p style="margin:0 0 4px 0;font-size:13px;font-weight:bold;color:#2E5090;">What This Means for the Team</p>
+<p style="margin:0;font-size:13px;color:#333;">Melissa creates an event in HubSpot &rarr; ~31 tasks auto-create across HubSpot and Linear with the right owners and due dates &rarr; status syncs bi-directionally so everyone works in their preferred tool &rarr; form submissions auto-associate contacts with events via UTM tagging. The entire event ops pipeline from creation to registrant tracking is now automated.</p>
+</td></tr>
+</table>
+
+<hr style="border:none;border-top:1px solid #ddd;margin:4px 0 16px 0;">
+
+<!-- PAID MEDIA PERFORMANCE -->
+<table width="100%" cellpadding="0" cellspacing="0" border="0">
+<tr><td style="padding:4px 0 12px 0;font-size:17px;font-weight:bold;color:#1B2A4A;">Paid Media Performance</td></tr>
+</table>
+
+<table width="100%" cellpadding="10" cellspacing="0" border="0" style="border:2px solid #666;border-radius:4px;margin-bottom:10px;background:#f7f7f7;">
+<tr><td>
+<p style="margin:0 0 4px 0;font-size:13px;font-weight:bold;color:#333;">Budget Correction in Progress &mdash; Daily Spend Trending Toward Target</p>
+<p style="margin:0;font-size:13px;color:#333;">Total spend dropped from $2,145.22 last week to <strong>$1,203.54 this week (-43.9%)</strong>, moving closer to our $137/day target. LinkedIn Lead Gen continues to dominate spend at $870.41, while Google/YouTube pre-roll is effectively paused due to audience saturation. Meta is running at a moderate level. We're holding the line on daily budgets while optimizing for lead quality over volume.</p>
+</td></tr>
+</table>
+
+<!-- LinkedIn Ads -->
+<table width="100%" cellpadding="0" cellspacing="0" border="0">
+<tr><td style="padding:0 0 4px 0;font-size:14px;font-weight:bold;color:#2E5090;">LinkedIn Ads</td></tr>
+<tr><td style="padding-bottom:8px;font-size:13px;color:#666;">Account: Truv (517969837) &nbsp;|&nbsp; Feb 27 &ndash; Mar 6, 2026</td></tr>
+</table>
+
+<table width="100%" cellpadding="7" cellspacing="0" border="0" style="border:1px solid #ddd;border-collapse:collapse;font-size:13px;margin-bottom:16px;">
+<tr style="background:#1B2A4A;">
+<td style="border:1px solid #ccc;color:#fff;font-weight:bold;">Campaign</td>
+<td style="border:1px solid #ccc;color:#fff;font-weight:bold;">Status</td>
+<td style="border:1px solid #ccc;color:#fff;font-weight:bold;">Spend</td>
+<td style="border:1px solid #ccc;color:#fff;font-weight:bold;">Impr.</td>
+<td style="border:1px solid #ccc;color:#fff;font-weight:bold;">Clicks</td>
+<td style="border:1px solid #ccc;color:#fff;font-weight:bold;">CTR</td>
+<td style="border:1px solid #ccc;color:#fff;font-weight:bold;">CPC</td>
+</tr>
+<tr>
+<td style="border:1px solid #ddd;">CCM Case Study Lead Gen</td>
+<td style="border:1px solid #ddd;color:#2a7d2a;font-weight:bold;">Active</td>
+<td style="border:1px solid #ddd;">$870.41</td>
+<td style="border:1px solid #ddd;">6,792</td>
+<td style="border:1px solid #ddd;">37</td>
+<td style="border:1px solid #ddd;">0.54%</td>
+<td style="border:1px solid #ddd;">$23.52</td>
+</tr>
+<tr style="background:#f9f9f9;">
+<td style="border:1px solid #ddd;">FCM Case Study Traffic</td>
+<td style="border:1px solid #ddd;color:#2a7d2a;font-weight:bold;">Active</td>
+<td style="border:1px solid #ddd;">$29.76</td>
+<td style="border:1px solid #ddd;">6,513</td>
+<td style="border:1px solid #ddd;">53</td>
+<td style="border:1px solid #ddd;">0.81%</td>
+<td style="border:1px solid #ddd;">$0.56</td>
+</tr>
+<tr>
+<td style="border:1px solid #ddd;">PHM Case Study Traffic</td>
+<td style="border:1px solid #ddd;color:#2a7d2a;font-weight:bold;">Active</td>
+<td style="border:1px solid #ddd;">$23.62</td>
+<td style="border:1px solid #ddd;">256</td>
+<td style="border:1px solid #ddd;">1</td>
+<td style="border:1px solid #ddd;">0.39%</td>
+<td style="border:1px solid #ddd;">$23.62</td>
+</tr>
+<tr style="background:#E8EDF5;">
+<td style="border:1px solid #ddd;font-weight:bold;" colspan="2">TOTAL</td>
+<td style="border:1px solid #ddd;font-weight:bold;">$923.79</td>
+<td style="border:1px solid #ddd;font-weight:bold;">13,561</td>
+<td style="border:1px solid #ddd;font-weight:bold;">91</td>
+<td style="border:1px solid #ddd;font-weight:bold;">0.67%</td>
+<td style="border:1px solid #ddd;font-weight:bold;">$10.15</td>
+</tr>
+</table>
+
+<p style="margin:0 0 6px 0;font-size:13px;color:#666;">CCM Lead Gen: <strong>1 lead captured</strong>, <strong>24 lead form opens</strong> (4.2% completion rate). Engagement rate: 0.88%.</p>
+
+<!-- LinkedIn Daily Spend -->
+<table width="100%" cellpadding="0" cellspacing="0" border="0">
+<tr><td style="padding:0 0 6px 0;font-size:13px;font-weight:bold;color:#2E5090;">LinkedIn Daily Spend</td></tr>
+</table>
+
+<table width="100%" cellpadding="6" cellspacing="0" border="0" style="border:1px solid #ddd;border-collapse:collapse;font-size:11px;margin-bottom:16px;">
+<tr style="background:#1B2A4A;">
+<td style="border:1px solid #ccc;color:#fff;font-weight:bold;">Date</td>
+<td style="border:1px solid #ccc;color:#fff;font-weight:bold;">Spend</td>
+<td style="border:1px solid #ccc;color:#fff;font-weight:bold;">Impr.</td>
+<td style="border:1px solid #ccc;color:#fff;font-weight:bold;">Clicks</td>
+<td style="border:1px solid #ccc;color:#fff;font-weight:bold;">CTR</td>
+</tr>
+<tr>
+<td style="border:1px solid #ddd;">Feb 27</td>
+<td style="border:1px solid #ddd;">$203.38</td>
+<td style="border:1px solid #ddd;">7,155</td>
+<td style="border:1px solid #ddd;">58</td>
+<td style="border:1px solid #ddd;">0.81%</td>
+</tr>
+<tr style="background:#f9f9f9;">
+<td style="border:1px solid #ddd;">Feb 28</td>
+<td style="border:1px solid #ddd;">$150.00</td>
+<td style="border:1px solid #ddd;">607</td>
+<td style="border:1px solid #ddd;">5</td>
+<td style="border:1px solid #ddd;">0.82%</td>
+</tr>
+<tr>
+<td style="border:1px solid #ddd;">Mar 1</td>
+<td style="border:1px solid #ddd;">$49.25</td>
+<td style="border:1px solid #ddd;">1,660</td>
+<td style="border:1px solid #ddd;">5</td>
+<td style="border:1px solid #ddd;">0.30%</td>
+</tr>
+<tr style="background:#f9f9f9;">
+<td style="border:1px solid #ddd;">Mar 2</td>
+<td style="border:1px solid #ddd;">$150.00</td>
+<td style="border:1px solid #ddd;">838</td>
+<td style="border:1px solid #ddd;">5</td>
+<td style="border:1px solid #ddd;">0.60%</td>
+</tr>
+<tr>
+<td style="border:1px solid #ddd;">Mar 3</td>
+<td style="border:1px solid #ddd;">$150.00</td>
+<td style="border:1px solid #ddd;">1,676</td>
+<td style="border:1px solid #ddd;">8</td>
+<td style="border:1px solid #ddd;">0.48%</td>
+</tr>
+<tr style="background:#f9f9f9;">
+<td style="border:1px solid #ddd;">Mar 4</td>
+<td style="border:1px solid #ddd;">$150.00</td>
+<td style="border:1px solid #ddd;">1,006</td>
+<td style="border:1px solid #ddd;">5</td>
+<td style="border:1px solid #ddd;">0.50%</td>
+</tr>
+<tr>
+<td style="border:1px solid #ddd;">Mar 5</td>
+<td style="border:1px solid #ddd;">$71.16</td>
+<td style="border:1px solid #ddd;">619</td>
+<td style="border:1px solid #ddd;">5</td>
+<td style="border:1px solid #ddd;">0.81%</td>
+</tr>
+</table>
+
+<table width="100%" cellpadding="10" cellspacing="0" border="0" style="border:2px solid #2E5090;border-radius:4px;margin-bottom:16px;background:#f0f4fa;">
+<tr><td>
+<p style="margin:0 0 4px 0;font-size:13px;font-weight:bold;color:#2E5090;">Strategy Note: LinkedIn Lead Gen Budget Cap</p>
+<p style="margin:0;font-size:13px;color:#333;">CCM Lead Gen is hitting its $150/day budget cap consistently (Feb 28, Mar 2, Mar 3, Mar 4). With 24 lead form opens and a 4.2% completion rate, there's room to improve form conversion. We're keeping the $150/day cap while testing form field reductions to drive more completions per dollar. FCM and PHM traffic campaigns are running at minimal spend ($30-$24) as awareness supplements.</p>
+</td></tr>
+</table>
+
+<!-- Google / YouTube Ads -->
+<table width="100%" cellpadding="0" cellspacing="0" border="0">
+<tr><td style="padding:0 0 4px 0;font-size:14px;font-weight:bold;color:#2E5090;">Google / YouTube Ads</td></tr>
+<tr><td style="padding-bottom:8px;font-size:13px;color:#666;">Account: Truv &nbsp;|&nbsp; Feb 27 &ndash; Mar 6, 2026 &nbsp;|&nbsp; YouTube Pre-Roll</td></tr>
+</table>
+
+<table width="100%" cellpadding="8" cellspacing="0" border="0" style="border:1px solid #ddd;border-collapse:collapse;font-size:13px;margin-bottom:16px;">
+<tr style="background:#1B2A4A;">
+<td style="border:1px solid #ccc;color:#fff;font-weight:bold;">Metric</td>
+<td style="border:1px solid #ccc;color:#fff;font-weight:bold;">Value</td>
+<td style="border:1px solid #ccc;color:#fff;font-weight:bold;">Metric</td>
+<td style="border:1px solid #ccc;color:#fff;font-weight:bold;">Value</td>
+</tr>
+<tr>
+<td style="border:1px solid #ddd;">Total Spend</td>
+<td style="border:1px solid #ddd;font-weight:bold;">$43.89</td>
+<td style="border:1px solid #ddd;">Impressions</td>
+<td style="border:1px solid #ddd;font-weight:bold;">495</td>
+</tr>
+<tr style="background:#f9f9f9;">
+<td style="border:1px solid #ddd;">Clicks</td>
+<td style="border:1px solid #ddd;font-weight:bold;">5</td>
+<td style="border:1px solid #ddd;">CTR</td>
+<td style="border:1px solid #ddd;font-weight:bold;">1.01%</td>
+</tr>
+<tr>
+<td style="border:1px solid #ddd;">CPC</td>
+<td style="border:1px solid #ddd;font-weight:bold;">$8.78</td>
+<td style="border:1px solid #ddd;">&nbsp;</td>
+<td style="border:1px solid #ddd;">&nbsp;</td>
+</tr>
+</table>
+
+<table width="100%" cellpadding="10" cellspacing="0" border="0" style="border:2px solid #CC4400;border-radius:4px;margin-bottom:16px;background:#fff5f0;">
+<tr><td>
+<p style="margin:0 0 4px 0;font-size:13px;font-weight:bold;color:#CC4400;">&#9888; YouTube Pre-Roll Effectively Paused &mdash; Audience Saturated</p>
+<p style="margin:0;font-size:13px;color:#333;">Impressions collapsed from 60,552 last week to just 495 this week &mdash; a <strong>99.2% drop</strong>. Only 2 days had any delivery (Feb 27: $43.86, Mar 5: $0.03). The ABM targeting list is fully exhausted. Before reactivating, we need to either broaden audience targeting or rotate creative. Spend is negligible at $43.89 so this isn't burning budget, but it's also not delivering any awareness value.</p>
+</td></tr>
+</table>
+
+<!-- Meta Ads -->
+<table width="100%" cellpadding="0" cellspacing="0" border="0">
+<tr><td style="padding:0 0 4px 0;font-size:14px;font-weight:bold;color:#2E5090;">Meta Ads</td></tr>
+<tr><td style="padding-bottom:8px;font-size:13px;color:#666;">Account: Truv B2B &nbsp;|&nbsp; Feb 27 &ndash; Mar 6, 2026</td></tr>
+</table>
+
+<table width="100%" cellpadding="7" cellspacing="0" border="0" style="border:1px solid #ddd;border-collapse:collapse;font-size:13px;margin-bottom:16px;">
+<tr style="background:#1B2A4A;">
+<td style="border:1px solid #ccc;color:#fff;font-weight:bold;">Campaign</td>
+<td style="border:1px solid #ccc;color:#fff;font-weight:bold;">Status</td>
+<td style="border:1px solid #ccc;color:#fff;font-weight:bold;">Spend</td>
+<td style="border:1px solid #ccc;color:#fff;font-weight:bold;">Impr.</td>
+<td style="border:1px solid #ccc;color:#fff;font-weight:bold;">Reach</td>
+<td style="border:1px solid #ccc;color:#fff;font-weight:bold;">Clicks</td>
+<td style="border:1px solid #ccc;color:#fff;font-weight:bold;">CTR</td>
+</tr>
+<tr>
+<td style="border:1px solid #ddd;">Mortgage ABM | Case Studies | Lead Gen</td>
+<td style="border:1px solid #ddd;color:#2a7d2a;font-weight:bold;">Active</td>
+<td style="border:1px solid #ddd;">$235.86</td>
+<td style="border:1px solid #ddd;">13,002</td>
+<td style="border:1px solid #ddd;">4,335</td>
+<td style="border:1px solid #ddd;">100</td>
+<td style="border:1px solid #ddd;">0.77%</td>
+</tr>
+<tr style="background:#E8EDF5;">
+<td style="border:1px solid #ddd;font-weight:bold;" colspan="2">TOTAL</td>
+<td style="border:1px solid #ddd;font-weight:bold;">$235.86</td>
+<td style="border:1px solid #ddd;font-weight:bold;">13,002</td>
+<td style="border:1px solid #ddd;font-weight:bold;">4,335</td>
+<td style="border:1px solid #ddd;font-weight:bold;">100</td>
+<td style="border:1px solid #ddd;font-weight:bold;">0.77%</td>
+</tr>
+</table>
+
+<p style="margin:0 0 8px 0;font-size:13px;color:#666;">CPC: $2.36 &nbsp;|&nbsp; CPM: $18.14 &nbsp;|&nbsp; Frequency: 2.93 &nbsp;|&nbsp; Reach/Impressions: 33.3%</p>
+<p style="margin:0 0 16px 0;font-size:12px;color:#CC4400;font-style:italic;">Meta quality concerns from last week still being monitored. Frequency at 2.93 suggests audience is seeing ads multiple times &mdash; watching for fatigue signals. Spend down 58.3% WoW from $566.30.</p>
+
+<!-- Total Spend Summary -->
+<table width="100%" cellpadding="0" cellspacing="0" border="0">
+<tr><td style="padding:0 0 6px 0;font-size:14px;font-weight:bold;color:#2E5090;">Total Paid Media Spend</td></tr>
+</table>
+
+<table width="100%" cellpadding="7" cellspacing="0" border="0" style="border:1px solid #ddd;border-collapse:collapse;font-size:13px;margin-bottom:16px;">
+<tr style="background:#1B2A4A;">
+<td style="border:1px solid #ccc;color:#fff;font-weight:bold;">Platform</td>
+<td style="border:1px solid #ccc;color:#fff;font-weight:bold;">Spend</td>
+<td style="border:1px solid #ccc;color:#fff;font-weight:bold;">WoW Change</td>
+</tr>
+<tr>
+<td style="border:1px solid #ddd;">LinkedIn Ads</td>
+<td style="border:1px solid #ddd;font-weight:bold;">$923.79</td>
+<td style="border:1px solid #ddd;color:#2a7d2a;">-22.6% (from $1,194.29)</td>
+</tr>
+<tr style="background:#f9f9f9;">
+<td style="border:1px solid #ddd;">Google / YouTube Ads</td>
+<td style="border:1px solid #ddd;font-weight:bold;">$43.89</td>
+<td style="border:1px solid #ddd;color:#2a7d2a;">-88.6% (from $384.63)</td>
+</tr>
+<tr>
+<td style="border:1px solid #ddd;">Meta Ads</td>
+<td style="border:1px solid #ddd;font-weight:bold;">$235.86</td>
+<td style="border:1px solid #ddd;color:#2a7d2a;">-58.3% (from $566.30)</td>
+</tr>
+<tr style="background:#E8EDF5;">
+<td style="border:1px solid #ddd;font-weight:bold;color:#1B2A4A;">TOTAL SPEND</td>
+<td style="border:1px solid #ddd;font-weight:bold;color:#1B2A4A;">$1,203.54</td>
+<td style="border:1px solid #ddd;font-weight:bold;color:#2a7d2a;">-43.9% (from $2,145.22)</td>
+</tr>
+</table>
+
+<hr style="border:none;border-top:1px solid #ddd;margin:4px 0 16px 0;">
+
+<!-- INBOUND PERFORMANCE -->
+<table width="100%" cellpadding="0" cellspacing="0" border="0">
+<tr><td style="padding:4px 0 4px 0;font-size:17px;font-weight:bold;color:#1B2A4A;">Inbound Performance Snapshot</td></tr>
+<tr><td style="padding-bottom:10px;font-size:13px;color:#666;">Source: Hex / HubSpot Data Warehouse &nbsp;|&nbsp; Feb 27 &ndash; Mar 6, 2026</td></tr>
+</table>
+
+<!-- Key Metrics -->
+<table width="100%" cellpadding="0" cellspacing="0" border="0">
+<tr><td style="padding:0 0 6px 0;font-size:14px;font-weight:bold;color:#2E5090;">Key Inbound Metrics</td></tr>
+</table>
+
+<table width="100%" cellpadding="8" cellspacing="0" border="0" style="border:1px solid #ddd;border-collapse:collapse;font-size:13px;margin-bottom:16px;text-align:center;">
+<tr style="background:#1B2A4A;">
+<td style="border:1px solid #ccc;color:#fff;font-weight:bold;">Contact Sales (Deduped)</td>
+<td style="border:1px solid #ccc;color:#fff;font-weight:bold;">Sales Outreach Completed</td>
+<td style="border:1px solid #ccc;color:#fff;font-weight:bold;">Meetings Scheduled</td>
+<td style="border:1px solid #ccc;color:#fff;font-weight:bold;">Hot Leads</td>
+</tr>
+<tr>
+<td style="border:1px solid #ddd;font-size:20px;font-weight:bold;color:#1B2A4A;">10</td>
+<td style="border:1px solid #ddd;font-size:20px;font-weight:bold;color:#1B2A4A;">5</td>
+<td style="border:1px solid #ddd;font-size:20px;font-weight:bold;color:#1B2A4A;">3</td>
+<td style="border:1px solid #ddd;font-size:20px;font-weight:bold;color:#CC4400;">3</td>
+</tr>
+</table>
+
+<!-- Contact Sales Lead Detail -->
+<table width="100%" cellpadding="0" cellspacing="0" border="0">
+<tr><td style="padding:0 0 6px 0;font-size:14px;font-weight:bold;color:#2E5090;">Contact Sales Submissions This Week (10)</td></tr>
+<tr><td style="padding-bottom:6px;font-size:12px;color:#666;">Source: BigQuery <code>get_started_form_submissions</code> &nbsp;|&nbsp; <code>how_can_we_help = 'Contact sales'</code> &nbsp;|&nbsp; Deduped by email</td></tr>
+</table>
+
+<table width="100%" cellpadding="6" cellspacing="0" border="0" style="border:1px solid #ddd;border-collapse:collapse;font-size:12px;margin-bottom:16px;">
+<tr style="background:#1B2A4A;">
+<td style="border:1px solid #ccc;color:#fff;font-weight:bold;">Name</td>
+<td style="border:1px solid #ccc;color:#fff;font-weight:bold;">Company</td>
+<td style="border:1px solid #ccc;color:#fff;font-weight:bold;">Role</td>
+<td style="border:1px solid #ccc;color:#fff;font-weight:bold;">Rep</td>
+<td style="border:1px solid #ccc;color:#fff;font-weight:bold;">Date</td>
+</tr>
+<tr>
+<td style="border:1px solid #ddd;"><strong><a href="https://app.hubspot.com/contacts/19933594/record/0-1/207608504402" style="color:#2E5090;">Harry Truong</a></strong></td>
+<td style="border:1px solid #ddd;">The Loan Factory, Inc.</td>
+<td style="border:1px solid #ddd;">Manager</td>
+<td style="border:1px solid #ddd;">Chris Calcasola</td>
+<td style="border:1px solid #ddd;">Mar 6</td>
+</tr>
+<tr style="background:#f9f9f9;">
+<td style="border:1px solid #ddd;"><strong><a href="https://app.hubspot.com/contacts/19933594/record/0-1/207596899378" style="color:#2E5090;">Christy Kavanaugh</a></strong></td>
+<td style="border:1px solid #ddd;">Michigan Ability Partners</td>
+<td style="border:1px solid #ddd;">Manager</td>
+<td style="border:1px solid #ddd;">Michael Easton</td>
+<td style="border:1px solid #ddd;">Mar 6</td>
+</tr>
+<tr>
+<td style="border:1px solid #ddd;"><strong><a href="https://app.hubspot.com/contacts/19933594/record/0-1/206013315958" style="color:#2E5090;">Katrina Bunch</a></strong></td>
+<td style="border:1px solid #ddd;">Domino Co.</td>
+<td style="border:1px solid #ddd;">Director</td>
+<td style="border:1px solid #ddd;">Tommy Jayne</td>
+<td style="border:1px solid #ddd;">Mar 6</td>
+</tr>
+<tr style="background:#f9f9f9;">
+<td style="border:1px solid #ddd;"><strong><a href="https://app.hubspot.com/contacts/19933594/record/0-1/207310018329" style="color:#2E5090;">Allyson Roberts</a></strong></td>
+<td style="border:1px solid #ddd;">Washington Trust Bank</td>
+<td style="border:1px solid #ddd;">Non-Manager</td>
+<td style="border:1px solid #ddd;">Mathew LaMunyon</td>
+<td style="border:1px solid #ddd;">Mar 5</td>
+</tr>
+<tr>
+<td style="border:1px solid #ddd;"><strong><a href="https://app.hubspot.com/contacts/19933594/record/0-1/207289426076" style="color:#2E5090;">Julie Neill</a></strong></td>
+<td style="border:1px solid #ddd;">Select Processing Services</td>
+<td style="border:1px solid #ddd;">Senior Processor</td>
+<td style="border:1px solid #ddd;">Chris Calcasola</td>
+<td style="border:1px solid #ddd;">Mar 5</td>
+</tr>
+<tr style="background:#f9f9f9;">
+<td style="border:1px solid #ddd;"><strong><a href="https://app.hubspot.com/contacts/19933594/record/0-1/204204421815" style="color:#2E5090;">Amy Rios</a></strong></td>
+<td style="border:1px solid #ddd;">RoundHouse Lending</td>
+<td style="border:1px solid #ddd;">VP/SVP/EVP</td>
+<td style="border:1px solid #ddd;">Mathew LaMunyon</td>
+<td style="border:1px solid #ddd;">Mar 4</td>
+</tr>
+<tr>
+<td style="border:1px solid #ddd;"><strong><a href="https://app.hubspot.com/contacts/19933594/record/0-1/200068820383" style="color:#2E5090;">Mireya Baxter</a></strong></td>
+<td style="border:1px solid #ddd;">Justworks</td>
+<td style="border:1px solid #ddd;">Manager</td>
+<td style="border:1px solid #ddd;">Michael Easton</td>
+<td style="border:1px solid #ddd;">Mar 4</td>
+</tr>
+<tr style="background:#f9f9f9;">
+<td style="border:1px solid #ddd;"><strong><a href="https://app.hubspot.com/contacts/19933594/record/0-1/10709552" style="color:#2E5090;">Ken Coats</a></strong></td>
+<td style="border:1px solid #ddd;">KENTECH</td>
+<td style="border:1px solid #ddd;">Executive</td>
+<td style="border:1px solid #ddd;">Mathew LaMunyon</td>
+<td style="border:1px solid #ddd;">Mar 3</td>
+</tr>
+<tr>
+<td style="border:1px solid #ddd;"><strong><a href="https://app.hubspot.com/contacts/19933594/record/0-1/5997854" style="color:#2E5090;">Sean VanHandel</a></strong></td>
+<td style="border:1px solid #ddd;">Covantage Credit Union</td>
+<td style="border:1px solid #ddd;">Executive</td>
+<td style="border:1px solid #ddd;">Mathew LaMunyon</td>
+<td style="border:1px solid #ddd;">Mar 2</td>
+</tr>
+<tr style="background:#f9f9f9;">
+<td style="border:1px solid #ddd;"><strong><a href="https://app.hubspot.com/contacts/19933594/record/0-1/206342903961" style="color:#2E5090;">Tighe O&#39;Connor</a></strong></td>
+<td style="border:1px solid #ddd;">Verve Studios</td>
+<td style="border:1px solid #ddd;">Executive</td>
+<td style="border:1px solid #ddd;">Chris Calcasola</td>
+<td style="border:1px solid #ddd;">Mar 2</td>
+</tr>
+</table>
+
+<p style="margin:0 0 6px 0;font-size:12px;color:#666;">3 Executives, 1 VP/SVP, 1 Director, 3 Managers. Notable: <strong>Amy Rios</strong> (VP, RoundHouse Lending), <strong>Sean VanHandel</strong> (Executive, Covantage CU), <strong>Ken Coats</strong> (Executive, KENTECH). All 10 leads have reps assigned.</p>
+
+<!-- Additional Platform Metrics -->
+<table width="100%" cellpadding="8" cellspacing="0" border="0" style="border:1px solid #ddd;border-collapse:collapse;font-size:13px;margin-bottom:16px;text-align:center;">
+<tr style="background:#1B2A4A;">
+<td style="border:1px solid #ccc;color:#fff;font-weight:bold;">Login (Deduped)</td>
+<td style="border:1px solid #ccc;color:#fff;font-weight:bold;">Verification Help (Deduped)</td>
+</tr>
+<tr>
+<td style="border:1px solid #ddd;font-size:20px;font-weight:bold;color:#1B2A4A;">109</td>
+<td style="border:1px solid #ddd;font-size:20px;font-weight:bold;color:#1B2A4A;">82</td>
+</tr>
+</table>
+
+<!-- Response Velocity -->
+<table width="100%" cellpadding="0" cellspacing="0" border="0">
+<tr><td style="padding:0 0 6px 0;font-size:14px;font-weight:bold;color:#2E5090;">Response Velocity</td></tr>
+</table>
+
+<table width="100%" cellpadding="8" cellspacing="0" border="0" style="border:1px solid #ddd;border-collapse:collapse;font-size:13px;margin-bottom:16px;text-align:center;">
+<tr style="background:#1B2A4A;">
+<td style="border:1px solid #ccc;color:#fff;font-weight:bold;">Form Fill &#8594; First Contact</td>
+<td style="border:1px solid #ccc;color:#fff;font-weight:bold;">First Contact &#8594; Meeting</td>
+<td style="border:1px solid #ccc;color:#fff;font-weight:bold;">Form Fill &#8594; Deal</td>
+<td style="border:1px solid #ccc;color:#fff;font-weight:bold;">Meeting &#8594; Deal</td>
+</tr>
+<tr>
+<td style="border:1px solid #ddd;font-size:18px;font-weight:bold;color:#1B2A4A;">3.0 hrs</td>
+<td style="border:1px solid #ddd;font-size:18px;font-weight:bold;color:#1B2A4A;">66.0 hrs</td>
+<td style="border:1px solid #ddd;font-size:14px;color:#999;">No data</td>
+<td style="border:1px solid #ddd;font-size:14px;color:#999;">No data</td>
+</tr>
+</table>
+
+<!-- Lead Stage Breakdown -->
+<table width="100%" cellpadding="0" cellspacing="0" border="0">
+<tr><td style="padding:0 0 6px 0;font-size:14px;font-weight:bold;color:#2E5090;">Lead Stage Breakdown</td></tr>
+</table>
+
+<table width="100%" cellpadding="7" cellspacing="0" border="0" style="border:1px solid #ddd;border-collapse:collapse;font-size:13px;margin-bottom:16px;">
+<tr style="background:#1B2A4A;">
+<td style="border:1px solid #ccc;color:#fff;font-weight:bold;">Stage</td>
+<td style="border:1px solid #ccc;color:#fff;font-weight:bold;text-align:center;">Count</td>
+</tr>
+<tr>
+<td style="border:1px solid #ddd;">Lead</td>
+<td style="border:1px solid #ddd;text-align:center;font-weight:bold;">3</td>
+</tr>
+<tr style="background:#f9f9f9;">
+<td style="border:1px solid #ddd;">Marketing Qualified Lead (MQL)</td>
+<td style="border:1px solid #ddd;text-align:center;font-weight:bold;">5</td>
+</tr>
+<tr>
+<td style="border:1px solid #ddd;">Sales Qualified Lead (SQL)</td>
+<td style="border:1px solid #ddd;text-align:center;font-weight:bold;">2</td>
+</tr>
+</table>
+
+<!-- Qualified Leads by Rep -->
+<table width="100%" cellpadding="0" cellspacing="0" border="0">
+<tr><td style="padding:0 0 6px 0;font-size:14px;font-weight:bold;color:#2E5090;">Qualified Leads by Rep (MQL + SQL)</td></tr>
+</table>
+
+<table width="100%" cellpadding="7" cellspacing="0" border="0" style="border:1px solid #ddd;border-collapse:collapse;font-size:13px;margin-bottom:16px;">
+<tr style="background:#1B2A4A;">
+<td style="border:1px solid #ccc;color:#fff;font-weight:bold;">Rep</td>
+<td style="border:1px solid #ccc;color:#fff;font-weight:bold;text-align:center;">Qualified Leads</td>
+</tr>
+<tr>
+<td style="border:1px solid #ddd;">Mathew LaMunyon</td>
+<td style="border:1px solid #ddd;text-align:center;font-weight:bold;">3</td>
+</tr>
+<tr style="background:#f9f9f9;">
+<td style="border:1px solid #ddd;">Chris Calcasola</td>
+<td style="border:1px solid #ddd;text-align:center;font-weight:bold;">2</td>
+</tr>
+<tr>
+<td style="border:1px solid #ddd;">Michael Easton</td>
+<td style="border:1px solid #ddd;text-align:center;font-weight:bold;">1</td>
+</tr>
+<tr style="background:#f9f9f9;">
+<td style="border:1px solid #ddd;">Tommy Jayne</td>
+<td style="border:1px solid #ddd;text-align:center;font-weight:bold;">1</td>
+</tr>
+</table>
+
+<!-- Hot Leads Callout -->
+<table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-bottom:16px;">
+<tr><td style="background:#fff5f0;border:1px solid #e8a08a;border-left:4px solid #CC4400;border-radius:4px;padding:14px 16px;font-size:13px;color:#662200;">
+<span style="font-weight:bold;">&#9888; 3 Hot Leads &mdash; Executive-Level Contact Sales This Week</span><br>
+<strong><a href="https://app.hubspot.com/contacts/19933594/record/0-1/204204421815" style="color:#662200;">Amy Rios</a></strong> (VP, RoundHouse Lending), <strong><a href="https://app.hubspot.com/contacts/19933594/record/0-1/5997854" style="color:#662200;">Sean VanHandel</a></strong> (Executive, Covantage Credit Union), and <strong><a href="https://app.hubspot.com/contacts/19933594/record/0-1/10709552" style="color:#662200;">Ken Coats</a></strong> (Executive, KENTECH) are the highest-priority leads this week. All three are assigned to Mathew LaMunyon.
+</td></tr>
+</table>
+
+<hr style="border:none;border-top:1px solid #ddd;margin:4px 0 16px 0;">
+
+<!-- NEXT WEEK -->
+<table width="100%" cellpadding="0" cellspacing="0" border="0">
+<tr><td style="padding:4px 0 8px 0;font-size:17px;font-weight:bold;color:#1B2A4A;">Next Week Ahead</td></tr>
+<tr><td>
+
+<p style="margin:0 0 4px 0;font-size:14px;font-weight:bold;color:#2E5090;">Email Campaigns</p>
+<ul style="margin:0 0 12px 0;padding-left:20px;font-size:14px;">
+<li style="margin-bottom:4px;">FCM Webinar Invite 3 of 4 (due Mar 9)</li>
+<li style="margin-bottom:4px;">FCM Webinar Invite 4 of 4 &mdash; Day of Reminder (due Mar 10)</li>
+<li style="margin-bottom:4px;">FCM Webinar Closed-Lost Reminder email 2 of 3 (due Mar 9)</li>
+<li style="margin-bottom:4px;">FCM Webinar Closed-Lost Day-of email 3 of 3 (due Mar 10)</li>
+<li style="margin-bottom:4px;">BankSouth Case Study email &mdash; [LIVE] Send (due Mar 11)</li>
+<li style="margin-bottom:4px;">Product Update email &mdash; [LIVE] Send (due Mar 9)</li>
+<li style="margin-bottom:4px;">Whitepaper Email Campaign</li>
+<li style="margin-bottom:4px;">CCM Case Study to Mortgage Ops Audience</li>
+<li style="margin-bottom:4px;">PHM Case Study to Mortgage Ops Audience</li>
+<li style="margin-bottom:4px;">FCM Case Study to Mortgage Ops Audience</li>
+</ul>
+
+<p style="margin:0 0 4px 0;font-size:14px;font-weight:bold;color:#2E5090;">Paid Media</p>
+<ul style="margin:0 0 12px 0;padding-left:20px;font-size:14px;">
+<li style="margin-bottom:4px;">Continue LinkedIn CCM Lead Gen at $150/day cap &mdash; test form field reduction</li>
+<li style="margin-bottom:4px;">Evaluate Google/YouTube reactivation &mdash; broader targeting or creative refresh needed</li>
+<li style="margin-bottom:4px;">Monitor Meta frequency and lead quality &mdash; make go/no-go on continued spend</li>
+<li style="margin-bottom:4px;">Hold daily spend under $137/day target across all platforms</li>
+</ul>
+
+<p style="margin:0 0 4px 0;font-size:14px;font-weight:bold;color:#2E5090;">Events</p>
+<ul style="margin:0 0 12px 0;padding-left:20px;font-size:14px;">
+<li style="margin-bottom:4px;">FCM Webinar &mdash; March 10th (day-of execution, attendance tracking)</li>
+<li style="margin-bottom:4px;">Begin March Insider Public Sector Webinar planning</li>
+</ul>
+
+</td></tr>
+</table>
+
+</td></tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,843 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e4]:
+    - link "HubSpot logo" [ref=e6] [cursor=pointer]:
+      - /url: /global-home/19933594
+      - img "HubSpot logo" [ref=e7]
+    - generic [ref=e9]:
+      - generic [ref=e14]:
+        - img
+        - searchbox "Search HubSpot" [ref=e15]
+        - generic:
+          - generic: ⌘
+          - generic: K
+      - button "Create new" [ref=e18] [cursor=pointer]:
+        - img [ref=e19]
+    - navigation "Global toolbar" [ref=e21]:
+      - menu [ref=e22]:
+        - menuitem "Calls" [ref=e23]:
+          - button "Calls" [ref=e24] [cursor=pointer]:
+            - img "Calling" [ref=e25]
+        - menuitem "Academy" [ref=e27]:
+          - button "Academy" [ref=e28] [cursor=pointer]:
+            - img "Academy" [ref=e29]
+        - menuitem "Marketplace" [ref=e33]:
+          - button "Marketplace" [ref=e34] [cursor=pointer]:
+            - img "Marketplace" [ref=e35]
+        - menuitem "Help" [ref=e37]:
+          - button "Help" [ref=e39] [cursor=pointer]:
+            - img "Help" [ref=e40]
+        - menuitem "Settings" [ref=e42]:
+          - link "Settings" [ref=e43] [cursor=pointer]:
+            - /url: /user-preferences/19933594?eschref=%2Fcontacts%2F19933594%2FobjectLists%2F9199%2Ffilters
+            - img "Settings" [ref=e44]
+        - generic [ref=e46]:
+          - 'menuitem "Notifications: 4 unseen" [ref=e47]':
+            - 'button "Notifications: 4 unseen" [ref=e48] [cursor=pointer]':
+              - img [ref=e49]
+          - generic: "4"
+        - menuitem "Open Assistant" [ref=e52]:
+          - button "Open Assistant" [ref=e53] [cursor=pointer]:
+            - img "Open Assistant" [ref=e54]
+            - generic [ref=e57]: Assistant
+        - menuitem "View profile and more" [ref=e59]:
+          - button "View profile and more" [ref=e60] [cursor=pointer]:
+            - img "Cam Wolf" [ref=e61]
+            - generic [ref=e62]: Truv
+            - img [ref=e63]
+  - generic [ref=e66]:
+    - button "Scroll up":
+      - img
+    - generic [ref=e67]:
+      - navigation [ref=e69]:
+        - menu [ref=e70]:
+          - menuitem "Home" [ref=e71] [cursor=pointer]:
+            - img "Home" [ref=e72]
+          - menuitem "Bookmarks" [ref=e74] [cursor=pointer]:
+            - img "Bookmarks" [ref=e75]
+          - menuitem "CRM" [ref=e77] [cursor=pointer]:
+            - img "CRM" [ref=e78]
+          - menuitem "Marketing" [ref=e80] [cursor=pointer]:
+            - img "Marketing" [ref=e81]
+          - menuitem "Content" [ref=e83] [cursor=pointer]:
+            - img "Content" [ref=e84]
+          - menuitem "Sales" [ref=e86] [cursor=pointer]:
+            - img "Sales" [ref=e87]
+          - menuitem "Commerce" [ref=e89] [cursor=pointer]:
+            - img "Commerce" [ref=e90]
+          - menuitem "Service" [ref=e93] [cursor=pointer]:
+            - img "Service" [ref=e94]
+          - menuitem "Data Management" [ref=e98] [cursor=pointer]:
+            - img "Data Management" [ref=e99]
+          - menuitem "Automation" [ref=e101] [cursor=pointer]:
+            - img "Automation" [ref=e102]
+          - menuitem "Reporting" [ref=e104] [cursor=pointer]:
+            - img "Reporting" [ref=e105]
+          - menuitem "Breeze" [ref=e107] [cursor=pointer]:
+            - img "Breeze" [ref=e108]
+          - menuitem "Development" [ref=e110] [cursor=pointer]:
+            - img "Development" [ref=e111]
+      - button [ref=e115] [cursor=pointer]:
+        - img [ref=e116]
+    - button "Scroll down" [ref=e119] [cursor=pointer]:
+      - img [ref=e120]
+  - generic [ref=e122]:
+    - generic [ref=e126]:
+      - generic [ref=e128]:
+        - region "Page Section" [ref=e129]:
+          - navigation [ref=e130]:
+            - link "Back to segments" [ref=e131] [cursor=pointer]:
+              - /url: /contacts/19933594/objectLists/views/all
+              - generic [ref=e132]:
+                - img [ref=e134]
+                - generic [ref=e136]: Back to segments
+          - generic [ref=e137]:
+            - 'heading "FCM Webinar Form Fills Contacts Active Size: 52" [level=1] [ref=e139]':
+              - generic [ref=e140]:
+                - generic [ref=e143]:
+                  - textbox "Segment name" [ref=e145]:
+                    - /placeholder: Name your new segment
+                    - text: FCM Webinar Form Fills
+                  - generic:
+                    - img
+                - generic [ref=e147]:
+                  - generic [ref=e152]: Contacts
+                  - generic [ref=e158]: Active
+                  - generic [ref=e164]: "Size: 52"
+            - generic [ref=e166]:
+              - button "Edit" [ref=e167] [cursor=pointer]:
+                - generic [ref=e169]: Edit
+              - button "Details" [ref=e170] [cursor=pointer]:
+                - generic [ref=e172]: Details
+              - button "Use in" [ref=e173] [cursor=pointer]:
+                - generic [ref=e177]: Use in
+              - button "Actions" [ref=e179] [cursor=pointer]:
+                - generic [ref=e183]: Actions
+          - generic [ref=e186]:
+            - paragraph [ref=e187]: What is the purpose of this segment?
+            - button "Create description" [ref=e188] [cursor=pointer]:
+              - generic [ref=e190]: Create description
+          - navigation [ref=e193]:
+            - button "Overview" [ref=e194] [cursor=pointer]: Overview
+            - button "Performance" [ref=e196] [cursor=pointer]: Performance
+            - button "Activity" [ref=e198] [cursor=pointer]: Activity
+            - button "Settings" [ref=e200] [cursor=pointer]: Settings
+        - region "Page Section" [ref=e204]:
+          - main [ref=e207]:
+            - generic [ref=e211]:
+              - generic [ref=e216]:
+                - generic [ref=e217]:
+                  - generic [ref=e218]:
+                    - heading "Filters" [level=4] [ref=e219]
+                    - button "Edit" [ref=e220] [cursor=pointer]:
+                      - generic [ref=e222]: Edit
+                  - generic [ref=e223]:
+                    - generic [ref=e225]: Test matches
+                    - generic [ref=e226] [cursor=pointer]:
+                      - checkbox "Test matches OFF" [ref=e228]
+                      - generic [ref=e229]: "OFF"
+                - status [ref=e233]:
+                  - generic [ref=e234]:
+                    - img [ref=e237]
+                    - img [ref=e243]
+                  - generic [ref=e245]: Loading filters
+              - generic [ref=e248]:
+                - generic [ref=e250]:
+                  - generic [ref=e252]:
+                    - searchbox "Search in segment" [ref=e253]
+                    - generic:
+                      - generic:
+                        - img
+                  - list [ref=e255]:
+                    - listitem [ref=e256]:
+                      - button "Export segment" [ref=e257] [cursor=pointer]:
+                        - generic [ref=e259]: Export segment
+                    - listitem [ref=e260]:
+                      - button "Edit columns" [ref=e261] [cursor=pointer]:
+                        - generic [ref=e263]: Edit columns
+                    - button "View" [ref=e266] [cursor=pointer]:
+                      - generic [ref=e270]:
+                        - img [ref=e271]
+                        - generic [ref=e273]: View
+                    - button [ref=e275] [cursor=pointer]:
+                      - img [ref=e277]
+                - generic [ref=e283]:
+                  - generic [ref=e286]:
+                    - generic [ref=e289]:
+                      - paragraph [ref=e290]: Size
+                      - generic [ref=e291]: "52"
+                      - button "View performance" [ref=e293] [cursor=pointer]:
+                        - generic [ref=e295]: View performance
+                    - generic [ref=e298]:
+                      - paragraph [ref=e299]: "% of database"
+                      - generic [ref=e300]: 0.02%
+                      - generic [ref=e301]: Contacts
+                    - generic [ref=e304]:
+                      - paragraph [ref=e305]: 7 day change
+                      - generic [ref=e306]:
+                        - img [ref=e309]
+                        - generic [ref=e311]: "32"
+                      - generic [ref=e312]: Contacts
+                    - generic [ref=e315]:
+                      - paragraph [ref=e316]: Created on
+                      - generic [ref=e317]: 02/25/26
+                      - button "View details" [ref=e319] [cursor=pointer]:
+                        - generic [ref=e321]: View details
+                    - generic [ref=e324]:
+                      - paragraph [ref=e325]: Type
+                      - generic [ref=e328]: Active
+                      - button "Convert" [ref=e330] [cursor=pointer]:
+                        - generic [ref=e332]: Convert
+                  - button [ref=e334] [cursor=pointer]:
+                    - img [ref=e336]
+                - generic [ref=e338]:
+                  - table [ref=e346]:
+                    - rowgroup [ref=e347]:
+                      - row "Select all records. name Press to sort. Email Press to sort. Phone Number Press to sort. Contact owner Press to sort. Last Activity Date Press to sort. Lead Status Press to sort. Marketing contact status Press to sort. Create Date Press to sort. utm_source Press to sort. Added to segment date Press to sort." [ref=e348]:
+                        - columnheader "Select all records." [ref=e349]:
+                          - checkbox "Select all records." [ref=e354]
+                        - columnheader "name Press to sort." [ref=e360] [cursor=pointer]:
+                          - generic [ref=e362]:
+                            - generic [ref=e368]: name
+                            - generic "Press to sort." [ref=e371]:
+                              - img [ref=e372]
+                        - columnheader "Email Press to sort." [ref=e376]:
+                          - generic [ref=e378]:
+                            - generic [ref=e384]: Email
+                            - generic "Press to sort." [ref=e387]:
+                              - img [ref=e388]
+                        - columnheader "Phone Number Press to sort." [ref=e392]:
+                          - generic [ref=e394]:
+                            - generic [ref=e400]: Phone Number
+                            - generic "Press to sort." [ref=e403]:
+                              - img [ref=e404]
+                        - columnheader "Contact owner Press to sort." [ref=e408]:
+                          - generic [ref=e410]:
+                            - generic [ref=e416]: Contact owner
+                            - generic "Press to sort." [ref=e419]:
+                              - img [ref=e420]
+                        - columnheader "Last Activity Date Press to sort." [ref=e424]:
+                          - generic [ref=e426]:
+                            - generic [ref=e432]: Last Activity Date
+                            - generic "Press to sort." [ref=e435]:
+                              - img [ref=e436]
+                        - columnheader "Lead Status Press to sort." [ref=e440]:
+                          - generic [ref=e442]:
+                            - generic [ref=e448]: Lead Status
+                            - generic "Press to sort." [ref=e451]:
+                              - img [ref=e452]
+                        - columnheader "Marketing contact status Press to sort." [ref=e456]:
+                          - generic [ref=e458]:
+                            - generic [ref=e464]: Marketing contact status
+                            - generic "Press to sort." [ref=e467]:
+                              - img [ref=e468]
+                        - columnheader "Create Date Press to sort." [ref=e472]:
+                          - generic [ref=e474]:
+                            - generic [ref=e480]: Create Date
+                            - generic "Press to sort." [ref=e483]:
+                              - img [ref=e484]
+                        - columnheader "utm_source Press to sort." [ref=e488]:
+                          - generic [ref=e490]:
+                            - generic [ref=e496]: utm_source
+                            - generic "Press to sort." [ref=e499]:
+                              - img [ref=e500]
+                        - columnheader "Added to segment date Press to sort." [ref=e504]:
+                          - generic [ref=e506]:
+                            - generic [ref=e512]: Added to segment date
+                            - generic "Press to sort." [ref=e515]:
+                              - img [ref=e516]
+                    - rowgroup [ref=e520]:
+                      - row "Select row Megan Swinehart Preview mswinehart@firsthome.com Link opens in a new window (443)725-8905 Yesterday at 8:11 PM CDT Opportunity Non-marketing contact May 11, 2021 4:15 PM CDT email Feb 25, 2026 1:47 PM" [ref=e521]:
+                        - cell "Select row" [ref=e522]:
+                          - checkbox "Select row" [ref=e527]
+                        - cell "Megan Swinehart Preview" [ref=e533]:
+                          - generic [ref=e534]:
+                            - generic [ref=e540]:
+                              - img [ref=e546]:
+                                - generic [ref=e547]: MS
+                              - link "Megan Swinehart" [ref=e550] [cursor=pointer]:
+                                - /url: /contacts/19933594/record/0-1/54951/
+                                - text: Megan Swinehart
+                            - button "Preview" [ref=e553] [cursor=pointer]:
+                              - generic [ref=e555]: Preview
+                        - button "mswinehart@firsthome.com Link opens in a new window" [ref=e556]:
+                          - link "mswinehart@firsthome.com Link opens in a new window" [ref=e560] [cursor=pointer]:
+                            - /url: mailto:mswinehart@firsthome.com
+                            - text: mswinehart@firsthome.com
+                            - img "Link opens in a new window" [ref=e562]
+                        - button "(443)725-8905" [ref=e564]:
+                          - generic [ref=e566]: (443)725-8905
+                        - button [ref=e567]:
+                          - status [ref=e570]
+                        - cell "Yesterday at 8:11 PM CDT" [ref=e571]:
+                          - generic [ref=e573]: Yesterday at 8:11 PM CDT
+                        - button "Opportunity" [ref=e574]:
+                          - generic [ref=e576]: Opportunity
+                        - cell "Non-marketing contact" [ref=e577]:
+                          - generic [ref=e579]: Non-marketing contact
+                        - cell "May 11, 2021 4:15 PM CDT" [ref=e580]:
+                          - generic [ref=e582]: May 11, 2021 4:15 PM CDT
+                        - button "email" [ref=e583]:
+                          - generic [ref=e585]: email
+                        - cell "Feb 25, 2026 1:47 PM" [ref=e586]
+                      - row "Select row Dan Wetzel Preview dwetzel@apgfcu.com Link opens in a new window (410) 272-4000 No owner Dec 4, 2024 8:41 AM CST New Marketing contact Jun 15, 2022 3:38 PM CDT Chrisman Yesterday at 12:42 PM CDT" [ref=e587]:
+                        - cell "Select row" [ref=e588]:
+                          - checkbox "Select row" [ref=e593]
+                        - cell "Dan Wetzel Preview" [ref=e599]:
+                          - generic [ref=e600]:
+                            - link "Dan Wetzel" [ref=e611] [cursor=pointer]:
+                              - /url: /contacts/19933594/record/0-1/2259735/
+                              - text: Dan Wetzel
+                            - button "Preview" [ref=e614] [cursor=pointer]:
+                              - generic [ref=e616]: Preview
+                        - button "dwetzel@apgfcu.com Link opens in a new window" [ref=e617]:
+                          - link "dwetzel@apgfcu.com Link opens in a new window" [ref=e621] [cursor=pointer]:
+                            - /url: mailto:dwetzel@apgfcu.com
+                            - text: dwetzel@apgfcu.com
+                            - img "Link opens in a new window" [ref=e623]
+                        - button "(410) 272-4000" [ref=e625]:
+                          - generic [ref=e627]: (410) 272-4000
+                        - button "No owner" [ref=e628]:
+                          - generic [ref=e630]: No owner
+                        - cell "Dec 4, 2024 8:41 AM CST" [ref=e631]:
+                          - generic [ref=e633]: Dec 4, 2024 8:41 AM CST
+                        - button "New" [ref=e634]:
+                          - generic [ref=e636]: New
+                        - cell "Marketing contact" [ref=e637]:
+                          - generic [ref=e639]: Marketing contact
+                        - cell "Jun 15, 2022 3:38 PM CDT" [ref=e640]:
+                          - generic [ref=e642]: Jun 15, 2022 3:38 PM CDT
+                        - button "Chrisman" [ref=e643]:
+                          - generic [ref=e645]: Chrisman
+                        - cell "Yesterday at 12:42 PM CDT" [ref=e646]
+                      - row "Select row Brett McCracken Preview brett.mccracken@stratmorgroup.com Link opens in a new window (303) 486-6823 No owner Yesterday at 11:37 AM CDT Working Non-marketing contact Apr 6, 2023 5:38 AM CDT email Feb 26, 2026 9:36 AM" [ref=e647]:
+                        - cell "Select row" [ref=e648]:
+                          - checkbox "Select row" [ref=e653]
+                        - cell "Brett McCracken Preview" [ref=e659]:
+                          - generic [ref=e660]:
+                            - link "Brett McCracken" [ref=e671] [cursor=pointer]:
+                              - /url: /contacts/19933594/record/0-1/3770306/
+                              - text: Brett McCracken
+                            - button "Preview" [ref=e674] [cursor=pointer]:
+                              - generic [ref=e676]: Preview
+                        - button "brett.mccracken@stratmorgroup.com Link opens in a new window" [ref=e677]:
+                          - link "brett.mccracken@stratmorgroup.com Link opens in a new window" [ref=e681] [cursor=pointer]:
+                            - /url: mailto:brett.mccracken@stratmorgroup.com
+                            - text: brett.mccracken@stratmorgroup.com
+                            - img "Link opens in a new window" [ref=e683]
+                        - button "(303) 486-6823" [ref=e685]:
+                          - generic [ref=e687]: (303) 486-6823
+                        - button "No owner" [ref=e688]:
+                          - generic [ref=e690]: No owner
+                        - cell "Yesterday at 11:37 AM CDT" [ref=e691]:
+                          - generic [ref=e693]: Yesterday at 11:37 AM CDT
+                        - button "Working" [ref=e694]:
+                          - generic [ref=e696]: Working
+                        - cell "Non-marketing contact" [ref=e697]:
+                          - generic [ref=e699]: Non-marketing contact
+                        - cell "Apr 6, 2023 5:38 AM CDT" [ref=e700]:
+                          - generic [ref=e702]: Apr 6, 2023 5:38 AM CDT
+                        - button "email" [ref=e703]:
+                          - generic [ref=e705]: email
+                        - cell "Feb 26, 2026 9:36 AM" [ref=e706]
+                      - row "Select row Marvin Keffer Preview mkeffer@southpoint.bank Link opens in a new window (120) 550-3547 No owner Feb 9, 2026 2:49 PM CST Working Non-marketing contact Oct 27, 2023 10:45 AM CDT email Feb 26, 2026 11:03 AM" [ref=e707]:
+                        - cell "Select row" [ref=e708]:
+                          - checkbox "Select row" [ref=e713]
+                        - cell "Marvin Keffer Preview" [ref=e719]:
+                          - generic [ref=e720]:
+                            - link "Marvin Keffer" [ref=e731] [cursor=pointer]:
+                              - /url: /contacts/19933594/record/0-1/7656051/
+                              - text: Marvin Keffer
+                            - button "Preview" [ref=e734] [cursor=pointer]:
+                              - generic [ref=e736]: Preview
+                        - button "mkeffer@southpoint.bank Link opens in a new window" [ref=e737]:
+                          - link "mkeffer@southpoint.bank Link opens in a new window" [ref=e741] [cursor=pointer]:
+                            - /url: mailto:mkeffer@southpoint.bank
+                            - text: mkeffer@southpoint.bank
+                            - img "Link opens in a new window" [ref=e743]
+                        - button "(120) 550-3547" [ref=e745]:
+                          - generic [ref=e747]: (120) 550-3547
+                        - button "No owner" [ref=e748]:
+                          - generic [ref=e750]: No owner
+                        - cell "Feb 9, 2026 2:49 PM CST" [ref=e751]:
+                          - generic [ref=e753]: Feb 9, 2026 2:49 PM CST
+                        - button "Working" [ref=e754]:
+                          - generic [ref=e756]: Working
+                        - cell "Non-marketing contact" [ref=e757]:
+                          - generic [ref=e759]: Non-marketing contact
+                        - cell "Oct 27, 2023 10:45 AM CDT" [ref=e760]:
+                          - generic [ref=e762]: Oct 27, 2023 10:45 AM CDT
+                        - button "email" [ref=e763]:
+                          - generic [ref=e765]: email
+                        - cell "Feb 26, 2026 11:03 AM" [ref=e766]
+                      - row "Select row Donald Barb er Preview don.barber@process-improvements.com Link opens in a new window 859-384-0541 No owner Yesterday at 11:43 AM CDT Disqualified Marketing contact Oct 30, 2023 5:18 PM CDT email Mar 3, 2026 1:15 PM" [ref=e767]:
+                        - cell "Select row" [ref=e768]:
+                          - checkbox "Select row" [ref=e773]
+                        - cell "Donald Barb er Preview" [ref=e779]:
+                          - generic [ref=e780]:
+                            - link "Donald Barb er" [ref=e791] [cursor=pointer]:
+                              - /url: /contacts/19933594/record/0-1/7728251/
+                              - text: Donald Barb er
+                            - button "Preview" [ref=e794] [cursor=pointer]:
+                              - generic [ref=e796]: Preview
+                        - button "don.barber@process-improvements.com Link opens in a new window" [ref=e797]:
+                          - link "don.barber@process-improvements.com Link opens in a new window" [ref=e801] [cursor=pointer]:
+                            - /url: mailto:don.barber@process-improvements.com
+                            - text: don.barber@process-improvements.com
+                            - img "Link opens in a new window" [ref=e803]
+                        - button "859-384-0541" [ref=e805]:
+                          - generic [ref=e807]: 859-384-0541
+                        - button "No owner" [ref=e808]:
+                          - generic [ref=e810]: No owner
+                        - cell "Yesterday at 11:43 AM CDT" [ref=e811]:
+                          - generic [ref=e813]: Yesterday at 11:43 AM CDT
+                        - button "Disqualified" [ref=e814]:
+                          - generic [ref=e816]: Disqualified
+                        - cell "Marketing contact" [ref=e817]:
+                          - generic [ref=e819]: Marketing contact
+                        - cell "Oct 30, 2023 5:18 PM CDT" [ref=e820]:
+                          - generic [ref=e822]: Oct 30, 2023 5:18 PM CDT
+                        - button "email" [ref=e823]:
+                          - generic [ref=e825]: email
+                        - cell "Mar 3, 2026 1:15 PM" [ref=e826]
+                      - row "Select row Tomas Ducaud Preview tomas@loansteady.com Link opens in a new window (305)798-2360 No owner Yesterday at 2:12 PM CDT Meeting Marketing contact Nov 2, 2023 8:40 AM CDT email Yesterday at 2:13 PM CDT" [ref=e827]:
+                        - cell "Select row" [ref=e828]:
+                          - checkbox "Select row" [ref=e833]
+                        - cell "Tomas Ducaud Preview" [ref=e839]:
+                          - generic [ref=e840]:
+                            - link "Tomas Ducaud" [ref=e851] [cursor=pointer]:
+                              - /url: /contacts/19933594/record/0-1/7829551/
+                              - text: Tomas Ducaud
+                            - button "Preview" [ref=e854] [cursor=pointer]:
+                              - generic [ref=e856]: Preview
+                        - button "tomas@loansteady.com Link opens in a new window" [ref=e857]:
+                          - link "tomas@loansteady.com Link opens in a new window" [ref=e861] [cursor=pointer]:
+                            - /url: mailto:tomas@loansteady.com
+                            - text: tomas@loansteady.com
+                            - img "Link opens in a new window" [ref=e863]
+                        - button "(305)798-2360" [ref=e865]:
+                          - generic [ref=e867]: (305)798-2360
+                        - button "No owner" [ref=e868]:
+                          - generic [ref=e870]: No owner
+                        - cell "Yesterday at 2:12 PM CDT" [ref=e871]:
+                          - generic [ref=e873]: Yesterday at 2:12 PM CDT
+                        - button "Meeting" [ref=e874]:
+                          - generic [ref=e876]: Meeting
+                        - cell "Marketing contact" [ref=e877]:
+                          - generic [ref=e879]: Marketing contact
+                        - cell "Nov 2, 2023 8:40 AM CDT" [ref=e880]:
+                          - generic [ref=e882]: Nov 2, 2023 8:40 AM CDT
+                        - button "email" [ref=e883]:
+                          - generic [ref=e885]: email
+                        - cell "Yesterday at 2:13 PM CDT" [ref=e886]
+                      - row "Select row Andrea Robinson Preview drea.robinson@valorhl.com Link opens in a new window (719)459-2884 Yesterday at 11:16 AM CDT New Marketing contact Nov 13, 2023 3:41 PM CST email Yesterday at 11:12 AM CDT" [ref=e887]:
+                        - cell "Select row" [ref=e888]:
+                          - checkbox "Select row" [ref=e893]
+                        - cell "Andrea Robinson Preview" [ref=e899]:
+                          - generic [ref=e900]:
+                            - link "Andrea Robinson" [ref=e911] [cursor=pointer]:
+                              - /url: /contacts/19933594/record/0-1/8160701/
+                              - text: Andrea Robinson
+                            - button "Preview" [ref=e914] [cursor=pointer]:
+                              - generic [ref=e916]: Preview
+                        - button "drea.robinson@valorhl.com Link opens in a new window" [ref=e917]:
+                          - link "drea.robinson@valorhl.com Link opens in a new window" [ref=e921] [cursor=pointer]:
+                            - /url: mailto:drea.robinson@valorhl.com
+                            - text: drea.robinson@valorhl.com
+                            - img "Link opens in a new window" [ref=e923]
+                        - button "(719)459-2884" [ref=e925]:
+                          - generic [ref=e927]: (719)459-2884
+                        - button [ref=e928]:
+                          - status [ref=e931]
+                        - cell "Yesterday at 11:16 AM CDT" [ref=e932]:
+                          - generic [ref=e934]: Yesterday at 11:16 AM CDT
+                        - button "New" [ref=e935]:
+                          - generic [ref=e937]: New
+                        - cell "Marketing contact" [ref=e938]:
+                          - generic [ref=e940]: Marketing contact
+                        - cell "Nov 13, 2023 3:41 PM CST" [ref=e941]:
+                          - generic [ref=e943]: Nov 13, 2023 3:41 PM CST
+                        - button "email" [ref=e944]:
+                          - generic [ref=e946]: email
+                        - cell "Yesterday at 11:12 AM CDT" [ref=e947]
+                      - row "Select row Myles Fujimoto Preview mylesf@financefactors.com Link opens in a new window (808) 532-7047 No owner Yesterday at 4:26 PM CDT Nurture Marketing contact Nov 28, 2023 2:14 PM CST email Yesterday at 4:26 PM CDT" [ref=e948]:
+                        - cell "Select row" [ref=e949]:
+                          - checkbox "Select row" [ref=e954]
+                        - cell "Myles Fujimoto Preview" [ref=e960]:
+                          - generic [ref=e961]:
+                            - link "Myles Fujimoto" [ref=e972] [cursor=pointer]:
+                              - /url: /contacts/19933594/record/0-1/8562051/
+                              - text: Myles Fujimoto
+                            - button "Preview" [ref=e975] [cursor=pointer]:
+                              - generic [ref=e977]: Preview
+                        - button "mylesf@financefactors.com Link opens in a new window" [ref=e978]:
+                          - link "mylesf@financefactors.com Link opens in a new window" [ref=e982] [cursor=pointer]:
+                            - /url: mailto:mylesf@financefactors.com
+                            - text: mylesf@financefactors.com
+                            - img "Link opens in a new window" [ref=e984]
+                        - button "(808) 532-7047" [ref=e986]:
+                          - generic [ref=e988]: (808) 532-7047
+                        - button "No owner" [ref=e989]:
+                          - generic [ref=e991]: No owner
+                        - cell "Yesterday at 4:26 PM CDT" [ref=e992]:
+                          - generic [ref=e994]: Yesterday at 4:26 PM CDT
+                        - button "Nurture" [ref=e995]:
+                          - generic [ref=e997]: Nurture
+                        - cell "Marketing contact" [ref=e998]:
+                          - generic [ref=e1000]: Marketing contact
+                        - cell "Nov 28, 2023 2:14 PM CST" [ref=e1001]:
+                          - generic [ref=e1003]: Nov 28, 2023 2:14 PM CST
+                        - button "email" [ref=e1004]:
+                          - generic [ref=e1006]: email
+                        - cell "Yesterday at 4:26 PM CDT" [ref=e1007]
+                      - row "Select row Vic Melillo Preview victor@premiumcreditbureau.com Link opens in a new window 7327146763 No owner Today at 12:12 PM CDT Meeting Marketing contact Feb 19, 2024 1:33 PM CST email Today at 12:14 PM CDT" [ref=e1008]:
+                        - cell "Select row" [ref=e1009]:
+                          - checkbox "Select row" [ref=e1014]
+                        - cell "Vic Melillo Preview" [ref=e1020]:
+                          - generic [ref=e1021]:
+                            - link "Vic Melillo" [ref=e1032] [cursor=pointer]:
+                              - /url: /contacts/19933594/record/0-1/11418351/
+                              - text: Vic Melillo
+                            - button "Preview" [ref=e1035] [cursor=pointer]:
+                              - generic [ref=e1037]: Preview
+                        - button "victor@premiumcreditbureau.com Link opens in a new window" [ref=e1038]:
+                          - link "victor@premiumcreditbureau.com Link opens in a new window" [ref=e1042] [cursor=pointer]:
+                            - /url: mailto:victor@premiumcreditbureau.com
+                            - text: victor@premiumcreditbureau.com
+                            - img "Link opens in a new window" [ref=e1044]
+                        - button "7327146763" [ref=e1046]:
+                          - generic [ref=e1048]: "7327146763"
+                        - button "No owner" [ref=e1049]:
+                          - generic [ref=e1051]: No owner
+                        - cell "Today at 12:12 PM CDT" [ref=e1052]:
+                          - generic [ref=e1054]: Today at 12:12 PM CDT
+                        - button "Meeting" [ref=e1055]:
+                          - generic [ref=e1057]: Meeting
+                        - cell "Marketing contact" [ref=e1058]:
+                          - generic [ref=e1060]: Marketing contact
+                        - cell "Feb 19, 2024 1:33 PM CST" [ref=e1061]:
+                          - generic [ref=e1063]: Feb 19, 2024 1:33 PM CST
+                        - button "email" [ref=e1064]:
+                          - generic [ref=e1066]: email
+                        - cell "Today at 12:14 PM CDT" [ref=e1067]
+                      - row "Select row Jim Carroll Preview jcarroll@partnersbnk.com Link opens in a new window (501)940-9797 No owner Yesterday at 12:37 PM CDT New Non-marketing contact Apr 8, 2024 4:01 PM CDT email Feb 25, 2026 1:47 PM" [ref=e1068]:
+                        - cell "Select row" [ref=e1069]:
+                          - checkbox "Select row" [ref=e1074]
+                        - cell "Jim Carroll Preview" [ref=e1080]:
+                          - generic [ref=e1081]:
+                            - link "Jim Carroll" [ref=e1092] [cursor=pointer]:
+                              - /url: /contacts/19933594/record/0-1/10573906593/
+                              - text: Jim Carroll
+                            - button "Preview" [ref=e1095] [cursor=pointer]:
+                              - generic [ref=e1097]: Preview
+                        - button "jcarroll@partnersbnk.com Link opens in a new window" [ref=e1098]:
+                          - link "jcarroll@partnersbnk.com Link opens in a new window" [ref=e1102] [cursor=pointer]:
+                            - /url: mailto:jcarroll@partnersbnk.com
+                            - text: jcarroll@partnersbnk.com
+                            - img "Link opens in a new window" [ref=e1104]
+                        - button "(501)940-9797" [ref=e1106]:
+                          - generic [ref=e1108]: (501)940-9797
+                        - button "No owner" [ref=e1109]:
+                          - generic [ref=e1111]: No owner
+                        - cell "Yesterday at 12:37 PM CDT" [ref=e1112]:
+                          - generic [ref=e1114]: Yesterday at 12:37 PM CDT
+                        - button "New" [ref=e1115]:
+                          - generic [ref=e1117]: New
+                        - cell "Non-marketing contact" [ref=e1118]:
+                          - generic [ref=e1120]: Non-marketing contact
+                        - cell "Apr 8, 2024 4:01 PM CDT" [ref=e1121]:
+                          - generic [ref=e1123]: Apr 8, 2024 4:01 PM CDT
+                        - button "email" [ref=e1124]:
+                          - generic [ref=e1126]: email
+                        - cell "Feb 25, 2026 1:47 PM" [ref=e1127]
+                      - row "Select row Debra Gebhart Preview dgebhart@oppbank.com Link opens in a new window 406-539-6816 No owner Mar 3, 2026 9:17 AM CST New Marketing contact May 2, 2024 3:25 PM CDT email Mar 3, 2026 11:19 AM" [ref=e1128]:
+                        - cell "Select row" [ref=e1129]:
+                          - checkbox "Select row" [ref=e1134]
+                        - cell "Debra Gebhart Preview" [ref=e1140]:
+                          - generic [ref=e1141]:
+                            - link "Debra Gebhart" [ref=e1152] [cursor=pointer]:
+                              - /url: /contacts/19933594/record/0-1/17925717130/
+                              - text: Debra Gebhart
+                            - button "Preview" [ref=e1155] [cursor=pointer]:
+                              - generic [ref=e1157]: Preview
+                        - button "dgebhart@oppbank.com Link opens in a new window" [ref=e1158]:
+                          - link "dgebhart@oppbank.com Link opens in a new window" [ref=e1162] [cursor=pointer]:
+                            - /url: mailto:dgebhart@oppbank.com
+                            - text: dgebhart@oppbank.com
+                            - img "Link opens in a new window" [ref=e1164]
+                        - button "406-539-6816" [ref=e1166]:
+                          - generic [ref=e1168]: 406-539-6816
+                        - button "No owner" [ref=e1169]:
+                          - generic [ref=e1171]: No owner
+                        - cell "Mar 3, 2026 9:17 AM CST" [ref=e1172]:
+                          - generic [ref=e1174]: Mar 3, 2026 9:17 AM CST
+                        - button "New" [ref=e1175]:
+                          - generic [ref=e1177]: New
+                        - cell "Marketing contact" [ref=e1178]:
+                          - generic [ref=e1180]: Marketing contact
+                        - cell "May 2, 2024 3:25 PM CDT" [ref=e1181]:
+                          - generic [ref=e1183]: May 2, 2024 3:25 PM CDT
+                        - button "email" [ref=e1184]:
+                          - generic [ref=e1186]: email
+                        - cell "Mar 3, 2026 11:19 AM" [ref=e1187]
+                      - row "Select row" [ref=e1188]:
+                        - cell "Select row" [ref=e1189]:
+                          - checkbox "Select row" [ref=e1194]
+                        - cell [ref=e1200]
+                        - cell [ref=e1201]
+                        - cell [ref=e1202]
+                        - cell [ref=e1203]
+                        - cell [ref=e1204]
+                        - cell [ref=e1205]
+                        - cell [ref=e1206]
+                        - cell [ref=e1207]
+                        - cell [ref=e1208]
+                        - cell [ref=e1209]
+                      - row "Select row" [ref=e1210]:
+                        - cell "Select row" [ref=e1211]:
+                          - checkbox "Select row" [ref=e1216]
+                        - cell [ref=e1222]
+                        - cell [ref=e1223]
+                        - cell [ref=e1224]
+                        - cell [ref=e1225]
+                        - cell [ref=e1226]
+                        - cell [ref=e1227]
+                        - cell [ref=e1228]
+                        - cell [ref=e1229]
+                        - cell [ref=e1230]
+                        - cell [ref=e1231]
+                      - row "Select row" [ref=e1232]:
+                        - cell "Select row" [ref=e1233]:
+                          - checkbox "Select row" [ref=e1238]
+                        - cell [ref=e1244]
+                        - cell [ref=e1245]
+                        - cell [ref=e1246]
+                        - cell [ref=e1247]
+                        - cell [ref=e1248]
+                        - cell [ref=e1249]
+                        - cell [ref=e1250]
+                        - cell [ref=e1251]
+                        - cell [ref=e1252]
+                        - cell [ref=e1253]
+                      - row "Select row" [ref=e1254]:
+                        - cell "Select row" [ref=e1255]:
+                          - checkbox "Select row" [ref=e1260]
+                        - cell [ref=e1266]
+                        - cell [ref=e1267]
+                        - cell [ref=e1268]
+                        - cell [ref=e1269]
+                        - cell [ref=e1270]
+                        - cell [ref=e1271]
+                        - cell [ref=e1272]
+                        - cell [ref=e1273]
+                        - cell [ref=e1274]
+                        - cell [ref=e1275]
+                      - row "Select row" [ref=e1276]:
+                        - cell "Select row" [ref=e1277]:
+                          - checkbox "Select row" [ref=e1282]
+                        - cell [ref=e1288]
+                        - cell [ref=e1289]
+                        - cell [ref=e1290]
+                        - cell [ref=e1291]
+                        - cell [ref=e1292]
+                        - cell [ref=e1293]
+                        - cell [ref=e1294]
+                        - cell [ref=e1295]
+                        - cell [ref=e1296]
+                        - cell [ref=e1297]
+                      - row "Select row" [ref=e1298]:
+                        - cell "Select row" [ref=e1299]:
+                          - checkbox "Select row" [ref=e1304]
+                        - cell [ref=e1310]
+                        - cell [ref=e1311]
+                        - cell [ref=e1312]
+                        - cell [ref=e1313]
+                        - cell [ref=e1314]
+                        - cell [ref=e1315]
+                        - cell [ref=e1316]
+                        - cell [ref=e1317]
+                        - cell [ref=e1318]
+                        - cell [ref=e1319]
+                      - row "Select row" [ref=e1320]:
+                        - cell "Select row" [ref=e1321]:
+                          - checkbox "Select row" [ref=e1326]
+                        - cell [ref=e1332]
+                        - cell [ref=e1333]
+                        - cell [ref=e1334]
+                        - cell [ref=e1335]
+                        - cell [ref=e1336]
+                        - cell [ref=e1337]
+                        - cell [ref=e1338]
+                        - cell [ref=e1339]
+                        - cell [ref=e1340]
+                        - cell [ref=e1341]
+                      - row "Select row" [ref=e1342]:
+                        - cell "Select row" [ref=e1343]:
+                          - checkbox "Select row" [ref=e1348]
+                        - cell [ref=e1354]
+                        - cell [ref=e1355]
+                        - cell [ref=e1356]
+                        - cell [ref=e1357]
+                        - cell [ref=e1358]
+                        - cell [ref=e1359]
+                        - cell [ref=e1360]
+                        - cell [ref=e1361]
+                        - cell [ref=e1362]
+                        - cell [ref=e1363]
+                      - row "Select row" [ref=e1364]:
+                        - cell "Select row" [ref=e1365]:
+                          - checkbox "Select row" [ref=e1370]
+                        - cell [ref=e1376]
+                        - cell [ref=e1377]
+                        - cell [ref=e1378]
+                        - cell [ref=e1379]
+                        - cell [ref=e1380]
+                        - cell [ref=e1381]
+                        - cell [ref=e1382]
+                        - cell [ref=e1383]
+                        - cell [ref=e1384]
+                        - cell [ref=e1385]
+                      - row "Select row" [ref=e1386]:
+                        - cell "Select row" [ref=e1387]:
+                          - checkbox "Select row" [ref=e1392]
+                        - cell [ref=e1398]
+                        - cell [ref=e1399]
+                        - cell [ref=e1400]
+                        - cell [ref=e1401]
+                        - cell [ref=e1402]
+                        - cell [ref=e1403]
+                        - cell [ref=e1404]
+                        - cell [ref=e1405]
+                        - cell [ref=e1406]
+                        - cell [ref=e1407]
+                      - row "Select row" [ref=e1408]:
+                        - cell "Select row" [ref=e1409]:
+                          - checkbox "Select row" [ref=e1414]
+                        - cell [ref=e1420]
+                        - cell [ref=e1421]
+                        - cell [ref=e1422]
+                        - cell [ref=e1423]
+                        - cell [ref=e1424]
+                        - cell [ref=e1425]
+                        - cell [ref=e1426]
+                        - cell [ref=e1427]
+                        - cell [ref=e1428]
+                        - cell [ref=e1429]
+                      - row "Select row" [ref=e1430]:
+                        - cell "Select row" [ref=e1431]:
+                          - checkbox "Select row" [ref=e1436]
+                        - cell [ref=e1442]
+                        - cell [ref=e1443]
+                        - cell [ref=e1444]
+                        - cell [ref=e1445]
+                        - cell [ref=e1446]
+                        - cell [ref=e1447]
+                        - cell [ref=e1448]
+                        - cell [ref=e1449]
+                        - cell [ref=e1450]
+                        - cell [ref=e1451]
+                      - row "Select row" [ref=e1452]:
+                        - cell "Select row" [ref=e1453]:
+                          - checkbox "Select row" [ref=e1458]
+                        - cell [ref=e1464]
+                        - cell [ref=e1465]
+                        - cell [ref=e1466]
+                        - cell [ref=e1467]
+                        - cell [ref=e1468]
+                        - cell [ref=e1469]
+                        - cell [ref=e1470]
+                        - cell [ref=e1471]
+                        - cell [ref=e1472]
+                        - cell [ref=e1473]
+                      - row "Select row" [ref=e1474]:
+                        - cell "Select row" [ref=e1475]:
+                          - checkbox "Select row" [ref=e1480]
+                        - cell [ref=e1486]
+                        - cell [ref=e1487]
+                        - cell [ref=e1488]
+                        - cell [ref=e1489]
+                        - cell [ref=e1490]
+                        - cell [ref=e1491]
+                        - cell [ref=e1492]
+                        - cell [ref=e1493]
+                        - cell [ref=e1494]
+                        - cell [ref=e1495]
+                  - generic [ref=e1496]:
+                    - navigation "Pagination" [ref=e1497]:
+                      - button "Previous page" [disabled] [ref=e1499]:
+                        - generic [ref=e1500]:
+                          - img [ref=e1501]
+                          - generic [ref=e1503]: Prev
+                      - button "You are currently on Page 1" [ref=e1505] [cursor=pointer]:
+                        - generic [ref=e1506]:
+                          - generic [ref=e1507]: You are currently on Page
+                          - text: "1"
+                      - button "Next page" [ref=e1509] [cursor=pointer]:
+                        - generic [ref=e1510]:
+                          - generic [ref=e1511]: Next
+                          - img [ref=e1512]
+                    - combobox "25 per page" [ref=e1517] [cursor=pointer]:
+                      - generic [ref=e1519]:
+                        - generic [ref=e1521]: 25 per page
+                        - img [ref=e1523]
+      - complementary:
+        - region "Collaboration sidebar":
+          - iframe [ref=e1525]:
+            - generic [ref=f133e5]:
+              - paragraph [ref=f133e8]: Comments
+              - generic [ref=f133e10]:
+                - generic [ref=f133e11]:
+                  - button "Open comments" [ref=f133e14] [cursor=pointer]:
+                    - option "Open comments" [ref=f133e18]:
+                      - generic [ref=f133e20]: Open comments
+                  - button [ref=f133e22] [cursor=pointer]:
+                    - img [ref=f133e24]
+                - paragraph [ref=f133e30]:
+                  - heading "There are no comments on this list" [level=4] [ref=f133e31]
+                  - generic [ref=f133e32]:
+                    - text: Collaborate with coworkers with comments. Leave a comment below and notify a coworker using
+                    - strong [ref=f133e33]: "@mentions"
+                    - text: .
+                - generic [ref=f133e34]:
+                  - generic [ref=f133e37]:
+                    - generic [ref=f133e39]:
+                      - generic: Write a comment. Send your colleague a notification by typing @ followed by their name.
+                      - paragraph [ref=f133e42]
+                    - generic [ref=f133e45]:
+                      - button [ref=f133e47]:
+                        - img [ref=f133e50]
+                      - button [ref=f133e53]:
+                        - img [ref=f133e56]
+                      - button [ref=f133e59]:
+                        - img [ref=f133e62]
+                      - button [ref=f133e65]:
+                        - img [ref=f133e68]
+                      - group [ref=f133e70]:
+                        - button [ref=f133e71]:
+                          - img [ref=f133e74]
+                        - button [ref=f133e76]
+                      - button [ref=f133e82]:
+                        - img [ref=f133e85]
+                      - button "Insert Emoji" [ref=f133e88]:
+                        - img [ref=f133e91]
+                  - generic [ref=f133e94]:
+                    - button "Comment" [disabled] [ref=f133e95]:
+                      - generic [ref=f133e98]: Comment
+                    - button "Cancel" [disabled] [ref=f133e99]:
+                      - generic [ref=f133e101]: Cancel
+      - generic:
+        - generic:
+          - generic:
+            - generic:
+              - complementary
+              - complementary:
+                - generic [ref=e1527]:
+                  - button [ref=e1528]:
+                    - img [ref=e1531]
+                  - generic [ref=e1533]:
+                    - button "Collaborate with Assistant" [disabled] [ref=e1536]:
+                      - img [ref=e1538]
+                    - button "Comments" [ref=e1542] [cursor=pointer]:
+                      - img [ref=e1544]
+              - complementary
+              - complementary
+    - complementary

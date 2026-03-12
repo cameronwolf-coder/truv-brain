@@ -1,0 +1,123 @@
+- generic [active] [ref=e1]:
+  - iframe [ref=e188]:
+    - banner [ref=f63e6]:
+      - generic [ref=f63e7]:
+        - heading "You’ve used all your monthly credits" [level=5] [ref=f63e8]
+        - generic [ref=f63e9]:
+          - generic [ref=f63e12]: Usage is paused until your credits reset on Mar 25, 2026 or you add more.
+          - link "Add credits" [ref=f63e13] [cursor=pointer]:
+            - /url: https://app.hubspot.com/api/notification-station/general/v1/notifications/cta/ad1945e2-7ce6-4b56-b932-753c0738e0c8?notificationPortalId=19933594
+            - generic [ref=f63e14]: Add credits
+      - button "Close" [ref=f63e15] [cursor=pointer]:
+        - img [ref=f63e18]
+  - generic:
+    - iframe
+  - generic [ref=e117]:
+    - generic [ref=e189]:
+      - region "Page Section" [ref=e190]:
+        - group [ref=e192]:
+          - generic [ref=e193]:
+            - button "Exit" [ref=e195] [cursor=pointer]:
+              - generic [ref=e197]: Exit
+            - heading "Choose who you'd like to segment" [level=1] [ref=e199]
+            - button "Next" [ref=e201] [cursor=pointer]:
+              - generic [ref=e203]: Next
+      - region "Page Section" [ref=e206]:
+        - main [ref=e209]:
+          - generic [ref=e215]:
+            - generic [ref=e218]:
+              - generic [ref=e219]:
+                - generic [ref=e220]:
+                  - strong [ref=e221]: Create a segment of...
+                  - generic [ref=e222]: 208,949 contacts in your CRM
+                - generic [ref=e223]:
+                  - checkbox "Contacts" [checked] [ref=e225] [cursor=pointer]:
+                    - generic [ref=e227]:
+                      - img [ref=e230]
+                      - strong [ref=e235]:
+                        - generic [ref=e237]: Contacts
+                  - checkbox "Companies" [ref=e239] [cursor=pointer]:
+                    - generic [ref=e241]:
+                      - img [ref=e244]
+                      - strong [ref=e249]:
+                        - generic [ref=e251]: Companies
+                  - checkbox "Deals" [ref=e253] [cursor=pointer]:
+                    - generic [ref=e255]:
+                      - img [ref=e258]
+                      - strong [ref=e263]:
+                        - generic [ref=e265]: Deals
+                  - checkbox "Tickets" [ref=e267] [cursor=pointer]:
+                    - generic [ref=e269]:
+                      - img [ref=e272]
+                      - strong [ref=e277]:
+                        - generic [ref=e279]: Tickets
+                  - checkbox "Orders" [ref=e281] [cursor=pointer]:
+                    - generic [ref=e283]:
+                      - img [ref=e286]
+                      - strong [ref=e291]:
+                        - generic [ref=e293]: Orders
+                  - checkbox "AI Lookalikes" [ref=e295] [cursor=pointer]:
+                    - generic [ref=e297]:
+                      - img [ref=e300]
+                      - generic [ref=e307]:
+                        - img [ref=e309]
+                        - generic [ref=e311]: AI
+                      - strong [ref=e315]:
+                        - generic [ref=e317]: Lookalikes
+              - button "Other objects" [ref=e319] [cursor=pointer]:
+                - img [ref=e322]
+                - strong [ref=e324]: Other objects
+              - generic [ref=e327]:
+                - generic [ref=e329]:
+                  - heading "Generate segment filters with AI" [level=2] [ref=e330]
+                  - generic [ref=e333]:
+                    - img [ref=e335]
+                    - generic [ref=e337]: AI
+                - generic [ref=e338]: Describe the types of records you'd like to see on this segment
+                - 'textbox "Example prompt: Contacts who opened an email in the last 30 days" [ref=e340]'
+              - strong [ref=e342]: Segment limits
+              - generic [ref=e343]:
+                - generic [ref=e344]:
+                  - paragraph [ref=e345]:
+                    - paragraph [ref=e346]: Active segments used
+                  - paragraph [ref=e347]:
+                    - paragraph [ref=e348]: 535 of 2,100
+                - progressbar "Active segments used" [ref=e350]:
+                  - generic [ref=e351]: 25% complete
+              - generic [ref=e352]:
+                - generic [ref=e353]:
+                  - paragraph [ref=e354]:
+                    - paragraph [ref=e355]: Static segments used
+                  - paragraph [ref=e356]:
+                    - paragraph [ref=e357]: 531 of 2,100
+                - progressbar "Static segments used" [ref=e359]:
+                  - generic [ref=e360]: 25% complete
+            - generic [ref=e362]:
+              - heading "Use all your unified data to build the right contact segment" [level=3] [ref=e363]
+              - paragraph [ref=e365]: "Building the right segment allows for targeted communication. You can use your segments across various tools, such as:"
+              - generic [ref=e366]:
+                - generic [ref=e367]:
+                  - img "campaigns" [ref=e368]
+                  - paragraph [ref=e369]:
+                    - generic [ref=e370]:
+                      - strong [ref=e371]: "Email Campaigns:"
+                      - text: tailored segments ensure your email campaigns reach the right audience, driving higher engagement and conversion rates.
+                - generic [ref=e372]:
+                  - img "automation" [ref=e373]
+                  - paragraph [ref=e374]:
+                    - generic [ref=e375]:
+                      - strong [ref=e376]: "Automation:"
+                      - text: Segments allow for more personalized, trigger-based workflows, improving the customer journey with timely and relevant messages.
+                - generic [ref=e377]:
+                  - img "reporting" [ref=e378]
+                  - paragraph [ref=e379]:
+                    - generic [ref=e380]:
+                      - strong [ref=e381]: "Reporting:"
+                      - text: organized segments help you better understand how each segment is engaging with you as well as the make-up of that segment.
+                - generic [ref=e382]:
+                  - img "personalization" [ref=e383]
+                  - paragraph [ref=e384]:
+                    - generic [ref=e385]:
+                      - strong [ref=e386]: "Personalization:"
+                      - text: segments empower you to show relevant messaging to each segment by powering your smart content, chatbots, and ads.
+    - complementary

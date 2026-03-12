@@ -1,6 +1,7 @@
 """Caption generation and burn-in using Gemini transcription + MoviePy."""
 import json
 import re
+import time
 from pathlib import Path
 
 from google import genai
@@ -10,14 +11,16 @@ from video_editor.config import settings
 
 
 def _extract_json(text: str) -> str:
-    """Extract JSON array from Gemini response."""
+    """Extract JSON array from Gemini response, with cleanup."""
     match = re.search(r"```(?:json)?\s*(\[.*?\])\s*```", text, re.DOTALL)
     if match:
-        return match.group(1)
-    match = re.search(r"\[.*\]", text, re.DOTALL)
-    if match:
-        return match.group(0)
-    return text
+        raw = match.group(1)
+    else:
+        match = re.search(r"\[.*\]", text, re.DOTALL)
+        raw = match.group(0) if match else text
+    # Fix common Gemini JSON issues: trailing commas, unescaped quotes in text
+    raw = re.sub(r",\s*([}\]])", r"\1", raw)  # trailing commas
+    return raw
 
 
 def transcribe_clip(
@@ -37,6 +40,13 @@ def transcribe_clip(
     model_name = model or settings.gemini_model
 
     uploaded = client.files.upload(file=clip_path)
+
+    while uploaded.state.name == "PROCESSING":
+        time.sleep(3)
+        uploaded = client.files.get(name=uploaded.name)
+
+    if uploaded.state.name != "ACTIVE":
+        raise RuntimeError(f"File processing failed: {uploaded.state.name}")
 
     try:
         response = client.models.generate_content(
@@ -60,7 +70,44 @@ Rules:
         )
 
         raw = _extract_json(response.text)
-        return json.loads(raw)
+        try:
+            entries = json.loads(raw)
+        except json.JSONDecodeError:
+            # Retry with stricter prompt
+            response2 = client.models.generate_content(
+                model=model_name,
+                contents=[
+                    uploaded,
+                    "Transcribe this video's speech. Return ONLY a raw JSON array, "
+                    "no markdown. Each element: {\"start\": float, \"end\": float, "
+                    "\"text\": \"words\"}. Escape any quotes in text with backslash. "
+                    "5-10 words per segment.",
+                ],
+            )
+            raw2 = _extract_json(response2.text)
+            entries = json.loads(raw2)
+
+        # Normalize keys (Gemini uses varying key names for text)
+        for entry in entries:
+            if "text" not in entry or not entry["text"]:
+                # Try every known variant
+                for key in ("content", "transcript", "phrase", "words", "dialogue",
+                            "sentence", "caption", "speech", "utterance"):
+                    if entry.get(key):
+                        entry["text"] = entry[key]
+                        break
+                else:
+                    entry.setdefault("text", "")
+            entry["start"] = float(entry["start"])
+            entry["end"] = float(entry["end"])
+
+        # If most entries have empty text, dump first entry keys for debugging
+        empty_count = sum(1 for e in entries if not e.get("text", "").strip())
+        if empty_count > len(entries) * 0.5 and entries:
+            print(f"  DEBUG: {empty_count}/{len(entries)} entries have empty text")
+            print(f"  DEBUG: First entry keys: {list(entries[0].keys())}")
+            print(f"  DEBUG: First entry: {entries[0]}")
+        return entries
 
     finally:
         client.files.delete(name=uploaded.name)

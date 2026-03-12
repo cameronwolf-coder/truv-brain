@@ -1,0 +1,146 @@
+- generic [active] [ref=e1]:
+  - generic:
+    - region "Notification Toasts":
+      - heading "0 notifications total" [level=2] [ref=e1068]
+  - button "Chat with us" [ref=e27] [cursor=pointer]:
+    - img [ref=e29]
+  - generic [ref=e32]:
+    - generic [ref=e35]:
+      - button "Skip to main content" [ref=e36] [cursor=pointer]
+      - button "Close jump menu" [ref=e37] [cursor=pointer]:
+        - img [ref=e38]
+        - generic [ref=e40]: Close jump menu
+    - banner [ref=e41]:
+      - generic [ref=e42]:
+        - button [ref=e49] [cursor=pointer]:
+          - generic [ref=e51]:
+            - generic [ref=e52]:
+              - img [ref=e54]:
+                - img [ref=e55]
+              - img [ref=e58]
+            - img [ref=e61]
+        - generic [ref=e1071]:
+          - heading "Actions List" [level=2] [ref=e63]
+          - list [ref=e1072]:
+            - listitem [ref=e1073]:
+              - generic [ref=e1075]: Truv Ad Account
+              - img "Truv company icon" [ref=e1078]
+          - separator [ref=e1079]
+        - button "At least one account has unseen notifications, click to enter notifications experience 2 new account notifications" [ref=e65] [cursor=pointer]:
+          - generic [ref=e66]:
+            - generic [ref=e67]: At least one account has unseen notifications, click to enter notifications experience
+            - generic [ref=e68]:
+              - generic [ref=e69]:
+                - generic [ref=e70]: "2"
+                - generic [ref=e71]: 2 new account notifications
+              - img [ref=e73]
+        - button "Learn more about campaign manager" [ref=e76] [cursor=pointer]:
+          - img "Help" [ref=e78]:
+            - img [ref=e80]
+        - button "Open user menu Icon for Truv" [ref=e82] [cursor=pointer]:
+          - generic [ref=e83]:
+            - generic [ref=e84]: Open user menu
+            - img "Icon for Truv" [ref=e86]
+    - main [ref=e180]:
+      - generic [ref=e1082]:
+        - button "Back to account" [ref=e1083] [cursor=pointer]:
+          - img [ref=e1085]
+          - generic [ref=e1087]: Back to account
+        - list [ref=e1089]:
+          - listitem [ref=e1090]:
+            - generic [ref=e1091]: Truv Ad Account /
+          - listitem [ref=e1092]:
+            - generic [ref=e1093]: Setup new campaign
+      - generic [ref=e1095]:
+        - complementary [ref=e1096]:
+          - generic [ref=e1097]:
+            - list [ref=e1099]:
+              - listitem [ref=e1100]:
+                - generic [ref=e1101]: Current
+                - paragraph [ref=e1106]: Campaign
+              - listitem [ref=e1107]:
+                - generic [ref=e1108]: Sub step of step 1 Current
+                - paragraph [ref=e1113]: Campaign details
+              - listitem [ref=e1114]:
+                - generic [ref=e1115]: Sub step of step 1
+                - paragraph [ref=e1120]: Ad set type
+            - link "Back to account" [ref=e1121] [cursor=pointer]:
+              - /url: /campaignmanager/accounts/517969837/campaigns?businessId=7404539754668773386
+              - generic [ref=e1122]: Back to account
+          - separator [ref=e1123]
+        - generic [ref=e1128]:
+          - generic [ref=e1130]:
+            - generic [ref=e1131]:
+              - heading "Campaign details" [level=2] [ref=e1134]
+              - paragraph [ref=e1135]:
+                - text: Group your ad sets based on what’s important to you, for example by objective, project, location, or budget.
+                - link "Learn more about how you can configure campaigns based on project, location, or budget." [ref=e1136] [cursor=pointer]:
+                  - /url: https://www.linkedin.com/help/lms/answer/85601?accountId=517969837
+                  - text: Learn more
+              - generic [ref=e1138]:
+                - generic [ref=e1139]: Name
+                - generic [ref=e1140]:
+                  - textbox "Name" [ref=e1142]: CCM Document Ad - Lending
+                  - generic:
+                    - alert
+            - generic [ref=e1143]:
+              - generic [ref=e1144]:
+                - heading "Campaign objective" [level=2] [ref=e1146]
+                - button "Change objective" [ref=e1224] [cursor=pointer]:
+                  - generic [ref=e1225]: Change
+              - paragraph
+              - generic [ref=e1227]:
+                - img [ref=e1228]:
+                  - img [ref=e1229]
+                - generic [ref=e1231]:
+                  - heading "Lead generation" [level=4] [ref=e1233]
+                  - paragraph [ref=e1234]: Gather info from people interested in your business
+            - generic [ref=e1235]:
+              - heading "Campaign budget & schedule" [level=2] [ref=e1238]
+              - paragraph [ref=e1239]: Define how and when you plan to spend across your ad sets.
+              - generic [ref=e1240]:
+                - generic [ref=e1243]:
+                  - generic [ref=e1244]:
+                    - paragraph [ref=e1245]: Budget optimization
+                    - paragraph [ref=e1246]:
+                      - generic [ref=e1247]:
+                        - text: We’ll automatically distribute your campaign budget across your best performing ad sets for better ROI based on your bid strategy.
+                        - link "Learn more about optimized campaign budget." [ref=e1248] [cursor=pointer]:
+                          - /url: https://www.linkedin.com/help/lms/answer/a1502133?accountId=517969837
+                          - text: Learn more
+                  - generic [ref=e1250] [cursor=pointer]:
+                    - generic [ref=e1251]: "Off"
+                    - switch "Budget Optimization Toggle"
+                - generic [ref=e1252]:
+                  - generic [ref=e1253]:
+                    - radio "Campaign budget & schedule Run continuously from a start date" [checked] [ref=e1255] [cursor=pointer]
+                    - generic [ref=e1256]:
+                      - paragraph [ref=e1257]: Campaign budget & schedule
+                      - text: Run continuously from a start date
+                  - group "Schedule Learn more about campaign schedule" [ref=e1258]:
+                    - generic [ref=e1259]:
+                      - text: Schedule
+                      - button "Learn more about campaign schedule" [ref=e1260] [cursor=pointer]:
+                        - img [ref=e1262]
+                    - generic [ref=e1265]:
+                      - generic [ref=e1267]:
+                        - generic [ref=e1268]: Start date *
+                        - textbox "Start date, press enter to open calendar flyout" [ref=e1269]: 3/11/2026
+                        - generic [ref=e1271]: mm/dd/yyyy
+                      - generic:
+                        - alert
+                - generic [ref=e1273]:
+                  - radio "Campaign budget & schedule Set a start and end date" [ref=e1275] [cursor=pointer]
+                  - generic [ref=e1276]:
+                    - paragraph [ref=e1277]: Campaign budget & schedule
+                    - text: Set a start and end date
+                - generic [ref=e1279]:
+                  - radio "Campaign budget & schedule Set a start and end date with a budget" [ref=e1281] [cursor=pointer]
+                  - generic [ref=e1282]:
+                    - paragraph [ref=e1283]: Campaign budget & schedule
+                    - text: Set a start and end date with a budget
+          - generic [ref=e1218]:
+            - button "Back" [ref=e1220] [cursor=pointer]:
+              - generic [ref=e1221]: Back
+            - button "Next" [ref=e1222] [cursor=pointer]:
+              - generic [ref=e1223]: Next

@@ -1,0 +1,74 @@
+- generic [active] [ref=e1]:
+  - generic:
+    - region "Notification Toasts":
+      - heading "0 notifications total" [level=2] [ref=e1068]
+  - button "Chat with us" [ref=e3728] [cursor=pointer]:
+    - img [ref=e29]
+  - generic [ref=e32]:
+    - generic [ref=e35]:
+      - button "Skip to main content" [ref=e3729] [cursor=pointer]
+      - button "Close jump menu" [ref=e3730] [cursor=pointer]:
+        - img [ref=e38]
+        - generic [ref=e40]: Close jump menu
+    - banner [ref=e41]:
+      - generic [ref=e42]:
+        - button [ref=e49] [cursor=pointer]:
+          - generic [ref=e51]:
+            - generic [ref=e52]:
+              - img [ref=e54]:
+                - img [ref=e55]
+              - img [ref=e58]
+            - img [ref=e61]
+        - generic [ref=e1071]:
+          - heading "Actions List" [level=2] [ref=e3731]
+          - list [ref=e1072]:
+            - listitem [ref=e1073]:
+              - generic [ref=e1075]: Truv Ad Account
+              - img "Truv company icon" [ref=e3732]
+          - separator [ref=e1079]
+        - button "At least one account has unseen notifications, click to enter notifications experience 2 new account notifications" [ref=e3733] [cursor=pointer]:
+          - generic [ref=e66]:
+            - generic [ref=e67]: At least one account has unseen notifications, click to enter notifications experience
+            - generic [ref=e68]:
+              - generic [ref=e69]:
+                - generic [ref=e70]: "2"
+                - generic [ref=e71]: 2 new account notifications
+              - img [ref=e73]
+        - button "Learn more about campaign manager" [ref=e3734] [cursor=pointer]:
+          - img "Help" [ref=e3735]:
+            - img [ref=e80]
+        - button "Open user menu Icon for Truv" [ref=e3736] [cursor=pointer]:
+          - generic [ref=e83]:
+            - generic [ref=e84]: Open user menu
+            - img "Icon for Truv" [ref=e3737]
+    - main [ref=e180]:
+      - generic [ref=e3738]:
+        - img [ref=e3739]:
+          - img [ref=e3740]
+        - status [ref=e3742]: Campaign manager is loading
+        - progressbar [ref=e3743]
+    - contentinfo [ref=e3744]:
+      - list [ref=e3746]:
+        - listitem [ref=e3747]:
+          - link "Help center" [ref=e3748] [cursor=pointer]:
+            - /url: https://www.linkedin.com/help/lms
+        - listitem [ref=e3749]:
+          - link "Metric restatements" [ref=e3750] [cursor=pointer]:
+            - /url: "#"
+        - listitem [ref=e3751]:
+          - link "Certified partners" [ref=e3752] [cursor=pointer]:
+            - /url: https://business.linkedin.com/marketing-solutions/certified-marketing-partners/ads-partners
+        - listitem [ref=e3753]:
+          - link "Accessibility" [ref=e3754] [cursor=pointer]:
+            - /url: https://www.linkedin.com/accessibility
+        - listitem [ref=e3755]:
+          - button "Privacy & terms" [ref=e3756] [cursor=pointer]:
+            - img [ref=e3758]
+            - generic [ref=e3760]: Privacy & terms
+      - generic [ref=e3761]:
+        - img [ref=e3762]:
+          - img [ref=e3763]
+        - generic [ref=e3765]: LinkedIn Corporation © 2026
+  - generic:
+    - generic [ref=e908]: Some of your forecast metrics have changed.
+    - generic [ref=e909]: Saving your campaign!

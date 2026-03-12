@@ -1,0 +1,300 @@
+- generic [active] [ref=e1]:
+  - generic:
+    - region "Notification Toasts":
+      - heading "1 notification total" [level=2] [ref=e2]
+      - generic [ref=e4]:
+        - img [ref=e6]
+        - alert [ref=e9]:
+          - generic [ref=e11]: We’ve updated certain metrics.
+          - link "View metric restatements to learn more." [ref=e12] [cursor=pointer]:
+            - /url: /campaignmanager/accounts/517969837/metric-restatements
+        - button "Dismiss “We’ve updated certain metrics.” notification 1 of 1." [ref=e14] [cursor=pointer]:
+          - img [ref=e16]
+  - button "Chat with us" [ref=e20] [cursor=pointer]:
+    - img [ref=e22]
+  - generic [ref=e25]:
+    - generic [ref=e28]:
+      - button "Skip to main content" [ref=e29] [cursor=pointer]
+      - button "Close jump menu" [ref=e30] [cursor=pointer]:
+        - img [ref=e31]
+        - generic [ref=e33]: Close jump menu
+    - banner [ref=e34]:
+      - generic [ref=e35]:
+        - button "Close side navigation panel" [ref=e36] [cursor=pointer]:
+          - img [ref=e38]
+        - button [ref=e42] [cursor=pointer]:
+          - generic [ref=e44]:
+            - generic [ref=e45]:
+              - img [ref=e47]:
+                - img [ref=e48]
+              - img [ref=e51]
+            - img [ref=e54]
+        - generic:
+          - heading "Actions List" [level=2] [ref=e56]
+          - list
+        - button "At least one account has unseen notifications, click to enter notifications experience 2 new account notifications" [ref=e58] [cursor=pointer]:
+          - generic [ref=e59]:
+            - generic [ref=e60]: At least one account has unseen notifications, click to enter notifications experience
+            - generic [ref=e61]:
+              - generic [ref=e62]:
+                - generic [ref=e63]: "2"
+                - generic [ref=e64]: 2 new account notifications
+              - img [ref=e66]
+        - button "Learn more about campaign manager" [ref=e69] [cursor=pointer]:
+          - img "Help" [ref=e71]:
+            - img [ref=e73]
+        - button "Open user menu Icon for Truv" [ref=e75] [cursor=pointer]:
+          - generic [ref=e76]:
+            - generic [ref=e77]: Open user menu
+            - img "Icon for Truv" [ref=e79]
+    - generic [ref=e80]:
+      - navigation [ref=e81]:
+        - complementary [ref=e83]:
+          - button "Truv company icon Truv Ad Account 517969837 Active" [ref=e84] [cursor=pointer]:
+            - img "Truv company icon" [ref=e87]
+            - generic [ref=e88]:
+              - generic [ref=e89]: Truv Ad Account
+              - generic [ref=e90]:
+                - text: "517969837"
+                - generic [ref=e91]: Active
+            - img [ref=e92]
+        - generic [ref=e94]:
+          - link "Overview" [ref=e96] [cursor=pointer]:
+            - /url: /campaignmanager/accounts/517969837/overview?businessId=7404539754668773386
+            - generic [ref=e97]: Overview
+          - button "Plan" [ref=e100] [cursor=pointer]:
+            - generic [ref=e101]:
+              - generic [ref=e103]: Plan
+              - img [ref=e105]
+          - link "Advertise" [ref=e108] [cursor=pointer]:
+            - /url: /campaignmanager/accounts/517969837/campaign-groups?businessId=7404539754668773386
+            - generic [ref=e109]: Advertise
+          - link "Test" [ref=e111] [cursor=pointer]:
+            - /url: /campaignmanager/accounts/517969837/experiments?businessId=7404539754668773386
+            - generic [ref=e112]: Test
+          - button "Measurement" [ref=e115] [cursor=pointer]:
+            - generic [ref=e116]:
+              - generic [ref=e118]: Measurement
+              - img [ref=e120]
+          - button "Data" [ref=e124] [cursor=pointer]:
+            - generic [ref=e125]:
+              - generic [ref=e127]: Data
+              - img [ref=e129]
+          - link "Recommendations Some new recommendations notifications" [ref=e132] [cursor=pointer]:
+            - /url: /campaignmanager/accounts/517969837/recommendations?businessId=7404539754668773386&campaignStatuses=%5B%22ACTIVE%22%5D
+            - generic [ref=e133]:
+              - text: Recommendations
+              - generic [ref=e136]: Some new recommendations notifications
+          - separator [ref=e138]
+          - link "Partnerships NEW" [ref=e140] [cursor=pointer]:
+            - /url: /campaignmanager/accounts/517969837/partnership?businessId=7404539754668773386
+            - generic [ref=e141]:
+              - text: Partnerships
+              - generic [ref=e142]: NEW
+          - button "Assets" [ref=e145] [cursor=pointer]:
+            - generic [ref=e146]:
+              - generic [ref=e148]: Assets
+              - img [ref=e150]
+          - separator [ref=e153]
+          - button "Account settings" [ref=e156] [cursor=pointer]:
+            - generic [ref=e157]:
+              - generic [ref=e159]: Account settings
+              - img [ref=e161]
+          - separator [ref=e164]
+          - link "Company page" [ref=e166] [cursor=pointer]:
+            - /url: https://www.linkedin.com/company/68059038
+            - generic [ref=e167]:
+              - generic [ref=e168]: Company page
+              - img [ref=e170]
+      - generic [ref=e172]:
+        - main [ref=e173]:
+          - heading "Overview" [level=1] [ref=e178]
+          - generic [ref=e181]:
+            - generic [ref=e182]:
+              - button "Dropdown to create an entity such as an account, campaign, or ad set" [ref=e184] [cursor=pointer]:
+                - img [ref=e186]
+                - generic [ref=e188]: Create
+              - 'button "Currently selected date range: 2/10/2026 to 3/11/2026" [ref=e189] [cursor=pointer]':
+                - img [ref=e191]
+                - time [ref=e195]: 2/10/2026 - 3/11/2026
+            - generic [ref=e198]:
+              - heading "Today’s tasks" [level=2] [ref=e199]
+              - paragraph [ref=e200]: Complete the following 1 task so your ad sets can run effectively
+              - generic [ref=e203]:
+                - generic [ref=e204]:
+                  - generic [ref=e206]: Create a Lead conversion to gain better insights into your ad sets
+                  - paragraph [ref=e207]: We'll help you setup the conversion based on your data source and business needs. Review and confirm the details to create the conversion.
+                - generic [ref=e208]:
+                  - button "Create conversion" [ref=e209] [cursor=pointer]:
+                    - generic [ref=e210]: Create conversion
+                  - button "Dismiss" [ref=e211] [cursor=pointer]:
+                    - img [ref=e213]
+            - generic [ref=e216]:
+              - generic [ref=e217]:
+                - heading "Summary" [level=2] [ref=e219]
+                - generic [ref=e221]:
+                  - generic [ref=e222]:
+                    - button "Spend by objective" [ref=e223] [cursor=pointer]:
+                      - generic [ref=e224]: Spend by objective
+                    - generic [ref=e225]:
+                      - paragraph [ref=e227]: $3.4K
+                      - generic [ref=e231]:
+                        - generic [ref=e232]:
+                          - img [ref=e234]
+                          - generic [ref=e236]: 0%
+                          - generic [ref=e237]: Awareness
+                        - generic [ref=e238]:
+                          - img [ref=e240]
+                          - generic [ref=e242]: 58%
+                          - generic [ref=e243]: Consideration
+                        - generic [ref=e244]:
+                          - img [ref=e246]
+                          - generic [ref=e248]: 42%
+                          - generic [ref=e249]: Conversion / Lead
+                  - generic [ref=e250]:
+                    - generic [ref=e251]:
+                      - button "Impressions" [ref=e252] [cursor=pointer]:
+                        - img [ref=e254]
+                        - generic [ref=e257]: Impressions
+                      - paragraph [ref=e258]: 137K
+                    - generic [ref=e259]:
+                      - button "CPM" [ref=e260] [cursor=pointer]:
+                        - img [ref=e262]
+                        - generic [ref=e265]: CPM
+                      - paragraph [ref=e266]: $25
+                  - generic [ref=e267]:
+                    - button "Revenue" [ref=e268] [cursor=pointer]:
+                      - generic [ref=e269]: Revenue
+                    - generic [ref=e270]: New
+                    - paragraph [ref=e271]:
+                      - link "Link to connect CRM" [ref=e273] [cursor=pointer]:
+                        - /url: /campaignmanager/accounts/517969837/buyer-actions-manager?category=CRM
+                        - text: Connect revenue data
+                      - text: to view full analysis on your spend effectiveness
+              - button "View in-depth analytics" [ref=e275] [cursor=pointer]:
+                - img [ref=e277]
+                - generic [ref=e279]: View in-depth analytics
+            - generic [ref=e281]:
+              - generic [ref=e282]:
+                - generic [ref=e283]:
+                  - heading "Ad set performance" [level=2] [ref=e284]
+                  - 'button "Benchmark: Industry" [ref=e287] [cursor=pointer]':
+                    - img [ref=e289]
+                    - generic [ref=e292]:
+                      - generic [ref=e293]: "Benchmark:"
+                      - text: Industry
+                - generic [ref=e294]:
+                  - tablist [ref=e297]:
+                    - tab "Active 2" [ref=e298] [cursor=pointer]:
+                      - paragraph [ref=e299]: Active
+                      - generic [ref=e300]: "2"
+                    - tab "Paused 3" [ref=e301] [cursor=pointer]:
+                      - paragraph [ref=e302]: Paused
+                      - generic [ref=e303]: "3"
+                    - tab "Completed 4" [ref=e304] [cursor=pointer]:
+                      - paragraph [ref=e305]: Completed
+                      - generic [ref=e306]: "4"
+                    - tab "Draft 3" [ref=e307] [cursor=pointer]:
+                      - paragraph [ref=e308]: Draft
+                      - generic [ref=e309]: "3"
+                  - generic [ref=e310]:
+                    - radiogroup [ref=e311]:
+                      - generic [ref=e312]:
+                        - radio "All (2)" [checked] [ref=e313]
+                        - generic [ref=e315] [cursor=pointer]: All (2)
+                      - generic [ref=e316]:
+                        - radio "Awareness (0)" [disabled] [ref=e317]
+                        - generic [ref=e319]: Awareness (0)
+                      - generic [ref=e320]:
+                        - radio "Consideration (1)" [ref=e321]
+                        - generic [ref=e323] [cursor=pointer]: Consideration (1)
+                      - generic [ref=e324]:
+                        - radio "Conversion &#47; Lead (1)" [ref=e325]
+                        - generic [ref=e327] [cursor=pointer]: Conversion / Lead (1)
+                    - generic [ref=e328]: $1.5K / $3.4K spend
+                  - table [ref=e335]:
+                    - rowgroup [ref=e336]:
+                      - row "Ad set name Key result Cost per key result Average daily delivery" [ref=e337]:
+                        - columnheader "Ad set name" [ref=e338]:
+                          - generic [ref=e339]: Ad set name
+                        - columnheader "Key result" [ref=e340]:
+                          - generic [ref=e341]: Key result
+                        - columnheader "Cost per key result" [ref=e342]:
+                          - generic [ref=e343]: Cost per key result
+                        - columnheader "Average daily delivery" [ref=e344]:
+                          - generic [ref=e345]: Average daily delivery
+                    - rowgroup [ref=e346]:
+                      - row "Video Campaign (top 250 lenders)- Jan 27, 2026 43K Views $0.00 $3.96" [ref=e347]:
+                        - cell "Video Campaign (top 250 lenders)- Jan 27, 2026" [ref=e348]:
+                          - link "Video Campaign (top 250 lenders)- Jan 27, 2026" [ref=e351] [cursor=pointer]:
+                            - /url: /campaignmanager/accounts/517969837/campaigns/518900876/summary?businessId=7404539754668773386&referrerSource=MARKETING_OVERVIEW
+                        - cell "43K Views" [ref=e352]:
+                          - generic [ref=e356]: 43K Views
+                        - cell "$0.00" [ref=e357]:
+                          - generic [ref=e361]: $0.00
+                        - cell "$3.96" [ref=e362]:
+                          - generic [ref=e365]: $3.96
+                      - row "CCM Case Study - Lead Gen - Ops Audience - Feb 2026 1 Leads $1,414.84 $47.16" [ref=e366]:
+                        - cell "CCM Case Study - Lead Gen - Ops Audience - Feb 2026" [ref=e367]:
+                          - link "CCM Case Study - Lead Gen - Ops Audience - Feb 2026" [ref=e370] [cursor=pointer]:
+                            - /url: /campaignmanager/accounts/517969837/campaigns/544304346/summary?businessId=7404539754668773386&referrerSource=MARKETING_OVERVIEW
+                        - cell "1 Leads" [ref=e371]:
+                          - generic [ref=e375]: 1 Leads
+                        - cell "$1,414.84" [ref=e376]:
+                          - generic [ref=e380]: $1,414.84
+                        - cell "$47.16" [ref=e381]:
+                          - generic [ref=e384]: $47.16
+              - button "View all active ad sets" [ref=e386] [cursor=pointer]:
+                - img [ref=e388]
+                - generic [ref=e390]: View all active ad sets
+            - generic [ref=e393]:
+              - generic [ref=e394]:
+                - heading "Content engagement" [level=2] [ref=e396]
+                - paragraph [ref=e397]: Explore paid and organic content in your account from 2/10/2026 to 3/11/2026
+                - generic [ref=e398]:
+                  - generic [ref=e399]:
+                    - button "High engagement" [ref=e400] [cursor=pointer]:
+                      - img [ref=e402]
+                      - generic [ref=e404]: High engagement
+                    - radiogroup [ref=e406]:
+                      - generic [ref=e407]:
+                        - radio "Paid" [checked] [ref=e408]
+                        - generic [ref=e410] [cursor=pointer]: Paid
+                      - generic [ref=e411]:
+                        - radio "Organic" [ref=e412]
+                        - generic [ref=e414] [cursor=pointer]: Organic
+                  - status
+                  - generic [ref=e416]:
+                    - generic [ref=e417]:
+                      - img [ref=e419]:
+                        - img [ref=e420]
+                      - generic [ref=e422]:
+                        - heading "Reach your audience with ads" [level=2] [ref=e423]
+                        - paragraph [ref=e424]: There aren’t enough ads to show results yet.
+                    - button "Create campaign" [ref=e425] [cursor=pointer]:
+                      - generic [ref=e426]: Create campaign
+              - button "View all content" [disabled] [ref=e428]:
+                - img [ref=e430]
+                - generic [ref=e432]: View all content
+        - contentinfo [ref=e433]:
+          - list [ref=e435]:
+            - listitem [ref=e436]:
+              - link "Help center" [ref=e437] [cursor=pointer]:
+                - /url: https://www.linkedin.com/help/lms
+            - listitem [ref=e438]:
+              - link "Metric restatements" [ref=e439] [cursor=pointer]:
+                - /url: /campaignmanager/accounts/517969837/metric-restatements?businessId=7404539754668773386
+            - listitem [ref=e440]:
+              - link "Certified partners" [ref=e441] [cursor=pointer]:
+                - /url: https://business.linkedin.com/marketing-solutions/certified-marketing-partners/ads-partners
+            - listitem [ref=e442]:
+              - link "Accessibility" [ref=e443] [cursor=pointer]:
+                - /url: https://www.linkedin.com/accessibility
+            - listitem [ref=e444]:
+              - button "Privacy & terms" [ref=e445] [cursor=pointer]:
+                - img [ref=e447]
+                - generic [ref=e449]: Privacy & terms
+          - generic [ref=e450]:
+            - img [ref=e451]:
+              - img [ref=e452]
+            - generic [ref=e454]: LinkedIn Corporation © 2026

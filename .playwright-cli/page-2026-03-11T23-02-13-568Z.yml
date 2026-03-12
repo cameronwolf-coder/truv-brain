@@ -1,0 +1,109 @@
+- generic [active] [ref=e1]:
+  - generic:
+    - region "Notification Toasts":
+      - heading "0 notifications total" [level=2] [ref=e2]
+  - button "Chat with us" [ref=e2537] [cursor=pointer]:
+    - img [ref=e12]
+  - generic [ref=e15]:
+    - generic [ref=e18]:
+      - button "Skip to main content" [ref=e2538] [cursor=pointer]
+      - button "Close jump menu" [ref=e2539] [cursor=pointer]:
+        - img [ref=e21]
+        - generic [ref=e23]: Close jump menu
+    - banner [ref=e24]:
+      - generic [ref=e25]:
+        - button [ref=e32] [cursor=pointer]:
+          - generic [ref=e34]:
+            - generic [ref=e35]:
+              - img [ref=e37]:
+                - img [ref=e38]
+              - img [ref=e41]
+            - img [ref=e44]
+        - generic [ref=e2540]:
+          - heading "Actions List" [level=2] [ref=e2541]
+          - list [ref=e2542]:
+            - listitem [ref=e2543]:
+              - generic [ref=e2545]: Truv Ad Account
+              - img "Truv company icon" [ref=e2548]
+          - separator [ref=e2549]
+        - button "No unseen notifications, click to enter notifications experience" [ref=e2550] [cursor=pointer]:
+          - generic [ref=e49]:
+            - generic [ref=e50]: No unseen notifications, click to enter notifications experience
+            - img [ref=e53]
+        - button "Learn more about campaign manager" [ref=e2551] [cursor=pointer]:
+          - img "Help" [ref=e2552]:
+            - img [ref=e60]
+        - button "Open user menu Icon for Truv" [ref=e2553] [cursor=pointer]:
+          - generic [ref=e63]:
+            - generic [ref=e64]: Open user menu
+            - img "Icon for Truv" [ref=e2554]
+    - main [ref=e160]:
+      - generic [ref=e2556]:
+        - generic [ref=e2559]:
+          - button "Back to ad set" [ref=e2560] [cursor=pointer]:
+            - img [ref=e2562]
+            - generic [ref=e2564]: Back to ad set
+          - list [ref=e2566]:
+            - listitem [ref=e2567]:
+              - generic [ref=e2568]: ... / CCM Document Ad - Lending / CCM Document Ad - Ops & Lending
+            - listitem [ref=e2569]:
+              - generic [ref=e2570]: Create new document ads for this ad set
+        - generic [ref=e2572]:
+          - generic [ref=e2573]:
+            - generic [ref=e2574]:
+              - heading "Ad" [level=3] [ref=e2576]:
+                - button "Ad" [ref=e2577] [cursor=pointer]:
+                  - generic [ref=e2578]:
+                    - text: Ad
+                    - generic [ref=e2579]:
+                      - alert
+                      - img [ref=e2580]
+              - generic [ref=e2583]:
+                - heading "Form details" [level=2] [ref=e2584]:
+                  - button "Form details" [disabled] [expanded] [ref=e2585] [cursor=pointer]:
+                    - generic [ref=e2586]:
+                      - generic [ref=e2587]: Form details
+                      - generic [ref=e2588]:
+                        - alert
+                        - img [ref=e2589]
+                - region "Form details" [ref=e2591]:
+                  - generic [ref=e2592]:
+                    - status [ref=e2593]:
+                      - img [ref=e2596]
+                      - generic [ref=e2598]:
+                        - paragraph [ref=e2600]: After your ad becomes active, you can’t change the lead gen form associated with it.
+                        - button "Dismiss notice" [ref=e2601] [cursor=pointer]:
+                          - img [ref=e2604]
+                    - generic [ref=e2606]:
+                      - text: Call-to-action
+                      - button "Learn more about Call To Action for this ad" [ref=e2607] [cursor=pointer]:
+                        - img [ref=e2609]
+                        - generic [ref=e2611]: Learn more about Call To Action for this ad
+                    - combobox "Call-to-action Learn more about Call To Action for this ad" [disabled] [ref=e2614]:
+                      - option "Unlock full document" [selected]
+                      - option "Unlock article"
+                    - generic [ref=e2616]: Lead gen form
+                    - combobox "Search by name or choose from the list" [ref=e2621]
+                    - button "Create new form" [ref=e2622] [cursor=pointer]:
+                      - img [ref=e2624]
+                      - generic [ref=e2626]: Create new form
+            - alert
+            - generic:
+              - alert
+          - generic [ref=e2629]:
+            - heading "Preview" [level=2] [ref=e2631]
+            - button "Select a platform for the ad preview. Mobile Feed" [ref=e2632] [cursor=pointer]:
+              - img [ref=e2634]
+              - generic [ref=e2636]: Mobile Feed
+            - generic [ref=e2639]:
+              - status [ref=e2640]:
+                - generic [ref=e2641]:
+                  - img [ref=e2643]
+                  - generic [ref=e2646]: This is a static image of a mobile document ad.
+              - img "Document ad mobile preview" [ref=e2647]
+        - generic [ref=e2649]:
+          - button "Cancel" [ref=e2651] [cursor=pointer]:
+            - generic [ref=e2652]: Cancel
+          - button "Save ad" [ref=e2654] [cursor=pointer]:
+            - generic [ref=e2655]: Save ad
+  - generic [ref=e996]: Your search has 0 results

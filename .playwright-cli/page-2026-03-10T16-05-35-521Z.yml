@@ -1,0 +1,280 @@
+- generic [active] [ref=e1]:
+  - iframe [ref=e550]:
+    - banner [ref=f16e6]:
+      - generic [ref=f16e7]:
+        - heading "You’ve used all your monthly credits" [level=5] [ref=f16e8]
+        - generic [ref=f16e9]:
+          - generic [ref=f16e12]: Usage is paused until your credits reset on Mar 25, 2026 or you add more.
+          - link "Add credits" [ref=f16e13] [cursor=pointer]:
+            - /url: https://app.hubspot.com/api/notification-station/general/v1/notifications/cta/ad1945e2-7ce6-4b56-b932-753c0738e0c8?notificationPortalId=19933594
+            - generic [ref=f16e14]: Add credits
+      - button "Close" [ref=f16e15] [cursor=pointer]:
+        - img [ref=f16e18]
+  - generic:
+    - iframe
+  - generic [ref=e4]:
+    - generic [ref=e6]:
+      - region "Page Section" [ref=e7]:
+        - group [ref=e9]:
+          - generic [ref=e10]:
+            - button "Back" [ref=e12] [cursor=pointer]:
+              - generic [ref=e14]: Back
+            - heading "Universal Event Form Processor ON" [level=1] [ref=e16]:
+              - generic [ref=e18]:
+                - button "Universal Event Form Processor" [ref=e20] [cursor=pointer]:
+                  - generic [ref=e21]:
+                    - paragraph [ref=e23]: Universal Event Form Processor
+                    - img [ref=e26]
+                - paragraph [ref=e30]: "ON"
+            - generic [ref=e31]:
+              - button "HubSpot Credits icon" [ref=e32] [cursor=pointer]:
+                - img "HubSpot Credits icon" [ref=e34]
+              - button "Enroll" [ref=e38] [cursor=pointer]:
+                - generic [ref=e40]: Enroll
+              - button "Turn off" [ref=e41] [cursor=pointer]:
+                - generic [ref=e43]: Turn off
+        - group [ref=e44]:
+          - generic [ref=e45]:
+            - generic [ref=e47]:
+              - button "File" [ref=e49] [cursor=pointer]:
+                - generic [ref=e52]:
+                  - paragraph [ref=e53]: File
+                  - img [ref=e54]
+              - button "Edit" [ref=e57] [cursor=pointer]:
+                - generic [ref=e60]:
+                  - paragraph [ref=e61]: Edit
+                  - img [ref=e62]
+              - button "Settings" [ref=e65] [cursor=pointer]:
+                - paragraph [ref=e69]: Settings
+              - button "View" [ref=e71] [cursor=pointer]:
+                - generic [ref=e74]:
+                  - paragraph [ref=e75]: View
+                  - img [ref=e76]
+              - button "Help" [ref=e79] [cursor=pointer]:
+                - generic [ref=e82]:
+                  - paragraph [ref=e83]: Help
+                  - img [ref=e84]
+            - generic [ref=e86]:
+              - button "Test" [ref=e88] [cursor=pointer]:
+                - generic [ref=e91]: Test
+              - button "Performance history" [ref=e93] [cursor=pointer]:
+                - generic [ref=e96]: Performance history
+      - region "Page Section" [ref=e100]:
+        - main [ref=e103]:
+          - generic [ref=e109]:
+            - button "Show minimap panel" [ref=e1968] [cursor=pointer]:
+              - generic [ref=e1970]: Show minimap panel
+            - generic [ref=e115]:
+              - generic [ref=e116]:
+                - group [ref=e118]:
+                  - button "Undo" [disabled] [ref=e119]:
+                    - img [ref=e122]
+                  - button "Redo" [disabled] [ref=e124]:
+                    - img [ref=e127]
+                - group [ref=e130]:
+                  - button [ref=e131] [cursor=pointer]:
+                    - img [ref=e134]
+                  - button [ref=e136] [cursor=pointer]:
+                    - img [ref=e139]
+                - generic [ref=e142]: 60%
+              - generic [ref=e146]:
+                - img
+                - generic [ref=e147]:
+                  - button "Leave comment" [ref=e149]:
+                    - button "Trigger enrollment for contacts When this happens Group 1 Form submission has been completed any number of times anytime and Form name is any of Upcoming Event Form Only enroll contacts that meet these conditions Choose conditions to filter records Re-enroll off Details" [ref=e551] [cursor=pointer]:
+                      - generic [ref=e151]:
+                        - img [ref=e155]
+                        - heading "Trigger enrollment for contacts" [level=5] [ref=e158]:
+                          - generic [ref=e159]: Trigger enrollment for contacts
+                      - generic [ref=e160]:
+                        - heading "When this happens" [level=6] [ref=e162]
+                        - generic [ref=e174]:
+                          - heading "Group 1" [level=5] [ref=e178]
+                          - generic [ref=e183]:
+                            - generic [ref=e190]:
+                              - strong [ref=e191]: Form submission has been completed
+                              - text: any number of times anytime
+                            - generic [ref=e193]:
+                              - generic [ref=e196]: and
+                              - generic [ref=e207]:
+                                - strong [ref=e208]: Form name
+                                - text: is any of
+                                - generic [ref=e210]: Upcoming Event Form
+                        - heading "Only enroll contacts that meet these conditions" [level=6] [ref=e212]:
+                          - generic [ref=e213]: Only enroll contacts that meet these conditions
+                        - generic [ref=e214]: Choose conditions to filter records
+                      - generic [ref=e215]:
+                        - combobox "Actions" [ref=e1975]:
+                          - img [ref=e1981]
+                        - generic [ref=e1983]:
+                          - generic [ref=e1985]:
+                            - img [ref=e1986]
+                            - generic [ref=e1988]: Re-enroll off
+                          - button "Details" [ref=e1990]:
+                            - generic [ref=e1992]: Details
+                  - button "Add new action" [ref=e241] [cursor=pointer]:
+                    - img [ref=e243]
+                - generic [ref=e245]:
+                  - button "Leave comment" [ref=e247]:
+                    - button "2.Edit record Set Lifecycle Stage to Marketing Qualified Lead. Details" [ref=e574] [cursor=pointer]:
+                      - generic [ref=e249]:
+                        - img [ref=e253]
+                        - heading "2.Edit record" [level=5] [ref=e256]:
+                          - generic [ref=e259]: 2.Edit record
+                      - generic [ref=e261]:
+                        - text: Set
+                        - button "Lifecycle Stage" [ref=e262]
+                        - text: to
+                        - strong [ref=e263]:
+                          - generic [ref=e264]: Marketing Qualified Lead
+                        - text: .
+                      - generic [ref=e265]:
+                        - generic [ref=e267]:
+                          - combobox "Actions" [ref=e270]:
+                            - img [ref=e1994]
+                          - combobox "Actions" [ref=e280]:
+                            - img [ref=e1997]
+                          - combobox "Actions" [ref=e290]:
+                            - img [ref=e2000]
+                          - combobox "Actions" [ref=e300]:
+                            - img [ref=e2003]
+                        - button "Details" [ref=e308]:
+                          - generic [ref=e310]: Details
+                  - button "Add new action" [ref=e314] [cursor=pointer]:
+                    - img [ref=e316]
+                - generic [ref=e318]:
+                  - button "Leave comment" [ref=e320]:
+                    - button "1.Edit record Set Last Upcoming Event Form Submission Date to the date this action was executed. Details" [ref=e321] [cursor=pointer]:
+                      - generic [ref=e322]:
+                        - img [ref=e326]
+                        - heading "1.Edit record" [level=5] [ref=e329]:
+                          - generic [ref=e332]: 1.Edit record
+                      - generic [ref=e334]:
+                        - text: Set
+                        - button "Last Upcoming Event Form Submission Date" [ref=e335]
+                        - text: to the date this action was executed.
+                      - generic [ref=e336]:
+                        - generic [ref=e338]:
+                          - combobox "Actions" [ref=e341]:
+                            - img [ref=e2006]
+                          - combobox "Actions" [ref=e351]:
+                            - img [ref=e2009]
+                          - combobox "Actions" [ref=e361]:
+                            - img [ref=e2012]
+                          - combobox "Actions" [ref=e371]:
+                            - img [ref=e2015]
+                        - button "Details" [ref=e379]:
+                          - generic [ref=e381]: Details
+                  - button "Add new action" [ref=e385] [cursor=pointer]:
+                    - img [ref=e387]
+                - generic [ref=e389]:
+                  - button "Leave comment" [ref=e391]:
+                    - button "3.Custom code Defined by custom code. Details" [ref=e392] [cursor=pointer]:
+                      - generic [ref=e393]:
+                        - img [ref=e397]
+                        - heading "3.Custom code" [level=5] [ref=e400]:
+                          - generic [ref=e403]: 3.Custom code
+                      - generic [ref=e405]:
+                        - text: Defined by
+                        - strong [ref=e406]: custom code
+                        - text: .
+                      - generic [ref=e407]:
+                        - generic [ref=e1428]:
+                          - combobox "Actions" [ref=e1431]:
+                            - img [ref=e2018]
+                          - combobox "Actions" [ref=e1441]:
+                            - img [ref=e2021]
+                          - combobox "Actions" [ref=e1451]:
+                            - img [ref=e2024]
+                          - combobox "Actions" [ref=e1461]:
+                            - img [ref=e2027]
+                        - button "Details" [ref=e1469]:
+                          - generic [ref=e1471]: Details
+                  - button "Add new action" [ref=e456] [cursor=pointer]:
+                    - img [ref=e458]
+                - generic [ref=e460]:
+                  - button "Leave comment" [ref=e462]:
+                    - button "4.Send Slack notification Send Slack notification to channel or user" [ref=e463] [cursor=pointer]:
+                      - heading "4.Send Slack notification" [level=5] [ref=e468]:
+                        - generic [ref=e471]: 4.Send Slack notification
+                      - generic [ref=e473]: Send Slack notification to channel or user
+                      - generic [ref=e2030]:
+                        - combobox "Actions" [ref=e2033]:
+                          - img [ref=e2039]
+                        - combobox "Actions" [ref=e2043]:
+                          - img [ref=e2049]
+                        - combobox "Actions" [ref=e2053]:
+                          - img [ref=e2059]
+                        - combobox "Actions" [ref=e2063]:
+                          - img [ref=e2069]
+                  - button "Add new action" [ref=e520] [cursor=pointer]:
+                    - img [ref=e522]
+                  - paragraph [ref=e526]: 4. End
+    - complementary:
+      - region "Collaboration sidebar":
+        - iframe [ref=e527]:
+          - generic [ref=f11e5]:
+            - generic [ref=f11e6]:
+              - paragraph [ref=f11e8]: Comments
+              - generic [ref=f11e9]:
+                - button "Comment mode" [ref=f11e11] [cursor=pointer]:
+                  - generic [ref=f11e13]: Comment mode
+                - button "More" [ref=f11e14] [cursor=pointer]:
+                  - generic [ref=f11e18]: More
+            - generic [ref=f11e20]:
+              - generic [ref=f11e21]:
+                - button "Open comments" [ref=f11e24] [cursor=pointer]:
+                  - option "Open comments" [ref=f11e28]:
+                    - generic [ref=f11e30]: Open comments
+                - button [ref=f11e108] [cursor=pointer]:
+                  - img [ref=f11e110]
+              - paragraph [ref=f11e36]:
+                - heading "There are no comments on this asset" [level=4] [ref=f11e37]
+                - generic [ref=f11e38]:
+                  - text: Collaborate with coworkers with comments. Leave a comment below and notify a coworker using
+                  - strong [ref=f11e39]: "@mentions"
+                  - text: .
+              - generic [ref=f11e40]:
+                - generic [ref=f11e43]:
+                  - generic [ref=f11e45]:
+                    - generic: Write a comment. Send your colleague a notification by typing @ followed by their name.
+                    - paragraph [ref=f11e48]
+                  - generic [ref=f11e51]:
+                    - button [ref=f11e53]:
+                      - img [ref=f11e56]
+                    - button [ref=f11e59]:
+                      - img [ref=f11e62]
+                    - button [ref=f11e65]:
+                      - img [ref=f11e68]
+                    - button [ref=f11e71]:
+                      - img [ref=f11e74]
+                    - group [ref=f11e76]:
+                      - button [ref=f11e77]:
+                        - img [ref=f11e80]
+                      - button [ref=f11e82]
+                    - button [ref=f11e88]:
+                      - img [ref=f11e91]
+                    - button "Insert Emoji" [ref=f11e94]:
+                      - img [ref=f11e97]
+                - generic [ref=f11e100]:
+                  - button "Comment" [disabled] [ref=f11e101]:
+                    - generic [ref=f11e104]: Comment
+                  - button "Cancel" [disabled] [ref=f11e105]:
+                    - generic [ref=f11e107]: Cancel
+    - generic:
+      - generic:
+        - generic:
+          - generic:
+            - complementary
+            - complementary:
+              - generic [ref=e529]:
+                - button [ref=e530]:
+                  - img [ref=e533]
+                - generic [ref=e535]:
+                  - button "Collaborate with Assistant" [ref=e538] [cursor=pointer]:
+                    - img [ref=e540]
+                  - button "Comments" [ref=e544] [cursor=pointer]:
+                    - img [ref=e546]
+            - complementary
+            - complementary
+  - complementary

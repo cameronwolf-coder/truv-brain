@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: Inter, system-ui, -apple-system, sans-serif;
+      font-size: 12px;
+      color: #333;
+      padding: 16px;
+      background: #fff;
+    }
+    h2 {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 16px;
+      color: #0f1c47;
+    }
+    .step {
+      margin-bottom: 14px;
+      padding: 12px;
+      border: 1px solid #e5e5e5;
+      border-radius: 8px;
+    }
+    .step-label {
+      font-weight: 600;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #888;
+      margin-bottom: 8px;
+    }
+    .hint {
+      font-size: 11px;
+      color: #999;
+      margin-bottom: 8px;
+    }
+    .frame-info {
+      font-size: 11px;
+      color: #2c64e3;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+    .component-list {
+      max-height: 160px;
+      overflow-y: auto;
+    }
+    .component-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      padding: 6px 0;
+      border-bottom: 1px solid #f0f0f0;
+    }
+    .component-item:last-child { border-bottom: none; }
+    .component-item input[type="checkbox"] {
+      margin-top: 2px;
+      accent-color: #2c64e3;
+    }
+    .component-item .name {
+      font-weight: 600;
+      font-size: 11px;
+      color: #333;
+    }
+    .component-item .preview {
+      font-size: 10px;
+      color: #999;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 240px;
+    }
+    .variation-group {
+      margin-bottom: 10px;
+    }
+    .variation-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: #555;
+      margin-bottom: 4px;
+      display: flex;
+      justify-content: space-between;
+    }
+    .variation-count {
+      font-weight: 400;
+      color: #2c64e3;
+    }
+    textarea {
+      width: 100%;
+      min-height: 60px;
+      max-height: 120px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      padding: 8px;
+      font-family: Inter, system-ui, sans-serif;
+      font-size: 11px;
+      line-height: 1.5;
+      resize: vertical;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    textarea:focus { border-color: #2c64e3; }
+    textarea::placeholder { color: #ccc; }
+    .variations-container {
+      max-height: 240px;
+      overflow-y: auto;
+    }
+    button {
+      width: 100%;
+      padding: 10px;
+      border: none;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: opacity 0.15s;
+    }
+    button:hover { opacity: 0.9; }
+    button:disabled { opacity: 0.4; cursor: not-allowed; }
+    .btn-identify {
+      background: #f0f0f0;
+      color: #333;
+    }
+    .btn-generate {
+      background: #2c64e3;
+      color: #fff;
+    }
+    .summary {
+      font-size: 11px;
+      color: #666;
+      margin-bottom: 8px;
+    }
+    .progress {
+      margin-top: 12px;
+      padding: 12px;
+      background: #f8f9fa;
+      border-radius: 8px;
+      font-size: 11px;
+      display: none;
+    }
+    .progress.visible { display: block; }
+    .progress-bar {
+      height: 4px;
+      background: #e5e5e5;
+      border-radius: 2px;
+      margin-top: 8px;
+      overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%;
+      background: #2c64e3;
+      border-radius: 2px;
+      transition: width 0.3s;
+      width: 0%;
+    }
+    .log {
+      margin-top: 8px;
+      max-height: 80px;
+      overflow-y: auto;
+      font-family: monospace;
+      font-size: 10px;
+      color: #666;
+    }
+    .error {
+      color: #e11d48;
+      font-size: 11px;
+      margin-top: 6px;
+    }
+    .success {
+      color: #16a34a;
+      font-size: 11px;
+      font-weight: 600;
+      margin-top: 6px;
+    }
+  </style>
+</head>
+<body>
+  <h2>Truv Ad Generator</h2>
+
+  <!-- Step 1: Identify components -->
+  <div class="step">
+    <div class="step-label">1. Select &amp; Identify</div>
+    <div class="hint">Select a frame in Figma, then click:</div>
+    <button class="btn-identify" id="identifyBtn" onclick="identify()">
+      Identify Template Components
+    </button>
+    <div id="frameInfo"></div>
+    <div class="component-list" id="componentList"></div>
+  </div>
+
+  <!-- Step 2: Paste variations -->
+  <div class="step" id="step2" style="display:none">
+    <div class="step-label">2. Paste Variations</div>
+    <div class="hint">One variation per line. Paste from a Google Doc or spreadsheet.</div>
+    <div class="variations-container" id="variationsContainer"></div>
+  </div>
+
+  <!-- Step 3: Generate -->
+  <div class="step" id="step3" style="display:none">
+    <div class="step-label">3. Generate</div>
+    <div class="summary" id="summary"></div>
+    <button class="btn-generate" id="generateBtn" disabled onclick="generate()">
+      Generate Ad Variations
+    </button>
+  </div>
+
+  <!-- Progress -->
+  <div class="progress" id="progress">
+    <div id="progressText">Generating...</div>
+    <div class="progress-bar">
+      <div class="progress-fill" id="progressFill"></div>
+    </div>
+    <div class="log" id="log"></div>
+  </div>
+
+  <script>
+    let components = [];     // { id, layerName, currentText, checked }
+    let frameName = '';
+
+    function identify() {
+      document.getElementById('frameInfo').innerHTML = '';
+      document.getElementById('componentList').innerHTML = '';
+      document.getElementById('step2').style.display = 'none';
+      document.getElementById('step3').style.display = 'none';
+      components = [];
+      parent.postMessage({ pluginMessage: { type: 'identify-components' } }, '*');
+    }
+
+    function onComponentsFound(data) {
+      frameName = data.frameName;
+      document.getElementById('frameInfo').innerHTML =
+        '<div class="frame-info">' + data.frameName + ' (' + data.frameWidth + 'x' + data.frameHeight + ')</div>';
+
+      components = data.components.map(c => ({ ...c, checked: true }));
+
+      const listEl = document.getElementById('componentList');
+      listEl.innerHTML = components.map((c, i) =>
+        '<div class="component-item">' +
+          '<input type="checkbox" checked data-index="' + i + '" onchange="toggleComponent(' + i + ', this.checked)">' +
+          '<div>' +
+            '<div class="name">' + escapeHtml(c.layerName) + '</div>' +
+            '<div class="preview">' + escapeHtml(c.currentText) + '</div>' +
+          '</div>' +
+        '</div>'
+      ).join('');
+
+      showVariationTextareas();
+    }
+
+    function toggleComponent(index, checked) {
+      components[index].checked = checked;
+      showVariationTextareas();
+    }
+
+    function showVariationTextareas() {
+      const checked = components.filter(c => c.checked);
+      if (checked.length === 0) {
+        document.getElementById('step2').style.display = 'none';
+        document.getElementById('step3').style.display = 'none';
+        return;
+      }
+
+      document.getElementById('step2').style.display = 'block';
+      document.getElementById('step3').style.display = 'block';
+
+      const container = document.getElementById('variationsContainer');
+      container.innerHTML = checked.map(c =>
+        '<div class="variation-group">' +
+          '<div class="variation-label">' +
+            '<span>' + escapeHtml(c.layerName) + '</span>' +
+            '<span class="variation-count" id="count-' + escapeId(c.layerName) + '">0 variations</span>' +
+          '</div>' +
+          '<textarea ' +
+            'id="textarea-' + escapeId(c.layerName) + '" ' +
+            'data-layer="' + escapeHtml(c.layerName) + '" ' +
+            'placeholder="Paste ' + escapeHtml(c.layerName) + ' variations here, one per line..." ' +
+            'oninput="updateCounts()"' +
+          '></textarea>' +
+        '</div>'
+      ).join('');
+
+      updateCounts();
+    }
+
+    function updateCounts() {
+      const checked = components.filter(c => c.checked);
+      let maxCount = 0;
+
+      checked.forEach(c => {
+        const textarea = document.getElementById('textarea-' + escapeId(c.layerName));
+        if (!textarea) return;
+        const lines = textarea.value.split('\n').filter(l => l.trim() !== '');
+        const count = lines.length;
+        if (count > maxCount) maxCount = count;
+        const countEl = document.getElementById('count-' + escapeId(c.layerName));
+        if (countEl) countEl.textContent = count + ' variation' + (count !== 1 ? 's' : '');
+      });
+
+      const btn = document.getElementById('generateBtn');
+      const summary = document.getElementById('summary');
+
+      if (maxCount > 0) {
+        btn.disabled = false;
+        summary.textContent = 'Will create ' + maxCount + ' variation' + (maxCount !== 1 ? 's' : '') + ' of "' + frameName + '"';
+      } else {
+        btn.disabled = true;
+        summary.textContent = 'Paste at least one variation to get started.';
+      }
+    }
+
+    function generate() {
+      const checked = components.filter(c => c.checked);
+      const inputs = checked.map(c => {
+        const textarea = document.getElementById('textarea-' + escapeId(c.layerName));
+        const variations = textarea ? textarea.value.split('\n').filter(l => l.trim() !== '') : [];
+        return { layerName: c.layerName, variations };
+      }).filter(c => c.variations.length > 0);
+
+      if (inputs.length === 0) return;
+
+      document.getElementById('generateBtn').disabled = true;
+      document.getElementById('progress').classList.add('visible');
+      document.getElementById('log').innerHTML = '';
+
+      parent.postMessage({
+        pluginMessage: {
+          type: 'generate',
+          components: inputs
+        }
+      }, '*');
+    }
+
+    // Helpers
+    function escapeHtml(str) {
+      return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    }
+
+    function escapeId(str) {
+      return str.replace(/[^a-zA-Z0-9]/g, '-');
+    }
+
+    function log(msg) {
+      const el = document.getElementById('log');
+      el.innerHTML += msg + '<br>';
+      el.scrollTop = el.scrollHeight;
+    }
+
+    // Messages from plugin code
+    window.onmessage = (event) => {
+      const msg = event.data.pluginMessage;
+      if (!msg) return;
+
+      if (msg.type === 'components-found') {
+        onComponentsFound(msg);
+      }
+
+      if (msg.type === 'progress') {
+        document.getElementById('progressText').textContent = msg.text;
+        document.getElementById('progressFill').style.width = msg.percent + '%';
+        if (msg.log) log(msg.log);
+      }
+
+      if (msg.type === 'export-png') {
+        const blob = new Blob([msg.bytes], { type: 'image/png' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = msg.fileName;
+        a.click();
+        URL.revokeObjectURL(url);
+      }
+
+      if (msg.type === 'done') {
+        document.getElementById('progressText').innerHTML =
+          '<span class="success">Done! Generated ' + msg.count + ' variations. PNGs downloaded.</span>';
+        document.getElementById('progressFill').style.width = '100%';
+        document.getElementById('generateBtn').disabled = false;
+      }
+
+      if (msg.type === 'error') {
+        document.getElementById('frameInfo').innerHTML =
+          '<div class="error">' + msg.message + '</div>';
+        document.getElementById('generateBtn').disabled = false;
+      }
+    };
+  </script>
+</body>
+</html>

@@ -1,0 +1,209 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e6]:
+    - region "Page Section" [ref=e7]:
+      - group [ref=e9]:
+        - generic [ref=e10]:
+          - button "Back" [ref=e12] [cursor=pointer]:
+            - generic [ref=e14]: Back
+          - heading "ON" [level=1] [ref=e16]:
+            - generic [ref=e18]:
+              - button [disabled] [ref=e20]:
+                - status [ref=e21]:
+                  - generic [ref=e22]:
+                    - img [ref=e25]
+                    - img [ref=e31]
+                  - generic [ref=e33]: Loading
+              - paragraph [ref=e36]: "ON"
+          - generic [ref=e37]:
+            - button "Enroll" [disabled] [ref=e38]:
+              - generic [ref=e40]: Enroll
+            - button "Turn off" [ref=e41] [cursor=pointer]:
+              - generic [ref=e43]: Turn off
+      - group [ref=e44]:
+        - generic [ref=e45]:
+          - generic [ref=e47]:
+            - button "File" [ref=e49] [cursor=pointer]:
+              - generic [ref=e52]:
+                - paragraph [ref=e53]: File
+                - img [ref=e54]
+            - button "Edit" [ref=e57] [cursor=pointer]:
+              - generic [ref=e60]:
+                - paragraph [ref=e61]: Edit
+                - img [ref=e62]
+            - button "Settings" [ref=e65] [cursor=pointer]:
+              - paragraph [ref=e69]: Settings
+            - button "View" [ref=e71] [cursor=pointer]:
+              - generic [ref=e74]:
+                - paragraph [ref=e75]: View
+                - img [ref=e76]
+            - button "Help" [ref=e79] [cursor=pointer]:
+              - generic [ref=e82]:
+                - paragraph [ref=e83]: Help
+                - img [ref=e84]
+          - generic [ref=e86]:
+            - button "Test" [ref=e88] [cursor=pointer]:
+              - generic [ref=e91]: Test
+            - button "Performance history" [ref=e93] [cursor=pointer]:
+              - generic [ref=e96]: Performance history
+    - region "Page Section" [ref=e100]:
+      - main [ref=e103]:
+        - generic [ref=e109]:
+          - button "Show minimap panel" [ref=e111] [cursor=pointer]:
+            - generic [ref=e113]: Show minimap panel
+          - generic [ref=e115]:
+            - generic [ref=e116]:
+              - group [ref=e118]:
+                - button "Undo" [ref=e119] [cursor=pointer]:
+                  - generic [ref=e120]:
+                    - img [ref=e122]
+                    - status [ref=e124]:
+                      - img [ref=e128]
+                      - generic [ref=e131]: Loading
+                - button "Redo" [ref=e132] [cursor=pointer]:
+                  - generic [ref=e133]:
+                    - img [ref=e135]
+                    - status [ref=e137]:
+                      - img [ref=e141]
+                      - generic [ref=e144]: Loading
+              - group [ref=e146]:
+                - button [ref=e147] [cursor=pointer]:
+                  - img [ref=e150]
+                - button [ref=e152] [cursor=pointer]:
+                  - img [ref=e155]
+              - generic [ref=e158]: 60%
+            - generic [ref=e162]:
+              - img
+              - generic [ref=e163]:
+                - button "Leave comment" [ref=e165]:
+                  - button "Trigger enrollment for When this happens Only enroll that meet these conditions Choose conditions to filter records Re-enroll off Details" [ref=e166] [cursor=pointer]:
+                    - generic [ref=e167]:
+                      - img [ref=e171]
+                      - heading "Trigger enrollment for" [level=5] [ref=e174]:
+                        - generic [ref=e175]: Trigger enrollment for
+                    - generic [ref=e177]:
+                      - heading "When this happens" [level=6] [ref=e179]
+                      - status [ref=e182]:
+                        - generic [ref=e183]:
+                          - img [ref=e186]
+                          - img [ref=e192]
+                        - generic [ref=e194]: Loading
+                      - heading "Only enroll that meet these conditions" [level=6] [ref=e195]:
+                        - generic [ref=e196]:
+                          - text: Only enroll
+                          - text: that meet these conditions
+                      - generic [ref=e198]: Choose conditions to filter records
+                    - generic [ref=e199]:
+                      - combobox "Actions" [ref=e204]:
+                        - img [ref=e210]
+                      - generic [ref=e212]:
+                        - generic [ref=e214]:
+                          - img [ref=e215]
+                          - generic [ref=e217]: Re-enroll off
+                        - button "Details" [ref=e219]:
+                          - generic [ref=e221]: Details
+                - button "Add new action" [ref=e225] [cursor=pointer]:
+                  - img [ref=e227]
+              - generic [ref=e229]:
+                - button "Leave comment" [ref=e231]:
+                  - button "2.Edit record Set to . Details" [ref=e232] [cursor=pointer]:
+                    - generic [ref=e233]:
+                      - img [ref=e237]
+                      - heading "2.Edit record" [level=5] [ref=e240]:
+                        - generic [ref=e243]: 2.Edit record
+                    - generic [ref=e245]:
+                      - text: Set
+                      - text: to
+                      - strong [ref=e247]
+                      - text: .
+                    - generic [ref=e249]:
+                      - generic [ref=e251]:
+                        - combobox "Actions" [ref=e254]:
+                          - img [ref=e260]
+                        - combobox "Actions" [ref=e264]:
+                          - img [ref=e270]
+                        - combobox "Actions" [ref=e274]:
+                          - img [ref=e280]
+                        - combobox "Actions" [ref=e284]:
+                          - img [ref=e290]
+                      - button "Details" [ref=e292]:
+                        - generic [ref=e294]: Details
+                - button "Add new action" [ref=e298] [cursor=pointer]:
+                  - img [ref=e300]
+              - generic [ref=e302]:
+                - button [ref=e304] [cursor=pointer]
+                - button "Add new action" [ref=e308] [cursor=pointer]:
+                  - img [ref=e310]
+                - paragraph [ref=e314]: 5. End
+              - generic [ref=e315]:
+                - button "Leave comment" [ref=e317]:
+                  - button "1.Edit record Set to the date this action was executed. Details" [ref=e318] [cursor=pointer]:
+                    - generic [ref=e319]:
+                      - img [ref=e323]
+                      - heading "1.Edit record" [level=5] [ref=e326]:
+                        - generic [ref=e329]: 1.Edit record
+                    - generic [ref=e331]:
+                      - text: Set
+                      - text: to the date this action was executed.
+                    - generic [ref=e333]:
+                      - generic [ref=e335]:
+                        - combobox "Actions" [ref=e338]:
+                          - img [ref=e344]
+                        - combobox "Actions" [ref=e348]:
+                          - img [ref=e354]
+                        - combobox "Actions" [ref=e358]:
+                          - img [ref=e364]
+                        - combobox "Actions" [ref=e368]:
+                          - img [ref=e374]
+                      - button "Details" [ref=e376]:
+                        - generic [ref=e378]: Details
+                - button "Add new action" [ref=e382] [cursor=pointer]:
+                  - img [ref=e384]
+              - generic [ref=e386]:
+                - button "Leave comment" [ref=e388]:
+                  - button "3.Custom code Defined by custom code. Details" [ref=e389] [cursor=pointer]:
+                    - generic [ref=e390]:
+                      - img [ref=e394]
+                      - heading "3.Custom code" [level=5] [ref=e397]:
+                        - generic [ref=e400]: 3.Custom code
+                    - generic [ref=e402]:
+                      - text: Defined by
+                      - strong [ref=e403]: custom code
+                      - text: .
+                    - generic [ref=e404]:
+                      - generic [ref=e406]:
+                        - combobox "Actions" [ref=e409]:
+                          - img [ref=e415]
+                        - combobox "Actions" [ref=e419]:
+                          - img [ref=e425]
+                        - combobox "Actions" [ref=e429]:
+                          - img [ref=e435]
+                        - combobox "Actions" [ref=e439]:
+                          - img [ref=e445]
+                      - button "Details" [ref=e447]:
+                        - generic [ref=e449]: Details
+                - button "Add new action" [ref=e453] [cursor=pointer]:
+                  - img [ref=e455]
+              - generic [ref=e457]:
+                - button "Leave comment" [ref=e459]:
+                  - button "4." [ref=e460] [cursor=pointer]:
+                    - generic [ref=e461]:
+                      - img [ref=e465]
+                      - heading "4." [level=5] [ref=e468]:
+                        - generic [ref=e471]: "4."
+                    - status [ref=e473]:
+                      - generic [ref=e474]:
+                        - img [ref=e477]
+                        - img [ref=e483]
+                      - generic [ref=e485]: Loading
+                    - generic [ref=e488]:
+                      - combobox "Actions" [ref=e491]:
+                        - img [ref=e497]
+                      - combobox "Actions" [ref=e501]:
+                        - img [ref=e507]
+                      - combobox "Actions" [ref=e511]:
+                        - img [ref=e517]
+                      - combobox "Actions" [ref=e521]:
+                        - img [ref=e527]
+                - button "Add new action" [ref=e532] [cursor=pointer]:
+                  - img [ref=e534]
+  - complementary

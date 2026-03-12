@@ -25,14 +25,14 @@ export default defineComponent({
       CANCELED: "f7472bb0-b7d0-4bab-9679-2199873df58b"
     };
 
-    // ── HubSpot Owner → Linear User mapping ─────────────────────
+    // ── HubSpot Owner > Linear User mapping ─────────────────────
     const OWNER_MAP = {
       "82949240":  "e0bb82cc-96ed-4d37-a9c8-df774f929dcb",  // Cam Wolf
       "84510183":  "1301d24a-87ef-4674-94d8-99b3ee5ece78",  // Melissa Hausser
       "434899562": "966e7ba1-f9a7-448f-a4a6-516067bca022"   // Kaytren Bruner
     };
 
-    // ── Priority mapping (HubSpot → Linear) ─────────────────────
+    // ── Priority mapping (HubSpot > Linear) ─────────────────────
     // Linear: 0=No priority, 1=Urgent, 2=High, 3=Medium, 4=Low
     const PRIORITY_MAP = {
       HIGH: 2,
@@ -44,7 +44,7 @@ export default defineComponent({
     const event = steps.code?.$return_value;
 
     if (!taskResult?.tasks?.length) {
-      return $.flow.exit("No webinar tasks to sync — skipping Linear issue creation");
+      return $.flow.exit("No webinar tasks to sync - skipping Linear issue creation");
     }
 
     const tasks = taskResult.tasks;
@@ -123,7 +123,7 @@ export default defineComponent({
     }
 
     if (!projectId) {
-      return $.flow.exit("Could not find or create Linear project — cannot attach issues");
+      return $.flow.exit("Could not find or create Linear project - cannot attach issues");
     }
 
     // ── Helper: write linear_issue_id back to HubSpot task ──────
@@ -143,14 +143,25 @@ export default defineComponent({
       });
     };
 
-    // ── Create issues ───────────────────────────────────────────
-    const results = [];
-    for (const task of tasks) {
+    // ── Helper: fix double-encoded UTF-8 from HubSpot ───────────
+    const fixEncoding = (str) => {
+      if (!str || typeof str !== "string") return str || "";
       try {
-        // Build issue description with HubSpot Task ID for reverse sync
-        const description = `${task.body}\n\n---\nHubSpot Task ID: ${task.id}`;
+        const bytes = new Uint8Array([...str].map(c => c.charCodeAt(0)));
+        const decoded = new TextDecoder("utf-8").decode(bytes);
+        return decoded.length < str.length ? decoded : str;
+      } catch {
+        return str;
+      }
+    };
 
-        // Map owner to Linear assignee
+    // ── Create issues in parallel batches (5 at a time) ─────────
+    const BATCH_SIZE = 5;
+    const processTask = async (task) => {
+      try {
+        const body = fixEncoding(task.body);
+        const description = `${body}\n\n---\nHubSpot Task ID: ${task.id}`;
+
         const hubspotOwnerId = {
           MARKETING_OPS: "82949240",
           EVENT_MARKETING: "84510183",
@@ -161,7 +172,7 @@ export default defineComponent({
         const assigneeId = hubspotOwnerId ? OWNER_MAP[hubspotOwnerId] : null;
 
         const input = {
-          title: task.subject,
+          title: fixEncoding(task.subject),
           description,
           teamId: TEAM_ID,
           projectId,
@@ -185,26 +196,32 @@ export default defineComponent({
 
         const issue = res.data?.issueCreate?.issue;
 
-        // Write Linear issue ID back to HubSpot task
         if (issue?.id) {
           await writeLinearIdToHubSpot(task.id, issue.id);
         }
 
-        results.push({
+        return {
           hubspotTaskId: task.id,
           linearIssueId: issue?.id,
           identifier: issue?.identifier,
           subject: task.subject,
           status: "created"
-        });
+        };
       } catch (err) {
-        results.push({
+        return {
           hubspotTaskId: task.id,
           subject: task.subject,
           status: "failed",
           error: err.message || String(err)
-        });
+        };
       }
+    };
+
+    const results = [];
+    for (let i = 0; i < tasks.length; i += BATCH_SIZE) {
+      const batch = tasks.slice(i, i + BATCH_SIZE);
+      const batchResults = await Promise.all(batch.map(processTask));
+      results.push(...batchResults);
     }
 
     const created = results.filter(r => r.status === "created");

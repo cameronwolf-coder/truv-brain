@@ -1,0 +1,218 @@
+- generic [ref=e1]:
+  - generic [ref=e3]:
+    - banner [ref=e4]:
+      - navigation [ref=e6]:
+        - generic [ref=e7]:
+          - link "logo" [ref=e8] [cursor=pointer]:
+            - /url: /workspaces/276559/home
+            - img "Clay Logo" [ref=e10]
+          - generic [ref=e12]:
+            - link "Settings" [ref=e14] [cursor=pointer]:
+              - /url: /workspaces/276559/settings
+              - img [ref=e15]
+              - paragraph [ref=e17]: Settings
+            - img [ref=e204]
+            - link "Connections" [ref=e207] [cursor=pointer]:
+              - /url: /workspaces/276559/settings/accounts
+              - img [ref=e208]
+              - paragraph [ref=e210]: Connections
+        - generic [ref=e18]:
+          - button "Billing menu" [ref=e20] [cursor=pointer]:
+            - generic [ref=e21]:
+              - img [ref=e23]
+              - paragraph [ref=e36]: Credits
+          - button [ref=e38] [cursor=pointer]:
+            - img [ref=e39]
+        - button "Profile menu" [ref=e42] [cursor=pointer]:
+          - generic [ref=e44]:
+            - paragraph [ref=e45]: Cam Wolf
+            - paragraph [ref=e46]: truv.com
+    - main [ref=e47]:
+      - navigation [ref=e48]:
+        - button "truv.com" [ref=e50] [cursor=pointer]:
+          - generic [ref=e51]:
+            - img [ref=e53]:
+              - generic [ref=e54]: t
+            - paragraph [ref=e55]: truv.com
+          - img [ref=e56]
+        - generic [ref=e58]:
+          - generic [ref=e59]:
+            - heading "Workspace settings" [level=3] [ref=e60]
+            - radiogroup [ref=e61]:
+              - radio "Workspace" [ref=e62]:
+                - button "Workspace" [ref=e64] [cursor=pointer]:
+                  - img [ref=e65]
+                  - generic [ref=e67]: Workspace
+              - radio "AI context" [ref=e68]:
+                - button "AI context" [ref=e70] [cursor=pointer]:
+                  - img [ref=e71]
+                  - generic [ref=e73]: AI context
+              - radio "Team" [ref=e74]:
+                - button "Team" [ref=e76] [cursor=pointer]:
+                  - img [ref=e77]
+                  - generic [ref=e79]: Team
+              - radio "Connections" [checked] [active] [ref=e80]:
+                - button "Connections" [ref=e82] [cursor=pointer]:
+                  - img [ref=e83]
+                  - generic [ref=e85]: Connections
+              - radio "Web intent" [ref=e86]:
+                - button "Web intent" [ref=e88] [cursor=pointer]:
+                  - img [ref=e89]
+                  - generic [ref=e91]: Web intent
+              - radio "Plan & billing" [ref=e92]:
+                - button "Plan & billing" [ref=e94] [cursor=pointer]:
+                  - img [ref=e95]
+                  - generic [ref=e97]: Plan & billing
+              - radio "Usage" [ref=e98]:
+                - button "Usage" [ref=e100] [cursor=pointer]:
+                  - img [ref=e101]
+                  - generic [ref=e103]: Usage
+              - radio "Referrals" [ref=e104]:
+                - button "Referrals" [ref=e106] [cursor=pointer]:
+                  - img [ref=e107]
+                  - generic [ref=e109]: Referrals
+              - radio "Enrichments" [ref=e110]:
+                - button "Enrichments" [ref=e112] [cursor=pointer]:
+                  - img [ref=e113]
+                  - generic [ref=e115]: Enrichments
+              - radio "Ads" [ref=e116]:
+                - button "Ads" [ref=e118] [cursor=pointer]:
+                  - img [ref=e119]
+                  - generic [ref=e121]: Ads
+          - generic [ref=e122]:
+            - heading "Account settings" [level=3] [ref=e123]
+            - link "Account" [ref=e125] [cursor=pointer]:
+              - /url: /workspaces/276559/settings/account
+              - img [ref=e126]
+              - generic [ref=e128]: Account
+        - generic [ref=e130]:
+          - button "Help & support" [ref=e132] [cursor=pointer]:
+            - img [ref=e133]
+            - generic [ref=e135]: Help & support
+          - link "Changelog" [ref=e137] [cursor=pointer]:
+            - /url: https://www.clay.com/changelog
+            - img [ref=e138]
+            - generic [ref=e140]: Changelog
+      - generic [ref=e214]:
+        - generic [ref=e215]:
+          - heading "Connected accounts" [level=4] [ref=e216]
+          - button "Add connection" [ref=e217] [cursor=pointer]:
+            - img [ref=e218]
+            - text: Add connection
+        - generic [ref=e221]:
+          - tablist [ref=e222]:
+            - tab "My accounts" [selected] [ref=e223] [cursor=pointer]:
+              - paragraph [ref=e225]: My accounts
+            - tab "Clay-provided accounts" [ref=e226] [cursor=pointer]:
+              - paragraph [ref=e228]: Clay-provided accounts
+          - tabpanel "My accounts" [ref=e231]:
+            - generic [ref=e232]:
+              - generic [ref=e233]:
+                - button "Name" [ref=e234] [cursor=pointer]:
+                  - text: Name
+                  - img [ref=e235]
+                - generic [ref=e241]:
+                  - img [ref=e242]
+                  - textbox "Search workspace resources" [ref=e244]:
+                    - /placeholder: Search
+              - button "[object Object] Anthropic 1 Connection" [ref=e245] [cursor=pointer]:
+                - generic [ref=e246]:
+                  - img "[object Object]" [ref=e247]
+                  - heading "Anthropic" [level=5] [ref=e248]
+                - generic [ref=e249]:
+                  - generic [ref=e250]:
+                    - paragraph [ref=e251]: "1"
+                    - paragraph [ref=e252]: Connection
+                  - img [ref=e253]
+              - button "[object Object] Clay 1 Connection" [ref=e255] [cursor=pointer]:
+                - generic [ref=e256]:
+                  - img "[object Object]" [ref=e257]
+                  - heading "Clay" [level=5] [ref=e258]
+                - generic [ref=e259]:
+                  - generic [ref=e260]:
+                    - paragraph [ref=e261]: "1"
+                    - paragraph [ref=e262]: Connection
+                  - img [ref=e263]
+              - button "[object Object] Gong 1 Connection" [ref=e265] [cursor=pointer]:
+                - generic [ref=e266]:
+                  - img "[object Object]" [ref=e267]
+                  - heading "Gong" [level=5] [ref=e268]
+                - generic [ref=e269]:
+                  - generic [ref=e270]:
+                    - paragraph [ref=e271]: "1"
+                    - paragraph [ref=e272]: Connection
+                  - img [ref=e273]
+              - button "[object Object] Google Docs 1 Connection" [ref=e275] [cursor=pointer]:
+                - generic [ref=e276]:
+                  - img "[object Object]" [ref=e277]
+                  - heading "Google Docs" [level=5] [ref=e278]
+                - generic [ref=e279]:
+                  - generic [ref=e280]:
+                    - paragraph [ref=e281]: "1"
+                    - paragraph [ref=e282]: Connection
+                  - img [ref=e283]
+              - button "[object Object] Google Gemini 1 Connection" [ref=e285] [cursor=pointer]:
+                - generic [ref=e286]:
+                  - img "[object Object]" [ref=e287]
+                  - heading "Google Gemini" [level=5] [ref=e288]
+                - generic [ref=e289]:
+                  - generic [ref=e290]:
+                    - paragraph [ref=e291]: "1"
+                    - paragraph [ref=e292]: Connection
+                  - img [ref=e293]
+              - button "[object Object] Google Sheets (deprecated) 1 Connection" [ref=e295] [cursor=pointer]:
+                - generic [ref=e296]:
+                  - img "[object Object]" [ref=e297]
+                  - heading "Google Sheets (deprecated)" [level=5] [ref=e298]
+                - generic [ref=e299]:
+                  - generic [ref=e300]:
+                    - paragraph [ref=e301]: "1"
+                    - paragraph [ref=e302]: Connection
+                  - img [ref=e303]
+              - button "[object Object] OpenAI 1 Connection" [ref=e305] [cursor=pointer]:
+                - generic [ref=e306]:
+                  - img "[object Object]" [ref=e307]
+                  - heading "OpenAI" [level=5] [ref=e308]
+                - generic [ref=e309]:
+                  - generic [ref=e310]:
+                    - paragraph [ref=e311]: "1"
+                    - paragraph [ref=e312]: Connection
+                  - img [ref=e313]
+              - button "[object Object] HTTP API (Headers) 2 Connections" [ref=e315] [cursor=pointer]:
+                - generic [ref=e316]:
+                  - img "[object Object]" [ref=e317]
+                  - heading "HTTP API (Headers)" [level=5] [ref=e318]
+                - generic [ref=e319]:
+                  - generic [ref=e320]:
+                    - paragraph [ref=e321]: "2"
+                    - paragraph [ref=e322]: Connections
+                  - img [ref=e323]
+              - button "[object Object] HubSpot 1 Connection" [ref=e325] [cursor=pointer]:
+                - generic [ref=e326]:
+                  - img "[object Object]" [ref=e327]
+                  - heading "HubSpot" [level=5] [ref=e328]
+                - generic [ref=e329]:
+                  - generic [ref=e330]:
+                    - paragraph [ref=e331]: "1"
+                    - paragraph [ref=e332]: Connection
+                  - img [ref=e333]
+              - button "[object Object] Slack 1 Connection" [ref=e335] [cursor=pointer]:
+                - generic [ref=e336]:
+                  - img "[object Object]" [ref=e337]
+                  - heading "Slack" [level=5] [ref=e338]
+                - generic [ref=e339]:
+                  - generic [ref=e340]:
+                    - paragraph [ref=e341]: "1"
+                    - paragraph [ref=e342]: Connection
+                  - img [ref=e343]
+              - button "[object Object] Smartlead.ai 1 Connection" [ref=e345] [cursor=pointer]:
+                - generic [ref=e346]:
+                  - img "[object Object]" [ref=e347]
+                  - heading "Smartlead.ai" [level=5] [ref=e348]
+                - generic [ref=e349]:
+                  - generic [ref=e350]:
+                    - paragraph [ref=e351]: "1"
+                    - paragraph [ref=e352]: Connection
+                  - img [ref=e353]
+  - iframe [ref=e203]:
+    

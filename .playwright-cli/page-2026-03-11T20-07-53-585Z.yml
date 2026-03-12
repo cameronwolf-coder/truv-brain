@@ -1,0 +1,456 @@
+- generic [ref=e1]:
+  - list [ref=e1592]:
+    - listitem [ref=e1593]:
+      - button "Export all ad sets" [ref=e1594] [cursor=pointer]
+    - listitem [ref=e1595]:
+      - button "Export selection" [ref=e1596] [cursor=pointer]
+    - separator [ref=e1597]
+    - listitem [ref=e1598]:
+      - button "Import file" [ref=e1599] [cursor=pointer]
+    - listitem [ref=e1600]:
+      - button "Download template" [ref=e1601] [cursor=pointer]
+    - separator [ref=e1602]
+    - listitem [ref=e1603]:
+      - link "View bulk imports" [ref=e1604] [cursor=pointer]:
+        - /url: /campaignmanager/accounts/517969837/import-history?businessId=7404539754668773386
+  - generic:
+    - region "Notification Toasts":
+      - heading "0 notifications total" [level=2] [ref=e2]
+  - button "Chat with us" [ref=e4] [cursor=pointer]:
+    - img [ref=e6]
+  - generic [ref=e9]:
+    - generic [ref=e12]:
+      - button "Skip to main content" [ref=e13] [cursor=pointer]
+      - button "Close jump menu" [ref=e14] [cursor=pointer]:
+        - img [ref=e15]
+        - generic [ref=e17]: Close jump menu
+    - banner [ref=e18]:
+      - generic [ref=e19]:
+        - button "Close side navigation panel" [ref=e184] [cursor=pointer]:
+          - img [ref=e186]
+        - button [ref=e21] [cursor=pointer]:
+          - generic [ref=e23]:
+            - generic [ref=e24]:
+              - img [ref=e26]:
+                - img [ref=e27]
+              - img [ref=e30]
+            - img [ref=e33]
+        - generic:
+          - heading "Actions List" [level=2] [ref=e36]
+          - list
+        - button "At least one account has unseen notifications, click to enter notifications experience 2 new account notifications" [ref=e46] [cursor=pointer]:
+          - generic [ref=e47]:
+            - generic [ref=e48]: At least one account has unseen notifications, click to enter notifications experience
+            - generic [ref=e49]:
+              - generic [ref=e50]:
+                - generic [ref=e51]: "2"
+                - generic [ref=e52]: 2 new account notifications
+              - img [ref=e54]
+        - button "Learn more about campaign manager" [ref=e57] [cursor=pointer]:
+          - img "Help" [ref=e59]:
+            - img [ref=e61]
+        - button "Open user menu Icon for Truv" [ref=e63] [cursor=pointer]:
+          - generic [ref=e64]:
+            - generic [ref=e65]: Open user menu
+            - img "Icon for Truv" [ref=e67]
+    - generic [ref=e68]:
+      - navigation [ref=e189]:
+        - complementary [ref=e191]:
+          - button "Truv company icon Truv Ad Account 517969837 Active" [ref=e192] [cursor=pointer]:
+            - img "Truv company icon" [ref=e195]
+            - generic [ref=e196]:
+              - generic [ref=e197]: Truv Ad Account
+              - generic [ref=e198]:
+                - text: "517969837"
+                - generic [ref=e199]: Active
+            - img [ref=e200]
+        - generic [ref=e202]:
+          - link "Overview" [ref=e204] [cursor=pointer]:
+            - /url: /campaignmanager/accounts/517969837/overview?businessId=7404539754668773386
+            - generic [ref=e205]: Overview
+          - button "Plan" [ref=e208] [cursor=pointer]:
+            - generic [ref=e209]:
+              - generic [ref=e211]: Plan
+              - img [ref=e213]
+          - link "Advertise" [ref=e216] [cursor=pointer]:
+            - /url: /campaignmanager/accounts/517969837/campaign-groups?businessId=7404539754668773386&campaignGroupIds=%5B843810786%5D
+            - generic [ref=e217]: Advertise
+          - link "Test" [ref=e219] [cursor=pointer]:
+            - /url: /campaignmanager/accounts/517969837/experiments?businessId=7404539754668773386
+            - generic [ref=e220]: Test
+          - button "Measurement" [ref=e223] [cursor=pointer]:
+            - generic [ref=e224]:
+              - generic [ref=e226]: Measurement
+              - img [ref=e228]
+          - button "Data" [ref=e232] [cursor=pointer]:
+            - generic [ref=e233]:
+              - generic [ref=e235]: Data
+              - img [ref=e237]
+          - link "Recommendations" [ref=e240] [cursor=pointer]:
+            - /url: /campaignmanager/accounts/517969837/recommendations?businessId=7404539754668773386&campaignStatuses=%5B%22ACTIVE%22%5D
+            - generic [ref=e241]: Recommendations
+          - separator [ref=e243]
+          - link "Partnerships NEW" [ref=e245] [cursor=pointer]:
+            - /url: /campaignmanager/accounts/517969837/partnership?businessId=7404539754668773386
+            - generic [ref=e246]:
+              - text: Partnerships
+              - generic [ref=e247]: NEW
+          - button "Assets" [ref=e250] [cursor=pointer]:
+            - generic [ref=e251]:
+              - generic [ref=e253]: Assets
+              - img [ref=e255]
+          - separator [ref=e258]
+          - button "Account settings" [ref=e261] [cursor=pointer]:
+            - generic [ref=e262]:
+              - generic [ref=e264]: Account settings
+              - img [ref=e266]
+          - separator [ref=e269]
+          - link "Company page" [ref=e271] [cursor=pointer]:
+            - /url: https://www.linkedin.com/company/68059038
+            - generic [ref=e272]:
+              - generic [ref=e273]: Company page
+              - img [ref=e275]
+      - generic [ref=e69]:
+        - main [ref=e70]:
+          - generic [ref=e1120]:
+            - generic [ref=e1121]:
+              - heading "Pick up where you left off" [level=1] [ref=e1122]
+              - heading "You last saved CCM Document Ad - Ops & Lending on March 11, 2026. Are you ready to launch?" [level=2] [ref=e1123]
+            - generic [ref=e1124]:
+              - link "Edit & launch" [ref=e1125] [cursor=pointer]:
+                - /url: /campaignmanager/accounts/517969837/campaigns/558208226/details?businessId=7404539754668773386
+                - generic [ref=e1126]: Edit & launch
+              - button "Dismiss" [ref=e1127] [cursor=pointer]:
+                - generic [ref=e1128]: Dismiss
+          - main [ref=e1129]:
+            - generic [ref=e1130]:
+              - tablist [ref=e1133]:
+                - tab "Campaigns 1 selected" [ref=e1134] [cursor=pointer]:
+                  - generic [ref=e1135]:
+                    - heading "Campaigns" [level=1] [ref=e1136]:
+                      - img [ref=e1137]
+                      - text: Campaigns
+                    - generic [ref=e1139]: 1 selected
+                - tab "Ad sets 1 selected" [selected] [ref=e1557] [cursor=pointer]:
+                  - generic [ref=e1141]:
+                    - heading "Ad sets" [level=1] [ref=e1558]:
+                      - img [ref=e1143]
+                      - text: Ad sets
+                    - generic [ref=e1559]: 1 selected
+                - tab "Ads for 1 ad set 1 total" [ref=e1560] [cursor=pointer]:
+                  - generic [ref=e1147]:
+                    - heading "Ads for 1 ad set" [level=1] [ref=e1561]:
+                      - img [ref=e1149]
+                      - text: Ads for 1 ad set
+                    - paragraph [ref=e1151]: 1 total
+              - generic [ref=e1153]:
+                - generic [ref=e1154]:
+                  - generic [ref=e1155]:
+                    - button "Dropdown to create an entity such as an account, campaign, or ad set" [ref=e1156] [cursor=pointer]:
+                      - img [ref=e1158]
+                      - generic [ref=e1160]: Create
+                    - button "Set status for all selected ad sets" [ref=e1562] [cursor=pointer]:
+                      - img [ref=e1564]
+                      - generic [ref=e1566]: Set status
+                    - button "Bulk Actions to perform on this account" [expanded] [ref=e1168] [cursor=pointer]:
+                      - img [ref=e1170]
+                      - generic [ref=e1172]: Bulk actions
+                    - button "Delete a selected ad set" [ref=e1567] [cursor=pointer]:
+                      - img [ref=e1569]
+                      - generic [ref=e1571]: Delete a selected ad set
+                  - generic [ref=e1178]:
+                    - link "Click to navigate to the Performance Chart page" [ref=e1179] [cursor=pointer]:
+                      - /url: /campaignmanager/accounts/517969837/performance-chart?businessId=7404539754668773386&campaignGroupIds=%5B843810786%5D&campaignIds=%5B558208226%5D&columnViews=%5B%22LEADS%22%2C%22PERFORMANCE%22%5D&creativeIds=%5B%5D&dateRange=%7B%22startDate%22%3A%222%2F10%2F2026%22%2C%22endDate%22%3A%223%2F11%2F2026%22%7D&entityName=CCM%20Document%20Ad%20-%20Ops%20%26%20Lending&isChartingAll=false
+                      - generic [ref=e1180]: Performance chart
+                    - link "Click to navigate to the Professional demographics page" [ref=e1181] [cursor=pointer]:
+                      - /url: /campaignmanager/accounts/517969837/demographics?businessId=7404539754668773386&campaignGroupIds=%5B843810786%5D&campaignIds=%5B558208226%5D&columnViews=%5B%22LEADS%22%2C%22PERFORMANCE%22%5D&creativeIds=%5B%5D&dateRange=%7B%22startDate%22%3A%222%2F10%2F2026%22%2C%22endDate%22%3A%223%2F11%2F2026%22%7D&entityName=CCM%20Document%20Ad%20-%20Ops%20%26%20Lending&isAggregated=true&isChartingAll=false&pivot=MEMBER_JOB_FUNCTION
+                      - generic [ref=e1182]: Professional demographics
+                    - button "Export" [ref=e1183] [cursor=pointer]:
+                      - generic [ref=e1184]: Export
+                - generic [ref=e1185]:
+                  - searchbox "Search by name, ID, or type" [ref=e1188]
+                  - generic [ref=e1189]:
+                    - button "Filters ( 1 )" [ref=e1191] [cursor=pointer]:
+                      - img [ref=e1193]
+                      - generic [ref=e1196]:
+                        - generic [ref=e1197]: Filters
+                        - text: (
+                        - strong [ref=e1198]: "1"
+                        - text: )
+                    - 'button "Columns: Performance" [ref=e1200] [cursor=pointer]':
+                      - img [ref=e1202]
+                      - generic [ref=e1205]:
+                        - generic [ref=e1206]: "Columns:"
+                        - generic [ref=e1207]: Performance
+                    - button "Breakdown" [ref=e1209] [cursor=pointer]:
+                      - img [ref=e1211]
+                      - generic [ref=e1215]: Breakdown
+                    - generic [ref=e1216]:
+                      - 'button "Time range: 2/10/2026 - 3/11/2026" [ref=e1217] [cursor=pointer]':
+                        - generic [ref=e1218]:
+                          - generic [ref=e1219]: "Time range:"
+                          - generic [ref=e1220]:
+                            - time [ref=e1222]: 2/10/2026 - 3/11/2026
+                            - img [ref=e1223]
+                      - 'button "Compare: Previous period" [ref=e1225] [cursor=pointer]':
+                        - img [ref=e1227]
+                        - generic [ref=e1230]:
+                          - text: "Compare:"
+                          - generic [ref=e1231]: Previous period
+                      - 'button "Period range: 1/11/2026 - 2/9/2026" [ref=e1232] [cursor=pointer]':
+                        - generic [ref=e1233]:
+                          - generic [ref=e1234]: "Period range:"
+                          - generic [ref=e1235]:
+                            - time [ref=e1237]: 1/11/2026 - 2/9/2026
+                            - img [ref=e1238]
+                - generic [ref=e1244]:
+                  - table "List of ad sets in the table" [ref=e1246]:
+                    - caption [ref=e1247]: List of ad sets in the table
+                    - rowgroup [ref=e1248]:
+                      - row [ref=e1249]:
+                        - columnheader "row selection" [ref=e1250]:
+                          - generic [ref=e1251]: row selection
+                        - columnheader "Ad set name Ad set name, sorted in natural order" [ref=e1252]:
+                          - generic [ref=e1253]:
+                            - generic [ref=e1254]: Ad set name
+                            - button "Ad set name, sorted in natural order" [ref=e1255] [cursor=pointer]:
+                              - img [ref=e1257]
+                        - columnheader "Off/On" [ref=e1260]:
+                          - button "Off/On" [ref=e1262] [cursor=pointer]:
+                            - generic [ref=e1264]: Off/On
+                        - columnheader "Status Status, sorted in natural order" [ref=e1265]:
+                          - generic [ref=e1266]:
+                            - button "Status" [ref=e1267] [cursor=pointer]:
+                              - generic [ref=e1269]: Status
+                            - button "Status, sorted in natural order" [ref=e1270] [cursor=pointer]:
+                              - img [ref=e1272]
+                        - columnheader "Key results Key results, sorted in natural order" [ref=e1275]:
+                          - generic [ref=e1276]:
+                            - button "Key results" [ref=e1277] [cursor=pointer]:
+                              - generic [ref=e1279]: Key results
+                            - button "Key results, sorted in natural order" [ref=e1280] [cursor=pointer]:
+                              - img [ref=e1282]
+                        - columnheader "Campaign Campaign, sorted in natural order" [ref=e1285]:
+                          - generic [ref=e1286]:
+                            - generic [ref=e1287]: Campaign
+                            - button "Campaign, sorted in natural order" [ref=e1288] [cursor=pointer]:
+                              - img [ref=e1290]
+                        - columnheader "Spent Spent, sorted in natural order" [ref=e1293]:
+                          - generic [ref=e1294]:
+                            - button "Spent" [ref=e1295] [cursor=pointer]:
+                              - generic [ref=e1297]: Spent
+                            - button "Spent, sorted in natural order" [ref=e1298] [cursor=pointer]:
+                              - img [ref=e1300]
+                        - columnheader "Cost per result Cost per result, sorted in natural order" [ref=e1303]:
+                          - generic [ref=e1304]:
+                            - button "Cost per result" [ref=e1305] [cursor=pointer]:
+                              - generic [ref=e1307]: Cost per result
+                            - button "Cost per result, sorted in natural order" [ref=e1308] [cursor=pointer]:
+                              - img [ref=e1310]
+                        - columnheader "Impressions Impressions, sorted in natural order" [ref=e1313]:
+                          - generic [ref=e1314]:
+                            - button "Impressions" [ref=e1315] [cursor=pointer]:
+                              - generic [ref=e1317]: Impressions
+                            - button "Impressions, sorted in natural order" [ref=e1318] [cursor=pointer]:
+                              - img [ref=e1320]
+                        - columnheader "Clicks Clicks, sorted in natural order" [ref=e1323]:
+                          - generic [ref=e1324]:
+                            - button "Clicks" [ref=e1325] [cursor=pointer]:
+                              - generic [ref=e1327]: Clicks
+                            - button "Clicks, sorted in natural order" [ref=e1328] [cursor=pointer]:
+                              - img [ref=e1330]
+                        - columnheader "Average CTR Average CTR, sorted in natural order" [ref=e1333]:
+                          - generic [ref=e1334]:
+                            - button "Average CTR" [ref=e1335] [cursor=pointer]:
+                              - generic [ref=e1337]: Average CTR
+                            - button "Average CTR, sorted in natural order" [ref=e1338] [cursor=pointer]:
+                              - img [ref=e1340]
+                        - columnheader "Bid Bid, sorted in natural order" [ref=e1343]:
+                          - generic [ref=e1344]:
+                            - generic [ref=e1345]: Bid
+                            - button "Bid, sorted in natural order" [ref=e1346] [cursor=pointer]:
+                              - img [ref=e1348]
+                        - columnheader "Average CPM Average CPM, sorted in natural order" [ref=e1351]:
+                          - generic [ref=e1352]:
+                            - button "Average CPM" [ref=e1353] [cursor=pointer]:
+                              - generic [ref=e1355]: Average CPM
+                            - button "Average CPM, sorted in natural order" [ref=e1356] [cursor=pointer]:
+                              - img [ref=e1358]
+                        - columnheader "Average CPC Average CPC, sorted in natural order" [ref=e1361]:
+                          - generic [ref=e1362]:
+                            - button "Average CPC" [ref=e1363] [cursor=pointer]:
+                              - generic [ref=e1365]: Average CPC
+                            - button "Average CPC, sorted in natural order" [ref=e1366] [cursor=pointer]:
+                              - img [ref=e1368]
+                        - columnheader "Conversions Conversions, sorted in natural order" [ref=e1371]:
+                          - generic [ref=e1372]:
+                            - button "Conversions" [ref=e1373] [cursor=pointer]:
+                              - generic [ref=e1375]: Conversions
+                            - button "Conversions, sorted in natural order" [ref=e1376] [cursor=pointer]:
+                              - img [ref=e1378]
+                        - columnheader "Cost per conversion Cost per conversion, sorted in natural order" [ref=e1381]:
+                          - generic [ref=e1382]:
+                            - button "Cost per conversion" [ref=e1383] [cursor=pointer]:
+                              - generic [ref=e1385]: Cost per conversion
+                            - button "Cost per conversion, sorted in natural order" [ref=e1386] [cursor=pointer]:
+                              - img [ref=e1388]
+                        - columnheader "Leads Leads, sorted in natural order" [ref=e1391]:
+                          - generic [ref=e1392]:
+                            - button "Leads" [ref=e1393] [cursor=pointer]:
+                              - generic [ref=e1395]: Leads
+                            - button "Leads, sorted in natural order" [ref=e1396] [cursor=pointer]:
+                              - img [ref=e1398]
+                        - columnheader "Cost per lead Cost per lead, sorted in natural order" [ref=e1401]:
+                          - generic [ref=e1402]:
+                            - button "Cost per lead" [ref=e1403] [cursor=pointer]:
+                              - generic [ref=e1405]: Cost per lead
+                            - button "Cost per lead, sorted in natural order" [ref=e1406] [cursor=pointer]:
+                              - img [ref=e1408]
+                        - columnheader "Event registrations Event registrations, sorted in natural order" [ref=e1411]:
+                          - generic [ref=e1412]:
+                            - button "Event registrations" [ref=e1413] [cursor=pointer]:
+                              - generic [ref=e1415]: Event registrations
+                            - button "Event registrations, sorted in natural order" [ref=e1416] [cursor=pointer]:
+                              - img [ref=e1418]
+                        - columnheader "Leads (Work email) Leads (Work email), sorted in natural order" [ref=e1421]:
+                          - generic [ref=e1422]:
+                            - button "Leads (Work email)" [ref=e1423] [cursor=pointer]:
+                              - generic [ref=e1425]: Leads (Work email)
+                            - button "Leads (Work email), sorted in natural order" [ref=e1426] [cursor=pointer]:
+                              - img [ref=e1428]
+                        - columnheader "Cost per lead (Work email) Cost per lead (Work email), sorted in natural order" [ref=e1431]:
+                          - generic [ref=e1432]:
+                            - button "Cost per lead (Work email)" [ref=e1433] [cursor=pointer]:
+                              - generic [ref=e1435]: Cost per lead (Work email)
+                            - button "Cost per lead (Work email), sorted in natural order" [ref=e1436] [cursor=pointer]:
+                              - img [ref=e1438]
+                      - row "Select all rows 1 selected ad set - - - - $0.00 - 0 0 - - - - 0 - 0 - 0 0 -" [ref=e1572]:
+                        - columnheader "Select all rows" [ref=e1442]:
+                          - generic [ref=e1443]:
+                            - checkbox "Select all rows" [checked]
+                            - generic [ref=e1445]: Select all rows
+                        - columnheader "1 selected ad set" [ref=e1573]:
+                          - generic [ref=e1447]: 1 selected ad set
+                        - columnheader "-" [ref=e1448]
+                        - columnheader "-" [ref=e1449]
+                        - columnheader "-" [ref=e1450]
+                        - columnheader "-" [ref=e1451]:
+                          - generic [ref=e1452]: "-"
+                        - columnheader "$0.00" [ref=e1453]:
+                          - generic [ref=e1454]: $0.00
+                        - columnheader "-" [ref=e1455]
+                        - columnheader "0" [ref=e1456]:
+                          - generic [ref=e1457]: "0"
+                        - columnheader "0" [ref=e1458]:
+                          - generic [ref=e1459]: "0"
+                        - columnheader "-" [ref=e1460]:
+                          - generic [ref=e1461]: "-"
+                        - columnheader "-" [ref=e1462]
+                        - columnheader "-" [ref=e1463]:
+                          - generic [ref=e1464]: "-"
+                        - columnheader "-" [ref=e1465]:
+                          - generic [ref=e1466]: "-"
+                        - columnheader "0" [ref=e1467]:
+                          - generic [ref=e1468]: "0"
+                        - columnheader "-" [ref=e1469]:
+                          - generic [ref=e1470]: "-"
+                        - columnheader "0" [ref=e1471]:
+                          - generic [ref=e1472]: "0"
+                        - columnheader "-" [ref=e1473]:
+                          - generic [ref=e1474]: "-"
+                        - columnheader "0" [ref=e1475]:
+                          - generic [ref=e1476]: "0"
+                        - columnheader "0" [ref=e1477]:
+                          - generic [ref=e1478]: "0"
+                        - columnheader "-" [ref=e1479]:
+                          - generic [ref=e1480]: "-"
+                    - rowgroup [ref=e1481]:
+                      - 'row "Select data row 1 CCM Document Ad - Ops & Lending ID: 558208226 · Sponsored Content Toggle on or off the ad set status Draft - Leads CCM Document Ad - Lending - - - - - Manual Bid: amount is $65.00. Click here to change the bid value - - - - - - - - -" [ref=e1605]':
+                        - cell "Select data row 1" [ref=e1483]:
+                          - generic [ref=e1484]:
+                            - checkbox "Select data row 1" [checked]
+                            - generic [ref=e1486]: Select data row 1
+                        - 'cell "CCM Document Ad - Ops & Lending ID: 558208226 · Sponsored Content" [ref=e1606]':
+                          - generic [ref=e1489]:
+                            - term [ref=e1490]:
+                              - link "CCM Document Ad - Ops & Lending" [ref=e1492] [cursor=pointer]:
+                                - /url: /campaignmanager/accounts/517969837/creatives?businessId=7404539754668773386&campaignGroupIds=%5B843810786%5D&campaignIds=%5B558208226%5D
+                            - definition [ref=e1493]: "ID: 558208226 · Sponsored Content"
+                            - definition
+                        - cell "Toggle on or off the ad set status" [ref=e1494]:
+                          - generic [ref=e1496]:
+                            - generic [ref=e1497]: "Off"
+                            - switch "Toggle on or off the ad set status" [disabled]
+                        - cell "Draft" [ref=e1498]:
+                          - button "Draft" [ref=e1500] [cursor=pointer]:
+                            - generic [ref=e1501]: Draft
+                        - cell "- Leads" [ref=e1607]:
+                          - generic [ref=e1504]:
+                            - generic [ref=e1505]: "-"
+                            - generic [ref=e1506]: Leads
+                        - cell "CCM Document Ad - Lending" [ref=e1507]:
+                          - generic [ref=e1508]: CCM Document Ad - Lending
+                        - cell "-" [ref=e1509]:
+                          - generic [ref=e1510]: "-"
+                        - cell "-" [ref=e1511]:
+                          - generic [ref=e1512]: "-"
+                        - cell "-" [ref=e1513]:
+                          - generic [ref=e1514]: "-"
+                        - cell "-" [ref=e1515]:
+                          - generic [ref=e1516]: "-"
+                        - cell "-" [ref=e1517]:
+                          - generic [ref=e1518]: "-"
+                        - 'cell "Manual Bid: amount is $65.00. Click here to change the bid value" [ref=e1519]':
+                          - 'button "Manual Bid: amount is $65.00. Click here to change the bid value" [ref=e1520] [cursor=pointer]':
+                            - generic [ref=e1521]: "Manual Bid: $65.00"
+                            - img [ref=e1522]
+                        - cell "-" [ref=e1524]:
+                          - generic [ref=e1525]: "-"
+                        - cell "-" [ref=e1526]:
+                          - generic [ref=e1527]: "-"
+                        - cell "-" [ref=e1528]:
+                          - generic [ref=e1529]: "-"
+                        - cell "-" [ref=e1530]:
+                          - generic [ref=e1531]: "-"
+                        - cell "-" [ref=e1532]:
+                          - generic [ref=e1533]: "-"
+                        - cell "-" [ref=e1534]:
+                          - generic [ref=e1535]: "-"
+                        - cell "-" [ref=e1536]:
+                          - generic [ref=e1537]: "-"
+                        - cell "-" [ref=e1538]:
+                          - generic [ref=e1539]: "-"
+                        - cell "-" [ref=e1540]:
+                          - generic [ref=e1541]: "-"
+                  - generic [ref=e1543]:
+                    - navigation [ref=e1545]:
+                      - generic [ref=e1546]:
+                        - combobox [ref=e1548] [cursor=pointer]
+                        - list [ref=e1549]:
+                          - listitem [ref=e1550]:
+                            - button "Page 1" [ref=e1551] [cursor=pointer]: "1"
+                    - button "Show 15 per page" [ref=e1552] [cursor=pointer]:
+                      - img [ref=e1554]
+                      - generic [ref=e1556]: Show 15 per page
+        - contentinfo [ref=e1098]:
+          - list [ref=e1100]:
+            - listitem [ref=e1101]:
+              - link "Help center" [ref=e1102] [cursor=pointer]:
+                - /url: https://www.linkedin.com/help/lms
+            - listitem [ref=e1103]:
+              - link "Metric restatements" [ref=e1104] [cursor=pointer]:
+                - /url: /campaignmanager/accounts/517969837/metric-restatements?businessId=7404539754668773386
+            - listitem [ref=e1105]:
+              - link "Certified partners" [ref=e1106] [cursor=pointer]:
+                - /url: https://business.linkedin.com/marketing-solutions/certified-marketing-partners/ads-partners
+            - listitem [ref=e1107]:
+              - link "Accessibility" [ref=e1108] [cursor=pointer]:
+                - /url: https://www.linkedin.com/accessibility
+            - listitem [ref=e1109]:
+              - button "Privacy & terms" [ref=e1110] [cursor=pointer]:
+                - img [ref=e1112]
+                - generic [ref=e1114]: Privacy & terms
+          - generic [ref=e1115]:
+            - img [ref=e1116]:
+              - img [ref=e1117]
+            - generic [ref=e1119]: LinkedIn Corporation © 2026

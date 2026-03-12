@@ -1,0 +1,160 @@
+- generic [ref=e1]:
+  - iframe [ref=e188]:
+    - banner [ref=f63e6]:
+      - generic [ref=f63e7]:
+        - heading "You’ve used all your monthly credits" [level=5] [ref=f63e8]
+        - generic [ref=f63e9]:
+          - generic [ref=f63e12]: Usage is paused until your credits reset on Mar 25, 2026 or you add more.
+          - link "Add credits" [ref=f63e13] [cursor=pointer]:
+            - /url: https://app.hubspot.com/api/notification-station/general/v1/notifications/cta/ad1945e2-7ce6-4b56-b932-753c0738e0c8?notificationPortalId=19933594
+            - generic [ref=f63e14]: Add credits
+      - button "Close" [ref=f63e15] [cursor=pointer]:
+        - img [ref=f63e18]
+  - generic:
+    - iframe
+  - generic [ref=e117]:
+    - generic [ref=e389]:
+      - region "Page Section" [ref=e390]:
+        - group [ref=e392]:
+          - generic [ref=e393]:
+            - button "Exit" [ref=e395] [cursor=pointer]:
+              - generic [ref=e397]: Exit
+            - 'heading "Event Registrants: March Insider, Public Sector" [level=1] [ref=e483]':
+              - generic [ref=e402]:
+                - textbox "Segment name" [ref=e404]:
+                  - /placeholder: Name your new segment
+                  - text: "Event Registrants: March Insider, Public Sector"
+                - generic:
+                  - img
+            - generic [ref=e405]:
+              - button "Generate filters with AI" [ref=e406] [cursor=pointer]:
+                - generic [ref=e407]:
+                  - img [ref=e408]
+                  - generic [ref=e410]: Generate filters with AI
+              - button "Next" [ref=e411] [cursor=pointer]:
+                - generic [ref=e413]: Next
+      - region "Page Section" [ref=e416]:
+        - main [ref=e419]:
+          - generic [ref=e425]:
+            - generic [ref=e427]:
+              - generic [ref=e429]:
+                - generic [ref=e430]:
+                  - paragraph [ref=e431]:
+                    - generic [ref=e432]:
+                      - generic [ref=e433]: Include
+                      - generic [ref=e434]:
+                        - generic [ref=e439]: Contacts
+                        - button "Change object" [ref=e440] [cursor=pointer]:
+                          - generic [ref=e442]:
+                            - img [ref=e443]
+                            - generic [ref=e445]: Change object
+                  - generic [ref=e446]:
+                    - generic [ref=e448]: Test matches
+                    - generic [ref=e449] [cursor=pointer]:
+                      - checkbox "Test matches OFF" [ref=e451]
+                      - generic [ref=e452]: "OFF"
+                - generic [ref=e460]:
+                  - generic [ref=e1555]:
+                    - generic [ref=e1558]:
+                      - heading "Group 1" [level=5] [ref=e1559]
+                      - generic [ref=e1560]:
+                        - button [ref=e1561] [cursor=pointer]:
+                          - img [ref=e1563]
+                        - button [ref=e1565] [cursor=pointer]:
+                          - img [ref=e1567]
+                    - generic [ref=e1569]:
+                      - generic [ref=e1573]:
+                        - generic [ref=e1574]:
+                          - generic [ref=e1579]:
+                            - generic [ref=e1580]:
+                              - strong [ref=e1585]: "Association to: Event"
+                              - 'button "Event with label: Any Event" [ref=e1588] [cursor=pointer]':
+                                - listitem [ref=e1592]: "Event with label: Any Event"
+                            - button [ref=e1595] [cursor=pointer]:
+                              - img [ref=e1597]
+                          - separator [ref=e1599]
+                          - generic [ref=e1600]: "And associated Event has all of:"
+                        - generic [ref=e1601]:
+                          - generic [ref=e1609]:
+                            - generic [ref=e1610]:
+                              - button "Event Name" [ref=e1613] [cursor=pointer]:
+                                - option "Event Name" [ref=e1617]:
+                                  - generic [ref=e1619]: Event Name
+                              - button "is equal to any of" [ref=e1623] [cursor=pointer]:
+                                - option "is equal to any of" [ref=e1627]:
+                                  - generic [ref=e1629]: is equal to any of
+                              - generic [ref=e1632]:
+                                - generic "Enter value" [ref=e1636] [cursor=pointer]:
+                                  - generic [ref=e1639]:
+                                    - generic [ref=e1754]:
+                                      - generic [ref=e1761]: March Insider, Public Sector
+                                      - button "Close" [ref=e1763]:
+                                        - img [ref=e1766]
+                                    - combobox "Enter value" [expanded] [active] [ref=e1642]:
+                                      - listbox [ref=e1726]:
+                                        - generic [ref=e1768]: Type to add a value to this filter
+                                      - generic [ref=e1769]: Press backspace to remove March Insider, Public Sector
+                                - button [ref=e1646] [cursor=pointer]:
+                                  - img [ref=e1648]
+                            - button [ref=e1651] [cursor=pointer]:
+                              - img [ref=e1653]
+                          - generic [ref=e1655]:
+                            - generic [ref=e1659]: and
+                            - button "Add filter" [ref=e1660] [cursor=pointer]:
+                              - generic [ref=e1662]:
+                                - img [ref=e1663]
+                                - generic [ref=e1665]: Add filter
+                      - generic [ref=e1666]:
+                        - button "and" [ref=e1670] [cursor=pointer]:
+                          - option "and" [ref=e1673]:
+                            - generic [ref=e1675]: and
+                        - button "Add filter" [ref=e1681] [cursor=pointer]:
+                          - generic [ref=e1683]:
+                            - img [ref=e1684]
+                            - generic [ref=e1686]: Add filter
+                  - generic [ref=e1687]:
+                    - strong [ref=e1693]:
+                      - button "or" [ref=e1695] [cursor=pointer]:
+                        - option "or" [ref=e1699]:
+                          - generic [ref=e1701]: or
+                    - button "Add filter group" [ref=e1704] [cursor=pointer]:
+                      - generic [ref=e1706]:
+                        - img [ref=e1707]
+                        - generic [ref=e1709]: Add filter group
+                  - generic [ref=e1772]:
+                    - generic [ref=e1774]: Exclude contacts
+                    - generic [ref=e1775] [cursor=pointer]:
+                      - checkbox "Exclude contacts OFF" [ref=e1777]
+                      - generic [ref=e1778]: "OFF"
+              - button [ref=e470] [cursor=pointer]:
+                - img [ref=e472]
+            - generic [ref=e474]:
+              - alert [ref=e1781]:
+                - generic [ref=e1782]:
+                  - heading "Estimated results." [level=5] [ref=e1783]
+                  - generic [ref=e1784]: Save to process the full results.
+              - generic [ref=e1785]:
+                - generic [ref=e1786]:
+                  - paragraph [ref=e1788]: Preview
+                  - list [ref=e1789]:
+                    - listitem [ref=e1790]:
+                      - generic [ref=e1791]:
+                        - generic [ref=e1792]:
+                          - paragraph [ref=e1793]: Estimated size
+                          - img [ref=e1796]
+                        - status [ref=e1798]
+                        - generic [ref=e1799]: Contacts
+                    - listitem [ref=e1800]:
+                      - generic [ref=e1801]:
+                        - paragraph [ref=e1803]: "% of database"
+                        - status [ref=e1804]
+                        - generic [ref=e1805]: Contacts
+                - alert [ref=e1810]:
+                  - img "empty-state-charts illustration" [ref=e1811]
+                  - generic [ref=e1812]:
+                    - heading "This segment is currently empty." [level=4] [ref=e1813]
+                    - paragraph [ref=e1814]: Records have either been removed from this segment or did not match its filters when processed.
+                - generic [ref=e1815]:
+                  - img "Preview limited to first 25 results" [ref=e1817]
+                  - generic [ref=e1819]: Preview limited to first 25 results
+    - complementary

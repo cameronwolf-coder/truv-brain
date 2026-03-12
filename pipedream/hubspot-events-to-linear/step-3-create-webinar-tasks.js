@@ -18,11 +18,11 @@ export default defineComponent({
 
     // Only create tasks for webinars
     if (event.type !== "Webinar") {
-      $.flow.exit(`Skipping task creation — event type is "${event.type}", not "Webinar"`);
+      $.flow.exit(`Skipping task creation - event type is "${event.type}", not "Webinar"`);
     }
 
     if (!event.startDate) {
-      $.flow.exit("No event_start_date set — cannot calculate task due dates");
+      $.flow.exit("No event_start_date set - cannot calculate task due dates");
     }
 
     const eventDate = new Date(event.startDate + "T00:00:00");
@@ -33,7 +33,7 @@ export default defineComponent({
       MARKETING_OPS: "82949240",    // Cam Wolf
       EVENT_MARKETING: "84510183",  // Melissa Hausser
       PRODUCT_MARKETING: "434899562", // Kaytren Bruner
-      SALES: null                   // Unassigned — Sales leadership routes
+      SALES: null                   // Unassigned - Sales leadership routes
     };
 
     // ── Playbook task definitions ─────────────────────────────────
@@ -106,7 +106,7 @@ export default defineComponent({
         priority: "MEDIUM"
       },
 
-      // ── Build — Systems (T-4 weeks) ──
+      // ── Build - Systems (T-4 weeks) ──
       {
         subject: "Finalize audience segments in HubSpot",
         body: "Create audience lists. Exclude non-ICP groups (dashboard users, disqualified contacts). All build work must be complete before outreach begins.",
@@ -116,7 +116,7 @@ export default defineComponent({
       },
       {
         subject: "Create Clay registrant table schema",
-        body: "Set up Clay table to track Registrants → Attendees → No-Shows with HubSpot sync.",
+        body: "Set up Clay table to track Registrants > Attendees > No-Shows with HubSpot sync.",
         offset: -28,
         owner: "MARKETING_OPS",
         priority: "MEDIUM"
@@ -129,7 +129,7 @@ export default defineComponent({
         priority: "HIGH"
       },
 
-      // ── Build — Content (T-4 weeks) ──
+      // ── Build - Content (T-4 weeks) ──
       {
         subject: "Draft email copy by audience tier",
         body: "Write email copy for awareness, relevance, commitment, and attendance stages. Messaging must be locked before HTML and workflows are built.",
@@ -145,7 +145,7 @@ export default defineComponent({
         priority: "MEDIUM"
       },
 
-      // ── Build — Templates & Automation (T-3 weeks) ──
+      // ── Build - Templates & Automation (T-3 weeks) ──
       {
         subject: "Build HTML email templates in Knock",
         body: "Production-ready templates: accessible, mobile responsive, deliverability-safe. Create Knock workflows for announcement, reminder(s), and day-of send.",
@@ -154,14 +154,14 @@ export default defineComponent({
         priority: "HIGH"
       },
       {
-        subject: "Configure Knock ↔ Wrapper triggers and dry-run QA",
+        subject: "Configure Knock / Wrapper triggers and dry-run QA",
         body: "Set up drip logic and deadline-based sends. Perform dry-run: template rendering, workflow routing, suppression logic, Wrapper control.",
         offset: -21,
         owner: "MARKETING_OPS",
         priority: "HIGH"
       },
 
-      // ── Promotion (T-3 weeks → T-3 days) ──
+      // ── Promotion (T-3 weeks to T-3 days) ──
       {
         subject: "Launch awareness email (non-urgent)",
         body: "First email to target audience. Early, relevance-led outreach protects list health and establishes intent.",
@@ -205,7 +205,7 @@ export default defineComponent({
         priority: "MEDIUM"
       },
       {
-        subject: "Stop prospecting — shift to attendance enablement",
+        subject: "Stop prospecting - shift to attendance enablement",
         body: "No more prospecting emails. Focus on reminders and attendance enablement only. Continuing too close to the event increases unsubscribes.",
         offset: -3,
         owner: "MARKETING_OPS",
@@ -221,7 +221,7 @@ export default defineComponent({
         priority: "HIGH"
       },
 
-      // ── Post-Event (T+1 → T+14) ──
+      // ── Post-Event (T+1 to T+14) ──
       {
         subject: "Export attendance data and create Clay tables",
         body: "Export attendance and engagement data. Create Clay tables for Attendees and No-Shows. Match to HubSpot ownership.",
@@ -258,14 +258,14 @@ export default defineComponent({
         priority: "MEDIUM"
       },
       {
-        subject: "Review meetings booked by engagement tier — validate SLA",
+        subject: "Review meetings booked by engagement tier - validate SLA",
         body: "Check % attendees contacted within 24h, meetings booked, and coverage (% registrants touched). Flag SLA misses.",
         offset: 7,
         owner: "MARKETING_OPS",
         priority: "MEDIUM"
       },
       {
-        subject: "Snapshot pipeline influenced — complete post-mortem",
+        subject: "Snapshot pipeline influenced - complete post-mortem",
         body: "Document pipeline influenced by the webinar. Complete standardized post-mortem using the Webinar Event Marketing Playbook.",
         offset: 14,
         owner: "MARKETING_OPS",

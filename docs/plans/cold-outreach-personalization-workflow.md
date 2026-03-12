@@ -100,10 +100,16 @@ Push to Smartlead: `email`, `first_name`, `last_name`, `company`, `custom_messag
 
 ---
 
-## Smartlead Sequence
+## Smartlead Sequence (2-Email Model)
+
+> **Why 2 emails, not 4?** Data shows 89% of positive replies come from
+> emails 1-2. Emails 3-7 generate 11% of replies but 100% of unsubscribes
+> and spam complaints. By cutting to 2 emails, the same infrastructure can
+> reach 3.5x more of the TAM per cycle. Angles rotate every 45 days, so
+> contacts who didn't respond get a fresh pitch — not a 5th follow-up.
 
 ### Settings
-- 4 emails over 14 days
+- 2 emails over 4 days
 - Business days only
 - Send window: 7:00 AM - 9:30 AM recipient's timezone
 - Open tracking OFF (deliverability), click tracking ON for CTA only
@@ -121,7 +127,7 @@ Takes about 15 minutes to see how it works.
 Open to a quick look?
 ```
 
-### Email 2 — Day 3
+### Email 2 — Day 3-4
 **Subject:** `Re: {{company}} + verifications`
 
 ```
@@ -132,63 +138,66 @@ One thing I should've mentioned — a Top 50 lender using the integration saw:
 - Instant pre-closing VOE from existing VOIE orders
 
 Their ops director said the biggest surprise wasn't the speed — it was how
-much processor capacity it freed up. They stopped hiring for a role they
-thought they needed to fill.
+much processor capacity it freed up.
 
-Worth 15 minutes to see if the math works for {{company}}?
+If the timing isn't right, no worries — I'll close this out. But if manual
+data entry into Encompass is costing your team time, worth 15 minutes to
+see if the math works for {{company}}.
 ```
 
-### Email 3 — Day 7
-**Subject:** `quick question on {{company}}'s verification workflow`
-
-```
-{{first_name}} — curious about one thing.
-
-How is your team currently handling pre-closing reverification for Day 1
-Certainty? Most teams I talk to are re-running the entire process manually,
-even when the original VOIE is still fresh.
-
-We built a way to generate a VOE report directly from a completed VOIE
-order — takes seconds instead of hours, and it satisfies GSE requirements.
-
-If that's a pain point, happy to show you. If not, no worries at all.
-```
-
-### Email 4 — Day 14
-**Subject:** `should I close this out?`
-
-```
-{{first_name}} — I know the timing might not be right, and I don't want to
-be the person cluttering your inbox.
-
-If verifications aren't a priority right now, totally get it. I'll close
-this out on my end.
-
-But if manual data entry into Encompass is still eating your team's time,
-here's a 2-minute overview: [link]
-
-Either way, appreciate your time.
-```
+> **Note:** This is the default "encompass-integration" angle. Each 45-day
+> cycle uses a different angle from the rotation library. See
+> `docs/cold-email-angle-library.md` for all angles and templates.
 
 ---
 
 ## Sequence Design Notes
 
-- Only Email 1 uses `{{custom_message}}`. Follow-ups are static — re-personalizing every email feels over-researched.
-- CTAs are always low-friction: "quick look," "15 minutes," "2-minute overview." Never "book a demo."
-- Email 3 shifts the angle to a specific feature (pre-closing VOE) to catch people who didn't care about the broad pitch.
-- Email 4 is short on purpose. Breakup emails get the highest reply rates because they remove pressure.
-- "Re:" on Email 2 threads it with Email 1. Remove if it doesn't match your brand.
+- Only Email 1 uses `{{custom_message}}`. Email 2 is static.
+- CTAs are always low-friction: "quick look," "15 minutes." Never "book a demo."
+- Email 2 combines proof point + genuine close/out. Treats the recipient like a professional.
+- "Re:" on Email 2 threads it with Email 1.
+- After the 2-email sequence completes, the contact enters a 45-day cooldown before the next wave (different angle).
 
 ---
 
-## After the Sequence
+## After the Sequence (45-Day Cycling)
 
 | Outcome | What happens |
 |---|---|
-| **Reply / meeting** | Syncs to HubSpot. Sales works it. Contact exits Smartlead. |
-| **No reply (exhausted)** | Contact marked `outreach_status: exhausted` in HubSpot. Becomes eligible for marketing nurture via Knock → SendGrid (webinar invites, product updates, newsletters). |
-| **Unsubscribe / bounce** | Smartlead handles suppression. Syncs to HubSpot to prevent re-enrollment. |
+| **Reply / meeting** | Syncs to HubSpot. Sales works it. `outreach_status: engaged`. Exits cold outreach permanently. |
+| **No reply (exhausted)** | `outreach_status: exhausted`. Gets marketing nurture (Knock → SendGrid). **Re-enters cold outreach after 45 days** with a different angle. |
+| **Unsubscribe / bounce** | Smartlead handles suppression. `outreach_status: unsubscribed`. Never re-enrolled. |
+
+### 45-Day Cycle Flow
+```
+Wave 1 (angle: encompass-integration)
+    → 2 emails over 4 days
+    → No reply? Mark exhausted, stamp wave date
+    → 45 days pass...
+Wave 2 (angle: pre-closing-voe)
+    → Same contacts, different pitch
+    → 2 emails over 4 days
+    → No reply? Mark exhausted, stamp wave date
+    → 45 days pass...
+Wave 3 (angle: processor-capacity)
+    → ...and so on
+```
+
+### Wave Management CLI
+```bash
+# See your TAM size and breakdown
+python -m outreach_intel.cli tam --verticals mortgage,fintech
+
+# Calculate wave schedule
+python -m outreach_intel.cli tam-waves --wave-size 2500 --cycle-days 45
+
+# Build next wave (creates HubSpot list + stamps contacts)
+python -m outreach_intel.cli wave-build --size 2500 --angle "encompass-integration"
+
+# Check cycling status
+python -m outreach_intel.cli wave-status
+```
 
 ---
 
@@ -197,3 +206,4 @@ Either way, appreciate your time.
 1. **Refine the example bank.** Replace weaker examples with openers that actually got replies. The example bank should evolve with real data.
 2. **Test models.** Start with GPT-4o mini. If quality isn't there, try Claude Sonnet or GPT-4o for the `custom_message` column (higher cost but better output).
 3. **Add signals.** LinkedIn posts are signal #1. Over time, add Clay enrichments for job changes, funding rounds, and hiring activity as additional inputs to the AI prompt.
+4. **Track angle performance.** Compare reply rates across angles to identify which pitches resonate with which personas. Retire weak angles, double down on winners.

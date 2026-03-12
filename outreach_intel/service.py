@@ -2,7 +2,7 @@
 from typing import Optional
 
 from outreach_intel.hubspot_client import HubSpotClient
-from outreach_intel.scorer import ContactScorer, ScoredContact
+from outreach_intel.scorer import ContactScorer, ScoredContact, FORM_PROPERTIES
 from outreach_intel.config import (
     get_exclusion_filters,
     DEFAULT_CONTACT_PROPERTIES,
@@ -64,7 +64,7 @@ class OutreachService:
         # Query HubSpot
         contacts = self.client.search_contacts(
             filters=filters,
-            properties=DEFAULT_CONTACT_PROPERTIES,
+            properties=DEFAULT_CONTACT_PROPERTIES + FORM_PROPERTIES,
             limit=limit,
         )
 
@@ -102,7 +102,7 @@ class OutreachService:
 
         contacts = self.client.search_contacts(
             filters=filters,
-            properties=DEFAULT_CONTACT_PROPERTIES,
+            properties=DEFAULT_CONTACT_PROPERTIES + FORM_PROPERTIES,
             limit=limit,
         )
 
@@ -130,7 +130,7 @@ class OutreachService:
 
         contacts = self.client.search_contacts(
             filters=filters,
-            properties=DEFAULT_CONTACT_PROPERTIES,
+            properties=DEFAULT_CONTACT_PROPERTIES + FORM_PROPERTIES,
             limit=limit,
         )
 
@@ -221,7 +221,7 @@ class OutreachService:
 
         contacts = self.client.search_contacts(
             filters=filters,
-            properties=DEFAULT_CONTACT_PROPERTIES,
+            properties=DEFAULT_CONTACT_PROPERTIES + FORM_PROPERTIES,
             limit=limit,
         )
 

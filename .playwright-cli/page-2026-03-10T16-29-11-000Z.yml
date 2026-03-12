@@ -1,0 +1,969 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - iframe [ref=e194]:
+      - banner [ref=f57e6]:
+        - generic [ref=f57e7]:
+          - heading "You’ve used all your monthly credits" [level=5] [ref=f57e8]
+          - generic [ref=f57e9]:
+            - generic [ref=f57e12]: Usage is paused until your credits reset on Mar 25, 2026 or you add more.
+            - link "Add credits" [ref=f57e13] [cursor=pointer]:
+              - /url: https://app.hubspot.com/api/notification-station/general/v1/notifications/cta/ad1945e2-7ce6-4b56-b932-753c0738e0c8?notificationPortalId=19933594
+              - generic [ref=f57e14]: Add credits
+        - button "Close" [ref=f57e15] [cursor=pointer]:
+          - img [ref=f57e18]
+    - banner [ref=e4]:
+      - link "HubSpot logo" [ref=e6] [cursor=pointer]:
+        - /url: /global-home/19933594
+        - img "HubSpot logo" [ref=e7]
+      - generic [ref=e9]:
+        - generic [ref=e14]:
+          - img
+          - searchbox "Search HubSpot" [ref=e15]
+          - generic:
+            - generic: ⌘
+            - generic: K
+        - button "Create new" [ref=e18] [cursor=pointer]:
+          - img [ref=e19]
+      - navigation "Global toolbar" [ref=e21]:
+        - menu [ref=e22]:
+          - menuitem "Calls" [ref=e23]:
+            - button "Calls" [ref=e24] [cursor=pointer]:
+              - img "Calling" [ref=e25]
+          - menuitem "Academy" [ref=e27]:
+            - button "Academy" [ref=e28] [cursor=pointer]:
+              - img "Academy" [ref=e29]
+          - menuitem "Marketplace" [ref=e33]:
+            - button "Marketplace" [ref=e34] [cursor=pointer]:
+              - img "Marketplace" [ref=e35]
+          - menuitem "Help" [ref=e37]:
+            - button "Help" [ref=e39] [cursor=pointer]:
+              - img "Help" [ref=e40]
+          - menuitem "Settings" [ref=e42]:
+            - link "Settings" [ref=e43] [cursor=pointer]:
+              - /url: /user-preferences/19933594?eschref=%2Fcontacts%2F19933594%2FobjectLists%2Fviews%2Fall
+              - img "Settings" [ref=e44]
+          - generic [ref=e46]:
+            - 'menuitem "Notifications: 4 unseen" [ref=e47]':
+              - 'button "Notifications: 4 unseen" [ref=e48] [cursor=pointer]':
+                - img [ref=e49]
+            - generic: "4"
+          - menuitem "Open Assistant" [ref=e52]:
+            - button "Open Assistant" [ref=e53] [cursor=pointer]:
+              - img "Open Assistant" [ref=e54]
+              - generic [ref=e57]: Assistant
+          - menuitem "View profile and more" [ref=e59]:
+            - button "View profile and more" [ref=e60] [cursor=pointer]:
+              - img "Cam Wolf" [ref=e61]
+              - generic [ref=e62]: Truv
+              - img [ref=e63]
+  - generic [ref=e66]:
+    - button "Scroll up":
+      - img
+    - generic [ref=e67]:
+      - navigation [ref=e69]:
+        - menu [ref=e70]:
+          - menuitem "Home" [ref=e71] [cursor=pointer]:
+            - img "Home" [ref=e72]
+          - menuitem "Bookmarks" [ref=e74] [cursor=pointer]:
+            - img "Bookmarks" [ref=e2659]
+          - menuitem "CRM" [ref=e77] [cursor=pointer]:
+            - img "CRM" [ref=e78]
+          - menuitem "Marketing" [ref=e80] [cursor=pointer]:
+            - img "Marketing" [ref=e81]
+          - menuitem "Content" [ref=e83] [cursor=pointer]:
+            - img "Content" [ref=e84]
+          - menuitem "Sales" [ref=e86] [cursor=pointer]:
+            - img "Sales" [ref=e87]
+          - menuitem "Commerce" [ref=e89] [cursor=pointer]:
+            - img "Commerce" [ref=e90]
+          - menuitem "Service" [ref=e93] [cursor=pointer]:
+            - img "Service" [ref=e94]
+          - menuitem "Data Management" [ref=e98] [cursor=pointer]:
+            - img "Data Management" [ref=e99]
+          - menuitem "Automation" [ref=e101] [cursor=pointer]:
+            - img "Automation" [ref=e102]
+          - menuitem "Reporting" [ref=e104] [cursor=pointer]:
+            - img "Reporting" [ref=e105]
+          - menuitem "Breeze" [ref=e107] [cursor=pointer]:
+            - img "Breeze" [ref=e108]
+          - menuitem "Development" [ref=e110] [cursor=pointer]:
+            - img "Development" [ref=e111]
+      - button [ref=e115] [cursor=pointer]:
+        - img [ref=e116]
+    - button "Scroll down" [ref=e119] [cursor=pointer]:
+      - img [ref=e120]
+  - generic:
+    - iframe
+  - generic [ref=e122]:
+    - generic [ref=e2661]:
+      - region "Page Section" [ref=e2662]:
+        - banner [ref=e2663]:
+          - heading "Segments 1,075 segments" [level=1] [ref=e2665]:
+            - generic [ref=e2666]:
+              - text: Segments
+              - generic [ref=e2667]: 1,075 segments
+          - generic [ref=e2670]:
+            - button "What's new?" [ref=e2671] [cursor=pointer]:
+              - generic [ref=e2673]:
+                - generic [ref=e2674]: What's new?
+                - img [ref=e2677]
+            - button "Admin settings" [ref=e2679] [cursor=pointer]:
+              - generic [ref=e2683]: Admin settings
+            - link "Import" [ref=e2685] [cursor=pointer]:
+              - /url: /import/19933594
+              - generic [ref=e2686]: Import
+            - button "Quick create" [ref=e2687] [cursor=pointer]:
+              - generic [ref=e2691]: Quick create
+            - link "Create segment" [ref=e2693] [cursor=pointer]:
+              - /url: /contacts/19933594/objectLists/create
+              - generic [ref=e2694]: Create segment
+        - alert [ref=e2696]:
+          - generic [ref=e2698]:
+            - heading "Dataset membership filter usage is paused" [level=5] [ref=e2699]:
+              - generic [ref=e2700]: Dataset membership filter usage is paused
+            - paragraph [ref=e2702]:
+              - generic [ref=e2703]: You've used all your credits. Dataset membership filter usage will be available when your credits reset on Mar 25, 2026. Need it sooner? Add credits.
+            - link "Add credits" [ref=e2706] [cursor=pointer]:
+              - /url: /pricing/19933594/hubspot-credits
+              - generic [ref=e2707]: Add credits
+          - button "Close" [ref=e2708] [cursor=pointer]:
+            - img [ref=e2711]
+        - navigation [ref=e2715]:
+          - button "Intro" [ref=e2716] [cursor=pointer]: Intro
+          - button "Manage" [ref=e2718] [cursor=pointer]: Manage
+          - button "Analyze" [ref=e2720] [cursor=pointer]: Analyze
+      - region "Page Section" [ref=e2724]:
+        - main [ref=e2727]:
+          - generic [ref=e2729]:
+            - generic [ref=e2730]:
+              - generic [ref=e2731]:
+                - tablist [ref=e2736]:
+                  - button "All segments" [ref=e2737]:
+                    - generic [ref=e2738]:
+                      - generic [ref=e2741]: All segments
+                      - button [ref=e2743] [cursor=pointer]:
+                        - img [ref=e2745]
+                  - button "Unused segments" [ref=e2747]:
+                    - generic [ref=e2751]: Unused segments
+                  - button "Recently deleted" [ref=e2752]:
+                    - generic [ref=e2756]: Recently deleted
+                - generic [ref=e2757]:
+                  - button "Add view (3/50)" [ref=e2758] [cursor=pointer]:
+                    - generic [ref=e2760]:
+                      - img [ref=e2761]
+                      - generic [ref=e2763]: Add view (3/50)
+                  - link "All views" [ref=e2764] [cursor=pointer]:
+                    - /url: /manage-views/19933594/all?namespace=OBJECT_LISTS&objectTypeId=0-45&returnLink=%2Fcontacts%2F19933594%2FobjectLists%2Fviews%2Fall%3Fcount%3D25&ownerId=82949240
+                    - generic [ref=e2765]: All views
+              - generic [ref=e2768] [cursor=pointer]:
+                - img [ref=e2769]
+                - generic [ref=e2771]: Folders
+            - group [ref=e2772]:
+              - generic [ref=e2773]:
+                - generic [ref=e2775]:
+                  - button "All creators" [ref=e2778] [cursor=pointer]:
+                    - generic [ref=e2781]: All creators
+                  - button "All types" [ref=e2785] [cursor=pointer]:
+                    - option "All types" [ref=e2789]:
+                      - generic [ref=e2791]: All types
+                  - button "All objects" [ref=e2795] [cursor=pointer]:
+                    - option "All objects" [ref=e2799]:
+                      - generic [ref=e2801]: All objects
+                  - generic [ref=e2805]:
+                    - button "Used in" [ref=e2811] [cursor=pointer]:
+                      - generic [ref=e2817]: Used in
+                    - generic [ref=e2819]:
+                      - button "More" [ref=e2822] [cursor=pointer]:
+                        - generic [ref=e2824]:
+                          - img [ref=e2825]
+                          - generic [ref=e2827]: More
+                      - button "Advanced filters" [ref=e2832] [cursor=pointer]:
+                        - generic [ref=e2833]:
+                          - img [ref=e2834]
+                          - generic [ref=e2836]: Advanced filters
+                - generic [ref=e2839]:
+                  - button [disabled] [ref=e2840]:
+                    - img [ref=e2842]
+                  - button [ref=e2844] [cursor=pointer]:
+                    - img [ref=e2846]
+                  - button [disabled] [ref=e2848]:
+                    - img [ref=e2850]
+            - generic [ref=e2857]:
+              - generic [ref=e2859]:
+                - generic [ref=e2864]:
+                  - searchbox "Search segments" [ref=e2865]
+                  - generic:
+                    - generic:
+                      - img
+                - button "Actions" [ref=e2868] [cursor=pointer]:
+                  - generic [ref=e2871]: Actions
+              - table [ref=e2878]:
+                - rowgroup [ref=e2879]:
+                  - row "Select all records." [ref=e2880]:
+                    - columnheader "Select all records." [ref=e2881]:
+                      - checkbox "Select all records." [ref=e2886]
+                    - columnheader [ref=e2892] [cursor=pointer]:
+                      - generic [ref=e2901]:
+                        - generic [ref=e2903]: Name
+                        - img [ref=e2906]
+                    - columnheader [ref=e2910] [cursor=pointer]:
+                      - generic [ref=e2923]: List Size
+                    - columnheader [ref=e2926] [cursor=pointer]:
+                      - generic [ref=e2935]:
+                        - generic [ref=e2937]: Type
+                        - img [ref=e2940]
+                    - columnheader [ref=e2944] [cursor=pointer]:
+                      - generic [ref=e2953]:
+                        - generic [ref=e2955]: Object
+                        - img [ref=e2958]
+                    - columnheader [ref=e2962] [cursor=pointer]:
+                      - generic [ref=e2971]:
+                        - generic [ref=e2976]: Last updated (CDT)
+                        - img [ref=e2979]
+                    - columnheader [disabled] [ref=e2983]:
+                      - generic [ref=e2992]:
+                        - generic [ref=e2994]: Creator
+                        - img [ref=e2997]
+                    - columnheader [ref=e3001] [cursor=pointer]:
+                      - generic [ref=e3010]:
+                        - generic [ref=e3012]: Folder
+                        - img [ref=e3015]
+                    - columnheader [ref=e3019] [cursor=pointer]:
+                      - generic [ref=e3028]:
+                        - generic [ref=e3032]: Used in (Count)
+                        - img [ref=e3035]
+                - rowgroup [ref=e3039]:
+                  - row "Select row Name List Size Type Object Last updated Creator Folder Used in (Count)" [ref=e3040]:
+                    - cell "Select row" [ref=e3041]:
+                      - checkbox "Select row" [ref=e3046]
+                    - cell "Name" [ref=e3052]:
+                      - generic [ref=e3053]:
+                        - link "Govt. Product Insider Outreach List" [ref=e3058] [cursor=pointer]:
+                          - /url: /contacts/19933594/objectLists/9232/filters
+                        - generic [ref=e3060]:
+                          - button "Edit" [disabled] [ref=e3061]:
+                            - generic [ref=e3063]: Edit
+                          - button "Details" [ref=e3064] [cursor=pointer]:
+                            - generic [ref=e3066]: Details
+                          - button "More" [ref=e3067] [cursor=pointer]:
+                            - generic [ref=e3071]: More
+                    - cell "List Size" [ref=e3073]:
+                      - link "2,098" [ref=e3074] [cursor=pointer]:
+                        - /url: /contacts/19933594/objects/0-1?filters=%255B%257B%2522operator%2522%253A%2522IN%2522%252C%2522property%2522%253A%2522hs_crm_search.ilsListIds%2522%252C%2522values%2522%253A%255B%25229232%2522%255D%257D%255D
+                    - cell "Type" [ref=e3075]: Static
+                    - cell "Object" [ref=e3077]: Contact
+                    - cell "Last updated" [ref=e3078]:
+                      - generic [ref=e3079]:
+                        - text: Mar 10, 2026 9:51 AM
+                        - generic [ref=e3081]: by Cam Wolf
+                    - cell "Creator" [ref=e3082]:
+                      - generic [ref=e3083]: Cam Wolf
+                    - cell "Folder" [ref=e3084]: "-"
+                    - cell "Used in (Count)" [ref=e3085]: "0"
+                  - row "Select row Name List Size Type Object Last updated Creator Folder Used in (Count)" [ref=e3086]:
+                    - cell "Select row" [ref=e3087]:
+                      - checkbox "Select row" [ref=e3092]
+                    - cell "Name" [ref=e3098]:
+                      - generic [ref=e3099]:
+                        - link "Tommy's Govt. Contacts" [ref=e3104] [cursor=pointer]:
+                          - /url: /contacts/19933594/objectLists/9231/filters
+                        - generic [ref=e3106]:
+                          - button "Edit" [disabled] [ref=e3107]:
+                            - generic [ref=e3109]: Edit
+                          - button "Details" [ref=e3110] [cursor=pointer]:
+                            - generic [ref=e3112]: Details
+                          - button "More" [ref=e3113] [cursor=pointer]:
+                            - generic [ref=e3117]: More
+                    - cell "List Size" [ref=e3119]:
+                      - link "1,457" [ref=e3120] [cursor=pointer]:
+                        - /url: /contacts/19933594/objects/0-1?filters=%255B%257B%2522operator%2522%253A%2522IN%2522%252C%2522property%2522%253A%2522hs_crm_search.ilsListIds%2522%252C%2522values%2522%253A%255B%25229231%2522%255D%257D%255D
+                    - cell "Type" [ref=e3121]: Static
+                    - cell "Object" [ref=e3123]: Contact
+                    - cell "Last updated" [ref=e3124]:
+                      - generic [ref=e3125]:
+                        - text: Mar 10, 2026 9:51 AM
+                        - generic [ref=e3127]: by Cam Wolf
+                    - cell "Creator" [ref=e3128]:
+                      - generic [ref=e3129]: Cam Wolf
+                    - cell "Folder" [ref=e3130]: "-"
+                    - cell "Used in (Count)" [ref=e3131]: "0"
+                  - row "Select row Name List Size Type Object Last updated Creator Folder Used in (Count)" [ref=e3132]:
+                    - cell "Select row" [ref=e3133]:
+                      - checkbox "Select row" [ref=e3138]
+                    - cell "Name" [ref=e3144]:
+                      - generic [ref=e3145]:
+                        - link "[Product Updates] All Recipients" [ref=e3150] [cursor=pointer]:
+                          - /url: /contacts/19933594/objectLists/9230/filters
+                        - generic [ref=e3152]:
+                          - button "Edit" [ref=e3153] [cursor=pointer]:
+                            - generic [ref=e3155]: Edit
+                          - button "Details" [ref=e3156] [cursor=pointer]:
+                            - generic [ref=e3158]: Details
+                          - button "More" [ref=e3159] [cursor=pointer]:
+                            - generic [ref=e3163]: More
+                    - cell "List Size" [ref=e3165]:
+                      - link "6,247" [ref=e3166] [cursor=pointer]:
+                        - /url: /contacts/19933594/objects/0-1?filters=%255B%257B%2522operator%2522%253A%2522IN%2522%252C%2522property%2522%253A%2522hs_crm_search.ilsListIds%2522%252C%2522values%2522%253A%255B%25229230%2522%255D%257D%255D
+                    - cell "Type" [ref=e3167]: Active
+                    - cell "Object" [ref=e3169]: Contact
+                    - cell "Last updated" [ref=e3170]:
+                      - generic [ref=e3171]:
+                        - text: Mar 9, 2026 2:09 PM
+                        - generic [ref=e3173]: by Cam Wolf
+                    - cell "Creator" [ref=e3174]:
+                      - generic [ref=e3175]: Cam Wolf
+                    - cell "Folder" [ref=e3176]: "-"
+                    - cell "Used in (Count)" [ref=e3177]: "0"
+                  - row "Select row Name List Size Type Object Last updated Creator Folder Used in (Count)" [ref=e3178]:
+                    - cell "Select row" [ref=e3179]:
+                      - checkbox "Select row" [ref=e3184]
+                    - cell "Name" [ref=e3190]:
+                      - generic [ref=e3191]:
+                        - 'link "Event Registrants: March Insider, Public Sector" [ref=e3196] [cursor=pointer]':
+                          - /url: /contacts/19933594/objectLists/9229/filters
+                        - generic [ref=e3198]:
+                          - button "Edit" [ref=e3199] [cursor=pointer]:
+                            - generic [ref=e3201]: Edit
+                          - button "Details" [ref=e3202] [cursor=pointer]:
+                            - generic [ref=e3204]: Details
+                          - button "More" [ref=e3205] [cursor=pointer]:
+                            - generic [ref=e3209]: More
+                    - cell "List Size" [ref=e3211]:
+                      - link "3" [ref=e3212] [cursor=pointer]:
+                        - /url: /contacts/19933594/objects/0-1?filters=%255B%257B%2522operator%2522%253A%2522IN%2522%252C%2522property%2522%253A%2522hs_crm_search.ilsListIds%2522%252C%2522values%2522%253A%255B%25229229%2522%255D%257D%255D
+                    - cell "Type" [ref=e3213]: Active
+                    - cell "Object" [ref=e3215]: Contact
+                    - cell "Last updated" [ref=e3216]:
+                      - generic [ref=e3217]:
+                        - text: Mar 6, 2026 4:47 PM
+                        - generic [ref=e3219]: by Cam Wolf
+                    - cell "Creator" [ref=e3220]:
+                      - generic [ref=e3221]: Cam Wolf
+                    - cell "Folder" [ref=e3222]: "-"
+                    - cell "Used in (Count)" [ref=e3223]: "0"
+                  - row "Select row Name List Size Type Object Last updated Creator Folder Used in (Count)" [ref=e3224]:
+                    - cell "Select row" [ref=e3225]:
+                      - checkbox "Select row" [ref=e3230]
+                    - cell "Name" [ref=e3236]:
+                      - generic [ref=e3237]:
+                        - link "FCM Webinar - Faux Cold - VPs/Ops" [ref=e3242] [cursor=pointer]:
+                          - /url: /contacts/19933594/objectLists/9228/filters
+                        - generic [ref=e3244]:
+                          - button "Edit" [disabled] [ref=e3245]:
+                            - generic [ref=e3247]: Edit
+                          - button "Details" [ref=e3248] [cursor=pointer]:
+                            - generic [ref=e3250]: Details
+                          - button "More" [ref=e3251] [cursor=pointer]:
+                            - generic [ref=e3255]: More
+                    - cell "List Size" [ref=e3257]:
+                      - link "161" [ref=e3258] [cursor=pointer]:
+                        - /url: /contacts/19933594/objects/0-1?filters=%255B%257B%2522operator%2522%253A%2522IN%2522%252C%2522property%2522%253A%2522hs_crm_search.ilsListIds%2522%252C%2522values%2522%253A%255B%25229228%2522%255D%257D%255D
+                    - cell "Type" [ref=e3259]: Static
+                    - cell "Object" [ref=e3261]: Contact
+                    - cell "Last updated" [ref=e3262]:
+                      - generic [ref=e3263]:
+                        - text: Mar 6, 2026 3:17 PM
+                        - generic [ref=e3265]: by Cam Wolf
+                    - cell "Creator" [ref=e3266]:
+                      - generic [ref=e3267]: Cam Wolf
+                    - cell "Folder" [ref=e3268]: "-"
+                    - cell "Used in (Count)" [ref=e3269]: "0"
+                  - row "Select row Name List Size Type Object Last updated Creator Folder Used in (Count)" [ref=e3270]:
+                    - cell "Select row" [ref=e3271]:
+                      - checkbox "Select row" [ref=e3276]
+                    - cell "Name" [ref=e3282]:
+                      - generic [ref=e3283]:
+                        - link "FCM Webinar - Faux Cold - CEOs" [ref=e3288] [cursor=pointer]:
+                          - /url: /contacts/19933594/objectLists/9227/filters
+                        - generic [ref=e3290]:
+                          - button "Edit" [disabled] [ref=e3291]:
+                            - generic [ref=e3293]: Edit
+                          - button "Details" [ref=e3294] [cursor=pointer]:
+                            - generic [ref=e3296]: Details
+                          - button "More" [ref=e3297] [cursor=pointer]:
+                            - generic [ref=e3301]: More
+                    - cell "List Size" [ref=e3303]:
+                      - link "139" [ref=e3304] [cursor=pointer]:
+                        - /url: /contacts/19933594/objects/0-1?filters=%255B%257B%2522operator%2522%253A%2522IN%2522%252C%2522property%2522%253A%2522hs_crm_search.ilsListIds%2522%252C%2522values%2522%253A%255B%25229227%2522%255D%257D%255D
+                    - cell "Type" [ref=e3305]: Static
+                    - cell "Object" [ref=e3307]: Contact
+                    - cell "Last updated" [ref=e3308]:
+                      - generic [ref=e3309]:
+                        - text: Mar 6, 2026 3:17 PM
+                        - generic [ref=e3311]: by Cam Wolf
+                    - cell "Creator" [ref=e3312]:
+                      - generic [ref=e3313]: Cam Wolf
+                    - cell "Folder" [ref=e3314]: "-"
+                    - cell "Used in (Count)" [ref=e3315]: "0"
+                  - row "Select row Name List Size Type Object Last updated Creator Folder Used in (Count)" [ref=e3316]:
+                    - cell "Select row" [ref=e3317]:
+                      - checkbox "Select row" [ref=e3322]
+                    - cell "Name" [ref=e3328]:
+                      - generic [ref=e3329]:
+                        - link "FCM Webinar - Faux Cold Follow-up (Test 300)" [ref=e3334] [cursor=pointer]:
+                          - /url: /contacts/19933594/objectLists/9226/filters
+                        - generic [ref=e3336]:
+                          - button "Edit" [disabled] [ref=e3337]:
+                            - generic [ref=e3339]: Edit
+                          - button "Details" [ref=e3340] [cursor=pointer]:
+                            - generic [ref=e3342]: Details
+                          - button "More" [ref=e3343] [cursor=pointer]:
+                            - generic [ref=e3347]: More
+                    - cell "List Size" [ref=e3349]:
+                      - link "300" [ref=e3350] [cursor=pointer]:
+                        - /url: /contacts/19933594/objects/0-1?filters=%255B%257B%2522operator%2522%253A%2522IN%2522%252C%2522property%2522%253A%2522hs_crm_search.ilsListIds%2522%252C%2522values%2522%253A%255B%25229226%2522%255D%257D%255D
+                    - cell "Type" [ref=e3351]: Static
+                    - cell "Object" [ref=e3353]: Contact
+                    - cell "Last updated" [ref=e3354]:
+                      - generic [ref=e3355]:
+                        - text: Mar 6, 2026 2:54 PM
+                        - generic [ref=e3357]: by Cam Wolf
+                    - cell "Creator" [ref=e3358]:
+                      - generic [ref=e3359]: Cam Wolf
+                    - cell "Folder" [ref=e3360]: "-"
+                    - cell "Used in (Count)" [ref=e3361]: "0"
+                  - row "Select row Name List Size Type Object Last updated Creator Folder Used in (Count)" [ref=e3362]:
+                    - cell "Select row" [ref=e3363]:
+                      - checkbox "Select row" [ref=e3368]
+                    - cell "Name" [ref=e3374]:
+                      - generic [ref=e3375]:
+                        - link "March Insider Registrants" [ref=e3380] [cursor=pointer]:
+                          - /url: /contacts/19933594/objectLists/9218/filters
+                        - generic [ref=e3382]:
+                          - button "Edit" [ref=e3383] [cursor=pointer]:
+                            - generic [ref=e3385]: Edit
+                          - button "Details" [ref=e3386] [cursor=pointer]:
+                            - generic [ref=e3388]: Details
+                          - button "More" [ref=e3389] [cursor=pointer]:
+                            - generic [ref=e3393]: More
+                    - cell "List Size" [ref=e3395]:
+                      - link "3" [ref=e3396] [cursor=pointer]:
+                        - /url: /contacts/19933594/objects/0-1?filters=%255B%257B%2522operator%2522%253A%2522IN%2522%252C%2522property%2522%253A%2522hs_crm_search.ilsListIds%2522%252C%2522values%2522%253A%255B%25229218%2522%255D%257D%255D
+                    - cell "Type" [ref=e3397]: Active
+                    - cell "Object" [ref=e3399]: Contact
+                    - cell "Last updated" [ref=e3400]:
+                      - generic [ref=e3401]:
+                        - text: Mar 5, 2026 3:23 PM
+                        - generic [ref=e3403]: by Cam Wolf
+                    - cell "Creator" [ref=e3404]:
+                      - generic [ref=e3405]: Cam Wolf
+                    - cell "Folder" [ref=e3406]: "-"
+                    - cell "Used in (Count)" [ref=e3407]: "0"
+                  - row "Select row Name List Size Type Object Last updated Creator Folder Used in (Count)" [ref=e3408]:
+                    - cell "Select row" [ref=e3409]:
+                      - checkbox "Select row" [ref=e3414]
+                    - cell "Name" [ref=e3420]:
+                      - generic [ref=e3421]:
+                        - link "Lending/Mortgage Personas - Engaged Last Year (March 2026)" [ref=e3426] [cursor=pointer]:
+                          - /url: /contacts/19933594/objectLists/9217/filters
+                        - generic [ref=e3428]:
+                          - button "Edit" [disabled] [ref=e3429]:
+                            - generic [ref=e3431]: Edit
+                          - button "Details" [ref=e3432] [cursor=pointer]:
+                            - generic [ref=e3434]: Details
+                          - button "More" [ref=e3435] [cursor=pointer]:
+                            - generic [ref=e3439]: More
+                    - cell "List Size" [ref=e3441]:
+                      - link "4,094" [ref=e3442] [cursor=pointer]:
+                        - /url: /contacts/19933594/objects/0-1?filters=%255B%257B%2522operator%2522%253A%2522IN%2522%252C%2522property%2522%253A%2522hs_crm_search.ilsListIds%2522%252C%2522values%2522%253A%255B%25229217%2522%255D%257D%255D
+                    - cell "Type" [ref=e3443]: Static
+                    - cell "Object" [ref=e3445]: Contact
+                    - cell "Last updated" [ref=e3446]:
+                      - generic [ref=e3447]:
+                        - text: Mar 5, 2026 9:28 AM
+                        - generic [ref=e3449]: by Cam Wolf
+                    - cell "Creator" [ref=e3450]:
+                      - generic [ref=e3451]: Cam Wolf
+                    - cell "Folder" [ref=e3452]: "-"
+                    - cell "Used in (Count)" [ref=e3453]: "0"
+                  - row "Select row Name List Size Type Object Last updated Creator Folder Used in (Count)" [ref=e3454]:
+                    - cell "Select row" [ref=e3455]:
+                      - checkbox "Select row" [ref=e3460]
+                    - cell "Name" [ref=e3466]:
+                      - generic [ref=e3467]:
+                        - link "[Workflows] - Thu Mar 05 2026 16:21:52 GMT+0300 - Service | Commited Gov Deals" [ref=e3472] [cursor=pointer]:
+                          - /url: /contacts/19933594/objectLists/9216/filters
+                        - generic [ref=e3474]:
+                          - button "Edit" [ref=e3475] [cursor=pointer]:
+                            - generic [ref=e3477]: Edit
+                          - button "Details" [ref=e3478] [cursor=pointer]:
+                            - generic [ref=e3480]: Details
+                          - button "More" [ref=e3481] [cursor=pointer]:
+                            - generic [ref=e3485]: More
+                    - cell "List Size" [ref=e3487]:
+                      - link "8" [ref=e3488] [cursor=pointer]:
+                        - /url: /contacts/19933594/objects/0-3?filters=%255B%257B%2522operator%2522%253A%2522IN%2522%252C%2522property%2522%253A%2522hs_crm_search.ilsListIds%2522%252C%2522values%2522%253A%255B%25229216%2522%255D%257D%255D
+                    - cell "Type" [ref=e3489]: Static
+                    - cell "Object" [ref=e3491]: Deal
+                    - cell "Last updated" [ref=e3492]:
+                      - generic [ref=e3493]:
+                        - text: Mar 5, 2026 7:21 AM
+                        - generic [ref=e3495]: by Integrations User - Admin
+                    - cell "Creator" [ref=e3496]:
+                      - generic [ref=e3497]: Integrations User - Admin
+                    - cell "Folder" [ref=e3498]: "-"
+                    - cell "Used in (Count)" [ref=e3499]: "0"
+                  - row "Select row Name List Size Type Object Last updated Creator Folder Used in (Count)" [ref=e3500]:
+                    - cell "Select row" [ref=e3501]:
+                      - checkbox "Select row" [ref=e3506]
+                    - cell "Name" [ref=e3512]:
+                      - generic [ref=e3513]:
+                        - link "CC March 2026 Webinar List" [ref=e3518] [cursor=pointer]:
+                          - /url: /contacts/19933594/objectLists/9213/filters
+                        - generic [ref=e3520]:
+                          - button "Edit" [disabled] [ref=e3521]:
+                            - generic [ref=e3523]: Edit
+                          - button "Details" [ref=e3524] [cursor=pointer]:
+                            - generic [ref=e3526]: Details
+                          - button "More" [ref=e3527] [cursor=pointer]:
+                            - generic [ref=e3531]: More
+                    - cell "List Size" [ref=e3533]:
+                      - link "641" [ref=e3534] [cursor=pointer]:
+                        - /url: /contacts/19933594/objects/0-1?filters=%255B%257B%2522operator%2522%253A%2522IN%2522%252C%2522property%2522%253A%2522hs_crm_search.ilsListIds%2522%252C%2522values%2522%253A%255B%25229213%2522%255D%257D%255D
+                    - cell "Type" [ref=e3535]: Static
+                    - cell "Object" [ref=e3537]: Contact
+                    - cell "Last updated" [ref=e3538]:
+                      - generic [ref=e3539]:
+                        - text: Mar 4, 2026 1:31 PM
+                        - generic [ref=e3541]: by Carlie Christensen
+                    - cell "Creator" [ref=e3542]:
+                      - generic [ref=e3543]: Carlie Christensen
+                    - cell "Folder" [ref=e3544]: "-"
+                    - cell "Used in (Count)" [ref=e3545]: "0"
+                  - row "Select row Name List Size Type Object Last updated Creator Folder Used in (Count)" [ref=e3546]:
+                    - cell "Select row" [ref=e3547]:
+                      - checkbox "Select row" [ref=e3552]
+                    - cell "Name" [ref=e3558]:
+                      - generic [ref=e3559]:
+                        - link "Mortgage Savings Webinar - Closed Lost Prospects" [ref=e3564] [cursor=pointer]:
+                          - /url: /contacts/19933594/objectLists/9212/filters
+                        - generic [ref=e3566]:
+                          - button "Edit" [disabled] [ref=e3567]:
+                            - generic [ref=e3569]: Edit
+                          - button "Details" [ref=e3570] [cursor=pointer]:
+                            - generic [ref=e3572]: Details
+                          - button "More" [ref=e3573] [cursor=pointer]:
+                            - generic [ref=e3577]: More
+                    - cell "List Size" [ref=e3579]:
+                      - link "495" [ref=e3580] [cursor=pointer]:
+                        - /url: /contacts/19933594/objects/0-1?filters=%255B%257B%2522operator%2522%253A%2522IN%2522%252C%2522property%2522%253A%2522hs_crm_search.ilsListIds%2522%252C%2522values%2522%253A%255B%25229212%2522%255D%257D%255D
+                    - cell "Type" [ref=e3581]: Static
+                    - cell "Object" [ref=e3583]: Contact
+                    - cell "Last updated" [ref=e3584]:
+                      - generic [ref=e3585]:
+                        - text: Mar 4, 2026 8:55 AM
+                        - generic [ref=e3587]: by Cam Wolf
+                    - cell "Creator" [ref=e3588]:
+                      - generic [ref=e3589]: Cam Wolf
+                    - cell "Folder" [ref=e3590]: "-"
+                    - cell "Used in (Count)" [ref=e3591]: "0"
+                  - row "Select row Name List Size Type Object Last updated Creator Folder Used in (Count)" [ref=e3592]:
+                    - cell "Select row" [ref=e3593]:
+                      - checkbox "Select row" [ref=e3598]
+                    - cell "Name" [ref=e3604]:
+                      - generic [ref=e3605]:
+                        - link "Paid Ads Inbound Contacts" [ref=e3610] [cursor=pointer]:
+                          - /url: /contacts/19933594/objectLists/9210/filters
+                        - generic [ref=e3612]:
+                          - button "Edit" [disabled] [ref=e3613]:
+                            - generic [ref=e3615]: Edit
+                          - button "Details" [ref=e3616] [cursor=pointer]:
+                            - generic [ref=e3618]: Details
+                          - button "More" [ref=e3619] [cursor=pointer]:
+                            - generic [ref=e3623]: More
+                    - cell "List Size" [ref=e3625]:
+                      - link "1" [ref=e3626] [cursor=pointer]:
+                        - /url: /contacts/19933594/objects/0-1?filters=%255B%257B%2522operator%2522%253A%2522IN%2522%252C%2522property%2522%253A%2522hs_crm_search.ilsListIds%2522%252C%2522values%2522%253A%255B%25229210%2522%255D%257D%255D
+                    - cell "Type" [ref=e3627]: Static
+                    - cell "Object" [ref=e3629]: Contact
+                    - cell "Last updated" [ref=e3630]:
+                      - generic [ref=e3631]:
+                        - text: Feb 27, 2026 12:36 PM
+                        - generic [ref=e3633]: by Cam Wolf
+                    - cell "Creator" [ref=e3634]:
+                      - generic [ref=e3635]: Cam Wolf
+                    - cell "Folder" [ref=e3636]: "-"
+                    - cell "Used in (Count)" [ref=e3637]:
+                      - button "1" [ref=e3638] [cursor=pointer]
+                  - row "Select row Name List Size Type Object Last updated Creator Folder Used in (Count)" [ref=e3639]:
+                    - cell "Select row" [ref=e3640]:
+                      - checkbox "Select row" [ref=e3645]
+                    - cell "Name" [ref=e3651]:
+                      - generic [ref=e3652]:
+                        - link "Re-engagement 2026-02-27" [ref=e3657] [cursor=pointer]:
+                          - /url: /contacts/19933594/objectLists/9204/filters
+                        - generic [ref=e3659]:
+                          - button "Edit" [disabled] [ref=e3660]:
+                            - generic [ref=e3662]: Edit
+                          - button "Details" [ref=e3663] [cursor=pointer]:
+                            - generic [ref=e3665]: Details
+                          - button "More" [ref=e3666] [cursor=pointer]:
+                            - generic [ref=e3670]: More
+                    - cell "List Size" [ref=e3672]:
+                      - link "100" [ref=e3673] [cursor=pointer]:
+                        - /url: /contacts/19933594/objects/0-1?filters=%255B%257B%2522operator%2522%253A%2522IN%2522%252C%2522property%2522%253A%2522hs_crm_search.ilsListIds%2522%252C%2522values%2522%253A%255B%25229204%2522%255D%257D%255D
+                    - cell "Type" [ref=e3674]: Static
+                    - cell "Object" [ref=e3676]: Contact
+                    - cell "Last updated" [ref=e3677]:
+                      - generic [ref=e3678]:
+                        - text: Feb 27, 2026 7:31 AM
+                        - generic [ref=e3680]: by Cam Wolf
+                    - cell "Creator" [ref=e3681]:
+                      - generic [ref=e3682]: Cam Wolf
+                    - cell "Folder" [ref=e3683]: "-"
+                    - cell "Used in (Count)" [ref=e3684]: "0"
+                  - row "Select row Name List Size Type Object Last updated Creator Folder Used in (Count)" [ref=e3685]:
+                    - cell "Select row" [ref=e3686]:
+                      - checkbox "Select row" [ref=e3691]
+                    - cell "Name" [ref=e3697]:
+                      - generic [ref=e3698]:
+                        - link "Campaign Launcher Demo - Lead Magnet (Feb 2026)" [ref=e3703] [cursor=pointer]:
+                          - /url: /contacts/19933594/objectLists/9203/filters
+                        - generic [ref=e3705]:
+                          - button "Edit" [disabled] [ref=e3706]:
+                            - generic [ref=e3708]: Edit
+                          - button "Details" [ref=e3709] [cursor=pointer]:
+                            - generic [ref=e3711]: Details
+                          - button "More" [ref=e3712] [cursor=pointer]:
+                            - generic [ref=e3716]: More
+                    - cell "List Size" [ref=e3718]:
+                      - link "93" [ref=e3719] [cursor=pointer]:
+                        - /url: /contacts/19933594/objects/0-1?filters=%255B%257B%2522operator%2522%253A%2522IN%2522%252C%2522property%2522%253A%2522hs_crm_search.ilsListIds%2522%252C%2522values%2522%253A%255B%25229203%2522%255D%257D%255D
+                    - cell "Type" [ref=e3720]: Static
+                    - cell "Object" [ref=e3722]: Contact
+                    - cell "Last updated" [ref=e3723]:
+                      - generic [ref=e3724]:
+                        - text: Feb 26, 2026 12:35 PM
+                        - generic [ref=e3726]: by Cam Wolf
+                    - cell "Creator" [ref=e3727]:
+                      - generic [ref=e3728]: Cam Wolf
+                    - cell "Folder" [ref=e3729]: "-"
+                    - cell "Used in (Count)" [ref=e3730]: "0"
+                  - row "Select row Name List Size Type Object Last updated Creator Folder Used in (Count)" [ref=e3731]:
+                    - cell "Select row" [ref=e3732]:
+                      - checkbox "Select row" [ref=e3737]
+                    - cell "Name" [ref=e3743]:
+                      - generic [ref=e3744]:
+                        - link "Email Engaged + Form Fills - No Deals, Non-Gov (Feb 2026) v2" [ref=e3749] [cursor=pointer]:
+                          - /url: /contacts/19933594/objectLists/9202/filters
+                        - generic [ref=e3751]:
+                          - button "Edit" [disabled] [ref=e3752]:
+                            - generic [ref=e3754]: Edit
+                          - button "Details" [ref=e3755] [cursor=pointer]:
+                            - generic [ref=e3757]: Details
+                          - button "More" [ref=e3758] [cursor=pointer]:
+                            - generic [ref=e3762]: More
+                    - cell "List Size" [ref=e3764]:
+                      - link "1,433" [ref=e3765] [cursor=pointer]:
+                        - /url: /contacts/19933594/objects/0-1?filters=%255B%257B%2522operator%2522%253A%2522IN%2522%252C%2522property%2522%253A%2522hs_crm_search.ilsListIds%2522%252C%2522values%2522%253A%255B%25229202%2522%255D%257D%255D
+                    - cell "Type" [ref=e3766]: Static
+                    - cell "Object" [ref=e3768]: Contact
+                    - cell "Last updated" [ref=e3769]:
+                      - generic [ref=e3770]:
+                        - text: Feb 26, 2026 11:31 AM
+                        - generic [ref=e3772]: by Cam Wolf
+                    - cell "Creator" [ref=e3773]:
+                      - generic [ref=e3774]: Cam Wolf
+                    - cell "Folder" [ref=e3775]: "-"
+                    - cell "Used in (Count)" [ref=e3776]: "0"
+                  - row "Select row Name List Size Type Object Last updated Creator Folder Used in (Count)" [ref=e3777]:
+                    - cell "Select row" [ref=e3778]:
+                      - checkbox "Select row" [ref=e3783]
+                    - cell "Name" [ref=e3789]:
+                      - generic [ref=e3790]:
+                        - link "FCM Webinar Form Fills" [ref=e3795] [cursor=pointer]:
+                          - /url: /contacts/19933594/objectLists/9199/filters
+                        - generic [ref=e3797]:
+                          - button "Edit" [ref=e3798] [cursor=pointer]:
+                            - generic [ref=e3800]: Edit
+                          - button "Details" [ref=e3801] [cursor=pointer]:
+                            - generic [ref=e3803]: Details
+                          - button "More" [ref=e3804] [cursor=pointer]:
+                            - generic [ref=e3808]: More
+                    - cell "List Size" [ref=e3810]:
+                      - link "46" [ref=e3811] [cursor=pointer]:
+                        - /url: /contacts/19933594/objects/0-1?filters=%255B%257B%2522operator%2522%253A%2522IN%2522%252C%2522property%2522%253A%2522hs_crm_search.ilsListIds%2522%252C%2522values%2522%253A%255B%25229199%2522%255D%257D%255D
+                    - cell "Type" [ref=e3812]: Active
+                    - cell "Object" [ref=e3814]: Contact
+                    - cell "Last updated" [ref=e3815]:
+                      - generic [ref=e3816]:
+                        - text: Feb 25, 2026 1:47 PM
+                        - generic [ref=e3818]: by Cam Wolf
+                    - cell "Creator" [ref=e3819]:
+                      - generic [ref=e3820]: Cam Wolf
+                    - cell "Folder" [ref=e3821]: "-"
+                    - cell "Used in (Count)" [ref=e3822]:
+                      - button "2" [ref=e3823] [cursor=pointer]
+                  - row "Select row Name List Size Type Object Last updated Creator Folder Used in (Count)" [ref=e3824]:
+                    - cell "Select row" [ref=e3825]:
+                      - checkbox "Select row" [ref=e3830]
+                    - cell "Name" [ref=e3836]:
+                      - generic [ref=e3837]:
+                        - link "Unnamed segment 2/24/2026 4:48:36 PM" [ref=e3842] [cursor=pointer]:
+                          - /url: /contacts/19933594/objectLists/9198/filters
+                        - generic [ref=e3844]:
+                          - button "Edit" [ref=e3845] [cursor=pointer]:
+                            - generic [ref=e3847]: Edit
+                          - button "Details" [ref=e3848] [cursor=pointer]:
+                            - generic [ref=e3850]: Details
+                          - button "More" [ref=e3851] [cursor=pointer]:
+                            - generic [ref=e3855]: More
+                    - cell "List Size" [ref=e3857]: "0"
+                    - cell "Type" [ref=e3858]: Active
+                    - cell "Object" [ref=e3860]: Contact
+                    - cell "Last updated" [ref=e3861]:
+                      - generic [ref=e3862]:
+                        - text: Feb 24, 2026 3:49 PM
+                        - generic [ref=e3864]: by Cam Wolf
+                    - cell "Creator" [ref=e3865]:
+                      - generic [ref=e3866]: Cam Wolf
+                    - cell "Folder" [ref=e3867]: "-"
+                    - cell "Used in (Count)" [ref=e3868]: "0"
+                  - row "Select row Name List Size Type Object Last updated Creator Folder Used in (Count)" [ref=e3869]:
+                    - cell "Select row" [ref=e3870]:
+                      - checkbox "Select row" [ref=e3875]
+                    - cell "Name" [ref=e3881]:
+                      - generic [ref=e3882]:
+                        - link "Re-engagement 2026-02-20" [ref=e3887] [cursor=pointer]:
+                          - /url: /contacts/19933594/objectLists/9187/filters
+                        - generic [ref=e3889]:
+                          - button "Edit" [disabled] [ref=e3890]:
+                            - generic [ref=e3892]: Edit
+                          - button "Details" [ref=e3893] [cursor=pointer]:
+                            - generic [ref=e3895]: Details
+                          - button "More" [ref=e3896] [cursor=pointer]:
+                            - generic [ref=e3900]: More
+                    - cell "List Size" [ref=e3902]:
+                      - link "100" [ref=e3903] [cursor=pointer]:
+                        - /url: /contacts/19933594/objects/0-1?filters=%255B%257B%2522operator%2522%253A%2522IN%2522%252C%2522property%2522%253A%2522hs_crm_search.ilsListIds%2522%252C%2522values%2522%253A%255B%25229187%2522%255D%257D%255D
+                    - cell "Type" [ref=e3904]: Static
+                    - cell "Object" [ref=e3906]: Contact
+                    - cell "Last updated" [ref=e3907]:
+                      - generic [ref=e3908]:
+                        - text: Feb 20, 2026 7:31 AM
+                        - generic [ref=e3910]: by Cam Wolf
+                    - cell "Creator" [ref=e3911]:
+                      - generic [ref=e3912]: Cam Wolf
+                    - cell "Folder" [ref=e3913]: "-"
+                    - cell "Used in (Count)" [ref=e3914]: "0"
+                  - row "Select row Name List Size Type Object Last updated Creator Folder Used in (Count)" [ref=e3915]:
+                    - cell "Select row" [ref=e3916]:
+                      - checkbox "Select row" [ref=e3921]
+                    - cell "Name" [ref=e3927]:
+                      - generic [ref=e3928]:
+                        - link "Companies - Carlie Christensen" [ref=e3933] [cursor=pointer]:
+                          - /url: /contacts/19933594/objectLists/9185/filters
+                        - generic [ref=e3935]:
+                          - button "Edit" [disabled] [ref=e3936]:
+                            - generic [ref=e3938]: Edit
+                          - button "Details" [ref=e3939] [cursor=pointer]:
+                            - generic [ref=e3941]: Details
+                          - button "More" [ref=e3942] [cursor=pointer]:
+                            - generic [ref=e3946]: More
+                    - cell "List Size" [ref=e3948]:
+                      - link "110" [ref=e3949] [cursor=pointer]:
+                        - /url: /contacts/19933594/objects/0-2?filters=%255B%257B%2522operator%2522%253A%2522IN%2522%252C%2522property%2522%253A%2522hs_crm_search.ilsListIds%2522%252C%2522values%2522%253A%255B%25229185%2522%255D%257D%255D
+                    - cell "Type" [ref=e3950]: Static
+                    - cell "Object" [ref=e3952]: Company
+                    - cell "Last updated" [ref=e3953]:
+                      - generic [ref=e3954]:
+                        - text: Feb 17, 2026 4:40 PM
+                        - generic [ref=e3956]: by Cam Wolf
+                    - cell "Creator" [ref=e3957]:
+                      - generic [ref=e3958]: Cam Wolf
+                    - cell "Folder" [ref=e3959]: "-"
+                    - cell "Used in (Count)" [ref=e3960]: "0"
+                  - row "Select row Name List Size Type Object Last updated Creator Folder Used in (Count)" [ref=e3961]:
+                    - cell "Select row" [ref=e3962]:
+                      - checkbox "Select row" [ref=e3967]
+                    - cell "Name" [ref=e3973]:
+                      - generic [ref=e3974]:
+                        - link "Companies - Tommy Jayne" [ref=e3979] [cursor=pointer]:
+                          - /url: /contacts/19933594/objectLists/9184/filters
+                        - generic [ref=e3981]:
+                          - button "Edit" [disabled] [ref=e3982]:
+                            - generic [ref=e3984]: Edit
+                          - button "Details" [ref=e3985] [cursor=pointer]:
+                            - generic [ref=e3987]: Details
+                          - button "More" [ref=e3988] [cursor=pointer]:
+                            - generic [ref=e3992]: More
+                    - cell "List Size" [ref=e3994]:
+                      - link "176" [ref=e3995] [cursor=pointer]:
+                        - /url: /contacts/19933594/objects/0-2?filters=%255B%257B%2522operator%2522%253A%2522IN%2522%252C%2522property%2522%253A%2522hs_crm_search.ilsListIds%2522%252C%2522values%2522%253A%255B%25229184%2522%255D%257D%255D
+                    - cell "Type" [ref=e3996]: Static
+                    - cell "Object" [ref=e3998]: Company
+                    - cell "Last updated" [ref=e3999]:
+                      - generic [ref=e4000]:
+                        - text: Feb 17, 2026 4:40 PM
+                        - generic [ref=e4002]: by Cam Wolf
+                    - cell "Creator" [ref=e4003]:
+                      - generic [ref=e4004]: Cam Wolf
+                    - cell "Folder" [ref=e4005]: "-"
+                    - cell "Used in (Count)" [ref=e4006]: "0"
+                  - row "Select row Name List Size Type Object Last updated Creator Folder Used in (Count)" [ref=e4007]:
+                    - cell "Select row" [ref=e4008]:
+                      - checkbox "Select row" [ref=e4013]
+                    - cell "Name" [ref=e4019]:
+                      - generic [ref=e4020]:
+                        - link "Meta/Youtube Audience - Clean Lending Only (Feb 2026)" [ref=e4025] [cursor=pointer]:
+                          - /url: /contacts/19933594/objectLists/9183/filters
+                        - generic [ref=e4027]:
+                          - button "Edit" [disabled] [ref=e4028]:
+                            - generic [ref=e4030]: Edit
+                          - button "Details" [ref=e4031] [cursor=pointer]:
+                            - generic [ref=e4033]: Details
+                          - button "More" [ref=e4034] [cursor=pointer]:
+                            - generic [ref=e4038]: More
+                    - cell "List Size" [ref=e4040]:
+                      - link "3,352" [ref=e4041] [cursor=pointer]:
+                        - /url: /contacts/19933594/objects/0-1?filters=%255B%257B%2522operator%2522%253A%2522IN%2522%252C%2522property%2522%253A%2522hs_crm_search.ilsListIds%2522%252C%2522values%2522%253A%255B%25229183%2522%255D%257D%255D
+                    - cell "Type" [ref=e4042]: Static
+                    - cell "Object" [ref=e4044]: Contact
+                    - cell "Last updated" [ref=e4045]:
+                      - generic [ref=e4046]:
+                        - text: Feb 17, 2026 1:13 PM
+                        - generic [ref=e4048]: by Cam Wolf
+                    - cell "Creator" [ref=e4049]:
+                      - generic [ref=e4050]: Cam Wolf
+                    - cell "Folder" [ref=e4051]: "-"
+                    - cell "Used in (Count)" [ref=e4052]: "0"
+                  - row "Select row Name List Size Type Object Last updated Creator Folder Used in (Count)" [ref=e4053]:
+                    - cell "Select row" [ref=e4054]:
+                      - checkbox "Select row" [ref=e4059]
+                    - cell "Name" [ref=e4065]:
+                      - generic [ref=e4066]:
+                        - link "Top 250 Mortgage Lenders - Ops VP+ (Linkedin)" [ref=e4071] [cursor=pointer]:
+                          - /url: /contacts/19933594/objectLists/9181/filters
+                        - generic [ref=e4073]:
+                          - button "Edit" [disabled] [ref=e4074]:
+                            - generic [ref=e4076]: Edit
+                          - button "Details" [ref=e4077] [cursor=pointer]:
+                            - generic [ref=e4079]: Details
+                          - button "More" [ref=e4080] [cursor=pointer]:
+                            - generic [ref=e4084]: More
+                    - cell "List Size" [ref=e4086]:
+                      - link "384" [ref=e4087] [cursor=pointer]:
+                        - /url: /contacts/19933594/objects/0-1?filters=%255B%257B%2522operator%2522%253A%2522IN%2522%252C%2522property%2522%253A%2522hs_crm_search.ilsListIds%2522%252C%2522values%2522%253A%255B%25229181%2522%255D%257D%255D
+                    - cell "Type" [ref=e4088]: Static
+                    - cell "Object" [ref=e4090]: Contact
+                    - cell "Last updated" [ref=e4091]:
+                      - generic [ref=e4092]:
+                        - text: Feb 17, 2026 10:01 AM
+                        - generic [ref=e4094]: by Cam Wolf
+                    - cell "Creator" [ref=e4095]:
+                      - generic [ref=e4096]: Cam Wolf
+                    - cell "Folder" [ref=e4097]: "-"
+                    - cell "Used in (Count)" [ref=e4098]: "0"
+                  - row "Select row Name List Size Type Object Last updated Creator Folder Used in (Count)" [ref=e4099]:
+                    - cell "Select row" [ref=e4100]:
+                      - checkbox "Select row" [ref=e4105]
+                    - cell "Name" [ref=e4111]:
+                      - generic [ref=e4112]:
+                        - link "HIT Summit 2026 Enriched (Static)" [ref=e4117] [cursor=pointer]:
+                          - /url: /contacts/19933594/objectLists/9179/filters
+                        - generic [ref=e4119]:
+                          - button "Edit" [disabled] [ref=e4120]:
+                            - generic [ref=e4122]: Edit
+                          - button "Details" [ref=e4123] [cursor=pointer]:
+                            - generic [ref=e4125]: Details
+                          - button "More" [ref=e4126] [cursor=pointer]:
+                            - generic [ref=e4130]: More
+                    - cell "List Size" [ref=e4132]:
+                      - link "187" [ref=e4133] [cursor=pointer]:
+                        - /url: /contacts/19933594/objects/0-1?filters=%255B%257B%2522operator%2522%253A%2522IN%2522%252C%2522property%2522%253A%2522hs_crm_search.ilsListIds%2522%252C%2522values%2522%253A%255B%25229179%2522%255D%257D%255D
+                    - cell "Type" [ref=e4134]: Static
+                    - cell "Object" [ref=e4136]: Contact
+                    - cell "Last updated" [ref=e4137]:
+                      - generic [ref=e4138]:
+                        - text: Feb 17, 2026 8:47 AM
+                        - generic [ref=e4140]: by Cam Wolf
+                    - cell "Creator" [ref=e4141]:
+                      - generic [ref=e4142]: Cam Wolf
+                    - cell "Folder" [ref=e4143]: "-"
+                    - cell "Used in (Count)" [ref=e4144]: "0"
+                  - row "Select row Name List Size Type Object Last updated Creator Folder Used in (Count)" [ref=e4145]:
+                    - cell "Select row" [ref=e4146]:
+                      - checkbox "Select row" [ref=e4151]
+                    - cell "Name" [ref=e4157]:
+                      - generic [ref=e4158]:
+                        - link "Customer Feedback POCs 12/1-2/28" [ref=e4163] [cursor=pointer]:
+                          - /url: /contacts/19933594/objectLists/9171/filters
+                        - generic [ref=e4165]:
+                          - button "Edit" [ref=e4166] [cursor=pointer]:
+                            - generic [ref=e4168]: Edit
+                          - button "Details" [ref=e4169] [cursor=pointer]:
+                            - generic [ref=e4171]: Details
+                          - button "More" [ref=e4172] [cursor=pointer]:
+                            - generic [ref=e4176]: More
+                    - cell "List Size" [ref=e4178]:
+                      - link "59" [ref=e4179] [cursor=pointer]:
+                        - /url: /contacts/19933594/objects/0-1?filters=%255B%257B%2522operator%2522%253A%2522IN%2522%252C%2522property%2522%253A%2522hs_crm_search.ilsListIds%2522%252C%2522values%2522%253A%255B%25229171%2522%255D%257D%255D
+                    - cell "Type" [ref=e4180]: Active
+                    - cell "Object" [ref=e4182]: Contact
+                    - cell "Last updated" [ref=e4183]:
+                      - generic [ref=e4184]:
+                        - text: Feb 10, 2026 11:10 AM
+                        - generic [ref=e4186]: by Integrations User - Admin
+                    - cell "Creator" [ref=e4187]:
+                      - generic [ref=e4188]: Integrations User - Admin
+                    - cell "Folder" [ref=e4189]: "-"
+                    - cell "Used in (Count)" [ref=e4190]:
+                      - button "1" [ref=e4191] [cursor=pointer]
+              - generic [ref=e4193]:
+                - navigation "Pagination" [ref=e4194]:
+                  - button "Previous page" [disabled] [ref=e4196]:
+                    - generic [ref=e4197]:
+                      - img [ref=e4198]
+                      - generic [ref=e4200]: Prev
+                  - generic [ref=e4201]:
+                    - button "You are currently on Page 1" [ref=e4202] [cursor=pointer]:
+                      - generic [ref=e4203]:
+                        - generic [ref=e4204]: You are currently on Page
+                        - text: "1"
+                    - button "Page 2" [ref=e4205] [cursor=pointer]:
+                      - generic [ref=e4206]:
+                        - generic [ref=e4207]: Page
+                        - text: "2"
+                    - button "Page 3" [ref=e4208] [cursor=pointer]:
+                      - generic [ref=e4209]:
+                        - generic [ref=e4210]: Page
+                        - text: "3"
+                    - button "Page 4" [ref=e4211] [cursor=pointer]:
+                      - generic [ref=e4212]:
+                        - generic [ref=e4213]: Page
+                        - text: "4"
+                    - button "Page 5" [ref=e4214] [cursor=pointer]:
+                      - generic [ref=e4215]:
+                        - generic [ref=e4216]: Page
+                        - text: "5"
+                    - button "Page 6" [ref=e4217] [cursor=pointer]:
+                      - generic [ref=e4218]:
+                        - generic [ref=e4219]: Page
+                        - text: "6"
+                    - button "Page 7" [ref=e4220] [cursor=pointer]:
+                      - generic [ref=e4221]:
+                        - generic [ref=e4222]: Page
+                        - text: "7"
+                    - button "Page 8" [ref=e4223] [cursor=pointer]:
+                      - generic [ref=e4224]:
+                        - generic [ref=e4225]: Page
+                        - text: "8"
+                    - button "Page 9" [ref=e4226] [cursor=pointer]:
+                      - generic [ref=e4227]:
+                        - generic [ref=e4228]: Page
+                        - text: "9"
+                    - button "Page 10" [ref=e4229] [cursor=pointer]:
+                      - generic [ref=e4230]:
+                        - generic [ref=e4231]: Page
+                        - text: "10"
+                    - button "Page 11" [ref=e4232] [cursor=pointer]:
+                      - generic [ref=e4233]:
+                        - generic [ref=e4234]: Page
+                        - text: "11"
+                  - button "Next page" [ref=e4236] [cursor=pointer]:
+                    - generic [ref=e4237]:
+                      - generic [ref=e4238]: Next
+                      - img [ref=e4239]
+                - button "25 per page" [ref=e4241] [cursor=pointer]:
+                  - generic [ref=e4244]: 25 per page
+    - complementary

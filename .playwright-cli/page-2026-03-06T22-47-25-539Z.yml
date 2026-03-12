@@ -1,0 +1,1120 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e4]:
+    - link "HubSpot logo" [ref=e6] [cursor=pointer]:
+      - /url: /global-home/19933594
+      - img "HubSpot logo" [ref=e7]
+    - generic [ref=e9]:
+      - generic [ref=e14]:
+        - img
+        - searchbox "Search HubSpot" [ref=e15]
+        - generic:
+          - generic: ⌘
+          - generic: K
+      - button "Create new" [ref=e18] [cursor=pointer]:
+        - img [ref=e19]
+    - navigation "Global toolbar" [ref=e21]:
+      - menu [ref=e22]:
+        - menuitem "Calls" [ref=e23]:
+          - button "Calls" [ref=e24] [cursor=pointer]:
+            - img "Calling" [ref=e25]
+        - menuitem "Academy" [ref=e27]:
+          - button "Academy" [ref=e28] [cursor=pointer]:
+            - img "Academy" [ref=e29]
+        - menuitem "Marketplace" [ref=e33]:
+          - button "Marketplace" [ref=e34] [cursor=pointer]:
+            - img "Marketplace" [ref=e35]
+        - menuitem "Help" [ref=e37]:
+          - button "Help" [ref=e39] [cursor=pointer]:
+            - img "Help" [ref=e40]
+        - menuitem "Settings" [ref=e42]:
+          - link "Settings" [ref=e43] [cursor=pointer]:
+            - /url: /user-preferences/19933594?eschref=%2Fcontacts%2F19933594%2Frecord%2F2-56342751%2F49512150380
+            - img "Settings" [ref=e44]
+        - generic [ref=e46]:
+          - 'menuitem "Notifications: 4 unseen" [ref=e47]':
+            - 'button "Notifications: 4 unseen" [ref=e48] [cursor=pointer]':
+              - img [ref=e49]
+          - generic: "4"
+        - menuitem "Open Assistant" [ref=e52]:
+          - button "Open Assistant" [ref=e53] [cursor=pointer]:
+            - img "Open Assistant" [ref=e54]
+            - generic [ref=e57]: Assistant
+        - menuitem "View profile and more" [ref=e59]:
+          - button "View profile and more" [ref=e60] [cursor=pointer]:
+            - img "Cam Wolf" [ref=e61]
+            - generic [ref=e62]: Truv
+            - img [ref=e63]
+  - generic [ref=e66]:
+    - button "Scroll up":
+      - img
+    - generic [ref=e67]:
+      - navigation [ref=e69]:
+        - menu [ref=e70]:
+          - menuitem "Home" [ref=e71] [cursor=pointer]:
+            - img "Home" [ref=e72]
+          - menuitem "Bookmarks" [ref=e74] [cursor=pointer]:
+            - img "Bookmarks" [ref=e75]
+          - menuitem "CRM" [ref=e77] [cursor=pointer]:
+            - img "CRM" [ref=e78]
+          - menuitem "Marketing" [ref=e80] [cursor=pointer]:
+            - img "Marketing" [ref=e81]
+          - menuitem "Content" [ref=e83] [cursor=pointer]:
+            - img "Content" [ref=e84]
+          - menuitem "Sales" [ref=e86] [cursor=pointer]:
+            - img "Sales" [ref=e87]
+          - menuitem "Commerce" [ref=e89] [cursor=pointer]:
+            - img "Commerce" [ref=e90]
+          - menuitem "Service" [ref=e93] [cursor=pointer]:
+            - img "Service" [ref=e94]
+          - menuitem "Data Management" [ref=e98] [cursor=pointer]:
+            - img "Data Management" [ref=e99]
+          - menuitem "Automation" [ref=e101] [cursor=pointer]:
+            - img "Automation" [ref=e102]
+          - menuitem "Reporting" [ref=e104] [cursor=pointer]:
+            - img "Reporting" [ref=e105]
+          - menuitem "Breeze" [ref=e107] [cursor=pointer]:
+            - img "Breeze" [ref=e108]
+          - menuitem "Development" [ref=e110] [cursor=pointer]:
+            - img "Development" [ref=e111]
+      - button [ref=e115] [cursor=pointer]:
+        - img [ref=e116]
+    - button "Scroll down" [ref=e119] [cursor=pointer]:
+      - img [ref=e120]
+  - generic [ref=e122]:
+    - generic [ref=e129]:
+      - complementary [ref=e132]:
+        - generic [ref=e136]:
+          - generic [ref=e147]:
+            - generic [ref=e148]:
+              - navigation [ref=e150]:
+                - link "Events" [ref=e151] [cursor=pointer]:
+                  - /url: https://app.hubspot.com/contacts/19933594/objects/2-56342751/restore
+                  - generic [ref=e152]:
+                    - img [ref=e154]
+                    - text: Events
+              - button "Actions" [ref=e157] [cursor=pointer]:
+                - generic [ref=e160]: Actions
+            - generic [ref=e162]:
+              - generic [ref=e163]:
+                - img [ref=e167]
+                - generic [ref=e170]:
+                  - heading "March Insider, Public Sector" [level=2] [ref=e171]:
+                    - generic [ref=e172]: March Insider, Public Sector
+                  - button "Edit" [ref=e174] [cursor=pointer]:
+                    - img [ref=e176]
+              - generic [ref=e178]:
+                - generic [ref=e179]:
+                  - paragraph [ref=e181]: "Event Type:"
+                  - generic [ref=e184]: Webinar
+                - generic [ref=e185]:
+                  - paragraph [ref=e187]: "Event Status:"
+                  - generic [ref=e190]: Upcoming
+              - list [ref=e192]:
+                - generic [ref=e195]:
+                  - button "Create a note" [ref=e196] [cursor=pointer]:
+                    - img [ref=e198]
+                  - generic [ref=e200]: Note
+                - generic [ref=e203]:
+                  - button "Create an email" [ref=e204] [cursor=pointer]:
+                    - img [ref=e206]
+                  - generic [ref=e208]: Email
+                - generic [ref=e212]:
+                  - button "Make a phone call" [ref=e213] [cursor=pointer]:
+                    - img [ref=e215]
+                  - generic [ref=e217]: Call
+                - generic [ref=e220]:
+                  - button "Create a task" [ref=e221] [cursor=pointer]:
+                    - img [ref=e223]
+                  - generic [ref=e225]: Task
+                - generic [ref=e228]:
+                  - button "Schedule a meeting" [ref=e229] [cursor=pointer]:
+                    - img [ref=e231]
+                  - generic [ref=e233]: Meeting
+                - generic [ref=e237]:
+                  - button "More activities, menu pop up" [ref=e238] [cursor=pointer]:
+                    - img [ref=e240]
+                  - generic [ref=e242]: More
+          - separator [ref=e243]
+          - generic [ref=e252]:
+            - generic [ref=e253]:
+              - button "About this Event" [expanded] [ref=e257] [cursor=pointer]:
+                - img [ref=e258]:
+                  - img [ref=e259]
+                - generic [ref=e263]: About this Event
+              - generic [ref=e268]:
+                - button "Actions" [ref=e269] [cursor=pointer]:
+                  - generic [ref=e273]: Actions
+                - link [ref=e275] [cursor=pointer]:
+                  - /url: https://app.hubspot.com/layout-editor/19933594/CRM_RECORD_LEFT/2-56342751/edit/HubspotProvided-CRM_RECORD_PAGE%3A%7C%3A2-56342751/card-builder/PROPERTIES_V3%2F2-56342751%2F0?eschref=%2Fcontacts%2F19933594%2Frecord%2F2-56342751%2F49512150380
+                  - img [ref=e276]
+            - list [ref=e283]:
+              - generic [ref=e286]:
+                - generic [ref=e292]: Cost Per Attendee
+                - button "Details" [ref=e296] [cursor=pointer]:
+                  - generic [ref=e298]: Details
+                - textbox "Cost Per Attendee" [ref=e299]:
+                  - /placeholder: "--"
+              - generic [ref=e302]:
+                - generic [ref=e308]: Event Budget
+                - button "Details" [ref=e312] [cursor=pointer]:
+                  - generic [ref=e314]: Details
+                - textbox "Event Budget" [ref=e315]:
+                  - /placeholder: "--"
+              - generic [ref=e318]:
+                - generic [ref=e324]: Event End Date
+                - button "Details" [ref=e328] [cursor=pointer]:
+                  - generic [ref=e330]: Details
+                - generic [ref=e331]:
+                  - textbox "Event End Date" [ref=e332]:
+                    - /placeholder: "--"
+                    - text: 03/18/2026
+                  - generic:
+                    - img
+              - generic [ref=e335]:
+                - generic [ref=e341]: Event Location
+                - button "Details" [ref=e345] [cursor=pointer]:
+                  - generic [ref=e347]: Details
+                - textbox "Event Location" [ref=e350]:
+                  - /placeholder: "--"
+              - generic [ref=e353]:
+                - generic [ref=e359]: Event Start Date
+                - button "Details" [ref=e363] [cursor=pointer]:
+                  - generic [ref=e365]: Details
+                - generic [ref=e366]:
+                  - textbox "Event Start Date" [ref=e367]:
+                    - /placeholder: "--"
+                    - text: 03/18/2026
+                  - generic:
+                    - img
+              - generic [ref=e370]:
+                - generic [ref=e376]: Event URL
+                - generic [ref=e378]:
+                  - link [ref=e379] [cursor=pointer]:
+                    - /url: https://truv.com/events/truv-product-insider-public-sector
+                    - img [ref=e380]
+                  - button "Details" [ref=e383] [cursor=pointer]:
+                    - generic [ref=e385]: Details
+                - textbox "Event URL" [ref=e388]:
+                  - /placeholder: "--"
+                  - text: https://truv.com/events/truv-product-insider-public-sector
+              - generic [ref=e391]:
+                - generic [ref=e397]: Event Vertical
+                - button "Details" [ref=e401] [cursor=pointer]:
+                  - generic [ref=e403]: Details
+                - button "Event Vertical --" [ref=e405] [cursor=pointer]:
+                  - option "--" [ref=e409]:
+                    - generic [ref=e411]: "--"
+              - generic [ref=e414]:
+                - generic [ref=e420]: Created by user ID
+                - button "Details" [ref=e424] [cursor=pointer]:
+                  - generic [ref=e426]: Details
+                - generic [ref=e427]:
+                  - img [ref=e430]
+                  - button "Created by user ID" [ref=e433]:
+                    - option [ref=e437]
+              - generic [ref=e443]:
+                - generic [ref=e449]: Owner
+                - button "Details" [ref=e453] [cursor=pointer]:
+                  - generic [ref=e455]: Details
+                - button "Owner" [ref=e457] [cursor=pointer]:
+                  - option [ref=e461]
+              - generic [ref=e467]:
+                - generic [ref=e473]: Linear Project URL
+                - button "Details" [ref=e477] [cursor=pointer]:
+                  - generic [ref=e479]: Details
+                - textbox "Linear Project URL" [ref=e482]:
+                  - /placeholder: "--"
+              - generic [ref=e485]:
+                - generic [ref=e491]: Promotion Start Date
+                - button "Details" [ref=e495] [cursor=pointer]:
+                  - generic [ref=e497]: Details
+                - generic [ref=e498]:
+                  - textbox "Promotion Start Date" [ref=e499]:
+                    - /placeholder: "--"
+                  - generic:
+                    - img
+              - generic [ref=e502]:
+                - generic [ref=e508]: Registration Deadline
+                - button "Details" [ref=e512] [cursor=pointer]:
+                  - generic [ref=e514]: Details
+                - generic [ref=e515]:
+                  - textbox "Registration Deadline" [ref=e516]:
+                    - /placeholder: "--"
+                  - generic:
+                    - img
+              - generic [ref=e519]:
+                - generic [ref=e525]: Target Attendees
+                - button "Details" [ref=e529] [cursor=pointer]:
+                  - generic [ref=e531]: Details
+                - textbox "Target Attendees" [ref=e532]:
+                  - /placeholder: "--"
+              - generic [ref=e535]:
+                - generic [ref=e541]: Target Registrants
+                - button "Details" [ref=e545] [cursor=pointer]:
+                  - generic [ref=e547]: Details
+                - textbox "Target Registrants" [ref=e548]:
+                  - /placeholder: "--"
+              - generic [ref=e551]:
+                - generic [ref=e557]: Event Name
+                - button "Details" [ref=e561] [cursor=pointer]:
+                  - generic [ref=e563]: Details
+                - textbox "Event Name" [ref=e566]:
+                  - /placeholder: "--"
+                  - text: March Insider, Public Sector
+              - generic [ref=e569]:
+                - generic [ref=e575]: Event Status
+                - button "Details" [ref=e579] [cursor=pointer]:
+                  - generic [ref=e581]: Details
+                - button "Event Status Upcoming" [ref=e583] [cursor=pointer]:
+                  - option "Upcoming" [ref=e587]:
+                    - generic [ref=e589]: Upcoming
+              - generic [ref=e592]:
+                - generic [ref=e598]: Event Type
+                - button "Details" [ref=e602] [cursor=pointer]:
+                  - generic [ref=e604]: Details
+                - button "Event Type Webinar" [ref=e606] [cursor=pointer]:
+                  - option "Webinar" [ref=e610]:
+                    - generic [ref=e612]: Webinar
+              - generic [ref=e615]:
+                - generic [ref=e621]: UTM Campaign
+                - button "Details" [ref=e625] [cursor=pointer]:
+                  - generic [ref=e627]: Details
+                - textbox "UTM Campaign" [ref=e630]:
+                  - /placeholder: "--"
+                  - text: insider-gov-webinar
+              - generic [ref=e633]:
+                - generic [ref=e639]: List ID
+                - button "Details" [ref=e643] [cursor=pointer]:
+                  - generic [ref=e645]: Details
+                - textbox "List ID" [ref=e648]:
+                  - /placeholder: "--"
+      - generic [ref=e653]:
+        - generic [ref=e655]:
+          - navigation [ref=e659]:
+            - button "Overview" [ref=e660] [cursor=pointer]
+            - button "Activities" [ref=e661] [cursor=pointer]
+          - link "Customize" [ref=e662] [cursor=pointer]:
+            - /url: https://app.hubspot.com/sales-products-settings/19933594/object/2-56342751/record-customization?eschref=%2Fcontacts%2F19933594%2Frecord%2F2-56342751%2F49512150380
+            - img [ref=e663]
+            - generic [ref=e665]: Customize
+        - generic [ref=e670]:
+          - generic [ref=e672]:
+            - generic [ref=e674]:
+              - heading "Key Dates" [level=5] [ref=e675]:
+                - generic [ref=e678]: Key Dates
+              - link [ref=e683] [cursor=pointer]:
+                - /url: https://app.hubspot.com/layout-editor/19933594/CRM_RECORD_MIDDLE/2-56342751/edit/HubspotProvided-CRM_RECORD_PAGE%3A%7C%3A2-56342751/card-builder/DATA_HIGHLIGHTS%2F2-56342751%2F0?eschref=%2Fcontacts%2F19933594%2Frecord%2F2-56342751%2F49512150380
+                - img [ref=e684]
+            - list [ref=e688]:
+              - listitem [ref=e689]:
+                - generic [ref=e690]:
+                  - paragraph [ref=e691]: Event Start Date
+                  - paragraph [ref=e692]:
+                    - generic [ref=e695]: 03/18/2026
+              - listitem [ref=e696]:
+                - generic [ref=e697]:
+                  - paragraph [ref=e698]: Event End Date
+                  - paragraph [ref=e699]:
+                    - generic [ref=e702]: 03/18/2026
+              - listitem [ref=e703]:
+                - generic [ref=e704]:
+                  - paragraph [ref=e705]: Registration Deadline
+                  - paragraph [ref=e706]:
+                    - generic [ref=e709]: "--"
+              - listitem [ref=e710]:
+                - generic [ref=e711]:
+                  - paragraph [ref=e712]: Promotion Start Date
+                  - paragraph [ref=e713]:
+                    - generic [ref=e716]: "--"
+          - generic [ref=e718]:
+            - generic [ref=e720]:
+              - heading "Goals & Performance" [level=5] [ref=e721]:
+                - generic [ref=e724]: Goals & Performance
+              - link [ref=e729] [cursor=pointer]:
+                - /url: https://app.hubspot.com/layout-editor/19933594/CRM_RECORD_MIDDLE/2-56342751/edit/HubspotProvided-CRM_RECORD_PAGE%3A%7C%3A2-56342751/card-builder/252276881?eschref=%2Fcontacts%2F19933594%2Frecord%2F2-56342751%2F49512150380
+                - img [ref=e730]
+            - list [ref=e734]:
+              - listitem [ref=e735]:
+                - generic [ref=e736]:
+                  - paragraph [ref=e737]: Target Registrants
+                  - paragraph [ref=e738]:
+                    - generic [ref=e741]: "--"
+              - listitem [ref=e742]:
+                - generic [ref=e743]:
+                  - paragraph [ref=e744]: Target Attendees
+                  - paragraph [ref=e745]:
+                    - generic [ref=e748]: "--"
+              - listitem [ref=e749]:
+                - generic [ref=e750]:
+                  - paragraph [ref=e751]: Event Budget
+                  - paragraph [ref=e752]:
+                    - generic [ref=e755]: "--"
+              - listitem [ref=e756]:
+                - generic [ref=e757]:
+                  - paragraph [ref=e758]: Cost Per Attendee
+                  - paragraph [ref=e759]:
+                    - generic [ref=e762]: "--"
+          - generic [ref=e764]:
+            - heading "Recent activities" [level=5] [ref=e767]:
+              - generic [ref=e770]: Recent activities
+            - generic [ref=e775]:
+              - generic [ref=e776]:
+                - button "Collapse all" [ref=e780] [cursor=pointer]:
+                  - option "Collapse all" [ref=e784]:
+                    - generic [ref=e786]: Collapse all
+                - generic [ref=e790]:
+                  - generic [ref=e792]:
+                    - search "Search activities" [ref=e793]
+                    - generic:
+                      - generic:
+                        - img
+                  - button "More activities, menu pop up" [ref=e797] [cursor=pointer]:
+                    - generic [ref=e801]: Add activities
+                - generic [ref=e804]:
+                  - heading "Activity Display Settings" [level=3] [ref=e806]
+                  - generic [ref=e807]:
+                    - button "All time so far" [ref=e810] [cursor=pointer]:
+                      - generic [ref=e813]: All time so far
+                    - generic [ref=e815]:
+                      - generic "Filter by Activity Type" [ref=e816]:
+                        - generic [ref=e819]: Filter by Activity Type
+                        - button "Filter by Activity Type" [ref=e820] [cursor=pointer]:
+                          - generic [ref=e823]: Activity (5/9)
+                      - button [ref=e825] [cursor=pointer]:
+                        - img [ref=e827]
+              - list "Activities" [ref=e829]:
+                - generic [ref=e830]:
+                  - generic [ref=e831]:
+                    - paragraph [ref=e833]: March 2026
+                    - generic [ref=e835]:
+                      - img [ref=e837]
+                      - article [ref=e841]:
+                        - button "Task assigned to via Pipedream Overdue:Mar 3, 2026 at 6:00 PM CST Task content preview" [ref=e843] [cursor=pointer]:
+                          - img [ref=e846]
+                          - generic [ref=e848]:
+                            - generic [ref=e849]:
+                              - heading "Task assigned to via Pipedream" [level=4] [ref=e850]:
+                                - generic [ref=e856]:
+                                  - strong [ref=e857]: Task
+                                  - text: assigned to
+                                  - generic [ref=e861]: via Pipedream
+                              - generic [ref=e863]:
+                                - button [ref=e864]:
+                                  - img [ref=e867]
+                                - generic [ref=e873]:
+                                  - generic [ref=e874]: "Overdue:"
+                                  - time [ref=e875]: Mar 3, 2026 at 6:00 PM CST
+                            - generic [ref=e876]:
+                              - separator [ref=e877]
+                              - generic [ref=e878]:
+                                - generic [ref=e881]: Task content preview
+                                - generic "Task content preview" [ref=e882]
+                    - generic [ref=e889]:
+                      - img [ref=e891]
+                      - article [ref=e895]:
+                        - button "Task Overdue:Mar 3, 2026 at 6:00 PM CST Task content preview" [ref=e897] [cursor=pointer]:
+                          - img [ref=e900]
+                          - generic [ref=e902]:
+                            - generic [ref=e903]:
+                              - heading "Task" [level=4] [ref=e904]:
+                                - strong [ref=e911]: Task
+                              - generic [ref=e913]:
+                                - button [ref=e914]:
+                                  - img [ref=e917]
+                                - generic [ref=e923]:
+                                  - generic [ref=e924]: "Overdue:"
+                                  - time [ref=e925]: Mar 3, 2026 at 6:00 PM CST
+                            - generic [ref=e926]:
+                              - separator [ref=e927]
+                              - generic [ref=e928]:
+                                - generic [ref=e931]: Task content preview
+                                - generic "Task content preview" [ref=e932]
+                    - generic [ref=e939]:
+                      - img [ref=e941]
+                      - article [ref=e945]:
+                        - button "Task Overdue:Mar 3, 2026 at 6:00 PM CST Task content preview" [ref=e947] [cursor=pointer]:
+                          - img [ref=e950]
+                          - generic [ref=e952]:
+                            - generic [ref=e953]:
+                              - heading "Task" [level=4] [ref=e954]:
+                                - strong [ref=e961]: Task
+                              - generic [ref=e963]:
+                                - button [ref=e964]:
+                                  - img [ref=e967]
+                                - generic [ref=e973]:
+                                  - generic [ref=e974]: "Overdue:"
+                                  - time [ref=e975]: Mar 3, 2026 at 6:00 PM CST
+                            - generic [ref=e976]:
+                              - separator [ref=e977]
+                              - generic [ref=e978]:
+                                - generic [ref=e981]: Task content preview
+                                - generic "Task content preview" [ref=e982]
+                    - generic [ref=e989]:
+                      - img [ref=e991]
+                      - article [ref=e995]:
+                        - button "Task assigned to Overdue:Mar 3, 2026 at 6:00 PM CST Task content preview" [ref=e997] [cursor=pointer]:
+                          - img [ref=e1000]
+                          - generic [ref=e1002]:
+                            - generic [ref=e1003]:
+                              - heading "Task assigned to" [level=4] [ref=e1004]:
+                                - generic [ref=e1010]:
+                                  - strong [ref=e1011]: Task
+                                  - text: assigned to
+                              - generic [ref=e1016]:
+                                - button [ref=e1017]:
+                                  - img [ref=e1020]
+                                - generic [ref=e1026]:
+                                  - generic [ref=e1027]: "Overdue:"
+                                  - time [ref=e1028]: Mar 3, 2026 at 6:00 PM CST
+                            - generic [ref=e1029]:
+                              - separator [ref=e1030]
+                              - generic [ref=e1031]:
+                                - generic [ref=e1034]: Task content preview
+                                - generic "Task content preview" [ref=e1035]
+                    - generic [ref=e1042]:
+                      - img [ref=e1044]
+                      - article [ref=e1048]:
+                        - button "Task created via Pipedream Overdue:Mar 3, 2026 at 6:00 PM CST Task content preview" [ref=e1050] [cursor=pointer]:
+                          - img [ref=e1053]
+                          - generic [ref=e1055]:
+                            - generic [ref=e1056]:
+                              - heading "Task created via Pipedream" [level=4] [ref=e1057]:
+                                - generic [ref=e1063]:
+                                  - strong [ref=e1064]: Task
+                                  - generic [ref=e1065]: created via Pipedream
+                              - generic [ref=e1067]:
+                                - button [ref=e1068]:
+                                  - img [ref=e1071]
+                                - generic [ref=e1077]:
+                                  - generic [ref=e1078]: "Overdue:"
+                                  - time [ref=e1079]: Mar 3, 2026 at 6:00 PM CST
+                            - generic [ref=e1080]:
+                              - separator [ref=e1081]
+                              - generic [ref=e1082]:
+                                - generic [ref=e1085]: Task content preview
+                                - generic "Task content preview" [ref=e1086]
+                    - generic [ref=e1093]:
+                      - generic [ref=e1094]:
+                        - img [ref=e1095]
+                        - img [ref=e1100]
+                      - article [ref=e1103]:
+                        - button "Task assigned to via Pipedream Overdue:Mar 3, 2026 at 6:00 PM CST Task content preview" [ref=e1105] [cursor=pointer]:
+                          - img [ref=e1108]
+                          - generic [ref=e1110]:
+                            - generic [ref=e1111]:
+                              - heading "Task assigned to via Pipedream" [level=4] [ref=e1112]:
+                                - generic [ref=e1118]:
+                                  - strong [ref=e1119]: Task
+                                  - text: assigned to
+                                  - generic [ref=e1123]: via Pipedream
+                              - generic [ref=e1125]:
+                                - button [ref=e1126]:
+                                  - img [ref=e1129]
+                                - generic [ref=e1135]:
+                                  - generic [ref=e1136]: "Overdue:"
+                                  - time [ref=e1137]: Mar 3, 2026 at 6:00 PM CST
+                            - generic [ref=e1138]:
+                              - separator [ref=e1139]
+                              - generic [ref=e1140]:
+                                - generic [ref=e1143]: Task content preview
+                                - generic "Task content preview" [ref=e1144]
+                    - paragraph [ref=e1151]: February 2026
+                    - generic [ref=e1153]:
+                      - img [ref=e1155]
+                      - article [ref=e1159]:
+                        - button "Task assigned to Overdue:Feb 24, 2026 at 6:00 PM CST Task content preview" [ref=e1161] [cursor=pointer]:
+                          - img [ref=e1164]
+                          - generic [ref=e1166]:
+                            - generic [ref=e1167]:
+                              - heading "Task assigned to" [level=4] [ref=e1168]:
+                                - generic [ref=e1174]:
+                                  - strong [ref=e1175]: Task
+                                  - text: assigned to
+                              - generic [ref=e1180]:
+                                - button [ref=e1181]:
+                                  - img [ref=e1184]
+                                - generic [ref=e1190]:
+                                  - generic [ref=e1191]: "Overdue:"
+                                  - time [ref=e1192]: Feb 24, 2026 at 6:00 PM CST
+                            - generic [ref=e1193]:
+                              - separator [ref=e1194]
+                              - generic [ref=e1195]:
+                                - generic [ref=e1198]: Task content preview
+                                - generic "Task content preview" [ref=e1199]
+                    - generic [ref=e1206]:
+                      - img [ref=e1208]
+                      - article [ref=e1212]:
+                        - button "Task assigned to Overdue:Feb 24, 2026 at 6:00 PM CST Task content preview" [ref=e1214] [cursor=pointer]:
+                          - img [ref=e1217]
+                          - generic [ref=e1219]:
+                            - generic [ref=e1220]:
+                              - heading "Task assigned to" [level=4] [ref=e1221]:
+                                - generic [ref=e1227]:
+                                  - strong [ref=e1228]: Task
+                                  - text: assigned to
+                              - generic [ref=e1233]:
+                                - button [ref=e1234]:
+                                  - img [ref=e1237]
+                                - generic [ref=e1243]:
+                                  - generic [ref=e1244]: "Overdue:"
+                                  - time [ref=e1245]: Feb 24, 2026 at 6:00 PM CST
+                            - generic [ref=e1246]:
+                              - separator [ref=e1247]
+                              - generic [ref=e1248]:
+                                - generic [ref=e1251]: Task content preview
+                                - generic "Task content preview" [ref=e1252]
+                    - generic [ref=e1259]:
+                      - img [ref=e1261]
+                      - article [ref=e1265]:
+                        - button "Task assigned to via Pipedream Overdue:Feb 24, 2026 at 6:00 PM CST Task content preview" [ref=e1267] [cursor=pointer]:
+                          - img [ref=e1270]
+                          - generic [ref=e1272]:
+                            - generic [ref=e1273]:
+                              - heading "Task assigned to via Pipedream" [level=4] [ref=e1274]:
+                                - generic [ref=e1280]:
+                                  - strong [ref=e1281]: Task
+                                  - text: assigned to
+                                  - generic [ref=e1285]: via Pipedream
+                              - generic [ref=e1287]:
+                                - button [ref=e1288]:
+                                  - img [ref=e1291]
+                                - generic [ref=e1297]:
+                                  - generic [ref=e1298]: "Overdue:"
+                                  - time [ref=e1299]: Feb 24, 2026 at 6:00 PM CST
+                            - generic [ref=e1300]:
+                              - separator [ref=e1301]
+                              - generic [ref=e1302]:
+                                - generic [ref=e1305]: Task content preview
+                                - generic "Task content preview" [ref=e1306]
+                    - generic [ref=e1313]:
+                      - img [ref=e1315]
+                      - article [ref=e1319]:
+                        - button "Task assigned to via Pipedream Overdue:Feb 24, 2026 at 6:00 PM CST Task content preview" [ref=e1321] [cursor=pointer]:
+                          - img [ref=e1324]
+                          - generic [ref=e1326]:
+                            - generic [ref=e1327]:
+                              - heading "Task assigned to via Pipedream" [level=4] [ref=e1328]:
+                                - generic [ref=e1334]:
+                                  - strong [ref=e1335]: Task
+                                  - text: assigned to
+                                  - generic [ref=e1339]: via Pipedream
+                              - generic [ref=e1341]:
+                                - button [ref=e1342]:
+                                  - img [ref=e1345]
+                                - generic [ref=e1351]:
+                                  - generic [ref=e1352]: "Overdue:"
+                                  - time [ref=e1353]: Feb 24, 2026 at 6:00 PM CST
+                            - generic [ref=e1354]:
+                              - separator [ref=e1355]
+                              - generic [ref=e1356]:
+                                - generic [ref=e1359]: Task content preview
+                                - generic "Task content preview" [ref=e1360]
+                    - generic [ref=e1367]:
+                      - img [ref=e1369]
+                      - article [ref=e1373]:
+                        - button "Task assigned to via Pipedream Overdue:Feb 24, 2026 at 6:00 PM CST Task content preview" [ref=e1375] [cursor=pointer]:
+                          - img [ref=e1378]
+                          - generic [ref=e1380]:
+                            - generic [ref=e1381]:
+                              - heading "Task assigned to via Pipedream" [level=4] [ref=e1382]:
+                                - generic [ref=e1388]:
+                                  - strong [ref=e1389]: Task
+                                  - text: assigned to
+                                  - generic [ref=e1393]: via Pipedream
+                              - generic [ref=e1395]:
+                                - button [ref=e1396]:
+                                  - img [ref=e1399]
+                                - generic [ref=e1405]:
+                                  - generic [ref=e1406]: "Overdue:"
+                                  - time [ref=e1407]: Feb 24, 2026 at 6:00 PM CST
+                            - generic [ref=e1408]:
+                              - separator [ref=e1409]
+                              - generic [ref=e1410]:
+                                - generic [ref=e1413]: Task content preview
+                                - generic "Task content preview" [ref=e1414]
+                    - generic [ref=e1421]:
+                      - img [ref=e1423]
+                      - article [ref=e1427]:
+                        - button "Task assigned to via Pipedream Overdue:Feb 24, 2026 at 6:00 PM CST Task content preview" [ref=e1429] [cursor=pointer]:
+                          - img [ref=e1432]
+                          - generic [ref=e1434]:
+                            - generic [ref=e1435]:
+                              - heading "Task assigned to via Pipedream" [level=4] [ref=e1436]:
+                                - generic [ref=e1442]:
+                                  - strong [ref=e1443]: Task
+                                  - text: assigned to
+                                  - generic [ref=e1447]: via Pipedream
+                              - generic [ref=e1449]:
+                                - button [ref=e1450]:
+                                  - img [ref=e1453]
+                                - generic [ref=e1459]:
+                                  - generic [ref=e1460]: "Overdue:"
+                                  - time [ref=e1461]: Feb 24, 2026 at 6:00 PM CST
+                            - generic [ref=e1462]:
+                              - separator [ref=e1463]
+                              - generic [ref=e1464]:
+                                - generic [ref=e1467]: Task content preview
+                                - generic "Task content preview" [ref=e1468]
+                    - generic [ref=e1475]:
+                      - img [ref=e1477]
+                      - article [ref=e1481]:
+                        - button "Task assigned to Overdue:Feb 24, 2026 at 6:00 PM CST Task content preview" [ref=e1483] [cursor=pointer]:
+                          - img [ref=e1486]
+                          - generic [ref=e1488]:
+                            - generic [ref=e1489]:
+                              - heading "Task assigned to" [level=4] [ref=e1490]:
+                                - generic [ref=e1496]:
+                                  - strong [ref=e1497]: Task
+                                  - text: assigned to
+                              - generic [ref=e1502]:
+                                - button [ref=e1503]:
+                                  - img [ref=e1506]
+                                - generic [ref=e1512]:
+                                  - generic [ref=e1513]: "Overdue:"
+                                  - time [ref=e1514]: Feb 24, 2026 at 6:00 PM CST
+                            - generic [ref=e1515]:
+                              - separator [ref=e1516]
+                              - generic [ref=e1517]:
+                                - generic [ref=e1520]: Task content preview
+                                - generic "Task content preview" [ref=e1521]
+                    - generic [ref=e1528]:
+                      - img [ref=e1530]
+                      - article [ref=e1534]:
+                        - button "Task assigned to via Pipedream Overdue:Feb 24, 2026 at 6:00 PM CST Task content preview" [ref=e1536] [cursor=pointer]:
+                          - img [ref=e1539]
+                          - generic [ref=e1541]:
+                            - generic [ref=e1542]:
+                              - heading "Task assigned to via Pipedream" [level=4] [ref=e1543]:
+                                - generic [ref=e1549]:
+                                  - strong [ref=e1550]: Task
+                                  - text: assigned to
+                                  - generic [ref=e1554]: via Pipedream
+                              - generic [ref=e1556]:
+                                - button [ref=e1557]:
+                                  - img [ref=e1560]
+                                - generic [ref=e1566]:
+                                  - generic [ref=e1567]: "Overdue:"
+                                  - time [ref=e1568]: Feb 24, 2026 at 6:00 PM CST
+                            - generic [ref=e1569]:
+                              - separator [ref=e1570]
+                              - generic [ref=e1571]:
+                                - generic [ref=e1574]: Task content preview
+                                - generic "Task content preview" [ref=e1575]
+                    - generic [ref=e1582]:
+                      - img [ref=e1584]
+                      - article [ref=e1588]:
+                        - button "Task assigned to Overdue:Feb 24, 2026 at 6:00 PM CST Task content preview" [ref=e1590] [cursor=pointer]:
+                          - img [ref=e1593]
+                          - generic [ref=e1595]:
+                            - generic [ref=e1596]:
+                              - heading "Task assigned to" [level=4] [ref=e1597]:
+                                - generic [ref=e1603]:
+                                  - strong [ref=e1604]: Task
+                                  - text: assigned to
+                              - generic [ref=e1609]:
+                                - button [ref=e1610]:
+                                  - img [ref=e1613]
+                                - generic [ref=e1619]:
+                                  - generic [ref=e1620]: "Overdue:"
+                                  - time [ref=e1621]: Feb 24, 2026 at 6:00 PM CST
+                            - generic [ref=e1622]:
+                              - separator [ref=e1623]
+                              - generic [ref=e1624]:
+                                - generic [ref=e1627]: Task content preview
+                                - generic "Task content preview" [ref=e1628]
+                    - generic [ref=e1635]:
+                      - img [ref=e1637]
+                      - article [ref=e1641]:
+                        - button "Task assigned to via Pipedream Overdue:Feb 24, 2026 at 6:00 PM CST Task content preview" [ref=e1643] [cursor=pointer]:
+                          - img [ref=e1646]
+                          - generic [ref=e1648]:
+                            - generic [ref=e1649]:
+                              - heading "Task assigned to via Pipedream" [level=4] [ref=e1650]:
+                                - generic [ref=e1656]:
+                                  - strong [ref=e1657]: Task
+                                  - text: assigned to
+                                  - generic [ref=e1661]: via Pipedream
+                              - generic [ref=e1663]:
+                                - button [ref=e1664]:
+                                  - img [ref=e1667]
+                                - generic [ref=e1673]:
+                                  - generic [ref=e1674]: "Overdue:"
+                                  - time [ref=e1675]: Feb 24, 2026 at 6:00 PM CST
+                            - generic [ref=e1676]:
+                              - separator [ref=e1677]
+                              - generic [ref=e1678]:
+                                - generic [ref=e1681]: Task content preview
+                                - generic "Task content preview" [ref=e1682]
+                    - generic [ref=e1689]:
+                      - img [ref=e1691]
+                      - article [ref=e1695]:
+                        - button "Task assigned to Overdue:Feb 24, 2026 at 6:00 PM CST Task content preview" [ref=e1697] [cursor=pointer]:
+                          - img [ref=e1700]
+                          - generic [ref=e1702]:
+                            - generic [ref=e1703]:
+                              - heading "Task assigned to" [level=4] [ref=e1704]:
+                                - generic [ref=e1710]:
+                                  - strong [ref=e1711]: Task
+                                  - text: assigned to
+                              - generic [ref=e1716]:
+                                - button [ref=e1717]:
+                                  - img [ref=e1720]
+                                - generic [ref=e1726]:
+                                  - generic [ref=e1727]: "Overdue:"
+                                  - time [ref=e1728]: Feb 24, 2026 at 6:00 PM CST
+                            - generic [ref=e1729]:
+                              - separator [ref=e1730]
+                              - generic [ref=e1731]:
+                                - generic [ref=e1734]: Task content preview
+                                - generic "Task content preview" [ref=e1735]
+                    - generic [ref=e1742]:
+                      - img [ref=e1744]
+                      - article [ref=e1748]:
+                        - button "Task assigned to via Pipedream Overdue:Feb 24, 2026 at 6:00 PM CST Task content preview" [ref=e1750] [cursor=pointer]:
+                          - img [ref=e1753]
+                          - generic [ref=e1755]:
+                            - generic [ref=e1756]:
+                              - heading "Task assigned to via Pipedream" [level=4] [ref=e1757]:
+                                - generic [ref=e1763]:
+                                  - strong [ref=e1764]: Task
+                                  - text: assigned to
+                                  - generic [ref=e1768]: via Pipedream
+                              - generic [ref=e1770]:
+                                - button [ref=e1771]:
+                                  - img [ref=e1774]
+                                - generic [ref=e1780]:
+                                  - generic [ref=e1781]: "Overdue:"
+                                  - time [ref=e1782]: Feb 24, 2026 at 6:00 PM CST
+                            - generic [ref=e1783]:
+                              - separator [ref=e1784]
+                              - generic [ref=e1785]:
+                                - generic [ref=e1788]: Task content preview
+                                - generic "Task content preview" [ref=e1789]
+                    - generic [ref=e1796]:
+                      - img [ref=e1798]
+                      - article [ref=e1802]:
+                        - button "Task assigned to Overdue:Feb 17, 2026 at 6:00 PM CST Task content preview" [ref=e1804] [cursor=pointer]:
+                          - img [ref=e1807]
+                          - generic [ref=e1809]:
+                            - generic [ref=e1810]:
+                              - heading "Task assigned to" [level=4] [ref=e1811]:
+                                - generic [ref=e1817]:
+                                  - strong [ref=e1818]: Task
+                                  - text: assigned to
+                              - generic [ref=e1823]:
+                                - button [ref=e1824]:
+                                  - img [ref=e1827]
+                                - generic [ref=e1833]:
+                                  - generic [ref=e1834]: "Overdue:"
+                                  - time [ref=e1835]: Feb 17, 2026 at 6:00 PM CST
+                            - generic [ref=e1836]:
+                              - separator [ref=e1837]
+                              - generic [ref=e1838]:
+                                - generic [ref=e1841]: Task content preview
+                                - generic "Task content preview" [ref=e1842]
+                    - generic [ref=e1849]:
+                      - img [ref=e1851]
+                      - article [ref=e1855]:
+                        - button "Task assigned to Overdue:Feb 17, 2026 at 6:00 PM CST Task content preview" [ref=e1857] [cursor=pointer]:
+                          - img [ref=e1860]
+                          - generic [ref=e1862]:
+                            - generic [ref=e1863]:
+                              - heading "Task assigned to" [level=4] [ref=e1864]:
+                                - generic [ref=e1870]:
+                                  - strong [ref=e1871]: Task
+                                  - text: assigned to
+                              - generic [ref=e1876]:
+                                - button [ref=e1877]:
+                                  - img [ref=e1880]
+                                - generic [ref=e1886]:
+                                  - generic [ref=e1887]: "Overdue:"
+                                  - time [ref=e1888]: Feb 17, 2026 at 6:00 PM CST
+                            - generic [ref=e1889]:
+                              - separator [ref=e1890]
+                              - generic [ref=e1891]:
+                                - generic [ref=e1894]: Task content preview
+                                - generic "Task content preview" [ref=e1895]
+                    - generic [ref=e1902]:
+                      - img [ref=e1904]
+                      - article [ref=e1908]:
+                        - button "Task assigned to Overdue:Feb 17, 2026 at 6:00 PM CST Task content preview" [ref=e1910] [cursor=pointer]:
+                          - img [ref=e1913]
+                          - generic [ref=e1915]:
+                            - generic [ref=e1916]:
+                              - heading "Task assigned to" [level=4] [ref=e1917]:
+                                - generic [ref=e1923]:
+                                  - strong [ref=e1924]: Task
+                                  - text: assigned to
+                              - generic [ref=e1929]:
+                                - button [ref=e1930]:
+                                  - img [ref=e1933]
+                                - generic [ref=e1939]:
+                                  - generic [ref=e1940]: "Overdue:"
+                                  - time [ref=e1941]: Feb 17, 2026 at 6:00 PM CST
+                            - generic [ref=e1942]:
+                              - separator [ref=e1943]
+                              - generic [ref=e1944]:
+                                - generic [ref=e1947]: Task content preview
+                                - generic "Task content preview" [ref=e1948]
+                    - generic [ref=e1955]:
+                      - img [ref=e1957]
+                      - article [ref=e1961]:
+                        - button "Task assigned to Overdue:Feb 17, 2026 at 6:00 PM CST Task content preview" [ref=e1963] [cursor=pointer]:
+                          - img [ref=e1966]
+                          - generic [ref=e1968]:
+                            - generic [ref=e1969]:
+                              - heading "Task assigned to" [level=4] [ref=e1970]:
+                                - generic [ref=e1976]:
+                                  - strong [ref=e1977]: Task
+                                  - text: assigned to
+                              - generic [ref=e1982]:
+                                - button [ref=e1983]:
+                                  - img [ref=e1986]
+                                - generic [ref=e1992]:
+                                  - generic [ref=e1993]: "Overdue:"
+                                  - time [ref=e1994]: Feb 17, 2026 at 6:00 PM CST
+                            - generic [ref=e1995]:
+                              - separator [ref=e1996]
+                              - generic [ref=e1997]:
+                                - generic [ref=e2000]: Task content preview
+                                - generic "Task content preview" [ref=e2001]
+                    - generic [ref=e2008]:
+                      - img [ref=e2010]
+                      - article [ref=e2014]:
+                        - button "Task assigned to Overdue:Feb 17, 2026 at 6:00 PM CST Task content preview" [ref=e2016] [cursor=pointer]:
+                          - img [ref=e2019]
+                          - generic [ref=e2021]:
+                            - generic [ref=e2022]:
+                              - heading "Task assigned to" [level=4] [ref=e2023]:
+                                - generic [ref=e2029]:
+                                  - strong [ref=e2030]: Task
+                                  - text: assigned to
+                              - generic [ref=e2035]:
+                                - button [ref=e2036]:
+                                  - img [ref=e2039]
+                                - generic [ref=e2045]:
+                                  - generic [ref=e2046]: "Overdue:"
+                                  - time [ref=e2047]: Feb 17, 2026 at 6:00 PM CST
+                            - generic [ref=e2048]:
+                              - separator [ref=e2049]
+                              - generic [ref=e2050]:
+                                - generic [ref=e2053]: Task content preview
+                                - generic "Task content preview" [ref=e2054]
+                    - generic [ref=e2061]:
+                      - img [ref=e2063]
+                      - article [ref=e2067]:
+                        - button "Task assigned to Overdue:Feb 17, 2026 at 6:00 PM CST Task content preview" [ref=e2069] [cursor=pointer]:
+                          - img [ref=e2072]
+                          - generic [ref=e2074]:
+                            - generic [ref=e2075]:
+                              - heading "Task assigned to" [level=4] [ref=e2076]:
+                                - generic [ref=e2082]:
+                                  - strong [ref=e2083]: Task
+                                  - text: assigned to
+                              - generic [ref=e2088]:
+                                - button [ref=e2089]:
+                                  - img [ref=e2092]
+                                - generic [ref=e2098]:
+                                  - generic [ref=e2099]: "Overdue:"
+                                  - time [ref=e2100]: Feb 17, 2026 at 6:00 PM CST
+                            - generic [ref=e2101]:
+                              - separator [ref=e2102]
+                              - generic [ref=e2103]:
+                                - generic [ref=e2106]: Task content preview
+                                - generic "Task content preview" [ref=e2107]
+                    - generic [ref=e2114]:
+                      - img [ref=e2116]
+                      - article [ref=e2120]:
+                        - button "Task assigned to Overdue:Feb 17, 2026 at 6:00 PM CST Task content preview" [ref=e2122] [cursor=pointer]:
+                          - img [ref=e2125]
+                          - generic [ref=e2127]:
+                            - generic [ref=e2128]:
+                              - heading "Task assigned to" [level=4] [ref=e2129]:
+                                - generic [ref=e2135]:
+                                  - strong [ref=e2136]: Task
+                                  - text: assigned to
+                              - generic [ref=e2141]:
+                                - button [ref=e2142]:
+                                  - img [ref=e2145]
+                                - generic [ref=e2151]:
+                                  - generic [ref=e2152]: "Overdue:"
+                                  - time [ref=e2153]: Feb 17, 2026 at 6:00 PM CST
+                            - generic [ref=e2154]:
+                              - separator [ref=e2155]
+                              - generic [ref=e2156]:
+                                - generic [ref=e2159]: Task content preview
+                                - generic "Task content preview" [ref=e2160]
+                    - generic [ref=e2167]:
+                      - img [ref=e2169]
+                      - article [ref=e2173]:
+                        - button "Task assigned to Overdue:Feb 17, 2026 at 6:00 PM CST Task content preview" [ref=e2175] [cursor=pointer]:
+                          - img [ref=e2178]
+                          - generic [ref=e2180]:
+                            - generic [ref=e2181]:
+                              - heading "Task assigned to" [level=4] [ref=e2182]:
+                                - generic [ref=e2188]:
+                                  - strong [ref=e2189]: Task
+                                  - text: assigned to
+                              - generic [ref=e2194]:
+                                - button [ref=e2195]:
+                                  - img [ref=e2198]
+                                - generic [ref=e2204]:
+                                  - generic [ref=e2205]: "Overdue:"
+                                  - time [ref=e2206]: Feb 17, 2026 at 6:00 PM CST
+                            - generic [ref=e2207]:
+                              - separator [ref=e2208]
+                              - generic [ref=e2209]:
+                                - generic [ref=e2212]: Task content preview
+                                - generic "Task content preview" [ref=e2213]
+                    - generic [ref=e2220]:
+                      - img [ref=e2222]
+                      - article [ref=e2226]:
+                        - button "Task assigned to Overdue:Feb 17, 2026 at 6:00 PM CST Task content preview" [ref=e2228] [cursor=pointer]:
+                          - img [ref=e2231]
+                          - generic [ref=e2233]:
+                            - generic [ref=e2234]:
+                              - heading "Task assigned to" [level=4] [ref=e2235]:
+                                - generic [ref=e2241]:
+                                  - strong [ref=e2242]: Task
+                                  - text: assigned to
+                              - generic [ref=e2247]:
+                                - button [ref=e2248]:
+                                  - img [ref=e2251]
+                                - generic [ref=e2257]:
+                                  - generic [ref=e2258]: "Overdue:"
+                                  - time [ref=e2259]: Feb 17, 2026 at 6:00 PM CST
+                            - generic [ref=e2260]:
+                              - separator [ref=e2261]
+                              - generic [ref=e2262]:
+                                - generic [ref=e2265]: Task content preview
+                                - generic "Task content preview" [ref=e2266]
+                    - generic [ref=e2273]:
+                      - img [ref=e2275]
+                      - article [ref=e2278]:
+                        - separator [ref=e2281]
+                    - generic [ref=e2284]:
+                      - img [ref=e2286]
+                      - article [ref=e2289]:
+                        - separator [ref=e2292]
+                    - generic [ref=e2295]:
+                      - img [ref=e2297]
+                      - article [ref=e2300]:
+                        - separator [ref=e2303]
+                    - generic [ref=e2306]:
+                      - img [ref=e2308]
+                      - article [ref=e2311]:
+                        - separator [ref=e2314]
+                    - generic [ref=e2317]:
+                      - img [ref=e2319]
+                      - article [ref=e2322]:
+                        - separator [ref=e2325]
+                    - generic [ref=e2328]:
+                      - img [ref=e2330]
+                      - article [ref=e2333]:
+                        - separator [ref=e2336]
+                  - generic [ref=e2339]:
+                    - generic [ref=e2340]:
+                      - img [ref=e2342]
+                      - article [ref=e2345]
+                    - generic [ref=e2347]:
+                      - img [ref=e2349]
+                      - article [ref=e2352]
+                    - generic [ref=e2354]:
+                      - img [ref=e2356]
+                      - article [ref=e2359]
+          - generic [ref=e2362]:
+            - generic [ref=e2364]:
+              - heading "Contacts" [level=5] [ref=e2365]:
+                - generic [ref=e2368]: Contacts
+              - generic [ref=e2372]:
+                - button "Add" [ref=e2373] [cursor=pointer]:
+                  - generic [ref=e2374]:
+                    - img [ref=e2375]
+                    - generic [ref=e2377]: Add
+                - link [ref=e2378] [cursor=pointer]:
+                  - /url: https://app.hubspot.com/layout-editor/19933594/CRM_RECORD_MIDDLE/2-56342751/edit/HubspotProvided-CRM_RECORD_PAGE%3A%7C%3A2-56342751/card-builder/ASSOCIATION_TABLE%2F0-1?eschref=%2Fcontacts%2F19933594%2Frecord%2F2-56342751%2F49512150380
+                  - img [ref=e2379]
+            - generic [ref=e2382]:
+              - generic [ref=e2383]:
+                - generic [ref=e2388]:
+                  - searchbox "Search" [ref=e2389]
+                  - generic:
+                    - generic:
+                      - img
+                - generic [ref=e2390]:
+                  - button "Filter associations" [ref=e2391] [cursor=pointer]:
+                    - generic [ref=e2392]:
+                      - img [ref=e2393]
+                      - generic [ref=e2395]: Filters
+                  - button "Sort" [ref=e2397] [cursor=pointer]:
+                    - generic [ref=e2398]:
+                      - img [ref=e2399]
+                      - generic [ref=e2401]: Sort
+                  - generic "Admin applied filters" [ref=e2402]:
+                    - img [ref=e2404]
+              - generic [ref=e2412]:
+                - heading "No results found for the current filters." [level=2] [ref=e2414]
+                - img "empty-state-charts illustration" [ref=e2416]
+          - heading "Deals" [level=5] [ref=e2421]:
+            - generic [ref=e2424]: Deals
+          - heading "Upcoming activities" [level=5] [ref=e2431]:
+            - generic [ref=e2434]: Upcoming activities
+      - generic [ref=e2437]:
+        - button "Collapse sidebar" [ref=e2439] [cursor=pointer]:
+          - img [ref=e2441]
+        - complementary [ref=e2444]:
+          - generic [ref=e2454]:
+            - generic [ref=e2457]:
+              - generic [ref=e2458]:
+                - button "Contacts (1)" [expanded] [ref=e2462] [cursor=pointer]:
+                  - img [ref=e2463]:
+                    - img [ref=e2464]
+                  - generic [ref=e2467]: Contacts (1)
+                - generic [ref=e2472]:
+                  - button "Add" [ref=e2473] [cursor=pointer]:
+                    - generic [ref=e2474]:
+                      - img [ref=e2475]
+                      - generic [ref=e2477]: Add
+                  - link "Manage card settings" [ref=e2478] [cursor=pointer]:
+                    - /url: https://app.hubspot.com/layout-editor/19933594/CRM_RECORD_RIGHT/2-56342751/edit/HubspotProvided-CRM_RECORD_PAGE%3A%7C%3A2-56342751/card-builder/ASSOCIATION_V3%2F0-1?eschref=%2Fcontacts%2F19933594%2Frecord%2F2-56342751%2F49512150380
+                    - img [ref=e2479]
+              - generic [ref=e2484]:
+                - generic [ref=e2491]:
+                  - link "Cameron Test" [ref=e2501] [cursor=pointer]:
+                    - /url: https://app.hubspot.com/contacts/19933594/record/0-1/164004663173?eschref=%2Fcontacts%2F19933594%2Frecord%2F2-56342751%2F49512150380
+                    - generic [ref=e2504]: Cameron Test
+                  - list [ref=e2505]:
+                    - paragraph [ref=e2507]:
+                      - generic [ref=e2510]: Marketer at Truv
+                    - listitem [ref=e2511]:
+                      - generic [ref=e2514]:
+                        - generic [ref=e2515]: "Buying Role:"
+                        - generic [ref=e2522]: End User
+                    - listitem [ref=e2523]:
+                      - generic [ref=e2526]:
+                        - generic [ref=e2527]: "Relationship Depth:"
+                        - generic [ref=e2528]: "--"
+                  - button "Add association label" [ref=e2534] [cursor=pointer]:
+                    - paragraph [ref=e2536]: Add association label
+                - link "View all associated Contacts Link opens in a new window" [ref=e2537] [cursor=pointer]:
+                  - /url: /contacts/19933594/objects/0-1/views/all/list?filters=%5B%7B%22operator%22%3A%22EQ%22%2C%22value%22%3A49512150380%2C%22property%22%3A%22associations.1-40%22%7D%5D
+                  - generic [ref=e2539]: View all associated Contacts
+                  - img "Link opens in a new window" [ref=e2541]
+            - generic [ref=e2545]:
+              - generic [ref=e2546]:
+                - button "Deals (0)" [expanded] [ref=e2550] [cursor=pointer]:
+                  - img [ref=e2551]:
+                    - img [ref=e2552]
+                  - generic [ref=e2555]: Deals (0)
+                - generic [ref=e2560]:
+                  - button "Add" [ref=e2561] [cursor=pointer]:
+                    - generic [ref=e2562]:
+                      - img [ref=e2563]
+                      - generic [ref=e2565]: Add
+                  - link "Manage card settings" [ref=e2566] [cursor=pointer]:
+                    - /url: https://app.hubspot.com/layout-editor/19933594/CRM_RECORD_RIGHT/2-56342751/edit/HubspotProvided-CRM_RECORD_PAGE%3A%7C%3A2-56342751/card-builder/ASSOCIATION_V3%2F0-3?eschref=%2Fcontacts%2F19933594%2Frecord%2F2-56342751%2F49512150380
+                    - img [ref=e2567]
+              - alert [ref=e2572]:
+                - img "empty-state-charts illustration" [ref=e2573]
+                - generic [ref=e2574]: Track the revenue opportunities associated with this record.
+    - complementary

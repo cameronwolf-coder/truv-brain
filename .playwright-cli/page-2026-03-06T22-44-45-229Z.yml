@@ -1,0 +1,209 @@
+- generic [active] [ref=e1]:
+  - generic:
+    - iframe
+  - generic [ref=e2]:
+    - generic [ref=e7]:
+      - region "Page Section" [ref=e8]:
+        - group [ref=e10]:
+          - generic [ref=e11]:
+            - button "Exit" [ref=e13] [cursor=pointer]:
+              - generic [ref=e15]: Exit
+            - heading "Event record page Default view" [level=1] [ref=e17]:
+              - generic [ref=e18]:
+                - paragraph [ref=e19]: Event record page
+                - textbox "Name editor" [ref=e24]: Default view
+            - generic [ref=e26]:
+              - button "Save" [ref=e27] [cursor=pointer]:
+                - generic [ref=e30]: Save
+              - button "Save and exit" [ref=e31] [cursor=pointer]:
+                - generic [ref=e34]: Save and exit
+        - navigation [ref=e42]:
+          - button "Edit layout" [ref=e43] [cursor=pointer]: Edit layout
+          - button "Settings" [ref=e45] [cursor=pointer]: Settings
+      - region "Page Section" [ref=e50]:
+        - main [ref=e53]:
+          - generic [ref=e58]:
+            - generic [ref=e61]:
+              - generic [ref=e67]:
+                - generic [ref=e74]:
+                  - img [ref=e77]
+                  - paragraph [ref=e79]: Event name
+                - generic [ref=e108]:
+                  - button "Add card" [ref=e2648] [cursor=pointer]:
+                    - generic [ref=e2650]: Add card
+                  - generic [ref=e135]:
+                    - generic [ref=e137]:
+                      - generic [ref=e138]:
+                        - heading "About this Event" [level=2] [ref=e140]:
+                          - generic [ref=e142]: About this Event
+                        - img [ref=e146]
+                      - generic [ref=e151]: About this Event (default)
+                    - generic [ref=e152]:
+                      - button "Edit card" [ref=e153] [cursor=pointer]:
+                        - img [ref=e155]
+                      - button "More card actions" [ref=e157] [cursor=pointer]:
+                        - img [ref=e159]
+                  - button "Add card" [ref=e2651] [cursor=pointer]:
+                    - generic [ref=e2653]: Add card
+              - generic [ref=e179]:
+                - generic [ref=e181]:
+                  - generic [ref=e182]:
+                    - navigation [ref=e186]:
+                      - button "Overview" [ref=e187] [cursor=pointer]:
+                        - generic [ref=e191]: Overview
+                      - button "Activities" [ref=e193] [cursor=pointer]:
+                        - generic [ref=e194]: Activities
+                    - button "Create new tab" [ref=e196] [cursor=pointer]:
+                      - img [ref=e198]
+                    - button "Change tab order" [ref=e201] [cursor=pointer]:
+                      - generic [ref=e203]: Change tab order
+                  - separator [ref=e204]
+                - generic [ref=e210]:
+                  - generic [ref=e212]:
+                    - button "Add card" [ref=e2654] [cursor=pointer]:
+                      - generic [ref=e2656]: Add card
+                    - generic [ref=e239]:
+                      - generic [ref=e241]:
+                        - generic [ref=e242]:
+                          - heading "Key Dates" [level=2] [ref=e244]:
+                            - generic [ref=e246]: Key Dates
+                          - img [ref=e250]
+                        - generic [ref=e255]: Data highlights - Event (default)
+                      - generic [ref=e256]:
+                        - button "Edit card" [ref=e257] [cursor=pointer]:
+                          - img [ref=e259]
+                        - button "More card actions" [ref=e261] [cursor=pointer]:
+                          - img [ref=e263]
+                    - button "Add card" [ref=e2657] [cursor=pointer]:
+                      - generic [ref=e2659]: Add card
+                  - generic [ref=e283]:
+                    - generic [ref=e299]:
+                      - generic [ref=e301]:
+                        - generic [ref=e302]:
+                          - heading "Goals & Performance" [level=2] [ref=e304]:
+                            - generic [ref=e306]: Goals & Performance
+                          - img [ref=e310]
+                        - generic [ref=e315]: New data highlight card - (03/05/2026 8:45 PM)
+                      - generic [ref=e316]:
+                        - button "Edit card" [ref=e317] [cursor=pointer]:
+                          - img [ref=e319]
+                        - button "More card actions" [ref=e321] [cursor=pointer]:
+                          - img [ref=e323]
+                    - button "Add card" [ref=e2660] [cursor=pointer]:
+                      - generic [ref=e2662]: Add card
+                  - generic [ref=e343]:
+                    - generic [ref=e359]:
+                      - generic [ref=e361]:
+                        - generic [ref=e362]:
+                          - heading "Recent activities" [level=2] [ref=e364]:
+                            - generic [ref=e366]: Recent activities
+                          - img [ref=e370]
+                        - generic [ref=e375]: Recent activities - Event (default)
+                      - generic [ref=e376]:
+                        - button "Edit card" [ref=e377] [cursor=pointer]:
+                          - img [ref=e379]
+                        - button "More card actions" [ref=e381] [cursor=pointer]:
+                          - img [ref=e383]
+                    - button "Add card" [ref=e2663] [cursor=pointer]:
+                      - generic [ref=e2665]: Add card
+                  - generic [ref=e403]:
+                    - generic [ref=e419]:
+                      - generic [ref=e421]:
+                        - generic [ref=e422]:
+                          - heading "Contacts" [level=2] [ref=e424]:
+                            - generic [ref=e426]: Contacts
+                          - img [ref=e430]
+                        - generic [ref=e435]: Contacts Association table (default)
+                      - generic [ref=e436]:
+                        - button "Edit card" [ref=e437] [cursor=pointer]:
+                          - img [ref=e439]
+                        - button "More card actions" [ref=e441] [cursor=pointer]:
+                          - img [ref=e443]
+                    - button "Add card" [ref=e2666] [cursor=pointer]:
+                      - generic [ref=e2668]: Add card
+                  - generic [ref=e463]:
+                    - generic [ref=e479]:
+                      - generic [ref=e481]:
+                        - generic [ref=e482]:
+                          - heading "Deals" [level=2] [ref=e484]:
+                            - generic [ref=e486]: Deals
+                          - img [ref=e490]
+                        - generic [ref=e495]: Deals Association table (default)
+                      - generic [ref=e496]:
+                        - button "Edit card" [ref=e497] [cursor=pointer]:
+                          - img [ref=e499]
+                        - button "More card actions" [ref=e501] [cursor=pointer]:
+                          - img [ref=e503]
+                    - button "Add card" [ref=e2669] [cursor=pointer]:
+                      - generic [ref=e2671]: Add card
+                  - generic [ref=e523]:
+                    - generic [ref=e539]:
+                      - generic [ref=e541]:
+                        - generic [ref=e542]:
+                          - heading "Upcoming activities" [level=2] [ref=e544]:
+                            - generic [ref=e546]: Upcoming activities
+                          - img [ref=e550]
+                        - generic [ref=e555]: Upcoming activities - Event (default)
+                      - generic [ref=e556]:
+                        - button "Edit card" [ref=e557] [cursor=pointer]:
+                          - img [ref=e559]
+                        - button "More card actions" [ref=e561] [cursor=pointer]:
+                          - img [ref=e563]
+                    - button "Add card" [ref=e2672] [cursor=pointer]:
+                      - generic [ref=e2674]: Add card
+              - generic [ref=e586]:
+                - generic [ref=e588]:
+                  - button "Add card" [ref=e2675] [cursor=pointer]:
+                    - generic [ref=e2677]: Add card
+                  - generic [ref=e615]:
+                    - generic [ref=e617]:
+                      - generic [ref=e618]:
+                        - heading "Contacts" [level=2] [ref=e620]:
+                          - generic [ref=e622]: Contacts
+                        - img [ref=e626]
+                      - generic [ref=e631]: Contacts Association card (default)
+                    - generic [ref=e632]:
+                      - button "Edit card" [ref=e633] [cursor=pointer]:
+                        - img [ref=e635]
+                      - button "More card actions" [ref=e637] [cursor=pointer]:
+                        - img [ref=e639]
+                  - button "Add card" [ref=e2678] [cursor=pointer]:
+                    - generic [ref=e2680]: Add card
+                - generic [ref=e659]:
+                  - generic [ref=e675]:
+                    - generic [ref=e677]:
+                      - generic [ref=e678]:
+                        - heading "Deals" [level=2] [ref=e680]:
+                          - generic [ref=e682]: Deals
+                        - img [ref=e686]
+                      - generic [ref=e691]: Deals Association card (default)
+                    - generic [ref=e692]:
+                      - button "Edit card" [ref=e693] [cursor=pointer]:
+                        - img [ref=e695]
+                      - button "More card actions" [ref=e697] [cursor=pointer]:
+                        - img [ref=e699]
+                  - button "Add card" [ref=e2681] [cursor=pointer]:
+                    - generic [ref=e2683]: Add card
+            - complementary:
+              - region "Collaboration sidebar":
+                - iframe [ref=e718]:
+                  
+            - generic:
+              - generic:
+                - generic:
+                  - complementary
+                  - complementary:
+                    - generic [ref=e720]:
+                      - button [ref=e721]:
+                        - img [ref=e724]
+                      - button "Collaborate with Assistant" [ref=e729] [cursor=pointer]:
+                        - img [ref=e731]
+                  - complementary
+                  - complementary
+    - complementary
+  - alert [ref=e2684]:
+    - generic [ref=e2685]:
+      - heading "Success" [level=5] [ref=e2686]
+      - generic [ref=e2687]: Your changes were saved.
+    - button "Close" [ref=e2688] [cursor=pointer]:
+      - img [ref=e2691]

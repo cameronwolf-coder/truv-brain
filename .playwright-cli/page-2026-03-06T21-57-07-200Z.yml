@@ -1,0 +1,825 @@
+- generic [ref=e1]:
+  - iframe [ref=e1061]:
+    - banner [ref=f19e6]:
+      - generic [ref=f19e7]:
+        - heading "You’ve used all your monthly credits" [level=5] [ref=f19e8]
+        - generic [ref=f19e9]:
+          - generic [ref=f19e12]: Usage is paused until your credits reset on Mar 25, 2026 or you add more.
+          - link "Add credits" [ref=f19e13] [cursor=pointer]:
+            - /url: https://app.hubspot.com/api/notification-station/general/v1/notifications/cta/ad1945e2-7ce6-4b56-b932-753c0738e0c8?notificationPortalId=19933594
+            - generic [ref=f19e14]: Add credits
+      - button "Close" [ref=f19e15] [cursor=pointer]:
+        - img [ref=f19e18]
+  - generic:
+    - iframe
+  - generic [ref=e117]:
+    - region "Page Section" [ref=e123]:
+      - generic [ref=e124]:
+        - generic [ref=e1064]:
+          - link "Dashboard" [ref=e1066] [cursor=pointer]:
+            - /url: https://app.hubspot.com/dashboard/19933594
+            - generic [ref=e1067]:
+              - img [ref=e1068]
+              - generic [ref=e1070]: Dashboard
+          - generic [ref=e1071]:
+            - heading "Settings" [level=4] [ref=e1073]
+            - button [ref=e1075] [cursor=pointer]:
+              - img [ref=e1077]
+          - navigation "Your Preferences" [ref=e1079]:
+            - heading "Your Preferences" [level=5] [ref=e1081]
+            - list [ref=e1082]:
+              - listitem [ref=e1083]:
+                - link "General" [ref=e1084] [cursor=pointer]:
+                  - /url: /settings/19933594/user-preferences
+                  - generic [ref=e1087]: General
+              - listitem [ref=e1088]:
+                - link "Notifications" [ref=e1089] [cursor=pointer]:
+                  - /url: /notification-preferences/19933594
+                  - generic [ref=e1092]: Notifications
+          - navigation "Account Management" [ref=e1093]:
+            - heading "Account Management" [level=5] [ref=e1095]
+            - list [ref=e1096]:
+              - listitem [ref=e1097]:
+                - link "Account Defaults" [ref=e1098] [cursor=pointer]:
+                  - /url: /settings/19933594/account-defaults
+                  - generic [ref=e1101]: Account Defaults
+              - listitem [ref=e1102]:
+                - link "Account Cleanup Beta" [ref=e1103] [cursor=pointer]:
+                  - /url: /settings/19933594/account-cleanup
+                  - generic [ref=e1106]: Account Cleanup
+                  - generic [ref=e1111]: Beta
+              - listitem [ref=e1112]:
+                - link "Audit Log" [ref=e1113] [cursor=pointer]:
+                  - /url: /settings/19933594/audits
+                  - generic [ref=e1116]: Audit Log
+              - listitem [ref=e1117]:
+                - link "Users & Teams" [ref=e1118] [cursor=pointer]:
+                  - /url: /settings/19933594/users
+                  - generic [ref=e1121]: Users & Teams
+              - listitem [ref=e1122]:
+                - link "Product Updates" [ref=e1123] [cursor=pointer]:
+                  - /url: /product-updates/19933594
+                  - generic [ref=e1126]: Product Updates
+                  - img [ref=e1129]
+              - listitem [ref=e1131]:
+                - button "Integrations" [ref=e1132] [cursor=pointer]:
+                  - generic [ref=e1135]: Integrations
+                  - img [ref=e1138]
+              - listitem [ref=e1140]:
+                - link "Marketplace Downloads" [ref=e1141] [cursor=pointer]:
+                  - /url: /marketplace-settings/19933594/downloads
+                  - generic [ref=e1144]: Marketplace Downloads
+              - listitem [ref=e1145]:
+                - button "Tracking & Analytics" [ref=e1146] [cursor=pointer]:
+                  - generic [ref=e1149]: Tracking & Analytics
+                  - img [ref=e1152]
+              - listitem [ref=e1154]:
+                - link "Privacy & Consent" [ref=e1155] [cursor=pointer]:
+                  - /url: /settings/19933594/data-privacy
+                  - generic [ref=e1158]: Privacy & Consent
+              - listitem [ref=e1159]:
+                - link "Sandboxes" [ref=e1160] [cursor=pointer]:
+                  - /url: /sandboxes/19933594
+                  - generic [ref=e1163]: Sandboxes
+              - listitem [ref=e1164]:
+                - link "Security" [ref=e1165] [cursor=pointer]:
+                  - /url: /settings/19933594/security
+                  - generic [ref=e1168]: Security
+              - listitem [ref=e1169]:
+                - link "Approvals" [ref=e1170] [cursor=pointer]:
+                  - /url: /settings/19933594/approvals
+                  - generic [ref=e1173]: Approvals
+              - listitem [ref=e1174]:
+                - link "Routing" [ref=e1175] [cursor=pointer]:
+                  - /url: /settings/19933594/routing
+                  - generic [ref=e1178]: Routing
+              - listitem [ref=e1179]:
+                - link "AI" [ref=e1180] [cursor=pointer]:
+                  - /url: /ai-settings/19933594
+                  - generic [ref=e1183]: AI
+              - listitem [ref=e1184]:
+                - link "Payments Account" [ref=e1185] [cursor=pointer]:
+                  - /url: /settings/19933594/payments-accounts
+                  - generic [ref=e1188]: Payments Account
+          - navigation "Data Management" [ref=e1189]:
+            - heading "Data Management" [level=5] [ref=e1191]
+            - list [ref=e1192]:
+              - listitem [ref=e1193]:
+                - link "Properties" [ref=e1194] [cursor=pointer]:
+                  - /url: /property-settings/19933594
+                  - generic [ref=e1197]: Properties
+              - listitem [ref=e1198]:
+                - button "Objects" [expanded] [ref=e1199] [cursor=pointer]:
+                  - generic [ref=e1202]: Objects
+                  - img [ref=e1205]
+                - list [ref=e1208]:
+                  - listitem [ref=e1209]:
+                    - link "Contacts" [ref=e1210] [cursor=pointer]:
+                      - /url: /sales-products-settings/19933594/contacts
+                      - generic [ref=e1213]: Contacts
+                  - listitem [ref=e1214]:
+                    - link "Companies" [ref=e1215] [cursor=pointer]:
+                      - /url: /sales-products-settings/19933594/companies
+                      - generic [ref=e1218]: Companies
+                  - listitem [ref=e1219]:
+                    - link "Leads" [ref=e1220] [cursor=pointer]:
+                      - /url: /leads-settings/19933594
+                      - generic [ref=e1223]: Leads
+                  - listitem [ref=e1224]:
+                    - link "Deals" [ref=e1225] [cursor=pointer]:
+                      - /url: /sales-products-settings/19933594/deals
+                      - generic [ref=e1228]: Deals
+                  - listitem [ref=e1229]:
+                    - link "Tickets" [ref=e1230] [cursor=pointer]:
+                      - /url: /sales-products-settings/19933594/tickets
+                      - generic [ref=e1233]: Tickets
+                  - listitem [ref=e1234]:
+                    - link "Products" [ref=e1235] [cursor=pointer]:
+                      - /url: /settings/19933594/sales/products
+                      - generic [ref=e1238]: Products
+                  - listitem [ref=e1239]:
+                    - link "Quotes" [ref=e1240] [cursor=pointer]:
+                      - /url: /settings/19933594/sales/quotes
+                      - generic [ref=e1243]: Quotes
+                  - listitem [ref=e1244]:
+                    - link "Subscriptions" [ref=e1245] [cursor=pointer]:
+                      - /url: /object-type-settings/19933594/object/0-69
+                      - generic [ref=e1248]: Subscriptions
+                  - listitem [ref=e1249]:
+                    - link "Projects" [ref=e1250] [cursor=pointer]:
+                      - /url: /object-type-settings/19933594/object/0-970
+                      - generic [ref=e1253]: Projects
+                  - listitem [ref=e1254]:
+                    - link "Services" [ref=e1255] [cursor=pointer]:
+                      - /url: /object-type-settings/19933594/object/0-162
+                      - generic [ref=e1258]: Services
+                  - listitem [ref=e1259]:
+                    - link "Courses" [ref=e1260] [cursor=pointer]:
+                      - /url: /object-type-settings/19933594/object/0-410
+                      - generic [ref=e1263]: Courses
+                  - listitem [ref=e1264]:
+                    - link "Listings" [ref=e1265] [cursor=pointer]:
+                      - /url: /object-type-settings/19933594/object/0-420
+                      - generic [ref=e1268]: Listings
+                  - listitem [ref=e1269]:
+                    - link "Appointments" [ref=e1270] [cursor=pointer]:
+                      - /url: /object-type-settings/19933594/object/0-421
+                      - generic [ref=e1273]: Appointments
+                  - listitem [ref=e1274]:
+                    - link "Invoices" [ref=e1275] [cursor=pointer]:
+                      - /url: /settings/19933594/sales/invoices
+                      - generic [ref=e1278]: Invoices
+                  - listitem [ref=e1279]:
+                    - link "Forecast" [ref=e1280] [cursor=pointer]:
+                      - /url: /settings/19933594/sales/forecasting
+                      - generic [ref=e1283]: Forecast
+                  - listitem [ref=e1284]:
+                    - link "Activities" [ref=e1285] [cursor=pointer]:
+                      - /url: /settings/19933594/objects/activities
+                      - generic [ref=e1288]: Activities
+                  - listitem [ref=e1289]:
+                    - link "Campaigns" [ref=e1290] [cursor=pointer]:
+                      - /url: /marketing-object-settings/19933594/campaigns
+                      - generic [ref=e1293]: Campaigns
+                  - listitem [ref=e1294]:
+                    - link "Segments" [ref=e1295] [cursor=pointer]:
+                      - /url: /marketing-object-settings/19933594/lists
+                      - generic [ref=e1298]: Segments
+                  - listitem [ref=e1299]:
+                    - link "Marketing events" [ref=e1300] [cursor=pointer]:
+                      - /url: /marketing-object-settings/19933594/marketing-events
+                      - generic [ref=e1303]: Marketing events
+                  - listitem [ref=e1304]:
+                    - link "Workflows" [ref=e1305] [cursor=pointer]:
+                      - /url: /marketing-object-settings/19933594/workflows
+                      - generic [ref=e1308]: Workflows
+                  - listitem [ref=e1309]:
+                    - link "Orders" [ref=e1310] [cursor=pointer]:
+                      - /url: /object-type-settings/19933594/object/0-123
+                      - generic [ref=e1313]: Orders
+                  - listitem [ref=e1314]:
+                    - link "Carts" [ref=e1315] [cursor=pointer]:
+                      - /url: /object-type-settings/19933594/object/0-142
+                      - generic [ref=e1318]: Carts
+                  - listitem [ref=e1319]:
+                    - link "Custom Objects" [ref=e1320] [cursor=pointer]:
+                      - /url: /object-type-settings/19933594/object
+                      - generic [ref=e1323]: Custom Objects
+                  - listitem [ref=e1324]:
+                    - link "App Objects New" [ref=e1325] [cursor=pointer]:
+                      - /url: /object-type-settings/19933594/app-object
+                      - generic [ref=e1328]: App Objects
+                      - generic [ref=e1333]: New
+                  - listitem [ref=e1334]:
+                    - link "Marketing Email" [ref=e1335] [cursor=pointer]:
+                      - /url: /marketing-object-settings/19933594/email
+                      - generic [ref=e1338]: Marketing Email
+              - listitem [ref=e1339]:
+                - link "Translations" [ref=e1340] [cursor=pointer]:
+                  - /url: /settings/19933594/custom-translations
+                  - generic [ref=e1343]: Translations
+              - listitem [ref=e1344]:
+                - link "Data Enrichment" [ref=e1345] [cursor=pointer]:
+                  - /url: /settings/19933594/enrichment
+                  - generic [ref=e1348]: Data Enrichment
+              - listitem [ref=e1349]:
+                - link "Markets Beta" [ref=e1350] [cursor=pointer]:
+                  - /url: /settings/19933594/markets
+                  - generic [ref=e1353]: Markets
+                  - generic [ref=e1358]: Beta
+              - listitem [ref=e1359]:
+                - link "Import & Export" [ref=e1360] [cursor=pointer]:
+                  - /url: /sales-products-settings/19933594/importexport
+                  - generic [ref=e1363]: Import & Export
+              - listitem [ref=e1364]:
+                - link "Backup & Restore" [ref=e1365] [cursor=pointer]:
+                  - /url: /settings/19933594/data-backup
+                  - generic [ref=e1368]: Backup & Restore
+          - navigation "Tools" [ref=e1369]:
+            - heading "Tools" [level=5] [ref=e1371]
+            - list [ref=e1372]:
+              - listitem [ref=e1373]:
+                - link "Meetings" [ref=e1374] [cursor=pointer]:
+                  - /url: /settings/19933594/meetings
+                  - generic [ref=e1377]: Meetings
+              - listitem [ref=e1378]:
+                - button "Calling" [ref=e1379] [cursor=pointer]:
+                  - generic [ref=e1382]: Calling
+                  - img [ref=e1385]
+              - listitem [ref=e1387]:
+                - link "Sales Workspace" [ref=e1388] [cursor=pointer]:
+                  - /url: /sales-workspace-settings/19933594
+                  - generic [ref=e1391]: Sales Workspace
+              - listitem [ref=e1392]:
+                - link "Sales Performance" [ref=e1393] [cursor=pointer]:
+                  - /url: /settings/19933594/sales-performance
+                  - generic [ref=e1396]: Sales Performance
+              - listitem [ref=e1397]:
+                - button "Inbox & Help Desk" [ref=e1398] [cursor=pointer]:
+                  - generic [ref=e1401]: Inbox & Help Desk
+                  - img [ref=e1404]
+              - listitem [ref=e1406]:
+                - link "Customer Success" [ref=e1407] [cursor=pointer]:
+                  - /url: /customer-success-settings/19933594
+                  - generic [ref=e1410]: Customer Success
+              - listitem [ref=e1411]:
+                - button "Marketing" [ref=e1412] [cursor=pointer]:
+                  - generic [ref=e1415]: Marketing
+                  - img [ref=e1418]
+              - listitem [ref=e1420]:
+                - link "SMS" [ref=e1421] [cursor=pointer]:
+                  - /url: /settings/19933594/messaging/sms
+                  - generic [ref=e1424]: SMS
+              - listitem [ref=e1425]:
+                - button "Content" [ref=e1426] [cursor=pointer]:
+                  - generic [ref=e1429]: Content
+                  - img [ref=e1432]
+              - listitem [ref=e1434]:
+                - button "Commerce" [ref=e1435] [cursor=pointer]:
+                  - generic [ref=e1438]: Commerce
+                  - img [ref=e1441]
+        - main [ref=e508]:
+          - generic [ref=e510]:
+            - generic [ref=e511]:
+              - heading "Deals" [level=2] [ref=e512]
+              - generic [ref=e513]:
+                - navigation [ref=e516]:
+                  - link "Setup" [ref=e517] [cursor=pointer]:
+                    - /url: /object-type-settings/19933594/object/0-3
+                  - link "Associations" [ref=e518] [cursor=pointer]:
+                    - /url: /association-settings/19933594?type=0-3
+                  - link "Pipelines" [ref=e519] [cursor=pointer]:
+                    - /url: /pipelines-settings/19933594/object/0-3
+                  - link "Record Customization" [ref=e520] [cursor=pointer]:
+                    - /url: /sales-products-settings/19933594/object/0-3/record-customization
+                  - link "Preview Customization":
+                    - /url: /sales-products-settings/19933594/object/0-3/preview-customization
+                  - link "Index Customization":
+                    - /url: /sales-products-settings/19933594/object/0-3/index-customization
+                  - button [ref=e521] [cursor=pointer]:
+                    - generic [ref=e524]: More
+                - link "View Deals in the data model Link opens in a new window" [ref=e527] [cursor=pointer]:
+                  - /url: https://app.hubspot.com/data-model-overview/19933594?highlighted=0-3
+                  - generic [ref=e528]:
+                    - generic [ref=e530]: View Deals in the data model
+                    - img "Link opens in a new window" [ref=e532]
+              - separator [ref=e534]
+            - heading "Customize all Deal pipelines" [level=4] [ref=e535]
+            - paragraph [ref=e536]:
+              - generic [ref=e537]:
+                - generic [ref=e538]: Set pipeline display colors
+                - img [ref=e541]
+            - radiogroup "Set pipeline display colors" [ref=e543]:
+              - checkbox "Default (no color)" [checked] [ref=e545] [cursor=pointer]:
+                - generic [ref=e550]: Default (no color)
+              - checkbox "Text with colored dot" [ref=e552] [cursor=pointer]:
+                - generic [ref=e559]: Text with colored dot
+              - checkbox "Text in colored badge" [ref=e561] [cursor=pointer]:
+                - generic [ref=e569]: Text in colored badge
+            - heading "Customize individual Deal pipelines" [level=4] [ref=e570]
+            - generic [ref=e571]:
+              - generic [ref=e572]:
+                - generic [ref=e573]:
+                  - button "Enterprise Sales Pipeline" [ref=e576] [cursor=pointer]:
+                    - option "Enterprise Sales Pipeline" [ref=e580]:
+                      - generic [ref=e582]: Enterprise Sales Pipeline
+                  - button "Open popover to copy the internal identifier of the stage." [ref=e584] [cursor=pointer]:
+                    - img [ref=e586]
+                - generic [ref=e588]:
+                  - button "Create pipeline" [ref=e590] [cursor=pointer]:
+                    - generic [ref=e594]: Create pipeline
+                  - button "Actions" [ref=e597] [cursor=pointer]:
+                    - generic [ref=e601]: Actions
+              - generic [ref=e607]:
+                - heading "Set board header/footer" [level=6] [ref=e608]:
+                  - button "Set board header/footer" [ref=e609] [cursor=pointer]:
+                    - generic [ref=e611]: Set board header/footer
+                - generic [ref=e612]: Set up your default view for deal board header/footer that will show for all users.
+              - generic [ref=e615]:
+                - tablist [ref=e617]:
+                  - tab "Configure" [selected] [ref=e618] [cursor=pointer]: Configure
+                  - tab "Pipeline Rules" [ref=e620] [cursor=pointer]: Pipeline Rules
+                  - tab "Automate" [ref=e622] [cursor=pointer]: Automate
+                  - tab "Deal Tags" [ref=e624] [cursor=pointer]: Deal Tags
+                - tabpanel [ref=e626]:
+                  - region "Configure pipeline stages" [ref=e627]:
+                    - heading "Configure pipeline stages" [level=2] [ref=e629]
+                    - table "Pipeline stages" [ref=e633]:
+                      - caption:
+                        - generic [ref=e634]: Press tab to focus the item that you would like to drag. Press control and D to pick up the draggable item. When dragging, use the up and down arrow keys to move the item around. Press the space bar to drop the item on a target or press escape to cancel the dragging.
+                      - rowgroup [ref=e635]:
+                        - row "Stage name Probability Used in Conditional stage properties Pipeline rules" [ref=e636]:
+                          - columnheader "Stage name" [ref=e637]
+                          - columnheader "Probability" [ref=e638]
+                          - columnheader "Used in" [ref=e639]
+                          - columnheader "Conditional stage properties" [ref=e640]:
+                            - generic [ref=e641]:
+                              - generic [ref=e642]: Conditional stage properties
+                              - img [ref=e644]
+                          - columnheader "Pipeline rules" [ref=e646]:
+                            - link "Pipeline rules" [ref=e647] [cursor=pointer]:
+                              - /url: /pipelines-settings/19933594/object/0-3/a0b189e7-967d-4036-bba5-6023ed5f7262/governance
+                              - text: Pipeline rules
+                              - img [ref=e650]
+                      - rowgroup [ref=e652]:
+                        - row "Stage 00. Research" [ref=e653]:
+                          - cell "00. Research Open popover to copy the internal identifier of the stage. Delete" [ref=e654]:
+                            - generic [ref=e655]:
+                              - textbox "Stage name" [ref=e662]:
+                                - /placeholder: Add stage name
+                                - text: 00. Research
+                              - generic [ref=e666]:
+                                - button "Open popover to copy the internal identifier of the stage." [ref=e668] [cursor=pointer]:
+                                  - img [ref=e670]
+                                - button "Delete" [disabled] [ref=e672]:
+                                  - generic [ref=e675]: Delete
+                          - cell "5%" [ref=e676]:
+                            - button "5%" [ref=e678] [cursor=pointer]:
+                              - option "5%" [ref=e682]:
+                                - generic [ref=e684]: 5%
+                          - cell "92" [ref=e686]:
+                            - button "92" [ref=e687] [cursor=pointer]
+                          - cell "Open Conditional Logic Modal" [ref=e688]:
+                            - button "Open Conditional Logic Modal" [ref=e692] [cursor=pointer]:
+                              - generic [ref=e694]: Edit
+                          - cell "Multiple Rules Edit pipeline rules" [ref=e695]:
+                            - generic [ref=e696]:
+                              - generic [ref=e700]: Multiple Rules
+                              - link "Edit pipeline rules" [ref=e703] [cursor=pointer]:
+                                - /url: /pipelines-settings/19933594/object/0-3/a0b189e7-967d-4036-bba5-6023ed5f7262/governance
+                                - generic [ref=e704]: Edit
+                        - row "Stage 01. Discovery" [ref=e705]:
+                          - cell "01. Discovery Open popover to copy the internal identifier of the stage. Delete" [ref=e706]:
+                            - generic [ref=e707]:
+                              - textbox "Stage name" [ref=e714]:
+                                - /placeholder: Add stage name
+                                - text: 01. Discovery
+                              - generic [ref=e718]:
+                                - button "Open popover to copy the internal identifier of the stage." [ref=e720] [cursor=pointer]:
+                                  - img [ref=e722]
+                                - button "Delete" [disabled] [ref=e724]:
+                                  - generic [ref=e727]: Delete
+                          - cell "25%" [ref=e728]:
+                            - button "25%" [ref=e730] [cursor=pointer]:
+                              - option "25%" [ref=e734]:
+                                - generic [ref=e736]: 25%
+                          - cell "37" [ref=e738]:
+                            - button "37" [ref=e739] [cursor=pointer]
+                          - cell "Multiple properties Open Conditional Logic Modal" [ref=e740]:
+                            - generic [ref=e741]:
+                              - generic [ref=e746]: Multiple properties
+                              - button "Open Conditional Logic Modal" [ref=e749] [cursor=pointer]:
+                                - generic [ref=e751]: Edit
+                          - cell "Multiple Rules Edit pipeline rules" [ref=e752]:
+                            - generic [ref=e753]:
+                              - generic [ref=e757]: Multiple Rules
+                              - link "Edit pipeline rules" [ref=e760] [cursor=pointer]:
+                                - /url: /pipelines-settings/19933594/object/0-3/a0b189e7-967d-4036-bba5-6023ed5f7262/governance
+                                - generic [ref=e761]: Edit
+                        - row "Stage 02. Business Case" [ref=e762]:
+                          - cell "02. Business Case Open popover to copy the internal identifier of the stage. Delete" [ref=e763]:
+                            - generic [ref=e764]:
+                              - textbox "Stage name" [ref=e771]:
+                                - /placeholder: Add stage name
+                                - text: 02. Business Case
+                              - generic [ref=e775]:
+                                - button "Open popover to copy the internal identifier of the stage." [ref=e777] [cursor=pointer]:
+                                  - img [ref=e779]
+                                - button "Delete" [disabled] [ref=e781]:
+                                  - generic [ref=e784]: Delete
+                          - cell "40%" [ref=e785]:
+                            - button "40%" [ref=e787] [cursor=pointer]:
+                              - option "40%" [ref=e791]:
+                                - generic [ref=e793]: 40%
+                          - cell "39" [ref=e795]:
+                            - button "39" [ref=e796] [cursor=pointer]
+                          - cell "Multiple properties Open Conditional Logic Modal" [ref=e797]:
+                            - generic [ref=e798]:
+                              - generic [ref=e803]: Multiple properties
+                              - button "Open Conditional Logic Modal" [ref=e806] [cursor=pointer]:
+                                - generic [ref=e808]: Edit
+                          - cell "Multiple Rules Edit pipeline rules" [ref=e809]:
+                            - generic [ref=e810]:
+                              - generic [ref=e814]: Multiple Rules
+                              - link "Edit pipeline rules" [ref=e817] [cursor=pointer]:
+                                - /url: /pipelines-settings/19933594/object/0-3/a0b189e7-967d-4036-bba5-6023ed5f7262/governance
+                                - generic [ref=e818]: Edit
+                        - row "Stage 03. Selected Vendor" [ref=e819]:
+                          - cell "03. Selected Vendor Open popover to copy the internal identifier of the stage. Delete" [ref=e820]:
+                            - generic [ref=e821]:
+                              - textbox "Stage name" [ref=e828]:
+                                - /placeholder: Add stage name
+                                - text: 03. Selected Vendor
+                              - generic [ref=e832]:
+                                - button "Open popover to copy the internal identifier of the stage." [ref=e834] [cursor=pointer]:
+                                  - img [ref=e836]
+                                - button "Delete" [disabled] [ref=e838]:
+                                  - generic [ref=e841]: Delete
+                          - cell "65%" [ref=e842]:
+                            - button "65%" [ref=e844] [cursor=pointer]:
+                              - option "65%" [ref=e848]:
+                                - generic [ref=e850]: 65%
+                          - cell "7" [ref=e852]:
+                            - button "7" [ref=e853] [cursor=pointer]
+                          - cell "Multiple properties Open Conditional Logic Modal" [ref=e854]:
+                            - generic [ref=e855]:
+                              - generic [ref=e860]: Multiple properties
+                              - button "Open Conditional Logic Modal" [ref=e863] [cursor=pointer]:
+                                - generic [ref=e865]: Edit
+                          - cell "Multiple Rules Edit pipeline rules" [ref=e866]:
+                            - generic [ref=e867]:
+                              - generic [ref=e871]: Multiple Rules
+                              - link "Edit pipeline rules" [ref=e874] [cursor=pointer]:
+                                - /url: /pipelines-settings/19933594/object/0-3/a0b189e7-967d-4036-bba5-6023ed5f7262/governance
+                                - generic [ref=e875]: Edit
+                        - row "Stage 04. Negotiation" [ref=e876]:
+                          - cell "04. Negotiation Open popover to copy the internal identifier of the stage. Delete" [ref=e877]:
+                            - generic [ref=e878]:
+                              - textbox "Stage name" [ref=e885]:
+                                - /placeholder: Add stage name
+                                - text: 04. Negotiation
+                              - generic [ref=e889]:
+                                - button "Open popover to copy the internal identifier of the stage." [ref=e891] [cursor=pointer]:
+                                  - img [ref=e893]
+                                - button "Delete" [disabled] [ref=e895]:
+                                  - generic [ref=e898]: Delete
+                          - cell "80%" [ref=e899]:
+                            - button "80%" [ref=e901] [cursor=pointer]:
+                              - option "80%" [ref=e905]:
+                                - generic [ref=e907]: 80%
+                          - cell "7" [ref=e909]:
+                            - button "7" [ref=e910] [cursor=pointer]
+                          - cell "Multiple properties Open Conditional Logic Modal" [ref=e911]:
+                            - generic [ref=e912]:
+                              - generic [ref=e917]: Multiple properties
+                              - button "Open Conditional Logic Modal" [ref=e920] [cursor=pointer]:
+                                - generic [ref=e922]: Edit
+                          - cell "Multiple Rules Edit pipeline rules" [ref=e923]:
+                            - generic [ref=e924]:
+                              - generic [ref=e928]: Multiple Rules
+                              - link "Edit pipeline rules" [ref=e931] [cursor=pointer]:
+                                - /url: /pipelines-settings/19933594/object/0-3/a0b189e7-967d-4036-bba5-6023ed5f7262/governance
+                                - generic [ref=e932]: Edit
+                        - row "Stage Closed Won" [ref=e933]:
+                          - cell "Closed Won Open popover to copy the internal identifier of the stage. Delete" [ref=e934]:
+                            - generic [ref=e935]:
+                              - textbox "Stage name" [ref=e942]:
+                                - /placeholder: Add stage name
+                                - text: Closed Won
+                              - generic [ref=e946]:
+                                - button "Open popover to copy the internal identifier of the stage." [ref=e948] [cursor=pointer]:
+                                  - img [ref=e950]
+                                - button "Delete" [disabled] [ref=e952]:
+                                  - generic [ref=e955]: Delete
+                          - cell "Won (100%)" [ref=e956]:
+                            - button "Won (100%)" [ref=e958] [cursor=pointer]:
+                              - option "Won (100%)" [ref=e962]:
+                                - generic [ref=e964]: Won (100%)
+                          - cell "370" [ref=e966]:
+                            - button "370" [ref=e967] [cursor=pointer]
+                          - cell "Multiple properties Open Conditional Logic Modal" [ref=e968]:
+                            - generic [ref=e969]:
+                              - generic [ref=e974]: Multiple properties
+                              - button "Open Conditional Logic Modal" [ref=e977] [cursor=pointer]:
+                                - generic [ref=e979]: Edit
+                          - cell "Multiple Rules Edit pipeline rules" [ref=e980]:
+                            - generic [ref=e981]:
+                              - generic [ref=e985]: Multiple Rules
+                              - link "Edit pipeline rules" [ref=e988] [cursor=pointer]:
+                                - /url: /pipelines-settings/19933594/object/0-3/a0b189e7-967d-4036-bba5-6023ed5f7262/governance
+                                - generic [ref=e989]: Edit
+                        - row "Stage Closed Lost" [ref=e990]:
+                          - cell "Closed Lost Open popover to copy the internal identifier of the stage. Delete" [ref=e991]:
+                            - generic [ref=e992]:
+                              - textbox "Stage name" [ref=e999]:
+                                - /placeholder: Add stage name
+                                - text: Closed Lost
+                              - generic [ref=e1003]:
+                                - button "Open popover to copy the internal identifier of the stage." [ref=e1005] [cursor=pointer]:
+                                  - img [ref=e1007]
+                                - button "Delete" [disabled] [ref=e1009]:
+                                  - generic [ref=e1012]: Delete
+                          - cell "Lost (0%)" [ref=e1013]:
+                            - button "Lost (0%)" [ref=e1015] [cursor=pointer]:
+                              - option "Lost (0%)" [ref=e1019]:
+                                - generic [ref=e1021]: Lost (0%)
+                          - cell "1,174" [ref=e1023]:
+                            - button "1,174" [ref=e1024] [cursor=pointer]
+                          - cell "Multiple properties Open Conditional Logic Modal" [ref=e1025]:
+                            - generic [ref=e1026]:
+                              - generic [ref=e1031]: Multiple properties
+                              - button "Open Conditional Logic Modal" [ref=e1034] [cursor=pointer]:
+                                - generic [ref=e1036]: Edit
+                          - cell "Multiple Rules Edit pipeline rules" [ref=e1037]:
+                            - generic [ref=e1038]:
+                              - generic [ref=e1042]: Multiple Rules
+                              - link "Edit pipeline rules" [ref=e1045] [cursor=pointer]:
+                                - /url: /pipelines-settings/19933594/object/0-3/a0b189e7-967d-4036-bba5-6023ed5f7262/governance
+                                - generic [ref=e1046]: Edit
+                        - row "Add stage" [ref=e1047]:
+                          - cell "Add stage" [ref=e1048]:
+                            - button "Add stage" [ref=e1049] [cursor=pointer]:
+                              - generic [ref=e1050]:
+                                - img [ref=e1051]
+                                - generic [ref=e1053]: Add stage
+    - complementary
+  - dialog [ref=e1444]:
+    - generic [ref=e1446]:
+      - region "Page Section" [ref=e1447]:
+        - group [ref=e1449]:
+          - generic [ref=e1450]:
+            - 'heading "Edit property logic Object: Deal" [level=1] [ref=e1452]':
+              - generic [ref=e1453]:
+                - generic [ref=e1454]: Edit property logic
+                - generic [ref=e1455]: "Object: Deal"
+            - generic [ref=e1456]:
+              - button "Cancel" [ref=e1457] [cursor=pointer]:
+                - generic [ref=e1459]: Cancel
+              - button "Save logic" [disabled] [ref=e1460]:
+                - generic [ref=e1463]: Save logic
+      - region "Page Section" [ref=e1466]:
+        - generic [ref=e1467]:
+          - generic [ref=e1473]:
+            - generic [ref=e1474]:
+              - heading "Edit logic" [level=5] [ref=e1475]
+              - paragraph [ref=e1476]: Property logic allows you to show and require properties based on the value in another property.
+            - generic [ref=e1477]:
+              - heading "Controlling property" [level=2] [ref=e1478]
+              - paragraph [ref=e1479]: "When this is true:"
+              - generic [ref=e1480]:
+                - button "Deal Stage" [ref=e1484]:
+                  - option "Deal Stage" [ref=e1488]:
+                    - generic [ref=e1490]: Deal Stage
+                - button "Equal to" [ref=e1494]:
+                  - option "Equal to" [ref=e1498]:
+                    - generic [ref=e1500]: Equal to
+                - button "01. Discovery (Enterprise Sales Pipeline)" [ref=e1504]:
+                  - option "01. Discovery (Enterprise Sales Pipeline)" [ref=e1508]:
+                    - generic [ref=e1510]: 01. Discovery (Enterprise Sales Pipeline)
+            - separator [ref=e1511]
+            - generic [ref=e1512]:
+              - heading "Dependent properties (7)" [level=2] [ref=e1513]
+              - paragraph [ref=e1514]: "Show these properties:"
+              - list [ref=e1515]:
+                - grid "Sortable list" [ref=e1516]:
+                  - gridcell "Move up Move down Property Required Remove Close Date" [ref=e1517]:
+                    - button "Move up Move down Property Required Remove Close Date" [ref=e1518]:
+                      - listitem [ref=e1519]:
+                        - generic [ref=e1520]:
+                          - generic [ref=e1521]:
+                            - button "Move up" [disabled] [ref=e1522]:
+                              - img [ref=e1524]
+                            - button "Move down" [ref=e1526] [cursor=pointer]:
+                              - img [ref=e1528]
+                          - generic [ref=e1530]:
+                            - generic [ref=e1531]:
+                              - paragraph [ref=e1532]: Property
+                              - generic [ref=e1533]:
+                                - generic [ref=e1536] [cursor=pointer]:
+                                  - checkbox "Required" [checked] [ref=e1537]
+                                  - generic [ref=e1544]: Required
+                                - button "Remove" [ref=e1545] [cursor=pointer]:
+                                  - generic [ref=e1546]:
+                                    - img [ref=e1549]
+                                    - generic [ref=e1551]: Remove
+                            - button "Close Date" [ref=e1556] [cursor=pointer]:
+                              - option "Close Date" [disabled] [ref=e1560]:
+                                - generic [ref=e1562]: Close Date
+                  - gridcell "Move up Move down Property Required Remove Amount" [ref=e1564]:
+                    - button "Move up Move down Property Required Remove Amount" [ref=e1565]:
+                      - listitem [ref=e1566]:
+                        - generic [ref=e1567]:
+                          - generic [ref=e1568]:
+                            - button "Move up" [ref=e1569] [cursor=pointer]:
+                              - img [ref=e1571]
+                            - button "Move down" [ref=e1573] [cursor=pointer]:
+                              - img [ref=e1575]
+                          - generic [ref=e1577]:
+                            - generic [ref=e1578]:
+                              - paragraph [ref=e1579]: Property
+                              - generic [ref=e1580]:
+                                - generic [ref=e1583] [cursor=pointer]:
+                                  - checkbox "Required" [checked] [ref=e1584]
+                                  - generic [ref=e1591]: Required
+                                - button "Remove" [ref=e1592] [cursor=pointer]:
+                                  - generic [ref=e1593]:
+                                    - img [ref=e1596]
+                                    - generic [ref=e1598]: Remove
+                            - button "Amount" [ref=e1603] [cursor=pointer]:
+                              - option "Amount" [disabled] [ref=e1607]:
+                                - generic [ref=e1609]: Amount
+                  - gridcell "Move up Move down Property Required Remove Have you added at least three stakeholders and assigned their respective roles to ensure the account is properly mapped?" [ref=e1611]:
+                    - button "Move up Move down Property Required Remove Have you added at least three stakeholders and assigned their respective roles to ensure the account is properly mapped?" [ref=e1612]:
+                      - listitem [ref=e1613]:
+                        - generic [ref=e1614]:
+                          - generic [ref=e1615]:
+                            - button "Move up" [ref=e1616] [cursor=pointer]:
+                              - img [ref=e1618]
+                            - button "Move down" [ref=e1620] [cursor=pointer]:
+                              - img [ref=e1622]
+                          - generic [ref=e1624]:
+                            - generic [ref=e1625]:
+                              - paragraph [ref=e1626]: Property
+                              - generic [ref=e1627]:
+                                - generic [ref=e1630] [cursor=pointer]:
+                                  - checkbox "Required" [checked] [ref=e1631]
+                                  - generic [ref=e1638]: Required
+                                - button "Remove" [ref=e1639] [cursor=pointer]:
+                                  - generic [ref=e1640]:
+                                    - img [ref=e1643]
+                                    - generic [ref=e1645]: Remove
+                            - button "Have you added at least three stakeholders and assigned their respective roles to ensure the account is properly mapped?" [ref=e1650] [cursor=pointer]:
+                              - option "Have you added at least three stakeholders and assigned their respective roles to ensure the account is properly mapped?" [disabled] [ref=e1654]:
+                                - generic [ref=e1656]: Have you added at least three stakeholders and assigned their respective roles to ensure the account is properly mapped?
+                  - gridcell "Move up Move down Property Required Remove Have you created and tailored the Aligned room to match the prospect’s specific use case?" [ref=e1658]:
+                    - button "Move up Move down Property Required Remove Have you created and tailored the Aligned room to match the prospect’s specific use case?" [ref=e1659]:
+                      - listitem [ref=e1660]:
+                        - generic [ref=e1661]:
+                          - generic [ref=e1662]:
+                            - button "Move up" [ref=e1663] [cursor=pointer]:
+                              - img [ref=e1665]
+                            - button "Move down" [ref=e1667] [cursor=pointer]:
+                              - img [ref=e1669]
+                          - generic [ref=e1671]:
+                            - generic [ref=e1672]:
+                              - paragraph [ref=e1673]: Property
+                              - generic [ref=e1674]:
+                                - generic [ref=e1677] [cursor=pointer]:
+                                  - checkbox "Required" [checked] [ref=e1678]
+                                  - generic [ref=e1685]: Required
+                                - button "Remove" [ref=e1686] [cursor=pointer]:
+                                  - generic [ref=e1687]:
+                                    - img [ref=e1690]
+                                    - generic [ref=e1692]: Remove
+                            - button "Have you created and tailored the Aligned room to match the prospect’s specific use case?" [ref=e1697] [cursor=pointer]:
+                              - option "Have you created and tailored the Aligned room to match the prospect’s specific use case?" [disabled] [ref=e1701]:
+                                - generic [ref=e1703]: Have you created and tailored the Aligned room to match the prospect’s specific use case?
+                  - gridcell "Move up Move down Property Required Remove Aligned Room URL" [ref=e1705]:
+                    - button "Move up Move down Property Required Remove Aligned Room URL" [ref=e1706]:
+                      - listitem [ref=e1707]:
+                        - generic [ref=e1708]:
+                          - generic [ref=e1709]:
+                            - button "Move up" [ref=e1710] [cursor=pointer]:
+                              - img [ref=e1712]
+                            - button "Move down" [ref=e1714] [cursor=pointer]:
+                              - img [ref=e1716]
+                          - generic [ref=e1718]:
+                            - generic [ref=e1719]:
+                              - paragraph [ref=e1720]: Property
+                              - generic [ref=e1721]:
+                                - generic [ref=e1724] [cursor=pointer]:
+                                  - checkbox "Required" [checked] [ref=e1725]
+                                  - generic [ref=e1732]: Required
+                                - button "Remove" [ref=e1733] [cursor=pointer]:
+                                  - generic [ref=e1734]:
+                                    - img [ref=e1737]
+                                    - generic [ref=e1739]: Remove
+                            - button "Aligned Room URL" [ref=e1744] [cursor=pointer]:
+                              - option "Aligned Room URL" [disabled] [ref=e1748]:
+                                - generic [ref=e1750]: Aligned Room URL
+                  - gridcell "Move up Move down Property Required Remove Have you completed the Deep Account Research in ChatGPT, reviewed it, and uploaded it to HubSpot?" [ref=e1752]:
+                    - button "Move up Move down Property Required Remove Have you completed the Deep Account Research in ChatGPT, reviewed it, and uploaded it to HubSpot?" [ref=e1753]:
+                      - listitem [ref=e1754]:
+                        - generic [ref=e1755]:
+                          - generic [ref=e1756]:
+                            - button "Move up" [ref=e1757] [cursor=pointer]:
+                              - img [ref=e1759]
+                            - button "Move down" [ref=e1761] [cursor=pointer]:
+                              - img [ref=e1763]
+                          - generic [ref=e1765]:
+                            - generic [ref=e1766]:
+                              - paragraph [ref=e1767]: Property
+                              - generic [ref=e1768]:
+                                - generic [ref=e1771] [cursor=pointer]:
+                                  - checkbox "Required" [checked] [ref=e1772]
+                                  - generic [ref=e1779]: Required
+                                - button "Remove" [ref=e1780] [cursor=pointer]:
+                                  - generic [ref=e1781]:
+                                    - img [ref=e1784]
+                                    - generic [ref=e1786]: Remove
+                            - button "Have you completed the Deep Account Research in ChatGPT, reviewed it, and uploaded it to HubSpot?" [ref=e1791] [cursor=pointer]:
+                              - option "Have you completed the Deep Account Research in ChatGPT, reviewed it, and uploaded it to HubSpot?" [disabled] [ref=e1795]:
+                                - generic [ref=e1797]: Have you completed the Deep Account Research in ChatGPT, reviewed it, and uploaded it to HubSpot?
+                  - gridcell "Move up Move down Property Required Remove Deep Account Research" [ref=e1799]:
+                    - button "Move up Move down Property Required Remove Deep Account Research" [ref=e1800]:
+                      - listitem [ref=e1801]:
+                        - generic [ref=e1802]:
+                          - generic [ref=e1803]:
+                            - button "Move up" [ref=e1804] [cursor=pointer]:
+                              - img [ref=e1806]
+                            - button "Move down" [disabled] [ref=e1808]:
+                              - img [ref=e1810]
+                          - generic [ref=e1812]:
+                            - generic [ref=e1813]:
+                              - paragraph [ref=e1814]: Property
+                              - generic [ref=e1815]:
+                                - generic [ref=e1818] [cursor=pointer]:
+                                  - checkbox "Required" [checked] [ref=e1819]
+                                  - generic [ref=e1826]: Required
+                                - button "Remove" [ref=e1827] [cursor=pointer]:
+                                  - generic [ref=e1828]:
+                                    - img [ref=e1831]
+                                    - generic [ref=e1833]: Remove
+                            - button "Deep Account Research" [ref=e1838] [cursor=pointer]:
+                              - option "Deep Account Research" [disabled] [ref=e1842]:
+                                - generic [ref=e1844]: Deep Account Research
+                - generic [ref=e1846]: Press tab to focus the item that you would like to drag. Press control and D to pick up the draggable item. When dragging, use the up and down arrow keys to move the item around. Press the space bar to drop the item on a target or press escape to cancel the dragging.
+              - button "Add property" [ref=e1847] [cursor=pointer]:
+                - generic [ref=e1848]:
+                  - img [ref=e1849]
+                  - generic [ref=e1851]: Add property
+          - main [ref=e1853]:
+            - generic [ref=e1858]:
+              - heading "Preview logic" [level=5] [ref=e1859]
+              - generic [ref=e1861]:
+                - generic [ref=e1864]:
+                  - generic [ref=e1870]: Deal Stage
+                  - button "Deal Stage 01. Discovery (Enterprise Sales Pipeline)" [ref=e1872] [cursor=pointer]:
+                    - option "01. Discovery (Enterprise Sales Pipeline)" [ref=e1876]:
+                      - generic [ref=e1878]: 01. Discovery (Enterprise Sales Pipeline)
+                - generic [ref=e1882]:
+                  - generic [ref=e1884]:
+                    - generic [ref=e1890]:
+                      - text: Close Date
+                      - generic [ref=e1891]: "*"
+                    - generic [ref=e1892]:
+                      - textbox "Close Date *" [ref=e1893]:
+                        - /placeholder: MM/DD/YYYY
+                      - generic:
+                        - img
+                  - generic [ref=e1895]:
+                    - generic [ref=e1901]:
+                      - text: Amount
+                      - generic [ref=e1902]: "*"
+                    - textbox "Amount *" [ref=e1903]
+                  - generic [ref=e1905]:
+                    - generic [ref=e1911]:
+                      - text: Have you added at least three stakeholders and assigned their respective roles to ensure the account is properly mapped?
+                      - generic [ref=e1912]: "*"
+                    - button "Have you added at least three stakeholders and assigned their respective roles to ensure the account is properly mapped? *" [ref=e1914] [cursor=pointer]:
+                      - option [ref=e1918]
+                  - generic [ref=e1923]:
+                    - generic [ref=e1929]:
+                      - text: Have you created and tailored the Aligned room to match the prospect’s specific use case?
+                      - generic [ref=e1930]: "*"
+                    - button "Have you created and tailored the Aligned room to match the prospect’s specific use case? *" [ref=e1932] [cursor=pointer]:
+                      - option [ref=e1936]
+                  - generic [ref=e1941]:
+                    - generic [ref=e1947]:
+                      - text: Aligned Room URL
+                      - generic [ref=e1948]: "*"
+                    - textbox "Aligned Room URL *" [ref=e1951]
+                  - generic [ref=e1953]:
+                    - generic [ref=e1959]:
+                      - text: Have you completed the Deep Account Research in ChatGPT, reviewed it, and uploaded it to HubSpot?
+                      - generic [ref=e1960]: "*"
+                    - button "Have you completed the Deep Account Research in ChatGPT, reviewed it, and uploaded it to HubSpot? *" [ref=e1962] [cursor=pointer]:
+                      - option [ref=e1966]
+                  - generic [ref=e1971]:
+                    - generic [ref=e1977]:
+                      - text: Deep Account Research
+                      - generic [ref=e1978]: "*"
+                    - button "Add file" [ref=e1980] [cursor=pointer]:
+                      - generic [ref=e1981]:
+                        - img [ref=e1982]
+                        - generic [ref=e1984]: Add file

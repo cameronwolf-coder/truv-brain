@@ -1,0 +1,128 @@
+- generic [ref=e1]:
+  - generic:
+    - region "Notification Toasts":
+      - heading "0 notifications total" [level=2] [ref=e2]
+  - button "Chat with us" [ref=e4] [cursor=pointer]:
+    - img [ref=e6]
+  - generic [ref=e9]:
+    - generic [ref=e12]:
+      - button "Skip to main content" [ref=e13] [cursor=pointer]
+      - button "Close jump menu" [ref=e14] [cursor=pointer]:
+        - img [ref=e15]
+        - generic [ref=e17]: Close jump menu
+    - banner [ref=e18]:
+      - generic [ref=e19]:
+        - button [ref=e21] [cursor=pointer]:
+          - generic [ref=e23]:
+            - generic [ref=e24]:
+              - img [ref=e26]:
+                - img [ref=e27]
+              - img [ref=e30]
+            - img [ref=e33]
+        - generic [ref=e35]:
+          - heading "Actions List" [level=2] [ref=e36]
+          - list [ref=e37]:
+            - listitem [ref=e1616]:
+              - generic [ref=e1618]: Truv Ad Account
+              - img "Truv company icon" [ref=e1621]
+          - separator [ref=e44]
+        - button "At least one account has unseen notifications, click to enter notifications experience 2 new account notifications" [ref=e46] [cursor=pointer]:
+          - generic [ref=e47]:
+            - generic [ref=e48]: At least one account has unseen notifications, click to enter notifications experience
+            - generic [ref=e49]:
+              - generic [ref=e50]:
+                - generic [ref=e51]: "2"
+                - generic [ref=e52]: 2 new account notifications
+              - img [ref=e54]
+        - button "Learn more about campaign manager" [ref=e57] [cursor=pointer]:
+          - img "Help" [ref=e59]:
+            - img [ref=e61]
+        - button "Open user menu Icon for Truv" [ref=e63] [cursor=pointer]:
+          - generic [ref=e64]:
+            - generic [ref=e65]: Open user menu
+            - img "Icon for Truv" [ref=e67]
+    - main [ref=e70]:
+      - generic [ref=e1913]:
+        - generic [ref=e1916]:
+          - button "Back to ad set" [ref=e1917] [cursor=pointer]:
+            - img [ref=e1919]
+            - generic [ref=e1921]: Back to ad set
+          - list [ref=e1923]:
+            - listitem [ref=e1924]:
+              - generic [ref=e1925]: ... / CCM Document Ad - Lending / CCM Document Ad - Ops & Lending
+            - listitem [ref=e1926]:
+              - generic [ref=e1927]: Create new document ads for this ad set
+        - generic [ref=e1929]:
+          - generic [ref=e1930]:
+            - generic [ref=e1931]:
+              - generic [ref=e1932]:
+                - heading "Ad" [level=3] [ref=e1933]:
+                  - button "Ad" [disabled] [expanded] [active] [ref=e1934] [cursor=pointer]:
+                    - generic [ref=e1935]:
+                      - text: Ad
+                      - generic [ref=e1936]:
+                        - alert
+                        - img [ref=e2016]
+                - form "Ad" [ref=e2018]:
+                  - generic [ref=e2019]:
+                    - generic [ref=e2020]:
+                      - generic [ref=e2021]:
+                        - generic [ref=e2022]: Name this ad (optional)
+                        - button "More information about the ad name" [ref=e2023] [cursor=pointer]:
+                          - img [ref=e2025]
+                          - generic [ref=e2027]: More information about the ad name
+                      - generic [ref=e2028]:
+                        - generic [ref=e2031]:
+                          - textbox "Name this ad (optional) More information about the ad name" [ref=e2032]:
+                            - /placeholder: Example 1
+                          - generic "Maximum 255 characters" [ref=e2034]: 0/255
+                        - generic:
+                          - alert
+                    - generic [ref=e2036]:
+                      - generic [ref=e2037]:
+                        - generic [ref=e2038]: Introductory text
+                        - button "Learn more about Introductory text" [ref=e2039] [cursor=pointer]:
+                          - img [ref=e2041]
+                          - generic [ref=e2043]: Learn more about Introductory text
+                        - text: "*"
+                      - generic [ref=e2044]:
+                        - generic [ref=e2047]:
+                          - textbox "Introductory text" [ref=e2048]:
+                            - /placeholder: This is your introductory text
+                          - generic "Maximum 600 characters" [ref=e2050]: 0/600
+                        - generic:
+                          - alert
+                    - generic [ref=e2052]: Document
+                    - generic [ref=e2053]:
+                      - generic [ref=e2055]:
+                        - generic [ref=e2056]: Support for PDF documents.
+                        - button "Upload or select" [ref=e2057] [cursor=pointer]:
+                          - generic [ref=e2058]: Upload or select
+                      - alert
+              - heading "Form details" [level=2] [ref=e2013]:
+                - button "Form details" [ref=e2014] [cursor=pointer]:
+                  - generic [ref=e1943]:
+                    - generic [ref=e1944]: Form details
+                    - generic [ref=e1945]:
+                      - alert
+                      - img [ref=e2059]
+            - alert
+            - generic:
+              - alert
+          - generic [ref=e1986]:
+            - heading "Preview" [level=2] [ref=e1988]
+            - button "Select a platform for the ad preview. Mobile Feed" [ref=e1989] [cursor=pointer]:
+              - img [ref=e1991]
+              - generic [ref=e1993]: Mobile Feed
+            - generic [ref=e1996]:
+              - status [ref=e1997]:
+                - generic [ref=e1998]:
+                  - img [ref=e2000]
+                  - generic [ref=e2003]: This is a static image of a mobile document ad.
+              - img "Document ad mobile preview" [ref=e2004]
+        - generic [ref=e2006]:
+          - button "Cancel" [ref=e2008] [cursor=pointer]:
+            - generic [ref=e2009]: Cancel
+          - button "Save ad" [ref=e2011] [cursor=pointer]:
+            - generic [ref=e2012]: Save ad
+  - generic [ref=e183]: Your search has 0 results

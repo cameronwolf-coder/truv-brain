@@ -1,0 +1,90 @@
+- generic [ref=e1]:
+  - generic:
+    - region "Notification Toasts":
+      - heading "0 notifications total" [level=2] [ref=e1068]
+  - button "Chat with us" [ref=e27] [cursor=pointer]:
+    - img [ref=e29]
+  - generic [ref=e32]:
+    - generic [ref=e35]:
+      - button "Skip to main content" [ref=e36] [cursor=pointer]
+      - button "Close jump menu" [ref=e37] [cursor=pointer]:
+        - img [ref=e38]
+        - generic [ref=e40]: Close jump menu
+    - banner [ref=e41]:
+      - generic [ref=e42]:
+        - button [ref=e49] [cursor=pointer]:
+          - generic [ref=e51]:
+            - generic [ref=e52]:
+              - img [ref=e54]:
+                - img [ref=e55]
+              - img [ref=e58]
+            - img [ref=e61]
+        - generic [ref=e1071]:
+          - heading "Actions List" [level=2] [ref=e63]
+          - list [ref=e1072]:
+            - listitem [ref=e1073]:
+              - generic [ref=e1075]: Truv Ad Account
+              - img "Truv company icon" [ref=e1078]
+          - separator [ref=e1079]
+        - button "At least one account has unseen notifications, click to enter notifications experience 2 new account notifications" [ref=e65] [cursor=pointer]:
+          - generic [ref=e66]:
+            - generic [ref=e67]: At least one account has unseen notifications, click to enter notifications experience
+            - generic [ref=e68]:
+              - generic [ref=e69]:
+                - generic [ref=e70]: "2"
+                - generic [ref=e71]: 2 new account notifications
+              - img [ref=e73]
+        - button "Learn more about campaign manager" [ref=e76] [cursor=pointer]:
+          - img "Help" [ref=e78]:
+            - img [ref=e80]
+        - button "Open user menu Icon for Truv" [ref=e82] [cursor=pointer]:
+          - generic [ref=e83]:
+            - generic [ref=e84]: Open user menu
+            - img "Icon for Truv" [ref=e86]
+    - main [ref=e180]:
+      - generic [ref=e1082]:
+        - button "Back to account" [ref=e1083] [cursor=pointer]:
+          - img [ref=e1085]
+          - generic [ref=e1087]: Back to account
+        - list [ref=e1089]:
+          - listitem [ref=e1090]:
+            - generic [ref=e1091]: Truv Ad Account /
+          - listitem [ref=e1092]:
+            - generic [ref=e1093]: CCM Document Ad - Lending
+      - generic [ref=e1095]:
+        - complementary [ref=e1096]:
+          - generic [ref=e1097]:
+            - list [ref=e1099]:
+              - listitem [ref=e1328]:
+                - generic [ref=e1329]: Current
+                - paragraph [ref=e1334]: Campaign
+              - listitem [ref=e1335]:
+                - generic [ref=e1336]: Sub step of step 1 Completed
+                - paragraph [ref=e1341]: Campaign details
+              - listitem [ref=e1342]:
+                - generic [ref=e1343]: Sub step of step 1 Current
+                - paragraph [ref=e1348]: Ad set type
+            - link "Back to account" [ref=e1121] [cursor=pointer]:
+              - /url: /campaignmanager/accounts/517969837/campaigns?businessId=7404539754668773386
+              - generic [ref=e1122]: Back to account
+          - separator [ref=e1123]
+        - generic [ref=e1126]:
+          - generic [ref=e1305]:
+            - heading "Select your ad set type" [level=2] [ref=e1306]
+            - generic [ref=e1307] [cursor=pointer]:
+              - radio "Select your ad set type Accelerate Simplify ad set setup by using AI to draft an ad set with optimized ads, bidding, and placements. Targeting dynamically adjusts to reach the right audience."
+              - generic [ref=e1312]:
+                - paragraph [ref=e1313]: Accelerate
+                - paragraph [ref=e1314]: Simplify ad set setup by using AI to draft an ad set with optimized ads, bidding, and placements. Targeting dynamically adjusts to reach the right audience.
+            - generic [active] [ref=e1315] [cursor=pointer]:
+              - radio "Select your ad set type Classic For advanced advertising needs, Classic ad sets support all objectives, ad formats, and settings. Use auto-targeting or build an audience with precise targeting." [checked]
+              - img [ref=e1349]
+              - generic [ref=e1318]:
+                - paragraph [ref=e1319]: Classic
+                - paragraph [ref=e1320]: For advanced advertising needs, Classic ad sets support all objectives, ad formats, and settings. Use auto-targeting or build an audience with precise targeting.
+          - generic [ref=e1322]:
+            - button "Back" [ref=e1324] [cursor=pointer]:
+              - generic [ref=e1325]: Back
+            - button "Next" [ref=e1326] [cursor=pointer]:
+              - generic [ref=e1327]: Next
+  - generic [ref=e909]: Saving...

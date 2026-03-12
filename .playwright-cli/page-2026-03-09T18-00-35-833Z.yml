@@ -1,0 +1,653 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e3]:
+    - banner [ref=e4]:
+      - navigation [ref=e6]:
+        - generic [ref=e7]:
+          - link "logo" [ref=e8] [cursor=pointer]:
+            - /url: /workspaces/276559/home
+            - img "Clay Logo" [ref=e10]
+          - generic [ref=e12]:
+            - button "All Files" [ref=e13] [cursor=pointer]:
+              - img [ref=e14]
+              - paragraph [ref=e17]: All Files
+              - img [ref=e18]
+            - generic [ref=e20]: /
+            - link "HIT Summit 2026" [ref=e22] [cursor=pointer]:
+              - /url: /workspaces/276559/workbooks/wb_0tab6thRsB6EM9hj3Yk/all-tables
+              - img [ref=e23]
+              - paragraph [ref=e26]: HIT Summit 2026
+            - generic [ref=e27]: /
+            - button "2_10_2026_StateHITConnect_Attendees" [ref=e29] [cursor=pointer]:
+              - img [ref=e30]
+              - paragraph [ref=e33]: 2_10_2026_StateHITConnect_Attendees
+              - img [ref=e34]
+        - generic [ref=e36]:
+          - button "Billing menu" [ref=e38] [cursor=pointer]:
+            - generic [ref=e39]:
+              - img [ref=e41]
+              - paragraph [ref=e54]: Credits
+          - button [ref=e56] [cursor=pointer]:
+            - img [ref=e57]
+        - button "Profile menu" [ref=e60] [cursor=pointer]:
+          - generic [ref=e62]:
+            - paragraph [ref=e63]: Cam Wolf
+            - paragraph [ref=e64]: truv.com
+    - main [ref=e65]:
+      - generic [ref=e70]:
+        - generic [ref=e75]:
+          - generic [ref=e76]:
+            - generic [ref=e77]:
+              - button "Auto-run" [ref=e79] [cursor=pointer]:
+                - img [ref=e80]
+                - paragraph [ref=e82]: Auto-run
+              - button [ref=e83] [cursor=pointer]:
+                - img [ref=e84]
+                - img [ref=e86]
+              - button "11/35" [ref=e88] [cursor=pointer]:
+                - img [ref=e89]
+                - generic [ref=e91]: 11/35
+              - button "329/329" [ref=e92] [cursor=pointer]:
+                - img [ref=e93]
+                - generic [ref=e95]: 329/329
+              - button [ref=e96] [cursor=pointer]:
+                - img [ref=e97]
+              - button [ref=e99] [cursor=pointer]:
+                - img [ref=e101]
+              - button [ref=e105] [cursor=pointer]:
+                - img [ref=e106]
+            - generic [ref=e108]:
+              - button "Sandbox Mode" [ref=e110] [cursor=pointer]:
+                - img [ref=e111]
+                - text: Sandbox Mode
+              - button "Sculptor Chat with Sculptor" [ref=e113] [cursor=pointer]:
+                - img "Sculptor" [ref=e114]
+                - text: Chat with Sculptor
+              - button "Open Sidebar" [ref=e115] [cursor=pointer]:
+                - text: Actions
+                - img [ref=e116]
+          - generic [ref=e121]:
+            - generic [ref=e122]:
+              - generic [ref=e123]:
+                - generic [ref=e124]:
+                  - generic [ref=e126]:
+                    - checkbox [ref=e127] [cursor=pointer]:
+                      - img [ref=e129]
+                    - checkbox [ref=e130]
+                  - generic [ref=e132]:
+                    - button "First name" [ref=e133] [cursor=pointer]:
+                      - menuitem "First name" [ref=e137]:
+                        - generic [ref=e139]:
+                          - img [ref=e140]
+                          - paragraph [ref=e144]: First name
+                    - button "Last name" [ref=e146] [cursor=pointer]:
+                      - menuitem "Last name" [ref=e150]:
+                        - generic [ref=e152]:
+                          - img [ref=e153]
+                          - paragraph [ref=e157]: Last name
+                    - button "Full Name" [ref=e159] [cursor=pointer]:
+                      - menuitem "Full Name" [ref=e163]:
+                        - generic [ref=e165]:
+                          - img [ref=e166]
+                          - img [ref=e168]
+                          - paragraph [ref=e172]: Full Name
+                    - button "Job title" [ref=e174] [cursor=pointer]:
+                      - menuitem "Job title" [ref=e178]:
+                        - generic [ref=e180]:
+                          - img [ref=e181]
+                          - paragraph [ref=e185]: Job title
+                    - button "Company" [ref=e187] [cursor=pointer]:
+                      - menuitem "Company" [ref=e191]:
+                        - generic [ref=e193]:
+                          - img [ref=e194]
+                          - paragraph [ref=e198]: Company
+                    - button "State" [ref=e200] [cursor=pointer]:
+                      - menuitem "State" [ref=e204]:
+                        - generic [ref=e206]:
+                          - img [ref=e207]
+                          - paragraph [ref=e211]: State
+                    - button "Claygent Company URL" [ref=e213] [cursor=pointer]:
+                      - generic [ref=e216]:
+                        - menuitem "Claygent Company URL" [ref=e217]:
+                          - generic [ref=e219]:
+                            - img "Claygent" [ref=e220]
+                            - paragraph [ref=e223]: Company URL
+                        - menuitem [ref=e225]:
+                          - img [ref=e226]
+                    - button "Work Email Work Email" [ref=e229] [cursor=pointer]:
+                      - generic [ref=e230]:
+                        - button "Work Email" [ref=e231]:
+                          - generic [ref=e232]:
+                            - img [ref=e233]
+                            - text: Work Email
+                        - button [ref=e235]:
+                          - img [ref=e236]
+                      - button [ref=e238]
+                      - generic [ref=e241]:
+                        - menuitem "Work Email" [ref=e242]:
+                          - generic [ref=e244]:
+                            - img [ref=e245]
+                            - img [ref=e247]
+                            - paragraph [ref=e251]: Work Email
+                        - menuitem [ref=e253]:
+                          - img [ref=e254]
+                    - button "Action icon Lookup object" [ref=e257] [cursor=pointer]:
+                      - generic [ref=e260]:
+                        - menuitem "Action icon Lookup object" [ref=e261]:
+                          - generic [ref=e263]:
+                            - img "Action icon" [ref=e264]
+                            - paragraph [ref=e267]: Lookup object
+                        - menuitem [ref=e269]:
+                          - img [ref=e270]
+                    - button "Action icon Update object" [ref=e273] [cursor=pointer]:
+                      - generic [ref=e276]:
+                        - menuitem "Action icon Update object" [ref=e277]:
+                          - generic [ref=e279]:
+                            - img "Action icon" [ref=e280]
+                            - paragraph [ref=e283]: Update object
+                        - menuitem [ref=e285]:
+                          - img [ref=e286]
+                    - button "Action icon Create object" [ref=e289] [cursor=pointer]:
+                      - generic [ref=e292]:
+                        - menuitem "Action icon Create object" [ref=e293]:
+                          - generic [ref=e295]:
+                            - img "Action icon" [ref=e296]
+                            - paragraph [ref=e299]: Create object
+                        - menuitem [ref=e301]:
+                          - img [ref=e302]
+                  - status [ref=e305]
+                  - button "Add column" [ref=e307] [cursor=pointer]:
+                    - img [ref=e308]
+                    - generic [ref=e310]: Add column
+                    - img [ref=e311]
+                - generic [ref=e313]:
+                  - paragraph [ref=e315]: "%"
+                  - generic [ref=e316]:
+                    - img [ref=e319]
+                    - img [ref=e323]
+                    - img [ref=e327]
+                    - img [ref=e331]
+                    - img [ref=e335]
+                    - img [ref=e339]
+                    - generic [ref=e342]:
+                      - img [ref=e343]
+                      - generic [ref=e345]: 100%
+                    - generic [ref=e352]: 100%
+                    - generic [ref=e359]: 100%
+                    - generic [ref=e366]: 100%
+                    - generic [ref=e373]: 100%
+              - generic [ref=e377]:
+                - generic [ref=e378]:
+                  - generic [ref=e381]:
+                    - paragraph [ref=e383]: "1"
+                    - checkbox [ref=e384]
+                  - generic [ref=e385]:
+                    - paragraph [ref=e391]: Jason
+                    - paragraph [ref=e397]: Ball
+                    - paragraph [ref=e403]: Jason Ball
+                    - paragraph [ref=e409]: Chief Health Data Officer
+                    - paragraph [ref=e415]: State of Alaska
+                    - paragraph [ref=e421]: AK
+                    - generic [ref=e428] [cursor=pointer]:
+                      - img [ref=e429]
+                      - paragraph [ref=e431]: https://www.commerce.alaska.gov/cbp/main/search/entities
+                    - paragraph [ref=e437]: jason.ball@alaska.gov
+                - generic [ref=e439]:
+                  - generic [ref=e442]:
+                    - paragraph [ref=e444]: "2"
+                    - checkbox [ref=e445]
+                  - generic [ref=e446]:
+                    - paragraph [ref=e452]: Robin
+                    - paragraph [ref=e458]: Roberts
+                    - paragraph [ref=e464]: Robin Roberts
+                    - paragraph [ref=e470]: Arkansas Medicaid Enterprise (AME) IT Director
+                    - paragraph [ref=e476]: Arkansas Department of Human Services
+                    - paragraph [ref=e482]: AK
+                    - generic [ref=e489] [cursor=pointer]:
+                      - img [ref=e490]
+                      - paragraph [ref=e492]: https://humanservices.arkansas.gov/
+                    - paragraph [ref=e498]: rr@state.gov
+                - generic [ref=e500]:
+                  - generic [ref=e503]:
+                    - paragraph [ref=e505]: "3"
+                    - checkbox [ref=e506]
+                  - generic [ref=e507]:
+                    - paragraph [ref=e513]: Myria
+                    - paragraph [ref=e519]: Shakespeare
+                    - paragraph [ref=e525]: Myria Shakespeare
+                    - paragraph [ref=e531]: Department Technology Officer 3
+                    - paragraph [ref=e537]: State of Alaska, Health and Social Services, ITS Customer Services
+                    - paragraph [ref=e543]: AK
+                    - generic [ref=e550] [cursor=pointer]:
+                      - img [ref=e551]
+                      - paragraph [ref=e553]: https://health.alaska.gov/en/division-of-finance-and-management/information-technology-services
+                    - paragraph [ref=e559]: myria.shakespeare@alaska.gov
+                - generic [ref=e561]:
+                  - generic [ref=e564]:
+                    - paragraph [ref=e566]: "4"
+                    - checkbox [ref=e567]
+                  - generic [ref=e568]:
+                    - paragraph [ref=e574]: Kendra
+                    - paragraph [ref=e580]: Sticka
+                    - paragraph [ref=e586]: Kendra Sticka
+                    - paragraph [ref=e592]: Executive Director
+                    - paragraph [ref=e598]: healthEconnect Alaska
+                    - paragraph [ref=e604]: AK
+                    - generic [ref=e611] [cursor=pointer]:
+                      - img [ref=e612]
+                      - paragraph [ref=e614]: https://healtheconnectak.org/
+                    - paragraph [ref=e620]: kendra.sticka@healtheconnectak.org
+                - generic [ref=e622]:
+                  - generic [ref=e625]:
+                    - paragraph [ref=e627]: "5"
+                    - checkbox [ref=e628]
+                  - generic [ref=e629]:
+                    - paragraph [ref=e635]: Reggie
+                    - paragraph [ref=e641]: Bicha
+                    - paragraph [ref=e647]: Reggie Bicha
+                    - paragraph [ref=e653]: President & CEO
+                    - paragraph [ref=e659]: American Public Human Services Association
+                    - generic [ref=e664]:
+                      - paragraph
+                    - generic [ref=e671] [cursor=pointer]:
+                      - img [ref=e672]
+                      - paragraph [ref=e674]: https://aphsa.org/
+                    - paragraph [ref=e680]: rbicha@aphsa.org
+                - generic [ref=e682]:
+                  - generic [ref=e685]:
+                    - paragraph [ref=e687]: "6"
+                    - checkbox [ref=e688]
+                  - generic [ref=e689]:
+                    - paragraph [ref=e695]: Anne
+                    - paragraph [ref=e701]: Santifer
+                    - paragraph [ref=e707]: Anne Santifer
+                    - paragraph [ref=e713]: HIT Director
+                    - paragraph [ref=e719]: SHARE HIE/Ark Dept of Health
+                    - paragraph [ref=e725]: AR
+                    - generic [ref=e732] [cursor=pointer]:
+                      - img [ref=e733]
+                      - paragraph [ref=e735]: https://sharearkansas.com/
+                    - paragraph [ref=e741]: anne.santifer@arkansas.gov
+                - generic [ref=e743]:
+                  - generic [ref=e746]:
+                    - paragraph [ref=e748]: "7"
+                    - checkbox [ref=e749]
+                  - generic [ref=e750]:
+                    - paragraph [ref=e756]: paula
+                    - paragraph [ref=e762]: stone
+                    - paragraph [ref=e768]: paula stone
+                    - paragraph [ref=e774]: Director Office of Substance Abuse and Mental Health
+                    - paragraph [ref=e780]: AR Dept of Human Services
+                    - paragraph [ref=e786]: AR
+                    - generic [ref=e793] [cursor=pointer]:
+                      - img [ref=e794]
+                      - paragraph [ref=e796]: https://humanservices.arkansas.gov/
+                    - paragraph [ref=e802]: paulas@state.gov
+                - generic [ref=e804]:
+                  - generic [ref=e807]:
+                    - paragraph [ref=e809]: "8"
+                    - checkbox [ref=e810]
+                  - generic [ref=e811]:
+                    - paragraph [ref=e817]: Justin
+                    - paragraph [ref=e823]: Villines
+                    - paragraph [ref=e829]: Justin Villines
+                    - paragraph [ref=e835]: HIT Policy Director
+                    - paragraph [ref=e841]: Arkansas Department of Health, SHARE HIE
+                    - paragraph [ref=e847]: AR
+                    - generic [ref=e854] [cursor=pointer]:
+                      - img [ref=e855]
+                      - paragraph [ref=e857]: https://sharearkansas.com/
+                    - paragraph [ref=e863]: justin.villines@arkansas.gov
+                - generic [ref=e865]:
+                  - generic [ref=e868]:
+                    - paragraph [ref=e870]: "9"
+                    - checkbox [ref=e871]
+                  - generic [ref=e872]:
+                    - paragraph [ref=e878]: Janet
+                    - paragraph [ref=e884]: Mann
+                    - paragraph [ref=e890]: Janet Mann
+                    - paragraph [ref=e896]: Secretary
+                    - paragraph [ref=e902]: Arkansas Department of Human Services
+                    - generic [ref=e907]:
+                      - paragraph
+                    - generic [ref=e914] [cursor=pointer]:
+                      - img [ref=e915]
+                      - paragraph [ref=e917]: https://humanservices.arkansas.gov/
+                    - paragraph [ref=e923]: mann@state.gov
+                - generic [ref=e925]:
+                  - generic [ref=e928]:
+                    - paragraph [ref=e930]: "10"
+                    - checkbox [ref=e931]
+                  - generic [ref=e932]:
+                    - paragraph [ref=e938]: Alex
+                    - paragraph [ref=e944]: Amarillas
+                    - paragraph [ref=e950]: Alex Amarillas
+                    - paragraph [ref=e956]: Health Information Management/Clinical Applications Coordinator
+                    - paragraph [ref=e962]: Pascua Yaqui Tribe Health Services Division
+                    - paragraph [ref=e968]: AZ
+                    - generic [ref=e975] [cursor=pointer]:
+                      - img [ref=e976]
+                      - paragraph [ref=e978]: https://www.pascuayaqui-nsn.gov/health-services/
+                    - paragraph [ref=e984]: aamarillas@pascuayaqui-nsn.gov
+                - generic [ref=e986]:
+                  - generic [ref=e989]:
+                    - paragraph [ref=e991]: "11"
+                    - checkbox [ref=e992]
+                  - generic [ref=e993]:
+                    - paragraph [ref=e999]: Kristen
+                    - paragraph [ref=e1005]: Challacombe
+                    - paragraph [ref=e1011]: Kristen Challacombe
+                    - paragraph [ref=e1017]: Deputy Director
+                    - paragraph [ref=e1023]: AHCCCS
+                    - paragraph [ref=e1029]: AZ
+                    - generic [ref=e1036] [cursor=pointer]:
+                      - img [ref=e1037]
+                      - paragraph [ref=e1039]: https://azahcccs.gov
+                    - generic [ref=e1044]:
+                      - paragraph
+                - generic [ref=e1046]:
+                  - generic [ref=e1049]:
+                    - paragraph [ref=e1051]: "12"
+                    - checkbox [ref=e1052]
+                  - generic [ref=e1053]:
+                    - paragraph [ref=e1059]: Patty
+                    - paragraph [ref=e1065]: Dennis
+                    - paragraph [ref=e1071]: Patty Dennis
+                    - paragraph [ref=e1077]: Assistant Director
+                    - paragraph [ref=e1083]: Arizona Health Care Cost Containment System (AHCCCS)
+                    - paragraph [ref=e1089]: AZ
+                    - generic [ref=e1096] [cursor=pointer]:
+                      - img [ref=e1097]
+                      - paragraph [ref=e1099]: https://www.azahcccs.gov/
+                    - paragraph [ref=e1105]: patty.dennis@azahcccs.gov
+                - generic [ref=e1107]:
+                  - generic [ref=e1110]:
+                    - paragraph [ref=e1112]: "13"
+                    - checkbox [ref=e1113]
+                  - generic [ref=e1114]:
+                    - paragraph [ref=e1120]: Anthony
+                    - paragraph [ref=e1126]: Flot
+                    - paragraph [ref=e1132]: Anthony Flot
+                    - paragraph [ref=e1138]: Chief Information Officer
+                    - paragraph [ref=e1144]: AHCCCS
+                    - paragraph [ref=e1150]: AZ
+                    - generic [ref=e1157] [cursor=pointer]:
+                      - img [ref=e1158]
+                      - paragraph [ref=e1160]: https://www.azahcccs.gov/
+                    - paragraph [ref=e1166]: anthony.flot@azahcccs.gov
+                - generic [ref=e1168]:
+                  - generic [ref=e1171]:
+                    - paragraph [ref=e1173]: "14"
+                    - checkbox [ref=e1174]
+                  - generic [ref=e1175]:
+                    - paragraph [ref=e1181]: Katie
+                    - paragraph [ref=e1187]: Morris
+                    - paragraph [ref=e1193]: Katie Morris
+                    - paragraph [ref=e1199]: Chief Compliance Officer
+                    - paragraph [ref=e1205]: AHCCCS
+                    - paragraph [ref=e1211]: AZ
+                    - generic [ref=e1218] [cursor=pointer]:
+                      - img [ref=e1219]
+                      - paragraph [ref=e1221]: https://www.azahcccs.gov/
+                    - paragraph [ref=e1227]: katie.morris@azahcccs.gov
+                - generic [ref=e1229]:
+                  - generic [ref=e1232]:
+                    - paragraph [ref=e1234]: "15"
+                    - checkbox [ref=e1235]
+                  - generic [ref=e1236]:
+                    - paragraph [ref=e1242]: Katie
+                    - paragraph [ref=e1248]: Morris
+                    - paragraph [ref=e1254]: Katie Morris
+                    - paragraph [ref=e1260]: Chief Compliance Officer
+                    - paragraph [ref=e1266]: AHCCCS | Arizona Medicaid
+                    - paragraph [ref=e1272]: AZ
+                    - generic [ref=e1279] [cursor=pointer]:
+                      - img [ref=e1280]
+                      - paragraph [ref=e1282]: https://www.azahcccs.gov/
+                    - paragraph [ref=e1288]: katie.morris@azahcccs.gov
+                - generic [ref=e1290]:
+                  - generic [ref=e1293]:
+                    - paragraph [ref=e1295]: "16"
+                    - checkbox [ref=e1296]
+                  - generic [ref=e1297]:
+                    - paragraph [ref=e1303]: Jesse
+                    - paragraph [ref=e1309]: Pare
+                    - paragraph [ref=e1315]: Jesse Pare
+                    - paragraph [ref=e1321]: Systems Administrator
+                    - paragraph [ref=e1327]: AHCCCS
+                    - paragraph [ref=e1333]: AZ
+                    - generic [ref=e1340] [cursor=pointer]:
+                      - img [ref=e1341]
+                      - paragraph [ref=e1343]: https://ahcccsproviderdirectory.az-apep.gov/OPD
+                    - paragraph [ref=e1349]: jesse.pare@azahcccs.gov
+                - generic [ref=e1351]:
+                  - generic [ref=e1354]:
+                    - paragraph [ref=e1356]: "17"
+                    - checkbox [ref=e1357]
+                  - generic [ref=e1358]:
+                    - paragraph [ref=e1364]: Marna
+                    - paragraph [ref=e1370]: Richmond
+                    - paragraph [ref=e1376]: Marna Richmond
+                    - paragraph [ref=e1382]: Deputy Chief Information Officer
+                    - paragraph [ref=e1388]: AHCCCS
+                    - paragraph [ref=e1394]: AZ
+                    - generic [ref=e1401] [cursor=pointer]:
+                      - img [ref=e1402]
+                      - paragraph [ref=e1404]: https://www.azahcccs.gov/
+                    - paragraph [ref=e1410]: marna.richmond@azahcccs.gov
+                - generic [ref=e1412]:
+                  - generic [ref=e1415]:
+                    - paragraph [ref=e1417]: "18"
+                    - checkbox [ref=e1418]
+                  - generic [ref=e1419]:
+                    - paragraph [ref=e1425]: Julisa
+                    - paragraph [ref=e1431]: Smith
+                    - paragraph [ref=e1437]: Julisa Smith
+                    - paragraph [ref=e1443]: IT Operations Manager
+                    - paragraph [ref=e1449]: AHCCCS
+                    - paragraph [ref=e1455]: AZ
+                    - generic [ref=e1462] [cursor=pointer]:
+                      - img [ref=e1463]
+                      - paragraph [ref=e1465]: https://www.azahcccs.gov/
+                    - paragraph [ref=e1471]: julisa.smith@azahcccs.gov
+                - generic [ref=e1473]:
+                  - generic [ref=e1476]:
+                    - paragraph [ref=e1478]: "19"
+                    - checkbox [ref=e1479]
+                  - generic [ref=e1480]:
+                    - paragraph [ref=e1486]: Marshall
+                    - paragraph [ref=e1492]: Wilmot
+                    - paragraph [ref=e1498]: Marshall Wilmot
+                    - paragraph [ref=e1504]: Deputy Assistant Director, Systems
+                    - paragraph [ref=e1510]: Arizona Medicaid
+                    - paragraph [ref=e1516]: AZ
+                    - generic [ref=e1523] [cursor=pointer]:
+                      - img [ref=e1524]
+                      - paragraph [ref=e1526]: https://www.azahcccs.gov/
+                    - paragraph [ref=e1532]: marshall.wilmot@azahcccs.gov
+                - generic [ref=e1534]:
+                  - generic [ref=e1537]:
+                    - paragraph [ref=e1539]: "20"
+                    - checkbox [ref=e1540]
+                  - generic [ref=e1541]:
+                    - paragraph [ref=e1547]: John
+                    - paragraph [ref=e1553]: Aslani
+                    - paragraph [ref=e1559]: John Aslani
+                    - paragraph [ref=e1565]: Data Scientist
+                    - paragraph [ref=e1571]: Mississippi, Medicaid
+                    - paragraph [ref=e1577]: CA
+                    - generic [ref=e1584] [cursor=pointer]:
+                      - img [ref=e1585]
+                      - paragraph [ref=e1587]: https://medicaid.ms.gov/
+                    - paragraph [ref=e1593]: john.aslani@medicaid.ms.gov
+                - generic [ref=e1595]:
+                  - generic [ref=e1598]:
+                    - paragraph [ref=e1600]: "21"
+                    - checkbox [ref=e1601]
+                  - generic [ref=e1602]:
+                    - paragraph [ref=e1608]: David
+                    - paragraph [ref=e1614]: Bartnicki
+                    - paragraph [ref=e1620]: David Bartnicki
+                    - paragraph [ref=e1626]: Enterprise Architect
+                    - paragraph [ref=e1632]: CA DHCS
+                    - paragraph [ref=e1638]: CA
+                    - generic [ref=e1645] [cursor=pointer]:
+                      - img [ref=e1646]
+                      - paragraph [ref=e1648]: https://www.dhcs.ca.gov
+                    - paragraph [ref=e1654]: david@ca.com
+                - generic [ref=e1656]:
+                  - generic [ref=e1659]:
+                    - paragraph [ref=e1661]: "22"
+                    - checkbox [ref=e1662]
+                  - generic [ref=e1663]:
+                    - paragraph [ref=e1669]: Joe
+                    - paragraph [ref=e1675]: Chavez
+                    - paragraph [ref=e1681]: Joe Chavez
+                    - paragraph [ref=e1687]: Architect
+                    - paragraph [ref=e1693]: CA DHCS
+                    - paragraph [ref=e1699]: CA
+                    - generic [ref=e1706] [cursor=pointer]:
+                      - img [ref=e1707]
+                      - paragraph [ref=e1709]: https://www.dhcs.ca.gov
+                    - paragraph [ref=e1715]: joe.chavez@cdcr.ca.gov
+                - generic [ref=e1717]:
+                  - generic [ref=e1720]:
+                    - paragraph [ref=e1722]: "23"
+                    - checkbox [ref=e1723]
+                  - generic [ref=e1724]:
+                    - paragraph [ref=e1730]: Tamara
+                    - paragraph [ref=e1736]: Hennessy-Burt
+                    - paragraph [ref=e1742]: Tamara Hennessy-Burt
+                    - paragraph [ref=e1748]: Public Health Data Informatics Specialist
+                    - paragraph [ref=e1754]: California Department of Public Health
+                    - paragraph [ref=e1760]: CA
+                    - generic [ref=e1767] [cursor=pointer]:
+                      - img [ref=e1768]
+                      - paragraph [ref=e1770]: https://www.cdph.ca.gov/Programs/CHCQ/LCP/CalHealthFind/pages/home.aspx
+                    - paragraph [ref=e1776]: tamara.hennessy-burt@cdph.ca.gov
+                - generic [ref=e1778]:
+                  - generic [ref=e1781]:
+                    - paragraph [ref=e1783]: "24"
+                    - checkbox [ref=e1784]
+                  - generic [ref=e1785]:
+                    - paragraph [ref=e1791]: Rachel
+                    - paragraph [ref=e1797]: Madden
+                    - paragraph [ref=e1803]: Rachel Madden
+                    - paragraph [ref=e1809]: Deputy County Counsel
+                    - paragraph [ref=e1815]: County of Fresno
+                    - paragraph [ref=e1821]: CA
+                    - generic [ref=e1828] [cursor=pointer]:
+                      - img [ref=e1829]
+                      - paragraph [ref=e1831]: https://www.fresnocountyca.gov/
+                    - paragraph [ref=e1837]: rmadden@fresnocountyca.gov
+                - generic [ref=e1839]:
+                  - generic [ref=e1842]:
+                    - paragraph [ref=e1844]: "25"
+                    - checkbox [ref=e1845]
+                  - generic [ref=e1846]:
+                    - paragraph [ref=e1852]: Ryan
+                    - paragraph [ref=e1858]: Mosley
+                    - paragraph [ref=e1864]: Ryan Mosley
+                    - paragraph [ref=e1870]: MESMD Division Chief
+                    - paragraph [ref=e1876]: California Department of Health Care Services
+                    - paragraph [ref=e1882]: CA
+                    - generic [ref=e1889] [cursor=pointer]:
+                      - img [ref=e1890]
+                      - paragraph [ref=e1892]: https://www.healthcareoptions.dhcs.ca.gov/find-provider
+                    - paragraph [ref=e1898]: ryan.mosley@dhcs.ca.gov
+                - generic [ref=e1900]:
+                  - generic [ref=e1903]:
+                    - paragraph [ref=e1905]: "26"
+                    - checkbox [ref=e1906]
+                  - generic [ref=e1907]:
+                    - paragraph [ref=e1913]: Michael
+                    - paragraph [ref=e1919]: Powell
+                    - paragraph [ref=e1925]: Michael Powell
+                    - paragraph [ref=e1931]: Chief, Registry and Assessment Section
+                    - paragraph [ref=e1937]: CA Dept of Public Health
+                    - paragraph [ref=e1943]: CA
+                    - generic [ref=e1950] [cursor=pointer]:
+                      - img [ref=e1951]
+                      - paragraph [ref=e1953]: https://www.cdph.ca.gov/
+                    - paragraph [ref=e1959]: mpowell@edcgov.us
+                - generic [ref=e1961]:
+                  - generic [ref=e1964]:
+                    - paragraph [ref=e1966]: "27"
+                    - checkbox [ref=e1967]
+                  - generic [ref=e1968]:
+                    - paragraph [ref=e1974]: Stephen
+                    - paragraph [ref=e1980]: Rockwell
+                    - paragraph [ref=e1986]: Stephen Rockwell
+                    - paragraph [ref=e1992]: Chief Innovation Officer
+                    - paragraph [ref=e1998]: Benefit Navigator [Imagine LA]
+                    - paragraph [ref=e2004]: CA
+                    - generic [ref=e2011] [cursor=pointer]:
+                      - img [ref=e2012]
+                      - paragraph [ref=e2014]: https://www.amplifi.org/benefit-navigator
+                    - paragraph [ref=e2020]: stephen@amplifi.org
+                - generic [ref=e2022]:
+                  - generic [ref=e2025]:
+                    - paragraph [ref=e2027]: "28"
+                    - checkbox [ref=e2028]
+                  - generic [ref=e2029]:
+                    - paragraph [ref=e2035]: Symonne
+                    - paragraph [ref=e2041]: Singleton
+                    - paragraph [ref=e2047]: Symonne Singleton
+                    - paragraph [ref=e2053]: Digital Services Analyst
+                    - paragraph [ref=e2059]: Center on Budget and Policy Priorities
+                    - paragraph [ref=e2065]: CA
+                    - generic [ref=e2072] [cursor=pointer]:
+                      - img [ref=e2073]
+                      - paragraph [ref=e2075]: https://www.cbpp.org/
+                    - paragraph [ref=e2081]: ssingleton@cbpp.org
+                - generic [ref=e2083]:
+                  - generic [ref=e2086]:
+                    - paragraph [ref=e2088]: "29"
+                    - checkbox [ref=e2089]
+                  - generic [ref=e2090]:
+                    - paragraph [ref=e2096]: Victoria
+                    - paragraph [ref=e2102]: Smith
+                    - paragraph [ref=e2108]: Victoria Smith
+                    - paragraph [ref=e2114]: Comms Director
+                    - paragraph [ref=e2120]: Healthcare IT Connect
+                    - paragraph [ref=e2126]: CA
+                    - generic [ref=e2133] [cursor=pointer]:
+                      - img [ref=e2134]
+                      - paragraph [ref=e2136]: https://healthcareitconnect.com/directory.php
+                    - paragraph [ref=e2142]: victorias@healthcareitconnect.com
+            - generic [ref=e2147]:
+              - button "Add" [ref=e2148] [cursor=pointer]:
+                - img [ref=e2149]
+                - text: Add
+              - spinbutton [ref=e2155]: "10"
+              - paragraph [ref=e2156]: more rows at the bottom
+        - generic [ref=e2157]:
+          - generic [ref=e2158]:
+            - generic [ref=e2159]:
+              - generic [ref=e2160]:
+                - link "Overview" [ref=e2162] [cursor=pointer]:
+                  - /url: /workspaces/276559/workbooks/wb_0tab6thRsB6EM9hj3Yk/all-tables
+                  - img [ref=e2163]
+                  - paragraph [ref=e2165]: Overview
+                - button "2_10_2026_StateHITConnect_Attendees" [ref=e2168] [cursor=pointer]:
+                  - button "2_10_2026_StateHITConnect_Attendees" [ref=e2169]:
+                    - generic [ref=e2170]:
+                      - generic [ref=e2171]:
+                        - img [ref=e2172]
+                        - paragraph [ref=e2174]: 2_10_2026_StateHITConnect_Attendees
+                      - img [ref=e2175]
+              - status [ref=e2177]
+            - button "Add" [ref=e2178] [cursor=pointer]:
+              - img [ref=e2179]
+              - text: Add
+          - generic [ref=e2182]:
+            - generic [ref=e2190]: 100% of table completed
+            - button "Stop" [disabled] [ref=e2192]:
+              - img [ref=e2193]
+              - text: Stop
+            - button "History" [ref=e2195] [cursor=pointer]:
+              - img [ref=e2196]
+              - text: History
+            - button "Table settings" [ref=e2198] [cursor=pointer]:
+              - img [ref=e2199]
+  - iframe [ref=e2201]:
+    

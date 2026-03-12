@@ -1,0 +1,869 @@
+- generic [ref=e1]:
+  - generic [ref=e3]:
+    - banner [ref=e4]:
+      - navigation [ref=e6]:
+        - button [disabled] [ref=e980]:
+          - img [ref=e981]
+        - generic [ref=e11]:
+          - button [ref=e982] [cursor=pointer]:
+            - generic [ref=e14]:
+              - img [ref=e16]
+              - paragraph [ref=e29]: Credits
+          - button [ref=e31] [cursor=pointer]:
+            - img [ref=e32]
+        - button [ref=e983] [cursor=pointer]:
+          - generic [ref=e37]:
+            - paragraph [ref=e38]: Cam Wolf
+            - paragraph [ref=e39]: truv.com
+    - main [ref=e40]:
+      - navigation [ref=e41]:
+        - generic [ref=e42]:
+          - link [ref=e984] [cursor=pointer]:
+            - /url: /workspaces/276559/home
+            - img [ref=e47]
+            - text: Home
+          - separator [ref=e49]
+          - button [ref=e985] [cursor=pointer]:
+            - generic [ref=e52]:
+              - img [ref=e53]
+              - text: Find leads
+            - img [ref=e55]
+          - separator [ref=e57]
+          - generic [ref=e58]:
+            - link [ref=e986] [cursor=pointer]:
+              - /url: /workspaces/276559/signals
+              - img [ref=e61]
+              - text: Signals
+            - generic [ref=e63]:
+              - img [ref=e64]
+              - text: Ads
+              - generic [ref=e66]:
+                - img [ref=e67]
+                - paragraph [ref=e70]: Upgrade
+            - link [ref=e987] [cursor=pointer]:
+              - /url: /workspaces/276559/campaigns
+              - img [ref=e73]
+              - text: Campaigns
+            - link [ref=e988] [cursor=pointer]:
+              - /url: /workspaces/276559/claygents
+              - img [ref=e77]
+              - text: Claygents
+        - generic [ref=e79]:
+          - link [ref=e989] [cursor=pointer]:
+            - /url: /workspaces/276559/exports
+            - img [ref=e82]
+            - text: Exports
+          - link [ref=e990] [cursor=pointer]:
+            - /url: /workspaces/276559/trash
+            - img [ref=e86]
+            - text: Trash
+          - link [ref=e991] [cursor=pointer]:
+            - /url: /workspaces/276559/settings
+            - img [ref=e90]
+            - text: Settings
+          - link [ref=e992] [cursor=pointer]:
+            - /url: /workspaces/276559/settings/ai-context
+            - img [ref=e94]
+            - text: AI context
+          - button [ref=e993] [cursor=pointer]:
+            - generic [ref=e97]:
+              - img [ref=e98]
+              - text: Resources
+            - img [ref=e100]
+      - generic [ref=e106]:
+        - generic [ref=e108]:
+          - generic [ref=e109]:
+            - generic [ref=e110]:
+              - heading [level=1] [ref=e994]: Hey Cam, ready to get started?
+              - generic [ref=e113]:
+                - img [ref=e995]
+                - textbox [ref=e996]:
+                  - /placeholder: Ask me anything about Clay or describe what you'd like to do...
+                - button [disabled] [ref=e997]:
+                  - img [ref=e121]
+            - button [ref=e998] [cursor=pointer]:
+              - text: Show less
+              - img [ref=e124]
+          - generic [ref=e127]:
+            - button [ref=e999] [cursor=pointer]:
+              - generic [ref=e129]:
+                - img [ref=e1000]
+                - generic [ref=e131]:
+                  - heading [level=5] [ref=e1001]: Find leads
+                  - paragraph [ref=e133]: Find people, companies, jobs and more.
+            - button [ref=e1002] [cursor=pointer]:
+              - generic [ref=e135]:
+                - img [ref=e1003]
+                - generic [ref=e137]:
+                  - heading [level=5] [ref=e1004]: Import data
+                  - paragraph [ref=e139]: Import your existing list from CRM or CSV.
+            - button [ref=e1005] [cursor=pointer]:
+              - img [ref=e1006]
+              - generic [ref=e142]:
+                - heading [level=5] [ref=e1007]: Create a campaign
+                - paragraph [ref=e144]: Build and automate your outreach campaigns.
+            - button [ref=e1008] [cursor=pointer]:
+              - img [ref=e1009]
+              - generic [ref=e147]:
+                - heading [level=5] [ref=e1010]: Start from template
+                - paragraph [ref=e149]: Choose from pre-built workflows to get started.
+        - generic [ref=e150]:
+          - generic [ref=e151]:
+            - radiogroup [ref=e152]:
+              - generic [ref=e153]:
+                - radio [checked] [ref=e1011]:
+                  - generic [ref=e155] [cursor=pointer]: All files
+                - radio [checked] [ref=e156]
+                - radio [ref=e1012]:
+                  - generic [ref=e159] [cursor=pointer]: Recents
+                - radio [ref=e160]
+                - radio [ref=e1013]:
+                  - generic [ref=e163] [cursor=pointer]: Favorites
+                - radio [ref=e164]
+            - textbox [ref=e165]: all-files
+          - generic [ref=e166]:
+            - heading [level=4] [ref=e1014]: All Files
+            - generic [ref=e170]:
+              - generic [ref=e174]:
+                - img [ref=e175]
+                - textbox [ref=e1015]
+              - button [ref=e1016] [cursor=pointer]:
+                - img [ref=e179]
+                - text: New
+          - generic [ref=e182]:
+            - generic [ref=e183]:
+              - paragraph [ref=e185]: Owner
+              - button [ref=e1017] [cursor=pointer]:
+                - paragraph [ref=e188]: All
+                - img [ref=e189]
+            - button [ref=e1018] [cursor=pointer]:
+              - img [ref=e192]
+              - text: Filters
+        - generic [ref=e194]:
+          - generic [ref=e195]:
+            - table [ref=e200]:
+              - rowgroup [ref=e201]:
+                - row [ref=e1019]:
+                  - columnheader [ref=e203]:
+                    - checkbox [ref=e206]
+                  - columnheader [ref=e1020] [cursor=pointer]:
+                    - button [ref=e1021]:
+                      - generic [ref=e209]: Name
+                      - img [ref=e211]
+                  - columnheader [ref=e1022] [cursor=pointer]:
+                    - button [ref=e1023]:
+                      - generic [ref=e215]: Favorite
+                      - img [ref=e217]
+                  - columnheader [ref=e1024] [cursor=pointer]:
+                    - button [ref=e1025]:
+                      - generic [ref=e221]: Last opened by me
+                      - img [ref=e223]
+                  - columnheader [ref=e1026] [cursor=pointer]:
+                    - button [ref=e1027]:
+                      - generic [ref=e227]: Owner
+                      - img [ref=e229]
+                  - columnheader [ref=e1028] [cursor=pointer]:
+                    - button [ref=e1029]:
+                      - generic [ref=e233]: Access
+                      - img [ref=e235]
+                  - columnheader [ref=e237]
+            - table [ref=e242]:
+              - rowgroup [ref=e243]:
+                - button [ref=e1030]:
+                  - cell [ref=e245]:
+                    - link [ref=e246] [cursor=pointer]:
+                      - /url: /workspaces/276559/home/f_73zMYQ5wpEdX?sidebarAction=openCommandCenter
+                    - checkbox [ref=e248]
+                  - cell [ref=e1031]:
+                    - link [ref=e250] [cursor=pointer]:
+                      - /url: /workspaces/276559/home/f_73zMYQ5wpEdX?sidebarAction=openCommandCenter
+                    - generic [ref=e251]:
+                      - img [ref=e253]
+                      - paragraph [ref=e256]: Archive
+                  - cell [ref=e257]:
+                    - link [ref=e258] [cursor=pointer]:
+                      - /url: /workspaces/276559/home/f_73zMYQ5wpEdX?sidebarAction=openCommandCenter
+                    - button [ref=e259] [cursor=pointer]:
+                      - img [ref=e260]
+                  - cell [ref=e1032]:
+                    - link [ref=e263] [cursor=pointer]:
+                      - /url: /workspaces/276559/home/f_73zMYQ5wpEdX?sidebarAction=openCommandCenter
+                    - paragraph [ref=e264]: Feb 10, 2026
+                  - cell [ref=e265]:
+                    - link [ref=e266] [cursor=pointer]:
+                      - /url: /workspaces/276559/home/f_73zMYQ5wpEdX?sidebarAction=openCommandCenter
+                  - cell [ref=e1033]:
+                    - link [ref=e268] [cursor=pointer]:
+                      - /url: /workspaces/276559/home/f_73zMYQ5wpEdX?sidebarAction=openCommandCenter
+                    - paragraph [ref=e269]: Edit
+                  - cell [ref=e270]:
+                    - link [ref=e271] [cursor=pointer]:
+                      - /url: /workspaces/276559/home/f_73zMYQ5wpEdX?sidebarAction=openCommandCenter
+                    - menuitem [ref=e273] [cursor=pointer]:
+                      - img [ref=e274]
+                - button [ref=e1034]:
+                  - cell [ref=e277]:
+                    - link [ref=e278] [cursor=pointer]:
+                      - /url: /workspaces/276559/home/f_0sy27ap5cGvsKdCr34p?sidebarAction=openCommandCenter
+                    - checkbox [ref=e280]
+                  - cell [ref=e1035]:
+                    - link [ref=e282] [cursor=pointer]:
+                      - /url: /workspaces/276559/home/f_0sy27ap5cGvsKdCr34p?sidebarAction=openCommandCenter
+                    - generic [ref=e283]:
+                      - img [ref=e285]
+                      - paragraph [ref=e288]: Coverage Analysis
+                  - cell [ref=e289]:
+                    - link [ref=e290] [cursor=pointer]:
+                      - /url: /workspaces/276559/home/f_0sy27ap5cGvsKdCr34p?sidebarAction=openCommandCenter
+                    - button [ref=e291] [cursor=pointer]:
+                      - img [ref=e292]
+                  - cell [ref=e1036]:
+                    - link [ref=e295] [cursor=pointer]:
+                      - /url: /workspaces/276559/home/f_0sy27ap5cGvsKdCr34p?sidebarAction=openCommandCenter
+                    - paragraph [ref=e296]: Feb 10, 2026
+                  - cell [ref=e297]:
+                    - link [ref=e298] [cursor=pointer]:
+                      - /url: /workspaces/276559/home/f_0sy27ap5cGvsKdCr34p?sidebarAction=openCommandCenter
+                  - cell [ref=e1037]:
+                    - link [ref=e300] [cursor=pointer]:
+                      - /url: /workspaces/276559/home/f_0sy27ap5cGvsKdCr34p?sidebarAction=openCommandCenter
+                    - paragraph [ref=e301]: Edit
+                  - cell [ref=e302]:
+                    - link [ref=e303] [cursor=pointer]:
+                      - /url: /workspaces/276559/home/f_0sy27ap5cGvsKdCr34p?sidebarAction=openCommandCenter
+                    - menuitem [ref=e305] [cursor=pointer]:
+                      - img [ref=e306]
+                - button [ref=e1038]:
+                  - cell [ref=e309]:
+                    - link [ref=e310] [cursor=pointer]:
+                      - /url: /workspaces/276559/home/f_cW4ACZc5chrE?sidebarAction=openCommandCenter
+                    - checkbox [ref=e312]
+                  - cell [ref=e1039]:
+                    - link [ref=e314] [cursor=pointer]:
+                      - /url: /workspaces/276559/home/f_cW4ACZc5chrE?sidebarAction=openCommandCenter
+                    - generic [ref=e315]:
+                      - img [ref=e317]
+                      - paragraph [ref=e320]: Enrichment & Scoring
+                  - cell [ref=e321]:
+                    - link [ref=e322] [cursor=pointer]:
+                      - /url: /workspaces/276559/home/f_cW4ACZc5chrE?sidebarAction=openCommandCenter
+                    - button [ref=e323] [cursor=pointer]:
+                      - img [ref=e324]
+                  - cell [ref=e1040]:
+                    - link [ref=e327] [cursor=pointer]:
+                      - /url: /workspaces/276559/home/f_cW4ACZc5chrE?sidebarAction=openCommandCenter
+                    - paragraph [ref=e328]: 18 minutes ago
+                  - cell [ref=e329]:
+                    - link [ref=e330] [cursor=pointer]:
+                      - /url: /workspaces/276559/home/f_cW4ACZc5chrE?sidebarAction=openCommandCenter
+                  - cell [ref=e1041]:
+                    - link [ref=e332] [cursor=pointer]:
+                      - /url: /workspaces/276559/home/f_cW4ACZc5chrE?sidebarAction=openCommandCenter
+                    - paragraph [ref=e333]: Edit
+                  - cell [ref=e334]:
+                    - link [ref=e335] [cursor=pointer]:
+                      - /url: /workspaces/276559/home/f_cW4ACZc5chrE?sidebarAction=openCommandCenter
+                    - menuitem [ref=e337] [cursor=pointer]:
+                      - img [ref=e338]
+                - button [ref=e1042]:
+                  - cell [ref=e341]:
+                    - link [ref=e342] [cursor=pointer]:
+                      - /url: /workspaces/276559/home/f_AoFZY7bcYm7b?sidebarAction=openCommandCenter
+                    - checkbox [ref=e344]
+                  - cell [ref=e1043]:
+                    - link [ref=e346] [cursor=pointer]:
+                      - /url: /workspaces/276559/home/f_AoFZY7bcYm7b?sidebarAction=openCommandCenter
+                    - generic [ref=e347]:
+                      - img [ref=e349]
+                      - paragraph [ref=e352]: Find Contacts for AE
+                  - cell [ref=e353]:
+                    - link [ref=e354] [cursor=pointer]:
+                      - /url: /workspaces/276559/home/f_AoFZY7bcYm7b?sidebarAction=openCommandCenter
+                    - button [ref=e355] [cursor=pointer]:
+                      - img [ref=e356]
+                  - cell [ref=e1044]:
+                    - link [ref=e359] [cursor=pointer]:
+                      - /url: /workspaces/276559/home/f_AoFZY7bcYm7b?sidebarAction=openCommandCenter
+                    - paragraph [ref=e360]: Feb 11, 2026
+                  - cell [ref=e361]:
+                    - link [ref=e362] [cursor=pointer]:
+                      - /url: /workspaces/276559/home/f_AoFZY7bcYm7b?sidebarAction=openCommandCenter
+                  - cell [ref=e1045]:
+                    - link [ref=e364] [cursor=pointer]:
+                      - /url: /workspaces/276559/home/f_AoFZY7bcYm7b?sidebarAction=openCommandCenter
+                    - paragraph [ref=e365]: Edit
+                  - cell [ref=e366]:
+                    - link [ref=e367] [cursor=pointer]:
+                      - /url: /workspaces/276559/home/f_AoFZY7bcYm7b?sidebarAction=openCommandCenter
+                    - menuitem [ref=e369] [cursor=pointer]:
+                      - img [ref=e370]
+                - button [ref=e1046]:
+                  - cell [ref=e373]:
+                    - link [ref=e374] [cursor=pointer]:
+                      - /url: /workspaces/276559/home/f_0t4wh3zpKpoiTups6Np?sidebarAction=openCommandCenter
+                    - checkbox [ref=e376]
+                  - cell [ref=e1047]:
+                    - link [ref=e378] [cursor=pointer]:
+                      - /url: /workspaces/276559/home/f_0t4wh3zpKpoiTups6Np?sidebarAction=openCommandCenter
+                    - generic [ref=e379]:
+                      - img [ref=e381]
+                      - paragraph [ref=e384]: Outbound Campaigns
+                  - cell [ref=e385]:
+                    - link [ref=e386] [cursor=pointer]:
+                      - /url: /workspaces/276559/home/f_0t4wh3zpKpoiTups6Np?sidebarAction=openCommandCenter
+                    - button [ref=e387] [cursor=pointer]:
+                      - img [ref=e388]
+                  - cell [ref=e1048]:
+                    - link [ref=e391] [cursor=pointer]:
+                      - /url: /workspaces/276559/home/f_0t4wh3zpKpoiTups6Np?sidebarAction=openCommandCenter
+                    - paragraph [ref=e392]: Feb 17, 2026
+                  - cell [ref=e393]:
+                    - link [ref=e394] [cursor=pointer]:
+                      - /url: /workspaces/276559/home/f_0t4wh3zpKpoiTups6Np?sidebarAction=openCommandCenter
+                  - cell [ref=e1049]:
+                    - link [ref=e396] [cursor=pointer]:
+                      - /url: /workspaces/276559/home/f_0t4wh3zpKpoiTups6Np?sidebarAction=openCommandCenter
+                    - paragraph [ref=e397]: Edit
+                  - cell [ref=e398]:
+                    - link [ref=e399] [cursor=pointer]:
+                      - /url: /workspaces/276559/home/f_0t4wh3zpKpoiTups6Np?sidebarAction=openCommandCenter
+                    - menuitem [ref=e401] [cursor=pointer]:
+                      - img [ref=e402]
+                - button [ref=e1050]:
+                  - cell [ref=e405]:
+                    - link [ref=e406] [cursor=pointer]:
+                      - /url: /workspaces/276559/home/f_0t0ktf1k2QDDcbe4h6m?sidebarAction=openCommandCenter
+                    - checkbox [ref=e408]
+                  - cell [ref=e1051]:
+                    - link [ref=e410] [cursor=pointer]:
+                      - /url: /workspaces/276559/home/f_0t0ktf1k2QDDcbe4h6m?sidebarAction=openCommandCenter
+                    - generic [ref=e411]:
+                      - img [ref=e413]
+                      - paragraph [ref=e416]: Recruiting
+                  - cell [ref=e417]:
+                    - link [ref=e418] [cursor=pointer]:
+                      - /url: /workspaces/276559/home/f_0t0ktf1k2QDDcbe4h6m?sidebarAction=openCommandCenter
+                    - button [ref=e419] [cursor=pointer]:
+                      - img [ref=e420]
+                  - cell [ref=e1052]:
+                    - link [ref=e423] [cursor=pointer]:
+                      - /url: /workspaces/276559/home/f_0t0ktf1k2QDDcbe4h6m?sidebarAction=openCommandCenter
+                    - paragraph [ref=e424]: Nov 11, 2025
+                  - cell [ref=e425]:
+                    - link [ref=e426] [cursor=pointer]:
+                      - /url: /workspaces/276559/home/f_0t0ktf1k2QDDcbe4h6m?sidebarAction=openCommandCenter
+                  - cell [ref=e1053]:
+                    - link [ref=e428] [cursor=pointer]:
+                      - /url: /workspaces/276559/home/f_0t0ktf1k2QDDcbe4h6m?sidebarAction=openCommandCenter
+                    - paragraph [ref=e429]: Edit
+                  - cell [ref=e430]:
+                    - link [ref=e431] [cursor=pointer]:
+                      - /url: /workspaces/276559/home/f_0t0ktf1k2QDDcbe4h6m?sidebarAction=openCommandCenter
+                    - menuitem [ref=e433] [cursor=pointer]:
+                      - img [ref=e434]
+                - button [ref=e1054]:
+                  - cell [ref=e437]:
+                    - link [ref=e438] [cursor=pointer]:
+                      - /url: /workspaces/276559/home/f_sBcMPeEKZNS7?sidebarAction=openCommandCenter
+                    - checkbox [ref=e440]
+                  - cell [ref=e1055]:
+                    - link [ref=e442] [cursor=pointer]:
+                      - /url: /workspaces/276559/home/f_sBcMPeEKZNS7?sidebarAction=openCommandCenter
+                    - generic [ref=e443]:
+                      - img [ref=e445]
+                      - paragraph [ref=e448]: Target Companies
+                  - cell [ref=e449]:
+                    - link [ref=e450] [cursor=pointer]:
+                      - /url: /workspaces/276559/home/f_sBcMPeEKZNS7?sidebarAction=openCommandCenter
+                    - button [ref=e451] [cursor=pointer]:
+                      - img [ref=e452]
+                  - cell [ref=e1056]:
+                    - link [ref=e455] [cursor=pointer]:
+                      - /url: /workspaces/276559/home/f_sBcMPeEKZNS7?sidebarAction=openCommandCenter
+                    - paragraph [ref=e456]: Feb 17, 2026
+                  - cell [ref=e457]:
+                    - link [ref=e458] [cursor=pointer]:
+                      - /url: /workspaces/276559/home/f_sBcMPeEKZNS7?sidebarAction=openCommandCenter
+                  - cell [ref=e1057]:
+                    - link [ref=e460] [cursor=pointer]:
+                      - /url: /workspaces/276559/home/f_sBcMPeEKZNS7?sidebarAction=openCommandCenter
+                    - paragraph [ref=e461]: Edit
+                  - cell [ref=e462]:
+                    - link [ref=e463] [cursor=pointer]:
+                      - /url: /workspaces/276559/home/f_sBcMPeEKZNS7?sidebarAction=openCommandCenter
+                    - menuitem [ref=e465] [cursor=pointer]:
+                      - img [ref=e466]
+                - button [ref=e1058]:
+                  - cell [ref=e469]:
+                    - link [ref=e470] [cursor=pointer]:
+                      - /url: /workspaces/276559/home/f_Xx6PgiwDRUcU?sidebarAction=openCommandCenter
+                    - checkbox [ref=e472]
+                  - cell [ref=e1059]:
+                    - link [ref=e474] [cursor=pointer]:
+                      - /url: /workspaces/276559/home/f_Xx6PgiwDRUcU?sidebarAction=openCommandCenter
+                    - generic [ref=e475]:
+                      - img [ref=e477]
+                      - paragraph [ref=e480]: Under Construction
+                  - cell [ref=e481]:
+                    - link [ref=e482] [cursor=pointer]:
+                      - /url: /workspaces/276559/home/f_Xx6PgiwDRUcU?sidebarAction=openCommandCenter
+                    - button [ref=e483] [cursor=pointer]:
+                      - img [ref=e484]
+                  - cell [ref=e1060]:
+                    - link [ref=e487] [cursor=pointer]:
+                      - /url: /workspaces/276559/home/f_Xx6PgiwDRUcU?sidebarAction=openCommandCenter
+                    - paragraph [ref=e488]: Feb 10, 2026
+                  - cell [ref=e489]:
+                    - link [ref=e490] [cursor=pointer]:
+                      - /url: /workspaces/276559/home/f_Xx6PgiwDRUcU?sidebarAction=openCommandCenter
+                  - cell [ref=e1061]:
+                    - link [ref=e492] [cursor=pointer]:
+                      - /url: /workspaces/276559/home/f_Xx6PgiwDRUcU?sidebarAction=openCommandCenter
+                    - paragraph [ref=e493]: Edit
+                  - cell [ref=e494]:
+                    - link [ref=e495] [cursor=pointer]:
+                      - /url: /workspaces/276559/home/f_Xx6PgiwDRUcU?sidebarAction=openCommandCenter
+                    - menuitem [ref=e497] [cursor=pointer]:
+                      - img [ref=e498]
+                - button [ref=e1062]:
+                  - cell [ref=e501]:
+                    - link [ref=e502] [cursor=pointer]:
+                      - /url: /workspaces/276559/workbooks/wb_0t4aettxPNJbrcDWUyS?sidebarAction=openCommandCenter
+                    - checkbox [ref=e504]
+                  - cell [ref=e1063]:
+                    - link [ref=e506] [cursor=pointer]:
+                      - /url: /workspaces/276559/workbooks/wb_0t4aettxPNJbrcDWUyS?sidebarAction=openCommandCenter
+                    - generic [ref=e507]:
+                      - img [ref=e509]
+                      - paragraph [ref=e513]: "[Inbound] Campaign Master Table"
+                  - cell [ref=e514]:
+                    - link [ref=e515] [cursor=pointer]:
+                      - /url: /workspaces/276559/workbooks/wb_0t4aettxPNJbrcDWUyS?sidebarAction=openCommandCenter
+                    - button [ref=e516] [cursor=pointer]:
+                      - img [ref=e517]
+                  - cell [ref=e1064]:
+                    - link [ref=e520] [cursor=pointer]:
+                      - /url: /workspaces/276559/workbooks/wb_0t4aettxPNJbrcDWUyS?sidebarAction=openCommandCenter
+                    - paragraph [ref=e521]: Feb 18, 2026
+                  - cell [ref=e1065]:
+                    - link [ref=e523] [cursor=pointer]:
+                      - /url: /workspaces/276559/workbooks/wb_0t4aettxPNJbrcDWUyS?sidebarAction=openCommandCenter
+                    - paragraph [ref=e526]: Kirill Klokov
+                  - cell [ref=e1066]:
+                    - link [ref=e528] [cursor=pointer]:
+                      - /url: /workspaces/276559/workbooks/wb_0t4aettxPNJbrcDWUyS?sidebarAction=openCommandCenter
+                    - paragraph [ref=e529]: Edit
+                  - cell [ref=e530]:
+                    - link [ref=e531] [cursor=pointer]:
+                      - /url: /workspaces/276559/workbooks/wb_0t4aettxPNJbrcDWUyS?sidebarAction=openCommandCenter
+                    - menuitem [ref=e533] [cursor=pointer]:
+                      - img [ref=e534]
+                - button [ref=e1067]:
+                  - cell [ref=e537]:
+                    - link [ref=e538] [cursor=pointer]:
+                      - /url: /workspaces/276559/workbooks/wb_0tabmhu5Cv7JYR5X38C?sidebarAction=openCommandCenter
+                    - checkbox [ref=e540]
+                  - cell [ref=e1068]:
+                    - link [ref=e542] [cursor=pointer]:
+                      - /url: /workspaces/276559/workbooks/wb_0tabmhu5Cv7JYR5X38C?sidebarAction=openCommandCenter
+                    - generic [ref=e543]:
+                      - img [ref=e545]
+                      - paragraph [ref=e549]: Custom Signal
+                  - cell [ref=e550]:
+                    - link [ref=e551] [cursor=pointer]:
+                      - /url: /workspaces/276559/workbooks/wb_0tabmhu5Cv7JYR5X38C?sidebarAction=openCommandCenter
+                    - button [ref=e552] [cursor=pointer]:
+                      - img [ref=e553]
+                  - cell [ref=e1069]:
+                    - link [ref=e556] [cursor=pointer]:
+                      - /url: /workspaces/276559/workbooks/wb_0tabmhu5Cv7JYR5X38C?sidebarAction=openCommandCenter
+                    - paragraph [ref=e557]: Feb 12, 2026
+                  - cell [ref=e1070]:
+                    - link [ref=e559] [cursor=pointer]:
+                      - /url: /workspaces/276559/workbooks/wb_0tabmhu5Cv7JYR5X38C?sidebarAction=openCommandCenter
+                    - paragraph [ref=e562]: Cam Wolf
+                  - cell [ref=e1071]:
+                    - link [ref=e564] [cursor=pointer]:
+                      - /url: /workspaces/276559/workbooks/wb_0tabmhu5Cv7JYR5X38C?sidebarAction=openCommandCenter
+                    - paragraph [ref=e565]: Edit
+                  - cell [ref=e566]:
+                    - link [ref=e567] [cursor=pointer]:
+                      - /url: /workspaces/276559/workbooks/wb_0tabmhu5Cv7JYR5X38C?sidebarAction=openCommandCenter
+                    - menuitem [ref=e569] [cursor=pointer]:
+                      - img [ref=e570]
+                - button [ref=e1072]:
+                  - cell [ref=e573]:
+                    - link [ref=e574] [cursor=pointer]:
+                      - /url: /workspaces/276559/workbooks/wb_0t57xmtjoYJDhKvVKAH?sidebarAction=openCommandCenter
+                    - checkbox [ref=e576]
+                  - cell [ref=e1073]:
+                    - link [ref=e578] [cursor=pointer]:
+                      - /url: /workspaces/276559/workbooks/wb_0t57xmtjoYJDhKvVKAH?sidebarAction=openCommandCenter
+                    - generic [ref=e579]:
+                      - img [ref=e581]
+                      - paragraph [ref=e585]: Find People
+                  - cell [ref=e586]:
+                    - link [ref=e587] [cursor=pointer]:
+                      - /url: /workspaces/276559/workbooks/wb_0t57xmtjoYJDhKvVKAH?sidebarAction=openCommandCenter
+                    - button [ref=e588] [cursor=pointer]:
+                      - img [ref=e589]
+                  - cell [ref=e1074]:
+                    - link [ref=e592] [cursor=pointer]:
+                      - /url: /workspaces/276559/workbooks/wb_0t57xmtjoYJDhKvVKAH?sidebarAction=openCommandCenter
+                    - paragraph [ref=e593]: Nov 4, 2025
+                  - cell [ref=e1075]:
+                    - link [ref=e595] [cursor=pointer]:
+                      - /url: /workspaces/276559/workbooks/wb_0t57xmtjoYJDhKvVKAH?sidebarAction=openCommandCenter
+                    - paragraph [ref=e598]: Sofia Khair
+                  - cell [ref=e1076]:
+                    - link [ref=e600] [cursor=pointer]:
+                      - /url: /workspaces/276559/workbooks/wb_0t57xmtjoYJDhKvVKAH?sidebarAction=openCommandCenter
+                    - paragraph [ref=e601]: Edit
+                  - cell [ref=e602]:
+                    - link [ref=e603] [cursor=pointer]:
+                      - /url: /workspaces/276559/workbooks/wb_0t57xmtjoYJDhKvVKAH?sidebarAction=openCommandCenter
+                    - menuitem [ref=e605] [cursor=pointer]:
+                      - img [ref=e606]
+                - button [ref=e1077]:
+                  - cell [ref=e609]:
+                    - link [ref=e610] [cursor=pointer]:
+                      - /url: /workspaces/276559/workbooks/wb_0t59ch4SeNGkeEzT2eS?sidebarAction=openCommandCenter
+                    - checkbox [ref=e612]
+                  - cell [ref=e1078]:
+                    - link [ref=e614] [cursor=pointer]:
+                      - /url: /workspaces/276559/workbooks/wb_0t59ch4SeNGkeEzT2eS?sidebarAction=openCommandCenter
+                    - generic [ref=e615]:
+                      - img [ref=e617]
+                      - paragraph [ref=e621]: Find People
+                  - cell [ref=e622]:
+                    - link [ref=e623] [cursor=pointer]:
+                      - /url: /workspaces/276559/workbooks/wb_0t59ch4SeNGkeEzT2eS?sidebarAction=openCommandCenter
+                    - button [ref=e624] [cursor=pointer]:
+                      - img [ref=e625]
+                  - cell [ref=e627]:
+                    - link [ref=e628] [cursor=pointer]:
+                      - /url: /workspaces/276559/workbooks/wb_0t59ch4SeNGkeEzT2eS?sidebarAction=openCommandCenter
+                  - cell [ref=e1079]:
+                    - link [ref=e630] [cursor=pointer]:
+                      - /url: /workspaces/276559/workbooks/wb_0t59ch4SeNGkeEzT2eS?sidebarAction=openCommandCenter
+                    - paragraph [ref=e633]: Sofia Khair
+                  - cell [ref=e1080]:
+                    - link [ref=e635] [cursor=pointer]:
+                      - /url: /workspaces/276559/workbooks/wb_0t59ch4SeNGkeEzT2eS?sidebarAction=openCommandCenter
+                    - paragraph [ref=e636]: Edit
+                  - cell [ref=e637]:
+                    - link [ref=e638] [cursor=pointer]:
+                      - /url: /workspaces/276559/workbooks/wb_0t59ch4SeNGkeEzT2eS?sidebarAction=openCommandCenter
+                    - menuitem [ref=e640] [cursor=pointer]:
+                      - img [ref=e641]
+                - button [ref=e1081]:
+                  - cell [ref=e644]:
+                    - link [ref=e645] [cursor=pointer]:
+                      - /url: /workspaces/276559/workbooks/wb_0t5ay6lUnnyXcQfurnT?sidebarAction=openCommandCenter
+                    - checkbox [ref=e647]
+                  - cell [ref=e1082]:
+                    - link [ref=e649] [cursor=pointer]:
+                      - /url: /workspaces/276559/workbooks/wb_0t5ay6lUnnyXcQfurnT?sidebarAction=openCommandCenter
+                    - generic [ref=e650]:
+                      - img [ref=e652]
+                      - paragraph [ref=e656]: Find People
+                  - cell [ref=e657]:
+                    - link [ref=e658] [cursor=pointer]:
+                      - /url: /workspaces/276559/workbooks/wb_0t5ay6lUnnyXcQfurnT?sidebarAction=openCommandCenter
+                    - button [ref=e659] [cursor=pointer]:
+                      - img [ref=e660]
+                  - cell [ref=e1083]:
+                    - link [ref=e663] [cursor=pointer]:
+                      - /url: /workspaces/276559/workbooks/wb_0t5ay6lUnnyXcQfurnT?sidebarAction=openCommandCenter
+                    - paragraph [ref=e664]: Nov 11, 2025
+                  - cell [ref=e1084]:
+                    - link [ref=e666] [cursor=pointer]:
+                      - /url: /workspaces/276559/workbooks/wb_0t5ay6lUnnyXcQfurnT?sidebarAction=openCommandCenter
+                    - paragraph [ref=e669]: Sofia Khair
+                  - cell [ref=e1085]:
+                    - link [ref=e671] [cursor=pointer]:
+                      - /url: /workspaces/276559/workbooks/wb_0t5ay6lUnnyXcQfurnT?sidebarAction=openCommandCenter
+                    - paragraph [ref=e672]: Edit
+                  - cell [ref=e673]:
+                    - link [ref=e674] [cursor=pointer]:
+                      - /url: /workspaces/276559/workbooks/wb_0t5ay6lUnnyXcQfurnT?sidebarAction=openCommandCenter
+                    - menuitem [ref=e676] [cursor=pointer]:
+                      - img [ref=e677]
+                - button [ref=e1086]:
+                  - cell [ref=e680]:
+                    - link [ref=e681] [cursor=pointer]:
+                      - /url: /workspaces/276559/workbooks/wb_0t9mhwdii7gzj7dFG97?sidebarAction=openCommandCenter
+                    - checkbox [ref=e683]
+                  - cell [ref=e1087]:
+                    - link [ref=e685] [cursor=pointer]:
+                      - /url: /workspaces/276559/workbooks/wb_0t9mhwdii7gzj7dFG97?sidebarAction=openCommandCenter
+                    - generic [ref=e686]:
+                      - img [ref=e688]
+                      - paragraph [ref=e692]: Find People
+                  - cell [ref=e693]:
+                    - link [ref=e694] [cursor=pointer]:
+                      - /url: /workspaces/276559/workbooks/wb_0t9mhwdii7gzj7dFG97?sidebarAction=openCommandCenter
+                    - button [ref=e695] [cursor=pointer]:
+                      - img [ref=e696]
+                  - cell [ref=e698]:
+                    - link [ref=e699] [cursor=pointer]:
+                      - /url: /workspaces/276559/workbooks/wb_0t9mhwdii7gzj7dFG97?sidebarAction=openCommandCenter
+                  - cell [ref=e1088]:
+                    - link [ref=e701] [cursor=pointer]:
+                      - /url: /workspaces/276559/workbooks/wb_0t9mhwdii7gzj7dFG97?sidebarAction=openCommandCenter
+                    - paragraph [ref=e704]: Sofia Khair
+                  - cell [ref=e1089]:
+                    - link [ref=e706] [cursor=pointer]:
+                      - /url: /workspaces/276559/workbooks/wb_0t9mhwdii7gzj7dFG97?sidebarAction=openCommandCenter
+                    - paragraph [ref=e707]: Edit
+                  - cell [ref=e708]:
+                    - link [ref=e709] [cursor=pointer]:
+                      - /url: /workspaces/276559/workbooks/wb_0t9mhwdii7gzj7dFG97?sidebarAction=openCommandCenter
+                    - menuitem [ref=e711] [cursor=pointer]:
+                      - img [ref=e712]
+                - button [ref=e1090]:
+                  - cell [ref=e715]:
+                    - link [ref=e716] [cursor=pointer]:
+                      - /url: /workspaces/276559/workbooks/wb_0tab6thRsB6EM9hj3Yk?sidebarAction=openCommandCenter
+                    - checkbox [ref=e718]
+                  - cell [ref=e1091]:
+                    - link [ref=e720] [cursor=pointer]:
+                      - /url: /workspaces/276559/workbooks/wb_0tab6thRsB6EM9hj3Yk?sidebarAction=openCommandCenter
+                    - generic [ref=e721]:
+                      - img [ref=e723]
+                      - paragraph [ref=e727]: HIT Summit 2026
+                  - cell [ref=e728]:
+                    - link [ref=e729] [cursor=pointer]:
+                      - /url: /workspaces/276559/workbooks/wb_0tab6thRsB6EM9hj3Yk?sidebarAction=openCommandCenter
+                    - button [ref=e730] [cursor=pointer]:
+                      - img [ref=e731]
+                  - cell [ref=e1092]:
+                    - link [ref=e734] [cursor=pointer]:
+                      - /url: /workspaces/276559/workbooks/wb_0tab6thRsB6EM9hj3Yk?sidebarAction=openCommandCenter
+                    - paragraph [ref=e735]: 12 minutes ago
+                  - cell [ref=e1093]:
+                    - link [ref=e737] [cursor=pointer]:
+                      - /url: /workspaces/276559/workbooks/wb_0tab6thRsB6EM9hj3Yk?sidebarAction=openCommandCenter
+                    - paragraph [ref=e740]: Cam Wolf
+                  - cell [ref=e1094]:
+                    - link [ref=e742] [cursor=pointer]:
+                      - /url: /workspaces/276559/workbooks/wb_0tab6thRsB6EM9hj3Yk?sidebarAction=openCommandCenter
+                    - paragraph [ref=e743]: Edit
+                  - cell [ref=e744]:
+                    - link [ref=e745] [cursor=pointer]:
+                      - /url: /workspaces/276559/workbooks/wb_0tab6thRsB6EM9hj3Yk?sidebarAction=openCommandCenter
+                    - menuitem [ref=e747] [cursor=pointer]:
+                      - img [ref=e748]
+                - button [ref=e1095]:
+                  - cell [ref=e751]:
+                    - link [ref=e752] [cursor=pointer]:
+                      - /url: /workspaces/276559/workbooks/wb_0t562tvwqbnvWPaYWvN?sidebarAction=openCommandCenter
+                    - checkbox [ref=e754]
+                  - cell [ref=e1096]:
+                    - link [ref=e756] [cursor=pointer]:
+                      - /url: /workspaces/276559/workbooks/wb_0t562tvwqbnvWPaYWvN?sidebarAction=openCommandCenter
+                    - generic [ref=e757]:
+                      - img [ref=e759]
+                      - paragraph [ref=e763]: PA Largest Employers Q4 2024
+                  - cell [ref=e764]:
+                    - link [ref=e765] [cursor=pointer]:
+                      - /url: /workspaces/276559/workbooks/wb_0t562tvwqbnvWPaYWvN?sidebarAction=openCommandCenter
+                    - button [ref=e766] [cursor=pointer]:
+                      - img [ref=e767]
+                  - cell [ref=e769]:
+                    - link [ref=e770] [cursor=pointer]:
+                      - /url: /workspaces/276559/workbooks/wb_0t562tvwqbnvWPaYWvN?sidebarAction=openCommandCenter
+                  - cell [ref=e1097]:
+                    - link [ref=e772] [cursor=pointer]:
+                      - /url: /workspaces/276559/workbooks/wb_0t562tvwqbnvWPaYWvN?sidebarAction=openCommandCenter
+                    - paragraph [ref=e775]: Eric White
+                  - cell [ref=e1098]:
+                    - link [ref=e777] [cursor=pointer]:
+                      - /url: /workspaces/276559/workbooks/wb_0t562tvwqbnvWPaYWvN?sidebarAction=openCommandCenter
+                    - paragraph [ref=e778]: Edit
+                  - cell [ref=e779]:
+                    - link [ref=e780] [cursor=pointer]:
+                      - /url: /workspaces/276559/workbooks/wb_0t562tvwqbnvWPaYWvN?sidebarAction=openCommandCenter
+                    - menuitem [ref=e782] [cursor=pointer]:
+                      - img [ref=e783]
+                - button [ref=e1099]:
+                  - cell [ref=e786]:
+                    - link [ref=e787] [cursor=pointer]:
+                      - /url: /workspaces/276559/workbooks/wb_0t99v3ygyToJ9QvP8nN?sidebarAction=openCommandCenter
+                    - checkbox [ref=e789]
+                  - cell [ref=e1100]:
+                    - link [ref=e791] [cursor=pointer]:
+                      - /url: /workspaces/276559/workbooks/wb_0t99v3ygyToJ9QvP8nN?sidebarAction=openCommandCenter
+                    - generic [ref=e792]:
+                      - img [ref=e794]
+                      - paragraph [ref=e798]: Post Sales
+                  - cell [ref=e799]:
+                    - link [ref=e800] [cursor=pointer]:
+                      - /url: /workspaces/276559/workbooks/wb_0t99v3ygyToJ9QvP8nN?sidebarAction=openCommandCenter
+                    - button [ref=e801] [cursor=pointer]:
+                      - img [ref=e802]
+                  - cell [ref=e804]:
+                    - link [ref=e805] [cursor=pointer]:
+                      - /url: /workspaces/276559/workbooks/wb_0t99v3ygyToJ9QvP8nN?sidebarAction=openCommandCenter
+                  - cell [ref=e1101]:
+                    - link [ref=e807] [cursor=pointer]:
+                      - /url: /workspaces/276559/workbooks/wb_0t99v3ygyToJ9QvP8nN?sidebarAction=openCommandCenter
+                    - paragraph [ref=e810]: Sofia Khair
+                  - cell [ref=e1102]:
+                    - link [ref=e812] [cursor=pointer]:
+                      - /url: /workspaces/276559/workbooks/wb_0t99v3ygyToJ9QvP8nN?sidebarAction=openCommandCenter
+                    - paragraph [ref=e813]: Edit
+                  - cell [ref=e814]:
+                    - link [ref=e815] [cursor=pointer]:
+                      - /url: /workspaces/276559/workbooks/wb_0t99v3ygyToJ9QvP8nN?sidebarAction=openCommandCenter
+                    - menuitem [ref=e817] [cursor=pointer]:
+                      - img [ref=e818]
+                - button [ref=e1103]:
+                  - cell [ref=e821]:
+                    - link [ref=e822] [cursor=pointer]:
+                      - /url: /workspaces/276559/workbooks/wb_0t7291mxFnhkqvDcar5?sidebarAction=openCommandCenter
+                    - checkbox [ref=e824]
+                  - cell [ref=e1104]:
+                    - link [ref=e826] [cursor=pointer]:
+                      - /url: /workspaces/276559/workbooks/wb_0t7291mxFnhkqvDcar5?sidebarAction=openCommandCenter
+                    - generic [ref=e827]:
+                      - img [ref=e829]
+                      - paragraph [ref=e833]: Top Lenders 2024 - For Ad Campaigns
+                  - cell [ref=e834]:
+                    - link [ref=e835] [cursor=pointer]:
+                      - /url: /workspaces/276559/workbooks/wb_0t7291mxFnhkqvDcar5?sidebarAction=openCommandCenter
+                    - button [ref=e836] [cursor=pointer]:
+                      - img [ref=e837]
+                  - cell [ref=e1105]:
+                    - link [ref=e840] [cursor=pointer]:
+                      - /url: /workspaces/276559/workbooks/wb_0t7291mxFnhkqvDcar5?sidebarAction=openCommandCenter
+                    - paragraph [ref=e841]: Feb 18, 2026
+                  - cell [ref=e1106]:
+                    - link [ref=e843] [cursor=pointer]:
+                      - /url: /workspaces/276559/workbooks/wb_0t7291mxFnhkqvDcar5?sidebarAction=openCommandCenter
+                    - paragraph [ref=e846]: Cam Wolf
+                  - cell [ref=e1107]:
+                    - link [ref=e848] [cursor=pointer]:
+                      - /url: /workspaces/276559/workbooks/wb_0t7291mxFnhkqvDcar5?sidebarAction=openCommandCenter
+                    - paragraph [ref=e849]: Edit
+                  - cell [ref=e850]:
+                    - link [ref=e851] [cursor=pointer]:
+                      - /url: /workspaces/276559/workbooks/wb_0t7291mxFnhkqvDcar5?sidebarAction=openCommandCenter
+                    - menuitem [ref=e853] [cursor=pointer]:
+                      - img [ref=e854]
+                - button [ref=e1108]:
+                  - cell [ref=e857]:
+                    - link [ref=e858] [cursor=pointer]:
+                      - /url: /workspaces/276559/workbooks/wb_0tayz2f5txzehFmt22Z?sidebarAction=openCommandCenter
+                    - checkbox [ref=e860]
+                  - cell [ref=e1109]:
+                    - link [ref=e862] [cursor=pointer]:
+                      - /url: /workspaces/276559/workbooks/wb_0tayz2f5txzehFmt22Z?sidebarAction=openCommandCenter
+                    - generic [ref=e863]:
+                      - img [ref=e865]
+                      - paragraph [ref=e869]: Untitled workbook
+                  - cell [ref=e870]:
+                    - link [ref=e871] [cursor=pointer]:
+                      - /url: /workspaces/276559/workbooks/wb_0tayz2f5txzehFmt22Z?sidebarAction=openCommandCenter
+                    - button [ref=e872] [cursor=pointer]:
+                      - img [ref=e873]
+                  - cell [ref=e875]:
+                    - link [ref=e876] [cursor=pointer]:
+                      - /url: /workspaces/276559/workbooks/wb_0tayz2f5txzehFmt22Z?sidebarAction=openCommandCenter
+                  - cell [ref=e1110]:
+                    - link [ref=e878] [cursor=pointer]:
+                      - /url: /workspaces/276559/workbooks/wb_0tayz2f5txzehFmt22Z?sidebarAction=openCommandCenter
+                    - paragraph [ref=e881]: Sofia Khair
+                  - cell [ref=e1111]:
+                    - link [ref=e883] [cursor=pointer]:
+                      - /url: /workspaces/276559/workbooks/wb_0tayz2f5txzehFmt22Z?sidebarAction=openCommandCenter
+                    - paragraph [ref=e884]: Edit
+                  - cell [ref=e885]:
+                    - link [ref=e886] [cursor=pointer]:
+                      - /url: /workspaces/276559/workbooks/wb_0tayz2f5txzehFmt22Z?sidebarAction=openCommandCenter
+                    - menuitem [ref=e888] [cursor=pointer]:
+                      - img [ref=e889]
+                - button [ref=e1112]:
+                  - cell [ref=e892]:
+                    - link [ref=e893] [cursor=pointer]:
+                      - /url: /workspaces/276559/tables/t_0t8rm71djaXW2kyKJeW?sidebarAction=openCommandCenter
+                    - checkbox [ref=e895]
+                  - cell [ref=e1113]:
+                    - link [ref=e897] [cursor=pointer]:
+                      - /url: /workspaces/276559/tables/t_0t8rm71djaXW2kyKJeW?sidebarAction=openCommandCenter
+                    - generic [ref=e898]:
+                      - img [ref=e900]
+                      - paragraph [ref=e904]: Copy of Desert Disruption 2026
+                  - cell [ref=e905]:
+                    - link [ref=e906] [cursor=pointer]:
+                      - /url: /workspaces/276559/tables/t_0t8rm71djaXW2kyKJeW?sidebarAction=openCommandCenter
+                    - button [ref=e907] [cursor=pointer]:
+                      - img [ref=e908]
+                  - cell [ref=e1114]:
+                    - link [ref=e911] [cursor=pointer]:
+                      - /url: /workspaces/276559/tables/t_0t8rm71djaXW2kyKJeW?sidebarAction=openCommandCenter
+                    - paragraph [ref=e912]: Feb 11, 2026
+                  - cell [ref=e1115]:
+                    - link [ref=e914] [cursor=pointer]:
+                      - /url: /workspaces/276559/tables/t_0t8rm71djaXW2kyKJeW?sidebarAction=openCommandCenter
+                    - paragraph [ref=e917]: Cam Wolf
+                  - cell [ref=e1116]:
+                    - link [ref=e919] [cursor=pointer]:
+                      - /url: /workspaces/276559/tables/t_0t8rm71djaXW2kyKJeW?sidebarAction=openCommandCenter
+                    - paragraph [ref=e920]: Edit
+                  - cell [ref=e921]:
+                    - link [ref=e922] [cursor=pointer]:
+                      - /url: /workspaces/276559/tables/t_0t8rm71djaXW2kyKJeW?sidebarAction=openCommandCenter
+                    - menuitem [ref=e924] [cursor=pointer]:
+                      - img [ref=e925]
+                - button [ref=e1117]:
+                  - cell [ref=e928]:
+                    - link [ref=e929] [cursor=pointer]:
+                      - /url: /workspaces/276559/tables/t_0t5zji7FNk22AkBNg85?sidebarAction=openCommandCenter
+                    - checkbox [ref=e931]
+                  - cell [ref=e1118]:
+                    - link [ref=e933] [cursor=pointer]:
+                      - /url: /workspaces/276559/tables/t_0t5zji7FNk22AkBNg85?sidebarAction=openCommandCenter
+                    - generic [ref=e934]:
+                      - img [ref=e936]
+                      - paragraph [ref=e940]: MBA - quarterly MBA member mailing list
+                  - cell [ref=e941]:
+                    - link [ref=e942] [cursor=pointer]:
+                      - /url: /workspaces/276559/tables/t_0t5zji7FNk22AkBNg85?sidebarAction=openCommandCenter
+                    - button [ref=e943] [cursor=pointer]:
+                      - img [ref=e944]
+                  - cell [ref=e1119]:
+                    - link [ref=e947] [cursor=pointer]:
+                      - /url: /workspaces/276559/tables/t_0t5zji7FNk22AkBNg85?sidebarAction=openCommandCenter
+                    - paragraph [ref=e948]: Jan 12, 2026
+                  - cell [ref=e1120]:
+                    - link [ref=e950] [cursor=pointer]:
+                      - /url: /workspaces/276559/tables/t_0t5zji7FNk22AkBNg85?sidebarAction=openCommandCenter
+                    - paragraph [ref=e953]: Cam Wolf
+                  - cell [ref=e1121]:
+                    - link [ref=e955] [cursor=pointer]:
+                      - /url: /workspaces/276559/tables/t_0t5zji7FNk22AkBNg85?sidebarAction=openCommandCenter
+                    - paragraph [ref=e956]: Edit
+                  - cell [ref=e957]:
+                    - link [ref=e958] [cursor=pointer]:
+                      - /url: /workspaces/276559/tables/t_0t5zji7FNk22AkBNg85?sidebarAction=openCommandCenter
+                    - menuitem [ref=e960] [cursor=pointer]:
+                      - img [ref=e961]
+          - status [ref=e963]
+  - iframe [ref=e964]:
+    
+  - dialog [ref=e1128]:
+    - generic [ref=e1130]:
+      - generic [ref=e1131]:
+        - button [active] [ref=e1132] [cursor=pointer]:
+          - img [ref=e1133]
+        - heading "CSV" [level=1] [ref=e1136]:
+          - generic [ref=e1138]: CSV
+        - button [ref=e1139] [cursor=pointer]:
+          - img [ref=e1140]
+      - generic [ref=e1147] [cursor=pointer]:
+        - img [ref=e1148]
+        - generic [ref=e1150]:
+          - paragraph [ref=e1151]: Browse files
+          - paragraph [ref=e1152]: or drag and drop a CSV
+      - button "Continue" [disabled] [ref=e1154]

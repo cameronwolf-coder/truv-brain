@@ -1,0 +1,181 @@
+- generic [ref=e1]:
+  - generic:
+    - region "Notification Toasts":
+      - heading "7 notifications total" [level=2] [ref=e4747]
+      - paragraph [ref=e2320]: Dismiss the current notification to hear the previous.
+      - generic [ref=e4748]:
+        - generic [ref=e4749]:
+          - img [ref=e4751]
+          - alert [ref=e4754]:
+            - generic [ref=e4756]: 1 document has been selected successfully
+          - button "Dismiss “1 document has been selected successfully” notification 1 of 7." [ref=e4758] [cursor=pointer]:
+            - img [ref=e4760]
+        - generic [ref=e4763]:
+          - time [ref=e4765]: 2s ago
+          - generic [ref=e4766]: 1/7
+  - button "Chat with us" [ref=e4767] [cursor=pointer]:
+    - img [ref=e6]
+  - generic [ref=e9]:
+    - generic [ref=e12]:
+      - button "Skip to main content" [ref=e4768] [cursor=pointer]
+      - button "Close jump menu" [ref=e4769] [cursor=pointer]:
+        - img [ref=e15]
+        - generic [ref=e17]: Close jump menu
+    - banner [ref=e18]:
+      - generic [ref=e19]:
+        - button [ref=e21] [cursor=pointer]:
+          - generic [ref=e23]:
+            - generic [ref=e24]:
+              - img [ref=e26]:
+                - img [ref=e27]
+              - img [ref=e30]
+            - img [ref=e33]
+        - generic [ref=e35]:
+          - heading "Actions List" [level=2] [ref=e4770]
+          - list [ref=e37]:
+            - listitem [ref=e1616]:
+              - generic [ref=e1618]: Truv Ad Account
+              - img "Truv company icon" [ref=e4771]
+          - separator [ref=e44]
+        - button "At least one account has unseen notifications, click to enter notifications experience 2 new account notifications" [ref=e4772] [cursor=pointer]:
+          - generic [ref=e47]:
+            - generic [ref=e48]: At least one account has unseen notifications, click to enter notifications experience
+            - generic [ref=e49]:
+              - generic [ref=e50]:
+                - generic [ref=e51]: "2"
+                - generic [ref=e52]: 2 new account notifications
+              - img [ref=e54]
+        - button "Learn more about campaign manager" [ref=e4773] [cursor=pointer]:
+          - img "Help" [ref=e4774]:
+            - img [ref=e61]
+        - button "Open user menu Icon for Truv" [ref=e4775] [cursor=pointer]:
+          - generic [ref=e64]:
+            - generic [ref=e65]: Open user menu
+            - img "Icon for Truv" [ref=e4776]
+    - main [ref=e70]:
+      - generic [ref=e4361]:
+        - generic [ref=e4364]:
+          - button "Back to ad set" [ref=e4777] [cursor=pointer]:
+            - img [ref=e4367]
+            - generic [ref=e4369]: Back to ad set
+          - list [ref=e4371]:
+            - listitem [ref=e4372]:
+              - generic [ref=e4373]: ... / CCM Document Ad - Lending / CCM Document Ad - Ops & Lending
+            - listitem [ref=e4374]:
+              - generic [ref=e4375]: CCM Case Study - White Cover (Integration)
+        - generic [ref=e4377]:
+          - generic [ref=e4378]:
+            - generic [ref=e4379]:
+              - generic [ref=e4380]:
+                - heading "Ad" [level=3] [ref=e4778]:
+                  - button "Ad" [disabled] [expanded] [ref=e4779] [cursor=pointer]:
+                    - generic [ref=e4383]:
+                      - text: Ad
+                      - generic [ref=e4384]:
+                        - alert
+                        - img [ref=e4461]
+                - form "Ad" [ref=e4780]:
+                  - generic [ref=e4464]:
+                    - generic [ref=e4465]:
+                      - generic [ref=e4466]:
+                        - generic [ref=e4467]: Name this ad (optional)
+                        - button "More information about the ad name" [ref=e4781] [cursor=pointer]:
+                          - img [ref=e4470]
+                          - generic [ref=e4472]: More information about the ad name
+                      - generic [ref=e4473]:
+                        - generic [ref=e4476]:
+                          - textbox "Name this ad (optional) More information about the ad name" [ref=e4782]:
+                            - /placeholder: Example 1
+                            - text: CCM Case Study - White Cover (Integration)
+                          - generic "Maximum 255 characters" [ref=e4783]: 42/255
+                        - generic:
+                          - alert
+                    - generic [ref=e4481]:
+                      - generic [ref=e4482]:
+                        - generic [ref=e4483]: Introductory text
+                        - button "Learn more about Introductory text" [ref=e4784] [cursor=pointer]:
+                          - img [ref=e4486]
+                          - generic [ref=e4488]: Learn more about Introductory text
+                        - text: "*"
+                      - generic [ref=e4489]:
+                        - generic [ref=e4492]:
+                          - textbox "Introductory text" [ref=e4785]:
+                            - /placeholder: This is your introductory text
+                            - text: CrossCountry Mortgage cut verification costs and closed loans faster with Truv. See how they saved $10M annually. Swipe through the results.
+                          - generic "Maximum 600 characters" [ref=e4786]: 140/600
+                        - generic:
+                          - alert
+                    - generic [ref=e4497]: Document
+                    - generic [ref=e4498]:
+                      - list [ref=e4787]:
+                        - listitem [ref=e4788]:
+                          - generic [ref=e4789]:
+                            - img "Preview image for uploaded file" [ref=e4791]
+                            - generic [ref=e4792]:
+                              - generic [ref=e4793]:
+                                - button "CCM_x_Truv_LinkedIn_Document_Ad_2026_White.pdf" [active] [ref=e4794] [cursor=pointer]:
+                                  - generic [ref=e4795]: CCM_x_Truv_LinkedIn_Document_Ad_2026_White.pdf
+                                - region [ref=e4796]
+                              - button "Remove CCM_x_Truv_LinkedIn_Document_Ad_2026_White.pdf" [ref=e4797] [cursor=pointer]:
+                                - img [ref=e4799]
+                          - generic [ref=e4802]:
+                            - text: Previewable pages
+                            - generic [ref=e4803]: "1"
+                            - button "Learn more about previewable pages" [ref=e4804] [cursor=pointer]:
+                              - img [ref=e4806]
+                              - generic [ref=e4808]: Learn more about previewable pages
+                          - generic [ref=e4812]:
+                            - slider "Previewable pages 1 Learn more about previewable pages" [ref=e4813] [cursor=pointer]: "1"
+                            - list [ref=e4814]:
+                              - listitem [ref=e4815]: "1"
+                              - listitem [ref=e4816]: "2"
+                              - listitem [ref=e4817]: "3"
+                              - listitem [ref=e4818]: "4"
+                              - listitem [ref=e4819]: "5"
+                          - generic [ref=e4820]:
+                            - generic [ref=e4821]:
+                              - generic [ref=e4822]: Headline
+                              - button "Learn more about Headline text" [ref=e4823] [cursor=pointer]:
+                                - img [ref=e4825]
+                                - generic [ref=e4827]: Learn more about Headline text
+                              - text: "*"
+                            - generic [ref=e4828]:
+                              - generic [ref=e4831]:
+                                - textbox "Headline" [ref=e4832]:
+                                  - /placeholder: This is your ad headline.
+                                  - text: CCM_x_Truv_LinkedIn_Document_Ad_2026_White.pdf
+                                - generic "Maximum 200 characters" [ref=e4834]: 46/200
+                              - generic:
+                                - alert
+                      - generic [ref=e4500]:
+                        - generic [ref=e4501]: Support for PDF documents.
+                        - button "Upload or select" [ref=e4836] [cursor=pointer]:
+                          - generic [ref=e4503]: Upload or select
+                      - alert
+              - heading "Form details" [level=2] [ref=e4837]:
+                - button "Form details" [ref=e4838] [cursor=pointer]:
+                  - generic [ref=e4391]:
+                    - generic [ref=e4392]: Form details
+                    - generic [ref=e4393]:
+                      - alert
+                      - img [ref=e4504]
+            - alert
+            - generic:
+              - alert
+          - generic [ref=e4434]:
+            - heading "Preview" [level=2] [ref=e4839]
+            - button "Select a platform for the ad preview. Mobile Feed" [ref=e4840] [cursor=pointer]:
+              - img [ref=e4439]
+              - generic [ref=e4441]: Mobile Feed
+            - generic [ref=e4444]:
+              - status [ref=e4445]:
+                - generic [ref=e4446]:
+                  - img [ref=e4448]
+                  - generic [ref=e4451]: This is a static image of a mobile document ad.
+              - img "Document ad mobile preview" [ref=e4841]
+        - generic [ref=e4454]:
+          - button "Cancel" [ref=e4842] [cursor=pointer]:
+            - generic [ref=e4457]: Cancel
+          - button "Save ad" [ref=e4843] [cursor=pointer]:
+            - generic [ref=e4460]: Save ad
+  - generic [ref=e183]: CCM_x_Truv_LinkedIn_Document_Ad_2026_White.pdf

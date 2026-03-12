@@ -1,0 +1,124 @@
+- generic [ref=e1]:
+  - generic:
+    - region "Notification Toasts":
+      - heading "0 notifications total" [level=2] [ref=e4573]
+  - generic:
+    - generic [ref=e3971]: Multiple suggestions. Use up and down arrow keys to navigate, or keep typing for new suggestions.
+    - listbox [ref=e4589]:
+      - option "CrossCountry Mortgage Case Study B 1003767085 · Active" [ref=e4590]:
+        - generic [ref=e4592]:
+          - generic [ref=e4594]: CrossCountry Mortgage Case Study B
+          - generic [ref=e4596]: 1003767085 · Active
+      - option "CrossCountry Mortgage Case Study B Test 1003755085 · Active" [ref=e4597]:
+        - generic [ref=e4599]:
+          - generic [ref=e4601]: CrossCountry Mortgage Case Study B Test
+          - generic [ref=e4603]: 1003755085 · Active
+      - option "CrossCountry Mortgage Case Study 1003754098 · Active" [ref=e4604]:
+        - generic [ref=e4606]:
+          - generic [ref=e4608]: CrossCountry Mortgage Case Study
+          - generic [ref=e4610]: 1003754098 · Active
+      - option "Prosperity Home Mortgage Case Study 1002543056 · Active" [ref=e4611]:
+        - generic [ref=e4613]:
+          - generic [ref=e4615]: Prosperity Home Mortgage Case Study
+          - generic [ref=e4617]: 1002543056 · Active
+  - button [ref=e4302] [cursor=pointer]:
+    - img [ref=e29]
+  - generic [ref=e32]:
+    - generic [ref=e35]:
+      - button [ref=e4303] [cursor=pointer]: Skip to main content
+      - button [ref=e4304] [cursor=pointer]:
+        - img [ref=e38]
+        - generic [ref=e40]: Close jump menu
+    - banner [ref=e41]:
+      - generic [ref=e42]:
+        - button [ref=e49] [cursor=pointer]:
+          - generic [ref=e51]:
+            - generic [ref=e52]:
+              - img [ref=e54]:
+                - img [ref=e55]
+              - img [ref=e58]
+            - img [ref=e61]
+        - generic [ref=e1071]:
+          - heading [level=2] [ref=e4305]: Actions List
+          - list [ref=e1072]:
+            - listitem [ref=e1073]:
+              - generic [ref=e1075]: Truv Ad Account
+              - img [ref=e4306]
+          - separator [ref=e1079]
+        - button [ref=e4307] [cursor=pointer]:
+          - generic [ref=e66]:
+            - generic [ref=e67]: At least one account has unseen notifications, click to enter notifications experience
+            - generic [ref=e68]:
+              - generic [ref=e69]:
+                - generic [ref=e70]: "2"
+                - generic [ref=e71]: 2 new account notifications
+              - img [ref=e73]
+        - button [ref=e4308] [cursor=pointer]:
+          - img [ref=e4309]:
+            - img [ref=e80]
+        - button [ref=e4310] [cursor=pointer]:
+          - generic [ref=e83]:
+            - generic [ref=e84]: Open user menu
+            - img [ref=e4311]
+    - main [ref=e180]:
+      - generic [ref=e3973]:
+        - generic [ref=e3976]:
+          - button [ref=e4312] [cursor=pointer]:
+            - img [ref=e3979]
+            - generic [ref=e3981]: Back to ad set
+          - list [ref=e3983]:
+            - listitem [ref=e3984]:
+              - generic [ref=e3985]: ... / CCM Document Ad - Lending / CCM Document Ad - Ops & Lending
+            - listitem [ref=e3986]:
+              - generic [ref=e3987]: CCM Case Study - Document Ad
+        - generic [ref=e3989]:
+          - generic [ref=e3991]:
+            - heading [level=3] [ref=e4313]:
+              - button [ref=e4314] [cursor=pointer]:
+                - generic [ref=e3995]:
+                  - text: Ad
+                  - img [ref=e4578]
+            - generic [ref=e4000]:
+              - heading [level=2] [ref=e4323]:
+                - button [disabled] [expanded] [ref=e4324] [cursor=pointer]:
+                  - generic [ref=e4003]:
+                    - generic [ref=e4004]: Form details
+                    - img [ref=e4580]
+              - region [ref=e4582]:
+                - generic [ref=e4009]:
+                  - status [ref=e4010]:
+                    - img [ref=e4013]
+                    - generic [ref=e4015]:
+                      - paragraph [ref=e4017]: After your ad becomes active, you can’t change the lead gen form associated with it.
+                      - button [ref=e4583] [cursor=pointer]:
+                        - img [ref=e4021]
+                  - generic [ref=e4023]:
+                    - text: Call-to-action
+                    - button [ref=e4584] [cursor=pointer]:
+                      - img [ref=e4026]
+                      - generic [ref=e4028]: Learn more about Call To Action for this ad
+                  - combobox [disabled] [ref=e4585]
+                  - generic [ref=e4033]: Lead gen form
+                  - combobox [expanded] [active] [ref=e4586]
+                  - button [ref=e4587] [cursor=pointer]:
+                    - img [ref=e4041]
+                    - generic [ref=e4043]: Create new form
+          - generic [ref=e4046]:
+            - heading [level=2] [ref=e4325]: Preview
+            - button [ref=e4326] [cursor=pointer]:
+              - img [ref=e4051]
+              - generic [ref=e4053]: Mobile Feed
+            - generic [ref=e4056]:
+              - status [ref=e4057]:
+                - generic [ref=e4058]:
+                  - img [ref=e4060]
+                  - generic [ref=e4063]: This is a static image of a mobile document ad.
+              - img [ref=e4327]
+        - generic [ref=e4066]:
+          - button [ref=e4328] [cursor=pointer]:
+            - generic [ref=e4069]: Cancel
+          - button [ref=e4329] [cursor=pointer]:
+            - generic [ref=e4072]: Save ad
+  - generic:
+    - generic [ref=e908]: Some of your forecast metrics have changed.
+    - generic [ref=e909]: CCM_x_Truv_LinkedIn_Document_Ad_2026.pdf
