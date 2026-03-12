@@ -1,0 +1,214 @@
+- generic [ref=e1]:
+  - generic:
+    - region "Notification Toasts":
+      - heading "0 notifications total" [level=2] [ref=e1068]
+  - button "Chat with us" [ref=e3728] [cursor=pointer]:
+    - img [ref=e29]
+  - generic [ref=e32]:
+    - generic [ref=e35]:
+      - button "Skip to main content" [ref=e3729] [cursor=pointer]
+      - button "Close jump menu" [ref=e3730] [cursor=pointer]:
+        - img [ref=e38]
+        - generic [ref=e40]: Close jump menu
+    - banner [ref=e41]:
+      - generic [ref=e42]:
+        - button [ref=e49] [cursor=pointer]:
+          - generic [ref=e51]:
+            - generic [ref=e52]:
+              - img [ref=e54]:
+                - img [ref=e55]
+              - img [ref=e58]
+            - img [ref=e61]
+        - generic [ref=e1071]:
+          - heading "Actions List" [level=2] [ref=e3731]
+          - list [ref=e1072]:
+            - listitem [ref=e1073]:
+              - generic [ref=e1075]: Truv Ad Account
+              - img "Truv company icon" [ref=e3732]
+          - separator [ref=e1079]
+        - button "At least one account has unseen notifications, click to enter notifications experience 2 new account notifications" [ref=e3733] [cursor=pointer]:
+          - generic [ref=e66]:
+            - generic [ref=e67]: At least one account has unseen notifications, click to enter notifications experience
+            - generic [ref=e68]:
+              - generic [ref=e69]:
+                - generic [ref=e70]: "2"
+                - generic [ref=e71]: 2 new account notifications
+              - img [ref=e73]
+        - button "Learn more about campaign manager" [ref=e3734] [cursor=pointer]:
+          - img "Help" [ref=e3735]:
+            - img [ref=e80]
+        - button "Open user menu Icon for Truv" [ref=e3736] [cursor=pointer]:
+          - generic [ref=e83]:
+            - generic [ref=e84]: Open user menu
+            - img "Icon for Truv" [ref=e3737]
+    - main [ref=e180]:
+      - generic [ref=e3768]:
+        - button "Back to account" [ref=e3769] [cursor=pointer]:
+          - img [ref=e3771]
+          - generic [ref=e3773]: Back to account
+        - list [ref=e3775]:
+          - listitem [ref=e3776]:
+            - generic [ref=e3777]: Truv Ad Account / CCM Document Ad - Lending
+          - listitem [ref=e3778]:
+            - generic [ref=e3779]: Ads in this ad set
+        - generic [ref=e3780]:
+          - generic [ref=e3782]:
+            - generic [ref=e3783]: Draft
+            - generic [ref=e3785]:
+              - generic [ref=e3786]: "Off"
+              - switch "Toggle on or off the ad set status" [disabled]
+          - button [ref=e3788] [cursor=pointer]:
+            - img [ref=e3790]
+      - generic [ref=e3795]:
+        - complementary [ref=e3796]:
+          - generic [ref=e3797]:
+            - generic [ref=e3798]:
+              - heading "Campaign" [level=4] [ref=e3799]
+              - button "CCM Document Ad - Lending" [ref=e3800] [cursor=pointer]:
+                - button "CCM Document Ad - Lending" [ref=e3801]:
+                  - paragraph [ref=e3803]: CCM Document Ad - Lending
+            - generic [ref=e3804]:
+              - heading "Ad set" [level=4] [ref=e3805]
+              - button "CCM Document Ad - Ops & Lending" [ref=e3806] [cursor=pointer]:
+                - button "CCM Document Ad - Ops & Lending" [ref=e3807]:
+                  - paragraph [ref=e3809]: CCM Document Ad - Ops & Lending
+              - list [ref=e3810]:
+                - listitem [ref=e3811]:
+                  - button "Scroll down to in the page" [ref=e3813] [cursor=pointer]: Ad set details
+                - listitem [ref=e3814]:
+                  - button "Scroll down to Audience in the page" [ref=e3816] [cursor=pointer]: Audience
+                - listitem [ref=e3817]:
+                  - button "Scroll down to Ad format in the page" [ref=e3819] [cursor=pointer]: Ad format
+                - listitem [ref=e3820]:
+                  - button "Scroll down to in the page" [ref=e3822] [cursor=pointer]: URL parameters
+                - listitem [ref=e3823]:
+                  - button "Scroll down to Placement in the page" [ref=e3825] [cursor=pointer]: Placement
+                - listitem [ref=e3826]:
+                  - button "Scroll down to Budget and Schedule in the page" [ref=e3828] [cursor=pointer]: Budget and schedule
+                - listitem [ref=e3829]:
+                  - button "Scroll down to Conversion Tracking in the page" [ref=e3831] [cursor=pointer]: Conversion tracking
+            - generic [ref=e3832]:
+              - heading "Ads in this ad set" [level=4] [ref=e3833]
+              - heading "Set up ads" [level=3] [ref=e3834]
+              - list [ref=e3835]:
+                - listitem [ref=e3836]:
+                  - generic [ref=e3838]: Document Ad
+            - button "Review & Launch" [ref=e3840] [cursor=pointer]
+        - generic [ref=e3842]:
+          - generic [ref=e3843]:
+            - alert
+            - generic "Section for Document Ads" [ref=e3844]:
+              - generic [ref=e3846]:
+                - img [ref=e3848]:
+                  - img [ref=e3849]
+                - generic [ref=e3851]:
+                  - heading "Create an ad for your ad set" [level=2] [ref=e3852]
+                  - paragraph [ref=e3853]: Select creative and copy that appeals to your audience
+                  - generic [ref=e3855]:
+                    - button "Create new ad" [active] [ref=e3857] [cursor=pointer]:
+                      - generic [ref=e3858]: Create new ad
+                    - button "Browse existing content" [ref=e3859] [cursor=pointer]:
+                      - generic [ref=e3860]: Browse existing content
+            - generic [ref=e3861]:
+              - button "Previous" [ref=e3863] [cursor=pointer]:
+                - generic [ref=e3864]: Previous
+              - generic [ref=e3865]:
+                - button "Save and exit" [ref=e3866] [cursor=pointer]:
+                  - generic [ref=e3867]: Save and exit
+                - button "Next" [disabled] [ref=e3868]:
+                  - generic [ref=e3869]: Next
+          - generic [ref=e3871]:
+            - generic [ref=e3872]:
+              - generic [ref=e3873]:
+                - heading "Forecasted results" [level=5] [ref=e3874]:
+                  - generic [ref=e3876]: Forecasted results
+                - button "Learn more about forecasted results" [ref=e3877] [cursor=pointer]:
+                  - img [ref=e3879]
+                  - generic [ref=e3881]: Learn more about forecasted results
+              - button "Toggle forecast settings menu" [ref=e3884] [cursor=pointer]:
+                - img [ref=e3885]
+            - generic [ref=e3887]:
+              - generic [ref=e3888]:
+                - generic [ref=e3889]:
+                  - button "Target audience size" [ref=e3890] [cursor=pointer]
+                  - heading "130,000+" [level=5] [ref=e3891]:
+                    - generic [ref=e3894]: 130,000+
+                - alert
+                - alert
+                - generic [ref=e3896]:
+                  - generic:
+                    - paragraph [ref=e3897]:
+                      - generic [ref=e3898]: Segment breakdown
+                      - button "Learn more about audience segmentation" [ref=e3899] [cursor=pointer]:
+                        - img [ref=e3901]
+                        - generic [ref=e3903]: Learn more about audience segmentation
+                    - button "Function" [ref=e3904] [cursor=pointer]:
+                      - img [ref=e3906]
+                      - generic [ref=e3908]: Function
+                  - button "Show segments" [ref=e3909] [cursor=pointer]
+              - generic [ref=e3910]:
+                - tablist [ref=e3914]:
+                  - tab "1-day" [ref=e3915] [cursor=pointer]
+                  - tab "7-day" [ref=e3916] [cursor=pointer]
+                  - tab "30-day" [selected] [ref=e3917] [cursor=pointer]
+                - generic [ref=e3918]:
+                  - generic [ref=e3919]:
+                    - button "30-day spend" [ref=e3920] [cursor=pointer]
+                    - paragraph [ref=e3921]:
+                      - generic [ref=e3924]: $1,200.00 - $2,100.00
+                  - generic [ref=e3925]:
+                    - button "30-day impressions" [ref=e3927] [cursor=pointer]
+                    - paragraph [ref=e3928]:
+                      - generic [ref=e3931]: 10,000 - 28,000
+                  - generic [ref=e3932]:
+                    - button "CTR" [ref=e3934] [cursor=pointer]
+                    - paragraph [ref=e3935]:
+                      - generic [ref=e3938]: 0.29% - 0.45%
+                  - generic [ref=e3939]:
+                    - button "30-day clicks" [ref=e3941] [cursor=pointer]
+                    - paragraph [ref=e3942]:
+                      - generic [ref=e3945]: 42 - 130
+                  - generic [ref=e3946]:
+                    - generic [ref=e3947]:
+                      - button "30-day leads" [ref=e3948] [cursor=pointer]
+                      - generic [ref=e3949]: Key Result
+                    - paragraph [ref=e3950]:
+                      - generic [ref=e3953]: 0 - 26
+                  - generic [ref=e3954]:
+                    - button "30-day cost per lead" [ref=e3956] [cursor=pointer]
+                    - paragraph [ref=e3957]:
+                      - generic [ref=e3960]: $136.51 - $160.49
+                  - generic [ref=e3962]:
+                    - text: Forecasted results are directional estimates and do not guarantee performance. Note that some products are not yet incorporated in the results.
+                    - link "Learn more about forecasted results" [ref=e3963] [cursor=pointer]:
+                      - /url: https://www.linkedin.com/help/lms/answer/94703?accountId=517969837
+                      - text: Learn more
+                - generic:
+                  - alert
+                  - status
+                  - status
+                  - status
+                  - status
+                  - status
+                  - status
+                  - status
+                  - status
+                  - status
+                  - alert
+                  - status
+                  - status
+                  - status
+                  - status
+                  - status
+                  - status
+                  - status
+            - generic [ref=e3964]:
+              - paragraph [ref=e3965]: Is this helpful?
+              - generic [ref=e3966]:
+                - button "Yes" [ref=e3967] [cursor=pointer]:
+                  - generic [ref=e3968]: "Yes"
+                - button "No" [ref=e3969] [cursor=pointer]:
+                  - generic [ref=e3970]: "No"
+  - generic:
+    - generic [ref=e908]: Some of your forecast metrics have changed.
+    - generic [ref=e909]: Saving your campaign!

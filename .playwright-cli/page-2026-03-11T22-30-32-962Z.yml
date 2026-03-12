@@ -1,0 +1,80 @@
+- generic [ref=e2]:
+  - banner [ref=e3]:
+    - generic [ref=e4]:
+      - link "CAN/AM Logo" [ref=e6] [cursor=pointer]:
+        - /url: https://www.canamhockey.com/
+        - img "CAN/AM Logo" [ref=e9]
+      - navigation [ref=e12]:
+        - list [ref=e13]:
+          - listitem [ref=e14]:
+            - link "tournaments" [ref=e15] [cursor=pointer]:
+              - /url: https://www.canamhockey.com/tournaments
+          - listitem [ref=e16]:
+            - link "camps" [ref=e17] [cursor=pointer]:
+              - /url: https://www.canamhockey.com/camps
+          - listitem [ref=e18]:
+            - link "Scores" [ref=e19] [cursor=pointer]:
+              - /url: https://www.canamhockey.com/scores
+          - listitem [ref=e20]:
+            - link "about" [ref=e21] [cursor=pointer]:
+              - /url: https://www.canamhockey.com/about
+          - listitem [ref=e22]:
+            - link "contact" [ref=e23] [cursor=pointer]:
+              - /url: https://www.canamhockey.com/contact
+          - listitem [ref=e24]:
+            - button "Login" [ref=e25] [cursor=pointer]
+  - main [ref=e26]:
+    - generic [ref=e28]:
+      - heading "Welcome!" [level=1] [ref=e29]
+      - paragraph [ref=e30]: Please Log in or create an Account to continue your registration.
+      - paragraph [ref=e31]
+      - generic [ref=e32]:
+        - generic [ref=e33]:
+          - heading "Don't have a Can/Am Account Yet?" [level=2] [ref=e34]
+          - button "Create Account" [ref=e36] [cursor=pointer]
+        - generic [ref=e37]:
+          - heading "Login" [level=3] [ref=e38]
+          - generic [ref=e40]:
+            - generic [ref=e41]:
+              - generic [ref=e42]: Username
+              - textbox [ref=e43]
+            - generic [ref=e44]:
+              - generic [ref=e45]: Password
+              - textbox [ref=e46]
+            - link "Forgot password?" [ref=e48] [cursor=pointer]:
+              - /url: javascript:__doPostBack('ctl00$ContentPlaceHolder1$ctl00','')
+            - button "Login" [ref=e50] [cursor=pointer]
+  - contentinfo [ref=e58]:
+    - generic [ref=e59]:
+      - generic [ref=e62]:
+        - link "Facebook" [ref=e63] [cursor=pointer]:
+          - /url: https://www.facebook.com/canamhockey
+          - generic [ref=e64]: Facebook
+        - link "Instagram" [ref=e65] [cursor=pointer]:
+          - /url: https://www.instagram.com/canamhockey/
+          - generic [ref=e66]: Instagram
+        - link "Youtube" [ref=e67] [cursor=pointer]:
+          - /url: http://www.youtube.com/channel/UC7MsGoiW7BLgxjW-0_m_9nQ
+          - generic [ref=e68]: Youtube
+      - generic [ref=e69]:
+        - img "CANAM_logo 2017 with stroke" [ref=e72]
+        - generic [ref=e74]:
+          - paragraph [ref=e75]: U.S. Office
+          - separator [ref=e76]
+          - paragraph [ref=e77]:
+            - text: P.O Box 160
+            - text: Williams Bay, WI
+            - text: 53191-0160
+        - generic [ref=e79]:
+          - paragraph [ref=e80]: Canadian Office
+          - separator [ref=e81]
+          - paragraph [ref=e82]:
+            - text: P.O Box 134
+            - text: Welland, Ontario
+            - text: L3B 5P4
+        - generic [ref=e84]:
+          - paragraph [ref=e85]: Contact Us
+          - separator [ref=e86]
+          - paragraph [ref=e87]:
+            - text: "Phone: 262-249-1210"
+            - text: "Email: score@canamhockey.com"

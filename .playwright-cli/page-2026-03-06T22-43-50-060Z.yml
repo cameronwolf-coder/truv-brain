@@ -1,0 +1,505 @@
+- generic [ref=e1]:
+  - generic [ref=e2]:
+    - generic [ref=e7]:
+      - region "Page Section" [ref=e8]:
+        - group [ref=e10]:
+          - generic [ref=e11]:
+            - button "Exit" [ref=e13] [cursor=pointer]:
+              - generic [ref=e15]: Exit
+            - heading "Event record page Default view" [level=1] [ref=e17]:
+              - generic [ref=e18]:
+                - paragraph [ref=e19]: Event record page
+                - textbox "Name editor" [ref=e24]: Default view
+            - generic [ref=e26]:
+              - button "Save" [ref=e27] [cursor=pointer]:
+                - generic [ref=e30]: Save
+              - button "Save and exit" [ref=e31] [cursor=pointer]:
+                - generic [ref=e34]: Save and exit
+        - navigation [ref=e42]:
+          - button "Edit layout" [ref=e43] [cursor=pointer]: Edit layout
+          - button "Settings" [ref=e45] [cursor=pointer]: Settings
+      - region "Page Section" [ref=e50]:
+        - main [ref=e53]:
+          - generic [ref=e58]:
+            - generic [ref=e61]:
+              - generic [ref=e67]:
+                - generic [ref=e74]:
+                  - img [ref=e77]
+                  - paragraph [ref=e79]: Event name
+                - generic [ref=e108]:
+                  - button "Add card" [ref=e116] [cursor=pointer]:
+                    - generic [ref=e118]: Add card
+                  - generic [ref=e135]:
+                    - generic [ref=e137]:
+                      - generic [ref=e138]:
+                        - heading "About this Event" [level=2] [ref=e140]:
+                          - generic [ref=e142]: About this Event
+                        - img [ref=e146]
+                      - generic [ref=e151]: About this Event (default)
+                    - generic [ref=e152]:
+                      - button "Edit card" [ref=e153] [cursor=pointer]:
+                        - img [ref=e155]
+                      - button "More card actions" [ref=e157] [cursor=pointer]:
+                        - img [ref=e159]
+                  - button "Add card" [ref=e174] [cursor=pointer]:
+                    - generic [ref=e176]: Add card
+              - generic [ref=e179]:
+                - generic [ref=e181]:
+                  - generic [ref=e182]:
+                    - navigation [ref=e186]:
+                      - button "Overview" [ref=e187] [cursor=pointer]:
+                        - generic [ref=e191]: Overview
+                      - button "Activities" [ref=e193] [cursor=pointer]:
+                        - generic [ref=e194]: Activities
+                    - button "Create new tab" [ref=e196] [cursor=pointer]:
+                      - img [ref=e198]
+                    - button "Change tab order" [ref=e201] [cursor=pointer]:
+                      - generic [ref=e203]: Change tab order
+                  - separator [ref=e204]
+                - generic [ref=e210]:
+                  - generic [ref=e212]:
+                    - button "Add card" [ref=e220] [cursor=pointer]:
+                      - generic [ref=e222]: Add card
+                    - generic [ref=e239]:
+                      - generic [ref=e241]:
+                        - generic [ref=e242]:
+                          - heading "Key Dates" [level=2] [ref=e244]:
+                            - generic [ref=e246]: Key Dates
+                          - img [ref=e250]
+                        - generic [ref=e255]: Data highlights - Event (default)
+                      - generic [ref=e256]:
+                        - button "Edit card" [ref=e257] [cursor=pointer]:
+                          - img [ref=e259]
+                        - button "More card actions" [ref=e261] [cursor=pointer]:
+                          - img [ref=e263]
+                    - button "Add card" [ref=e278] [cursor=pointer]:
+                      - generic [ref=e280]: Add card
+                  - generic [ref=e283]:
+                    - generic [ref=e299]:
+                      - generic [ref=e301]:
+                        - generic [ref=e302]:
+                          - heading "Goals & Performance" [level=2] [ref=e304]:
+                            - generic [ref=e306]: Goals & Performance
+                          - img [ref=e310]
+                        - generic [ref=e315]: New data highlight card - (03/05/2026 8:45 PM)
+                      - generic [ref=e316]:
+                        - button "Edit card" [ref=e317] [cursor=pointer]:
+                          - img [ref=e319]
+                        - button "More card actions" [ref=e321] [cursor=pointer]:
+                          - img [ref=e323]
+                    - button "Add card" [ref=e338] [cursor=pointer]:
+                      - generic [ref=e340]: Add card
+                  - generic [ref=e343]:
+                    - generic [ref=e359]:
+                      - generic [ref=e361]:
+                        - generic [ref=e362]:
+                          - heading "Recent activities" [level=2] [ref=e364]:
+                            - generic [ref=e366]: Recent activities
+                          - img [ref=e370]
+                        - generic [ref=e375]: Recent activities - Event (default)
+                      - generic [ref=e376]:
+                        - button "Edit card" [ref=e377] [cursor=pointer]:
+                          - img [ref=e379]
+                        - button "More card actions" [ref=e381] [cursor=pointer]:
+                          - img [ref=e383]
+                    - button "Add card" [ref=e398] [cursor=pointer]:
+                      - generic [ref=e400]: Add card
+                  - generic [ref=e403]:
+                    - generic [ref=e419]:
+                      - generic [ref=e421]:
+                        - generic [ref=e422]:
+                          - heading "Contacts" [level=2] [ref=e424]:
+                            - generic [ref=e426]: Contacts
+                          - img [ref=e430]
+                        - generic [ref=e435]: Contacts Association table (default)
+                      - generic [ref=e436]:
+                        - button "Edit card" [ref=e437] [cursor=pointer]:
+                          - img [ref=e439]
+                        - button "More card actions" [ref=e441] [cursor=pointer]:
+                          - img [ref=e443]
+                    - button "Add card" [ref=e458] [cursor=pointer]:
+                      - generic [ref=e460]: Add card
+                  - generic [ref=e463]:
+                    - generic [ref=e479]:
+                      - generic [ref=e481]:
+                        - generic [ref=e482]:
+                          - heading "Deals" [level=2] [ref=e484]:
+                            - generic [ref=e486]: Deals
+                          - img [ref=e490]
+                        - generic [ref=e495]: Deals Association table (default)
+                      - generic [ref=e496]:
+                        - button "Edit card" [ref=e497] [cursor=pointer]:
+                          - img [ref=e499]
+                        - button "More card actions" [ref=e501] [cursor=pointer]:
+                          - img [ref=e503]
+                    - button "Add card" [ref=e518] [cursor=pointer]:
+                      - generic [ref=e520]: Add card
+                  - generic [ref=e523]:
+                    - generic [ref=e539]:
+                      - generic [ref=e541]:
+                        - generic [ref=e542]:
+                          - heading "Upcoming activities" [level=2] [ref=e544]:
+                            - generic [ref=e546]: Upcoming activities
+                          - img [ref=e550]
+                        - generic [ref=e555]: Upcoming activities - Event (default)
+                      - generic [ref=e556]:
+                        - button "Edit card" [ref=e557] [cursor=pointer]:
+                          - img [ref=e559]
+                        - button "More card actions" [ref=e561] [cursor=pointer]:
+                          - img [ref=e563]
+                    - button "Add card" [ref=e578] [cursor=pointer]:
+                      - generic [ref=e580]: Add card
+              - generic [ref=e586]:
+                - generic [ref=e588]:
+                  - button "Add card" [ref=e596] [cursor=pointer]:
+                    - generic [ref=e598]: Add card
+                  - generic [ref=e615]:
+                    - generic [ref=e617]:
+                      - generic [ref=e618]:
+                        - heading "Contacts" [level=2] [ref=e620]:
+                          - generic [ref=e622]: Contacts
+                        - img [ref=e626]
+                      - generic [ref=e631]: Contacts Association card (default)
+                    - generic [ref=e632]:
+                      - button "Edit card" [ref=e633] [cursor=pointer]:
+                        - img [ref=e635]
+                      - button "More card actions" [ref=e637] [cursor=pointer]:
+                        - img [ref=e639]
+                  - button "Add card" [ref=e654] [cursor=pointer]:
+                    - generic [ref=e656]: Add card
+                - generic [ref=e659]:
+                  - generic [ref=e675]:
+                    - generic [ref=e677]:
+                      - generic [ref=e678]:
+                        - heading "Deals" [level=2] [ref=e680]:
+                          - generic [ref=e682]: Deals
+                        - img [ref=e686]
+                      - generic [ref=e691]: Deals Association card (default)
+                    - generic [ref=e692]:
+                      - button "Edit card" [ref=e693] [cursor=pointer]:
+                        - img [ref=e695]
+                      - button "More card actions" [ref=e697] [cursor=pointer]:
+                        - img [ref=e699]
+                  - button "Add card" [ref=e714] [cursor=pointer]:
+                    - generic [ref=e716]: Add card
+            - complementary:
+              - region "Collaboration sidebar":
+                - iframe [ref=e718]:
+                  
+            - generic:
+              - generic:
+                - generic:
+                  - complementary
+                  - complementary:
+                    - generic [ref=e720]:
+                      - button [ref=e721]:
+                        - img [ref=e724]
+                      - button "Collaborate with Assistant" [disabled] [ref=e729]:
+                        - img [ref=e731]
+                  - complementary
+                  - complementary
+    - complementary
+  - generic [ref=e735]:
+    - banner [ref=e737]:
+      - generic [ref=e738]:
+        - button "Close" [ref=e739] [cursor=pointer]:
+          - img [ref=e742]
+        - heading "Edit default card" [level=2] [ref=e744]
+    - generic [ref=e746]:
+      - generic [ref=e752]:
+        - generic [ref=e757]:
+          - generic [ref=e759]:
+            - generic [ref=e760]: "Added to:"
+            - button "1 view" [ref=e763] [cursor=pointer]
+          - generic [ref=e767]:
+            - generic [ref=e773]:
+              - text: Card title
+              - generic [ref=e774]: "*"
+              - img [ref=e776]
+            - generic "Card title *" [ref=e778]:
+              - textbox "Card title *" [ref=e779]: About this Event
+              - button [ref=e781] [cursor=pointer]:
+                - img [ref=e783]
+          - generic [ref=e787]:
+            - paragraph [ref=e788]:
+              - generic [ref=e790]: Internal name
+            - paragraph [ref=e791]:
+              - img [ref=e794]
+            - paragraph [ref=e796]: ":"
+            - paragraph [ref=e797]:
+              - generic [ref=e799]: About this Event (default)
+            - button [disabled] [ref=e800]:
+              - img [ref=e802]
+        - generic [ref=e810]:
+          - generic [ref=e811]:
+            - paragraph [ref=e814]: User permissions
+            - text: Let users add more properties to this card in their view.
+          - checkbox "User permissions" [checked] [ref=e819]
+        - generic [ref=e824]:
+          - generic [ref=e825]: Properties
+          - paragraph [ref=e827]: Decide which properties should appear on this card.
+          - generic [ref=e833]:
+            - button "Add properties (18/50)" [ref=e835] [cursor=pointer]:
+              - generic [ref=e839]:
+                - generic [ref=e840]: Add properties
+                - generic [ref=e841]: (18/50)
+            - generic [ref=e844]:
+              - generic [ref=e851]:
+                - button "Cost Per Attendee" [ref=e857] [cursor=pointer]:
+                  - option "Cost Per Attendee" [disabled] [ref=e861]:
+                    - generic [ref=e863]: Cost Per Attendee
+                - generic [ref=e866]:
+                  - button "move down" [ref=e867] [cursor=pointer]:
+                    - img [ref=e869]
+                  - button "move up" [disabled] [ref=e871]:
+                    - img [ref=e873]
+                  - button "delete" [ref=e875] [cursor=pointer]:
+                    - img [ref=e877]
+              - generic [ref=e885]:
+                - button "Event Budget" [ref=e891] [cursor=pointer]:
+                  - option "Event Budget" [disabled] [ref=e895]:
+                    - generic [ref=e897]: Event Budget
+                - generic [ref=e900]:
+                  - button "move down" [ref=e901] [cursor=pointer]:
+                    - img [ref=e903]
+                  - button "move up" [ref=e905] [cursor=pointer]:
+                    - img [ref=e907]
+                  - button "delete" [ref=e909] [cursor=pointer]:
+                    - img [ref=e911]
+              - generic [ref=e919]:
+                - button "Event End Date" [ref=e925] [cursor=pointer]:
+                  - option "Event End Date" [disabled] [ref=e929]:
+                    - generic [ref=e931]: Event End Date
+                - generic [ref=e934]:
+                  - button "move down" [ref=e935] [cursor=pointer]:
+                    - img [ref=e937]
+                  - button "move up" [ref=e939] [cursor=pointer]:
+                    - img [ref=e941]
+                  - button "delete" [ref=e943] [cursor=pointer]:
+                    - img [ref=e945]
+              - generic [ref=e953]:
+                - button "Event Location" [ref=e959] [cursor=pointer]:
+                  - option "Event Location" [disabled] [ref=e963]:
+                    - generic [ref=e965]: Event Location
+                - generic [ref=e968]:
+                  - button "move down" [ref=e969] [cursor=pointer]:
+                    - img [ref=e971]
+                  - button "move up" [ref=e973] [cursor=pointer]:
+                    - img [ref=e975]
+                  - button "delete" [ref=e977] [cursor=pointer]:
+                    - img [ref=e979]
+              - generic [ref=e987]:
+                - button "Event Start Date" [ref=e993] [cursor=pointer]:
+                  - option "Event Start Date" [disabled] [ref=e997]:
+                    - generic [ref=e999]: Event Start Date
+                - generic [ref=e1002]:
+                  - button "move down" [ref=e1003] [cursor=pointer]:
+                    - img [ref=e1005]
+                  - button "move up" [ref=e1007] [cursor=pointer]:
+                    - img [ref=e1009]
+                  - button "delete" [ref=e1011] [cursor=pointer]:
+                    - img [ref=e1013]
+              - generic [ref=e1021]:
+                - button "Event URL" [ref=e1027] [cursor=pointer]:
+                  - option "Event URL" [disabled] [ref=e1031]:
+                    - generic [ref=e1033]: Event URL
+                - generic [ref=e1036]:
+                  - button "move down" [ref=e1037] [cursor=pointer]:
+                    - img [ref=e1039]
+                  - button "move up" [ref=e1041] [cursor=pointer]:
+                    - img [ref=e1043]
+                  - button "delete" [ref=e1045] [cursor=pointer]:
+                    - img [ref=e1047]
+              - generic [ref=e1055]:
+                - button "Event Vertical" [ref=e1061] [cursor=pointer]:
+                  - option "Event Vertical" [disabled] [ref=e1065]:
+                    - generic [ref=e1067]: Event Vertical
+                - generic [ref=e1070]:
+                  - button "move down" [ref=e1071] [cursor=pointer]:
+                    - img [ref=e1073]
+                  - button "move up" [ref=e1075] [cursor=pointer]:
+                    - img [ref=e1077]
+                  - button "delete" [ref=e1079] [cursor=pointer]:
+                    - img [ref=e1081]
+              - generic [ref=e1089]:
+                - button "Created by user ID" [ref=e1095] [cursor=pointer]:
+                  - option "Created by user ID" [disabled] [ref=e1099]:
+                    - generic [ref=e1101]: Created by user ID
+                - generic [ref=e1104]:
+                  - button "move down" [ref=e1105] [cursor=pointer]:
+                    - img [ref=e1107]
+                  - button "move up" [ref=e1109] [cursor=pointer]:
+                    - img [ref=e1111]
+                  - button "delete" [ref=e1113] [cursor=pointer]:
+                    - img [ref=e1115]
+              - generic [ref=e1123]:
+                - button "Owner" [ref=e1129] [cursor=pointer]:
+                  - option "Owner" [disabled] [ref=e1133]:
+                    - generic [ref=e1135]: Owner
+                - generic [ref=e1138]:
+                  - button "move down" [ref=e1139] [cursor=pointer]:
+                    - img [ref=e1141]
+                  - button "move up" [ref=e1143] [cursor=pointer]:
+                    - img [ref=e1145]
+                  - button "delete" [ref=e1147] [cursor=pointer]:
+                    - img [ref=e1149]
+              - generic [ref=e1157]:
+                - button "Linear Project URL" [ref=e1163] [cursor=pointer]:
+                  - option "Linear Project URL" [disabled] [ref=e1167]:
+                    - generic [ref=e1169]: Linear Project URL
+                - generic [ref=e1172]:
+                  - button "move down" [ref=e1173] [cursor=pointer]:
+                    - img [ref=e1175]
+                  - button "move up" [ref=e1177] [cursor=pointer]:
+                    - img [ref=e1179]
+                  - button "delete" [ref=e1181] [cursor=pointer]:
+                    - img [ref=e1183]
+              - generic [ref=e1191]:
+                - button "Promotion Start Date" [ref=e1197] [cursor=pointer]:
+                  - option "Promotion Start Date" [disabled] [ref=e1201]:
+                    - generic [ref=e1203]: Promotion Start Date
+                - generic [ref=e1206]:
+                  - button "move down" [ref=e1207] [cursor=pointer]:
+                    - img [ref=e1209]
+                  - button "move up" [ref=e1211] [cursor=pointer]:
+                    - img [ref=e1213]
+                  - button "delete" [ref=e1215] [cursor=pointer]:
+                    - img [ref=e1217]
+              - generic [ref=e1225]:
+                - button "Registration Deadline" [ref=e1231] [cursor=pointer]:
+                  - option "Registration Deadline" [disabled] [ref=e1235]:
+                    - generic [ref=e1237]: Registration Deadline
+                - generic [ref=e1240]:
+                  - button "move down" [ref=e1241] [cursor=pointer]:
+                    - img [ref=e1243]
+                  - button "move up" [ref=e1245] [cursor=pointer]:
+                    - img [ref=e1247]
+                  - button "delete" [ref=e1249] [cursor=pointer]:
+                    - img [ref=e1251]
+              - generic [ref=e1259]:
+                - button "Target Attendees" [ref=e1265] [cursor=pointer]:
+                  - option "Target Attendees" [disabled] [ref=e1269]:
+                    - generic [ref=e1271]: Target Attendees
+                - generic [ref=e1274]:
+                  - button "move down" [ref=e1275] [cursor=pointer]:
+                    - img [ref=e1277]
+                  - button "move up" [ref=e1279] [cursor=pointer]:
+                    - img [ref=e1281]
+                  - button "delete" [ref=e1283] [cursor=pointer]:
+                    - img [ref=e1285]
+              - generic [ref=e1293]:
+                - button "Target Registrants" [ref=e1299] [cursor=pointer]:
+                  - option "Target Registrants" [disabled] [ref=e1303]:
+                    - generic [ref=e1305]: Target Registrants
+                - generic [ref=e1308]:
+                  - button "move down" [ref=e1309] [cursor=pointer]:
+                    - img [ref=e1311]
+                  - button "move up" [ref=e1313] [cursor=pointer]:
+                    - img [ref=e1315]
+                  - button "delete" [ref=e1317] [cursor=pointer]:
+                    - img [ref=e1319]
+              - generic [ref=e1327]:
+                - button "Event Name" [ref=e1333] [cursor=pointer]:
+                  - option "Event Name" [disabled] [ref=e1337]:
+                    - generic [ref=e1339]: Event Name
+                - generic [ref=e1342]:
+                  - button "move down" [ref=e1343] [cursor=pointer]:
+                    - img [ref=e1345]
+                  - button "move up" [ref=e1347] [cursor=pointer]:
+                    - img [ref=e1349]
+                  - button "delete" [ref=e1351] [cursor=pointer]:
+                    - img [ref=e1353]
+              - generic [ref=e1361]:
+                - button "Event Status" [ref=e1367] [cursor=pointer]:
+                  - option "Event Status" [disabled] [ref=e1371]:
+                    - generic [ref=e1373]: Event Status
+                - generic [ref=e1376]:
+                  - button "move down" [ref=e1377] [cursor=pointer]:
+                    - img [ref=e1379]
+                  - button "move up" [ref=e1381] [cursor=pointer]:
+                    - img [ref=e1383]
+                  - button "delete" [ref=e1385] [cursor=pointer]:
+                    - img [ref=e1387]
+              - generic [ref=e1395]:
+                - button "Event Type" [ref=e1401] [cursor=pointer]:
+                  - option "Event Type" [disabled] [ref=e1405]:
+                    - generic [ref=e1407]: Event Type
+                - generic [ref=e1410]:
+                  - button "move down" [ref=e1411] [cursor=pointer]:
+                    - img [ref=e1413]
+                  - button "move up" [ref=e1415] [cursor=pointer]:
+                    - img [ref=e1417]
+                  - button "delete" [ref=e1419] [cursor=pointer]:
+                    - img [ref=e1421]
+              - generic [ref=e1429]:
+                - button "UTM Campaign" [ref=e1435] [cursor=pointer]:
+                  - option "UTM Campaign" [disabled] [ref=e1439]:
+                    - generic [ref=e1441]: UTM Campaign
+                - generic [ref=e1444]:
+                  - button "move down" [disabled] [ref=e1445]:
+                    - img [ref=e1447]
+                  - button "move up" [ref=e1449] [cursor=pointer]:
+                    - img [ref=e1451]
+                  - button "delete" [ref=e1453] [cursor=pointer]:
+                    - img [ref=e1455]
+      - generic [ref=e1463]:
+        - banner [ref=e1464]:
+          - heading "Preview" [level=6] [ref=e1465]
+          - button "Dark Matter Conf 2026" [ref=e1469] [cursor=pointer]:
+            - option "Dark Matter Conf 2026" [ref=e1473]:
+              - generic [ref=e1475]: Dark Matter Conf 2026
+        - generic [ref=e1478]:
+          - generic [ref=e1481]:
+            - heading "About this Event" [level=5] [ref=e1482]
+            - status [ref=e1483]:
+              - generic [ref=e1484]:
+                - img [ref=e1487]
+                - img [ref=e1493]
+              - generic [ref=e1495]: Loading
+          - iframe [ref=e1497]:
+            - generic [ref=f40e2]:
+              - generic [ref=f40e4]:
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic:
+                          - heading "About this Event" [level=5]:
+                            - generic:
+                              - generic:
+                                - generic: About this Event
+                          - generic:
+                            - generic:
+                              - generic:
+                                - generic:
+                                  - button "Actions":
+                                    - generic:
+                                      - generic:
+                                        - generic:
+                                          - generic: Actions
+                      - generic:
+                        - generic:
+                          - generic:
+                            - status:
+                              - listitem
+                              - listitem
+                              - listitem
+                              - listitem
+                              - listitem
+                              - listitem
+                              - listitem
+                              - listitem
+                              - listitem
+                              - listitem
+                              - listitem
+                              - listitem
+                              - listitem
+                              - listitem
+                              - listitem
+                              - listitem
+                              - listitem
+                              - listitem
+              - complementary
+    - contentinfo [ref=e1498]:
+      - button "Save" [ref=e1501] [cursor=pointer]:
+        - generic [ref=e1504]: Save

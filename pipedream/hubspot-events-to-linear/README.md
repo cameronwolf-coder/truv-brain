@@ -104,6 +104,19 @@ See `pipedream/linear-to-hubspot-sync/` and `pipedream/hubspot-to-linear-sync/` 
 | Product Marketing | Kaytren Bruner | `434899562` | `966e7ba1-f9a7-448f-a4a6-516067bca022` | Content, Messaging, Narrative |
 | Sales | *(unassigned)* | — | — | Follow-up, AE invites, SDR nudges |
 
+## UTM Campaign Convention
+
+**CRITICAL:** The `utm_campaign` value on the Event custom object MUST exactly match the UTM campaign slug used in all promotional emails, landing pages, forms, and ad links for that event. The "Universal Event Form Processor" workflow matches incoming form submissions to Event records by this field — if they don't match, the Slack notification will have blank Event/Timestamp/List fields and the contact won't be associated with the Event.
+
+**Naming convention:** `{topic}-webinar-{mon}{year}` (e.g., `public-sector-webinar-mar2026`)
+
+**Checklist when creating a new webinar campaign:**
+1. Create the Event record in HubSpot — set `utm_campaign`, `list_id`, and `event_name`
+2. Use the SAME `utm_campaign` value in all SendGrid email template UTM links
+3. Use the SAME value in any LinkedIn/Meta ad UTM parameters
+4. Use the SAME value in the registration landing page URL parameters
+5. Verify the form's hidden `utm_campaign` field passes through correctly
+
 ## Gotchas
 
 - Linear returns HTTP 200 even on GraphQL errors — always check `response.data.errors`

@@ -1,0 +1,56 @@
+{
+  "source": "video1370370947-trimmed.mp4",
+  "segments": [
+    {
+      "start": "05:40",
+      "end": "07:09",
+      "duration_seconds": 89,
+      "topic": "Jessica describes the pain of WorkNumber — draining, wild west, multiple platforms, manual chaos.",
+      "personas": ["lending"],
+      "relevance": 9,
+      "suggested_title": "WorkNumber was draining us",
+      "type": "highlight"
+    },
+    {
+      "start": "08:00",
+      "end": "09:18",
+      "duration_seconds": 78,
+      "topic": "Huge uptick in adoption after Encompass integration, with further automation planned.",
+      "personas": ["lending"],
+      "relevance": 9,
+      "suggested_title": "Huge uptick after Encompass integration",
+      "type": "highlight"
+    },
+    {
+      "start": "15:09",
+      "end": "16:05",
+      "duration_seconds": 56,
+      "topic": "Jessica admits overconfidence about implementation, had to step back and pilot with smaller group.",
+      "personas": ["lending"],
+      "relevance": 9,
+      "suggested_title": "I was smug, then ate my words",
+      "type": "highlight"
+    },
+    {
+      "start": "31:22",
+      "end": "32:23",
+      "duration_seconds": 61,
+      "topic": "80% cost reduction compared to WorkNumber — hard ROI numbers.",
+      "personas": ["lending"],
+      "relevance": 9,
+      "suggested_title": "80% cost savings",
+      "type": "highlight"
+    },
+    {
+      "start": "20:00",
+      "end": "21:14",
+      "duration_seconds": 74,
+      "topic": "Truv as partner vs vendor — organic relationship with chemistry and connection.",
+      "personas": ["lending"],
+      "relevance": 8,
+      "suggested_title": "Partner, not vendor",
+      "type": "highlight"
+    }
+  ],
+  "recap_persona": null
+}

@@ -1,0 +1,178 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - generic [ref=e3]:
+      - img [ref=e4]:
+        - generic [ref=e5]: truv
+      - generic [ref=e6]: Customer Story
+    - generic [ref=e7]:
+      - generic [ref=e8]: CrossCountry Mortgage
+      - heading "How CCM cut verification spend by $10 million annually" [level=1] [ref=e9]
+    - generic [ref=e11]:
+      - generic [ref=e12]:
+        - generic [ref=e13]: $10M
+        - generic [ref=e14]: Annual Savings
+      - generic [ref=e15]:
+        - generic [ref=e16]: 70%+
+        - generic [ref=e17]: Completion Rate
+      - generic [ref=e18]:
+        - generic [ref=e19]: 8%
+        - generic [ref=e20]: R&W Uplift
+      - generic [ref=e21]:
+        - generic [ref=e22]: <1mo
+        - generic [ref=e23]: Go-Live
+  - generic [ref=e24]:
+    - generic [ref=e25]:
+      - img [ref=e26]:
+        - generic [ref=e27]: truv
+      - generic [ref=e28]: "02"
+    - generic [ref=e29]:
+      - generic [ref=e30]: The Challenge
+      - heading "$18M in Annual Verification Costs" [level=2] [ref=e31]
+      - paragraph [ref=e32]: "As the #1 retail mortgage lender in the U.S., CCM was spending $18M annually on income and employment verifications through legacy providers."
+    - generic [ref=e33]:
+      - generic [ref=e34]:
+        - generic [ref=e35]: $
+        - generic [ref=e36]:
+          - heading "Massive verification spend" [level=4] [ref=e37]
+          - paragraph [ref=e38]: $18M/year on legacy VOIE providers with inconsistent data quality
+      - generic [ref=e39]:
+        - generic [ref=e40]: ⏱
+        - generic [ref=e41]:
+          - heading "Operational bottlenecks" [level=4] [ref=e42]
+          - paragraph [ref=e43]: Manual follow-ups and re-verification workflows slowing loan officers
+      - generic [ref=e44]:
+        - generic [ref=e45]: ⚠
+        - generic [ref=e46]:
+          - heading "Inconsistent data" [level=4] [ref=e47]
+          - paragraph [ref=e48]: Legacy providers delivered hit-or-miss results, creating underwriter delays
+      - generic [ref=e49]:
+        - generic [ref=e50]: ⇄
+        - generic [ref=e51]:
+          - heading "Limited integration" [level=4] [ref=e52]
+          - paragraph [ref=e53]: No deep connection to Blend (POS) or Encompass (LOS) workflows
+    - generic [ref=e55]: CrossCountry Mortgage x Truv
+  - generic [ref=e56]:
+    - generic [ref=e57]:
+      - img [ref=e58]:
+        - generic [ref=e59]: truv
+      - generic [ref=e60]: "03"
+    - generic [ref=e61]:
+      - generic [ref=e62]: The Results
+      - heading "CCM transformed verification across 100,000+ loans per year" [level=2] [ref=e63]
+      - paragraph [ref=e64]: By switching to Truv's consumer-permissioned data, CCM achieved results across every metric that mattered.
+    - generic [ref=e65]:
+      - generic [ref=e66]:
+        - generic [ref=e67]: $10M
+        - generic [ref=e68]: Annual Savings
+      - generic [ref=e69]:
+        - generic [ref=e70]: 70%+
+        - generic [ref=e71]: Completion Rate
+      - generic [ref=e72]:
+        - generic [ref=e73]: 8%
+        - generic [ref=e74]: R&W Relief Uplift
+      - generic [ref=e75]:
+        - generic [ref=e76]: <1mo
+        - generic [ref=e77]: Company-Wide Go-Live
+    - generic [ref=e78]:
+      - paragraph [ref=e79]: Keep reading to see how they did it →
+      - generic [ref=e80]: Full implementation details, before/after breakdown, and executive quote inside
+    - generic [ref=e82]: CrossCountry Mortgage x Truv
+  - generic [ref=e83]:
+    - generic [ref=e84]:
+      - img [ref=e85]:
+        - generic [ref=e86]: truv
+      - generic [ref=e87]: "04"
+    - generic [ref=e88]:
+      - generic [ref=e89]: Key Outcomes
+      - heading "How Truv Delivered for CCM" [level=2] [ref=e90]
+    - generic [ref=e91]:
+      - generic [ref=e92]:
+        - generic [ref=e93]: $
+        - heading "Est. $10M in Annual Savings" [level=3] [ref=e94]
+        - paragraph [ref=e95]: Cut verification expenses by 40% compared to legacy providers.
+      - generic [ref=e96]:
+        - generic [ref=e97]: ✓
+        - heading "70%+ Completion Rate" [level=3] [ref=e98]
+        - paragraph [ref=e99]: Borrowers easily connect payroll accounts, accelerating loan decisions.
+      - generic [ref=e100]:
+        - generic [ref=e101]: ◆
+        - heading "8% R&W Relief Uplift" [level=3] [ref=e102]
+        - paragraph [ref=e103]: More verifications qualifying for GSE rep and warranty relief.
+      - generic [ref=e104]:
+        - generic [ref=e105]: ⚡
+        - heading "Go-Live in Under 30 Days" [level=3] [ref=e106]
+        - paragraph [ref=e107]: Custom Blend integration deployed company-wide in <1 month.
+    - generic [ref=e108]:
+      - generic [ref=e109]:
+        - generic [ref=e110]: Before Truv
+        - generic [ref=e111]:
+          - generic [ref=e112]: Annual VOIE spend
+          - generic [ref=e113]: ~$18M
+        - generic [ref=e114]:
+          - generic [ref=e115]: Data consistency
+          - generic [ref=e116]: Inconsistent
+        - generic [ref=e117]:
+          - generic [ref=e118]: Re-verification cost
+          - generic [ref=e119]: Full price
+        - generic [ref=e120]:
+          - generic [ref=e121]: R&W relief uplift
+          - generic [ref=e122]: Baseline
+      - generic [ref=e123]:
+        - generic [ref=e124]: With Truv
+        - generic [ref=e125]:
+          - generic [ref=e126]: Annual VOIE spend
+          - generic [ref=e127]: ~$8M (est.)
+        - generic [ref=e128]:
+          - generic [ref=e129]: Data consistency
+          - generic [ref=e130]: Direct-source
+        - generic [ref=e131]:
+          - generic [ref=e132]: Re-verification cost
+          - generic [ref=e133]: Free
+        - generic [ref=e134]:
+          - generic [ref=e135]: R&W relief uplift
+          - generic [ref=e136]: +8%
+    - generic [ref=e138]: CrossCountry Mortgage x Truv
+  - generic [ref=e139]:
+    - generic [ref=e140]:
+      - img [ref=e141]:
+        - generic [ref=e142]: truv
+      - generic [ref=e143]: "05"
+    - generic [ref=e144]:
+      - generic [ref=e145]: The Solution
+      - heading "Consumer-Permissioned Verification in Blend & Encompass" [level=2] [ref=e146]
+      - generic [ref=e147]:
+        - generic [ref=e148]:
+          - generic [ref=e149]: Point of Sale
+          - heading "Blend Integration" [level=4] [ref=e150]
+          - paragraph [ref=e151]: Truv powers borrower verifications as follow-up tasks, allowing loan officers to request income and employment verifications without leaving their core workflow.
+        - generic [ref=e152]:
+          - generic [ref=e153]: Loan Origination
+          - heading "Encompass Integration" [level=4] [ref=e154]
+          - paragraph [ref=e155]: Truv automates re-verifications at no additional cost, eliminating manual follow-ups and freeing processors to focus on closing loans.
+    - generic [ref=e156]:
+      - generic [ref=e157]: "\""
+      - generic [ref=e158]: Truv has redefined what partnership means — delivering accurate, trustworthy data, rapid implementation, and the agility to help us close loans faster and more confidently.
+      - generic [ref=e159]:
+        - generic [ref=e160]: TD
+        - generic [ref=e161]:
+          - generic [ref=e162]: Tom Durney
+          - generic [ref=e163]: EVP of Corporate Operations Support, CrossCountry Mortgage
+    - generic [ref=e165]: CrossCountry Mortgage x Truv
+  - generic [ref=e166]:
+    - img [ref=e167]:
+      - generic [ref=e168]: truv
+    - heading "See What Truv Can Save Your Team" [level=2] [ref=e169]
+    - paragraph [ref=e170]: Join 150+ lenders saving 60-80% on verifications with consumer-permissioned data from Truv.
+    - link "Request a Custom ROI Analysis" [ref=e171] [cursor=pointer]:
+      - /url: https://www.truv.com/request-demo
+    - generic [ref=e172]: sales@truv.com
+    - generic [ref=e173]:
+      - generic [ref=e174]:
+        - generic [ref=e175]: 96%
+        - generic [ref=e176]: Workforce Coverage
+      - generic [ref=e177]:
+        - generic [ref=e178]: 80%
+        - generic [ref=e179]: Avg. Cost Savings
+      - generic [ref=e180]:
+        - generic [ref=e181]: 150+
+        - generic [ref=e182]: Lender Customers

@@ -1,0 +1,31 @@
+- generic [active] [ref=e1]:
+  - generic:
+    - region "Notification Toasts":
+      - heading "0 notifications total" [level=2] [ref=e2]
+  - generic [ref=e3]:
+    - generic [ref=e6]:
+      - button "Skip to main content" [ref=e7] [cursor=pointer]
+      - button "Close jump menu" [ref=e8] [cursor=pointer]:
+        - img [ref=e9]
+        - generic [ref=e11]: Close jump menu
+    - banner [ref=e12]:
+      - generic [ref=e13]:
+        - button [ref=e15] [cursor=pointer]:
+          - generic [ref=e17]:
+            - generic [ref=e18]:
+              - img [ref=e20]:
+                - img [ref=e21]
+              - img [ref=e24]
+            - img [ref=e27]
+        - button "Learn more about campaign manager" [ref=e31] [cursor=pointer]:
+          - img "Help" [ref=e33]:
+            - img [ref=e35]
+        - button "Open user menu Icon for Truv" [ref=e37] [cursor=pointer]:
+          - generic [ref=e38]:
+            - generic [ref=e39]: Open user menu
+            - img "Icon for Truv" [ref=e41]
+    - generic [ref=e42]:
+      - img [ref=e43]:
+        - img [ref=e44]
+      - status [ref=e46]: Campaign manager is loading
+      - progressbar [ref=e47]

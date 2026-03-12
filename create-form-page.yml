@@ -1,0 +1,295 @@
+- generic [ref=e1]:
+  - generic:
+    - region "Notification Toasts":
+      - heading "0 notifications total" [level=2] [ref=e2]
+  - button "Chat with us" [ref=e10] [cursor=pointer]:
+    - img [ref=e12]
+  - generic [ref=e15]:
+    - generic [ref=e18]:
+      - button "Skip to main content" [ref=e19] [cursor=pointer]
+      - button "Close jump menu" [ref=e20] [cursor=pointer]:
+        - img [ref=e21]
+        - generic [ref=e23]: Close jump menu
+    - banner [ref=e24]:
+      - generic [ref=e25]:
+        - button [ref=e27] [cursor=pointer]:
+          - generic [ref=e29]:
+            - generic [ref=e30]:
+              - img [ref=e32]:
+                - img [ref=e33]
+              - img [ref=e36]
+            - img [ref=e39]
+        - generic [ref=e41]:
+          - heading "Actions List" [level=2] [ref=e42]
+          - list [ref=e43]:
+            - listitem [ref=e44]:
+              - generic [ref=e46]: Truv Ad Account
+              - img "Truv company icon" [ref=e49]
+          - separator [ref=e50]
+        - button "No unseen notifications, click to enter notifications experience" [ref=e52] [cursor=pointer]:
+          - generic [ref=e53]:
+            - generic [ref=e54]: No unseen notifications, click to enter notifications experience
+            - img [ref=e57]
+        - button "Learn more about campaign manager" [ref=e60] [cursor=pointer]:
+          - img "Help" [ref=e62]:
+            - img [ref=e64]
+        - button "Open user menu Icon for Truv" [ref=e66] [cursor=pointer]:
+          - generic [ref=e67]:
+            - generic [ref=e68]: Open user menu
+            - img "Icon for Truv" [ref=e70]
+    - main [ref=e73]:
+      - generic [ref=e76]:
+        - generic [ref=e77]:
+          - button "Exit the form" [ref=e78] [cursor=pointer]:
+            - img [ref=e80]
+            - generic [ref=e82]: Exit the form
+          - heading "Create form" [level=3] [ref=e83]
+        - generic [ref=e84]:
+          - navigation [ref=e85]:
+            - tablist "ariaLebel" [ref=e87]:
+              - tab "Scrolling to the Form details section" [selected] [ref=e88] [cursor=pointer]:
+                - generic [ref=e90]: Form details
+              - tab "Scrolling to the Lead details section" [ref=e91] [cursor=pointer]:
+                - generic [ref=e93]: Lead details
+              - tab "Scrolling to the Data privacy section" [ref=e94] [cursor=pointer]:
+                - generic [ref=e96]: Data privacy
+              - tab "Scrolling to the Confirmation section" [ref=e97] [cursor=pointer]:
+                - generic [ref=e99]: Confirmation
+              - tab "Scrolling to the Settings section" [ref=e100] [cursor=pointer]:
+                - generic [ref=e102]: Settings
+          - generic [ref=e104]:
+            - generic [ref=e105]:
+              - generic [ref=e106]:
+                - heading "The live preview will be automatically updated based on form content." [level=3] [ref=e107]: Form details
+                - generic [ref=e109]:
+                  - generic [ref=e110]:
+                    - paragraph [ref=e111]: Form Image
+                    - button "Learn more about form image" [active] [ref=e112] [cursor=pointer]:
+                      - img [ref=e114]
+                  - generic [ref=e117]:
+                    - generic [ref=e118]: 552px x 200px recommended
+                    - button "Upload or Select" [ref=e119] [cursor=pointer]:
+                      - generic [ref=e120]: Upload or Select
+                - generic [ref=e122]:
+                  - generic [ref=e123]: Form name *
+                  - textbox "Form name *" [ref=e124]:
+                    - /placeholder: Template 1
+                    - text: Form - Mar 12, 2026
+                  - generic "Maximum 256 characters" [ref=e126]: 19/256
+                - generic [ref=e128]:
+                  - generic [ref=e129]:
+                    - generic [ref=e130]: Language
+                    - button "Learn more about selecting a language" [ref=e131] [cursor=pointer]:
+                      - img [ref=e133]
+                  - combobox "Language" [ref=e137] [cursor=pointer]:
+                    - option "Arabic"
+                    - option "Chinese (Simplified)"
+                    - option "Chinese (Traditional)"
+                    - option "Czech"
+                    - option "Danish"
+                    - option "Dutch"
+                    - option "English" [selected]
+                    - option "French"
+                    - option "German"
+                    - option "Hindi"
+                    - option "Indonesian"
+                    - option "Italian"
+                    - option "Japanese"
+                    - option "Korean"
+                    - option "Malaysian"
+                    - option "Norwegian"
+                    - option "Polish"
+                    - option "Portuguese"
+                    - option "Romanian"
+                    - option "Russian"
+                    - option "Spanish"
+                    - option "Swedish"
+                    - option "Tagalog"
+                    - option "Thai"
+                    - option "Turkish"
+                - generic [ref=e139]:
+                  - generic [ref=e140]: Headline *
+                  - textbox "Headline *" [ref=e141]:
+                    - /placeholder: Please add a headline to your form
+                  - generic "Maximum 60 characters" [ref=e143]: 0/60
+                - generic [ref=e146]:
+                  - generic [ref=e147]: Details
+                  - textbox "Details" [ref=e148]:
+                    - /placeholder: Provide more information about your product here
+                  - generic "Maximum 160 characters" [ref=e150]: 0/160
+              - generic [ref=e152]:
+                - heading "Lead details" [level=3] [ref=e153]
+                - generic [ref=e154]:
+                  - paragraph [ref=e155]: Profile information (3/12)
+                  - generic [ref=e156]:
+                    - generic [ref=e157]:
+                      - button "Dismiss First name" [ref=e158] [cursor=pointer]:
+                        - generic [ref=e159]: First name
+                        - img [ref=e161]
+                      - button "Dismiss Last name" [ref=e163] [cursor=pointer]:
+                        - generic [ref=e164]: Last name
+                        - img [ref=e166]
+                      - button "Dismiss Email address" [ref=e168] [cursor=pointer]:
+                        - generic [ref=e169]: Email address
+                        - img [ref=e171]
+                    - generic [ref=e174]:
+                      - img [ref=e175]
+                      - searchbox "Search" [ref=e177]
+                    - list [ref=e179]:
+                      - listitem [ref=e180]:
+                        - button "Contact" [ref=e181] [cursor=pointer]
+                      - listitem [ref=e182]:
+                        - button "Work" [ref=e183] [cursor=pointer]
+                      - listitem [ref=e184]:
+                        - button "Company" [ref=e185] [cursor=pointer]
+                      - listitem [ref=e186]:
+                        - button "Education" [ref=e187] [cursor=pointer]
+                      - listitem [ref=e188]:
+                        - button "Demographic" [ref=e189] [cursor=pointer]
+                    - generic [ref=e191]:
+                      - generic [ref=e192]:
+                        - paragraph [ref=e193]: Custom questions
+                        - button "Learn more about custom questions" [ref=e194] [cursor=pointer]:
+                          - img [ref=e196]
+                      - button "Add custom question (0/3)" [ref=e200] [cursor=pointer]:
+                        - img [ref=e202]
+                        - generic [ref=e204]: Add custom question (0/3)
+              - generic [ref=e205]:
+                - heading "Data privacy" [level=3] [ref=e206]
+                - generic [ref=e208]:
+                  - generic [ref=e209]: Privacy policy URL *
+                  - textbox "Privacy policy URL *" [ref=e210]:
+                    - /placeholder: https://www.example.com/privacy-policy
+                    - text: https://truv.com/privacy
+                  - generic "Maximum 2,000 characters" [ref=e212]: 24/2,000
+                - generic [ref=e215]:
+                  - generic [ref=e216]: Privacy policy text
+                  - toolbar "Leadgen rich text Editor" [ref=e217]:
+                    - button "Link" [ref=e219] [cursor=pointer]:
+                      - img [ref=e221]
+                  - textbox "Input your text" [ref=e224]:
+                    - text: Enter your terms and conditions
+                    - paragraph [ref=e225]
+                  - generic [ref=e226]:
+                    - alert
+                    - generic [ref=e227]: 0/2000
+                - generic [ref=e228]:
+                  - paragraph [ref=e229]: Disclosure checkboxes
+                  - paragraph [ref=e230]:
+                    - text: These checkboxes will show up at the bottom of the form. You may use this to collect member consent or request permission for different use cases of collected information.
+                    - link "Learn more" [ref=e231] [cursor=pointer]:
+                      - /url: https://www.linkedin.com/help/lms/answer/a426037
+                  - button "Add checkbox (0/5)" [ref=e233] [cursor=pointer]:
+                    - img [ref=e235]
+                    - generic [ref=e237]: Add checkbox (0/5)
+              - generic [ref=e238]:
+                - heading "Confirmation" [level=3] [ref=e239]
+                - generic [ref=e241]:
+                  - generic [ref=e242]: Message *
+                  - textbox "Message *" [ref=e243]:
+                    - /placeholder: Write your thank you message here
+                  - generic "Maximum 300 characters" [ref=e245]: 0/300
+                - generic [ref=e247]: Link users to
+                - generic [ref=e248]:
+                  - radio "Landing page Share a link to direct people to your website" [checked] [ref=e250] [cursor=pointer]
+                  - generic [ref=e251]:
+                    - generic [ref=e253]:
+                      - text: Landing page
+                      - paragraph [ref=e254]: Share a link to direct people to your website
+                    - generic [ref=e256]:
+                      - generic [ref=e257]: Confirmation CTA
+                      - combobox "Confirmation CTA" [ref=e258] [cursor=pointer]:
+                        - option "Visit company website" [selected]
+                        - option "Learn more"
+                        - option "View now"
+                        - option "Download now"
+                        - option "Try now"
+                    - generic [ref=e260]:
+                      - generic [ref=e261]: Landing Page URL *
+                      - textbox "Landing Page URL *" [ref=e262]:
+                        - /placeholder: https://www.example.com/landing-page
+                      - generic "Maximum 2,000 characters" [ref=e264]: 0/2,000
+                - generic [ref=e266]:
+                  - radio "Book an appointment NEW Allow people to connect with your team using Calendly. Learn more" [ref=e268] [cursor=pointer]
+                  - generic [ref=e271]:
+                    - generic [ref=e272]:
+                      - text: Book an appointment
+                      - generic [ref=e273]: NEW
+                    - paragraph [ref=e274]:
+                      - text: Allow people to connect with your team using Calendly.
+                      - link "Learn more" [ref=e275] [cursor=pointer]:
+                        - /url: https://www.linkedin.com/help/lms/answer/a7462413
+              - generic [ref=e276]:
+                - heading "Settings" [level=3] [ref=e277]
+                - generic [ref=e278]:
+                  - generic [ref=e279]:
+                    - paragraph [ref=e280]: Hidden fields
+                    - paragraph [ref=e281]:
+                      - text: Add additional fields to your form for tracking purposes. Hidden fields will not show to members when they view your form, and will not collect any additional personal data about the submitting member.
+                      - link "Learn more" [ref=e282] [cursor=pointer]:
+                        - /url: https://www.linkedin.com/help/lms/answer/a421421
+                    - button "Add hidden field (0/20)" [ref=e284] [cursor=pointer]:
+                      - img [ref=e286]
+                      - generic [ref=e288]: Add hidden field (0/20)
+                  - generic [ref=e289]:
+                    - paragraph [ref=e290]: Field names
+                    - paragraph [ref=e291]:
+                      - text: Change how your field and response names appear when you download or sync leads.
+                      - link "Learn more" [ref=e292] [cursor=pointer]:
+                        - /url: https://www.linkedin.com/help/lms/answer/a423364
+                    - button "Customize field names" [ref=e294] [cursor=pointer]:
+                      - img [ref=e296]
+                      - generic [ref=e298]: Customize field names
+              - status
+            - generic [ref=e299]:
+              - combobox "Preview" [ref=e302] [cursor=pointer]:
+                - option "Desktop" [selected]
+                - option "Mobile"
+              - generic [ref=e304]:
+                - iframe [ref=e305]:
+                  - generic [active] [ref=f40e1]:
+                    - generic:
+                      - region "Toast message":
+                        - heading "0 notifications total" [level=2] [ref=f40e3]
+                        - alert
+                    - region [ref=f40e4]
+                    - generic [ref=f40e15]:
+                      - generic [ref=f40e17]:
+                        - generic [ref=f40e23]:
+                          - img "Truv" [ref=f40e26]
+                          - heading [level=4] [ref=f40e27]
+                        - generic [ref=f40e29]:
+                          - generic [ref=f40e30]:
+                            - text: We'll send this information to Truv subject to their
+                            - link "privacy policy" [ref=f40e31] [cursor=pointer]:
+                              - /url: https://truv.com/privacy
+                            - text: . LinkedIn may also personalize, measure, and optimize ads based on your form submission.
+                          - generic [ref=f40e32]:
+                            - group "Editable fields section" [ref=f40e33]:
+                              - generic [ref=f40e34]: Editable fields section
+                              - generic [ref=f40e35]:
+                                - generic [ref=f40e36]: Email address *
+                                - textbox "Email address *" [ref=f40e37]: anne.smith@example.com
+                            - group "Not editable fields section" [ref=f40e38]:
+                              - generic [ref=f40e39]: Not editable fields section
+                              - generic [ref=f40e40]:
+                                - generic [ref=f40e41]: First name
+                                - paragraph [ref=f40e42]: Anne
+                              - generic [ref=f40e43]:
+                                - generic [ref=f40e44]: Last name
+                                - paragraph [ref=f40e45]: Smith
+                            - group "Consent fields section":
+                              - generic [ref=f40e46]: Consent fields section
+                      - button "Submit" [ref=f40e49] [cursor=pointer]
+                - generic [ref=e306]: The actual layout and final appearance of your ad may look slightly different from this preview. To see the final version, view the preview after saving your ad.
+        - generic [ref=e308]:
+          - button "Cancel" [ref=e309] [cursor=pointer]:
+            - generic [ref=e310]: Cancel
+          - generic [ref=e311]:
+            - text: By selecting
+            - strong [ref=e312]: Agree & Create
+            - text: ", you agree to the"
+            - link "Ads Agreement" [ref=e313] [cursor=pointer]:
+              - /url: https://www.linkedin.com/legal/sas-terms
+          - button "Agree & Create" [ref=e314] [cursor=pointer]:
+            - generic [ref=e315]: Agree & Create

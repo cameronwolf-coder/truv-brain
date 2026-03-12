@@ -1,0 +1,288 @@
+- generic [ref=e1]:
+  - menu [active] [ref=e380]:
+    - menuitem "Insight Tag conversion" [ref=e381] [cursor=pointer]
+    - menuitem "Conversions API" [ref=e382] [cursor=pointer]
+    - menuitem "CSV conversion" [ref=e383] [cursor=pointer]
+  - generic:
+    - region "Notification Toasts":
+      - heading "1 notification total" [level=2] [ref=e9]
+      - generic [ref=e11]:
+        - img [ref=e13]
+        - alert [ref=e16]:
+          - generic [ref=e18]: We’ve updated certain metrics.
+          - link "View metric restatements to learn more." [ref=e19] [cursor=pointer]:
+            - /url: /campaignmanager/accounts/517969837/metric-restatements
+        - button "Dismiss “We’ve updated certain metrics.” notification 1 of 1." [ref=e21] [cursor=pointer]:
+          - img [ref=e23]
+  - 'tooltip "Truv Ad Account Active Company: Truv" [ref=e205]':
+    - generic [ref=e206]:
+      - heading "Truv Ad Account" [level=4] [ref=e207]
+      - paragraph [ref=e208]:
+        - generic [ref=e209]: Active
+      - paragraph [ref=e210]:
+        - generic [ref=e211]: "Company:"
+        - text: Truv
+  - button "Chat with us" [ref=e27] [cursor=pointer]:
+    - img [ref=e29]
+  - generic [ref=e32]:
+    - generic [ref=e35]:
+      - button "Skip to main content" [ref=e36] [cursor=pointer]
+      - button "Close jump menu" [ref=e37] [cursor=pointer]:
+        - img [ref=e38]
+        - generic [ref=e40]: Close jump menu
+    - banner [ref=e41]:
+      - generic [ref=e42]:
+        - button "Close side navigation panel" [ref=e43] [cursor=pointer]:
+          - img [ref=e45]
+        - button [ref=e49] [cursor=pointer]:
+          - generic [ref=e51]:
+            - generic [ref=e52]:
+              - img [ref=e54]:
+                - img [ref=e55]
+              - img [ref=e58]
+            - img [ref=e61]
+        - generic:
+          - heading "Actions List" [level=2] [ref=e63]
+          - list
+        - button "At least one account has unseen notifications, click to enter notifications experience 2 new account notifications" [ref=e65] [cursor=pointer]:
+          - generic [ref=e66]:
+            - generic [ref=e67]: At least one account has unseen notifications, click to enter notifications experience
+            - generic [ref=e68]:
+              - generic [ref=e69]:
+                - generic [ref=e70]: "2"
+                - generic [ref=e71]: 2 new account notifications
+              - img [ref=e73]
+        - button "Learn more about campaign manager" [ref=e76] [cursor=pointer]:
+          - img "Help" [ref=e78]:
+            - img [ref=e80]
+        - button "Open user menu Icon for Truv" [ref=e82] [cursor=pointer]:
+          - generic [ref=e83]:
+            - generic [ref=e84]: Open user menu
+            - img "Icon for Truv" [ref=e86]
+    - generic [ref=e87]:
+      - navigation [ref=e88]:
+        - complementary [ref=e90]:
+          - button "Truv company icon Truv Ad Account 517969837 Active" [ref=e91] [cursor=pointer]:
+            - img "Truv company icon" [ref=e94]
+            - generic [ref=e95]:
+              - generic [ref=e96]: Truv Ad Account
+              - generic [ref=e97]:
+                - text: "517969837"
+                - generic [ref=e98]: Active
+            - img [ref=e99]
+        - generic [ref=e101]:
+          - link "Overview" [ref=e103] [cursor=pointer]:
+            - /url: /campaignmanager/accounts/517969837/overview?businessId=7404539754668773386
+            - generic [ref=e104]: Overview
+          - button "Plan" [ref=e107] [cursor=pointer]:
+            - generic [ref=e108]:
+              - generic [ref=e110]: Plan
+              - img [ref=e112]
+          - link "Advertise" [ref=e115] [cursor=pointer]:
+            - /url: /campaignmanager/accounts/517969837/campaign-groups?businessId=7404539754668773386
+            - generic [ref=e116]: Advertise
+          - link "Test" [ref=e118] [cursor=pointer]:
+            - /url: /campaignmanager/accounts/517969837/experiments?businessId=7404539754668773386
+            - generic [ref=e119]: Test
+          - generic [ref=e120]:
+            - button "Measurement" [expanded] [ref=e122] [cursor=pointer]:
+              - generic [ref=e123]:
+                - generic [ref=e125]: Measurement
+                - img [ref=e212]
+            - region "Measurement" [ref=e214]:
+              - generic [ref=e215]:
+                - link "Insights" [ref=e217] [cursor=pointer]:
+                  - /url: /campaignmanager/accounts/517969837/measurement-insights?businessId=7404539754668773386
+                  - generic [ref=e218]: Insights
+                - link "Conversion tracking" [ref=e220] [cursor=pointer]:
+                  - /url: /campaignmanager/accounts/517969837/website-tracking/conversions?businessId=7404539754668773386
+                  - generic [ref=e221]: Conversion tracking
+          - button "Data" [ref=e131] [cursor=pointer]:
+            - generic [ref=e132]:
+              - generic [ref=e134]: Data
+              - img [ref=e136]
+          - link "Recommendations Some new recommendations notifications" [ref=e139] [cursor=pointer]:
+            - /url: /campaignmanager/accounts/517969837/recommendations?businessId=7404539754668773386&campaignStatuses=%5B%22ACTIVE%22%5D
+            - generic [ref=e140]:
+              - text: Recommendations
+              - generic [ref=e143]: Some new recommendations notifications
+          - separator [ref=e145]
+          - link "Partnerships NEW" [ref=e147] [cursor=pointer]:
+            - /url: /campaignmanager/accounts/517969837/partnership?businessId=7404539754668773386
+            - generic [ref=e148]:
+              - text: Partnerships
+              - generic [ref=e149]: NEW
+          - button "Assets" [ref=e152] [cursor=pointer]:
+            - generic [ref=e153]:
+              - generic [ref=e155]: Assets
+              - img [ref=e157]
+          - separator [ref=e160]
+          - button "Account settings" [ref=e163] [cursor=pointer]:
+            - generic [ref=e164]:
+              - generic [ref=e166]: Account settings
+              - img [ref=e168]
+          - separator [ref=e171]
+          - link "Company page" [ref=e173] [cursor=pointer]:
+            - /url: https://www.linkedin.com/company/68059038
+            - generic [ref=e174]:
+              - generic [ref=e175]: Company page
+              - img [ref=e177]
+      - generic [ref=e179]:
+        - main [ref=e180]:
+          - generic [ref=e225]:
+            - heading "Conversion tracking" [level=1] [ref=e227]
+            - paragraph [ref=e228]:
+              - generic [ref=e229]:
+                - text: Measure and improve performance based on actions customers take from your ads.
+                - link "Learn more about conversion tracking" [ref=e230] [cursor=pointer]:
+                  - /url: https://www.linkedin.com/help/lms/answer/a420536
+                  - text: Learn more
+          - generic [ref=e232]:
+            - img [ref=e233]
+            - generic [ref=e235]:
+              - heading "Connect your revenue data to auto-create conversions" [level=5] [ref=e236]:
+                - text: Connect your revenue data
+                - strong [ref=e238]: to auto-create conversions
+              - paragraph [ref=e239]:
+                - strong [ref=e240]: Boost visibility into your conversions metrics directly from your CRM, enhance your ad sets and improve ROI
+                - text: by connecting the data via Business Manager.
+              - generic [ref=e241]:
+                - link "Connect data" [ref=e242] [cursor=pointer]:
+                  - /url: https://www.linkedin.com/marketing/businessmanager/accounts/7404539754668773386/settings/crm-connection
+                  - generic [ref=e243]: Connect data
+                - button "Dismiss" [ref=e244] [cursor=pointer]:
+                  - generic [ref=e245]: Dismiss
+          - generic [ref=e246]:
+            - button "Create conversion" [expanded] [ref=e249] [cursor=pointer]:
+              - img [ref=e251]
+              - generic [ref=e253]: Create conversion
+            - generic [ref=e258]:
+              - table [ref=e260]:
+                - rowgroup [ref=e261]:
+                  - row "Name, sorted in natural order Status, sorted in natural order Data source, sorted in natural order Category, sorted in natural order Ad sets selected, sorted in natural order Value, sorted in natural order Created, sorted in natural order" [ref=e262]:
+                    - columnheader "Name, sorted in natural order" [ref=e263]:
+                      - generic [ref=e264]:
+                        - generic [ref=e265]: Name
+                        - button "Name, sorted in natural order" [ref=e266] [cursor=pointer]:
+                          - img [ref=e268]
+                    - columnheader "Status, sorted in natural order" [ref=e271]:
+                      - generic [ref=e272]:
+                        - generic [ref=e273]: Status
+                        - button "Status, sorted in natural order" [ref=e274] [cursor=pointer]:
+                          - img [ref=e276]
+                    - columnheader "Data source, sorted in natural order" [ref=e279]:
+                      - generic [ref=e280]:
+                        - generic [ref=e281]: Data source
+                        - button "Data source, sorted in natural order" [ref=e282] [cursor=pointer]:
+                          - img [ref=e284]
+                    - columnheader "Category, sorted in natural order" [ref=e287]:
+                      - generic [ref=e288]:
+                        - generic [ref=e289]: Category
+                        - button "Category, sorted in natural order" [ref=e290] [cursor=pointer]:
+                          - img [ref=e292]
+                    - columnheader "Ad sets selected, sorted in natural order" [ref=e295]:
+                      - generic [ref=e296]:
+                        - generic [ref=e297]: Ad sets selected
+                        - button "Ad sets selected, sorted in natural order" [ref=e298] [cursor=pointer]:
+                          - img [ref=e300]
+                    - columnheader "Value, sorted in natural order" [ref=e303]:
+                      - generic [ref=e304]:
+                        - generic [ref=e305]: Value
+                        - button "Value, sorted in natural order" [ref=e306] [cursor=pointer]:
+                          - img [ref=e308]
+                    - columnheader "Created, sorted in natural order" [ref=e311]:
+                      - generic [ref=e312]:
+                        - generic [ref=e313]: Created
+                        - button "Created, sorted in natural order" [ref=e314] [cursor=pointer]:
+                          - img [ref=e316]
+                  - row "All All All There is no filter applied for this column There is no filter applied for this column There is no filter applied for this column" [ref=e319]:
+                    - columnheader [ref=e320]:
+                      - textbox "Search the Name column" [ref=e324]:
+                        - /placeholder: Search by name
+                    - columnheader "All" [ref=e325]:
+                      - combobox "Filter the Status column" [ref=e329] [cursor=pointer]:
+                        - option "All" [selected]
+                        - option "Active"
+                        - option "No recent activity"
+                        - option "Inactive"
+                        - option "Unverified"
+                        - option "Awaiting activity"
+                        - option "No activity detected"
+                    - columnheader "All" [ref=e330]:
+                      - combobox [ref=e334] [cursor=pointer]:
+                        - option "All" [selected]
+                        - option "Site-wide tag"
+                        - option "Event-specific tag"
+                        - option "Image Pixel"
+                        - option "Website actions"
+                    - columnheader "All" [ref=e335]:
+                      - combobox [ref=e339] [cursor=pointer]:
+                        - option "All" [selected]
+                        - option "Key Page View"
+                        - option "View Video"
+                        - option "Register Event"
+                        - option "Sign Up"
+                        - option "Download"
+                        - option "Lead"
+                        - option "Book Appointment"
+                        - option "Contact"
+                        - option "Qualified Lead"
+                        - option "Submit Application"
+                        - option "Add to Cart"
+                        - option "Purchase"
+                        - option "Other"
+                    - columnheader "There is no filter applied for this column" [ref=e340]:
+                      - generic [ref=e341]: There is no filter applied for this column
+                    - columnheader "There is no filter applied for this column" [ref=e342]:
+                      - generic [ref=e343]: There is no filter applied for this column
+                    - columnheader "There is no filter applied for this column" [ref=e344]:
+                      - generic [ref=e345]: There is no filter applied for this column
+                - rowgroup [ref=e346]:
+                  - row "Edit conversion Form Submission Signup Actions available for this conversion Inactive Site-wide tag Key Page View 4 $0.00 12/10/2025" [ref=e347]:
+                    - cell "Edit conversion Form Submission Signup Actions available for this conversion" [ref=e348]:
+                      - generic [ref=e349]:
+                        - button "Edit conversion Form Submission Signup" [ref=e351] [cursor=pointer]:
+                          - generic [ref=e352]: Form Submission Signup
+                        - button "Actions available for this conversion" [ref=e354] [cursor=pointer]:
+                          - img [ref=e356]
+                    - cell "Inactive" [ref=e359]:
+                      - button "Inactive" [ref=e360] [cursor=pointer]:
+                        - generic [ref=e361]: Inactive
+                    - cell "Site-wide tag" [ref=e362]
+                    - cell "Key Page View" [ref=e363]
+                    - cell "4" [ref=e364]:
+                      - button "4" [ref=e365] [cursor=pointer]:
+                        - generic [ref=e366]: "4"
+                    - cell "$0.00" [ref=e367]:
+                      - generic [ref=e368]: $0.00
+                    - cell "12/10/2025" [ref=e369]:
+                      - time [ref=e370]: 12/10/2025
+              - navigation [ref=e373]:
+                - generic [ref=e374]:
+                  - combobox [ref=e376] [cursor=pointer]
+                  - list [ref=e377]:
+                    - listitem [ref=e378]:
+                      - button "Page 1" [ref=e379] [cursor=pointer]: "1"
+        - contentinfo [ref=e181]:
+          - list [ref=e183]:
+            - listitem [ref=e184]:
+              - link "Help center" [ref=e185] [cursor=pointer]:
+                - /url: https://www.linkedin.com/help/lms
+            - listitem [ref=e186]:
+              - link "Metric restatements" [ref=e187] [cursor=pointer]:
+                - /url: /campaignmanager/accounts/517969837/metric-restatements?businessId=7404539754668773386
+            - listitem [ref=e188]:
+              - link "Certified partners" [ref=e189] [cursor=pointer]:
+                - /url: https://business.linkedin.com/marketing-solutions/certified-marketing-partners/ads-partners
+            - listitem [ref=e190]:
+              - link "Accessibility" [ref=e191] [cursor=pointer]:
+                - /url: https://www.linkedin.com/accessibility
+            - listitem [ref=e192]:
+              - button "Privacy & terms" [ref=e193] [cursor=pointer]:
+                - img [ref=e195]
+                - generic [ref=e197]: Privacy & terms
+          - generic [ref=e198]:
+            - img [ref=e199]:
+              - img [ref=e200]
+            - generic [ref=e202]: LinkedIn Corporation © 2026
+  - generic [ref=e203]: There is 1 search result

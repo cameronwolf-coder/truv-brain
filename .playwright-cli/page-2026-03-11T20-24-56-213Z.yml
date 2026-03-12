@@ -1,0 +1,177 @@
+- generic [active] [ref=e1]:
+  - generic:
+    - region "Notification Toasts":
+      - heading "5 notifications total" [level=2] [ref=e3512]
+      - paragraph [ref=e2320]: Dismiss the current notification to hear the previous.
+      - generic [ref=e3513]:
+        - generic [ref=e3514]:
+          - img [ref=e3516]
+          - alert [ref=e3519]:
+            - generic [ref=e3521]: Your ad has been saved successfully.
+          - button "Dismiss “Your ad has been saved successfully.” notification 1 of 5." [ref=e3523] [cursor=pointer]:
+            - img [ref=e3525]
+        - generic [ref=e3528]:
+          - time [ref=e3530]: 26s ago
+          - generic [ref=e3531]: 1/5
+  - button "Chat with us" [ref=e2903] [cursor=pointer]:
+    - img [ref=e6]
+  - generic [ref=e9]:
+    - generic [ref=e12]:
+      - button "Skip to main content" [ref=e2904] [cursor=pointer]
+      - button "Close jump menu" [ref=e2905] [cursor=pointer]:
+        - img [ref=e15]
+        - generic [ref=e17]: Close jump menu
+    - banner [ref=e18]:
+      - generic [ref=e19]:
+        - button [ref=e21] [cursor=pointer]:
+          - generic [ref=e23]:
+            - generic [ref=e24]:
+              - img [ref=e26]:
+                - img [ref=e27]
+              - img [ref=e30]
+            - img [ref=e33]
+        - generic [ref=e35]:
+          - heading "Actions List" [level=2] [ref=e2906]
+          - list [ref=e37]:
+            - listitem [ref=e1616]:
+              - generic [ref=e1618]: Truv Ad Account
+              - img "Truv company icon" [ref=e2907]
+          - separator [ref=e44]
+        - button "At least one account has unseen notifications, click to enter notifications experience 2 new account notifications" [ref=e2908] [cursor=pointer]:
+          - generic [ref=e47]:
+            - generic [ref=e48]: At least one account has unseen notifications, click to enter notifications experience
+            - generic [ref=e49]:
+              - generic [ref=e50]:
+                - generic [ref=e51]: "2"
+                - generic [ref=e52]: 2 new account notifications
+              - img [ref=e54]
+        - button "Learn more about campaign manager" [ref=e2909] [cursor=pointer]:
+          - img "Help" [ref=e2910]:
+            - img [ref=e61]
+        - button "Open user menu Icon for Truv" [ref=e2911] [cursor=pointer]:
+          - generic [ref=e64]:
+            - generic [ref=e65]: Open user menu
+            - img "Icon for Truv" [ref=e2912]
+    - main [ref=e70]:
+      - generic [ref=e3875]:
+        - generic [ref=e3878]:
+          - button "Back to ad set" [ref=e3879] [cursor=pointer]:
+            - img [ref=e3881]
+            - generic [ref=e3883]: Back to ad set
+          - list [ref=e3885]:
+            - listitem [ref=e3886]:
+              - generic [ref=e3887]: ... / CCM Document Ad - Lending / CCM Document Ad - Ops & Lending
+            - listitem [ref=e3888]:
+              - generic [ref=e3889]: CCM Case Study - Document Ad V3
+        - generic [ref=e3891]:
+          - generic [ref=e3892]:
+            - generic [ref=e3893]:
+              - generic [ref=e3894]:
+                - heading "Ad" [level=3] [ref=e3895]:
+                  - button "Ad" [disabled] [expanded] [ref=e3896] [cursor=pointer]:
+                    - generic [ref=e3897]:
+                      - text: Ad
+                      - generic [ref=e3898]:
+                        - alert
+                        - img [ref=e3899]
+                - form "Ad" [ref=e3901]:
+                  - generic [ref=e3902]:
+                    - generic [ref=e3903]:
+                      - generic [ref=e3904]:
+                        - generic [ref=e3905]: Name this ad (optional)
+                        - button "More information about the ad name" [ref=e3906] [cursor=pointer]:
+                          - img [ref=e3908]
+                          - generic [ref=e3910]: More information about the ad name
+                      - generic [ref=e3911]:
+                        - generic [ref=e3914]:
+                          - textbox "Name this ad (optional) More information about the ad name" [ref=e3915]:
+                            - /placeholder: Example 1
+                            - text: CCM Case Study - Document Ad V3
+                          - generic "Maximum 255 characters" [ref=e3917]: 31/255
+                        - generic:
+                          - alert
+                    - generic [ref=e3919]:
+                      - generic [ref=e3920]:
+                        - generic [ref=e3921]: Introductory text
+                        - button "Learn more about Introductory text" [ref=e3922] [cursor=pointer]:
+                          - img [ref=e3924]
+                          - generic [ref=e3926]: Learn more about Introductory text
+                        - text: "*"
+                      - generic [ref=e3927]:
+                        - generic [ref=e3930]:
+                          - textbox "Introductory text" [ref=e3931]:
+                            - /placeholder: This is your introductory text
+                            - text: CrossCountry Mortgage cut verification costs and closed loans faster with Truv. See how they saved $10M annually — swipe through the results.
+                          - generic "Maximum 600 characters" [ref=e3933]: 141/600
+                        - generic:
+                          - alert
+                    - generic [ref=e3935]: Document
+                    - generic [ref=e3936]:
+                      - list [ref=e3937]:
+                        - listitem [ref=e3938]:
+                          - generic [ref=e3939]:
+                            - img "Preview image for uploaded file" [ref=e3941]
+                            - generic [ref=e3942]:
+                              - generic [ref=e3943]:
+                                - button "Your file" [ref=e3944] [cursor=pointer]:
+                                  - generic [ref=e3945]: Your file
+                                - region [ref=e3946]: Upload Complete
+                              - button "Remove Your file" [disabled] [ref=e3947]:
+                                - img [ref=e3949]
+                          - generic [ref=e3952]:
+                            - text: Previewable pages
+                            - generic [ref=e3953]: "3"
+                            - button "Learn more about previewable pages" [ref=e3954] [cursor=pointer]:
+                              - img [ref=e3956]
+                              - generic [ref=e3958]: Learn more about previewable pages
+                          - generic [ref=e3962]:
+                            - slider "Previewable pages 3 Learn more about previewable pages" [ref=e3963] [cursor=pointer]: "3"
+                            - list [ref=e3964]:
+                              - listitem [ref=e3965]: "1"
+                              - listitem [ref=e3966]: "2"
+                              - listitem [ref=e3967]: "3"
+                              - listitem [ref=e3968]: "4"
+                              - listitem [ref=e3969]: "5"
+                          - generic [ref=e3970]:
+                            - generic [ref=e3971]:
+                              - generic [ref=e3972]: Headline
+                              - button "Learn more about Headline text" [ref=e3973] [cursor=pointer]:
+                                - img [ref=e3975]
+                                - generic [ref=e3977]: Learn more about Headline text
+                              - text: "*"
+                            - generic [ref=e3978]:
+                              - generic [ref=e3981]:
+                                - textbox "Headline" [ref=e3982]:
+                                  - /placeholder: This is your ad headline.
+                                  - text: CCM Saved $10M/Year — Here's How
+                                - generic "Maximum 200 characters" [ref=e3984]: 32/200
+                              - generic:
+                                - alert
+                      - alert
+              - heading "Form details" [level=2] [ref=e3988]:
+                - button "Form details" [ref=e3989] [cursor=pointer]:
+                  - generic [ref=e3990]:
+                    - generic [ref=e3991]: Form details
+                    - generic [ref=e3992]:
+                      - alert
+                      - img [ref=e3993]
+            - alert
+            - generic:
+              - alert
+          - generic [ref=e3997]:
+            - heading "Preview" [level=2] [ref=e3999]
+            - button "Select a platform for the ad preview. Mobile Feed" [ref=e4000] [cursor=pointer]:
+              - img [ref=e4002]
+              - generic [ref=e4004]: Mobile Feed
+            - generic [ref=e4007]:
+              - status [ref=e4008]:
+                - generic [ref=e4009]:
+                  - img [ref=e4011]
+                  - generic [ref=e4014]: This is a static image of a mobile document ad.
+              - img "Document ad mobile preview" [ref=e4015]
+        - generic [ref=e4017]:
+          - button "Cancel" [ref=e4019] [cursor=pointer]:
+            - generic [ref=e4020]: Cancel
+          - button "Save" [ref=e4022] [cursor=pointer]:
+            - generic [ref=e4023]: Save
+  - generic [ref=e183]: Your file Upload Complete

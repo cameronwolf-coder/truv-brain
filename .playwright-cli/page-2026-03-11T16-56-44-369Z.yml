@@ -1,0 +1,8 @@
+- generic [active] [ref=e1]:
+  - main [ref=e7]:
+    - status [ref=e9]:
+      - generic [ref=e10]:
+        - img [ref=e13]
+        - img [ref=e19]
+      - generic [ref=e21]: Loading
+  - complementary

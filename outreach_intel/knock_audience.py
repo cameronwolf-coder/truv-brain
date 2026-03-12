@@ -188,11 +188,32 @@ def push_to_knock(
         return {"audience_key": key, "user_count": 0}
 
     # 3. Prepare Knock audience members (inline identification)
+    #    Filter out government contacts (domains + industry/vertical)
+    GOV_DOMAINS = {".gov", ".mil", ".gc.ca", ".gov.uk", ".govt.nz", ".gov.au", ".state.us"}
+    GOV_KEYWORDS = {"government", "public sector", "federal", "state government", "local government"}
+
     members = []
+    gov_skipped = 0
     for c in contacts:
         props = c.get("properties", {})
         email = props.get("email")
         if not email:
+            continue
+
+        # Skip government email domains
+        email_lower = email.lower()
+        domain = email_lower.split("@")[-1] if "@" in email_lower else ""
+        is_gov_domain = any(email_lower.endswith(d) for d in GOV_DOMAINS)
+        is_state_domain = re.match(r".*\.state\.[a-z]{2}\.us$", domain)
+        if is_gov_domain or is_state_domain:
+            gov_skipped += 1
+            continue
+
+        # Skip government industry/vertical
+        industry = (props.get("industry") or "").lower()
+        vertical = (props.get("sales_vertical") or "").lower()
+        if any(kw in industry or kw in vertical for kw in GOV_KEYWORDS):
+            gov_skipped += 1
             continue
 
         first = props.get("firstname") or ""
@@ -210,7 +231,9 @@ def push_to_knock(
             }
         })
 
-    print(f"\nPrepared {len(members)} members", flush=True)
+    if gov_skipped:
+        print(f"\n  Filtered out {gov_skipped} government contacts", flush=True)
+    print(f"Prepared {len(members)} members", flush=True)
 
     # 4. Add members in batches of 100
     total_batches = math.ceil(len(members) / 100)
@@ -235,6 +258,9 @@ def push_to_knock(
     return {"audience_key": key, "user_count": added}
 
 
+FORCE_ALLOWED_AUDIENCES = {"cameron-test-audience"}
+
+
 def staged_trigger(
     workflow_key: str,
     audience_key: str,
@@ -242,6 +268,7 @@ def staged_trigger(
     delay_seconds: int = 60,
     data: dict | None = None,
     dry_run: bool = False,
+    force: bool = False,
 ) -> dict:
     """Trigger a Knock workflow for audience members in staged batches.
 
@@ -255,10 +282,17 @@ def staged_trigger(
         delay_seconds: Seconds to wait between batches
         data: Optional workflow trigger data
         dry_run: If True, show plan without triggering
+        force: If True, skip cancellation key to allow re-sends
+                (only allowed for audiences in FORCE_ALLOWED_AUDIENCES)
 
     Returns:
         dict with total_triggered and batch_count
     """
+    if force and audience_key not in FORCE_ALLOWED_AUDIENCES:
+        print(f"ERROR: --force is only allowed for test audiences: {FORCE_ALLOWED_AUDIENCES}")
+        print(f"  Audience '{audience_key}' is not in the allow list.")
+        return {"total_triggered": 0, "batch_count": 0}
+
     knock = KnockAudienceClient()
     batch_size = min(batch_size, 1000)
 
@@ -286,6 +320,9 @@ def staged_trigger(
     if data:
         print(f"  Trigger data:  {data}")
 
+    if force:
+        print(f"  FORCE MODE: cancellation keys disabled (re-send allowed)")
+
     if dry_run:
         print(f"\n[DRY RUN] No workflows triggered.")
         return {"total_triggered": 0, "batch_count": 0}
@@ -298,7 +335,7 @@ def staged_trigger(
 
         print(f"\n  Batch {batch_num}/{total_batches}: triggering {len(batch)} recipients...", flush=True)
         try:
-            cancel_key = f"{workflow_key}:{audience_key}:batch-{batch_num}"
+            cancel_key = None if force else f"{workflow_key}:{audience_key}:batch-{batch_num}"
             result = knock.trigger_workflow(workflow_key, batch, data=data, cancellation_key=cancel_key)
             triggered += len(batch)
             run_id = result.get("workflow_run_id", "—")
@@ -341,7 +378,9 @@ def main():
     trigger_cmd.add_argument("audience_key", help="Knock audience key")
     trigger_cmd.add_argument("--batch-size", type=int, default=500, help="Recipients per batch (default: 500, max: 1000)")
     trigger_cmd.add_argument("--delay-seconds", type=int, default=60, help="Seconds between batches (default: 60)")
+    trigger_cmd.add_argument("--data-file", help="JSON file with workflow trigger data")
     trigger_cmd.add_argument("--dry-run", action="store_true", help="Show plan without triggering")
+    trigger_cmd.add_argument("--force", action="store_true", help="Skip cancellation key to allow re-sends (test audiences only)")
 
     args = parser.parse_args()
     knock = KnockAudienceClient()
@@ -362,12 +401,19 @@ def main():
                 print(f"    {u.get('name', '—')} <{u.get('email', '—')}>")
 
     elif args.command == "trigger":
+        trigger_data = None
+        if args.data_file:
+            import json as _json
+            with open(args.data_file) as f:
+                trigger_data = _json.load(f)
         staged_trigger(
             workflow_key=args.workflow_key,
             audience_key=args.audience_key,
             batch_size=args.batch_size,
             delay_seconds=args.delay_seconds,
+            data=trigger_data,
             dry_run=args.dry_run,
+            force=args.force,
         )
 
 

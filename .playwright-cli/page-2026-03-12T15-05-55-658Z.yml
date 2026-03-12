@@ -1,0 +1,358 @@
+- generic [ref=e1]:
+  - generic:
+    - region "Notification Toasts":
+      - heading "0 notifications total" [level=2] [ref=e2]
+  - button "Chat with us" [ref=e10] [cursor=pointer]:
+    - img [ref=e12]
+  - generic [ref=e15]:
+    - generic [ref=e18]:
+      - button "Skip to main content" [ref=e19] [cursor=pointer]
+      - button "Close jump menu" [ref=e20] [cursor=pointer]:
+        - img [ref=e21]
+        - generic [ref=e23]: Close jump menu
+    - banner [ref=e24]:
+      - generic [ref=e25]:
+        - button "Close side navigation panel" [ref=e26] [cursor=pointer]:
+          - img [ref=e28]
+        - button [ref=e32] [cursor=pointer]:
+          - generic [ref=e34]:
+            - generic [ref=e35]:
+              - img [ref=e37]:
+                - img [ref=e38]
+              - img [ref=e41]
+            - img [ref=e44]
+        - generic:
+          - heading "Actions List" [level=2] [ref=e46]
+          - list
+        - button "No unseen notifications, click to enter notifications experience" [ref=e48] [cursor=pointer]:
+          - generic [ref=e49]:
+            - generic [ref=e50]: No unseen notifications, click to enter notifications experience
+            - img [ref=e53]
+        - button "Learn more about campaign manager" [ref=e56] [cursor=pointer]:
+          - img "Help" [ref=e58]:
+            - img [ref=e60]
+        - button "Open user menu Icon for Truv" [ref=e62] [cursor=pointer]:
+          - generic [ref=e63]:
+            - generic [ref=e64]: Open user menu
+            - img "Icon for Truv" [ref=e66]
+    - generic [ref=e67]:
+      - navigation [ref=e68]:
+        - complementary [ref=e70]:
+          - button "Truv company icon Truv Ad Account 517969837 Active" [ref=e71] [cursor=pointer]:
+            - img "Truv company icon" [ref=e74]
+            - generic [ref=e75]:
+              - generic [ref=e76]: Truv Ad Account
+              - generic [ref=e77]:
+                - text: "517969837"
+                - generic [ref=e78]: Active
+            - img [ref=e79]
+        - generic [ref=e81]:
+          - link "Overview" [ref=e83] [cursor=pointer]:
+            - /url: /campaignmanager/accounts/517969837/overview?businessId=7404539754668773386
+            - generic [ref=e84]: Overview
+          - button "Plan" [ref=e87] [cursor=pointer]:
+            - generic [ref=e88]:
+              - generic [ref=e90]: Plan
+              - img [ref=e92]
+          - link "Advertise" [ref=e95] [cursor=pointer]:
+            - /url: /campaignmanager/accounts/517969837/campaign-groups?businessId=7404539754668773386
+            - generic [ref=e96]: Advertise
+          - link "Test" [ref=e98] [cursor=pointer]:
+            - /url: /campaignmanager/accounts/517969837/experiments?businessId=7404539754668773386
+            - generic [ref=e99]: Test
+          - button "Measurement" [ref=e102] [cursor=pointer]:
+            - generic [ref=e103]:
+              - generic [ref=e105]: Measurement
+              - img [ref=e107]
+          - button "Data" [ref=e111] [cursor=pointer]:
+            - generic [ref=e112]:
+              - generic [ref=e114]: Data
+              - img [ref=e116]
+          - link "Recommendations Some new recommendations notifications" [ref=e119] [cursor=pointer]:
+            - /url: /campaignmanager/accounts/517969837/recommendations?businessId=7404539754668773386&campaignStatuses=%5B%22ACTIVE%22%5D
+            - generic [ref=e120]:
+              - text: Recommendations
+              - generic [ref=e123]: Some new recommendations notifications
+          - separator [ref=e125]
+          - link "Partnerships NEW" [ref=e127] [cursor=pointer]:
+            - /url: /campaignmanager/accounts/517969837/partnership?businessId=7404539754668773386
+            - generic [ref=e128]:
+              - text: Partnerships
+              - generic [ref=e129]: NEW
+          - generic [ref=e130]:
+            - button "Assets" [expanded] [ref=e132] [cursor=pointer]:
+              - generic [ref=e133]:
+                - generic [ref=e135]: Assets
+                - img [ref=e137]
+            - region "Assets" [ref=e139]:
+              - generic [ref=e140]:
+                - link "Lead generation forms" [active] [ref=e142] [cursor=pointer]:
+                  - /url: /campaignmanager/accounts/517969837/leadgen-forms?businessId=7404539754668773386
+                  - generic [ref=e143]: Lead generation forms
+                - link "Landing pages" [ref=e145] [cursor=pointer]:
+                  - /url: /campaignmanager/accounts/517969837/landing-pages?businessId=7404539754668773386
+                  - generic [ref=e146]: Landing pages
+                - link "Brand kits" [ref=e148] [cursor=pointer]:
+                  - /url: /campaignmanager/accounts/517969837/brands?businessId=7404539754668773386
+                  - generic [ref=e149]: Brand kits
+          - separator [ref=e151]
+          - button "Account settings" [ref=e154] [cursor=pointer]:
+            - generic [ref=e155]:
+              - generic [ref=e157]: Account settings
+              - img [ref=e159]
+          - separator [ref=e162]
+          - link "Company page" [ref=e164] [cursor=pointer]:
+            - /url: https://www.linkedin.com/company/68059038
+            - generic [ref=e165]:
+              - generic [ref=e166]: Company page
+              - img [ref=e168]
+      - generic [ref=e170]:
+        - main [ref=e171]:
+          - generic [ref=e1009]:
+            - generic [ref=e1010]:
+              - generic [ref=e1011]:
+                - generic [ref=e1012]:
+                  - generic [ref=e1013]: Lead generation forms
+                  - generic [ref=e1014]:
+                    - text: Turn your audience into prospective leads by capturing relevant information.
+                    - link "Learn more" [ref=e1015] [cursor=pointer]:
+                      - /url: https://www.linkedin.com/help/lms/answer/a423447
+                - generic [ref=e1016]:
+                  - button "Download leads" [ref=e1017] [cursor=pointer]:
+                    - generic [ref=e1018]: Download leads
+                  - button "Create form" [ref=e1019] [cursor=pointer]:
+                    - generic [ref=e1020]: Create form
+              - tablist [ref=e1024]:
+                - tab "Current" [selected] [ref=e1025] [cursor=pointer]
+                - tab "Archived" [ref=e1026] [cursor=pointer]
+            - generic [ref=e1027]:
+              - button "12/13/2025 – 3/12/2026" [ref=e1029] [cursor=pointer]:
+                - img [ref=e1031]
+                - generic [ref=e1033]:
+                  - time [ref=e1034]: 12/13/2025
+                  - generic [ref=e1035]:
+                    - text: –
+                    - time [ref=e1036]: 3/12/2026
+              - generic [ref=e1041]:
+                - table [ref=e1043]:
+                  - rowgroup [ref=e1044]:
+                    - row "Select all rows row selection Form name, sorted in natural order Language, sorted in natural order Status, sorted in natural order Date created, sorted in natural order Leads, sorted in natural order Test Leads, sorted in natural order Associations" [ref=e1045]:
+                      - columnheader "Select all rows row selection" [ref=e1046]:
+                        - generic [ref=e1047]:
+                          - checkbox "Select all rows"
+                          - generic [ref=e1049]: Select all rows
+                        - generic [ref=e1050]: row selection
+                      - columnheader "Form name, sorted in natural order" [ref=e1051]:
+                        - generic [ref=e1052]:
+                          - generic [ref=e1053]: Form name
+                          - button "Form name, sorted in natural order" [ref=e1054] [cursor=pointer]:
+                            - img [ref=e1056]
+                      - columnheader "Language, sorted in natural order" [ref=e1059]:
+                        - generic [ref=e1060]:
+                          - generic [ref=e1061]: Language
+                          - button "Language, sorted in natural order" [ref=e1062] [cursor=pointer]:
+                            - img [ref=e1064]
+                      - columnheader "Status, sorted in natural order" [ref=e1067]:
+                        - generic [ref=e1068]:
+                          - generic [ref=e1069]: Status
+                          - button "Status, sorted in natural order" [ref=e1070] [cursor=pointer]:
+                            - img [ref=e1072]
+                      - columnheader "Date created, sorted in natural order" [ref=e1075]:
+                        - generic [ref=e1076]:
+                          - generic [ref=e1077]: Date created
+                          - button "Date created, sorted in natural order" [ref=e1078] [cursor=pointer]:
+                            - img [ref=e1080]
+                      - columnheader "Leads, sorted in natural order" [ref=e1083]:
+                        - generic [ref=e1084]:
+                          - generic [ref=e1085]: Leads
+                          - button "Leads, sorted in natural order" [ref=e1086] [cursor=pointer]:
+                            - img [ref=e1088]
+                      - columnheader "Test Leads, sorted in natural order" [ref=e1091]:
+                        - generic [ref=e1092]:
+                          - generic [ref=e1093]: Test Leads
+                          - button "Test Leads, sorted in natural order" [ref=e1094] [cursor=pointer]:
+                            - img [ref=e1096]
+                      - columnheader "Associations" [ref=e1099]:
+                        - generic [ref=e1100]: Associations
+                    - row "row selection All All All time There is no filter applied for this column There is no filter applied for this column There is no filter applied for this column" [ref=e1101]:
+                      - columnheader "row selection" [ref=e1102]:
+                        - generic [ref=e1103]: row selection
+                      - columnheader [ref=e1104]:
+                        - textbox "Search the Form name column" [ref=e1108]:
+                          - /placeholder: Search by form name
+                      - columnheader "All" [ref=e1109]:
+                        - combobox "Filter the Language column" [ref=e1113] [cursor=pointer]:
+                          - option
+                          - option "All" [selected]
+                          - option "Arabic"
+                          - option "Chinese"
+                          - option "Czech"
+                          - option "Danish"
+                          - option "Dutch"
+                          - option "English"
+                          - option "Filipino"
+                          - option "French"
+                          - option "German"
+                          - option "Indonesian"
+                          - option "Italian"
+                          - option "Japanese"
+                          - option "Korean"
+                          - option "Malaysian"
+                          - option "Norwegian"
+                          - option "Polish"
+                          - option "Portuguese"
+                          - option "Romanian"
+                          - option "Russian"
+                          - option "Spanish"
+                          - option "Swedish"
+                          - option "Thai"
+                          - option "Turkish"
+                      - columnheader "All" [ref=e1114]:
+                        - combobox "Filter the Status column" [ref=e1118] [cursor=pointer]:
+                          - option
+                          - option "All" [selected]
+                          - option "Active"
+                          - option "In review / Inactive"
+                          - option "Rejected"
+                      - columnheader "All time" [ref=e1119]:
+                        - combobox "Filter the Date created column" [ref=e1123] [cursor=pointer]:
+                          - option
+                          - option "All time" [selected]
+                          - option "Last 7 days"
+                          - option "This month"
+                          - option "Last month"
+                          - option "Last 30 days"
+                          - option "Last 90 days"
+                      - columnheader "There is no filter applied for this column" [ref=e1124]:
+                        - generic [ref=e1125]: There is no filter applied for this column
+                      - columnheader "There is no filter applied for this column" [ref=e1126]:
+                        - generic [ref=e1127]: There is no filter applied for this column
+                      - columnheader "There is no filter applied for this column" [ref=e1128]:
+                        - generic [ref=e1129]: There is no filter applied for this column
+                  - rowgroup [ref=e1130]:
+                    - 'row "Select data row 1 CrossCountry Mortgage Case Study B Form ID: 1003767085 Open control menu for form CrossCountry Mortgage Case Study B English Active Feb 27, 2026 0 0 associations tooltip" [ref=e1131]':
+                      - cell "Select data row 1" [ref=e1132]:
+                        - generic [ref=e1133]:
+                          - checkbox "Select data row 1"
+                          - generic [ref=e1135]: Select data row 1
+                      - 'cell "CrossCountry Mortgage Case Study B Form ID: 1003767085 Open control menu for form CrossCountry Mortgage Case Study B" [ref=e1136]':
+                        - generic [ref=e1137]:
+                          - generic [ref=e1138]:
+                            - button "CrossCountry Mortgage Case Study B" [ref=e1139] [cursor=pointer]
+                            - generic [ref=e1140]: "Form ID: 1003767085"
+                          - button "Open control menu for form CrossCountry Mortgage Case Study B" [ref=e1142] [cursor=pointer]:
+                            - img [ref=e1144]
+                      - cell "English" [ref=e1146]:
+                        - generic [ref=e1147]: English
+                      - cell "Active" [ref=e1148]:
+                        - generic [ref=e1149]: Active
+                      - cell "Feb 27, 2026" [ref=e1150]:
+                        - time [ref=e1151]: Feb 27, 2026
+                      - cell "0" [ref=e1152]:
+                        - generic [ref=e1153]: "0"
+                      - cell "0" [ref=e1154]:
+                        - generic [ref=e1155]: "0"
+                      - cell "associations tooltip" [ref=e1156]:
+                        - button "associations tooltip" [ref=e1158] [cursor=pointer]:
+                          - generic [ref=e1160]: "16"
+                    - 'row "Select data row 2 CrossCountry Mortgage Case Study B Test Form ID: 1003755085 Open control menu for form CrossCountry Mortgage Case Study B Test English Active Feb 24, 2026 0 0 0" [ref=e1161]':
+                      - cell "Select data row 2" [ref=e1162]:
+                        - generic [ref=e1163]:
+                          - checkbox "Select data row 2"
+                          - generic [ref=e1165]: Select data row 2
+                      - 'cell "CrossCountry Mortgage Case Study B Test Form ID: 1003755085 Open control menu for form CrossCountry Mortgage Case Study B Test" [ref=e1166]':
+                        - generic [ref=e1167]:
+                          - generic [ref=e1168]:
+                            - button "CrossCountry Mortgage Case Study B Test" [ref=e1169] [cursor=pointer]
+                            - generic [ref=e1170]: "Form ID: 1003755085"
+                          - button "Open control menu for form CrossCountry Mortgage Case Study B Test" [ref=e1172] [cursor=pointer]:
+                            - img [ref=e1174]
+                      - cell "English" [ref=e1176]:
+                        - generic [ref=e1177]: English
+                      - cell "Active" [ref=e1178]:
+                        - generic [ref=e1179]: Active
+                      - cell "Feb 24, 2026" [ref=e1180]:
+                        - time [ref=e1181]: Feb 24, 2026
+                      - cell "0" [ref=e1182]:
+                        - generic [ref=e1183]: "0"
+                      - cell "0" [ref=e1184]:
+                        - generic [ref=e1185]: "0"
+                      - cell "0" [ref=e1186]:
+                        - generic [ref=e1188]: "0"
+                    - 'row "Select data row 3 CrossCountry Mortgage Case Study Form ID: 1003754098 Open control menu for form CrossCountry Mortgage Case Study English Active Feb 23, 2026 0 0 associations tooltip" [ref=e1189]':
+                      - cell "Select data row 3" [ref=e1190]:
+                        - generic [ref=e1191]:
+                          - checkbox "Select data row 3"
+                          - generic [ref=e1193]: Select data row 3
+                      - 'cell "CrossCountry Mortgage Case Study Form ID: 1003754098 Open control menu for form CrossCountry Mortgage Case Study" [ref=e1194]':
+                        - generic [ref=e1195]:
+                          - generic [ref=e1196]:
+                            - button "CrossCountry Mortgage Case Study" [ref=e1197] [cursor=pointer]
+                            - generic [ref=e1198]: "Form ID: 1003754098"
+                          - button "Open control menu for form CrossCountry Mortgage Case Study" [ref=e1200] [cursor=pointer]:
+                            - img [ref=e1202]
+                      - cell "English" [ref=e1204]:
+                        - generic [ref=e1205]: English
+                      - cell "Active" [ref=e1206]:
+                        - generic [ref=e1207]: Active
+                      - cell "Feb 23, 2026" [ref=e1208]:
+                        - time [ref=e1209]: Feb 23, 2026
+                      - cell "0" [ref=e1210]:
+                        - generic [ref=e1211]: "0"
+                      - cell "0" [ref=e1212]:
+                        - generic [ref=e1213]: "0"
+                      - cell "associations tooltip" [ref=e1214]:
+                        - button "associations tooltip" [ref=e1216] [cursor=pointer]:
+                          - generic [ref=e1218]: "4"
+                    - 'row "Select data row 4 Prosperity Home Mortgage Case Study Form ID: 1002543056 Open control menu for form Prosperity Home Mortgage Case Study English Active Jan 30, 2026 0 0 0" [ref=e1219]':
+                      - cell "Select data row 4" [ref=e1220]:
+                        - generic [ref=e1221]:
+                          - checkbox "Select data row 4"
+                          - generic [ref=e1223]: Select data row 4
+                      - 'cell "Prosperity Home Mortgage Case Study Form ID: 1002543056 Open control menu for form Prosperity Home Mortgage Case Study" [ref=e1224]':
+                        - generic [ref=e1225]:
+                          - generic [ref=e1226]:
+                            - button "Prosperity Home Mortgage Case Study" [ref=e1227] [cursor=pointer]
+                            - generic [ref=e1228]: "Form ID: 1002543056"
+                          - button "Open control menu for form Prosperity Home Mortgage Case Study" [ref=e1230] [cursor=pointer]:
+                            - img [ref=e1232]
+                      - cell "English" [ref=e1234]:
+                        - generic [ref=e1235]: English
+                      - cell "Active" [ref=e1236]:
+                        - generic [ref=e1237]: Active
+                      - cell "Jan 30, 2026" [ref=e1238]:
+                        - time [ref=e1239]: Jan 30, 2026
+                      - cell "0" [ref=e1240]:
+                        - generic [ref=e1241]: "0"
+                      - cell "0" [ref=e1242]:
+                        - generic [ref=e1243]: "0"
+                      - cell "0" [ref=e1244]:
+                        - generic [ref=e1246]: "0"
+                - navigation [ref=e1249]:
+                  - generic [ref=e1250]:
+                    - combobox [ref=e1252] [cursor=pointer]
+                    - list [ref=e1253]:
+                      - listitem [ref=e1254]:
+                        - button "Page 1" [ref=e1255] [cursor=pointer]: "1"
+        - contentinfo [ref=e984]:
+          - list [ref=e986]:
+            - listitem [ref=e987]:
+              - link "Help center" [ref=e988] [cursor=pointer]:
+                - /url: https://www.linkedin.com/help/lms
+            - listitem [ref=e989]:
+              - link "Metric restatements" [ref=e990] [cursor=pointer]:
+                - /url: /campaignmanager/accounts/517969837/metric-restatements?businessId=7404539754668773386
+            - listitem [ref=e991]:
+              - link "Certified partners" [ref=e992] [cursor=pointer]:
+                - /url: https://business.linkedin.com/marketing-solutions/certified-marketing-partners/ads-partners
+            - listitem [ref=e993]:
+              - link "Accessibility" [ref=e994] [cursor=pointer]:
+                - /url: https://www.linkedin.com/accessibility
+            - listitem [ref=e995]:
+              - button "Privacy & terms" [ref=e996] [cursor=pointer]:
+                - img [ref=e998]
+                - generic [ref=e1000]: Privacy & terms
+          - generic [ref=e1001]:
+            - img [ref=e1002]:
+              - img [ref=e1003]
+            - generic [ref=e1005]: LinkedIn Corporation © 2026

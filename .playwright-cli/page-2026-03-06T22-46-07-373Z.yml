@@ -1,0 +1,341 @@
+- generic [ref=e1]:
+  - iframe [ref=e188]:
+    - banner [ref=f63e6]:
+      - generic [ref=f63e7]:
+        - heading "You’ve used all your monthly credits" [level=5] [ref=f63e8]
+        - generic [ref=f63e9]:
+          - generic [ref=f63e12]: Usage is paused until your credits reset on Mar 25, 2026 or you add more.
+          - link "Add credits" [ref=f63e13] [cursor=pointer]:
+            - /url: https://app.hubspot.com/api/notification-station/general/v1/notifications/cta/ad1945e2-7ce6-4b56-b932-753c0738e0c8?notificationPortalId=19933594
+            - generic [ref=f63e14]: Add credits
+      - button "Close" [ref=f63e15] [cursor=pointer]:
+        - img [ref=f63e18]
+  - generic:
+    - iframe
+  - generic [ref=e117]:
+    - generic [ref=e389]:
+      - region "Page Section" [ref=e390]:
+        - group [ref=e392]:
+          - generic [ref=e393]:
+            - button "Exit" [ref=e395] [cursor=pointer]:
+              - generic [ref=e397]: Exit
+            - 'heading "Event Registrants: March Insider, Public Sector" [level=1] [ref=e483]':
+              - generic [ref=e402]:
+                - textbox "Segment name" [ref=e404]:
+                  - /placeholder: Name your new segment
+                  - text: "Event Registrants: March Insider, Public Sector"
+                - generic:
+                  - img
+            - generic [ref=e405]:
+              - button "Generate filters with AI" [ref=e406] [cursor=pointer]:
+                - generic [ref=e407]:
+                  - img [ref=e408]
+                  - generic [ref=e410]: Generate filters with AI
+              - button "Next" [ref=e411] [cursor=pointer]:
+                - generic [ref=e413]: Next
+      - region "Page Section" [ref=e416]:
+        - main [ref=e419]:
+          - generic [ref=e425]:
+            - generic [ref=e427]:
+              - generic [ref=e429]:
+                - generic [ref=e430]:
+                  - paragraph [ref=e431]:
+                    - generic [ref=e432]:
+                      - generic [ref=e433]: Include
+                      - generic [ref=e434]:
+                        - generic [ref=e439]: Contacts
+                        - button "Change object" [ref=e440] [cursor=pointer]:
+                          - generic [ref=e442]:
+                            - img [ref=e443]
+                            - generic [ref=e445]: Change object
+                  - generic [ref=e446]:
+                    - generic [ref=e448]: Test matches
+                    - generic [ref=e449]:
+                      - checkbox "Test matches OFF" [disabled] [ref=e451]
+                      - generic [ref=e452]: "OFF"
+                - generic [ref=e461]:
+                  - paragraph [ref=e462]: This segment doesn't have any filters
+                  - button "Add filter" [ref=e463] [cursor=pointer]:
+                    - generic [ref=e464]:
+                      - img [ref=e465]
+                      - generic [ref=e467]: Add filter
+                  - generic [ref=e490]:
+                    - generic [ref=e492]:
+                      - generic [ref=e493]:
+                        - generic [ref=e494]: "Viewing:"
+                        - generic [ref=e495] [cursor=pointer]:
+                          - button "Contacts (primary)" [expanded] [ref=e496]:
+                            - listitem [ref=e500]:
+                              - option "Contacts (primary)" [ref=e501]:
+                                - generic [ref=e503]: Contacts (primary)
+                            - generic [ref=e1034]:
+                              - combobox "Search" [active] [ref=e1035]
+                              - generic:
+                                - generic:
+                                  - img
+                            - listbox [ref=e1039]:
+                              - generic [ref=e1040]:
+                                - listitem [ref=e1042]:
+                                  - option "Standard Objects" [ref=e1043]:
+                                    - button "Standard Objects" [ref=e1045]:
+                                      - generic [ref=e1048]: Standard Objects
+                                - option "Contacts (primary)" [ref=e1049]:
+                                  - listitem [ref=e1050]:
+                                    - option "Contacts (primary)" [ref=e1051]:
+                                      - button "Contacts (primary)" [ref=e1053]:
+                                        - generic [ref=e1056]: Contacts (primary)
+                                - option "Companies" [ref=e1057]:
+                                  - listitem [ref=e1058]:
+                                    - option "Companies" [ref=e1059]:
+                                      - button "Companies" [ref=e1061]:
+                                        - generic [ref=e1064]: Companies
+                                - option "Deals" [ref=e1065]:
+                                  - listitem [ref=e1066]:
+                                    - option "Deals" [ref=e1067]:
+                                      - button "Deals" [ref=e1069]:
+                                        - generic [ref=e1072]: Deals
+                                - option "Tickets" [ref=e1073]:
+                                  - listitem [ref=e1074]:
+                                    - option "Tickets" [ref=e1075]:
+                                      - button "Tickets" [ref=e1077]:
+                                        - generic [ref=e1080]: Tickets
+                              - generic [ref=e1081]:
+                                - listitem [ref=e1083]:
+                                  - option "Additional Objects" [ref=e1084]:
+                                    - button "Additional Objects" [ref=e1086]:
+                                      - generic [ref=e1089]: Additional Objects
+                                - listitem [ref=e1091]:
+                                  - option "Activity" [disabled] [ref=e1092]:
+                                    - button "Activity" [disabled] [ref=e1095]:
+                                      - generic [ref=e1098]: Activity
+                                - option "Calls" [ref=e1099]:
+                                  - listitem [ref=e1100]:
+                                    - option "Calls" [ref=e1101]:
+                                      - button "Calls" [ref=e1103]:
+                                        - generic [ref=e1106]: Calls
+                                - option "Carts" [ref=e1107]:
+                                  - listitem [ref=e1108]:
+                                    - option "Carts" [ref=e1109]:
+                                      - button "Carts" [ref=e1111]:
+                                        - generic [ref=e1114]: Carts
+                                - option "Communications" [ref=e1115]:
+                                  - listitem [ref=e1116]:
+                                    - option "Communications" [ref=e1117]:
+                                      - button "Communications" [ref=e1119]:
+                                        - generic [ref=e1122]: Communications
+                                - option "Contact create attributions" [ref=e1123]:
+                                  - listitem [ref=e1124]:
+                                    - option "Contact create attributions" [ref=e1125]:
+                                      - button "Contact create attributions" [ref=e1127]:
+                                        - generic [ref=e1130]: Contact create attributions
+                                - option "Contacts (associated)" [ref=e1131]:
+                                  - listitem [ref=e1132]:
+                                    - option "Contacts (associated)" [ref=e1133]:
+                                      - button "Contacts (associated)" [ref=e1135]:
+                                        - generic [ref=e1138]: Contacts (associated)
+                                - option "Conversation sessions" [ref=e1139]:
+                                  - listitem [ref=e1140]:
+                                    - option "Conversation sessions" [ref=e1141]:
+                                      - button "Conversation sessions" [ref=e1143]:
+                                        - generic [ref=e1146]: Conversation sessions
+                                - option "Conversations" [ref=e1147]:
+                                  - listitem [ref=e1148]:
+                                    - option "Conversations" [ref=e1149]:
+                                      - button "Conversations" [ref=e1151]:
+                                        - generic [ref=e1154]: Conversations
+                                - option "Data Privacy Requests" [ref=e1155]:
+                                  - listitem [ref=e1156]:
+                                    - option "Data Privacy Requests" [ref=e1157]:
+                                      - button "Data Privacy Requests" [ref=e1159]:
+                                        - generic [ref=e1162]: Data Privacy Requests
+                                - option "Emails" [ref=e1163]:
+                                  - listitem [ref=e1164]:
+                                    - option "Emails" [ref=e1165]:
+                                      - button "Emails" [ref=e1167]:
+                                        - generic [ref=e1170]: Emails
+                                - option "Invoices" [ref=e1171]:
+                                  - listitem [ref=e1172]:
+                                    - option "Invoices" [ref=e1173]:
+                                      - button "Invoices" [ref=e1175]:
+                                        - generic [ref=e1178]: Invoices
+                                - option "Leads" [ref=e1179]:
+                                  - listitem [ref=e1180]:
+                                    - option "Leads" [ref=e1181]:
+                                      - button "Leads" [ref=e1183]:
+                                        - generic [ref=e1186]: Leads
+                                - option "Line Item" [ref=e1187]:
+                                  - listitem [ref=e1188]:
+                                    - option "Line Item" [ref=e1189]:
+                                      - button "Line Item" [ref=e1191]:
+                                        - generic [ref=e1194]: Line Item
+                                - option "Meetings" [ref=e1195]:
+                                  - listitem [ref=e1196]:
+                                    - option "Meetings" [ref=e1197]:
+                                      - button "Meetings" [ref=e1199]:
+                                        - generic [ref=e1202]: Meetings
+                                - option "Notes" [ref=e1203]:
+                                  - listitem [ref=e1204]:
+                                    - option "Notes" [ref=e1205]:
+                                      - button "Notes" [ref=e1207]:
+                                        - generic [ref=e1210]: Notes
+                                - option "Orders" [ref=e1211]:
+                                  - listitem [ref=e1212]:
+                                    - option "Orders" [ref=e1213]:
+                                      - button "Orders" [ref=e1215]:
+                                        - generic [ref=e1218]: Orders
+                                - option "Payment Links" [ref=e1219]:
+                                  - listitem [ref=e1220]:
+                                    - option "Payment Links" [ref=e1221]:
+                                      - button "Payment Links" [ref=e1223]:
+                                        - generic [ref=e1226]: Payment Links
+                                - option "Payments" [ref=e1227]:
+                                  - listitem [ref=e1228]:
+                                    - option "Payments" [ref=e1229]:
+                                      - button "Payments" [ref=e1231]:
+                                        - generic [ref=e1234]: Payments
+                                - option "Postal Mail" [ref=e1235]:
+                                  - listitem [ref=e1236]:
+                                    - option "Postal Mail" [ref=e1237]:
+                                      - button "Postal Mail" [ref=e1239]:
+                                        - generic [ref=e1242]: Postal Mail
+                                - option "Products" [ref=e1243]:
+                                  - listitem [ref=e1244]:
+                                    - option "Products" [ref=e1245]:
+                                      - button "Products" [ref=e1247]:
+                                        - generic [ref=e1250]: Products
+                                - option "Projects" [ref=e1251]:
+                                  - listitem [ref=e1252]:
+                                    - option "Projects" [ref=e1253]:
+                                      - button "Projects" [ref=e1255]:
+                                        - generic [ref=e1258]: Projects
+                                - option "Quotes" [ref=e1259]:
+                                  - listitem [ref=e1260]:
+                                    - option "Quotes" [ref=e1261]:
+                                      - button "Quotes" [ref=e1263]:
+                                        - generic [ref=e1266]: Quotes
+                                - option "Sequence enrollments" [ref=e1267]:
+                                  - listitem [ref=e1268]:
+                                    - option "Sequence enrollments" [ref=e1269]:
+                                      - button "Sequence enrollments" [ref=e1271]:
+                                        - generic [ref=e1274]: Sequence enrollments
+                                - option "Services" [ref=e1275]:
+                                  - listitem [ref=e1276]:
+                                    - option "Services" [ref=e1277]:
+                                      - button "Services" [ref=e1279]:
+                                        - generic [ref=e1282]: Services
+                                - option "Subscription" [ref=e1283]:
+                                  - listitem [ref=e1284]:
+                                    - option "Subscription" [ref=e1285]:
+                                      - button "Subscription" [ref=e1287]:
+                                        - generic [ref=e1290]: Subscription
+                                - option "Survey responses" [ref=e1291]:
+                                  - listitem [ref=e1292]:
+                                    - option "Survey responses" [ref=e1293]:
+                                      - button "Survey responses" [ref=e1295]:
+                                        - generic [ref=e1298]: Survey responses
+                                - option "Tasks" [ref=e1299]:
+                                  - listitem [ref=e1300]:
+                                    - option "Tasks" [ref=e1301]:
+                                      - button "Tasks" [ref=e1303]:
+                                        - generic [ref=e1306]: Tasks
+                              - generic [ref=e1307]:
+                                - listitem [ref=e1309]:
+                                  - option "Custom Objects" [ref=e1310]:
+                                    - button "Custom Objects" [ref=e1312]:
+                                      - generic [ref=e1315]: Custom Objects
+                                - option "Events" [ref=e1316]:
+                                  - listitem [ref=e1317]:
+                                    - option "Events" [ref=e1318]:
+                                      - button "Events" [ref=e1320]:
+                                        - generic [ref=e1323]: Events
+                                - option "Zoom Events Sessions" [ref=e1324]:
+                                  - listitem [ref=e1325]:
+                                    - option "Zoom Events Sessions" [ref=e1326]:
+                                      - button "Zoom Events Sessions" [ref=e1328]:
+                                        - generic [ref=e1331]: Zoom Events Sessions
+                          - generic [ref=e1339]:
+                            - img
+                      - generic [ref=e505]:
+                        - button "Properties" [pressed] [ref=e507] [cursor=pointer]:
+                          - generic [ref=e511]: Properties
+                        - button "Events" [ref=e513] [cursor=pointer]:
+                          - generic [ref=e517]: Events
+                        - button "Memberships" [ref=e519] [cursor=pointer]:
+                          - generic [ref=e523]: Memberships
+                      - generic [ref=e526]:
+                        - banner [ref=e527]:
+                          - generic [ref=e532]:
+                            - searchbox "Select a filter category" [ref=e533]
+                            - generic:
+                              - generic:
+                                - img
+                          - generic [ref=e535]:
+                            - generic [ref=e536]:
+                              - img [ref=e539]
+                              - button "All field types" [ref=e542] [cursor=pointer]:
+                                - paragraph [ref=e546]: All field types
+                            - generic [ref=e548]:
+                              - img [ref=e551]
+                              - button "Default (categories)" [ref=e554] [cursor=pointer]:
+                                - paragraph [ref=e558]:
+                                  - generic [ref=e561]: Default (categories)
+                        - grid "grid" [ref=e874]:
+                          - rowgroup [ref=e875]:
+                            - generic [ref=e879]: Contact Activity
+                            - button "Booked By" [ref=e882] [cursor=pointer]:
+                              - generic [ref=e883]:
+                                - img [ref=e886]
+                                - generic [ref=e890]: Booked By
+                            - button "Campaign of last booking in meetings tool" [ref=e893] [cursor=pointer]:
+                              - generic [ref=e894]:
+                                - img [ref=e897]
+                                - generic [ref=e900]: Campaign of last booking in meetings tool
+                            - button "Contact priority" [ref=e903] [cursor=pointer]:
+                              - generic [ref=e904]:
+                                - img [ref=e907]
+                                - generic [ref=e911]: Contact priority
+                            - button "Currently in workflow (discontinued)" [ref=e914] [cursor=pointer]:
+                              - generic [ref=e915]:
+                                - img [ref=e918]
+                                - generic [ref=e922]: Currently in workflow (discontinued)
+                            - button "Date of first engagement" [ref=e925] [cursor=pointer]:
+                              - generic [ref=e926]:
+                                - img [ref=e929]
+                                - generic [ref=e938]: Date of first engagement
+                            - button "Date of last meeting booked in meetings tool" [ref=e941] [cursor=pointer]:
+                              - generic [ref=e942]:
+                                - img [ref=e945]
+                                - generic [ref=e954]: Date of last meeting booked in meetings tool
+                            - button "Last activity date" [ref=e957] [cursor=pointer]:
+                              - generic [ref=e958]:
+                                - img [ref=e961]
+                                - generic [ref=e970]: Last activity date
+                            - button "Last CES survey comment" [ref=e973] [cursor=pointer]:
+                              - generic [ref=e974]:
+                                - img [ref=e977]
+                                - generic [ref=e980]: Last CES survey comment
+                            - button "Last CES survey date" [ref=e983] [cursor=pointer]:
+                              - generic [ref=e984]:
+                                - img [ref=e987]
+                                - generic [ref=e990]: Last CES survey date
+                            - button "Last CES survey rating" [ref=e993] [cursor=pointer]:
+                              - generic [ref=e994]:
+                                - img [ref=e997]
+                                - generic [ref=e1000]: Last CES survey rating
+                            - button "Last contacted" [ref=e1003] [cursor=pointer]:
+                              - generic [ref=e1004]:
+                                - img [ref=e1007]
+                                - generic [ref=e1016]: Last contacted
+                            - button "Last Engagement Date" [ref=e1019] [cursor=pointer]:
+                              - generic [ref=e1020]:
+                                - img [ref=e1023]
+                                - generic [ref=e1032]: Last Engagement Date
+                    - img
+              - button [ref=e470] [cursor=pointer]:
+                - img [ref=e472]
+            - generic [ref=e477]:
+              - generic [ref=e478]:
+                - heading "Add filters to start building your segment" [level=4] [ref=e479]
+                - text: Your filtered results will appear here.
+              - img "contacts illustration" [ref=e482]
+    - complementary

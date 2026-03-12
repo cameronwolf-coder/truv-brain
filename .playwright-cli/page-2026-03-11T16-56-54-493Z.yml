@@ -1,0 +1,1252 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - iframe [ref=e23]:
+      - banner [ref=f5e6]:
+        - generic [ref=f5e7]:
+          - heading "You’ve used all your monthly credits" [level=5] [ref=f5e8]
+          - generic [ref=f5e9]:
+            - generic [ref=f5e12]: Usage is paused until your credits reset on Mar 25, 2026 or you add more.
+            - link "Add credits" [ref=f5e13] [cursor=pointer]:
+              - /url: https://app.hubspot.com/api/notification-station/general/v1/notifications/cta/ad1945e2-7ce6-4b56-b932-753c0738e0c8?notificationPortalId=19933594
+              - generic [ref=f5e14]: Add credits
+        - button "Close" [ref=f5e15] [cursor=pointer]:
+          - img [ref=f5e18]
+    - banner [ref=e25]:
+      - link "HubSpot logo" [ref=e27] [cursor=pointer]:
+        - /url: /global-home/19933594
+        - img "HubSpot logo" [ref=e28]
+      - generic [ref=e30]:
+        - generic [ref=e35]:
+          - img
+          - searchbox "Search HubSpot" [ref=e36]
+          - generic:
+            - generic: ⌘
+            - generic: K
+        - button "Create new" [ref=e39] [cursor=pointer]:
+          - img [ref=e40]
+      - navigation "Global toolbar" [ref=e42]:
+        - menu [ref=e43]:
+          - menuitem "Calls" [ref=e44]:
+            - button "Calls" [ref=e45] [cursor=pointer]:
+              - img "Calling" [ref=e46]
+          - menuitem "Academy" [ref=e48]:
+            - button "Academy" [ref=e49] [cursor=pointer]:
+              - img "Academy" [ref=e50]
+          - menuitem "Marketplace" [ref=e54]:
+            - button "Marketplace" [ref=e55] [cursor=pointer]:
+              - img "Marketplace" [ref=e56]
+          - menuitem "Help" [ref=e58]:
+            - button "Help" [ref=e60] [cursor=pointer]:
+              - img "Help" [ref=e61]
+          - menuitem "Settings" [ref=e63]:
+            - link "Settings" [ref=e64] [cursor=pointer]:
+              - /url: /settings/19933594/marketing/form?eschref=%2Fforms%2F19933594%2Fviews%2Fall_forms
+              - img "Settings" [ref=e65]
+          - generic [ref=e67]:
+            - 'menuitem "Notifications: 4 unseen" [ref=e68]':
+              - 'button "Notifications: 4 unseen" [ref=e69] [cursor=pointer]':
+                - img [ref=e70]
+            - generic: "4"
+          - menuitem "Open Assistant" [ref=e73]:
+            - button "Open Assistant" [ref=e74] [cursor=pointer]:
+              - img "Open Assistant" [ref=e75]
+              - generic [ref=e78]: Assistant
+          - menuitem "View profile and more" [ref=e80]:
+            - button "View profile and more" [ref=e81] [cursor=pointer]:
+              - img "Cam Wolf" [ref=e82]
+              - generic [ref=e83]: Truv
+              - img [ref=e84]
+  - generic [ref=e87]:
+    - button "Scroll up":
+      - img
+    - generic [ref=e88]:
+      - navigation [ref=e90]:
+        - menu [ref=e91]:
+          - menuitem "Home" [ref=e92] [cursor=pointer]:
+            - img "Home" [ref=e93]
+          - menuitem "Bookmarks" [ref=e95] [cursor=pointer]:
+            - img "Bookmarks" [ref=e96]
+          - menuitem "CRM" [ref=e98] [cursor=pointer]:
+            - img "CRM" [ref=e99]
+          - menuitem "Marketing" [ref=e101] [cursor=pointer]:
+            - img "Marketing" [ref=e102]
+          - menuitem "Content" [ref=e104] [cursor=pointer]:
+            - img "Content" [ref=e105]
+          - menuitem "Sales" [ref=e107] [cursor=pointer]:
+            - img "Sales" [ref=e108]
+          - menuitem "Commerce" [ref=e110] [cursor=pointer]:
+            - img "Commerce" [ref=e111]
+          - menuitem "Service" [ref=e114] [cursor=pointer]:
+            - img "Service" [ref=e115]
+          - menuitem "Data Management" [ref=e119] [cursor=pointer]:
+            - img "Data Management" [ref=e120]
+          - menuitem "Automation" [ref=e122] [cursor=pointer]:
+            - img "Automation" [ref=e123]
+          - menuitem "Reporting" [ref=e125] [cursor=pointer]:
+            - img "Reporting" [ref=e126]
+          - menuitem "Breeze" [ref=e128] [cursor=pointer]:
+            - img "Breeze" [ref=e129]
+          - menuitem "Development" [ref=e131] [cursor=pointer]:
+            - img "Development" [ref=e132]
+      - button [ref=e136] [cursor=pointer]:
+        - img [ref=e137]
+    - button "Scroll down" [ref=e140] [cursor=pointer]:
+      - img [ref=e141]
+  - generic:
+    - iframe
+  - main [ref=e7]:
+    - generic [ref=e144]:
+      - region "Page Section" [ref=e145]:
+        - banner [ref=e146]:
+          - heading "Forms 25 forms" [level=1] [ref=e148]:
+            - generic [ref=e150]: Forms
+            - generic [ref=e152]: 25 forms
+          - button "Create form" [ref=e156] [cursor=pointer]:
+            - generic [ref=e158]: Create form
+        - generic [ref=e159]:
+          - navigation [ref=e162]:
+            - button "Manage" [ref=e163] [cursor=pointer]: Manage
+            - button "Analyze" [ref=e165] [cursor=pointer]: Analyze
+          - button "dashboard.nonHubSpotForms.title Non‑HubSpot Forms" [ref=e171] [cursor=pointer]:
+            - generic [ref=e172]:
+              - img "dashboard.nonHubSpotForms.title" [ref=e173]
+              - generic [ref=e175]: Non‑HubSpot Forms
+      - region "Page Section" [ref=e178]:
+        - main [ref=e181]:
+          - generic [ref=e182]:
+            - alert [ref=e184]:
+              - generic [ref=e185]:
+                - heading "Your Form Submissions May Be at Risk of Deletion" [level=5] [ref=e186]
+                - generic [ref=e187]:
+                  - paragraph [ref=e188]:
+                    - generic [ref=e189]:
+                      - strong [ref=e190]: 20 submissions have been flagged as spam
+                      - text: and are now in the spam submissions tool. Take action now by reviewing the spam submissions column. Remember, these submissions will be
+                      - strong [ref=e191]: automatically deleted in 90 days
+                      - text: .
+                  - link "View all spam submissions Link opens in a new window" [ref=e192] [cursor=pointer]:
+                    - /url: /submissions-spam/19933594
+                    - generic [ref=e193]: View all spam submissions
+                    - img "Link opens in a new window" [ref=e195]
+              - button "Close" [ref=e197] [cursor=pointer]:
+                - img [ref=e200]
+            - alert [ref=e203]:
+              - generic [ref=e204]:
+                - heading "Unknown Domains Sending Submissions to Your Forms" [level=5] [ref=e205]
+                - generic [ref=e206]:
+                  - paragraph [ref=e207]:
+                    - generic [ref=e208]:
+                      - text: We've detected that
+                      - strong [ref=e209]: 9 domains
+                      - text: are sending submissions to your forms, but they are
+                      - strong [ref=e210]: not recognized in your HubSpot analytics
+                      - text: . To continue receiving submissions from these domains, add them to your Reports & Analytics Tracking settings. Otherwise, they will be marked as spam.
+                    - generic [ref=e211]:
+                      - text: Learn more about
+                      - link "how to add site domains." [ref=e212] [cursor=pointer]:
+                        - /url: https://knowledge.hubspot.com/reports/set-up-sources-tracking#add-site-domains
+                        - generic [ref=e213]: how to add site domains.
+                  - button "Review site domains" [ref=e214] [cursor=pointer]:
+                    - generic [ref=e216]: Review site domains
+              - button "Close" [ref=e217] [cursor=pointer]:
+                - img [ref=e220]
+            - generic [ref=e222]:
+              - generic [ref=e223]:
+                - tablist [ref=e228]:
+                  - button "All forms" [ref=e229]:
+                    - generic [ref=e230]:
+                      - generic [ref=e233]: All forms
+                      - button [ref=e235] [cursor=pointer]:
+                        - img [ref=e237]
+                  - button "Published" [ref=e239]:
+                    - generic [ref=e243]: Published
+                - generic [ref=e244]:
+                  - button "Add view (2/50)" [ref=e245] [cursor=pointer]:
+                    - generic [ref=e247]:
+                      - img [ref=e248]
+                      - generic [ref=e250]: Add view (2/50)
+                  - link "All views" [ref=e251] [cursor=pointer]:
+                    - /url: /manage-views/19933594/all?namespace=FORMS&objectTypeId=0-28&returnLink=%2Fforms%2F19933594%2Fviews%2Fall_forms&ownerId=82949240
+                    - generic [ref=e252]: All views
+              - generic [ref=e255] [cursor=pointer]:
+                - img [ref=e256]
+                - generic [ref=e258]: Folders
+            - group [ref=e259]:
+              - generic [ref=e260]:
+                - generic [ref=e261]:
+                  - button "Form Type" [ref=e264] [cursor=pointer]:
+                    - generic [ref=e268]: Form Type
+                  - generic [ref=e273]:
+                    - button "More" [ref=e276] [cursor=pointer]:
+                      - generic [ref=e278]:
+                        - img [ref=e279]
+                        - generic [ref=e281]: More
+                    - button "Advanced filters" [ref=e286] [cursor=pointer]:
+                      - generic [ref=e287]:
+                        - img [ref=e288]
+                        - generic [ref=e290]: Advanced filters
+                - generic [ref=e293]:
+                  - button [disabled] [ref=e294]:
+                    - img [ref=e296]
+                  - button [ref=e298] [cursor=pointer]:
+                    - img [ref=e300]
+                  - button [disabled] [ref=e302]:
+                    - img [ref=e304]
+            - generic [ref=e311]:
+              - generic [ref=e313]:
+                - generic [ref=e318]:
+                  - searchbox "Search forms" [ref=e319]
+                  - generic:
+                    - generic:
+                      - img
+                - button "Actions" [ref=e322] [cursor=pointer]:
+                  - generic [ref=e325]: Actions
+              - table [ref=e332]:
+                - rowgroup [ref=e333]:
+                  - row "Select all records. Descending sort. Press to sort ascending." [ref=e334]:
+                    - columnheader "Select all records." [ref=e335]:
+                      - checkbox "Select all records." [ref=e340]
+                    - columnheader [ref=e346] [cursor=pointer]:
+                      - generic [ref=e357]: Name
+                    - columnheader [ref=e360] [cursor=pointer]:
+                      - generic [ref=e369]:
+                        - generic [ref=e373]: Page Views
+                        - img [ref=e376]
+                    - columnheader [ref=e380] [cursor=pointer]:
+                      - generic [ref=e389]:
+                        - generic [ref=e393]: Submissions / page view
+                        - img [ref=e396]
+                    - columnheader [ref=e400] [cursor=pointer]:
+                      - generic [ref=e413]: Spam submissions
+                    - columnheader [ref=e416] [cursor=pointer]:
+                      - generic [ref=e429]: Form Submissions
+                    - columnheader [disabled] [ref=e432]:
+                      - generic [ref=e441]:
+                        - generic [ref=e443]: Appears on
+                        - img [ref=e446]
+                    - columnheader "Descending sort. Press to sort ascending." [ref=e450] [cursor=pointer]:
+                      - generic [ref=e456]:
+                        - generic [ref=e462]: Last Updated At (GMT)
+                        - generic "Descending sort. Press to sort ascending." [ref=e464]:
+                          - img [ref=e465]
+                    - columnheader [ref=e469] [cursor=pointer]:
+                      - generic [ref=e480]: Created by
+                    - columnheader [ref=e483] [cursor=pointer]:
+                      - generic [ref=e495]: Last Updated By
+                - rowgroup [ref=e498]:
+                  - row "Select row Name Page Views Submissions / page view Spam submissions Form Submissions Appears on Updated At Created by Updated by" [ref=e499]:
+                    - cell "Select row" [ref=e500]:
+                      - checkbox "Select row" [ref=e505]
+                    - cell "Name" [ref=e511]:
+                      - generic [ref=e512]:
+                        - list [ref=e517]:
+                          - listitem
+                          - listitem [ref=e518]:
+                            - link "🚩 Email Capture Form" [ref=e520] [cursor=pointer]:
+                              - /url: /submissions/19933594/form/0afc3dbb-207b-4a67-a94c-a271d558dc52/performance?redirectUrl=https%3A%2F%2Fapp.hubspot.com%2Fforms%2F19933594%2Fviews%2Fall_forms
+                              - generic [ref=e523]: 🚩 Email Capture Form
+                          - listitem [ref=e524]:
+                            - generic [ref=e533]:
+                              - text: Published
+                              - generic [ref=e535]:
+                                - text: Form
+                                - generic [ref=e536]: (Legacy editor)
+                        - generic [ref=e540]:
+                          - button "Edit" [ref=e541] [cursor=pointer]:
+                            - generic [ref=e543]: Edit
+                          - button "Clone" [ref=e544] [cursor=pointer]:
+                            - generic [ref=e546]: Clone
+                          - button "Actions" [ref=e548] [cursor=pointer]:
+                            - generic [ref=e552]: Actions
+                    - cell "Page Views" [ref=e554]: "1584381"
+                    - cell "Submissions / page view" [ref=e555]: 1.25%
+                    - cell "Spam submissions" [ref=e556]:
+                      - link "9" [ref=e557] [cursor=pointer]:
+                        - /url: /submissions-spam/19933594?guid=0afc3dbb-207b-4a67-a94c-a271d558dc52
+                        - generic [ref=e558]:
+                          - generic "9" [ref=e559]
+                          - img [ref=e560]
+                    - cell "Form Submissions" [ref=e562]:
+                      - link "20K" [ref=e563] [cursor=pointer]:
+                        - /url: /submissions/19933594/form/0afc3dbb-207b-4a67-a94c-a271d558dc52/submissions?redirectUrl=https%3A%2F%2Fapp.hubspot.com%2Fforms%2F19933594%2Fviews%2Fall_forms
+                    - cell "Appears on" [ref=e564]:
+                      - generic [ref=e568]: No HubSpot places
+                    - cell "Updated At" [ref=e569]:
+                      - generic [ref=e571]:
+                        - generic [ref=e572]: January 22, 2026
+                        - generic [ref=e573]: 8:30 AM
+                    - cell "Created by" [ref=e574]:
+                      - paragraph [ref=e576]: Kirill Klokov
+                    - cell "Updated by" [ref=e577]:
+                      - paragraph [ref=e579]: Anna Skurskaya
+                  - row "Select row Name Page Views Submissions / page view Spam submissions Form Submissions Appears on Updated At Created by Updated by" [ref=e580]:
+                    - cell "Select row" [ref=e581]:
+                      - checkbox "Select row" [ref=e586]
+                    - cell "Name" [ref=e592]:
+                      - generic [ref=e593]:
+                        - list [ref=e598]:
+                          - listitem
+                          - listitem [ref=e599]:
+                            - link "NEW GET STARTED FORM" [ref=e601] [cursor=pointer]:
+                              - /url: /submissions/19933594/form/72d5f494-a29f-44a4-93af-8e7faee015b3/performance?redirectUrl=https%3A%2F%2Fapp.hubspot.com%2Fforms%2F19933594%2Fviews%2Fall_forms
+                              - generic [ref=e604]: NEW GET STARTED FORM
+                          - listitem [ref=e605]:
+                            - generic [ref=e614]:
+                              - text: Published
+                              - generic [ref=e616]: Form
+                        - generic [ref=e620]:
+                          - button "Edit" [ref=e621] [cursor=pointer]:
+                            - generic [ref=e623]: Edit
+                          - button "Clone" [ref=e624] [cursor=pointer]:
+                            - generic [ref=e626]: Clone
+                          - button "Actions" [ref=e628] [cursor=pointer]:
+                            - generic [ref=e632]: Actions
+                    - cell "Page Views" [ref=e634]: "5296"
+                    - cell "Submissions / page view" [ref=e635]: 53.34%
+                    - cell "Spam submissions" [ref=e636]:
+                      - link "1" [ref=e637] [cursor=pointer]:
+                        - /url: /submissions-spam/19933594?guid=72d5f494-a29f-44a4-93af-8e7faee015b3
+                        - generic [ref=e638]:
+                          - generic "1" [ref=e639]
+                          - img [ref=e640]
+                    - cell "Form Submissions" [ref=e642]:
+                      - link "3K" [ref=e643] [cursor=pointer]:
+                        - /url: /submissions/19933594/form/72d5f494-a29f-44a4-93af-8e7faee015b3/submissions?redirectUrl=https%3A%2F%2Fapp.hubspot.com%2Fforms%2F19933594%2Fviews%2Fall_forms
+                    - cell "Appears on" [ref=e644]:
+                      - generic [ref=e648]: No HubSpot places
+                    - cell "Updated At" [ref=e649]:
+                      - generic [ref=e651]:
+                        - generic [ref=e652]: December 30, 2025
+                        - generic [ref=e653]: 4:06 PM
+                    - cell "Created by" [ref=e654]:
+                      - paragraph [ref=e656]: Kirill Klokov
+                    - cell "Updated by" [ref=e657]:
+                      - paragraph [ref=e659]: Cam Wolf
+                  - row "Select row Name Page Views Submissions / page view Spam submissions Form Submissions Appears on Updated At Created by Updated by" [ref=e660]:
+                    - cell "Select row" [ref=e661]:
+                      - checkbox "Select row" [ref=e666]
+                    - cell "Name" [ref=e672]:
+                      - generic [ref=e673]:
+                        - list [ref=e678]:
+                          - listitem
+                          - listitem [ref=e679]:
+                            - link "Contact Form (On-Person Event)" [ref=e681] [cursor=pointer]:
+                              - /url: /submissions/19933594/form/95512030-18b0-4504-b6fe-feb2b54713d1/performance?redirectUrl=https%3A%2F%2Fapp.hubspot.com%2Fforms%2F19933594%2Fviews%2Fall_forms
+                              - generic [ref=e684]: Contact Form (On-Person Event)
+                          - listitem [ref=e685]:
+                            - generic [ref=e694]:
+                              - text: Published
+                              - generic [ref=e696]:
+                                - text: Form
+                                - generic [ref=e697]: (Legacy editor)
+                        - generic [ref=e701]:
+                          - button "Edit" [ref=e702] [cursor=pointer]:
+                            - generic [ref=e704]: Edit
+                          - button "Clone" [ref=e705] [cursor=pointer]:
+                            - generic [ref=e707]: Clone
+                          - button "Actions" [ref=e709] [cursor=pointer]:
+                            - generic [ref=e713]: Actions
+                    - cell "Page Views" [ref=e715]: "47970"
+                    - cell "Submissions / page view" [ref=e716]: 13.04%
+                    - cell "Spam submissions" [ref=e717]:
+                      - link "2" [ref=e718] [cursor=pointer]:
+                        - /url: /submissions-spam/19933594?guid=95512030-18b0-4504-b6fe-feb2b54713d1
+                        - generic [ref=e719]:
+                          - generic "2" [ref=e720]
+                          - img [ref=e721]
+                    - cell "Form Submissions" [ref=e723]:
+                      - link "6K" [ref=e724] [cursor=pointer]:
+                        - /url: /submissions/19933594/form/95512030-18b0-4504-b6fe-feb2b54713d1/submissions?redirectUrl=https%3A%2F%2Fapp.hubspot.com%2Fforms%2F19933594%2Fviews%2Fall_forms
+                    - cell "Appears on" [ref=e725]:
+                      - button "1 place" [ref=e730] [cursor=pointer]
+                    - cell "Updated At" [ref=e731]:
+                      - generic [ref=e733]:
+                        - generic [ref=e734]: December 29, 2025
+                        - generic [ref=e735]: 4:16 AM
+                    - cell "Created by" [ref=e736]:
+                      - generic [ref=e737]:
+                        - generic [ref=e738]: No user
+                        - img [ref=e739]
+                    - cell "Updated by" [ref=e741]:
+                      - paragraph [ref=e743]: Anna Skurskaya
+                  - row "Select row Name Page Views Submissions / page view Spam submissions Form Submissions Appears on Updated At Created by Updated by" [ref=e744]:
+                    - cell "Select row" [ref=e745]:
+                      - checkbox "Select row" [ref=e750]
+                    - cell "Name" [ref=e756]:
+                      - generic [ref=e757]:
+                        - list [ref=e762]:
+                          - listitem
+                          - listitem [ref=e763]:
+                            - link "Upcoming Event Form" [ref=e765] [cursor=pointer]:
+                              - /url: /submissions/19933594/form/bb9ec15f-c418-4300-afb5-784bca2324ed/performance?redirectUrl=https%3A%2F%2Fapp.hubspot.com%2Fforms%2F19933594%2Fviews%2Fall_forms
+                              - generic [ref=e768]: Upcoming Event Form
+                          - listitem [ref=e769]:
+                            - generic [ref=e778]:
+                              - text: Published
+                              - generic [ref=e780]:
+                                - text: Form
+                                - generic [ref=e781]: (Legacy editor)
+                        - generic [ref=e785]:
+                          - button "Edit" [ref=e786] [cursor=pointer]:
+                            - generic [ref=e788]: Edit
+                          - button "Clone" [ref=e789] [cursor=pointer]:
+                            - generic [ref=e791]: Clone
+                          - button "Actions" [ref=e793] [cursor=pointer]:
+                            - generic [ref=e797]: Actions
+                    - cell "Page Views" [ref=e799]: "3659"
+                    - cell "Submissions / page view" [ref=e800]: 21.97%
+                    - cell "Spam submissions" [ref=e801]: "0"
+                    - cell "Form Submissions" [ref=e802]:
+                      - link "804" [ref=e803] [cursor=pointer]:
+                        - /url: /submissions/19933594/form/bb9ec15f-c418-4300-afb5-784bca2324ed/submissions?redirectUrl=https%3A%2F%2Fapp.hubspot.com%2Fforms%2F19933594%2Fviews%2Fall_forms
+                    - cell "Appears on" [ref=e804]:
+                      - generic [ref=e808]: No HubSpot places
+                    - cell "Updated At" [ref=e809]:
+                      - generic [ref=e811]:
+                        - generic [ref=e812]: December 11, 2025
+                        - generic [ref=e813]: 5:22 PM
+                    - cell "Created by" [ref=e814]:
+                      - paragraph [ref=e816]: Anna Skurskaya
+                    - cell "Updated by" [ref=e817]:
+                      - paragraph [ref=e819]: Cam Wolf
+                  - row "Select row Name Page Views Submissions / page view Spam submissions Form Submissions Appears on Updated At Created by Updated by" [ref=e820]:
+                    - cell "Select row" [ref=e821]:
+                      - checkbox "Select row" [ref=e826]
+                    - cell "Name" [ref=e832]:
+                      - generic [ref=e833]:
+                        - list [ref=e838]:
+                          - listitem
+                          - listitem [ref=e839]:
+                            - link "Qualification form" [ref=e841] [cursor=pointer]:
+                              - /url: /submissions/19933594/form/a4b162c8-8fd1-4d76-8e3e-6bbed0fba403/performance?redirectUrl=https%3A%2F%2Fapp.hubspot.com%2Fforms%2F19933594%2Fviews%2Fall_forms
+                              - generic [ref=e844]: Qualification form
+                          - listitem [ref=e845]:
+                            - generic [ref=e854]:
+                              - text: Published
+                              - generic [ref=e856]: Form
+                        - generic [ref=e860]:
+                          - button "Edit" [ref=e861] [cursor=pointer]:
+                            - generic [ref=e863]: Edit
+                          - button "Clone" [ref=e864] [cursor=pointer]:
+                            - generic [ref=e866]: Clone
+                          - button "Actions" [ref=e868] [cursor=pointer]:
+                            - generic [ref=e872]: Actions
+                    - cell "Page Views" [ref=e874]: "2"
+                    - cell "Submissions / page view" [ref=e875]:
+                      - generic [ref=e877]: Unknown
+                    - cell "Spam submissions" [ref=e878]: "0"
+                    - cell "Form Submissions" [ref=e879]:
+                      - link "3" [ref=e880] [cursor=pointer]:
+                        - /url: /submissions/19933594/form/a4b162c8-8fd1-4d76-8e3e-6bbed0fba403/submissions?redirectUrl=https%3A%2F%2Fapp.hubspot.com%2Fforms%2F19933594%2Fviews%2Fall_forms
+                    - cell "Appears on" [ref=e881]:
+                      - generic [ref=e885]: No HubSpot places
+                    - cell "Updated At" [ref=e886]:
+                      - generic [ref=e888]:
+                        - generic [ref=e889]: October 28, 2025
+                        - generic [ref=e890]: 9:15 AM
+                    - cell "Created by" [ref=e891]:
+                      - paragraph [ref=e893]: Kirill Klokov
+                    - cell "Updated by" [ref=e894]:
+                      - paragraph [ref=e896]: Kirill Klokov
+                  - row "Select row Name Page Views Submissions / page view Spam submissions Form Submissions Appears on Updated At Created by Updated by" [ref=e897]:
+                    - cell "Select row" [ref=e898]:
+                      - checkbox "Select row" [ref=e903]
+                    - cell "Name" [ref=e909]:
+                      - generic [ref=e910]:
+                        - list [ref=e915]:
+                          - listitem
+                          - listitem [ref=e916]:
+                            - link "Support ticket submission (NEW)" [ref=e918] [cursor=pointer]:
+                              - /url: /submissions/19933594/form/93832ca6-444b-4bfb-9bd8-1ab666036233/performance?redirectUrl=https%3A%2F%2Fapp.hubspot.com%2Fforms%2F19933594%2Fviews%2Fall_forms
+                              - generic [ref=e921]: Support ticket submission (NEW)
+                          - listitem [ref=e922]:
+                            - generic [ref=e931]:
+                              - text: Published
+                              - generic [ref=e933]: Form
+                        - generic [ref=e937]:
+                          - button "Edit" [ref=e938] [cursor=pointer]:
+                            - generic [ref=e940]: Edit
+                          - button "Clone" [ref=e941] [cursor=pointer]:
+                            - generic [ref=e943]: Clone
+                          - button "Actions" [ref=e945] [cursor=pointer]:
+                            - generic [ref=e949]: Actions
+                    - cell "Page Views" [ref=e951]: "1019"
+                    - cell "Submissions / page view" [ref=e952]: 70.85%
+                    - cell "Spam submissions" [ref=e953]: "0"
+                    - cell "Form Submissions" [ref=e954]:
+                      - link "722" [ref=e955] [cursor=pointer]:
+                        - /url: /submissions/19933594/form/93832ca6-444b-4bfb-9bd8-1ab666036233/submissions?redirectUrl=https%3A%2F%2Fapp.hubspot.com%2Fforms%2F19933594%2Fviews%2Fall_forms
+                    - cell "Appears on" [ref=e956]:
+                      - button "1 place" [ref=e961] [cursor=pointer]
+                    - cell "Updated At" [ref=e962]:
+                      - generic [ref=e964]:
+                        - generic [ref=e965]: August 4, 2025
+                        - generic [ref=e966]: 8:51 AM
+                    - cell "Created by" [ref=e967]:
+                      - paragraph [ref=e969]: Anna Skurskaya
+                    - cell "Updated by" [ref=e970]:
+                      - paragraph [ref=e972]: Anna Skurskaya
+                  - row "Select row Name Page Views Submissions / page view Spam submissions Form Submissions Appears on Updated At Created by Updated by" [ref=e973]:
+                    - cell "Select row" [ref=e974]:
+                      - checkbox "Select row" [ref=e979]
+                    - cell "Name" [ref=e985]:
+                      - generic [ref=e986]:
+                        - list [ref=e991]:
+                          - listitem
+                          - listitem [ref=e992]:
+                            - link "🏛️ Contact Govt Sales Form" [ref=e994] [cursor=pointer]:
+                              - /url: /submissions/19933594/form/0bf08909-a6fc-459a-a811-e5ff6e82859f/performance?redirectUrl=https%3A%2F%2Fapp.hubspot.com%2Fforms%2F19933594%2Fviews%2Fall_forms
+                              - generic [ref=e997]: 🏛️ Contact Govt Sales Form
+                          - listitem [ref=e998]:
+                            - generic [ref=e1007]:
+                              - text: Published
+                              - generic [ref=e1009]:
+                                - text: Form
+                                - generic [ref=e1010]: (Legacy editor)
+                        - generic [ref=e1014]:
+                          - button "Edit" [ref=e1015] [cursor=pointer]:
+                            - generic [ref=e1017]: Edit
+                          - button "Clone" [ref=e1018] [cursor=pointer]:
+                            - generic [ref=e1020]: Clone
+                          - button "Actions" [ref=e1022] [cursor=pointer]:
+                            - generic [ref=e1026]: Actions
+                    - cell "Page Views" [ref=e1028]: "279"
+                    - cell "Submissions / page view" [ref=e1029]: 19%
+                    - cell "Spam submissions" [ref=e1030]: "0"
+                    - cell "Form Submissions" [ref=e1031]:
+                      - link "53" [ref=e1032] [cursor=pointer]:
+                        - /url: /submissions/19933594/form/0bf08909-a6fc-459a-a811-e5ff6e82859f/submissions?redirectUrl=https%3A%2F%2Fapp.hubspot.com%2Fforms%2F19933594%2Fviews%2Fall_forms
+                    - cell "Appears on" [ref=e1033]:
+                      - generic [ref=e1037]: No HubSpot places
+                    - cell "Updated At" [ref=e1038]:
+                      - generic [ref=e1040]:
+                        - generic [ref=e1041]: July 20, 2025
+                        - generic [ref=e1042]: 2:50 PM
+                    - cell "Created by" [ref=e1043]:
+                      - paragraph [ref=e1045]: Anna Skurskaya
+                    - cell "Updated by" [ref=e1046]:
+                      - paragraph [ref=e1048]: Kirill Klokov
+                  - row "Select row Name Page Views Submissions / page view Spam submissions Form Submissions Appears on Updated At Created by Updated by" [ref=e1049]:
+                    - cell "Select row" [ref=e1050]:
+                      - checkbox "Select row" [ref=e1055]
+                    - cell "Name" [ref=e1061]:
+                      - generic [ref=e1062]:
+                        - list [ref=e1067]:
+                          - listitem
+                          - listitem [ref=e1068]:
+                            - link "Lead Magnet Form" [ref=e1070] [cursor=pointer]:
+                              - /url: /submissions/19933594/form/3e13cb92-4a61-469a-bece-7c9fdc2dd710/performance?redirectUrl=https%3A%2F%2Fapp.hubspot.com%2Fforms%2F19933594%2Fviews%2Fall_forms
+                              - generic [ref=e1073]: Lead Magnet Form
+                          - listitem [ref=e1074]:
+                            - generic [ref=e1083]:
+                              - text: Published
+                              - generic [ref=e1085]:
+                                - text: Form
+                                - generic [ref=e1086]: (Legacy editor)
+                        - generic [ref=e1090]:
+                          - button "Edit" [ref=e1091] [cursor=pointer]:
+                            - generic [ref=e1093]: Edit
+                          - button "Clone" [ref=e1094] [cursor=pointer]:
+                            - generic [ref=e1096]: Clone
+                          - button "Actions" [ref=e1098] [cursor=pointer]:
+                            - generic [ref=e1102]: Actions
+                    - cell "Page Views" [ref=e1104]: "13595"
+                    - cell "Submissions / page view" [ref=e1105]: 4.97%
+                    - cell "Spam submissions" [ref=e1106]:
+                      - link "7" [ref=e1107] [cursor=pointer]:
+                        - /url: /submissions-spam/19933594?guid=3e13cb92-4a61-469a-bece-7c9fdc2dd710
+                        - generic [ref=e1108]:
+                          - generic "7" [ref=e1109]
+                          - img [ref=e1110]
+                    - cell "Form Submissions" [ref=e1112]:
+                      - link "676" [ref=e1113] [cursor=pointer]:
+                        - /url: /submissions/19933594/form/3e13cb92-4a61-469a-bece-7c9fdc2dd710/submissions?redirectUrl=https%3A%2F%2Fapp.hubspot.com%2Fforms%2F19933594%2Fviews%2Fall_forms
+                    - cell "Appears on" [ref=e1114]:
+                      - generic [ref=e1118]: No HubSpot places
+                    - cell "Updated At" [ref=e1119]:
+                      - generic [ref=e1121]:
+                        - generic [ref=e1122]: June 6, 2025
+                        - generic [ref=e1123]: 11:39 AM
+                    - cell "Created by" [ref=e1124]:
+                      - paragraph [ref=e1126]: Anna Skurskaya
+                    - cell "Updated by" [ref=e1127]:
+                      - paragraph [ref=e1129]: Anna Skurskaya
+                  - row "Select row Name Page Views Submissions / page view Spam submissions Form Submissions Appears on Updated At Created by Updated by" [ref=e1130]:
+                    - cell "Select row" [ref=e1131]:
+                      - checkbox "Select row" [ref=e1136]
+                    - cell "Name" [ref=e1142]:
+                      - generic [ref=e1143]:
+                        - list [ref=e1148]:
+                          - listitem
+                          - listitem [ref=e1149]:
+                            - link "Referral Form" [ref=e1151] [cursor=pointer]:
+                              - /url: /submissions/19933594/form/d7da9914-1f71-422a-8f58-e9188665997d/performance?redirectUrl=https%3A%2F%2Fapp.hubspot.com%2Fforms%2F19933594%2Fviews%2Fall_forms
+                              - generic [ref=e1154]: Referral Form
+                          - listitem [ref=e1155]:
+                            - generic [ref=e1164]:
+                              - text: Published
+                              - generic [ref=e1166]:
+                                - text: Form
+                                - generic [ref=e1167]: (Legacy editor)
+                        - generic [ref=e1171]:
+                          - button "Edit" [ref=e1172] [cursor=pointer]:
+                            - generic [ref=e1174]: Edit
+                          - button "Clone" [ref=e1175] [cursor=pointer]:
+                            - generic [ref=e1177]: Clone
+                          - button "Actions" [ref=e1179] [cursor=pointer]:
+                            - generic [ref=e1183]: Actions
+                    - cell "Page Views" [ref=e1185]: "331"
+                    - cell "Submissions / page view" [ref=e1186]: 6.65%
+                    - cell "Spam submissions" [ref=e1187]: "0"
+                    - cell "Form Submissions" [ref=e1188]:
+                      - link "22" [ref=e1189] [cursor=pointer]:
+                        - /url: /submissions/19933594/form/d7da9914-1f71-422a-8f58-e9188665997d/submissions?redirectUrl=https%3A%2F%2Fapp.hubspot.com%2Fforms%2F19933594%2Fviews%2Fall_forms
+                    - cell "Appears on" [ref=e1190]:
+                      - generic [ref=e1194]: No HubSpot places
+                    - cell "Updated At" [ref=e1195]:
+                      - generic [ref=e1197]:
+                        - generic [ref=e1198]: May 14, 2025
+                        - generic [ref=e1199]: 6:25 AM
+                    - cell "Created by" [ref=e1200]:
+                      - paragraph [ref=e1202]: Anna Skurskaya
+                    - cell "Updated by" [ref=e1203]:
+                      - paragraph [ref=e1205]: Claudiu Dascalescu
+                  - row "Select row Name Page Views Submissions / page view Spam submissions Form Submissions Appears on Updated At Created by Updated by" [ref=e1206]:
+                    - cell "Select row" [ref=e1207]:
+                      - checkbox "Select row" [ref=e1212]
+                    - cell "Name" [ref=e1218]:
+                      - generic [ref=e1219]:
+                        - list [ref=e1224]:
+                          - listitem
+                          - listitem [ref=e1225]:
+                            - link "New blank form (May 6, 2025 10:18:45 AM EDT)" [ref=e1227] [cursor=pointer]:
+                              - /url: /submissions/19933594/form/9546cf0a-e82c-45d7-ba0a-e86c375ceb77/performance?redirectUrl=https%3A%2F%2Fapp.hubspot.com%2Fforms%2F19933594%2Fviews%2Fall_forms
+                              - generic [ref=e1230]: New blank form (May 6, 2025 10:18:45 AM EDT)
+                          - listitem [ref=e1231]:
+                            - generic [ref=e1240]:
+                              - text: Published
+                              - generic [ref=e1242]: Form
+                        - generic [ref=e1246]:
+                          - button "Edit" [ref=e1247] [cursor=pointer]:
+                            - generic [ref=e1249]: Edit
+                          - button "Clone" [ref=e1250] [cursor=pointer]:
+                            - generic [ref=e1252]: Clone
+                          - button "Actions" [ref=e1254] [cursor=pointer]:
+                            - generic [ref=e1258]: Actions
+                    - cell "Page Views" [ref=e1260]: "4"
+                    - cell "Submissions / page view" [ref=e1261]: 0%
+                    - cell "Spam submissions" [ref=e1262]: "0"
+                    - cell "Form Submissions" [ref=e1263]:
+                      - link "0" [ref=e1264] [cursor=pointer]:
+                        - /url: /submissions/19933594/form/9546cf0a-e82c-45d7-ba0a-e86c375ceb77/submissions?redirectUrl=https%3A%2F%2Fapp.hubspot.com%2Fforms%2F19933594%2Fviews%2Fall_forms
+                    - cell "Appears on" [ref=e1265]:
+                      - generic [ref=e1269]: No HubSpot places
+                    - cell "Updated At" [ref=e1270]:
+                      - generic [ref=e1272]:
+                        - generic [ref=e1273]: May 6, 2025
+                        - generic [ref=e1274]: 9:38 AM
+                    - cell "Created by" [ref=e1275]:
+                      - paragraph [ref=e1277]: Claudiu Dascalescu
+                    - cell "Updated by" [ref=e1278]:
+                      - paragraph [ref=e1280]: Claudiu Dascalescu
+                  - row "Select row Name Page Views Submissions / page view Spam submissions Form Submissions Appears on Updated At Created by Updated by" [ref=e1281]:
+                    - cell "Select row" [ref=e1282]:
+                      - checkbox "Select row" [ref=e1287]
+                    - cell "Name" [ref=e1293]:
+                      - generic [ref=e1294]:
+                        - list [ref=e1299]:
+                          - listitem
+                          - listitem [ref=e1300]:
+                            - link "Legal Requesting form" [ref=e1302] [cursor=pointer]:
+                              - /url: /submissions/19933594/form/ebdc75da-4c09-40fd-9eb3-984ece1607e0/performance?redirectUrl=https%3A%2F%2Fapp.hubspot.com%2Fforms%2F19933594%2Fviews%2Fall_forms
+                              - generic [ref=e1305]: Legal Requesting form
+                          - listitem [ref=e1306]:
+                            - generic [ref=e1315]:
+                              - text: Published
+                              - generic [ref=e1317]:
+                                - text: Form
+                                - generic [ref=e1318]: (Legacy editor)
+                        - generic [ref=e1322]:
+                          - button "Edit" [ref=e1323] [cursor=pointer]:
+                            - generic [ref=e1325]: Edit
+                          - button "Clone" [ref=e1326] [cursor=pointer]:
+                            - generic [ref=e1328]: Clone
+                          - button "Actions" [ref=e1330] [cursor=pointer]:
+                            - generic [ref=e1334]: Actions
+                    - cell "Page Views" [ref=e1336]: "553"
+                    - cell "Submissions / page view" [ref=e1337]: 23.15%
+                    - cell "Spam submissions" [ref=e1338]: "0"
+                    - cell "Form Submissions" [ref=e1339]:
+                      - link "128" [ref=e1340] [cursor=pointer]:
+                        - /url: /submissions/19933594/form/ebdc75da-4c09-40fd-9eb3-984ece1607e0/submissions?redirectUrl=https%3A%2F%2Fapp.hubspot.com%2Fforms%2F19933594%2Fviews%2Fall_forms
+                    - cell "Appears on" [ref=e1341]:
+                      - generic [ref=e1345]: No HubSpot places
+                    - cell "Updated At" [ref=e1346]:
+                      - generic [ref=e1348]:
+                        - generic [ref=e1349]: May 1, 2025
+                        - generic [ref=e1350]: 11:44 AM
+                    - cell "Created by" [ref=e1351]:
+                      - paragraph [ref=e1353]: Anna Skurskaya
+                    - cell "Updated by" [ref=e1354]:
+                      - paragraph [ref=e1356]: Claudiu Dascalescu
+                  - row "Select row Name Page Views Submissions / page view Spam submissions Form Submissions Appears on Updated At Created by Updated by" [ref=e1357]:
+                    - cell "Select row" [ref=e1358]:
+                      - checkbox "Select row" [ref=e1363]
+                    - cell "Name" [ref=e1369]:
+                      - generic [ref=e1370]:
+                        - list [ref=e1375]:
+                          - listitem
+                          - listitem [ref=e1376]:
+                            - link "Tenant Form" [ref=e1378] [cursor=pointer]:
+                              - /url: /submissions/19933594/form/7d7aa84d-eb44-468f-972a-f8bec0b559e1/performance?redirectUrl=https%3A%2F%2Fapp.hubspot.com%2Fforms%2F19933594%2Fviews%2Fall_forms
+                              - generic [ref=e1381]: Tenant Form
+                          - listitem [ref=e1382]:
+                            - generic [ref=e1391]:
+                              - text: Published
+                              - generic [ref=e1393]:
+                                - text: Form
+                                - generic [ref=e1394]: (Legacy editor)
+                        - generic [ref=e1398]:
+                          - button "Edit" [ref=e1399] [cursor=pointer]:
+                            - generic [ref=e1401]: Edit
+                          - button "Clone" [ref=e1402] [cursor=pointer]:
+                            - generic [ref=e1404]: Clone
+                          - button "Actions" [ref=e1406] [cursor=pointer]:
+                            - generic [ref=e1410]: Actions
+                    - cell "Page Views" [ref=e1412]: "0"
+                    - cell "Submissions / page view" [ref=e1413]: 0%
+                    - cell "Spam submissions" [ref=e1414]: "0"
+                    - cell "Form Submissions" [ref=e1415]:
+                      - link "0" [ref=e1416] [cursor=pointer]:
+                        - /url: /submissions/19933594/form/7d7aa84d-eb44-468f-972a-f8bec0b559e1/submissions?redirectUrl=https%3A%2F%2Fapp.hubspot.com%2Fforms%2F19933594%2Fviews%2Fall_forms
+                    - cell "Appears on" [ref=e1417]:
+                      - generic [ref=e1421]: No HubSpot places
+                    - cell "Updated At" [ref=e1422]:
+                      - generic [ref=e1424]:
+                        - generic [ref=e1425]: April 27, 2025
+                        - generic [ref=e1426]: 4:13 PM
+                    - cell "Created by" [ref=e1427]:
+                      - paragraph [ref=e1429]: Kirill Klokov
+                    - cell "Updated by" [ref=e1430]:
+                      - paragraph [ref=e1432]: Anna Skurskaya
+                  - row "Select row Name Page Views Submissions / page view Spam submissions Form Submissions Appears on Updated At Created by Updated by" [ref=e1433]:
+                    - cell "Select row" [ref=e1434]:
+                      - checkbox "Select row" [ref=e1439]
+                    - cell "Name" [ref=e1445]:
+                      - generic [ref=e1446]:
+                        - list [ref=e1451]:
+                          - listitem
+                          - listitem [ref=e1452]:
+                            - link "New blank form (April 25, 2025 1:38:14 PM EDT)" [ref=e1454] [cursor=pointer]:
+                              - /url: /submissions/19933594/form/a06799b8-3708-4fec-b56c-2d6f41e56d54/performance?redirectUrl=https%3A%2F%2Fapp.hubspot.com%2Fforms%2F19933594%2Fviews%2Fall_forms
+                              - generic [ref=e1457]: New blank form (April 25, 2025 1:38:14 PM EDT)
+                          - listitem [ref=e1458]:
+                            - generic [ref=e1467]:
+                              - text: Published
+                              - generic [ref=e1469]: Form
+                        - generic [ref=e1473]:
+                          - button "Edit" [ref=e1474] [cursor=pointer]:
+                            - generic [ref=e1476]: Edit
+                          - button "Clone" [ref=e1477] [cursor=pointer]:
+                            - generic [ref=e1479]: Clone
+                          - button "Actions" [ref=e1481] [cursor=pointer]:
+                            - generic [ref=e1485]: Actions
+                    - cell "Page Views" [ref=e1487]: "0"
+                    - cell "Submissions / page view" [ref=e1488]: 0%
+                    - cell "Spam submissions" [ref=e1489]: "0"
+                    - cell "Form Submissions" [ref=e1490]:
+                      - link "0" [ref=e1491] [cursor=pointer]:
+                        - /url: /submissions/19933594/form/a06799b8-3708-4fec-b56c-2d6f41e56d54/submissions?redirectUrl=https%3A%2F%2Fapp.hubspot.com%2Fforms%2F19933594%2Fviews%2Fall_forms
+                    - cell "Appears on" [ref=e1492]:
+                      - generic [ref=e1496]: No HubSpot places
+                    - cell "Updated At" [ref=e1497]:
+                      - generic [ref=e1499]:
+                        - generic [ref=e1500]: April 25, 2025
+                        - generic [ref=e1501]: 12:38 PM
+                    - cell "Created by" [ref=e1502]:
+                      - paragraph [ref=e1504]: Anna Skurskaya
+                    - cell "Updated by" [ref=e1505]:
+                      - paragraph [ref=e1507]: Anna Skurskaya
+                  - row "Select row Name Page Views Submissions / page view Spam submissions Form Submissions Appears on Updated At Created by Updated by" [ref=e1508]:
+                    - cell "Select row" [ref=e1509]:
+                      - checkbox "Select row" [ref=e1514]
+                    - cell "Name" [ref=e1520]:
+                      - generic [ref=e1521]:
+                        - list [ref=e1526]:
+                          - listitem
+                          - listitem [ref=e1527]:
+                            - link "Oklahoma Order Form" [ref=e1529] [cursor=pointer]:
+                              - /url: /submissions/19933594/form/3051f969-9a91-4e08-b72e-d0e44bc77058/performance?redirectUrl=https%3A%2F%2Fapp.hubspot.com%2Fforms%2F19933594%2Fviews%2Fall_forms
+                              - generic [ref=e1532]: Oklahoma Order Form
+                          - listitem [ref=e1533]:
+                            - generic [ref=e1542]:
+                              - text: Published
+                              - generic [ref=e1544]:
+                                - text: Form
+                                - generic [ref=e1545]: (Legacy editor)
+                        - generic [ref=e1549]:
+                          - button "Edit" [ref=e1550] [cursor=pointer]:
+                            - generic [ref=e1552]: Edit
+                          - button "Clone" [ref=e1553] [cursor=pointer]:
+                            - generic [ref=e1555]: Clone
+                          - button "Actions" [ref=e1557] [cursor=pointer]:
+                            - generic [ref=e1561]: Actions
+                    - cell "Page Views" [ref=e1563]: "282"
+                    - cell "Submissions / page view" [ref=e1564]: 1.06%
+                    - cell "Spam submissions" [ref=e1565]: "0"
+                    - cell "Form Submissions" [ref=e1566]:
+                      - link "3" [ref=e1567] [cursor=pointer]:
+                        - /url: /submissions/19933594/form/3051f969-9a91-4e08-b72e-d0e44bc77058/submissions?redirectUrl=https%3A%2F%2Fapp.hubspot.com%2Fforms%2F19933594%2Fviews%2Fall_forms
+                    - cell "Appears on" [ref=e1568]:
+                      - generic [ref=e1572]: No HubSpot places
+                    - cell "Updated At" [ref=e1573]:
+                      - generic [ref=e1575]:
+                        - generic [ref=e1576]: April 23, 2025
+                        - generic [ref=e1577]: 6:16 AM
+                    - cell "Created by" [ref=e1578]:
+                      - paragraph [ref=e1580]: Anna Skurskaya
+                    - cell "Updated by" [ref=e1581]:
+                      - paragraph [ref=e1583]: Anna Skurskaya
+                  - row "Select row Name Page Views Submissions / page view Spam submissions Form Submissions Appears on Updated At Created by Updated by" [ref=e1584]:
+                    - cell "Select row" [ref=e1585]:
+                      - checkbox "Select row" [ref=e1590]
+                    - cell "Name" [ref=e1596]:
+                      - generic [ref=e1597]:
+                        - list [ref=e1602]:
+                          - listitem
+                          - listitem [ref=e1603]:
+                            - link "New blank form (April 21, 2025 6:41:36 PM EDT)" [ref=e1605] [cursor=pointer]:
+                              - /url: /submissions/19933594/form/5c5b3327-49f8-48c6-82cd-61e7398d0225/performance?redirectUrl=https%3A%2F%2Fapp.hubspot.com%2Fforms%2F19933594%2Fviews%2Fall_forms
+                              - generic [ref=e1608]: New blank form (April 21, 2025 6:41:36 PM EDT)
+                          - listitem [ref=e1609]:
+                            - generic [ref=e1618]:
+                              - text: Published
+                              - generic [ref=e1620]: Form
+                        - generic [ref=e1624]:
+                          - button "Edit" [ref=e1625] [cursor=pointer]:
+                            - generic [ref=e1627]: Edit
+                          - button "Clone" [ref=e1628] [cursor=pointer]:
+                            - generic [ref=e1630]: Clone
+                          - button "Actions" [ref=e1632] [cursor=pointer]:
+                            - generic [ref=e1636]: Actions
+                    - cell "Page Views" [ref=e1638]: "0"
+                    - cell "Submissions / page view" [ref=e1639]: 0%
+                    - cell "Spam submissions" [ref=e1640]: "0"
+                    - cell "Form Submissions" [ref=e1641]:
+                      - link "0" [ref=e1642] [cursor=pointer]:
+                        - /url: /submissions/19933594/form/5c5b3327-49f8-48c6-82cd-61e7398d0225/submissions?redirectUrl=https%3A%2F%2Fapp.hubspot.com%2Fforms%2F19933594%2Fviews%2Fall_forms
+                    - cell "Appears on" [ref=e1643]:
+                      - generic [ref=e1647]: No HubSpot places
+                    - cell "Updated At" [ref=e1648]:
+                      - generic [ref=e1650]:
+                        - generic [ref=e1651]: April 21, 2025
+                        - generic [ref=e1652]: 5:41 PM
+                    - cell "Created by" [ref=e1653]:
+                      - paragraph [ref=e1655]: Kirill Klokov
+                    - cell "Updated by" [ref=e1656]:
+                      - paragraph [ref=e1658]: Kirill Klokov
+                  - row "Select row Name Page Views Submissions / page view Spam submissions Form Submissions Appears on Updated At Created by Updated by" [ref=e1659]:
+                    - cell "Select row" [ref=e1660]:
+                      - checkbox "Select row" [ref=e1665]
+                    - cell "Name" [ref=e1671]:
+                      - generic [ref=e1672]:
+                        - list [ref=e1677]:
+                          - listitem
+                          - listitem [ref=e1678]:
+                            - link "New blank form (April 7, 2025 4:31:34 AM EDT)" [ref=e1680] [cursor=pointer]:
+                              - /url: /submissions/19933594/form/dd8cb0c6-d652-4b56-83f1-f2ea424a32ef/performance?redirectUrl=https%3A%2F%2Fapp.hubspot.com%2Fforms%2F19933594%2Fviews%2Fall_forms
+                              - generic [ref=e1683]: New blank form (April 7, 2025 4:31:34 AM EDT)
+                          - listitem [ref=e1684]:
+                            - generic [ref=e1693]:
+                              - text: Published
+                              - generic [ref=e1695]: Form
+                        - generic [ref=e1699]:
+                          - button "Edit" [ref=e1700] [cursor=pointer]:
+                            - generic [ref=e1702]: Edit
+                          - button "Clone" [ref=e1703] [cursor=pointer]:
+                            - generic [ref=e1705]: Clone
+                          - button "Actions" [ref=e1707] [cursor=pointer]:
+                            - generic [ref=e1711]: Actions
+                    - cell "Page Views" [ref=e1713]: "0"
+                    - cell "Submissions / page view" [ref=e1714]: 0%
+                    - cell "Spam submissions" [ref=e1715]: "0"
+                    - cell "Form Submissions" [ref=e1716]:
+                      - link "0" [ref=e1717] [cursor=pointer]:
+                        - /url: /submissions/19933594/form/dd8cb0c6-d652-4b56-83f1-f2ea424a32ef/submissions?redirectUrl=https%3A%2F%2Fapp.hubspot.com%2Fforms%2F19933594%2Fviews%2Fall_forms
+                    - cell "Appears on" [ref=e1718]:
+                      - generic [ref=e1722]: No HubSpot places
+                    - cell "Updated At" [ref=e1723]:
+                      - generic [ref=e1725]:
+                        - generic [ref=e1726]: April 7, 2025
+                        - generic [ref=e1727]: 3:31 AM
+                    - cell "Created by" [ref=e1728]:
+                      - paragraph [ref=e1730]: Anna Skurskaya
+                    - cell "Updated by" [ref=e1731]:
+                      - paragraph [ref=e1733]: Anna Skurskaya
+                  - row "Select row Name Page Views Submissions / page view Spam submissions Form Submissions Appears on Updated At Created by Updated by" [ref=e1734]:
+                    - cell "Select row" [ref=e1735]:
+                      - checkbox "Select row" [ref=e1740]
+                    - cell "Name" [ref=e1746]:
+                      - generic [ref=e1747]:
+                        - list [ref=e1752]:
+                          - listitem
+                          - listitem [ref=e1753]:
+                            - link "🏛️ Gov email capturing Form" [ref=e1755] [cursor=pointer]:
+                              - /url: /submissions/19933594/form/f935928a-70ff-4694-a4bb-92fe5625dfd9/performance?redirectUrl=https%3A%2F%2Fapp.hubspot.com%2Fforms%2F19933594%2Fviews%2Fall_forms
+                              - generic [ref=e1758]: 🏛️ Gov email capturing Form
+                          - listitem [ref=e1759]:
+                            - generic [ref=e1768]:
+                              - text: Published
+                              - generic [ref=e1770]:
+                                - text: Form
+                                - generic [ref=e1771]: (Legacy editor)
+                        - generic [ref=e1775]:
+                          - button "Edit" [ref=e1776] [cursor=pointer]:
+                            - generic [ref=e1778]: Edit
+                          - button "Clone" [ref=e1779] [cursor=pointer]:
+                            - generic [ref=e1781]: Clone
+                          - button "Actions" [ref=e1783] [cursor=pointer]:
+                            - generic [ref=e1787]: Actions
+                    - cell "Page Views" [ref=e1789]: "162"
+                    - cell "Submissions / page view" [ref=e1790]: 53.7%
+                    - cell "Spam submissions" [ref=e1791]:
+                      - link "1" [ref=e1792] [cursor=pointer]:
+                        - /url: /submissions-spam/19933594?guid=f935928a-70ff-4694-a4bb-92fe5625dfd9
+                        - generic [ref=e1793]:
+                          - generic "1" [ref=e1794]
+                          - img [ref=e1795]
+                    - cell "Form Submissions" [ref=e1797]:
+                      - link "87" [ref=e1798] [cursor=pointer]:
+                        - /url: /submissions/19933594/form/f935928a-70ff-4694-a4bb-92fe5625dfd9/submissions?redirectUrl=https%3A%2F%2Fapp.hubspot.com%2Fforms%2F19933594%2Fviews%2Fall_forms
+                    - cell "Appears on" [ref=e1799]:
+                      - generic [ref=e1803]: No HubSpot places
+                    - cell "Updated At" [ref=e1804]:
+                      - generic [ref=e1806]:
+                        - generic [ref=e1807]: April 2, 2025
+                        - generic [ref=e1808]: 1:33 PM
+                    - cell "Created by" [ref=e1809]:
+                      - paragraph [ref=e1811]: Anna Skurskaya
+                    - cell "Updated by" [ref=e1812]:
+                      - paragraph [ref=e1814]: Anna Skurskaya
+                  - row "Select row Name Page Views Submissions / page view Spam submissions Form Submissions Appears on Updated At Created by Updated by" [ref=e1815]:
+                    - cell "Select row" [ref=e1816]:
+                      - checkbox "Select row" [ref=e1821]
+                    - cell "Name" [ref=e1827]:
+                      - generic [ref=e1828]:
+                        - list [ref=e1833]:
+                          - listitem
+                          - listitem [ref=e1834]:
+                            - link "Support ticket submission" [ref=e1836] [cursor=pointer]:
+                              - /url: /submissions/19933594/form/6cba2a5a-46f4-4815-b510-c21368c68c80/performance?redirectUrl=https%3A%2F%2Fapp.hubspot.com%2Fforms%2F19933594%2Fviews%2Fall_forms
+                              - generic [ref=e1839]: Support ticket submission
+                          - listitem [ref=e1840]:
+                            - generic [ref=e1849]:
+                              - text: Published
+                              - generic [ref=e1851]:
+                                - text: Form
+                                - generic [ref=e1852]: (Legacy editor)
+                        - generic [ref=e1856]:
+                          - button "Edit" [ref=e1857] [cursor=pointer]:
+                            - generic [ref=e1859]: Edit
+                          - button "Clone" [ref=e1860] [cursor=pointer]:
+                            - generic [ref=e1862]: Clone
+                          - button "Actions" [ref=e1864] [cursor=pointer]:
+                            - generic [ref=e1868]: Actions
+                    - cell "Page Views" [ref=e1870]: "490"
+                    - cell "Submissions / page view" [ref=e1871]: 60.61%
+                    - cell "Spam submissions" [ref=e1872]: "0"
+                    - cell "Form Submissions" [ref=e1873]:
+                      - link "297" [ref=e1874] [cursor=pointer]:
+                        - /url: /submissions/19933594/form/6cba2a5a-46f4-4815-b510-c21368c68c80/submissions?redirectUrl=https%3A%2F%2Fapp.hubspot.com%2Fforms%2F19933594%2Fviews%2Fall_forms
+                    - cell "Appears on" [ref=e1875]:
+                      - generic [ref=e1879]: No HubSpot places
+                    - cell "Updated At" [ref=e1880]:
+                      - generic [ref=e1882]:
+                        - generic [ref=e1883]: March 14, 2025
+                        - generic [ref=e1884]: 12:31 PM
+                    - cell "Created by" [ref=e1885]:
+                      - paragraph [ref=e1887]: Bear Strayer
+                    - cell "Updated by" [ref=e1888]:
+                      - paragraph [ref=e1890]: Anna Skurskaya
+                  - row "Select row Name Page Views Submissions / page view Spam submissions Form Submissions Appears on Updated At Created by Updated by" [ref=e1891]:
+                    - cell "Select row" [ref=e1892]:
+                      - checkbox "Select row" [ref=e1897]
+                    - cell "Name" [ref=e1903]:
+                      - generic [ref=e1904]:
+                        - list [ref=e1909]:
+                          - listitem
+                          - listitem [ref=e1910]:
+                            - link "New contact us form (February 25, 2025 8:14:23 AM EST)" [ref=e1912] [cursor=pointer]:
+                              - /url: /submissions/19933594/form/67b41afd-0b18-400f-9c5d-62b317f30488/performance?redirectUrl=https%3A%2F%2Fapp.hubspot.com%2Fforms%2F19933594%2Fviews%2Fall_forms
+                              - generic [ref=e1915]: New contact us form (February 25, 2025 8:14:23 AM EST)
+                          - listitem [ref=e1916]:
+                            - generic [ref=e1925]:
+                              - text: Published
+                              - generic [ref=e1927]: Form
+                        - generic [ref=e1931]:
+                          - button "Edit" [ref=e1932] [cursor=pointer]:
+                            - generic [ref=e1934]: Edit
+                          - button "Clone" [ref=e1935] [cursor=pointer]:
+                            - generic [ref=e1937]: Clone
+                          - button "Actions" [ref=e1939] [cursor=pointer]:
+                            - generic [ref=e1943]: Actions
+                    - cell "Page Views" [ref=e1945]: "0"
+                    - cell "Submissions / page view" [ref=e1946]: 0%
+                    - cell "Spam submissions" [ref=e1947]: "0"
+                    - cell "Form Submissions" [ref=e1948]:
+                      - link "0" [ref=e1949] [cursor=pointer]:
+                        - /url: /submissions/19933594/form/67b41afd-0b18-400f-9c5d-62b317f30488/submissions?redirectUrl=https%3A%2F%2Fapp.hubspot.com%2Fforms%2F19933594%2Fviews%2Fall_forms
+                    - cell "Appears on" [ref=e1950]:
+                      - generic [ref=e1954]: No HubSpot places
+                    - cell "Updated At" [ref=e1955]:
+                      - generic [ref=e1957]:
+                        - generic [ref=e1958]: February 25, 2025
+                        - generic [ref=e1959]: 7:14 AM
+                    - cell "Created by" [ref=e1960]:
+                      - paragraph [ref=e1962]: Claudiu Dascalescu
+                    - cell "Updated by" [ref=e1963]:
+                      - paragraph [ref=e1965]: Claudiu Dascalescu
+                  - row "Select row Name Page Views Submissions / page view Spam submissions Form Submissions Appears on Updated At Created by Updated by" [ref=e1966]:
+                    - cell "Select row" [ref=e1967]:
+                      - checkbox "Select row" [ref=e1972]
+                    - cell "Name" [ref=e1978]:
+                      - generic [ref=e1979]:
+                        - list [ref=e1984]:
+                          - listitem
+                          - listitem [ref=e1985]:
+                            - link "Onboarding Form" [ref=e1987] [cursor=pointer]:
+                              - /url: /submissions/19933594/form/cf895067-a9ef-45a6-bdd8-f3384b881bb1/performance?redirectUrl=https%3A%2F%2Fapp.hubspot.com%2Fforms%2F19933594%2Fviews%2Fall_forms
+                              - generic [ref=e1990]: Onboarding Form
+                          - listitem [ref=e1991]:
+                            - generic [ref=e2000]:
+                              - text: Published
+                              - generic [ref=e2002]:
+                                - text: Form
+                                - generic [ref=e2003]: (Legacy editor)
+                        - generic [ref=e2007]:
+                          - button "Edit" [ref=e2008] [cursor=pointer]:
+                            - generic [ref=e2010]: Edit
+                          - button "Clone" [ref=e2011] [cursor=pointer]:
+                            - generic [ref=e2013]: Clone
+                          - button "Actions" [ref=e2015] [cursor=pointer]:
+                            - generic [ref=e2019]: Actions
+                    - cell "Page Views" [ref=e2021]: "1"
+                    - cell "Submissions / page view" [ref=e2022]: 0%
+                    - cell "Spam submissions" [ref=e2023]: "0"
+                    - cell "Form Submissions" [ref=e2024]:
+                      - link "0" [ref=e2025] [cursor=pointer]:
+                        - /url: /submissions/19933594/form/cf895067-a9ef-45a6-bdd8-f3384b881bb1/submissions?redirectUrl=https%3A%2F%2Fapp.hubspot.com%2Fforms%2F19933594%2Fviews%2Fall_forms
+                    - cell "Appears on" [ref=e2026]:
+                      - generic [ref=e2030]: No HubSpot places
+                    - cell "Updated At" [ref=e2031]:
+                      - generic [ref=e2033]:
+                        - generic [ref=e2034]: December 23, 2024
+                        - generic [ref=e2035]: 7:06 PM
+                    - cell "Created by" [ref=e2036]:
+                      - paragraph [ref=e2038]: Kirill Klokov
+                    - cell "Updated by" [ref=e2039]:
+                      - paragraph [ref=e2041]: Kirill Klokov
+                  - row "Select row Name Page Views Submissions / page view Spam submissions Form Submissions Appears on Updated At Created by Updated by" [ref=e2042]:
+                    - cell "Select row" [ref=e2043]:
+                      - checkbox "Select row" [ref=e2048]
+                    - cell "Name" [ref=e2054]:
+                      - generic [ref=e2055]:
+                        - list [ref=e2060]:
+                          - listitem
+                          - listitem [ref=e2061]:
+                            - link "Referral Source Form" [ref=e2063] [cursor=pointer]:
+                              - /url: /submissions/19933594/form/b72185bf-f88e-4c53-bb7f-7896dbd62757/performance?redirectUrl=https%3A%2F%2Fapp.hubspot.com%2Fforms%2F19933594%2Fviews%2Fall_forms
+                              - generic [ref=e2066]: Referral Source Form
+                          - listitem [ref=e2067]:
+                            - generic [ref=e2076]:
+                              - text: Published
+                              - generic [ref=e2078]:
+                                - text: Form
+                                - generic [ref=e2079]: (Legacy editor)
+                        - generic [ref=e2083]:
+                          - button "Edit" [ref=e2084] [cursor=pointer]:
+                            - generic [ref=e2086]: Edit
+                          - button "Clone" [ref=e2087] [cursor=pointer]:
+                            - generic [ref=e2089]: Clone
+                          - button "Actions" [ref=e2091] [cursor=pointer]:
+                            - generic [ref=e2095]: Actions
+                    - cell "Page Views" [ref=e2097]: "51"
+                    - cell "Submissions / page view" [ref=e2098]: 78.43%
+                    - cell "Spam submissions" [ref=e2099]: "0"
+                    - cell "Form Submissions" [ref=e2100]:
+                      - link "40" [ref=e2101] [cursor=pointer]:
+                        - /url: /submissions/19933594/form/b72185bf-f88e-4c53-bb7f-7896dbd62757/submissions?redirectUrl=https%3A%2F%2Fapp.hubspot.com%2Fforms%2F19933594%2Fviews%2Fall_forms
+                    - cell "Appears on" [ref=e2102]:
+                      - generic [ref=e2106]: No HubSpot places
+                    - cell "Updated At" [ref=e2107]:
+                      - generic [ref=e2109]:
+                        - generic [ref=e2110]: November 27, 2024
+                        - generic [ref=e2111]: 9:57 AM
+                    - cell "Created by" [ref=e2112]:
+                      - paragraph [ref=e2114]: Anthony Ward
+                    - cell "Updated by" [ref=e2115]:
+                      - paragraph [ref=e2117]: Integrations User - Admin
+                  - row "Select row Name Page Views Submissions / page view Spam submissions Form Submissions Appears on Updated At Created by Updated by" [ref=e2118]:
+                    - cell "Select row" [ref=e2119]:
+                      - checkbox "Select row" [ref=e2124]
+                    - cell "Name" [ref=e2130]:
+                      - generic [ref=e2131]:
+                        - list [ref=e2136]:
+                          - listitem
+                          - listitem [ref=e2137]:
+                            - link "Сhangelog Form" [ref=e2139] [cursor=pointer]:
+                              - /url: /submissions/19933594/form/07d28c27-6441-41e2-a973-2b1a65d2e8a0/performance?redirectUrl=https%3A%2F%2Fapp.hubspot.com%2Fforms%2F19933594%2Fviews%2Fall_forms
+                              - generic [ref=e2142]: Сhangelog Form
+                          - listitem [ref=e2143]:
+                            - generic [ref=e2152]:
+                              - text: Published
+                              - generic [ref=e2154]:
+                                - text: Form
+                                - generic [ref=e2155]: (Legacy editor)
+                        - generic [ref=e2159]:
+                          - button "Edit" [ref=e2160] [cursor=pointer]:
+                            - generic [ref=e2162]: Edit
+                          - button "Clone" [ref=e2163] [cursor=pointer]:
+                            - generic [ref=e2165]: Clone
+                          - button "Actions" [ref=e2167] [cursor=pointer]:
+                            - generic [ref=e2171]: Actions
+                    - cell "Page Views" [ref=e2173]: "5038"
+                    - cell "Submissions / page view" [ref=e2174]: 1.71%
+                    - cell "Spam submissions" [ref=e2175]: "0"
+                    - cell "Form Submissions" [ref=e2176]:
+                      - link "86" [ref=e2177] [cursor=pointer]:
+                        - /url: /submissions/19933594/form/07d28c27-6441-41e2-a973-2b1a65d2e8a0/submissions?redirectUrl=https%3A%2F%2Fapp.hubspot.com%2Fforms%2F19933594%2Fviews%2Fall_forms
+                    - cell "Appears on" [ref=e2178]:
+                      - generic [ref=e2182]: No HubSpot places
+                    - cell "Updated At" [ref=e2183]:
+                      - generic [ref=e2185]:
+                        - generic [ref=e2186]: November 11, 2024
+                        - generic [ref=e2187]: 9:39 AM
+                    - cell "Created by" [ref=e2188]:
+                      - paragraph [ref=e2190]: Anna Skurskaya
+                    - cell "Updated by" [ref=e2191]:
+                      - paragraph [ref=e2193]: Anna Skurskaya
+                  - row "Select row Name Page Views Submissions / page view Spam submissions Form Submissions Appears on Updated At Created by Updated by" [ref=e2194]:
+                    - cell "Select row" [ref=e2195]:
+                      - checkbox "Select row" [ref=e2200]
+                    - cell "Name" [ref=e2206]:
+                      - generic [ref=e2207]:
+                        - list [ref=e2212]:
+                          - listitem
+                          - listitem [ref=e2213]:
+                            - link "RB2B Form" [ref=e2215] [cursor=pointer]:
+                              - /url: /submissions/19933594/form/2daaa448-9485-4da0-bbef-246d21801e0f/performance?redirectUrl=https%3A%2F%2Fapp.hubspot.com%2Fforms%2F19933594%2Fviews%2Fall_forms
+                              - generic [ref=e2218]: RB2B Form
+                          - listitem [ref=e2219]:
+                            - generic [ref=e2228]:
+                              - text: Published
+                              - generic [ref=e2230]:
+                                - text: Form
+                                - generic [ref=e2231]: (Legacy editor)
+                        - generic [ref=e2235]:
+                          - button "Edit" [ref=e2236] [cursor=pointer]:
+                            - generic [ref=e2238]: Edit
+                          - button "Clone" [ref=e2239] [cursor=pointer]:
+                            - generic [ref=e2241]: Clone
+                          - button "Actions" [ref=e2243] [cursor=pointer]:
+                            - generic [ref=e2247]: Actions
+                    - cell "Page Views" [ref=e2249]: "1"
+                    - cell "Submissions / page view" [ref=e2250]:
+                      - generic [ref=e2252]: Unknown
+                    - cell "Spam submissions" [ref=e2253]: "0"
+                    - cell "Form Submissions" [ref=e2254]:
+                      - link "2K" [ref=e2255] [cursor=pointer]:
+                        - /url: /submissions/19933594/form/2daaa448-9485-4da0-bbef-246d21801e0f/submissions?redirectUrl=https%3A%2F%2Fapp.hubspot.com%2Fforms%2F19933594%2Fviews%2Fall_forms
+                    - cell "Appears on" [ref=e2256]:
+                      - generic [ref=e2260]: No HubSpot places
+                    - cell "Updated At" [ref=e2261]:
+                      - generic [ref=e2263]:
+                        - generic [ref=e2264]: September 10, 2024
+                        - generic [ref=e2265]: 6:18 PM
+                    - cell "Created by" [ref=e2266]:
+                      - paragraph [ref=e2268]: Kirill Klokov
+                    - cell "Updated by" [ref=e2269]:
+                      - paragraph [ref=e2271]: Kirill Klokov
+                  - row "Select row Name Page Views Submissions / page view Spam submissions Form Submissions Appears on Updated At Created by Updated by" [ref=e2272]:
+                    - cell "Select row" [ref=e2273]:
+                      - checkbox "Select row" [ref=e2278]
+                    - cell "Name" [ref=e2284]:
+                      - generic [ref=e2285]:
+                        - list [ref=e2290]:
+                          - listitem
+                          - listitem [ref=e2291]:
+                            - link "FORM-Blog-Subscription" [ref=e2293] [cursor=pointer]:
+                              - /url: /submissions/19933594/form/4b596f9c-c1a0-42ec-b72f-615ccb74b6c0/performance?redirectUrl=https%3A%2F%2Fapp.hubspot.com%2Fforms%2F19933594%2Fviews%2Fall_forms
+                              - generic [ref=e2296]: FORM-Blog-Subscription
+                          - listitem [ref=e2297]:
+                            - generic [ref=e2306]:
+                              - text: Published
+                              - generic [ref=e2308]:
+                                - text: Form
+                                - generic [ref=e2309]: (Legacy editor)
+                        - generic [ref=e2313]:
+                          - button "Edit" [ref=e2314] [cursor=pointer]:
+                            - generic [ref=e2316]: Edit
+                          - button "Clone" [ref=e2317] [cursor=pointer]:
+                            - generic [ref=e2319]: Clone
+                          - button "Actions" [ref=e2321] [cursor=pointer]:
+                            - generic [ref=e2325]: Actions
+                    - cell "Page Views" [ref=e2327]: "22397"
+                    - cell "Submissions / page view" [ref=e2328]: 0.27%
+                    - cell "Spam submissions" [ref=e2329]: "0"
+                    - cell "Form Submissions" [ref=e2330]:
+                      - link "61" [ref=e2331] [cursor=pointer]:
+                        - /url: /submissions/19933594/form/4b596f9c-c1a0-42ec-b72f-615ccb74b6c0/submissions?redirectUrl=https%3A%2F%2Fapp.hubspot.com%2Fforms%2F19933594%2Fviews%2Fall_forms
+                    - cell "Appears on" [ref=e2332]:
+                      - generic [ref=e2336]: No HubSpot places
+                    - cell "Updated At" [ref=e2337]:
+                      - generic [ref=e2339]:
+                        - generic [ref=e2340]: July 23, 2024
+                        - generic [ref=e2341]: 6:14 AM
+                    - cell "Created by" [ref=e2342]:
+                      - generic [ref=e2343]:
+                        - generic [ref=e2344]: No user
+                        - img [ref=e2345]
+                    - cell "Updated by" [ref=e2347]:
+                      - paragraph [ref=e2349]: Anna Skurskaya
+                  - row "Select row Name Page Views Submissions / page view Spam submissions Form Submissions Appears on Updated At Created by Updated by" [ref=e2350]:
+                    - cell "Select row" [ref=e2351]:
+                      - checkbox "Select row" [ref=e2356]
+                    - cell "Name" [ref=e2362]:
+                      - generic [ref=e2363]:
+                        - list [ref=e2368]:
+                          - listitem
+                          - listitem [ref=e2369]:
+                            - link "[ACHIVE] Main Comment Form 46078680473 (English)" [ref=e2371] [cursor=pointer]:
+                              - /url: /submissions/19933594/form/cb8d0a23-89da-4b47-893b-e5e154c2d420/performance?redirectUrl=https%3A%2F%2Fapp.hubspot.com%2Fforms%2F19933594%2Fviews%2Fall_forms
+                              - generic [ref=e2374]: "[ACHIVE] Main Comment Form 46078680473 (English)"
+                          - listitem [ref=e2375]:
+                            - generic [ref=e2384]:
+                              - text: Published
+                              - generic [ref=e2386]: Blog comment
+                        - generic [ref=e2390]:
+                          - button "Edit" [ref=e2391] [cursor=pointer]:
+                            - generic [ref=e2393]: Edit
+                          - button "Clone" [ref=e2394] [cursor=pointer]:
+                            - generic [ref=e2396]: Clone
+                          - button "Actions" [ref=e2398] [cursor=pointer]:
+                            - generic [ref=e2402]: Actions
+                    - cell "Page Views" [ref=e2404]: "2"
+                    - cell "Submissions / page view" [ref=e2405]: 0%
+                    - cell "Spam submissions" [ref=e2406]: "0"
+                    - cell "Form Submissions" [ref=e2407]:
+                      - link "0" [ref=e2408] [cursor=pointer]:
+                        - /url: /submissions/19933594/form/cb8d0a23-89da-4b47-893b-e5e154c2d420/submissions?redirectUrl=https%3A%2F%2Fapp.hubspot.com%2Fforms%2F19933594%2Fviews%2Fall_forms
+                    - cell "Appears on" [ref=e2409]:
+                      - generic [ref=e2413]: No HubSpot places
+                    - cell "Updated At" [ref=e2414]:
+                      - generic [ref=e2416]:
+                        - generic [ref=e2417]: July 9, 2024
+                        - generic [ref=e2418]: 6:31 PM
+                    - cell "Created by" [ref=e2419]:
+                      - generic [ref=e2420]:
+                        - generic [ref=e2421]: No user
+                        - img [ref=e2422]
+                    - cell "Updated by" [ref=e2424]:
+                      - paragraph [ref=e2426]: Kirill Klokov
+  - complementary

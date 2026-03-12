@@ -1,0 +1,171 @@
+- generic [ref=e1]:
+  - dialog "Document Library" [active] [ref=e2702]:
+    - generic [ref=e2703]: Dialog content start.
+    - button "Dismiss" [ref=e2704] [cursor=pointer]:
+      - img [ref=e2706]
+      - generic [ref=e2708]: Dismiss
+    - heading "Document Library" [level=2] [ref=e2711]
+    - generic [ref=e2712]:
+      - generic [ref=e2713]: 2 results found on page 1.
+      - generic [ref=e2714]:
+        - generic [ref=e2715]:
+          - textbox "Search by file name" [ref=e2718]
+          - generic [ref=e2719] [cursor=pointer]:
+            - generic [ref=e2720]: Upload
+            - button "Upload button to choose files to upload" [ref=e2721]
+        - generic [ref=e2723]:
+          - 'button "Filters: All page counts" [ref=e2724] [cursor=pointer]':
+            - img [ref=e2726]
+            - generic [ref=e2728]:
+              - generic [ref=e2729]: "Filters:"
+              - generic [ref=e2730]: All page counts
+          - 'button "Sort by: Newest" [ref=e2731] [cursor=pointer]':
+            - img [ref=e2733]
+            - generic [ref=e2735]:
+              - generic [ref=e2736]: "Sort by:"
+              - generic [ref=e2737]: Newest
+      - generic [ref=e2738]:
+        - generic [ref=e2740]:
+          - generic [ref=e2741]: 0 selected
+          - text: /
+          - button "5 suggested" [ref=e2742] [cursor=pointer]
+        - list
+      - generic [ref=e2743]:
+        - heading "Newest documents" [level=3] [ref=e2744]
+        - list "Asset Library Table" [ref=e2745]:
+          - listitem [ref=e2746]:
+            - generic [ref=e2748]:
+              - button "This asset is not selected. CCM_x_Truv_LinkedIn_Document_Ad_2026_White.pdf" [ref=e2750] [cursor=pointer]:
+                - generic [ref=e2751]: This asset is not selected.
+                - img "CCM_x_Truv_LinkedIn_Document_Ad_2026_White.pdf" [ref=e2752]
+              - paragraph [ref=e2753]: CCM_x_Truv_LinkedIn_Document_Ad_2026_White.pdf
+              - generic [ref=e2754]:
+                - paragraph [ref=e2755]: 6 pages
+                - button "Show more options for this asset" [ref=e2757] [cursor=pointer]:
+                  - img [ref=e2759]
+          - listitem [ref=e2762]:
+            - generic [ref=e2764]:
+              - button "This asset is not selected. CCM_x_Truv_LinkedIn_Document_Ad_2026.pdf" [ref=e2766] [cursor=pointer]:
+                - generic [ref=e2767]: This asset is not selected.
+                - img "CCM_x_Truv_LinkedIn_Document_Ad_2026.pdf" [ref=e2768]
+              - paragraph [ref=e2769]: CCM_x_Truv_LinkedIn_Document_Ad_2026.pdf
+              - generic [ref=e2770]:
+                - paragraph [ref=e2771]: 6 pages
+                - button "Show more options for this asset" [ref=e2773] [cursor=pointer]:
+                  - img [ref=e2775]
+    - generic [ref=e2779]:
+      - button "Cancel action to close the modal" [ref=e2781] [cursor=pointer]:
+        - generic [ref=e2782]: Cancel
+      - generic [ref=e2783]:
+        - alert
+        - status
+        - button "Select action for submitting the selected assets to the form" [ref=e2784] [cursor=pointer]:
+          - generic [ref=e2785]: Select
+    - generic [ref=e2786]: Dialog content end.
+  - generic:
+    - region "Notification Toasts":
+      - heading "0 notifications total" [level=2] [ref=e2]
+  - button [ref=e2787] [cursor=pointer]:
+    - img [ref=e12]
+  - generic [ref=e15]:
+    - generic [ref=e18]:
+      - button [ref=e2788] [cursor=pointer]: Skip to main content
+      - button [ref=e2789] [cursor=pointer]:
+        - img [ref=e21]
+        - generic [ref=e23]: Close jump menu
+    - banner [ref=e24]:
+      - generic [ref=e25]:
+        - button [ref=e32] [cursor=pointer]:
+          - generic [ref=e34]:
+            - generic [ref=e35]:
+              - img [ref=e37]:
+                - img [ref=e38]
+              - img [ref=e41]
+            - img [ref=e44]
+        - generic [ref=e2540]:
+          - heading [level=2] [ref=e2790]: Actions List
+          - list [ref=e2542]:
+            - listitem [ref=e2543]:
+              - generic [ref=e2545]: Truv Ad Account
+              - img [ref=e2791]
+          - separator [ref=e2549]
+        - button [ref=e2792] [cursor=pointer]:
+          - generic [ref=e49]:
+            - generic [ref=e50]: No unseen notifications, click to enter notifications experience
+            - img [ref=e53]
+        - button [ref=e2793] [cursor=pointer]:
+          - img [ref=e2794]:
+            - img [ref=e60]
+        - button [ref=e2795] [cursor=pointer]:
+          - generic [ref=e63]:
+            - generic [ref=e64]: Open user menu
+            - img [ref=e2796]
+    - main [ref=e160]:
+      - generic [ref=e2556]:
+        - generic [ref=e2559]:
+          - button [ref=e2797] [cursor=pointer]:
+            - img [ref=e2562]
+            - generic [ref=e2564]: Back to ad set
+          - list [ref=e2566]:
+            - listitem [ref=e2567]:
+              - generic [ref=e2568]: ... / CCM Document Ad - Lending / CCM Document Ad - Ops & Lending
+            - listitem [ref=e2569]:
+              - generic [ref=e2570]: Create new document ads for this ad set
+        - generic [ref=e2572]:
+          - generic [ref=e2574]:
+            - generic [ref=e2575]:
+              - heading [level=3] [ref=e2798]:
+                - button [disabled] [expanded] [ref=e2799] [cursor=pointer]:
+                  - generic [ref=e2578]:
+                    - text: Ad
+                    - img [ref=e2656]
+              - form [ref=e2800]:
+                - generic [ref=e2659]:
+                  - generic [ref=e2660]:
+                    - generic [ref=e2661]:
+                      - generic [ref=e2662]: Name this ad (optional)
+                      - button [ref=e2801] [cursor=pointer]:
+                        - img [ref=e2665]
+                        - generic [ref=e2667]: More information about the ad name
+                    - generic [ref=e2671]:
+                      - textbox [ref=e2802]:
+                        - /placeholder: Example 1
+                      - generic [ref=e2803]: 0/255
+                  - generic [ref=e2676]:
+                    - generic [ref=e2677]:
+                      - generic [ref=e2678]: Introductory text
+                      - button [ref=e2804] [cursor=pointer]:
+                        - img [ref=e2681]
+                        - generic [ref=e2683]: Learn more about Introductory text
+                      - text: "*"
+                    - generic [ref=e2687]:
+                      - textbox [ref=e2805]:
+                        - /placeholder: This is your introductory text
+                      - generic [ref=e2806]: 0/600
+                  - generic [ref=e2692]: Document
+                  - generic [ref=e2695]:
+                    - generic [ref=e2696]: Support for PDF documents.
+                    - button [ref=e2807] [cursor=pointer]:
+                      - generic [ref=e2698]: Upload or select
+            - heading [level=2] [ref=e2808]:
+              - button [ref=e2809] [cursor=pointer]:
+                - generic [ref=e2586]:
+                  - generic [ref=e2587]: Form details
+                  - img [ref=e2699]
+          - generic [ref=e2629]:
+            - heading [level=2] [ref=e2810]: Preview
+            - button [ref=e2811] [cursor=pointer]:
+              - img [ref=e2634]
+              - generic [ref=e2636]: Mobile Feed
+            - generic [ref=e2639]:
+              - status [ref=e2640]:
+                - generic [ref=e2641]:
+                  - img [ref=e2643]
+                  - generic [ref=e2646]: This is a static image of a mobile document ad.
+              - img [ref=e2812]
+        - generic [ref=e2649]:
+          - button [ref=e2813] [cursor=pointer]:
+            - generic [ref=e2652]: Cancel
+          - button [ref=e2814] [cursor=pointer]:
+            - generic [ref=e2655]: Save ad
+  - generic [ref=e996]: Your search has 0 results

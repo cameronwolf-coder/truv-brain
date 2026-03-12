@@ -1,0 +1,51 @@
+- generic [ref=e4]:
+  - generic [ref=e5]:
+    - generic [ref=e6]:
+      - link "Hubspot Homepage" [ref=e9] [cursor=pointer]:
+        - /url: https://www.hubspot.com
+        - img "Hubspot Homepage" [ref=e10]
+      - paragraph [ref=e11]: Sign in
+      - paragraph [ref=e12]:
+        - generic [ref=e13]:
+          - text: or
+          - link "create an account" [ref=e14] [cursor=pointer]:
+            - /url: https://app.hubspot.com/signup-hubspot/crm?loginRedirectUrl=https%3A%2F%2Fapp.hubspot.com%2Fworkflows%2F19933594&hubs_signup-cta=login-signup-cta&hubs_signup-url=app.hubspot.com%2Flogin
+      - generic [ref=e15]:
+        - paragraph [ref=e16]: cameron.wolf@truv.com
+        - button "Change email" [ref=e18] [cursor=pointer]:
+          - img [ref=e20]
+      - generic [ref=e25] [cursor=pointer]:
+        - checkbox "Remember me" [ref=e26]
+        - paragraph [ref=e34]: Remember me
+      - generic [ref=e36]:
+        - button "Sign in with passkey" [ref=e37] [cursor=pointer]:
+          - generic [ref=e38]:
+            - img [ref=e39]
+            - generic [ref=e41]: Sign in with passkey
+        - button "Google Sign in with Google" [ref=e42] [cursor=pointer]:
+          - generic [ref=e43]:
+            - img "Google"
+            - generic [ref=e44]: Sign in with Google
+        - button "Sign in with Microsoft" [ref=e45] [cursor=pointer]:
+          - generic [ref=e47]: Sign in with Microsoft
+        - button "Apple Sign in with Apple" [ref=e48] [cursor=pointer]:
+          - generic [ref=e49]:
+            - img "Apple"
+            - generic [ref=e50]: Sign in with Apple
+        - button "Sign in with password" [ref=e51] [cursor=pointer]:
+          - generic [ref=e53]: Sign in with password
+        - button "Sign in with SSO" [ref=e54] [cursor=pointer]:
+          - generic [ref=e55]:
+            - img [ref=e56]
+            - generic [ref=e58]: Sign in with SSO
+    - generic [ref=e60]:
+      - paragraph [ref=e61]: See how HubSpot can help you achieve your growth goals.
+      - link "Get a demo" [ref=e62] [cursor=pointer]:
+        - /url: https://offers.hubspot.com/crm-platform-demo?hubs_signup-url=app.hubspot.com/login&hubs_signup-cta=login-demo-existing
+        - generic [ref=e63]: Get a demo
+  - contentinfo [ref=e64]:
+    - generic [ref=e65]: ©2026 HubSpot, Inc. All Rights Reserved.
+    - generic [ref=e66]:
+      - link "Privacy Policy" [ref=e67] [cursor=pointer]:
+        - /url: https://legal.hubspot.com/privacy-policy
+      - button "Manage Cookies" [ref=e69] [cursor=pointer]

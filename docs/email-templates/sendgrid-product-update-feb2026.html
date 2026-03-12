@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>{{subject}}</title>
+    <title>Truv Product Update — February 2026</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="x-apple-disable-message-reformatting">
@@ -62,7 +62,7 @@
 <body bgcolor="#E0E0E0" style="margin: 0; padding: 0; font-family: Gilroy, sans-serif; background-color: #E0E0E0; font-size:16px; color: #171717; word-break:break-word;">
 
     <!-- Preview text -->
-    <div style="display:none!important">{{preview_text}}</div>
+    <div style="display:none!important">Multi-product ordering in Encompass, new Dashboard notification feed, and a CMG case study</div>
 
     <div style="background-color:#E0E0E0" bgcolor="#E0E0E0">
         <table role="presentation" width="100%" bgcolor="#E0E0E0" cellpadding="0" cellspacing="0" border="0" style="border-spacing:0 !important; border-collapse:collapse; margin:0; padding:0; width:100% !important; min-width:320px !important; height:100% !important; background-color:#E0E0E0;" height="100%">
@@ -123,12 +123,12 @@
                                                                         </tr>
                                                                         <tr>
                                                                             <td width="100%" style="padding-bottom: 30px;">
-                                                                                <p style="color: #171717; text-align: left; font-size: 22px; margin: 0; font-weight: 500; line-height: 135%; font-family: Gilroy,sans-serif;">{{hero_date}}</p>
+                                                                                <p style="color: #171717; text-align: left; font-size: 22px; margin: 0; font-weight: 500; line-height: 135%; font-family: Gilroy,sans-serif;">February 2026</p>
                                                                             </td>
                                                                         </tr>
                                                                         <tr>
                                                                             <td class="mob-center" align="left" valign="middle" style="color:#171717; width:100%;">
-                                                                                <a href="{{cta_url}}" target="_blank" style="font-style:normal; text-decoration: none; font-weight:500; word-break:break-word; border-style:solid; display:inline-block; background-color:#2C64E3; color:#ffffff; border-radius:50px; border-width:0; font-size:17px; height:17px; padding-left: 15px; padding-right: 15px; padding-bottom:16px; padding-top:16px; min-width: 140px; max-width: 100%; text-align: center; line-height: 100%; font-family: Gilroy,sans-serif;">{{hero_button_text}}</a>
+                                                                                <a href="https://truv.com/blog/product-update-february-2026?utm_source=email&amp;utm_medium=email&amp;utm_campaign=product-update-feb-2026" target="_blank" style="font-style:normal; text-decoration: none; font-weight:500; word-break:break-word; border-style:solid; display:inline-block; background-color:#2C64E3; color:#ffffff; border-radius:50px; border-width:0; font-size:17px; height:17px; padding-left: 15px; padding-right: 15px; padding-bottom:16px; padding-top:16px; min-width: 140px; max-width: 100%; text-align: center; line-height: 100%; font-family: Gilroy,sans-serif;">See What's New</a>
                                                                             </td>
                                                                         </tr>
                                                                     </tbody>
@@ -156,129 +156,85 @@
                                             <td style="padding-left: 35px; padding-right: 35px; padding-top: 40px; padding-bottom: 40px; background-color: #ffffff; color:#171717;">
 
                                                 <!-- INTRO -->
-                                                <div style="font-size: 22px; font-weight: 600; margin-bottom: 16px; font-family: Gilroy, sans-serif;">Hi there</div>
-                                                <div style="font-size: 16px; line-height: 140%; margin-bottom: 20px;">{{{intro_text}}}</div>
+                                                <div style="font-size: 22px; font-weight: 600; margin-bottom: 16px; font-family: Gilroy, sans-serif;">Hi {{#if firstName}}{{firstName}}{{else}}there{{/if}},</div>
+                                                <div style="font-size: 16px; line-height: 140%; margin-bottom: 20px;">February's release continues the momentum from January, with targeted enhancements across Encompass and Truv Dashboard aimed at streamlining workflows for your team and improving the end-user experience.</div>
 
                                                 <!-- KEY HIGHLIGHTS -->
                                                 <h4 style="text-align: left; font-family: Gilroy, sans-serif; margin-bottom: 10px;">Key Highlights:</h4>
                                                 <ul style="font-size: 16px; line-height: 160%; padding-left: 20px; margin-bottom: 10px;">
-                                                    {{#if highlight_1}}<li>{{{highlight_1}}}</li>{{/if}}
-                                                    {{#if highlight_2}}<li>{{{highlight_2}}}</li>{{/if}}
-                                                    {{#if highlight_3}}<li>{{{highlight_3}}}</li>{{/if}}
-                                                    {{#if highlight_4}}<li>{{{highlight_4}}}</li>{{/if}}
-                                                    {{#if highlight_5}}<li>{{{highlight_5}}}</li>{{/if}}
+                                                    <li><strong>Encompass Improvements</strong> &mdash; Multi-Product Orders</li>
+                                                    <li><strong>Truv Dashboard Updates</strong> &mdash; New Notification Feed</li>
+                                                    <li><strong>Truv Bridge &amp; Orders</strong> &mdash; Enhanced Labels in Order Landing Page</li>
                                                 </ul>
 
                                                 <!-- ======================== -->
-                                                <!-- SECTION 1 -->
+                                                <!-- SECTION 1: Encompass -->
                                                 <!-- ======================== -->
-                                                {{#if section_1_title}}
                                                 <hr>
-                                                <h3 style="font-family: Gilroy, sans-serif; font-size: 22px; font-weight: 600;">{{{section_1_title}}}</h3>
+                                                <h3 style="font-family: Gilroy, sans-serif; font-size: 22px; font-weight: 600;">Encompass Improvements</h3>
 
-                                                {{#if section_1_image}}
-                                                <p style="margin-bottom: 1em;"><img src="{{section_1_image}}" width="100%" alt="" style="height: auto; max-width: 100%; border-radius: 8px;"></p>
-                                                {{/if}}
+                                                <p style="margin-bottom: 1em;"><img src="https://res.cloudinary.com/dc0r5pclf/image/upload/v1772565420/truv-emails/feb2026-multiprod-ordering.png" width="100%" alt="Encompass multi-product ordering" style="height: auto; max-width: 100%; border-radius: 8px;"></p>
 
                                                 <ul style="font-size: 16px; line-height: 160%; padding-left: 20px;">
-                                                    {{#if section_1_bullet_1}}<li style="margin-bottom: 8px;">{{{section_1_bullet_1}}}</li>{{/if}}
-                                                    {{#if section_1_bullet_2}}<li style="margin-bottom: 8px;">{{{section_1_bullet_2}}}</li>{{/if}}
-                                                    {{#if section_1_bullet_3}}<li style="margin-bottom: 8px;">{{{section_1_bullet_3}}}</li>{{/if}}
-                                                    {{#if section_1_bullet_4}}<li style="margin-bottom: 8px;">{{{section_1_bullet_4}}}</li>{{/if}}
-                                                    {{#if section_1_bullet_5}}<li style="margin-bottom: 8px;">{{{section_1_bullet_5}}}</li>{{/if}}
+                                                    <li style="margin-bottom: 8px;"><strong>Create Multi-Product Orders:</strong> With <a href="https://truv.com/blog/introducing-multi-product-verification-orders-in-encompass?utm_source=email&amp;utm_medium=email&amp;utm_campaign=product-update-feb-2026" style="color:#2c64e3;">multi-product ordering</a>, Verification of income and assets can be requested in a single order within Encompass, making creating and tracking verification easier for LOs, while reducing the number of requests and communications sent to borrowers.</li>
                                                 </ul>
-                                                {{/if}}
 
                                                 <!-- ======================== -->
-                                                <!-- SECTION 2 -->
+                                                <!-- SECTION 2: Dashboard -->
                                                 <!-- ======================== -->
-                                                {{#if section_2_title}}
                                                 <hr>
-                                                <h3 style="font-family: Gilroy, sans-serif; font-size: 22px; font-weight: 600;">{{{section_2_title}}}</h3>
+                                                <h3 style="font-family: Gilroy, sans-serif; font-size: 22px; font-weight: 600;">Truv Dashboard Updates</h3>
 
-                                                {{#if section_2_image}}
-                                                <p style="margin-bottom: 1em;"><img src="{{section_2_image}}" width="100%" alt="" style="height: auto; max-width: 100%; border-radius: 8px;"></p>
-                                                {{/if}}
+                                                <p style="margin-bottom: 1em;"><img src="https://res.cloudinary.com/dc0r5pclf/image/upload/v1773152487/truv-emails/feb2026-dashboard.png" width="100%" alt="Truv Dashboard notification feed" style="height: auto; max-width: 100%; border-radius: 8px;"></p>
 
                                                 <ul style="font-size: 16px; line-height: 160%; padding-left: 20px;">
-                                                    {{#if section_2_bullet_1}}<li style="margin-bottom: 8px;">{{{section_2_bullet_1}}}</li>{{/if}}
-                                                    {{#if section_2_bullet_2}}<li style="margin-bottom: 8px;">{{{section_2_bullet_2}}}</li>{{/if}}
-                                                    {{#if section_2_bullet_3}}<li style="margin-bottom: 8px;">{{{section_2_bullet_3}}}</li>{{/if}}
-                                                    {{#if section_2_bullet_4}}<li style="margin-bottom: 8px;">{{{section_2_bullet_4}}}</li>{{/if}}
-                                                    {{#if section_2_bullet_5}}<li style="margin-bottom: 8px;">{{{section_2_bullet_5}}}</li>{{/if}}
+                                                    <li style="margin-bottom: 8px;"><strong>Notification Feed &amp; Preference Center:</strong> All order, team member, and API notifications are now consolidated into a single feed in Dashboard, with customizable preferences per user.</li>
                                                 </ul>
-                                                {{/if}}
 
                                                 <!-- ======================== -->
-                                                <!-- SECTION 3 -->
+                                                <!-- SECTION 3: Bridge & Orders -->
                                                 <!-- ======================== -->
-                                                {{#if section_3_title}}
                                                 <hr>
-                                                <h3 style="font-family: Gilroy, sans-serif; font-size: 22px; font-weight: 600;">{{{section_3_title}}}</h3>
+                                                <h3 style="font-family: Gilroy, sans-serif; font-size: 22px; font-weight: 600;">Truv Bridge &amp; Orders Updates</h3>
 
-                                                {{#if section_3_image}}
-                                                <p style="margin-bottom: 1em;"><img src="{{section_3_image}}" width="100%" alt="" style="height: auto; max-width: 100%; border-radius: 8px;"></p>
-                                                {{/if}}
+                                                <p style="margin-bottom: 1em;"><img src="https://res.cloudinary.com/dc0r5pclf/image/upload/v1773152500/truv-emails/feb2026-bridge.png" width="100%" alt="Truv Bridge orders updates" style="height: auto; max-width: 100%; border-radius: 8px;"></p>
 
                                                 <ul style="font-size: 16px; line-height: 160%; padding-left: 20px;">
-                                                    {{#if section_3_bullet_1}}<li style="margin-bottom: 8px;">{{{section_3_bullet_1}}}</li>{{/if}}
-                                                    {{#if section_3_bullet_2}}<li style="margin-bottom: 8px;">{{{section_3_bullet_2}}}</li>{{/if}}
-                                                    {{#if section_3_bullet_3}}<li style="margin-bottom: 8px;">{{{section_3_bullet_3}}}</li>{{/if}}
-                                                    {{#if section_3_bullet_4}}<li style="margin-bottom: 8px;">{{{section_3_bullet_4}}}</li>{{/if}}
-                                                    {{#if section_3_bullet_5}}<li style="margin-bottom: 8px;">{{{section_3_bullet_5}}}</li>{{/if}}
+                                                    <li style="margin-bottom: 8px;"><strong>Removed 'Required' Label on Orders Landing Page:</strong> Clearer labeling within the verification connection requests helps end-users navigate faster and with less friction.</li>
                                                 </ul>
-                                                {{/if}}
 
                                                 <!-- ======================== -->
-                                                <!-- SECTION 4 -->
+                                                <!-- SECTION 4: CMG Spotlight -->
                                                 <!-- ======================== -->
-                                                {{#if section_4_title}}
                                                 <hr>
-                                                <h3 style="font-family: Gilroy, sans-serif; font-size: 22px; font-weight: 600;">{{{section_4_title}}}</h3>
+                                                <h3 style="font-family: Gilroy, sans-serif; font-size: 22px; font-weight: 600;">Customer Spotlight</h3>
 
-                                                {{#if section_4_image}}
-                                                <p style="margin-bottom: 1em;"><img src="{{section_4_image}}" width="100%" alt="" style="height: auto; max-width: 100%; border-radius: 8px;"></p>
-                                                {{/if}}
+                                                <p style="margin-bottom: 1em;"><img src="https://res.cloudinary.com/dc0r5pclf/image/upload/v1772565424/truv-emails/feb2026-cmg-cover.png" width="100%" alt="CMG Home Loans case study" style="height: auto; max-width: 100%; border-radius: 8px;"></p>
+
+                                                <p style="font-size: 16px; line-height: 160%; margin-bottom: 8px;">Before partnering with Truv, CMG was spending <strong>$1.1 million per month on a third-party verification provider</strong> that was costly, inflexible, and incompatible with their strategic goals. By switching to Truv's modern VOIE solution, CMG achieved seamless system integration, greater configurability, and <strong>$800,000 in monthly savings &mdash; a 73% reduction</strong> in verification spend. <a href="https://truv.com/customer-stories/cmg-home-loans?utm_source=email&amp;utm_medium=email&amp;utm_campaign=product-update-feb-2026" style="color:#2c64e3;">See the full case study</a>.</p>
+
+                                                <!-- ======================== -->
+                                                <!-- SECTION 5: Other Updates -->
+                                                <!-- ======================== -->
+                                                <hr>
+                                                <h3 style="font-family: Gilroy, sans-serif; font-size: 22px; font-weight: 600;">Other Key Updates:</h3>
 
                                                 <ul style="font-size: 16px; line-height: 160%; padding-left: 20px;">
-                                                    {{#if section_4_bullet_1}}<li style="margin-bottom: 8px;">{{{section_4_bullet_1}}}</li>{{/if}}
-                                                    {{#if section_4_bullet_2}}<li style="margin-bottom: 8px;">{{{section_4_bullet_2}}}</li>{{/if}}
-                                                    {{#if section_4_bullet_3}}<li style="margin-bottom: 8px;">{{{section_4_bullet_3}}}</li>{{/if}}
-                                                    {{#if section_4_bullet_4}}<li style="margin-bottom: 8px;">{{{section_4_bullet_4}}}</li>{{/if}}
-                                                    {{#if section_4_bullet_5}}<li style="margin-bottom: 8px;">{{{section_4_bullet_5}}}</li>{{/if}}
+                                                    <li style="margin-bottom: 8px;"><strong>Enhanced Expense Filtering:</strong> We've expanded expense filtering for public sector clients to allow filtering by accounts, sub-accounts, and transaction categories.</li>
+                                                    <li style="margin-bottom: 8px;"><strong>Enhanced Custom Field Mappings:</strong> Truv now supports writing more order details for each borrower and product type into custom fields in Encompass.</li>
+                                                    <li style="margin-bottom: 8px;"><strong>Order Managers Table Filter:</strong> Orders table filter in Truv Dashboard filter has been expanded to allow searching and filtering by any user who created an order across all platforms.</li>
                                                 </ul>
-                                                {{/if}}
-
-                                                <!-- ======================== -->
-                                                <!-- SECTION 5 -->
-                                                <!-- ======================== -->
-                                                {{#if section_5_title}}
-                                                <hr>
-                                                <h3 style="font-family: Gilroy, sans-serif; font-size: 22px; font-weight: 600;">{{{section_5_title}}}</h3>
-
-                                                {{#if section_5_image}}
-                                                <p style="margin-bottom: 1em;"><img src="{{section_5_image}}" width="100%" alt="" style="height: auto; max-width: 100%; border-radius: 8px;"></p>
-                                                {{/if}}
-
-                                                <ul style="font-size: 16px; line-height: 160%; padding-left: 20px;">
-                                                    {{#if section_5_bullet_1}}<li style="margin-bottom: 8px;">{{{section_5_bullet_1}}}</li>{{/if}}
-                                                    {{#if section_5_bullet_2}}<li style="margin-bottom: 8px;">{{{section_5_bullet_2}}}</li>{{/if}}
-                                                    {{#if section_5_bullet_3}}<li style="margin-bottom: 8px;">{{{section_5_bullet_3}}}</li>{{/if}}
-                                                    {{#if section_5_bullet_4}}<li style="margin-bottom: 8px;">{{{section_5_bullet_4}}}</li>{{/if}}
-                                                    {{#if section_5_bullet_5}}<li style="margin-bottom: 8px;">{{{section_5_bullet_5}}}</li>{{/if}}
-                                                </ul>
-                                                {{/if}}
 
                                                 <!-- OUTRO -->
                                                 <hr>
-                                                <p style="margin-bottom: 1em; font-size: 16px; line-height: 140%;">{{{outro_text}}}</p>
+                                                <p style="margin-bottom: 1em; font-size: 16px; line-height: 140%;">Check out the full Product Update and reach out to the Truv Team if you have any questions.</p>
 
                                                 <!-- BOTTOM CTA BUTTON -->
                                                 <table width="100%" cellspacing="0" cellpadding="0" border="0" role="presentation">
                                                     <tbody>
                                                         <tr>
                                                             <td align="left" style="padding-top: 15px; padding-bottom: 0;">
-                                                                <a href="{{cta_url}}" target="_blank" style="font-style:normal; text-decoration: none; font-weight:500; word-break:break-word; border-style:solid; display:inline-block; background-color:#2C64E3; color:#ffffff; border-radius:50px; border-width:0; font-size:17px; height:17px; padding-left: 15px; padding-right: 15px; padding-bottom:16px; padding-top:16px; min-width: 140px; max-width: 100%; text-align: center; line-height: 100%; font-family: Gilroy,sans-serif;">{{cta_button_text}}</a>
+                                                                <a href="https://truv.com/blog/product-update-february-2026?utm_source=email&amp;utm_medium=email&amp;utm_campaign=product-update-feb-2026" target="_blank" style="font-style:normal; text-decoration: none; font-weight:500; word-break:break-word; border-style:solid; display:inline-block; background-color:#2C64E3; color:#ffffff; border-radius:50px; border-width:0; font-size:17px; height:17px; padding-left: 15px; padding-right: 15px; padding-bottom:16px; padding-top:16px; min-width: 140px; max-width: 100%; text-align: center; line-height: 100%; font-family: Gilroy,sans-serif;">View Full Update</a>
                                                             </td>
                                                         </tr>
                                                     </tbody>
@@ -319,24 +275,24 @@
                                                         <tr>
                                                             <td align="center" style="padding-bottom: 10px;">
                                                                 <p class="footer-links" style="color: #171717; text-align: center; font-size: 14px; margin: 0; font-weight: 500; line-height: 120%; font-family: Gilroy,sans-serif;">
-                                                                    <a href="https://help.truv.com?utm_source=email&amp;utm_medium=email&amp;utm_campaign=product-update-feb-2026" style="color:#171717;text-decoration:none; font-weight: 500; font-size:14px;" target="_blank">Help&nbsp;Center</a>
+                                                                    <a href="https://help.truv.com" style="color:#171717;text-decoration:none; font-weight: 500; font-size:14px;" target="_blank">Help&nbsp;Center</a>
                                                                     <span class="spr" style="color:#808080; font-size:14px; padding: 0 3px;">|</span>
-                                                                    <a href="https://docs.truv.com/docs/quickstart-guide?utm_source=email&amp;utm_medium=email&amp;utm_campaign=product-update-feb-2026" style="color:#171717;text-decoration:none; font-weight: 500; font-size:14px;" target="_blank">Quickstart&nbsp;Guide</a>
+                                                                    <a href="https://docs.truv.com/docs/quickstart-guide" style="color:#171717;text-decoration:none; font-weight: 500; font-size:14px;" target="_blank">Quickstart&nbsp;Guide</a>
                                                                     <span class="spr" style="color:#808080; font-size:14px; padding: 0 3px;">|</span>
-                                                                    <a href="https://truv.com/changelog?utm_source=email&amp;utm_medium=email&amp;utm_campaign=product-update-feb-2026" style="color:#171717;text-decoration:none; font-weight: 500; font-size:14px;" target="_blank">Changelog</a>
+                                                                    <a href="https://truv.com/changelog" style="color:#171717;text-decoration:none; font-weight: 500; font-size:14px;" target="_blank">Changelog</a>
                                                                     <span class="spr" style="color:#808080; font-size:14px; padding: 0 3px;">|</span>
-                                                                    <a href="https://truv.com/blog?utm_source=email&amp;utm_medium=email&amp;utm_campaign=product-update-feb-2026" style="color:#171717;text-decoration:none; font-weight: 500; font-size:14px;" target="_blank">Blog</a>
+                                                                    <a href="https://truv.com/blog" style="color:#171717;text-decoration:none; font-weight: 500; font-size:14px;" target="_blank">Blog</a>
                                                                 </p>
                                                             </td>
                                                         </tr>
                                                         <tr>
                                                             <td align="center" style="padding-bottom: 20px;">
                                                                 <p class="footer-links" style="color: #171717; text-align: center; font-size: 14px; margin: 0; font-weight: 500; line-height:120%; font-family: Gilroy,sans-serif;">
-                                                                    <a href="https://truv.com/terms?utm_source=email&amp;utm_medium=email&amp;utm_campaign=product-update-feb-2026" style="color:#171717; text-decoration:none; font-weight: 500; font-size:14px;" target="_blank">Service&nbsp;Terms</a>
+                                                                    <a href="https://truv.com/terms" style="color:#171717; text-decoration:none; font-weight: 500; font-size:14px;" target="_blank">Service&nbsp;Terms</a>
                                                                     <span class="spr" style="color:#808080; font-size:14px; padding: 0 3px;">|</span>
-                                                                    <a href="https://truv.com/privacy?utm_source=email&amp;utm_medium=email&amp;utm_campaign=product-update-feb-2026" style="color:#171717; text-decoration:none; font-weight: 500; font-size:14px;" target="_blank">Privacy&nbsp;Policy</a>
+                                                                    <a href="https://truv.com/privacy" style="color:#171717; text-decoration:none; font-weight: 500; font-size:14px;" target="_blank">Privacy&nbsp;Policy</a>
                                                                     <span class="spr" style="color:#808080; font-size:14px; padding: 0 3px;">|</span>
-                                                                    <a href="https://truv.com/request-a-demo?utm_source=email&amp;utm_medium=email&amp;utm_campaign=product-update-feb-2026" style="color:#171717; text-decoration:none; font-weight: 500; font-size:14px;" target="_blank">Contact&nbsp;Truv</a>
+                                                                    <a href="https://truv.com/request-a-demo" style="color:#171717; text-decoration:none; font-weight: 500; font-size:14px;" target="_blank">Contact&nbsp;Truv</a>
                                                                 </p>
                                                             </td>
                                                         </tr>

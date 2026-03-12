@@ -1,0 +1,728 @@
+- generic [active] [ref=e1]:
+  - generic:
+    - region "Notification Toasts":
+      - heading "1 notification total" [level=2] [ref=e9]
+      - generic [ref=e11]:
+        - img [ref=e13]
+        - alert [ref=e16]:
+          - generic [ref=e18]: We’ve updated certain metrics.
+          - link "View metric restatements to learn more." [ref=e19] [cursor=pointer]:
+            - /url: /campaignmanager/accounts/517969837/metric-restatements
+        - button "Dismiss “We’ve updated certain metrics.” notification 1 of 1." [ref=e21] [cursor=pointer]:
+          - img [ref=e23]
+  - button "Chat with us" [ref=e27] [cursor=pointer]:
+    - img [ref=e29]
+  - generic [ref=e32]:
+    - generic [ref=e35]:
+      - button "Skip to main content" [ref=e36] [cursor=pointer]
+      - button "Close jump menu" [ref=e37] [cursor=pointer]:
+        - img [ref=e38]
+        - generic [ref=e40]: Close jump menu
+    - banner [ref=e41]:
+      - generic [ref=e42]:
+        - button "Close side navigation panel" [ref=e43] [cursor=pointer]:
+          - img [ref=e45]
+        - button [ref=e49] [cursor=pointer]:
+          - generic [ref=e51]:
+            - generic [ref=e52]:
+              - img [ref=e54]:
+                - img [ref=e55]
+              - img [ref=e58]
+            - img [ref=e61]
+        - generic:
+          - heading "Actions List" [level=2] [ref=e63]
+          - list
+        - button "At least one account has unseen notifications, click to enter notifications experience 2 new account notifications" [ref=e65] [cursor=pointer]:
+          - generic [ref=e66]:
+            - generic [ref=e67]: At least one account has unseen notifications, click to enter notifications experience
+            - generic [ref=e68]:
+              - generic [ref=e69]:
+                - generic [ref=e70]: "2"
+                - generic [ref=e71]: 2 new account notifications
+              - img [ref=e73]
+        - button "Learn more about campaign manager" [ref=e76] [cursor=pointer]:
+          - img "Help" [ref=e78]:
+            - img [ref=e80]
+        - button "Open user menu Icon for Truv" [ref=e82] [cursor=pointer]:
+          - generic [ref=e83]:
+            - generic [ref=e84]: Open user menu
+            - img "Icon for Truv" [ref=e86]
+    - generic [ref=e87]:
+      - navigation [ref=e88]:
+        - complementary [ref=e90]:
+          - button "Truv company icon Truv Ad Account 517969837 Active" [ref=e91] [cursor=pointer]:
+            - img "Truv company icon" [ref=e94]
+            - generic [ref=e95]:
+              - generic [ref=e96]: Truv Ad Account
+              - generic [ref=e97]:
+                - text: "517969837"
+                - generic [ref=e98]: Active
+            - img [ref=e99]
+        - generic [ref=e101]:
+          - link "Overview" [ref=e103] [cursor=pointer]:
+            - /url: /campaignmanager/accounts/517969837/overview?businessId=7404539754668773386
+            - generic [ref=e104]: Overview
+          - button "Plan" [ref=e107] [cursor=pointer]:
+            - generic [ref=e108]:
+              - generic [ref=e110]: Plan
+              - img [ref=e112]
+          - link "Advertise" [ref=e115] [cursor=pointer]:
+            - /url: /campaignmanager/accounts/517969837/campaign-groups?businessId=7404539754668773386
+            - generic [ref=e116]: Advertise
+          - link "Test" [ref=e118] [cursor=pointer]:
+            - /url: /campaignmanager/accounts/517969837/experiments?businessId=7404539754668773386
+            - generic [ref=e119]: Test
+          - button "Measurement" [ref=e122] [cursor=pointer]:
+            - generic [ref=e123]:
+              - generic [ref=e125]: Measurement
+              - img [ref=e127]
+          - button "Data" [ref=e131] [cursor=pointer]:
+            - generic [ref=e132]:
+              - generic [ref=e134]: Data
+              - img [ref=e136]
+          - link "Recommendations Some new recommendations notifications" [ref=e139] [cursor=pointer]:
+            - /url: /campaignmanager/accounts/517969837/recommendations?businessId=7404539754668773386&campaignStatuses=%5B%22ACTIVE%22%5D
+            - generic [ref=e140]:
+              - text: Recommendations
+              - generic [ref=e143]: Some new recommendations notifications
+          - separator [ref=e145]
+          - link "Partnerships NEW" [ref=e147] [cursor=pointer]:
+            - /url: /campaignmanager/accounts/517969837/partnership?businessId=7404539754668773386
+            - generic [ref=e148]:
+              - text: Partnerships
+              - generic [ref=e149]: NEW
+          - button "Assets" [ref=e152] [cursor=pointer]:
+            - generic [ref=e153]:
+              - generic [ref=e155]: Assets
+              - img [ref=e157]
+          - separator [ref=e160]
+          - button "Account settings" [ref=e163] [cursor=pointer]:
+            - generic [ref=e164]:
+              - generic [ref=e166]: Account settings
+              - img [ref=e168]
+          - separator [ref=e171]
+          - link "Company page" [ref=e173] [cursor=pointer]:
+            - /url: https://www.linkedin.com/company/68059038
+            - generic [ref=e174]:
+              - generic [ref=e175]: Company page
+              - img [ref=e177]
+      - generic [ref=e179]:
+        - main [ref=e180]:
+          - generic [ref=e181]:
+            - tablist [ref=e184]:
+              - tab "Campaigns 11 total" [selected] [ref=e185] [cursor=pointer]:
+                - generic [ref=e186]:
+                  - heading "Campaigns" [level=1] [ref=e187]:
+                    - img [ref=e188]
+                    - text: Campaigns
+                  - paragraph [ref=e190]: 11 total
+              - tab "Ad sets 12 total" [ref=e191] [cursor=pointer]:
+                - generic [ref=e192]:
+                  - heading "Ad sets" [level=1] [ref=e193]:
+                    - img [ref=e194]
+                    - text: Ad sets
+                  - paragraph [ref=e196]: 12 total
+              - tab "Ads 49 total" [ref=e197] [cursor=pointer]:
+                - generic [ref=e198]:
+                  - heading "Ads" [level=1] [ref=e199]:
+                    - img [ref=e200]
+                    - text: Ads
+                  - paragraph [ref=e202]: 49 total
+            - generic [ref=e204]:
+              - generic [ref=e205]:
+                - generic [ref=e206]:
+                  - button "Dropdown to create an entity such as an account, campaign, or ad set" [ref=e207] [cursor=pointer]:
+                    - img [ref=e209]
+                    - generic [ref=e211]: Create
+                  - button "Bulk Actions to perform on this account" [ref=e213] [cursor=pointer]:
+                    - img [ref=e215]
+                    - generic [ref=e217]: Bulk actions
+                  - button "Delete a selected campaign" [disabled] [ref=e218]:
+                    - img [ref=e220]
+                    - generic [ref=e222]: Delete a selected campaign
+                - generic [ref=e223]:
+                  - link "Click to navigate to the Performance Chart page" [ref=e224] [cursor=pointer]:
+                    - /url: /campaignmanager/accounts/517969837/performance-chart?businessId=7404539754668773386&campaignGroupIds=%5B804891666%2C820190106%2C820500986%2C820540886%2C830008736%2C831002476%2C832016216%2C834413596%5D&campaignIds=%5B%5D&creativeIds=%5B%5D&dateRange=%7B%22startDate%22%3A%222%2F10%2F2026%22%2C%22endDate%22%3A%223%2F11%2F2026%22%7D&isChartingAll=true
+                    - generic [ref=e225]: Performance chart
+                  - link "Click to navigate to the Professional demographics page" [ref=e226] [cursor=pointer]:
+                    - /url: /campaignmanager/accounts/517969837/demographics?businessId=7404539754668773386&campaignGroupIds=%5B804891666%2C820190106%2C820500986%2C820540886%2C830008736%2C831002476%2C832016216%2C834413596%5D&campaignIds=%5B%5D&creativeIds=%5B%5D&dateRange=%7B%22startDate%22%3A%222%2F10%2F2026%22%2C%22endDate%22%3A%223%2F11%2F2026%22%7D&isChartingAll=true&pivot=MEMBER_JOB_FUNCTION
+                    - generic [ref=e227]: Professional demographics
+                  - button "Export" [ref=e228] [cursor=pointer]:
+                    - generic [ref=e229]: Export
+              - generic [ref=e230]:
+                - searchbox "Search by name or ID" [ref=e233]
+                - generic [ref=e234]:
+                  - button "Filters ( 2 )" [ref=e236] [cursor=pointer]:
+                    - img [ref=e238]
+                    - generic [ref=e241]:
+                      - generic [ref=e242]: Filters
+                      - text: (
+                      - strong [ref=e243]: "2"
+                      - text: )
+                  - 'button "Columns: Performance" [ref=e245] [cursor=pointer]':
+                    - img [ref=e247]
+                    - generic [ref=e250]:
+                      - generic [ref=e251]: "Columns:"
+                      - generic [ref=e252]: Performance
+                  - button "Breakdown" [ref=e254] [cursor=pointer]:
+                    - img [ref=e256]
+                    - generic [ref=e260]: Breakdown
+                  - generic [ref=e261]:
+                    - 'button "Time range: 2/10/2026 - 3/11/2026" [ref=e262] [cursor=pointer]':
+                      - generic [ref=e263]:
+                        - generic [ref=e264]: "Time range:"
+                        - generic [ref=e265]:
+                          - time [ref=e267]: 2/10/2026 - 3/11/2026
+                          - img [ref=e268]
+                    - 'button "Compare: Previous period" [ref=e270] [cursor=pointer]':
+                      - img [ref=e272]
+                      - generic [ref=e275]:
+                        - text: "Compare:"
+                        - generic [ref=e276]: Previous period
+                    - 'button "Period range: 1/11/2026 - 2/9/2026" [ref=e277] [cursor=pointer]':
+                      - generic [ref=e278]:
+                        - generic [ref=e279]: "Period range:"
+                        - generic [ref=e280]:
+                          - time [ref=e282]: 1/11/2026 - 2/9/2026
+                          - img [ref=e283]
+              - generic [ref=e289]:
+                - table "List of campaigns in the table" [ref=e291]:
+                  - caption [ref=e292]: List of campaigns in the table
+                  - rowgroup [ref=e293]:
+                    - row "row selection Campaign name Campaign name, sorted in natural order Off/On Status Status, sorted in natural order Spent Spent, sorted in natural order Impressions Impressions, sorted in natural order Clicks Clicks, sorted in natural order Average CTR Average CTR, sorted in natural order Bid Bid, sorted in natural order Average CPM Average CPM, sorted in natural order Average CPC Average CPC, sorted in natural order Conversions Conversions, sorted in natural order Cost per conversion Cost per conversion, sorted in natural order Leads Leads, sorted in natural order Cost per lead Cost per lead, sorted in natural order Event registrations Event registrations, sorted in natural order Leads (Work email) Leads (Work email), sorted in natural order Cost per lead (Work email) Cost per lead (Work email), sorted in natural order" [ref=e294]:
+                      - columnheader "row selection" [ref=e295]:
+                        - generic [ref=e296]: row selection
+                      - columnheader "Campaign name Campaign name, sorted in natural order" [ref=e297]:
+                        - generic [ref=e298]:
+                          - generic [ref=e299]: Campaign name
+                          - button "Campaign name, sorted in natural order" [ref=e300] [cursor=pointer]:
+                            - img [ref=e302]
+                      - columnheader "Off/On" [ref=e305]:
+                        - button "Off/On" [ref=e307] [cursor=pointer]:
+                          - generic [ref=e309]: Off/On
+                      - columnheader "Status Status, sorted in natural order" [ref=e310]:
+                        - generic [ref=e311]:
+                          - button "Status" [ref=e312] [cursor=pointer]:
+                            - generic [ref=e314]: Status
+                          - button "Status, sorted in natural order" [ref=e315] [cursor=pointer]:
+                            - img [ref=e317]
+                      - columnheader "Spent Spent, sorted in natural order" [ref=e320]:
+                        - generic [ref=e321]:
+                          - button "Spent" [ref=e322] [cursor=pointer]:
+                            - generic [ref=e324]: Spent
+                          - button "Spent, sorted in natural order" [ref=e325] [cursor=pointer]:
+                            - img [ref=e327]
+                      - columnheader "Impressions Impressions, sorted in natural order" [ref=e330]:
+                        - generic [ref=e331]:
+                          - button "Impressions" [ref=e332] [cursor=pointer]:
+                            - generic [ref=e334]: Impressions
+                          - button "Impressions, sorted in natural order" [ref=e335] [cursor=pointer]:
+                            - img [ref=e337]
+                      - columnheader "Clicks Clicks, sorted in natural order" [ref=e340]:
+                        - generic [ref=e341]:
+                          - button "Clicks" [ref=e342] [cursor=pointer]:
+                            - generic [ref=e344]: Clicks
+                          - button "Clicks, sorted in natural order" [ref=e345] [cursor=pointer]:
+                            - img [ref=e347]
+                      - columnheader "Average CTR Average CTR, sorted in natural order" [ref=e350]:
+                        - generic [ref=e351]:
+                          - button "Average CTR" [ref=e352] [cursor=pointer]:
+                            - generic [ref=e354]: Average CTR
+                          - button "Average CTR, sorted in natural order" [ref=e355] [cursor=pointer]:
+                            - img [ref=e357]
+                      - columnheader "Bid Bid, sorted in natural order" [ref=e360]:
+                        - generic [ref=e361]:
+                          - generic [ref=e362]: Bid
+                          - button "Bid, sorted in natural order" [ref=e363] [cursor=pointer]:
+                            - img [ref=e365]
+                      - columnheader "Average CPM Average CPM, sorted in natural order" [ref=e368]:
+                        - generic [ref=e369]:
+                          - button "Average CPM" [ref=e370] [cursor=pointer]:
+                            - generic [ref=e372]: Average CPM
+                          - button "Average CPM, sorted in natural order" [ref=e373] [cursor=pointer]:
+                            - img [ref=e375]
+                      - columnheader "Average CPC Average CPC, sorted in natural order" [ref=e378]:
+                        - generic [ref=e379]:
+                          - button "Average CPC" [ref=e380] [cursor=pointer]:
+                            - generic [ref=e382]: Average CPC
+                          - button "Average CPC, sorted in natural order" [ref=e383] [cursor=pointer]:
+                            - img [ref=e385]
+                      - columnheader "Conversions Conversions, sorted in natural order" [ref=e388]:
+                        - generic [ref=e389]:
+                          - button "Conversions" [ref=e390] [cursor=pointer]:
+                            - generic [ref=e392]: Conversions
+                          - button "Conversions, sorted in natural order" [ref=e393] [cursor=pointer]:
+                            - img [ref=e395]
+                      - columnheader "Cost per conversion Cost per conversion, sorted in natural order" [ref=e398]:
+                        - generic [ref=e399]:
+                          - button "Cost per conversion" [ref=e400] [cursor=pointer]:
+                            - generic [ref=e402]: Cost per conversion
+                          - button "Cost per conversion, sorted in natural order" [ref=e403] [cursor=pointer]:
+                            - img [ref=e405]
+                      - columnheader "Leads Leads, sorted in natural order" [ref=e408]:
+                        - generic [ref=e409]:
+                          - button "Leads" [ref=e410] [cursor=pointer]:
+                            - generic [ref=e412]: Leads
+                          - button "Leads, sorted in natural order" [ref=e413] [cursor=pointer]:
+                            - img [ref=e415]
+                      - columnheader "Cost per lead Cost per lead, sorted in natural order" [ref=e418]:
+                        - generic [ref=e419]:
+                          - button "Cost per lead" [ref=e420] [cursor=pointer]:
+                            - generic [ref=e422]: Cost per lead
+                          - button "Cost per lead, sorted in natural order" [ref=e423] [cursor=pointer]:
+                            - img [ref=e425]
+                      - columnheader "Event registrations Event registrations, sorted in natural order" [ref=e428]:
+                        - generic [ref=e429]:
+                          - button "Event registrations" [ref=e430] [cursor=pointer]:
+                            - generic [ref=e432]: Event registrations
+                          - button "Event registrations, sorted in natural order" [ref=e433] [cursor=pointer]:
+                            - img [ref=e435]
+                      - columnheader "Leads (Work email) Leads (Work email), sorted in natural order" [ref=e438]:
+                        - generic [ref=e439]:
+                          - button "Leads (Work email)" [ref=e440] [cursor=pointer]:
+                            - generic [ref=e442]: Leads (Work email)
+                          - button "Leads (Work email), sorted in natural order" [ref=e443] [cursor=pointer]:
+                            - img [ref=e445]
+                      - columnheader "Cost per lead (Work email) Cost per lead (Work email), sorted in natural order" [ref=e448]:
+                        - generic [ref=e449]:
+                          - button "Cost per lead (Work email)" [ref=e450] [cursor=pointer]:
+                            - generic [ref=e452]: Cost per lead (Work email)
+                          - button "Cost per lead (Work email), sorted in natural order" [ref=e453] [cursor=pointer]:
+                            - img [ref=e455]
+                    - row "Select all rows - - - - - - - - - - - - - - - - -" [ref=e458]:
+                      - columnheader "Select all rows" [ref=e459]:
+                        - generic [ref=e460]:
+                          - checkbox "Select all rows"
+                          - generic [ref=e462]: Select all rows
+                      - columnheader "-" [ref=e463]:
+                        - generic [ref=e464]: "-"
+                      - columnheader "-" [ref=e465]
+                      - columnheader "-" [ref=e466]
+                      - columnheader "-" [ref=e467]:
+                        - generic [ref=e468]: "-"
+                      - columnheader "-" [ref=e469]:
+                        - generic [ref=e470]: "-"
+                      - columnheader "-" [ref=e471]:
+                        - generic [ref=e472]: "-"
+                      - columnheader "-" [ref=e473]:
+                        - generic [ref=e474]: "-"
+                      - columnheader "-" [ref=e475]
+                      - columnheader "-" [ref=e476]:
+                        - generic [ref=e477]: "-"
+                      - columnheader "-" [ref=e478]:
+                        - generic [ref=e479]: "-"
+                      - columnheader "-" [ref=e480]:
+                        - generic [ref=e481]: "-"
+                      - columnheader "-" [ref=e482]:
+                        - generic [ref=e483]: "-"
+                      - columnheader "-" [ref=e484]:
+                        - generic [ref=e485]: "-"
+                      - columnheader "-" [ref=e486]:
+                        - generic [ref=e487]: "-"
+                      - columnheader "-" [ref=e488]:
+                        - generic [ref=e489]: "-"
+                      - columnheader "-" [ref=e490]:
+                        - generic [ref=e491]: "-"
+                      - columnheader "-" [ref=e492]:
+                        - generic [ref=e493]: "-"
+                  - rowgroup [ref=e494]:
+                    - 'row "Select data row 1 CCM Webinar ID: 804891666 • Website Visits Toggle on or off the campaign status Paused - - - - Maximum delivery - - - - - - - - -" [ref=e495]':
+                      - cell "Select data row 1" [ref=e496]:
+                        - generic [ref=e497]:
+                          - checkbox "Select data row 1"
+                          - generic [ref=e499]: Select data row 1
+                      - 'cell "CCM Webinar ID: 804891666 • Website Visits" [ref=e500]':
+                        - generic [ref=e503]:
+                          - term [ref=e504]:
+                            - link "CCM Webinar" [ref=e505] [cursor=pointer]:
+                              - /url: /campaignmanager/accounts/517969837/campaigns?businessId=7404539754668773386&campaignGroupIds=%5B804891666%5D
+                          - definition [ref=e506]: "ID: 804891666 • Website Visits"
+                          - definition
+                      - cell "Toggle on or off the campaign status" [ref=e507]:
+                        - generic [ref=e509] [cursor=pointer]:
+                          - generic [ref=e510]: "Off"
+                          - switch "Toggle on or off the campaign status"
+                      - cell "Paused" [ref=e511]:
+                        - generic [ref=e513]: Paused
+                      - cell "-" [ref=e514]:
+                        - generic [ref=e515]: "-"
+                      - cell "-" [ref=e516]:
+                        - generic [ref=e517]: "-"
+                      - cell "-" [ref=e518]:
+                        - generic [ref=e519]: "-"
+                      - cell "-" [ref=e520]:
+                        - generic [ref=e521]: "-"
+                      - cell "Maximum delivery" [ref=e522]:
+                        - generic [ref=e523]: Maximum delivery
+                      - cell "-" [ref=e524]:
+                        - generic [ref=e525]: "-"
+                      - cell "-" [ref=e526]:
+                        - generic [ref=e527]: "-"
+                      - cell "-" [ref=e528]:
+                        - generic [ref=e529]: "-"
+                      - cell "-" [ref=e530]:
+                        - generic [ref=e531]: "-"
+                      - cell "-" [ref=e532]:
+                        - generic [ref=e533]: "-"
+                      - cell "-" [ref=e534]:
+                        - generic [ref=e535]: "-"
+                      - cell "-" [ref=e536]:
+                        - generic [ref=e537]: "-"
+                      - cell "-" [ref=e538]:
+                        - generic [ref=e539]: "-"
+                      - cell "-" [ref=e540]:
+                        - generic [ref=e541]: "-"
+                    - 'row "Select data row 2 Lending Video Audience ID: 820190106 • Video Views Toggle on or off the campaign status Active - - - - - - - - - - - - - -" [ref=e542]':
+                      - cell "Select data row 2" [ref=e543]:
+                        - generic [ref=e544]:
+                          - checkbox "Select data row 2"
+                          - generic [ref=e546]: Select data row 2
+                      - 'cell "Lending Video Audience ID: 820190106 • Video Views" [ref=e547]':
+                        - generic [ref=e550]:
+                          - term [ref=e551]:
+                            - link "Lending Video Audience" [ref=e552] [cursor=pointer]:
+                              - /url: /campaignmanager/accounts/517969837/campaigns?businessId=7404539754668773386&campaignGroupIds=%5B820190106%5D
+                          - definition [ref=e553]: "ID: 820190106 • Video Views"
+                          - definition
+                      - cell "Toggle on or off the campaign status" [ref=e554]:
+                        - generic [ref=e556] [cursor=pointer]:
+                          - generic [ref=e557]: "On"
+                          - switch "Toggle on or off the campaign status" [checked]
+                      - cell "Active" [ref=e558]:
+                        - generic [ref=e560]: Active
+                      - cell "-" [ref=e561]:
+                        - generic [ref=e562]: "-"
+                      - cell "-" [ref=e563]:
+                        - generic [ref=e564]: "-"
+                      - cell "-" [ref=e565]:
+                        - generic [ref=e566]: "-"
+                      - cell "-" [ref=e567]:
+                        - generic [ref=e568]: "-"
+                      - cell "-" [ref=e569]:
+                        - generic [ref=e570]: "-"
+                      - cell "-" [ref=e571]:
+                        - generic [ref=e572]: "-"
+                      - cell "-" [ref=e573]:
+                        - generic [ref=e574]: "-"
+                      - cell "-" [ref=e575]:
+                        - generic [ref=e576]: "-"
+                      - cell "-" [ref=e577]:
+                        - generic [ref=e578]: "-"
+                      - cell "-" [ref=e579]:
+                        - generic [ref=e580]: "-"
+                      - cell "-" [ref=e581]:
+                        - generic [ref=e582]: "-"
+                      - cell "-" [ref=e583]:
+                        - generic [ref=e584]: "-"
+                      - cell "-" [ref=e585]:
+                        - generic [ref=e586]: "-"
+                      - cell "-" [ref=e587]:
+                        - generic [ref=e588]: "-"
+                    - 'row "Select data row 3 PHM Case Study Traffic - Lending ID: 820500986 • Website Visits Toggle on or off the campaign status Paused - - - - - - - - - - - - - -" [ref=e589]':
+                      - cell "Select data row 3" [ref=e590]:
+                        - generic [ref=e591]:
+                          - checkbox "Select data row 3"
+                          - generic [ref=e593]: Select data row 3
+                      - 'cell "PHM Case Study Traffic - Lending ID: 820500986 • Website Visits" [ref=e594]':
+                        - generic [ref=e597]:
+                          - term [ref=e598]:
+                            - link "PHM Case Study Traffic - Lending" [ref=e599] [cursor=pointer]:
+                              - /url: /campaignmanager/accounts/517969837/campaigns?businessId=7404539754668773386&campaignGroupIds=%5B820500986%5D
+                          - definition [ref=e600]: "ID: 820500986 • Website Visits"
+                          - definition
+                      - cell "Toggle on or off the campaign status" [ref=e601]:
+                        - generic [ref=e603] [cursor=pointer]:
+                          - generic [ref=e604]: "Off"
+                          - switch "Toggle on or off the campaign status"
+                      - cell "Paused" [ref=e605]:
+                        - generic [ref=e607]: Paused
+                      - cell "-" [ref=e608]:
+                        - generic [ref=e609]: "-"
+                      - cell "-" [ref=e610]:
+                        - generic [ref=e611]: "-"
+                      - cell "-" [ref=e612]:
+                        - generic [ref=e613]: "-"
+                      - cell "-" [ref=e614]:
+                        - generic [ref=e615]: "-"
+                      - cell "-" [ref=e616]:
+                        - generic [ref=e617]: "-"
+                      - cell "-" [ref=e618]:
+                        - generic [ref=e619]: "-"
+                      - cell "-" [ref=e620]:
+                        - generic [ref=e621]: "-"
+                      - cell "-" [ref=e622]:
+                        - generic [ref=e623]: "-"
+                      - cell "-" [ref=e624]:
+                        - generic [ref=e625]: "-"
+                      - cell "-" [ref=e626]:
+                        - generic [ref=e627]: "-"
+                      - cell "-" [ref=e628]:
+                        - generic [ref=e629]: "-"
+                      - cell "-" [ref=e630]:
+                        - generic [ref=e631]: "-"
+                      - cell "-" [ref=e632]:
+                        - generic [ref=e633]: "-"
+                      - cell "-" [ref=e634]:
+                        - generic [ref=e635]: "-"
+                    - 'row "Select data row 4 Lead Gen - Lending ID: 820540886 • Lead Generation Toggle on or off the campaign status Paused - - - - Cost cap - - - - - - - - -" [ref=e636]':
+                      - cell "Select data row 4" [ref=e637]:
+                        - generic [ref=e638]:
+                          - checkbox "Select data row 4"
+                          - generic [ref=e640]: Select data row 4
+                      - 'cell "Lead Gen - Lending ID: 820540886 • Lead Generation" [ref=e641]':
+                        - generic [ref=e644]:
+                          - term [ref=e645]:
+                            - link "Lead Gen - Lending" [ref=e646] [cursor=pointer]:
+                              - /url: /campaignmanager/accounts/517969837/campaigns?businessId=7404539754668773386&campaignGroupIds=%5B820540886%5D
+                          - definition [ref=e647]: "ID: 820540886 • Lead Generation"
+                          - definition
+                      - cell "Toggle on or off the campaign status" [ref=e648]:
+                        - generic [ref=e650] [cursor=pointer]:
+                          - generic [ref=e651]: "Off"
+                          - switch "Toggle on or off the campaign status"
+                      - cell "Paused" [ref=e652]:
+                        - generic [ref=e654]: Paused
+                      - cell "-" [ref=e655]:
+                        - generic [ref=e656]: "-"
+                      - cell "-" [ref=e657]:
+                        - generic [ref=e658]: "-"
+                      - cell "-" [ref=e659]:
+                        - generic [ref=e660]: "-"
+                      - cell "-" [ref=e661]:
+                        - generic [ref=e662]: "-"
+                      - cell "Cost cap" [ref=e663]:
+                        - generic [ref=e664]: Cost cap
+                      - cell "-" [ref=e665]:
+                        - generic [ref=e666]: "-"
+                      - cell "-" [ref=e667]:
+                        - generic [ref=e668]: "-"
+                      - cell "-" [ref=e669]:
+                        - generic [ref=e670]: "-"
+                      - cell "-" [ref=e671]:
+                        - generic [ref=e672]: "-"
+                      - cell "-" [ref=e673]:
+                        - generic [ref=e674]: "-"
+                      - cell "-" [ref=e675]:
+                        - generic [ref=e676]: "-"
+                      - cell "-" [ref=e677]:
+                        - generic [ref=e678]: "-"
+                      - cell "-" [ref=e679]:
+                        - generic [ref=e680]: "-"
+                      - cell "-" [ref=e681]:
+                        - generic [ref=e682]: "-"
+                    - 'row "Select data row 5 CCM Case Study Traffic - Lending ID: 830008736 • Website Visits Toggle on or off the campaign status Paused - - - - - - - - - - - - - -" [ref=e683]':
+                      - cell "Select data row 5" [ref=e684]:
+                        - generic [ref=e685]:
+                          - checkbox "Select data row 5"
+                          - generic [ref=e687]: Select data row 5
+                      - 'cell "CCM Case Study Traffic - Lending ID: 830008736 • Website Visits" [ref=e688]':
+                        - generic [ref=e691]:
+                          - term [ref=e692]:
+                            - link "CCM Case Study Traffic - Lending" [ref=e693] [cursor=pointer]:
+                              - /url: /campaignmanager/accounts/517969837/campaigns?businessId=7404539754668773386&campaignGroupIds=%5B830008736%5D
+                          - definition [ref=e694]: "ID: 830008736 • Website Visits"
+                          - definition
+                      - cell "Toggle on or off the campaign status" [ref=e695]:
+                        - generic [ref=e697] [cursor=pointer]:
+                          - generic [ref=e698]: "Off"
+                          - switch "Toggle on or off the campaign status"
+                      - cell "Paused" [ref=e699]:
+                        - generic [ref=e701]: Paused
+                      - cell "-" [ref=e702]:
+                        - generic [ref=e703]: "-"
+                      - cell "-" [ref=e704]:
+                        - generic [ref=e705]: "-"
+                      - cell "-" [ref=e706]:
+                        - generic [ref=e707]: "-"
+                      - cell "-" [ref=e708]:
+                        - generic [ref=e709]: "-"
+                      - cell "-" [ref=e710]:
+                        - generic [ref=e711]: "-"
+                      - cell "-" [ref=e712]:
+                        - generic [ref=e713]: "-"
+                      - cell "-" [ref=e714]:
+                        - generic [ref=e715]: "-"
+                      - cell "-" [ref=e716]:
+                        - generic [ref=e717]: "-"
+                      - cell "-" [ref=e718]:
+                        - generic [ref=e719]: "-"
+                      - cell "-" [ref=e720]:
+                        - generic [ref=e721]: "-"
+                      - cell "-" [ref=e722]:
+                        - generic [ref=e723]: "-"
+                      - cell "-" [ref=e724]:
+                        - generic [ref=e725]: "-"
+                      - cell "-" [ref=e726]:
+                        - generic [ref=e727]: "-"
+                      - cell "-" [ref=e728]:
+                        - generic [ref=e729]: "-"
+                    - 'row "Select data row 6 FCM Case Study Traffic - Lending ID: 831002476 • Website Visits Toggle on or off the campaign status Paused - - - - - - - - - - - - - -" [ref=e730]':
+                      - cell "Select data row 6" [ref=e731]:
+                        - generic [ref=e732]:
+                          - checkbox "Select data row 6"
+                          - generic [ref=e734]: Select data row 6
+                      - 'cell "FCM Case Study Traffic - Lending ID: 831002476 • Website Visits" [ref=e735]':
+                        - generic [ref=e738]:
+                          - term [ref=e739]:
+                            - link "FCM Case Study Traffic - Lending" [ref=e740] [cursor=pointer]:
+                              - /url: /campaignmanager/accounts/517969837/campaigns?businessId=7404539754668773386&campaignGroupIds=%5B831002476%5D
+                          - definition [ref=e741]: "ID: 831002476 • Website Visits"
+                          - definition
+                      - cell "Toggle on or off the campaign status" [ref=e742]:
+                        - generic [ref=e744] [cursor=pointer]:
+                          - generic [ref=e745]: "Off"
+                          - switch "Toggle on or off the campaign status"
+                      - cell "Paused" [ref=e746]:
+                        - generic [ref=e748]: Paused
+                      - cell "-" [ref=e749]:
+                        - generic [ref=e750]: "-"
+                      - cell "-" [ref=e751]:
+                        - generic [ref=e752]: "-"
+                      - cell "-" [ref=e753]:
+                        - generic [ref=e754]: "-"
+                      - cell "-" [ref=e755]:
+                        - generic [ref=e756]: "-"
+                      - cell "-" [ref=e757]:
+                        - generic [ref=e758]: "-"
+                      - cell "-" [ref=e759]:
+                        - generic [ref=e760]: "-"
+                      - cell "-" [ref=e761]:
+                        - generic [ref=e762]: "-"
+                      - cell "-" [ref=e763]:
+                        - generic [ref=e764]: "-"
+                      - cell "-" [ref=e765]:
+                        - generic [ref=e766]: "-"
+                      - cell "-" [ref=e767]:
+                        - generic [ref=e768]: "-"
+                      - cell "-" [ref=e769]:
+                        - generic [ref=e770]: "-"
+                      - cell "-" [ref=e771]:
+                        - generic [ref=e772]: "-"
+                      - cell "-" [ref=e773]:
+                        - generic [ref=e774]: "-"
+                      - cell "-" [ref=e775]:
+                        - generic [ref=e776]: "-"
+                    - 'row "Select data row 7 CCM Case Study Lead Gen - Lending ID: 832016216 • Lead Generation Toggle on or off the campaign status Paused - - - - - - - - - - - - - -" [ref=e777]':
+                      - cell "Select data row 7" [ref=e778]:
+                        - generic [ref=e779]:
+                          - checkbox "Select data row 7"
+                          - generic [ref=e781]: Select data row 7
+                      - 'cell "CCM Case Study Lead Gen - Lending ID: 832016216 • Lead Generation" [ref=e782]':
+                        - generic [ref=e785]:
+                          - term [ref=e786]:
+                            - link "CCM Case Study Lead Gen - Lending" [ref=e787] [cursor=pointer]:
+                              - /url: /campaignmanager/accounts/517969837/campaigns?businessId=7404539754668773386&campaignGroupIds=%5B832016216%5D
+                          - definition [ref=e788]: "ID: 832016216 • Lead Generation"
+                          - definition
+                      - cell "Toggle on or off the campaign status" [ref=e789]:
+                        - generic [ref=e791] [cursor=pointer]:
+                          - generic [ref=e792]: "Off"
+                          - switch "Toggle on or off the campaign status"
+                      - cell "Paused" [ref=e793]:
+                        - generic [ref=e795]: Paused
+                      - cell "-" [ref=e796]:
+                        - generic [ref=e797]: "-"
+                      - cell "-" [ref=e798]:
+                        - generic [ref=e799]: "-"
+                      - cell "-" [ref=e800]:
+                        - generic [ref=e801]: "-"
+                      - cell "-" [ref=e802]:
+                        - generic [ref=e803]: "-"
+                      - cell "-" [ref=e804]:
+                        - generic [ref=e805]: "-"
+                      - cell "-" [ref=e806]:
+                        - generic [ref=e807]: "-"
+                      - cell "-" [ref=e808]:
+                        - generic [ref=e809]: "-"
+                      - cell "-" [ref=e810]:
+                        - generic [ref=e811]: "-"
+                      - cell "-" [ref=e812]:
+                        - generic [ref=e813]: "-"
+                      - cell "-" [ref=e814]:
+                        - generic [ref=e815]: "-"
+                      - cell "-" [ref=e816]:
+                        - generic [ref=e817]: "-"
+                      - cell "-" [ref=e818]:
+                        - generic [ref=e819]: "-"
+                      - cell "-" [ref=e820]:
+                        - generic [ref=e821]: "-"
+                      - cell "-" [ref=e822]:
+                        - generic [ref=e823]: "-"
+                    - 'row "Select data row 8 FCM Case Study Lead Gen - Lending ID: 834413596 • Lead Generation Toggle on or off the campaign status Paused - - - - - - - - - - - - - -" [ref=e824]':
+                      - cell "Select data row 8" [ref=e825]:
+                        - generic [ref=e826]:
+                          - checkbox "Select data row 8"
+                          - generic [ref=e828]: Select data row 8
+                      - 'cell "FCM Case Study Lead Gen - Lending ID: 834413596 • Lead Generation" [ref=e829]':
+                        - generic [ref=e832]:
+                          - term [ref=e833]:
+                            - link "FCM Case Study Lead Gen - Lending" [ref=e834] [cursor=pointer]:
+                              - /url: /campaignmanager/accounts/517969837/campaigns?businessId=7404539754668773386&campaignGroupIds=%5B834413596%5D
+                          - definition [ref=e835]: "ID: 834413596 • Lead Generation"
+                          - definition
+                      - cell "Toggle on or off the campaign status" [ref=e836]:
+                        - generic [ref=e838] [cursor=pointer]:
+                          - generic [ref=e839]: "Off"
+                          - switch "Toggle on or off the campaign status"
+                      - cell "Paused" [ref=e840]:
+                        - generic [ref=e842]: Paused
+                      - cell "-" [ref=e843]:
+                        - generic [ref=e844]: "-"
+                      - cell "-" [ref=e845]:
+                        - generic [ref=e846]: "-"
+                      - cell "-" [ref=e847]:
+                        - generic [ref=e848]: "-"
+                      - cell "-" [ref=e849]:
+                        - generic [ref=e850]: "-"
+                      - cell "-" [ref=e851]:
+                        - generic [ref=e852]: "-"
+                      - cell "-" [ref=e853]:
+                        - generic [ref=e854]: "-"
+                      - cell "-" [ref=e855]:
+                        - generic [ref=e856]: "-"
+                      - cell "-" [ref=e857]:
+                        - generic [ref=e858]: "-"
+                      - cell "-" [ref=e859]:
+                        - generic [ref=e860]: "-"
+                      - cell "-" [ref=e861]:
+                        - generic [ref=e862]: "-"
+                      - cell "-" [ref=e863]:
+                        - generic [ref=e864]: "-"
+                      - cell "-" [ref=e865]:
+                        - generic [ref=e866]: "-"
+                      - cell "-" [ref=e867]:
+                        - generic [ref=e868]: "-"
+                      - cell "-" [ref=e869]:
+                        - generic [ref=e870]: "-"
+                - generic [ref=e872]:
+                  - navigation [ref=e874]:
+                    - generic [ref=e875]:
+                      - combobox [ref=e877] [cursor=pointer]
+                      - list [ref=e878]:
+                        - listitem [ref=e879]:
+                          - button "Page 1" [ref=e880] [cursor=pointer]: "1"
+                  - button "Show 15 per page" [ref=e881] [cursor=pointer]:
+                    - img [ref=e883]
+                    - generic [ref=e885]: Show 15 per page
+        - contentinfo [ref=e886]:
+          - list [ref=e888]:
+            - listitem [ref=e889]:
+              - link "Help center" [ref=e890] [cursor=pointer]:
+                - /url: https://www.linkedin.com/help/lms
+            - listitem [ref=e891]:
+              - link "Metric restatements" [ref=e892] [cursor=pointer]:
+                - /url: /campaignmanager/accounts/517969837/metric-restatements?businessId=7404539754668773386
+            - listitem [ref=e893]:
+              - link "Certified partners" [ref=e894] [cursor=pointer]:
+                - /url: https://business.linkedin.com/marketing-solutions/certified-marketing-partners/ads-partners
+            - listitem [ref=e895]:
+              - link "Accessibility" [ref=e896] [cursor=pointer]:
+                - /url: https://www.linkedin.com/accessibility
+            - listitem [ref=e897]:
+              - button "Privacy & terms" [ref=e898] [cursor=pointer]:
+                - img [ref=e900]
+                - generic [ref=e902]: Privacy & terms
+          - generic [ref=e903]:
+            - img [ref=e904]:
+              - img [ref=e905]
+            - generic [ref=e907]: LinkedIn Corporation © 2026

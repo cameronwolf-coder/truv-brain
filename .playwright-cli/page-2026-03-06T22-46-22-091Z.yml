@@ -1,0 +1,154 @@
+- generic [ref=e1]:
+  - iframe [ref=e188]:
+    - banner [ref=f63e6]:
+      - generic [ref=f63e7]:
+        - heading "You’ve used all your monthly credits" [level=5] [ref=f63e8]
+        - generic [ref=f63e9]:
+          - generic [ref=f63e12]: Usage is paused until your credits reset on Mar 25, 2026 or you add more.
+          - link "Add credits" [ref=f63e13] [cursor=pointer]:
+            - /url: https://app.hubspot.com/api/notification-station/general/v1/notifications/cta/ad1945e2-7ce6-4b56-b932-753c0738e0c8?notificationPortalId=19933594
+            - generic [ref=f63e14]: Add credits
+      - button "Close" [ref=f63e15] [cursor=pointer]:
+        - img [ref=f63e18]
+  - generic:
+    - iframe
+  - generic [ref=e117]:
+    - generic [ref=e389]:
+      - region "Page Section" [ref=e390]:
+        - group [ref=e392]:
+          - generic [ref=e393]:
+            - button "Exit" [ref=e395] [cursor=pointer]:
+              - generic [ref=e397]: Exit
+            - 'heading "Event Registrants: March Insider, Public Sector" [level=1] [ref=e483]':
+              - generic [ref=e402]:
+                - textbox "Segment name" [ref=e404]:
+                  - /placeholder: Name your new segment
+                  - text: "Event Registrants: March Insider, Public Sector"
+                - generic:
+                  - img
+            - generic [ref=e405]:
+              - button "Generate filters with AI" [ref=e406] [cursor=pointer]:
+                - generic [ref=e407]:
+                  - img [ref=e408]
+                  - generic [ref=e410]: Generate filters with AI
+              - button "Next" [ref=e411] [cursor=pointer]:
+                - generic [ref=e413]: Next
+      - region "Page Section" [ref=e416]:
+        - main [ref=e419]:
+          - generic [ref=e425]:
+            - generic [ref=e427]:
+              - generic [ref=e429]:
+                - generic [ref=e430]:
+                  - paragraph [ref=e431]:
+                    - generic [ref=e432]:
+                      - generic [ref=e433]: Include
+                      - generic [ref=e434]:
+                        - generic [ref=e439]: Contacts
+                        - button "Change object" [ref=e440] [cursor=pointer]:
+                          - generic [ref=e442]:
+                            - img [ref=e443]
+                            - generic [ref=e445]: Change object
+                  - generic [ref=e446]:
+                    - generic [ref=e448]: Test matches
+                    - generic [ref=e449]:
+                      - checkbox "Test matches OFF" [disabled] [ref=e451]
+                      - generic [ref=e452]: "OFF"
+                - generic [ref=e461]:
+                  - paragraph [ref=e462]: This segment doesn't have any filters
+                  - button "Add filter" [ref=e463] [cursor=pointer]:
+                    - generic [ref=e464]:
+                      - img [ref=e465]
+                      - generic [ref=e467]: Add filter
+                  - generic [ref=e490]:
+                    - generic [ref=e492]:
+                      - generic [ref=e493]:
+                        - generic [ref=e494]: "Viewing:"
+                        - button "Events (associated)" [ref=e1342] [cursor=pointer]:
+                          - listitem [ref=e1343]:
+                            - option "Events (associated)" [ref=e1344]:
+                              - generic [ref=e1346]: Events (associated)
+                      - generic [ref=e1347]:
+                        - button "Properties" [pressed] [ref=e1349] [cursor=pointer]:
+                          - generic [ref=e1353]: Properties
+                        - button "Events" [ref=e1355] [cursor=pointer]:
+                          - generic [ref=e1359]: Events
+                        - button "Memberships" [ref=e1361] [cursor=pointer]:
+                          - generic [ref=e1365]: Memberships
+                      - generic [ref=e1367]:
+                        - banner [ref=e1368]:
+                          - generic [ref=e1373]:
+                            - searchbox "Select a filter category" [active] [ref=e1374]
+                            - generic:
+                              - generic:
+                                - img
+                          - generic [ref=e1376]:
+                            - generic [ref=e1377]:
+                              - img [ref=e1380]
+                              - button "All field types" [ref=e1383] [cursor=pointer]:
+                                - paragraph [ref=e1387]: All field types
+                            - generic [ref=e1389]:
+                              - img [ref=e1392]
+                              - button "Default (categories)" [ref=e1395] [cursor=pointer]:
+                                - paragraph [ref=e1399]:
+                                  - generic [ref=e1402]: Default (categories)
+                        - grid "grid" [ref=e1407]:
+                          - rowgroup [ref=e1408]:
+                            - generic [ref=e1412]: Event Information
+                            - button "Cost Per Attendee" [ref=e1415] [cursor=pointer]:
+                              - generic [ref=e1416]:
+                                - img [ref=e1419]
+                                - generic [ref=e1422]: Cost Per Attendee
+                            - button "Created by user ID" [ref=e1425] [cursor=pointer]:
+                              - generic [ref=e1426]:
+                                - img [ref=e1429]
+                                - generic [ref=e1433]: Created by user ID
+                                - img [ref=e1436]
+                            - button "Event Budget" [ref=e1440] [cursor=pointer]:
+                              - generic [ref=e1441]:
+                                - img [ref=e1444]
+                                - generic [ref=e1447]: Event Budget
+                            - button "Event End Date" [ref=e1450] [cursor=pointer]:
+                              - generic [ref=e1451]:
+                                - img [ref=e1454]
+                                - generic [ref=e1463]: Event End Date
+                            - button "Event Location" [ref=e1466] [cursor=pointer]:
+                              - generic [ref=e1467]:
+                                - img [ref=e1470]
+                                - generic [ref=e1473]: Event Location
+                            - button "Event Name" [ref=e1476] [cursor=pointer]:
+                              - generic [ref=e1477]:
+                                - img [ref=e1480]
+                                - generic [ref=e1483]: Event Name
+                            - button "Event Start Date" [ref=e1486] [cursor=pointer]:
+                              - generic [ref=e1487]:
+                                - img [ref=e1490]
+                                - generic [ref=e1499]: Event Start Date
+                            - button "Event Status" [ref=e1502] [cursor=pointer]:
+                              - generic [ref=e1503]:
+                                - img [ref=e1506]
+                                - generic [ref=e1510]: Event Status
+                            - button "Event Type" [ref=e1513] [cursor=pointer]:
+                              - generic [ref=e1514]:
+                                - img [ref=e1517]
+                                - generic [ref=e1521]: Event Type
+                            - button "Event URL" [ref=e1524] [cursor=pointer]:
+                              - generic [ref=e1525]:
+                                - img [ref=e1528]
+                                - generic [ref=e1531]: Event URL
+                            - button "Event Vertical" [ref=e1534] [cursor=pointer]:
+                              - generic [ref=e1535]:
+                                - img [ref=e1538]
+                                - generic [ref=e1542]: Event Vertical
+                            - button "Linear Project URL" [ref=e1545] [cursor=pointer]:
+                              - generic [ref=e1546]:
+                                - img [ref=e1549]
+                                - generic [ref=e1552]: Linear Project URL
+                    - img
+              - button [ref=e470] [cursor=pointer]:
+                - img [ref=e472]
+            - generic [ref=e477]:
+              - generic [ref=e478]:
+                - heading "Add filters to start building your segment" [level=4] [ref=e479]
+                - text: Your filtered results will appear here.
+              - img "contacts illustration" [ref=e482]
+    - complementary

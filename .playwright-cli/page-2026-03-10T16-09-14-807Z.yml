@@ -1,0 +1,1306 @@
+- generic [ref=e1]:
+  - generic [ref=e2]:
+    - iframe [ref=e2655]:
+      - banner [ref=f42e6]:
+        - generic [ref=f42e7]:
+          - heading "You’ve used all your monthly credits" [level=5] [ref=f42e8]
+          - generic [ref=f42e9]:
+            - generic [ref=f42e12]: Usage is paused until your credits reset on Mar 25, 2026 or you add more.
+            - link "Add credits" [ref=f42e13] [cursor=pointer]:
+              - /url: https://app.hubspot.com/api/notification-station/general/v1/notifications/cta/ad1945e2-7ce6-4b56-b932-753c0738e0c8?notificationPortalId=19933594
+              - generic [ref=f42e14]: Add credits
+        - button "Close" [ref=f42e15] [cursor=pointer]:
+          - img [ref=f42e18]
+    - banner [ref=e4]:
+      - link "HubSpot logo" [ref=e6] [cursor=pointer]:
+        - /url: /global-home/19933594
+        - img "HubSpot logo" [ref=e7]
+      - generic [ref=e9]:
+        - generic [ref=e14]:
+          - img
+          - searchbox "Search HubSpot" [ref=e15]
+          - generic:
+            - generic: ⌘
+            - generic: K
+        - button "Create new" [ref=e18] [cursor=pointer]:
+          - img [ref=e19]
+      - navigation "Global toolbar" [ref=e21]:
+        - menu [ref=e22]:
+          - menuitem "Calls" [ref=e23]:
+            - button "Calls" [ref=e24] [cursor=pointer]:
+              - img "Calling" [ref=e25]
+          - menuitem "Academy" [ref=e27]:
+            - button "Academy" [ref=e28] [cursor=pointer]:
+              - img "Academy" [ref=e29]
+          - menuitem "Marketplace" [ref=e33]:
+            - button "Marketplace" [ref=e34] [cursor=pointer]:
+              - img "Marketplace" [ref=e35]
+          - menuitem "Help" [ref=e37]:
+            - button "Help" [ref=e39] [cursor=pointer]:
+              - img "Help" [ref=e40]
+          - menuitem "Settings" [ref=e42]:
+            - link "Settings" [ref=e43] [cursor=pointer]:
+              - /url: /user-preferences/19933594?eschref=%2Fcontacts%2F19933594%2Frecord%2F2-56342751%2F49512150380
+              - img "Settings" [ref=e44]
+          - generic [ref=e46]:
+            - 'menuitem "Notifications: 4 unseen" [ref=e47]':
+              - 'button "Notifications: 4 unseen" [ref=e48] [cursor=pointer]':
+                - img [ref=e49]
+            - generic: "4"
+          - menuitem "Open Assistant" [ref=e52]:
+            - button "Open Assistant" [ref=e53] [cursor=pointer]:
+              - img "Open Assistant" [ref=e54]
+              - generic [ref=e57]: Assistant
+          - menuitem "View profile and more" [ref=e59]:
+            - button "View profile and more" [ref=e60] [cursor=pointer]:
+              - img "Cam Wolf" [ref=e61]
+              - generic [ref=e62]: Truv
+              - img [ref=e63]
+  - generic [ref=e66]:
+    - button "Scroll up":
+      - img
+    - generic [ref=e67]:
+      - navigation [ref=e69]:
+        - menu [ref=e70]:
+          - menuitem "Home" [ref=e71] [cursor=pointer]:
+            - img "Home" [ref=e72]
+          - menuitem "Bookmarks" [ref=e74] [cursor=pointer]:
+            - img "Bookmarks" [ref=e2656]
+          - menuitem "CRM" [ref=e77] [cursor=pointer]:
+            - img "CRM" [ref=e78]
+          - menuitem "Marketing" [ref=e80] [cursor=pointer]:
+            - img "Marketing" [ref=e81]
+          - menuitem "Content" [ref=e83] [cursor=pointer]:
+            - img "Content" [ref=e84]
+          - menuitem "Sales" [ref=e86] [cursor=pointer]:
+            - img "Sales" [ref=e87]
+          - menuitem "Commerce" [ref=e89] [cursor=pointer]:
+            - img "Commerce" [ref=e90]
+          - menuitem "Service" [ref=e93] [cursor=pointer]:
+            - img "Service" [ref=e94]
+          - menuitem "Data Management" [ref=e98] [cursor=pointer]:
+            - img "Data Management" [ref=e99]
+          - menuitem "Automation" [ref=e101] [cursor=pointer]:
+            - img "Automation" [ref=e102]
+          - menuitem "Reporting" [ref=e104] [cursor=pointer]:
+            - img "Reporting" [ref=e105]
+          - menuitem "Breeze" [ref=e107] [cursor=pointer]:
+            - img "Breeze" [ref=e108]
+          - menuitem "Development" [ref=e110] [cursor=pointer]:
+            - img "Development" [ref=e111]
+      - button [ref=e115] [cursor=pointer]:
+        - img [ref=e116]
+    - button "Scroll down" [ref=e119] [cursor=pointer]:
+      - img [ref=e120]
+  - generic:
+    - iframe
+  - generic [ref=e122]:
+    - generic [ref=e129]:
+      - complementary [ref=e132]:
+        - generic [ref=e136]:
+          - generic [ref=e146]:
+            - generic [ref=e2659]:
+              - generic [ref=e2660]:
+                - navigation [ref=e2662]:
+                  - link "Events" [ref=e2663] [cursor=pointer]:
+                    - /url: https://app.hubspot.com/contacts/19933594/objects/2-56342751/restore
+                    - generic [ref=e2664]:
+                      - img [ref=e2666]
+                      - text: Events
+                - button "Actions" [ref=e2669] [cursor=pointer]:
+                  - generic [ref=e2672]: Actions
+              - generic [ref=e2674]:
+                - generic [ref=e2675]:
+                  - img [ref=e2678]
+                  - paragraph [ref=e2681]:
+                    - generic [ref=e2683]: March Insider, Public Sector
+                - button "Create activities" [ref=e2685] [cursor=pointer]:
+                  - generic [ref=e2686]:
+                    - generic [ref=e2687]: Create activities
+                    - img [ref=e2688]
+            - generic [ref=e147]:
+              - generic [ref=e148]:
+                - navigation [ref=e150]:
+                  - link "Events" [ref=e151] [cursor=pointer]:
+                    - /url: https://app.hubspot.com/contacts/19933594/objects/2-56342751/restore
+                    - generic [ref=e152]:
+                      - img [ref=e154]
+                      - text: Events
+                - button "Actions" [ref=e157] [cursor=pointer]:
+                  - generic [ref=e160]: Actions
+              - generic [ref=e162]:
+                - generic [ref=e163]:
+                  - img [ref=e167]
+                  - generic [ref=e170]:
+                    - heading "March Insider, Public Sector" [level=2] [ref=e171]:
+                      - generic [ref=e172]: March Insider, Public Sector
+                    - button "Edit" [ref=e174] [cursor=pointer]:
+                      - img [ref=e176]
+                - generic [ref=e178]:
+                  - generic [ref=e179]:
+                    - paragraph [ref=e181]: "Event Type:"
+                    - generic [ref=e184]: Webinar
+                  - generic [ref=e185]:
+                    - paragraph [ref=e187]: "Event Status:"
+                    - generic [ref=e190]: Upcoming
+                - list [ref=e192]:
+                  - generic [ref=e195]:
+                    - button "Create a note" [ref=e196] [cursor=pointer]:
+                      - img [ref=e198]
+                    - generic [ref=e200]: Note
+                  - generic [ref=e203]:
+                    - button "Create an email" [ref=e204] [cursor=pointer]:
+                      - img [ref=e206]
+                    - generic [ref=e208]: Email
+                  - generic [ref=e212]:
+                    - button "Make a phone call" [ref=e213] [cursor=pointer]:
+                      - img [ref=e215]
+                    - generic [ref=e217]: Call
+                  - generic [ref=e220]:
+                    - button "Create a task" [ref=e221] [cursor=pointer]:
+                      - img [ref=e223]
+                    - generic [ref=e225]: Task
+                  - generic [ref=e228]:
+                    - button "Schedule a meeting" [ref=e229] [cursor=pointer]:
+                      - img [ref=e231]
+                    - generic [ref=e233]: Meeting
+                  - generic [ref=e237]:
+                    - button "More activities, menu pop up" [ref=e238] [cursor=pointer]:
+                      - img [ref=e240]
+                    - generic [ref=e242]: More
+          - separator [ref=e243]
+          - generic [ref=e252]:
+            - generic [ref=e253]:
+              - button "About this Event" [expanded] [ref=e257] [cursor=pointer]:
+                - img [ref=e258]:
+                  - img [ref=e259]
+                - generic [ref=e263]: About this Event
+              - generic [ref=e268]:
+                - button "Actions" [ref=e269] [cursor=pointer]:
+                  - generic [ref=e273]: Actions
+                - link [ref=e275] [cursor=pointer]:
+                  - /url: https://app.hubspot.com/layout-editor/19933594/CRM_RECORD_LEFT/2-56342751/edit/HubspotProvided-CRM_RECORD_PAGE%3A%7C%3A2-56342751/card-builder/PROPERTIES_V3%2F2-56342751%2F0?eschref=%2Fcontacts%2F19933594%2Frecord%2F2-56342751%2F49512150380
+                  - img [ref=e276]
+            - list [ref=e283]:
+              - generic [ref=e286]:
+                - generic [ref=e292]: Cost Per Attendee
+                - button "Details" [ref=e296] [cursor=pointer]:
+                  - generic [ref=e298]: Details
+                - textbox "Cost Per Attendee" [ref=e299]:
+                  - /placeholder: "--"
+              - generic [ref=e302]:
+                - generic [ref=e308]: Event Budget
+                - button "Details" [ref=e312] [cursor=pointer]:
+                  - generic [ref=e314]: Details
+                - textbox "Event Budget" [ref=e315]:
+                  - /placeholder: "--"
+              - generic [ref=e318]:
+                - generic [ref=e324]: Event End Date
+                - button "Details" [ref=e328] [cursor=pointer]:
+                  - generic [ref=e330]: Details
+                - generic [ref=e331]:
+                  - textbox "Event End Date" [ref=e332]:
+                    - /placeholder: "--"
+                    - text: 03/18/2026
+                  - generic:
+                    - img
+              - generic [ref=e335]:
+                - generic [ref=e341]: Event Location
+                - button "Details" [ref=e345] [cursor=pointer]:
+                  - generic [ref=e347]: Details
+                - textbox "Event Location" [ref=e350]:
+                  - /placeholder: "--"
+              - generic [ref=e353]:
+                - generic [ref=e359]: Event Start Date
+                - button "Details" [ref=e363] [cursor=pointer]:
+                  - generic [ref=e365]: Details
+                - generic [ref=e366]:
+                  - textbox "Event Start Date" [ref=e367]:
+                    - /placeholder: "--"
+                    - text: 03/18/2026
+                  - generic:
+                    - img
+              - generic [ref=e370]:
+                - generic [ref=e376]: Event URL
+                - generic [ref=e378]:
+                  - link [ref=e379] [cursor=pointer]:
+                    - /url: https://truv.com/events/truv-product-insider-public-sector
+                    - img [ref=e380]
+                  - button "Details" [ref=e383] [cursor=pointer]:
+                    - generic [ref=e385]: Details
+                - textbox "Event URL" [ref=e388]:
+                  - /placeholder: "--"
+                  - text: https://truv.com/events/truv-product-insider-public-sector
+              - generic [ref=e391]:
+                - generic [ref=e397]: Event Vertical
+                - button "Details" [ref=e401] [cursor=pointer]:
+                  - generic [ref=e403]: Details
+                - button "Event Vertical --" [ref=e405] [cursor=pointer]:
+                  - option "--" [ref=e409]:
+                    - generic [ref=e411]: "--"
+              - generic [ref=e414]:
+                - generic [ref=e420]: Created by user ID
+                - button "Details" [ref=e424] [cursor=pointer]:
+                  - generic [ref=e426]: Details
+                - generic [ref=e427]:
+                  - img [ref=e430]
+                  - button "Created by user ID Melissa Hausser" [ref=e433]:
+                    - option "Melissa Hausser" [ref=e437]:
+                      - generic [ref=e439]: Melissa Hausser
+              - generic [ref=e442]:
+                - generic [ref=e448]: Owner
+                - button "Details" [ref=e452] [cursor=pointer]:
+                  - generic [ref=e454]: Details
+                - button "Owner Melissa Hausser" [ref=e456] [cursor=pointer]:
+                  - option "Melissa Hausser" [ref=e460]:
+                    - generic [ref=e462]: Melissa Hausser
+              - generic [ref=e465]:
+                - generic [ref=e471]: Linear Project URL
+                - button "Details" [ref=e475] [cursor=pointer]:
+                  - generic [ref=e477]: Details
+                - textbox "Linear Project URL" [ref=e480]:
+                  - /placeholder: "--"
+              - generic [ref=e483]:
+                - generic [ref=e489]: Promotion Start Date
+                - button "Details" [ref=e493] [cursor=pointer]:
+                  - generic [ref=e495]: Details
+                - generic [ref=e496]:
+                  - textbox "Promotion Start Date" [ref=e497]:
+                    - /placeholder: "--"
+                  - generic:
+                    - img
+              - generic [ref=e500]:
+                - generic [ref=e506]: Registration Deadline
+                - button "Details" [ref=e510] [cursor=pointer]:
+                  - generic [ref=e512]: Details
+                - generic [ref=e513]:
+                  - textbox "Registration Deadline" [ref=e514]:
+                    - /placeholder: "--"
+                  - generic:
+                    - img
+              - generic [ref=e517]:
+                - generic [ref=e523]: Target Attendees
+                - button "Details" [ref=e527] [cursor=pointer]:
+                  - generic [ref=e529]: Details
+                - textbox "Target Attendees" [ref=e530]:
+                  - /placeholder: "--"
+              - generic [ref=e533]:
+                - generic [ref=e539]: Target Registrants
+                - button "Details" [ref=e543] [cursor=pointer]:
+                  - generic [ref=e545]: Details
+                - textbox "Target Registrants" [ref=e546]:
+                  - /placeholder: "--"
+              - generic [ref=e549]:
+                - generic [ref=e555]: Event Name
+                - button "Details" [ref=e559] [cursor=pointer]:
+                  - generic [ref=e561]: Details
+                - textbox "Event Name" [ref=e564]:
+                  - /placeholder: "--"
+                  - text: March Insider, Public Sector
+              - generic [ref=e567]:
+                - generic [ref=e573]: Event Status
+                - button "Details" [ref=e577] [cursor=pointer]:
+                  - generic [ref=e579]: Details
+                - button "Event Status Upcoming" [ref=e581] [cursor=pointer]:
+                  - option "Upcoming" [ref=e585]:
+                    - generic [ref=e587]: Upcoming
+              - generic [ref=e590]:
+                - generic [ref=e596]: Event Type
+                - button "Details" [ref=e600] [cursor=pointer]:
+                  - generic [ref=e602]: Details
+                - button "Event Type Webinar" [ref=e604] [cursor=pointer]:
+                  - option "Webinar" [ref=e608]:
+                    - generic [ref=e610]: Webinar
+              - generic [ref=e613]:
+                - generic [ref=e619]: UTM Campaign
+                - button "Details" [ref=e623] [cursor=pointer]:
+                  - generic [ref=e625]: Details
+                - textbox "UTM Campaign" [ref=e628]:
+                  - /placeholder: "--"
+                  - text: public-sector-webinar-mar2026
+              - generic [ref=e631]:
+                - generic [ref=e637]: List ID
+                - button "Details" [ref=e641] [cursor=pointer]:
+                  - generic [ref=e643]: Details
+                - textbox "List ID" [ref=e646]:
+                  - /placeholder: "--"
+                  - text: "9229"
+      - generic [ref=e651]:
+        - generic [ref=e653]:
+          - navigation [ref=e657]:
+            - button "Overview" [ref=e658] [cursor=pointer]
+            - button "Activities" [ref=e659] [cursor=pointer]
+          - link "Customize" [ref=e660] [cursor=pointer]:
+            - /url: https://app.hubspot.com/sales-products-settings/19933594/object/2-56342751/record-customization?eschref=%2Fcontacts%2F19933594%2Frecord%2F2-56342751%2F49512150380%3Feschref%3D%252Fcontacts%252F19933594%252Fobjects%252F2-56342751%252Fviews%252Fall%252Flist%253Fnoprefetch%253D%26initialCardsReadyMarkerExtension%3DNOPREFETCH
+            - img [ref=e661]
+            - generic [ref=e663]: Customize
+        - generic [ref=e668]:
+          - generic [ref=e670]:
+            - generic [ref=e672]:
+              - heading "Key Dates" [level=5] [ref=e673]:
+                - generic [ref=e676]: Key Dates
+              - link [ref=e681] [cursor=pointer]:
+                - /url: https://app.hubspot.com/layout-editor/19933594/CRM_RECORD_MIDDLE/2-56342751/edit/HubspotProvided-CRM_RECORD_PAGE%3A%7C%3A2-56342751/card-builder/DATA_HIGHLIGHTS%2F2-56342751%2F0?eschref=%2Fcontacts%2F19933594%2Frecord%2F2-56342751%2F49512150380
+                - img [ref=e682]
+            - list [ref=e686]:
+              - listitem [ref=e687]:
+                - generic [ref=e688]:
+                  - paragraph [ref=e689]: Event Start Date
+                  - paragraph [ref=e690]:
+                    - generic [ref=e693]: 03/18/2026
+              - listitem [ref=e694]:
+                - generic [ref=e695]:
+                  - paragraph [ref=e696]: Event End Date
+                  - paragraph [ref=e697]:
+                    - generic [ref=e700]: 03/18/2026
+              - listitem [ref=e701]:
+                - generic [ref=e702]:
+                  - paragraph [ref=e703]: Registration Deadline
+                  - paragraph [ref=e704]:
+                    - generic [ref=e707]: "--"
+              - listitem [ref=e708]:
+                - generic [ref=e709]:
+                  - paragraph [ref=e710]: Promotion Start Date
+                  - paragraph [ref=e711]:
+                    - generic [ref=e714]: "--"
+          - generic [ref=e716]:
+            - generic [ref=e718]:
+              - heading "Goals & Performance" [level=5] [ref=e719]:
+                - generic [ref=e722]: Goals & Performance
+              - link [ref=e727] [cursor=pointer]:
+                - /url: https://app.hubspot.com/layout-editor/19933594/CRM_RECORD_MIDDLE/2-56342751/edit/HubspotProvided-CRM_RECORD_PAGE%3A%7C%3A2-56342751/card-builder/252276881?eschref=%2Fcontacts%2F19933594%2Frecord%2F2-56342751%2F49512150380
+                - img [ref=e728]
+            - list [ref=e732]:
+              - listitem [ref=e733]:
+                - generic [ref=e734]:
+                  - paragraph [ref=e735]: Target Registrants
+                  - paragraph [ref=e736]:
+                    - generic [ref=e739]: "--"
+              - listitem [ref=e740]:
+                - generic [ref=e741]:
+                  - paragraph [ref=e742]: Target Attendees
+                  - paragraph [ref=e743]:
+                    - generic [ref=e746]: "--"
+              - listitem [ref=e747]:
+                - generic [ref=e748]:
+                  - paragraph [ref=e749]: Event Budget
+                  - paragraph [ref=e750]:
+                    - generic [ref=e753]: "--"
+              - listitem [ref=e754]:
+                - generic [ref=e755]:
+                  - paragraph [ref=e756]: Cost Per Attendee
+                  - paragraph [ref=e757]:
+                    - generic [ref=e760]: "--"
+          - generic [ref=e762]:
+            - heading "Recent activities" [level=5] [ref=e765]:
+              - generic [ref=e768]: Recent activities
+            - generic [ref=e773]:
+              - generic [ref=e774]:
+                - button "Collapse all" [ref=e778] [cursor=pointer]:
+                  - option "Collapse all" [ref=e782]:
+                    - generic [ref=e784]: Collapse all
+                - generic [ref=e788]:
+                  - generic [ref=e790]:
+                    - search "Search activities" [ref=e791]
+                    - generic:
+                      - generic:
+                        - img
+                  - button "More activities, menu pop up" [ref=e795] [cursor=pointer]:
+                    - generic [ref=e799]: Add activities
+                - generic [ref=e802]:
+                  - heading "Activity Display Settings" [level=3] [ref=e804]
+                  - generic [ref=e805]:
+                    - button "All time so far" [ref=e808] [cursor=pointer]:
+                      - generic [ref=e811]: All time so far
+                    - generic [ref=e813]:
+                      - generic "Filter by Activity Type" [ref=e814]:
+                        - generic [ref=e817]: Filter by Activity Type
+                        - button "Filter by Activity Type" [ref=e818] [cursor=pointer]:
+                          - generic [ref=e821]: Activity (5/9)
+                      - button [ref=e823] [cursor=pointer]:
+                        - img [ref=e825]
+              - list "Activities" [ref=e827]:
+                - generic [ref=e828]:
+                  - generic [ref=e829]:
+                    - paragraph [ref=e831]: March 2026
+                    - generic [ref=e833]:
+                      - img [ref=e835]
+                      - article [ref=e839]:
+                        - button "Task assigned to Cam Wolf via Pipedream Due:Mar 10, 2026 at 7:00 PM CDT Task content preview Task is incomplete. [March Insider, Public Sector] Final organic LinkedIn post" [ref=e841] [cursor=pointer]:
+                          - img [ref=e844]
+                          - generic [ref=e846]:
+                            - generic [ref=e847]:
+                              - heading "Task assigned to Cam Wolf via Pipedream" [level=4] [ref=e848]:
+                                - generic [ref=e854]:
+                                  - strong [ref=e855]: Task
+                                  - text: assigned to
+                                  - generic [ref=e857]: Cam Wolf
+                                  - generic [ref=e858]: via Pipedream
+                              - generic [ref=e860]:
+                                - button [ref=e861]:
+                                  - img [ref=e864]
+                                - generic [ref=e870]:
+                                  - generic [ref=e871]: "Due:"
+                                  - time [ref=e872]: Mar 10, 2026 at 7:00 PM CDT
+                            - generic [ref=e873]:
+                              - separator [ref=e874]
+                              - generic [ref=e875]:
+                                - generic [ref=e878]: Task content preview
+                                - generic "Task content preview" [ref=e879]:
+                                  - generic [ref=e881]:
+                                    - button "Task is incomplete." [ref=e882]:
+                                      - generic [ref=e883]:
+                                        - paragraph [ref=e885]: Task is incomplete.
+                                        - img [ref=e889]
+                                    - generic [ref=e893]: "[March Insider, Public Sector] Final organic LinkedIn post"
+                    - generic [ref=e895]:
+                      - img [ref=e897]
+                      - article [ref=e901]:
+                        - button "Task assigned to Cam Wolf via Pipedream Due:Mar 10, 2026 at 7:00 PM CDT Task content preview Task is incomplete. [March Insider, Public Sector] Commitment-focused email to non-registrants" [ref=e903] [cursor=pointer]:
+                          - img [ref=e906]
+                          - generic [ref=e908]:
+                            - generic [ref=e909]:
+                              - heading "Task assigned to Cam Wolf via Pipedream" [level=4] [ref=e910]:
+                                - generic [ref=e916]:
+                                  - strong [ref=e917]: Task
+                                  - text: assigned to
+                                  - generic [ref=e919]: Cam Wolf
+                                  - generic [ref=e920]: via Pipedream
+                              - generic [ref=e922]:
+                                - button [ref=e923]:
+                                  - img [ref=e926]
+                                - generic [ref=e932]:
+                                  - generic [ref=e933]: "Due:"
+                                  - time [ref=e934]: Mar 10, 2026 at 7:00 PM CDT
+                            - generic [ref=e935]:
+                              - separator [ref=e936]
+                              - generic [ref=e937]:
+                                - generic [ref=e940]: Task content preview
+                                - generic "Task content preview" [ref=e941]:
+                                  - generic [ref=e943]:
+                                    - button "Task is incomplete." [ref=e944]:
+                                      - generic [ref=e945]:
+                                        - paragraph [ref=e947]: Task is incomplete.
+                                        - img [ref=e951]
+                                    - generic [ref=e955]: "[March Insider, Public Sector] Commitment-focused email to non-registrants"
+                    - generic [ref=e957]:
+                      - img [ref=e959]
+                      - article [ref=e963]:
+                        - button "Task assigned to Cam Wolf via Pipedream Due:Mar 10, 2026 at 7:00 PM CDT Task content preview Task is incomplete. [March Insider, Public Sector] Commitment-focused email to non-registrants" [ref=e965] [cursor=pointer]:
+                          - img [ref=e968]
+                          - generic [ref=e970]:
+                            - generic [ref=e971]:
+                              - heading "Task assigned to Cam Wolf via Pipedream" [level=4] [ref=e972]:
+                                - generic [ref=e978]:
+                                  - strong [ref=e979]: Task
+                                  - text: assigned to
+                                  - generic [ref=e981]: Cam Wolf
+                                  - generic [ref=e982]: via Pipedream
+                              - generic [ref=e984]:
+                                - button [ref=e985]:
+                                  - img [ref=e988]
+                                - generic [ref=e994]:
+                                  - generic [ref=e995]: "Due:"
+                                  - time [ref=e996]: Mar 10, 2026 at 7:00 PM CDT
+                            - generic [ref=e997]:
+                              - separator [ref=e998]
+                              - generic [ref=e999]:
+                                - generic [ref=e1002]: Task content preview
+                                - generic "Task content preview" [ref=e1003]:
+                                  - generic [ref=e1005]:
+                                    - button "Task is incomplete." [ref=e1006]:
+                                      - generic [ref=e1007]:
+                                        - paragraph [ref=e1009]: Task is incomplete.
+                                        - img [ref=e1013]
+                                    - generic [ref=e1017]: "[March Insider, Public Sector] Commitment-focused email to non-registrants"
+                    - generic [ref=e1019]:
+                      - img [ref=e1021]
+                      - article [ref=e1025]:
+                        - button "Task assigned to Cam Wolf via Pipedream Due:Mar 10, 2026 at 7:00 PM CDT Task content preview Task is incomplete. [March Insider, Public Sector] Final organic LinkedIn post" [ref=e1027] [cursor=pointer]:
+                          - img [ref=e1030]
+                          - generic [ref=e1032]:
+                            - generic [ref=e1033]:
+                              - heading "Task assigned to Cam Wolf via Pipedream" [level=4] [ref=e1034]:
+                                - generic [ref=e1040]:
+                                  - strong [ref=e1041]: Task
+                                  - text: assigned to
+                                  - generic [ref=e1043]: Cam Wolf
+                                  - generic [ref=e1044]: via Pipedream
+                              - generic [ref=e1046]:
+                                - button [ref=e1047]:
+                                  - img [ref=e1050]
+                                - generic [ref=e1056]:
+                                  - generic [ref=e1057]: "Due:"
+                                  - time [ref=e1058]: Mar 10, 2026 at 7:00 PM CDT
+                            - generic [ref=e1059]:
+                              - separator [ref=e1060]
+                              - generic [ref=e1061]:
+                                - generic [ref=e1064]: Task content preview
+                                - generic "Task content preview" [ref=e1065]:
+                                  - generic [ref=e1067]:
+                                    - button "Task is incomplete." [ref=e1068]:
+                                      - generic [ref=e1069]:
+                                        - paragraph [ref=e1071]: Task is incomplete.
+                                        - img [ref=e1075]
+                                    - generic [ref=e1079]: "[March Insider, Public Sector] Final organic LinkedIn post"
+                    - generic [ref=e1081]:
+                      - img [ref=e1083]
+                      - article [ref=e1087]:
+                        - button "Task assigned to Cam Wolf via Pipedream Due:Mar 10, 2026 at 7:00 PM CDT Task content preview Task is incomplete. [March Insider, Public Sector] Final organic LinkedIn post" [ref=e1089] [cursor=pointer]:
+                          - img [ref=e1092]
+                          - generic [ref=e1094]:
+                            - generic [ref=e1095]:
+                              - heading "Task assigned to Cam Wolf via Pipedream" [level=4] [ref=e1096]:
+                                - generic [ref=e1102]:
+                                  - strong [ref=e1103]: Task
+                                  - text: assigned to
+                                  - generic [ref=e1105]: Cam Wolf
+                                  - generic [ref=e1106]: via Pipedream
+                              - generic [ref=e1108]:
+                                - button [ref=e1109]:
+                                  - img [ref=e1112]
+                                - generic [ref=e1118]:
+                                  - generic [ref=e1119]: "Due:"
+                                  - time [ref=e1120]: Mar 10, 2026 at 7:00 PM CDT
+                            - generic [ref=e1121]:
+                              - separator [ref=e1122]
+                              - generic [ref=e1123]:
+                                - generic [ref=e1126]: Task content preview
+                                - generic "Task content preview" [ref=e1127]:
+                                  - generic [ref=e1129]:
+                                    - button "Task is incomplete." [ref=e1130]:
+                                      - generic [ref=e1131]:
+                                        - paragraph [ref=e1133]: Task is incomplete.
+                                        - img [ref=e1137]
+                                    - generic [ref=e1141]: "[March Insider, Public Sector] Final organic LinkedIn post"
+                    - generic [ref=e1143]:
+                      - img [ref=e1145]
+                      - article [ref=e1149]:
+                        - button "Task assigned to Cam Wolf via Pipedream Due:Mar 10, 2026 at 7:00 PM CDT Task content preview Task is incomplete. [March Insider, Public Sector] Commitment-focused email to non-registrants" [ref=e1151] [cursor=pointer]:
+                          - img [ref=e1154]
+                          - generic [ref=e1156]:
+                            - generic [ref=e1157]:
+                              - heading "Task assigned to Cam Wolf via Pipedream" [level=4] [ref=e1158]:
+                                - generic [ref=e1164]:
+                                  - strong [ref=e1165]: Task
+                                  - text: assigned to
+                                  - generic [ref=e1167]: Cam Wolf
+                                  - generic [ref=e1168]: via Pipedream
+                              - generic [ref=e1170]:
+                                - button [ref=e1171]:
+                                  - img [ref=e1174]
+                                - generic [ref=e1180]:
+                                  - generic [ref=e1181]: "Due:"
+                                  - time [ref=e1182]: Mar 10, 2026 at 7:00 PM CDT
+                            - generic [ref=e1183]:
+                              - separator [ref=e1184]
+                              - generic [ref=e1185]:
+                                - generic [ref=e1188]: Task content preview
+                                - generic "Task content preview" [ref=e1189]:
+                                  - generic [ref=e1191]:
+                                    - button "Task is incomplete." [ref=e1192]:
+                                      - generic [ref=e1193]:
+                                        - paragraph [ref=e1195]: Task is incomplete.
+                                        - img [ref=e1199]
+                                    - generic [ref=e1203]: "[March Insider, Public Sector] Commitment-focused email to non-registrants"
+                    - generic [ref=e1205]:
+                      - img [ref=e1210]
+                      - article [ref=e1213]:
+                        - generic [ref=e1214]:
+                          - generic [ref=e1215]:
+                            - heading "Created" [level=4] [ref=e1216]:
+                              - strong [ref=e1220]: Created
+                            - time [ref=e1227]: Mar 5, 2026 at 10:53 AM CST
+                          - generic [ref=e1228]:
+                            - separator [ref=e1229]
+                            - generic [ref=e1230]:
+                              - generic [ref=e1232]: Content preview
+                              - generic "Content preview" [ref=e1233]:
+                                - generic [ref=e1236]: This event was created
+                    - generic [ref=e1238]:
+                      - img [ref=e1240]
+                      - article [ref=e1244]:
+                        - button "Task assigned to Cam Wolf via Pipedream Overdue:Mar 3, 2026 at 6:00 PM CST Task content preview Task is overdue. [March Insider, Public Sector] Send follow-up email to warm audiences" [ref=e1246] [cursor=pointer]:
+                          - img [ref=e1249]
+                          - generic [ref=e1251]:
+                            - generic [ref=e1252]:
+                              - heading "Task assigned to Cam Wolf via Pipedream" [level=4] [ref=e1253]:
+                                - generic [ref=e1259]:
+                                  - strong [ref=e1260]: Task
+                                  - text: assigned to
+                                  - generic [ref=e1262]: Cam Wolf
+                                  - generic [ref=e1263]: via Pipedream
+                              - generic [ref=e1265]:
+                                - button [ref=e1266]:
+                                  - img [ref=e1269]
+                                - generic [ref=e1275]:
+                                  - generic [ref=e1276]: "Overdue:"
+                                  - time [ref=e1277]: Mar 3, 2026 at 6:00 PM CST
+                            - generic [ref=e1278]:
+                              - separator [ref=e1279]
+                              - generic [ref=e1280]:
+                                - generic [ref=e1283]: Task content preview
+                                - generic "Task content preview" [ref=e1284]:
+                                  - generic [ref=e1286]:
+                                    - button "Task is overdue." [ref=e1287]:
+                                      - generic [ref=e1288]:
+                                        - paragraph [ref=e1290]: Task is overdue.
+                                        - img [ref=e1294]
+                                    - generic [ref=e1298]: "[March Insider, Public Sector] Send follow-up email to warm audiences"
+                    - generic [ref=e1300]:
+                      - img [ref=e1302]
+                      - article [ref=e1306]:
+                        - 'button "Task created via Pipedream Overdue:Mar 3, 2026 at 6:00 PM CST Task content preview Task is overdue. [March Insider, Public Sector] Sales: manually invite Tier-1 target accounts" [ref=e1308] [cursor=pointer]':
+                          - img [ref=e1311]
+                          - generic [ref=e1313]:
+                            - generic [ref=e1314]:
+                              - heading "Task created via Pipedream" [level=4] [ref=e1315]:
+                                - generic [ref=e1321]:
+                                  - strong [ref=e1322]: Task
+                                  - generic [ref=e1323]: created via Pipedream
+                              - generic [ref=e1325]:
+                                - button [ref=e1326]:
+                                  - img [ref=e1329]
+                                - generic [ref=e1335]:
+                                  - generic [ref=e1336]: "Overdue:"
+                                  - time [ref=e1337]: Mar 3, 2026 at 6:00 PM CST
+                            - generic [ref=e1338]:
+                              - separator [ref=e1339]
+                              - generic [ref=e1340]:
+                                - generic [ref=e1343]: Task content preview
+                                - generic "Task content preview" [ref=e1344]:
+                                  - generic [ref=e1346]:
+                                    - button "Task is overdue." [ref=e1347]:
+                                      - generic [ref=e1348]:
+                                        - paragraph [ref=e1350]: Task is overdue.
+                                        - img [ref=e1354]
+                                    - generic [ref=e1358]: "[March Insider, Public Sector] Sales: manually invite Tier-1 target accounts"
+                    - generic [ref=e1360]:
+                      - img [ref=e1362]
+                      - article [ref=e1366]:
+                        - 'button "Task created via Pipedream Overdue:Mar 3, 2026 at 6:00 PM CST Task content preview Task is overdue. [March Insider, Public Sector] Sales: manually invite Tier-1 target accounts" [ref=e1368] [cursor=pointer]':
+                          - img [ref=e1371]
+                          - generic [ref=e1373]:
+                            - generic [ref=e1374]:
+                              - heading "Task created via Pipedream" [level=4] [ref=e1375]:
+                                - generic [ref=e1381]:
+                                  - strong [ref=e1382]: Task
+                                  - generic [ref=e1383]: created via Pipedream
+                              - generic [ref=e1385]:
+                                - button [ref=e1386]:
+                                  - img [ref=e1389]
+                                - generic [ref=e1395]:
+                                  - generic [ref=e1396]: "Overdue:"
+                                  - time [ref=e1397]: Mar 3, 2026 at 6:00 PM CST
+                            - generic [ref=e1398]:
+                              - separator [ref=e1399]
+                              - generic [ref=e1400]:
+                                - generic [ref=e1403]: Task content preview
+                                - generic "Task content preview" [ref=e1404]:
+                                  - generic [ref=e1406]:
+                                    - button "Task is overdue." [ref=e1407]:
+                                      - generic [ref=e1408]:
+                                        - paragraph [ref=e1410]: Task is overdue.
+                                        - img [ref=e1414]
+                                    - generic [ref=e1418]: "[March Insider, Public Sector] Sales: manually invite Tier-1 target accounts"
+                    - generic [ref=e1420]:
+                      - img [ref=e1422]
+                      - article [ref=e1426]:
+                        - button "Task assigned to Cam Wolf via Pipedream Overdue:Mar 3, 2026 at 6:00 PM CST Task content preview Task is overdue. [March Insider, Public Sector] Send follow-up email to warm audiences" [ref=e1428] [cursor=pointer]:
+                          - img [ref=e1431]
+                          - generic [ref=e1433]:
+                            - generic [ref=e1434]:
+                              - heading "Task assigned to Cam Wolf via Pipedream" [level=4] [ref=e1435]:
+                                - generic [ref=e1441]:
+                                  - strong [ref=e1442]: Task
+                                  - text: assigned to
+                                  - generic [ref=e1444]: Cam Wolf
+                                  - generic [ref=e1445]: via Pipedream
+                              - generic [ref=e1447]:
+                                - button [ref=e1448]:
+                                  - img [ref=e1451]
+                                - generic [ref=e1457]:
+                                  - generic [ref=e1458]: "Overdue:"
+                                  - time [ref=e1459]: Mar 3, 2026 at 6:00 PM CST
+                            - generic [ref=e1460]:
+                              - separator [ref=e1461]
+                              - generic [ref=e1462]:
+                                - generic [ref=e1465]: Task content preview
+                                - generic "Task content preview" [ref=e1466]:
+                                  - generic [ref=e1468]:
+                                    - button "Task is overdue." [ref=e1469]:
+                                      - generic [ref=e1470]:
+                                        - paragraph [ref=e1472]: Task is overdue.
+                                        - img [ref=e1476]
+                                    - generic [ref=e1480]: "[March Insider, Public Sector] Send follow-up email to warm audiences"
+                    - generic [ref=e1482]:
+                      - img [ref=e1484]
+                      - article [ref=e1488]:
+                        - 'button "Task created via Pipedream Overdue:Mar 3, 2026 at 6:00 PM CST Task content preview Task is overdue. [March Insider, Public Sector] Sales: manually invite Tier-1 target accounts" [ref=e1490] [cursor=pointer]':
+                          - img [ref=e1493]
+                          - generic [ref=e1495]:
+                            - generic [ref=e1496]:
+                              - heading "Task created via Pipedream" [level=4] [ref=e1497]:
+                                - generic [ref=e1503]:
+                                  - strong [ref=e1504]: Task
+                                  - generic [ref=e1505]: created via Pipedream
+                              - generic [ref=e1507]:
+                                - button [ref=e1508]:
+                                  - img [ref=e1511]
+                                - generic [ref=e1517]:
+                                  - generic [ref=e1518]: "Overdue:"
+                                  - time [ref=e1519]: Mar 3, 2026 at 6:00 PM CST
+                            - generic [ref=e1520]:
+                              - separator [ref=e1521]
+                              - generic [ref=e1522]:
+                                - generic [ref=e1525]: Task content preview
+                                - generic "Task content preview" [ref=e1526]:
+                                  - generic [ref=e1528]:
+                                    - button "Task is overdue." [ref=e1529]:
+                                      - generic [ref=e1530]:
+                                        - paragraph [ref=e1532]: Task is overdue.
+                                        - img [ref=e1536]
+                                    - generic [ref=e1540]: "[March Insider, Public Sector] Sales: manually invite Tier-1 target accounts"
+                    - generic [ref=e1542]:
+                      - generic [ref=e1543]:
+                        - img [ref=e1544]
+                        - img [ref=e1549]
+                      - article [ref=e1552]:
+                        - button "Task assigned to Cam Wolf via Pipedream Overdue:Mar 3, 2026 at 6:00 PM CST Task content preview Task is overdue. [March Insider, Public Sector] Send follow-up email to warm audiences" [ref=e1554] [cursor=pointer]:
+                          - img [ref=e1557]
+                          - generic [ref=e1559]:
+                            - generic [ref=e1560]:
+                              - heading "Task assigned to Cam Wolf via Pipedream" [level=4] [ref=e1561]:
+                                - generic [ref=e1567]:
+                                  - strong [ref=e1568]: Task
+                                  - text: assigned to
+                                  - generic [ref=e1570]: Cam Wolf
+                                  - generic [ref=e1571]: via Pipedream
+                              - generic [ref=e1573]:
+                                - button [ref=e1574]:
+                                  - img [ref=e1577]
+                                - generic [ref=e1583]:
+                                  - generic [ref=e1584]: "Overdue:"
+                                  - time [ref=e1585]: Mar 3, 2026 at 6:00 PM CST
+                            - generic [ref=e1586]:
+                              - separator [ref=e1587]
+                              - generic [ref=e1588]:
+                                - generic [ref=e1591]: Task content preview
+                                - generic "Task content preview" [ref=e1592]:
+                                  - generic [ref=e1594]:
+                                    - button "Task is overdue." [ref=e1595]:
+                                      - generic [ref=e1596]:
+                                        - paragraph [ref=e1598]: Task is overdue.
+                                        - img [ref=e1602]
+                                    - generic [ref=e1606]: "[March Insider, Public Sector] Send follow-up email to warm audiences"
+                    - paragraph [ref=e1608]: February 2026
+                    - generic [ref=e1610]:
+                      - img [ref=e1612]
+                      - article [ref=e1616]:
+                        - button "Task assigned to Cam Wolf via Pipedream Overdue:Feb 24, 2026 at 6:00 PM CST Task content preview Task is overdue. [March Insider, Public Sector] Build HTML email templates in Knock" [ref=e1618] [cursor=pointer]:
+                          - img [ref=e1621]
+                          - generic [ref=e1623]:
+                            - generic [ref=e1624]:
+                              - heading "Task assigned to Cam Wolf via Pipedream" [level=4] [ref=e1625]:
+                                - generic [ref=e1631]:
+                                  - strong [ref=e1632]: Task
+                                  - text: assigned to
+                                  - generic [ref=e1634]: Cam Wolf
+                                  - generic [ref=e1635]: via Pipedream
+                              - generic [ref=e1637]:
+                                - button [ref=e1638]:
+                                  - img [ref=e1641]
+                                - generic [ref=e1647]:
+                                  - generic [ref=e1648]: "Overdue:"
+                                  - time [ref=e1649]: Feb 24, 2026 at 6:00 PM CST
+                            - generic [ref=e1650]:
+                              - separator [ref=e1651]
+                              - generic [ref=e1652]:
+                                - generic [ref=e1655]: Task content preview
+                                - generic "Task content preview" [ref=e1656]:
+                                  - generic [ref=e1658]:
+                                    - button "Task is overdue." [ref=e1659]:
+                                      - generic [ref=e1660]:
+                                        - paragraph [ref=e1662]: Task is overdue.
+                                        - img [ref=e1666]
+                                    - generic [ref=e1670]: "[March Insider, Public Sector] Build HTML email templates in Knock"
+                    - generic [ref=e1672]:
+                      - img [ref=e1674]
+                      - article [ref=e1678]:
+                        - button "Task assigned to Cam Wolf via Pipedream Overdue:Feb 24, 2026 at 6:00 PM CST Task content preview Task is overdue. [March Insider, Public Sector] Launch awareness email (non-urgent)" [ref=e1680] [cursor=pointer]:
+                          - img [ref=e1683]
+                          - generic [ref=e1685]:
+                            - generic [ref=e1686]:
+                              - heading "Task assigned to Cam Wolf via Pipedream" [level=4] [ref=e1687]:
+                                - generic [ref=e1693]:
+                                  - strong [ref=e1694]: Task
+                                  - text: assigned to
+                                  - generic [ref=e1696]: Cam Wolf
+                                  - generic [ref=e1697]: via Pipedream
+                              - generic [ref=e1699]:
+                                - button [ref=e1700]:
+                                  - img [ref=e1703]
+                                - generic [ref=e1709]:
+                                  - generic [ref=e1710]: "Overdue:"
+                                  - time [ref=e1711]: Feb 24, 2026 at 6:00 PM CST
+                            - generic [ref=e1712]:
+                              - separator [ref=e1713]
+                              - generic [ref=e1714]:
+                                - generic [ref=e1717]: Task content preview
+                                - generic "Task content preview" [ref=e1718]:
+                                  - generic [ref=e1720]:
+                                    - button "Task is overdue." [ref=e1721]:
+                                      - generic [ref=e1722]:
+                                        - paragraph [ref=e1724]: Task is overdue.
+                                        - img [ref=e1728]
+                                    - generic [ref=e1732]: "[March Insider, Public Sector] Launch awareness email (non-urgent)"
+                    - generic [ref=e1734]:
+                      - img [ref=e1736]
+                      - article [ref=e1740]:
+                        - button "Task assigned to Cam Wolf via Pipedream Overdue:Feb 24, 2026 at 6:00 PM CST Task content preview Task is overdue. [March Insider, Public Sector] Build HTML email templates in Knock" [ref=e1742] [cursor=pointer]:
+                          - img [ref=e1745]
+                          - generic [ref=e1747]:
+                            - generic [ref=e1748]:
+                              - heading "Task assigned to Cam Wolf via Pipedream" [level=4] [ref=e1749]:
+                                - generic [ref=e1755]:
+                                  - strong [ref=e1756]: Task
+                                  - text: assigned to
+                                  - generic [ref=e1758]: Cam Wolf
+                                  - generic [ref=e1759]: via Pipedream
+                              - generic [ref=e1761]:
+                                - button [ref=e1762]:
+                                  - img [ref=e1765]
+                                - generic [ref=e1771]:
+                                  - generic [ref=e1772]: "Overdue:"
+                                  - time [ref=e1773]: Feb 24, 2026 at 6:00 PM CST
+                            - generic [ref=e1774]:
+                              - separator [ref=e1775]
+                              - generic [ref=e1776]:
+                                - generic [ref=e1779]: Task content preview
+                                - generic "Task content preview" [ref=e1780]:
+                                  - generic [ref=e1782]:
+                                    - button "Task is overdue." [ref=e1783]:
+                                      - generic [ref=e1784]:
+                                        - paragraph [ref=e1786]: Task is overdue.
+                                        - img [ref=e1790]
+                                    - generic [ref=e1794]: "[March Insider, Public Sector] Build HTML email templates in Knock"
+                    - generic [ref=e1796]:
+                      - img [ref=e1798]
+                      - article [ref=e1802]:
+                        - 'button "Task assigned to Cam Wolf via Pipedream Overdue:Feb 24, 2026 at 6:00 PM CST Task content preview Task is overdue. [March Insider, Public Sector] Configure Knock â Wrapper triggers and dry-run QA" [ref=e1804] [cursor=pointer]':
+                          - img [ref=e1807]
+                          - generic [ref=e1809]:
+                            - generic [ref=e1810]:
+                              - heading "Task assigned to Cam Wolf via Pipedream" [level=4] [ref=e1811]:
+                                - generic [ref=e1817]:
+                                  - strong [ref=e1818]: Task
+                                  - text: assigned to
+                                  - generic [ref=e1820]: Cam Wolf
+                                  - generic [ref=e1821]: via Pipedream
+                              - generic [ref=e1823]:
+                                - button [ref=e1824]:
+                                  - img [ref=e1827]
+                                - generic [ref=e1833]:
+                                  - generic [ref=e1834]: "Overdue:"
+                                  - time [ref=e1835]: Feb 24, 2026 at 6:00 PM CST
+                            - generic [ref=e1836]:
+                              - separator [ref=e1837]
+                              - generic [ref=e1838]:
+                                - generic [ref=e1841]: Task content preview
+                                - generic "Task content preview" [ref=e1842]:
+                                  - generic [ref=e1844]:
+                                    - button "Task is overdue." [ref=e1845]:
+                                      - generic [ref=e1846]:
+                                        - paragraph [ref=e1848]: Task is overdue.
+                                        - img [ref=e1852]
+                                    - generic [ref=e1856]: "[March Insider, Public Sector] Configure Knock â\x86\x94 Wrapper triggers and dry-run QA"
+                    - generic [ref=e1858]:
+                      - img [ref=e1860]
+                      - article [ref=e1864]:
+                        - 'button "Task assigned to Cam Wolf via Pipedream Overdue:Feb 24, 2026 at 6:00 PM CST Task content preview Task is overdue. [March Insider, Public Sector] Configure Knock â Wrapper triggers and dry-run QA" [ref=e1866] [cursor=pointer]':
+                          - img [ref=e1869]
+                          - generic [ref=e1871]:
+                            - generic [ref=e1872]:
+                              - heading "Task assigned to Cam Wolf via Pipedream" [level=4] [ref=e1873]:
+                                - generic [ref=e1879]:
+                                  - strong [ref=e1880]: Task
+                                  - text: assigned to
+                                  - generic [ref=e1882]: Cam Wolf
+                                  - generic [ref=e1883]: via Pipedream
+                              - generic [ref=e1885]:
+                                - button [ref=e1886]:
+                                  - img [ref=e1889]
+                                - generic [ref=e1895]:
+                                  - generic [ref=e1896]: "Overdue:"
+                                  - time [ref=e1897]: Feb 24, 2026 at 6:00 PM CST
+                            - generic [ref=e1898]:
+                              - separator [ref=e1899]
+                              - generic [ref=e1900]:
+                                - generic [ref=e1903]: Task content preview
+                                - generic "Task content preview" [ref=e1904]:
+                                  - generic [ref=e1906]:
+                                    - button "Task is overdue." [ref=e1907]:
+                                      - generic [ref=e1908]:
+                                        - paragraph [ref=e1910]: Task is overdue.
+                                        - img [ref=e1914]
+                                    - generic [ref=e1918]: "[March Insider, Public Sector] Configure Knock â\x86\x94 Wrapper triggers and dry-run QA"
+                    - generic [ref=e1920]:
+                      - img [ref=e1922]
+                      - article [ref=e1926]:
+                        - button "Task assigned to Cam Wolf via Pipedream Overdue:Feb 24, 2026 at 6:00 PM CST Task content preview Task is overdue. [March Insider, Public Sector] Publish first LinkedIn post (speaker POV)" [ref=e1928] [cursor=pointer]:
+                          - img [ref=e1931]
+                          - generic [ref=e1933]:
+                            - generic [ref=e1934]:
+                              - heading "Task assigned to Cam Wolf via Pipedream" [level=4] [ref=e1935]:
+                                - generic [ref=e1941]:
+                                  - strong [ref=e1942]: Task
+                                  - text: assigned to
+                                  - generic [ref=e1944]: Cam Wolf
+                                  - generic [ref=e1945]: via Pipedream
+                              - generic [ref=e1947]:
+                                - button [ref=e1948]:
+                                  - img [ref=e1951]
+                                - generic [ref=e1957]:
+                                  - generic [ref=e1958]: "Overdue:"
+                                  - time [ref=e1959]: Feb 24, 2026 at 6:00 PM CST
+                            - generic [ref=e1960]:
+                              - separator [ref=e1961]
+                              - generic [ref=e1962]:
+                                - generic [ref=e1965]: Task content preview
+                                - generic "Task content preview" [ref=e1966]:
+                                  - generic [ref=e1968]:
+                                    - button "Task is overdue." [ref=e1969]:
+                                      - generic [ref=e1970]:
+                                        - paragraph [ref=e1972]: Task is overdue.
+                                        - img [ref=e1976]
+                                    - generic [ref=e1980]: "[March Insider, Public Sector] Publish first LinkedIn post (speaker POV)"
+                    - generic [ref=e1982]:
+                      - img [ref=e1984]
+                      - article [ref=e1988]:
+                        - button "Task assigned to Cam Wolf via Pipedream Overdue:Feb 24, 2026 at 6:00 PM CST Task content preview Task is overdue. [March Insider, Public Sector] Build HTML email templates in Knock" [ref=e1990] [cursor=pointer]:
+                          - img [ref=e1993]
+                          - generic [ref=e1995]:
+                            - generic [ref=e1996]:
+                              - heading "Task assigned to Cam Wolf via Pipedream" [level=4] [ref=e1997]:
+                                - generic [ref=e2003]:
+                                  - strong [ref=e2004]: Task
+                                  - text: assigned to
+                                  - generic [ref=e2006]: Cam Wolf
+                                  - generic [ref=e2007]: via Pipedream
+                              - generic [ref=e2009]:
+                                - button [ref=e2010]:
+                                  - img [ref=e2013]
+                                - generic [ref=e2019]:
+                                  - generic [ref=e2020]: "Overdue:"
+                                  - time [ref=e2021]: Feb 24, 2026 at 6:00 PM CST
+                            - generic [ref=e2022]:
+                              - separator [ref=e2023]
+                              - generic [ref=e2024]:
+                                - generic [ref=e2027]: Task content preview
+                                - generic "Task content preview" [ref=e2028]:
+                                  - generic [ref=e2030]:
+                                    - button "Task is overdue." [ref=e2031]:
+                                      - generic [ref=e2032]:
+                                        - paragraph [ref=e2034]: Task is overdue.
+                                        - img [ref=e2038]
+                                    - generic [ref=e2042]: "[March Insider, Public Sector] Build HTML email templates in Knock"
+                    - generic [ref=e2044]:
+                      - img [ref=e2046]
+                      - article [ref=e2050]:
+                        - button "Task assigned to Cam Wolf via Pipedream Overdue:Feb 24, 2026 at 6:00 PM CST Task content preview Task is overdue. [March Insider, Public Sector] Launch awareness email (non-urgent)" [ref=e2052] [cursor=pointer]:
+                          - img [ref=e2055]
+                          - generic [ref=e2057]:
+                            - generic [ref=e2058]:
+                              - heading "Task assigned to Cam Wolf via Pipedream" [level=4] [ref=e2059]:
+                                - generic [ref=e2065]:
+                                  - strong [ref=e2066]: Task
+                                  - text: assigned to
+                                  - generic [ref=e2068]: Cam Wolf
+                                  - generic [ref=e2069]: via Pipedream
+                              - generic [ref=e2071]:
+                                - button [ref=e2072]:
+                                  - img [ref=e2075]
+                                - generic [ref=e2081]:
+                                  - generic [ref=e2082]: "Overdue:"
+                                  - time [ref=e2083]: Feb 24, 2026 at 6:00 PM CST
+                            - generic [ref=e2084]:
+                              - separator [ref=e2085]
+                              - generic [ref=e2086]:
+                                - generic [ref=e2089]: Task content preview
+                                - generic "Task content preview" [ref=e2090]:
+                                  - generic [ref=e2092]:
+                                    - button "Task is overdue." [ref=e2093]:
+                                      - generic [ref=e2094]:
+                                        - paragraph [ref=e2096]: Task is overdue.
+                                        - img [ref=e2100]
+                                    - generic [ref=e2104]: "[March Insider, Public Sector] Launch awareness email (non-urgent)"
+                    - generic [ref=e2106]:
+                      - img [ref=e2108]
+                      - article [ref=e2112]:
+                        - button "Task assigned to Cam Wolf via Pipedream Overdue:Feb 24, 2026 at 6:00 PM CST Task content preview Task is overdue. [March Insider, Public Sector] Publish first LinkedIn post (speaker POV)" [ref=e2114] [cursor=pointer]:
+                          - img [ref=e2117]
+                          - generic [ref=e2119]:
+                            - generic [ref=e2120]:
+                              - heading "Task assigned to Cam Wolf via Pipedream" [level=4] [ref=e2121]:
+                                - generic [ref=e2127]:
+                                  - strong [ref=e2128]: Task
+                                  - text: assigned to
+                                  - generic [ref=e2130]: Cam Wolf
+                                  - generic [ref=e2131]: via Pipedream
+                              - generic [ref=e2133]:
+                                - button [ref=e2134]:
+                                  - img [ref=e2137]
+                                - generic [ref=e2143]:
+                                  - generic [ref=e2144]: "Overdue:"
+                                  - time [ref=e2145]: Feb 24, 2026 at 6:00 PM CST
+                            - generic [ref=e2146]:
+                              - separator [ref=e2147]
+                              - generic [ref=e2148]:
+                                - generic [ref=e2151]: Task content preview
+                                - generic "Task content preview" [ref=e2152]:
+                                  - generic [ref=e2154]:
+                                    - button "Task is overdue." [ref=e2155]:
+                                      - generic [ref=e2156]:
+                                        - paragraph [ref=e2158]: Task is overdue.
+                                        - img [ref=e2162]
+                                    - generic [ref=e2166]: "[March Insider, Public Sector] Publish first LinkedIn post (speaker POV)"
+                    - generic [ref=e2168]:
+                      - img [ref=e2170]
+                      - article [ref=e2174]:
+                        - button "Task assigned to Cam Wolf via Pipedream Overdue:Feb 24, 2026 at 6:00 PM CST Task content preview Task is overdue. [March Insider, Public Sector] Publish first LinkedIn post (speaker POV)" [ref=e2176] [cursor=pointer]:
+                          - img [ref=e2179]
+                          - generic [ref=e2181]:
+                            - generic [ref=e2182]:
+                              - heading "Task assigned to Cam Wolf via Pipedream" [level=4] [ref=e2183]:
+                                - generic [ref=e2189]:
+                                  - strong [ref=e2190]: Task
+                                  - text: assigned to
+                                  - generic [ref=e2192]: Cam Wolf
+                                  - generic [ref=e2193]: via Pipedream
+                              - generic [ref=e2195]:
+                                - button [ref=e2196]:
+                                  - img [ref=e2199]
+                                - generic [ref=e2205]:
+                                  - generic [ref=e2206]: "Overdue:"
+                                  - time [ref=e2207]: Feb 24, 2026 at 6:00 PM CST
+                            - generic [ref=e2208]:
+                              - separator [ref=e2209]
+                              - generic [ref=e2210]:
+                                - generic [ref=e2213]: Task content preview
+                                - generic "Task content preview" [ref=e2214]:
+                                  - generic [ref=e2216]:
+                                    - button "Task is overdue." [ref=e2217]:
+                                      - generic [ref=e2218]:
+                                        - paragraph [ref=e2220]: Task is overdue.
+                                        - img [ref=e2224]
+                                    - generic [ref=e2228]: "[March Insider, Public Sector] Publish first LinkedIn post (speaker POV)"
+                    - generic [ref=e2230]:
+                      - img [ref=e2232]
+                      - article [ref=e2236]:
+                        - button "Task assigned to Cam Wolf via Pipedream Overdue:Feb 24, 2026 at 6:00 PM CST Task content preview Task is overdue. [March Insider, Public Sector] Launch awareness email (non-urgent)" [ref=e2238] [cursor=pointer]:
+                          - img [ref=e2241]
+                          - generic [ref=e2243]:
+                            - generic [ref=e2244]:
+                              - heading "Task assigned to Cam Wolf via Pipedream" [level=4] [ref=e2245]:
+                                - generic [ref=e2251]:
+                                  - strong [ref=e2252]: Task
+                                  - text: assigned to
+                                  - generic [ref=e2254]: Cam Wolf
+                                  - generic [ref=e2255]: via Pipedream
+                              - generic [ref=e2257]:
+                                - button [ref=e2258]:
+                                  - img [ref=e2261]
+                                - generic [ref=e2267]:
+                                  - generic [ref=e2268]: "Overdue:"
+                                  - time [ref=e2269]: Feb 24, 2026 at 6:00 PM CST
+                            - generic [ref=e2270]:
+                              - separator [ref=e2271]
+                              - generic [ref=e2272]:
+                                - generic [ref=e2275]: Task content preview
+                                - generic "Task content preview" [ref=e2276]:
+                                  - generic [ref=e2278]:
+                                    - button "Task is overdue." [ref=e2279]:
+                                      - generic [ref=e2280]:
+                                        - paragraph [ref=e2282]: Task is overdue.
+                                        - img [ref=e2286]
+                                    - generic [ref=e2290]: "[March Insider, Public Sector] Launch awareness email (non-urgent)"
+                    - generic [ref=e2292]:
+                      - img [ref=e2294]
+                      - article [ref=e2298]:
+                        - button "Task assigned to Cam Wolf via Pipedream Overdue:Feb 24, 2026 at 6:00 PM CST Task content preview Task is overdue. [March Insider, Public Sector] Configure Knock / Wrapper triggers and dry-run QA" [ref=e2300] [cursor=pointer]:
+                          - img [ref=e2303]
+                          - generic [ref=e2305]:
+                            - generic [ref=e2306]:
+                              - heading "Task assigned to Cam Wolf via Pipedream" [level=4] [ref=e2307]:
+                                - generic [ref=e2313]:
+                                  - strong [ref=e2314]: Task
+                                  - text: assigned to
+                                  - generic [ref=e2316]: Cam Wolf
+                                  - generic [ref=e2317]: via Pipedream
+                              - generic [ref=e2319]:
+                                - button [ref=e2320]:
+                                  - img [ref=e2323]
+                                - generic [ref=e2329]:
+                                  - generic [ref=e2330]: "Overdue:"
+                                  - time [ref=e2331]: Feb 24, 2026 at 6:00 PM CST
+                            - generic [ref=e2332]:
+                              - separator [ref=e2333]
+                              - generic [ref=e2334]:
+                                - generic [ref=e2337]: Task content preview
+                                - generic "Task content preview" [ref=e2338]:
+                                  - generic [ref=e2340]:
+                                    - button "Task is overdue." [ref=e2341]:
+                                      - generic [ref=e2342]:
+                                        - paragraph [ref=e2344]: Task is overdue.
+                                        - img [ref=e2348]
+                                    - generic [ref=e2352]: "[March Insider, Public Sector] Configure Knock / Wrapper triggers and dry-run QA"
+                  - generic [ref=e2354]:
+                    - generic [ref=e2355]:
+                      - img [ref=e2357]
+                      - article [ref=e2360]
+                    - generic [ref=e2362]:
+                      - img [ref=e2364]
+                      - article [ref=e2367]
+                    - generic [ref=e2369]:
+                      - img [ref=e2371]
+                      - article [ref=e2374]
+          - generic [ref=e2377]:
+            - generic [ref=e2379]:
+              - heading "Contacts" [level=5] [ref=e2380]:
+                - generic [ref=e2383]: Contacts
+              - generic [ref=e2387]:
+                - button "Add" [ref=e2388] [cursor=pointer]:
+                  - generic [ref=e2389]:
+                    - img [ref=e2390]
+                    - generic [ref=e2392]: Add
+                - link [ref=e2393] [cursor=pointer]:
+                  - /url: https://app.hubspot.com/layout-editor/19933594/CRM_RECORD_MIDDLE/2-56342751/edit/HubspotProvided-CRM_RECORD_PAGE%3A%7C%3A2-56342751/card-builder/ASSOCIATION_TABLE%2F0-1?eschref=%2Fcontacts%2F19933594%2Frecord%2F2-56342751%2F49512150380
+                  - img [ref=e2394]
+            - generic [ref=e2397]:
+              - generic [ref=e2398]:
+                - generic [ref=e2403]:
+                  - searchbox "Search" [ref=e2404]
+                  - generic:
+                    - generic:
+                      - img
+                - generic [ref=e2405]:
+                  - button "Filter associations" [ref=e2406] [cursor=pointer]:
+                    - generic [ref=e2407]:
+                      - img [ref=e2408]
+                      - generic [ref=e2410]: Filters
+                  - button "Sort" [ref=e2412] [cursor=pointer]:
+                    - generic [ref=e2413]:
+                      - img [ref=e2414]
+                      - generic [ref=e2416]: Sort
+                  - generic "Admin applied filters" [ref=e2417]:
+                    - img [ref=e2419]
+              - button "More" [ref=e2695] [cursor=pointer]:
+                - generic [ref=e2697]:
+                  - generic [ref=e2698]: More
+                  - img [ref=e2699]
+              - generic [ref=e2432]:
+                - heading "No results found for the current filters." [level=2] [ref=e2434]
+                - img "empty-state-charts illustration" [ref=e2436]
+          - heading "Deals" [level=5] [ref=e2441]:
+            - generic [ref=e2444]: Deals
+          - heading "Upcoming activities" [level=5] [ref=e2451]:
+            - generic [ref=e2454]: Upcoming activities
+      - generic [ref=e2457]:
+        - button "Collapse sidebar" [ref=e2459] [cursor=pointer]:
+          - img [ref=e2461]
+        - complementary [ref=e2464]:
+          - generic [ref=e2474]:
+            - generic [ref=e2477]:
+              - generic [ref=e2478]:
+                - button "Contacts (2)" [expanded] [ref=e2482] [cursor=pointer]:
+                  - img [ref=e2483]:
+                    - img [ref=e2484]
+                  - generic [ref=e2487]: Contacts (2)
+                - generic [ref=e2492]:
+                  - button "Add" [ref=e2493] [cursor=pointer]:
+                    - generic [ref=e2494]:
+                      - img [ref=e2495]
+                      - generic [ref=e2497]: Add
+                  - link "Manage card settings" [ref=e2498] [cursor=pointer]:
+                    - /url: https://app.hubspot.com/layout-editor/19933594/CRM_RECORD_RIGHT/2-56342751/edit/HubspotProvided-CRM_RECORD_PAGE%3A%7C%3A2-56342751/card-builder/ASSOCIATION_V3%2F0-1?eschref=%2Fcontacts%2F19933594%2Frecord%2F2-56342751%2F49512150380
+                    - img [ref=e2499]
+              - generic [ref=e2504]:
+                - generic [ref=e2505]:
+                  - generic [ref=e2506]:
+                    - button "Search associations" [ref=e2509] [cursor=pointer]:
+                      - img [ref=e2511]
+                    - button "Sort" [ref=e2516] [cursor=pointer]:
+                      - generic [ref=e2517]:
+                        - img [ref=e2518]
+                        - generic [ref=e2520]: Sort
+                  - generic [ref=e2521]:
+                    - searchbox "Search name, phone, email addresses, company, or association label" [ref=e2522]
+                    - generic:
+                      - generic:
+                        - img
+                - generic [ref=e2526]:
+                  - generic [ref=e2529]:
+                    - generic [ref=e2531]:
+                      - img [ref=e2536]
+                      - link "Cameron Test" [ref=e2543] [cursor=pointer]:
+                        - /url: https://app.hubspot.com/contacts/19933594/record/0-1/207564819356?eschref=%2Fcontacts%2F19933594%2Frecord%2F2-56342751%2F49512150380%3Feschref%3D%252Fcontacts%252F19933594%252Fobjects%252F2-56342751%252Fviews%252Fall%252Flist%253Fnoprefetch%253D%26initialCardsReadyMarkerExtension%3DNOPREFETCH
+                        - generic [ref=e2546]: Cameron Test
+                    - list [ref=e2547]:
+                      - listitem [ref=e2548]:
+                        - generic [ref=e2551]:
+                          - generic [ref=e2552]: "Buying Role:"
+                          - generic [ref=e2553]: "--"
+                      - listitem [ref=e2554]:
+                        - generic [ref=e2557]:
+                          - generic [ref=e2558]: "Relationship Depth:"
+                          - generic [ref=e2559]: "--"
+                    - button "Add association label" [ref=e2565] [cursor=pointer]:
+                      - paragraph [ref=e2567]: Add association label
+                  - generic [ref=e2570]:
+                    - link "Cameron Test" [ref=e2580] [cursor=pointer]:
+                      - /url: https://app.hubspot.com/contacts/19933594/record/0-1/164004663173?eschref=%2Fcontacts%2F19933594%2Frecord%2F2-56342751%2F49512150380%3Feschref%3D%252Fcontacts%252F19933594%252Fobjects%252F2-56342751%252Fviews%252Fall%252Flist%253Fnoprefetch%253D%26initialCardsReadyMarkerExtension%3DNOPREFETCH
+                      - generic [ref=e2583]: Cameron Test
+                    - list [ref=e2584]:
+                      - paragraph [ref=e2586]:
+                        - generic [ref=e2589]: Marketer at Truv
+                      - listitem [ref=e2590]:
+                        - generic [ref=e2593]:
+                          - generic [ref=e2594]: "Buying Role:"
+                          - generic [ref=e2601]: End User
+                      - listitem [ref=e2602]:
+                        - generic [ref=e2605]:
+                          - generic [ref=e2606]: "Relationship Depth:"
+                          - generic [ref=e2607]: "--"
+                    - button "Add association label" [ref=e2613] [cursor=pointer]:
+                      - paragraph [ref=e2615]: Add association label
+                - link "View all associated Contacts Link opens in a new window" [ref=e2616] [cursor=pointer]:
+                  - /url: /contacts/19933594/objects/0-1/views/all/list?filters=%5B%7B%22operator%22%3A%22EQ%22%2C%22value%22%3A49512150380%2C%22property%22%3A%22associations.1-40%22%7D%5D
+                  - generic [ref=e2618]: View all associated Contacts
+                  - img "Link opens in a new window" [ref=e2620]
+            - generic [ref=e2624]:
+              - generic [ref=e2625]:
+                - button "Deals (0)" [expanded] [ref=e2629] [cursor=pointer]:
+                  - img [ref=e2630]:
+                    - img [ref=e2631]
+                  - generic [ref=e2634]: Deals (0)
+                - generic [ref=e2639]:
+                  - button "Add" [ref=e2640] [cursor=pointer]:
+                    - generic [ref=e2641]:
+                      - img [ref=e2642]
+                      - generic [ref=e2644]: Add
+                  - link "Manage card settings" [ref=e2645] [cursor=pointer]:
+                    - /url: https://app.hubspot.com/layout-editor/19933594/CRM_RECORD_RIGHT/2-56342751/edit/HubspotProvided-CRM_RECORD_PAGE%3A%7C%3A2-56342751/card-builder/ASSOCIATION_V3%2F0-3?eschref=%2Fcontacts%2F19933594%2Frecord%2F2-56342751%2F49512150380
+                    - img [ref=e2646]
+              - alert [ref=e2651]:
+                - img "empty-state-charts illustration" [ref=e2652]
+                - generic [ref=e2653]: Track the revenue opportunities associated with this record.
+    - complementary
+  - status [ref=e2704]:
+    - generic [ref=e2708]:
+      - img [ref=e2711]
+      - generic [ref=e2714]:
+        - text: "\""
+        - generic [ref=e2716]: UTM Campaign
+        - text: "\" changes saved"
+        - button "Undo" [ref=e2717] [cursor=pointer]:
+          - generic [ref=e2719]: Undo

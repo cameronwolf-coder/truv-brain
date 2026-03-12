@@ -1,0 +1,28 @@
+- generic [ref=e5]:
+  - generic [ref=e8]:
+    - img "Clay Logo" [ref=e9]
+    - generic [ref=e10]:
+      - generic [ref=e11]:
+        - heading "Welcome back!" [level=1] [ref=e12]
+        - paragraph [ref=e13]: Use Clay to turn any growth idea into reality — in minutes.
+      - button "Sign in with Google" [ref=e14] [cursor=pointer]:
+        - generic [ref=e15]:
+          - img [ref=e16]
+          - generic [ref=e18]: Sign in with Google
+      - paragraph [ref=e21]: OR
+      - generic [ref=e23]:
+        - generic [ref=e28]:
+          - img [ref=e29]
+          - textbox "email address" [ref=e31]:
+            - /placeholder: Email address
+        - button "Continue" [ref=e32] [cursor=pointer]
+        - paragraph [ref=e33]:
+          - text: Don't have an account?
+          - link "Sign up" [ref=e34] [cursor=pointer]:
+            - /url: /signup?source=login-page
+    - paragraph [ref=e36]:
+      - link "Terms of Service" [ref=e37] [cursor=pointer]:
+        - /url: https://www.clay.com/terms-of-service
+      - link "Privacy Policy" [ref=e38] [cursor=pointer]:
+        - /url: https://privacy.clay.com/policies
+  - img "Clay Onboarding Banner" [ref=e40]

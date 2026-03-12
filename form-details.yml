@@ -1,0 +1,115 @@
+- generic [ref=e1]:
+  - generic:
+    - region "Notification Toasts":
+      - heading "1 notification total" [level=2] [ref=e484]
+      - generic [ref=e486]:
+        - img [ref=e488]
+        - alert [ref=e491]:
+          - generic [ref=e493]: 1 document has been selected successfully
+        - button "Dismiss “1 document has been selected successfully” notification 1 of 1." [ref=e495] [cursor=pointer]:
+          - img [ref=e497]
+  - button "Chat with us" [ref=e500] [cursor=pointer]:
+    - img [ref=e7]
+  - generic [ref=e10]:
+    - generic [ref=e13]:
+      - button "Skip to main content" [ref=e501] [cursor=pointer]
+      - button "Close jump menu" [ref=e502] [cursor=pointer]:
+        - img [ref=e16]
+        - generic [ref=e18]: Close jump menu
+    - banner [ref=e19]:
+      - generic [ref=e20]:
+        - button [ref=e22] [cursor=pointer]:
+          - generic [ref=e24]:
+            - generic [ref=e25]:
+              - img [ref=e27]:
+                - img [ref=e28]
+              - img [ref=e31]
+            - img [ref=e34]
+        - generic [ref=e36]:
+          - heading "Actions List" [level=2] [ref=e503]
+          - list [ref=e38]:
+            - listitem [ref=e39]:
+              - generic [ref=e41]: Truv Ad Account
+              - img "Truv company icon" [ref=e504]
+          - separator [ref=e45]
+        - button "No unseen notifications, click to enter notifications experience" [ref=e505] [cursor=pointer]:
+          - generic [ref=e48]:
+            - generic [ref=e49]: No unseen notifications, click to enter notifications experience
+            - img [ref=e52]
+        - button "Learn more about campaign manager" [ref=e506] [cursor=pointer]:
+          - img "Help" [ref=e507]:
+            - img [ref=e59]
+        - button "Open user menu Icon for Truv" [ref=e508] [cursor=pointer]:
+          - generic [ref=e62]:
+            - generic [ref=e63]: Open user menu
+            - img "Icon for Truv" [ref=e509]
+    - main [ref=e68]:
+      - generic [ref=e70]:
+        - generic [ref=e73]:
+          - button "Back to ad set" [ref=e510] [cursor=pointer]:
+            - img [ref=e76]
+            - generic [ref=e78]: Back to ad set
+          - list [ref=e80]:
+            - listitem [ref=e81]:
+              - generic [ref=e82]: ... / CCM Document Ad - Lending / CCM Document Ad - Ops & Lending
+            - listitem [ref=e83]:
+              - generic [ref=e84]: BankSouth Case Study - Document Ad (Dark)
+        - generic [ref=e86]:
+          - generic [ref=e87]:
+            - generic [ref=e88]:
+              - heading "Ad" [level=3] [ref=e511]:
+                - button "Ad" [ref=e512] [cursor=pointer]:
+                  - generic [ref=e92]:
+                    - text: Ad
+                    - generic [ref=e93]:
+                      - alert
+                      - img [ref=e577]
+              - generic [ref=e97]:
+                - heading "Form details" [level=2] [ref=e570]:
+                  - button "Form details" [disabled] [expanded] [active] [ref=e571] [cursor=pointer]:
+                    - generic [ref=e100]:
+                      - generic [ref=e101]: Form details
+                      - generic [ref=e102]:
+                        - alert
+                        - img [ref=e579]
+                - region "Form details" [ref=e105]:
+                  - generic [ref=e106]:
+                    - status [ref=e107]:
+                      - img [ref=e110]
+                      - generic [ref=e112]:
+                        - paragraph [ref=e114]: After your ad becomes active, you can’t change the lead gen form associated with it.
+                        - button "Dismiss notice" [ref=e115] [cursor=pointer]:
+                          - img [ref=e118]
+                    - generic [ref=e120]:
+                      - text: Call-to-action
+                      - button "Learn more about Call To Action for this ad" [ref=e121] [cursor=pointer]:
+                        - img [ref=e123]
+                        - generic [ref=e125]: Learn more about Call To Action for this ad
+                    - combobox "Call-to-action Learn more about Call To Action for this ad" [disabled] [ref=e128]:
+                      - option "Unlock full document" [selected]
+                      - option "Unlock article"
+                    - generic [ref=e130]: Lead gen form
+                    - combobox "Search by name or choose from the list" [ref=e135]
+                    - button "Create new form" [ref=e136] [cursor=pointer]:
+                      - img [ref=e138]
+                      - generic [ref=e140]: Create new form
+            - alert
+            - generic:
+              - alert
+          - generic [ref=e143]:
+            - heading "Preview" [level=2] [ref=e572]
+            - button "Select a platform for the ad preview. Mobile Feed" [ref=e573] [cursor=pointer]:
+              - img [ref=e148]
+              - generic [ref=e150]: Mobile Feed
+            - generic [ref=e153]:
+              - status [ref=e154]:
+                - generic [ref=e155]:
+                  - img [ref=e157]
+                  - generic [ref=e160]: This is a static image of a mobile document ad.
+              - img "Document ad mobile preview" [ref=e574]
+        - generic [ref=e163]:
+          - button "Cancel" [ref=e575] [cursor=pointer]:
+            - generic [ref=e166]: Cancel
+          - button "Save ad" [ref=e576] [cursor=pointer]:
+            - generic [ref=e169]: Save ad
+  - generic [ref=e171]: BankSouth_x_Truv_LinkedIn_Document_Ad_2026.pdf

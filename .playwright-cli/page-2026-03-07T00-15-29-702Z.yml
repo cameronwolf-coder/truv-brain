@@ -1,0 +1,56 @@
+- generic [ref=e1]:
+  - region "Cookie banner":
+    - dialog "Cookie banner" [ref=e2]:
+      - button "close" [ref=e4] [cursor=pointer]:
+        - text: ×
+        - generic [ref=e5]: close
+      - generic [ref=e6]:
+        - paragraph [ref=e8]:
+          - text: We use cookies to improve HubSpot’s site. Some cookies are necessary for our website and services to function properly. Other cookies are optional and help personalize your experience, including advertising and analytics. You can consent to all cookies, decline all optional cookies, or manage optional cookies. Without a selection, our default cookie settings will apply. You can change your preferences at any time. To learn more, check out our
+          - link "Cookie Policy" [ref=e9] [cursor=pointer]:
+            - /url: https://legal.hubspot.com/cookie-policy?_ga=2.50914222.648097249.1661181827-2085802971.1659562077
+          - text: .
+        - generic [ref=e10]:
+          - generic [ref=e12]:
+            - button "Accept all" [ref=e13] [cursor=pointer]
+            - button "Decline all" [ref=e14] [cursor=pointer]
+          - button "Manage Cookies" [ref=e15] [cursor=pointer]:
+            - text: Manage Cookies
+            - img [ref=e17]
+  - generic [ref=e20]:
+    - generic [ref=e21]:
+      - generic [ref=e22]:
+        - link "Hubspot Homepage" [ref=e25] [cursor=pointer]:
+          - /url: https://www.hubspot.com
+          - img "Hubspot Homepage" [ref=e26]
+        - paragraph [ref=e27]: Sign in
+        - paragraph [ref=e28]:
+          - generic [ref=e29]:
+            - text: or
+            - link "create an account" [ref=e30] [cursor=pointer]:
+              - /url: https://app.hubspot.com/signup-hubspot/crm?loginRedirectUrl=https%3A%2F%2Fapp.hubspot.com%2Fworkflows%2F19933594%2Fplatform%2Fflow%2F1786880420%2Fedit&hubs_signup-cta=login-signup-cta&hubs_signup-url=app.hubspot.com%2Flogin
+        - alert [ref=e32]:
+          - generic [ref=e33]:
+            - heading "Your authentication has expired" [level=5] [ref=e34]
+            - paragraph [ref=e36]: Please log in again to continue.
+        - generic [ref=e37]:
+          - generic [ref=e39]:
+            - generic [ref=e45]: Email
+            - textbox "Email" [active] [ref=e46]:
+              - /placeholder: Enter your email
+          - button "Continue" [disabled] [ref=e47]:
+            - generic [ref=e49]: Continue
+      - generic [ref=e51]:
+        - paragraph [ref=e52]: See how HubSpot can help you achieve your growth goals.
+        - link "Get a demo" [ref=e53] [cursor=pointer]:
+          - /url: https://offers.hubspot.com/crm-platform-demo?hubs_signup-url=app.hubspot.com/login&hubs_signup-cta=login-demo-existing
+          - generic [ref=e54]: Get a demo
+    - contentinfo [ref=e55]:
+      - generic [ref=e56]: ©2026 HubSpot, Inc. All Rights Reserved.
+      - generic [ref=e57]:
+        - link "Privacy Policy" [ref=e58] [cursor=pointer]:
+          - /url: https://legal.hubspot.com/privacy-policy
+        - button "Manage Cookies" [ref=e60] [cursor=pointer]
+        - button "California Consumer Privacy Act (CCPA) Opt-Out Icon Your Privacy Choices" [ref=e62] [cursor=pointer]:
+          - img "California Consumer Privacy Act (CCPA) Opt-Out Icon" [ref=e63]
+          - text: Your Privacy Choices

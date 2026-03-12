@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CrossCountry Mortgage x Truv — Document Ad</title>
+<style>
+  @font-face {
+    font-family: 'Gilroy';
+    src: url('/public/fonts/Gilroy-SemiBold.woff2') format('woff2');
+    font-weight: 600;
+  }
+  @font-face {
+    font-family: 'Gilroy';
+    src: url('/public/fonts/Gilroy-Medium.woff2') format('woff2');
+    font-weight: 500;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Gilroy', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: #f4f4f2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+    padding: 40px 20px;
+  }
+
+  .page {
+    width: 612px;   /* 8.5in at 72dpi */
+    height: 792px;  /* 11in at 72dpi */
+    background: #fff;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.1);
+    page-break-after: always;
+  }
+
+  /* ========== PAGE 1: COVER ========== */
+  .cover {
+    background: linear-gradient(165deg, #0f1c47 0%, #1a2d6b 40%, #2c64e3 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 48px;
+    color: #fff;
+  }
+  .cover-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+  .cover-logo {
+    height: 32px;
+  }
+  .cover-badge {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.7);
+    border: 1px solid rgba(255,255,255,0.3);
+    padding: 6px 14px;
+    border-radius: 4px;
+  }
+  .cover-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 20px 0;
+  }
+  .cover-company {
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.6);
+    margin-bottom: 20px;
+  }
+  .cover-headline {
+    font-size: 42px;
+    font-weight: 600;
+    line-height: 1.15;
+    margin-bottom: 0;
+    max-width: 480px;
+  }
+  .cover-headline .highlight {
+    color: #7eb3ff;
+  }
+  .cover-divider {
+    width: 60px;
+    height: 4px;
+    background: #2c64e3;
+    border-radius: 2px;
+    margin-top: 28px;
+  }
+  .cover-metrics {
+    display: flex;
+    gap: 0;
+    border-top: 1px solid rgba(255,255,255,0.15);
+    padding-top: 28px;
+  }
+  .cover-metric {
+    flex: 1;
+    text-align: center;
+    border-right: 1px solid rgba(255,255,255,0.15);
+  }
+  .cover-metric:last-child { border-right: none; }
+  .cover-metric-value {
+    font-size: 36px;
+    font-weight: 600;
+    color: #fff;
+    line-height: 1;
+  }
+  .cover-metric-value .unit {
+    font-size: 20px;
+    color: #7eb3ff;
+  }
+  .cover-metric-label {
+    font-size: 9px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.5);
+    margin-top: 6px;
+  }
+
+  /* ========== PAGE 2: THE CHALLENGE ========== */
+  .challenge-page {
+    display: flex;
+    flex-direction: column;
+  }
+  .page-header {
+    padding: 36px 48px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .page-header .logo {
+    height: 24px;
+    opacity: 0.4;
+  }
+  .page-num {
+    font-size: 12px;
+    font-weight: 600;
+    color: #2c64e3;
+  }
+  .challenge-hero {
+    background: #0f1c47;
+    color: #fff;
+    margin: 24px 48px 0;
+    border-radius: 12px;
+    padding: 36px 40px;
+  }
+  .section-tag {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #2c64e3;
+    margin-bottom: 12px;
+  }
+  .challenge-hero .section-tag { color: #7eb3ff; }
+  .challenge-hero h2 {
+    font-size: 30px;
+    font-weight: 600;
+    line-height: 1.2;
+    margin-bottom: 16px;
+  }
+  .challenge-hero p {
+    font-size: 15px;
+    line-height: 1.6;
+    color: rgba(255,255,255,0.8);
+    max-width: 460px;
+  }
+  .pain-points {
+    padding: 28px 48px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    flex: 1;
+  }
+  .pain-point {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 16px 20px;
+    border: 1px solid #e8eaf0;
+    border-left: 3px solid #2c64e3;
+    border-radius: 8px;
+  }
+  .pain-icon {
+    width: 36px;
+    height: 36px;
+    background: #eef2ff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 16px;
+    color: #2c64e3;
+  }
+  .pain-point h4 {
+    font-size: 15px;
+    font-weight: 600;
+    color: #0f1c47;
+    margin-bottom: 3px;
+  }
+  .pain-point p {
+    font-size: 13px;
+    color: #666;
+    line-height: 1.4;
+  }
+  .page-footer {
+    padding: 0 48px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .page-footer .brand {
+    font-size: 10px;
+    color: #bbb;
+    letter-spacing: 0.5px;
+  }
+
+  /* ========== PAGE 3: RESULTS TEASER ========== */
+  .results-teaser {
+    display: flex;
+    flex-direction: column;
+  }
+  .teaser-header-block {
+    background: linear-gradient(135deg, #0f1c47 0%, #1a2d6b 100%);
+    margin: 24px 48px 0;
+    border-radius: 12px;
+    padding: 32px 40px;
+    color: #fff;
+  }
+  .teaser-header-block .section-tag { color: #7eb3ff; }
+  .teaser-header-block h2 {
+    font-size: 28px;
+    font-weight: 600;
+    line-height: 1.2;
+    margin-bottom: 12px;
+  }
+  .teaser-header-block p {
+    font-size: 14px;
+    color: rgba(255,255,255,0.75);
+    line-height: 1.5;
+  }
+  .teaser-metrics {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    padding: 24px 48px;
+  }
+  .teaser-metric-card {
+    background: #f8f9fc;
+    border-radius: 12px;
+    padding: 28px 24px;
+    text-align: center;
+    border: 1px solid #e8eaf0;
+  }
+  .teaser-metric-card .value {
+    font-size: 44px;
+    font-weight: 600;
+    color: #2c64e3;
+    line-height: 1;
+  }
+  .teaser-metric-card .value .small { font-size: 24px; }
+  .teaser-metric-card .label {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #666;
+    margin-top: 8px;
+  }
+  .teaser-cta {
+    margin: auto 48px 0;
+    padding: 24px 32px;
+    background: linear-gradient(135deg, #eef2ff 0%, #dce6ff 100%);
+    border-radius: 12px;
+    text-align: center;
+    margin-bottom: 24px;
+  }
+  .teaser-cta p {
+    font-size: 18px;
+    font-weight: 600;
+    color: #0f1c47;
+    margin-bottom: 4px;
+  }
+  .teaser-cta .sub {
+    font-size: 13px;
+    color: #666;
+    font-weight: 500;
+  }
+
+  /* ========== PAGE 4: FULL RESULTS ========== */
+  .results-full {
+    display: flex;
+    flex-direction: column;
+  }
+  .results-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    padding: 20px 48px;
+  }
+  .result-card {
+    padding: 24px;
+    border-radius: 12px;
+    border: 1px solid #e8eaf0;
+    border-top: 3px solid #2c64e3;
+  }
+  .result-card .icon {
+    width: 40px;
+    height: 40px;
+    background: #eef2ff;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    color: #2c64e3;
+    margin-bottom: 14px;
+  }
+  .result-card h3 {
+    font-size: 16px;
+    font-weight: 600;
+    color: #0f1c47;
+    margin-bottom: 8px;
+  }
+  .result-card p {
+    font-size: 12px;
+    color: #666;
+    line-height: 1.5;
+  }
+  .comparison-table {
+    margin: 8px 48px 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .comparison-col {
+    padding: 24px;
+  }
+  .comparison-col.before {
+    background: #f8f9fc;
+  }
+  .comparison-col.after {
+    background: #0f1c47;
+    color: #fff;
+  }
+  .comparison-col .col-title {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #999;
+    margin-bottom: 16px;
+  }
+  .comparison-col.after .col-title { color: #7eb3ff; }
+  .comparison-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+    font-size: 13px;
+  }
+  .comparison-col.after .comparison-row {
+    border-bottom-color: rgba(255,255,255,0.1);
+  }
+  .comparison-row:last-child { border-bottom: none; }
+  .comparison-row .label { color: #666; }
+  .comparison-col.after .comparison-row .label { color: rgba(255,255,255,0.7); }
+  .comparison-row .val {
+    font-weight: 600;
+    color: #0f1c47;
+  }
+  .comparison-col.after .comparison-row .val { color: #7eb3ff; }
+
+  /* ========== PAGE 5: QUOTE + SOLUTION ========== */
+  .quote-page {
+    display: flex;
+    flex-direction: column;
+  }
+  .solution-summary {
+    padding: 20px 48px;
+  }
+  .solution-summary h2 {
+    font-size: 26px;
+    font-weight: 600;
+    color: #0f1c47;
+    margin-bottom: 16px;
+  }
+  .solution-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-top: 16px;
+  }
+  .solution-card {
+    padding: 20px;
+    border-radius: 10px;
+    border: 1px solid #e8eaf0;
+  }
+  .solution-card .card-tag {
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: #2c64e3;
+    margin-bottom: 8px;
+  }
+  .solution-card h4 {
+    font-size: 14px;
+    font-weight: 600;
+    color: #0f1c47;
+    margin-bottom: 6px;
+  }
+  .solution-card p {
+    font-size: 12px;
+    color: #666;
+    line-height: 1.5;
+  }
+  .quote-block {
+    margin: auto 48px 0;
+    margin-bottom: 24px;
+    background: #f8f9fc;
+    border-radius: 12px;
+    padding: 32px;
+    border-left: 4px solid #2c64e3;
+  }
+  .quote-mark {
+    font-size: 48px;
+    color: #2c64e3;
+    line-height: 1;
+    margin-bottom: 8px;
+    font-family: Georgia, serif;
+  }
+  .quote-text {
+    font-size: 17px;
+    font-weight: 500;
+    color: #0f1c47;
+    line-height: 1.5;
+    font-style: italic;
+    margin-bottom: 16px;
+  }
+  .quote-author {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .quote-avatar {
+    width: 40px;
+    height: 40px;
+    background: #2c64e3;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+  }
+  .quote-author-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: #0f1c47;
+  }
+  .quote-author-title {
+    font-size: 12px;
+    color: #666;
+  }
+
+  /* ========== PAGE 6: CTA ========== */
+  .cta-page {
+    background: linear-gradient(165deg, #0f1c47 0%, #1a2d6b 50%, #2c64e3 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 48px;
+    color: #fff;
+  }
+  .cta-page .logo {
+    height: 36px;
+    margin-bottom: 48px;
+  }
+  .cta-page h2 {
+    font-size: 36px;
+    font-weight: 600;
+    line-height: 1.2;
+    margin-bottom: 20px;
+    max-width: 420px;
+  }
+  .cta-page .sub {
+    font-size: 16px;
+    color: rgba(255,255,255,0.7);
+    line-height: 1.6;
+    max-width: 400px;
+    margin-bottom: 40px;
+  }
+  .cta-button {
+    display: inline-block;
+    background: #fff;
+    color: #0f1c47;
+    font-size: 16px;
+    font-weight: 600;
+    padding: 16px 40px;
+    border-radius: 8px;
+    text-decoration: none;
+    margin-bottom: 12px;
+  }
+  .cta-secondary {
+    font-size: 13px;
+    color: rgba(255,255,255,0.5);
+  }
+  .cta-stats {
+    display: flex;
+    gap: 48px;
+    margin-top: 56px;
+    padding-top: 32px;
+    border-top: 1px solid rgba(255,255,255,0.15);
+  }
+  .cta-stat .val {
+    font-size: 28px;
+    font-weight: 600;
+    color: #7eb3ff;
+  }
+  .cta-stat .val .sm { font-size: 16px; }
+  .cta-stat .label {
+    font-size: 10px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.4);
+    margin-top: 4px;
+  }
+
+  /* Print styles for PDF generation */
+  @media print {
+    body { background: #fff; gap: 0; padding: 0; }
+    .page { box-shadow: none; page-break-after: always; }
+  }
+</style>
+</head>
+<body>
+
+<!-- PAGE 1: COVER -->
+<div class="page cover">
+  <div class="cover-header">
+    <svg class="cover-logo" viewBox="0 0 80 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <text x="0" y="24" fill="white" font-family="Gilroy, sans-serif" font-size="28" font-weight="600">truv</text>
+    </svg>
+    <div class="cover-badge">Customer Story</div>
+  </div>
+  <div class="cover-content">
+    <div class="cover-company">CrossCountry Mortgage</div>
+    <h1 class="cover-headline">
+      How CCM cut verification spend by
+      <span class="highlight">$10 million</span>
+      annually
+    </h1>
+    <div class="cover-divider"></div>
+  </div>
+  <div class="cover-metrics">
+    <div class="cover-metric">
+      <div class="cover-metric-value">$10<span class="unit">M</span></div>
+      <div class="cover-metric-label">Annual Savings</div>
+    </div>
+    <div class="cover-metric">
+      <div class="cover-metric-value">70<span class="unit">%+</span></div>
+      <div class="cover-metric-label">Completion Rate</div>
+    </div>
+    <div class="cover-metric">
+      <div class="cover-metric-value">8<span class="unit">%</span></div>
+      <div class="cover-metric-label">R&W Uplift</div>
+    </div>
+    <div class="cover-metric">
+      <div class="cover-metric-value">&lt;1<span class="unit">mo</span></div>
+      <div class="cover-metric-label">Go-Live</div>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE 2: THE CHALLENGE -->
+<div class="page challenge-page">
+  <div class="page-header">
+    <svg class="logo" viewBox="0 0 60 20" fill="none"><text x="0" y="17" fill="#0f1c47" font-family="Gilroy, sans-serif" font-size="20" font-weight="600">truv</text></svg>
+    <div class="page-num">02</div>
+  </div>
+  <div class="challenge-hero">
+    <div class="section-tag">The Challenge</div>
+    <h2>$18M in Annual Verification Costs</h2>
+    <p>As the #1 retail mortgage lender in the U.S., CCM was spending $18M annually on income and employment verifications through legacy providers.</p>
+  </div>
+  <div class="pain-points">
+    <div class="pain-point">
+      <div class="pain-icon">$</div>
+      <div>
+        <h4>Massive verification spend</h4>
+        <p>$18M/year on legacy VOIE providers with inconsistent data quality</p>
+      </div>
+    </div>
+    <div class="pain-point">
+      <div class="pain-icon">&#9201;</div>
+      <div>
+        <h4>Operational bottlenecks</h4>
+        <p>Manual follow-ups and re-verification workflows slowing loan officers</p>
+      </div>
+    </div>
+    <div class="pain-point">
+      <div class="pain-icon">&#9888;</div>
+      <div>
+        <h4>Inconsistent data</h4>
+        <p>Legacy providers delivered hit-or-miss results, creating underwriter delays</p>
+      </div>
+    </div>
+    <div class="pain-point">
+      <div class="pain-icon">&#8644;</div>
+      <div>
+        <h4>Limited integration</h4>
+        <p>No deep connection to Blend (POS) or Encompass (LOS) workflows</p>
+      </div>
+    </div>
+  </div>
+  <div class="page-footer">
+    <div class="brand">CrossCountry Mortgage x Truv</div>
+  </div>
+</div>
+
+<!-- PAGE 3: RESULTS TEASER (last free page before gate) -->
+<div class="page results-teaser">
+  <div class="page-header">
+    <svg class="logo" viewBox="0 0 60 20" fill="none"><text x="0" y="17" fill="#0f1c47" font-family="Gilroy, sans-serif" font-size="20" font-weight="600">truv</text></svg>
+    <div class="page-num">03</div>
+  </div>
+  <div class="teaser-header-block">
+    <div class="section-tag">The Results</div>
+    <h2>CCM transformed verification across 100,000+ loans per year</h2>
+    <p>By switching to Truv's consumer-permissioned data, CCM achieved results across every metric that mattered.</p>
+  </div>
+  <div class="teaser-metrics">
+    <div class="teaser-metric-card">
+      <div class="value">$10<span class="small">M</span></div>
+      <div class="label">Annual Savings</div>
+    </div>
+    <div class="teaser-metric-card">
+      <div class="value">70<span class="small">%+</span></div>
+      <div class="label">Completion Rate</div>
+    </div>
+    <div class="teaser-metric-card">
+      <div class="value">8<span class="small">%</span></div>
+      <div class="label">R&W Relief Uplift</div>
+    </div>
+    <div class="teaser-metric-card">
+      <div class="value">&lt;1<span class="small">mo</span></div>
+      <div class="label">Company-Wide Go-Live</div>
+    </div>
+  </div>
+  <div class="teaser-cta">
+    <p>Keep reading to see how they did it &#8594;</p>
+    <div class="sub">Full implementation details, before/after breakdown, and executive quote inside</div>
+  </div>
+  <div class="page-footer">
+    <div class="brand">CrossCountry Mortgage x Truv</div>
+  </div>
+</div>
+
+<!-- PAGE 4: FULL RESULTS + COMPARISON (gated) -->
+<div class="page results-full">
+  <div class="page-header">
+    <svg class="logo" viewBox="0 0 60 20" fill="none"><text x="0" y="17" fill="#0f1c47" font-family="Gilroy, sans-serif" font-size="20" font-weight="600">truv</text></svg>
+    <div class="page-num">04</div>
+  </div>
+  <div style="padding: 16px 48px 0;">
+    <div class="section-tag">Key Outcomes</div>
+    <h2 style="font-size: 26px; font-weight: 600; color: #0f1c47;">How Truv Delivered for CCM</h2>
+  </div>
+  <div class="results-grid">
+    <div class="result-card">
+      <div class="icon">$</div>
+      <h3>Est. $10M in Annual Savings</h3>
+      <p>Cut verification expenses by 40% compared to legacy providers.</p>
+    </div>
+    <div class="result-card">
+      <div class="icon">&#10003;</div>
+      <h3>70%+ Completion Rate</h3>
+      <p>Borrowers easily connect payroll accounts, accelerating loan decisions.</p>
+    </div>
+    <div class="result-card">
+      <div class="icon">&#9670;</div>
+      <h3>8% R&W Relief Uplift</h3>
+      <p>More verifications qualifying for GSE rep and warranty relief.</p>
+    </div>
+    <div class="result-card">
+      <div class="icon">&#9889;</div>
+      <h3>Go-Live in Under 30 Days</h3>
+      <p>Custom Blend integration deployed company-wide in &lt;1 month.</p>
+    </div>
+  </div>
+  <div class="comparison-table">
+    <div class="comparison-col before">
+      <div class="col-title">Before Truv</div>
+      <div class="comparison-row"><span class="label">Annual VOIE spend</span><span class="val">~$18M</span></div>
+      <div class="comparison-row"><span class="label">Data consistency</span><span class="val">Inconsistent</span></div>
+      <div class="comparison-row"><span class="label">Re-verification cost</span><span class="val">Full price</span></div>
+      <div class="comparison-row"><span class="label">R&W relief uplift</span><span class="val">Baseline</span></div>
+    </div>
+    <div class="comparison-col after">
+      <div class="col-title">With Truv</div>
+      <div class="comparison-row"><span class="label">Annual VOIE spend</span><span class="val">~$8M (est.)</span></div>
+      <div class="comparison-row"><span class="label">Data consistency</span><span class="val">Direct-source</span></div>
+      <div class="comparison-row"><span class="label">Re-verification cost</span><span class="val">Free</span></div>
+      <div class="comparison-row"><span class="label">R&W relief uplift</span><span class="val">+8%</span></div>
+    </div>
+  </div>
+  <div class="page-footer" style="margin-top: auto;">
+    <div class="brand">CrossCountry Mortgage x Truv</div>
+  </div>
+</div>
+
+<!-- PAGE 5: SOLUTION + QUOTE -->
+<div class="page quote-page">
+  <div class="page-header">
+    <svg class="logo" viewBox="0 0 60 20" fill="none"><text x="0" y="17" fill="#0f1c47" font-family="Gilroy, sans-serif" font-size="20" font-weight="600">truv</text></svg>
+    <div class="page-num">05</div>
+  </div>
+  <div class="solution-summary">
+    <div class="section-tag">The Solution</div>
+    <h2>Consumer-Permissioned Verification in Blend & Encompass</h2>
+    <div class="solution-cards">
+      <div class="solution-card">
+        <div class="card-tag">Point of Sale</div>
+        <h4>Blend Integration</h4>
+        <p>Truv powers borrower verifications as follow-up tasks, allowing loan officers to request income and employment verifications without leaving their core workflow.</p>
+      </div>
+      <div class="solution-card">
+        <div class="card-tag">Loan Origination</div>
+        <h4>Encompass Integration</h4>
+        <p>Truv automates re-verifications at no additional cost, eliminating manual follow-ups and freeing processors to focus on closing loans.</p>
+      </div>
+    </div>
+  </div>
+  <div class="quote-block">
+    <div class="quote-mark">"</div>
+    <div class="quote-text">Truv has redefined what partnership means — delivering accurate, trustworthy data, rapid implementation, and the agility to help us close loans faster and more confidently.</div>
+    <div class="quote-author">
+      <div class="quote-avatar">TD</div>
+      <div>
+        <div class="quote-author-name">Tom Durney</div>
+        <div class="quote-author-title">EVP of Corporate Operations Support, CrossCountry Mortgage</div>
+      </div>
+    </div>
+  </div>
+  <div class="page-footer">
+    <div class="brand">CrossCountry Mortgage x Truv</div>
+  </div>
+</div>
+
+<!-- PAGE 6: CTA -->
+<div class="page cta-page">
+  <svg class="logo" viewBox="0 0 80 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <text x="0" y="24" fill="white" font-family="Gilroy, sans-serif" font-size="28" font-weight="600">truv</text>
+  </svg>
+  <h2>See What Truv Can Save Your Team</h2>
+  <p class="sub">Join 150+ lenders saving 60-80% on verifications with consumer-permissioned data from Truv.</p>
+  <a class="cta-button" href="https://www.truv.com/request-demo">Request a Custom ROI Analysis</a>
+  <div class="cta-secondary">sales@truv.com</div>
+  <div class="cta-stats">
+    <div class="cta-stat">
+      <div class="val">96<span class="sm">%</span></div>
+      <div class="label">Workforce Coverage</div>
+    </div>
+    <div class="cta-stat">
+      <div class="val">80<span class="sm">%</span></div>
+      <div class="label">Avg. Cost Savings</div>
+    </div>
+    <div class="cta-stat">
+      <div class="val">150<span class="sm">+</span></div>
+      <div class="label">Lender Customers</div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

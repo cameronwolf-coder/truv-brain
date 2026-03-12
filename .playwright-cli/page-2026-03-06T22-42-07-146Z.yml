@@ -1,0 +1,342 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e4]:
+    - link "HubSpot logo" [ref=e6] [cursor=pointer]:
+      - /url: /global-home/19933594
+      - img "HubSpot logo" [ref=e7]
+    - generic [ref=e9]:
+      - generic [ref=e14]:
+        - img
+        - searchbox "Search HubSpot" [ref=e15]
+        - generic:
+          - generic: ⌘
+          - generic: K
+      - button "Create new" [ref=e18] [cursor=pointer]:
+        - img [ref=e19]
+    - navigation "Global toolbar" [ref=e21]:
+      - menu [ref=e22]:
+        - menuitem "Calls" [ref=e23]:
+          - button "Calls" [ref=e24] [cursor=pointer]:
+            - img "Calling" [ref=e25]
+        - menuitem "Academy" [ref=e27]:
+          - button "Academy" [ref=e28] [cursor=pointer]:
+            - img "Academy" [ref=e29]
+        - menuitem "Marketplace" [ref=e33]:
+          - button "Marketplace" [ref=e34] [cursor=pointer]:
+            - img "Marketplace" [ref=e35]
+        - menuitem "Help" [ref=e37]:
+          - button "Help" [ref=e39] [cursor=pointer]:
+            - img "Help" [ref=e40]
+        - menuitem "Settings" [ref=e42]:
+          - link "Settings" [ref=e43] [cursor=pointer]:
+            - /url: /sales-products-settings/19933594/object/?eschref=%2Fcontacts%2F19933594%2Fobjects%2F2-56342751%2Fviews%2Fall%2Flist
+            - img "Settings" [ref=e44]
+        - generic [ref=e46]:
+          - 'menuitem "Notifications: 4 unseen" [ref=e47]':
+            - 'button "Notifications: 4 unseen" [ref=e48] [cursor=pointer]':
+              - img [ref=e49]
+          - generic: "4"
+        - menuitem "Open Assistant" [ref=e52]:
+          - button "Open Assistant" [ref=e53] [cursor=pointer]:
+            - img "Open Assistant" [ref=e54]
+            - generic [ref=e57]: Assistant
+        - menuitem "View profile and more" [ref=e59]:
+          - button "View profile and more" [ref=e60] [cursor=pointer]:
+            - img "Cam Wolf" [ref=e61]
+            - generic [ref=e62]: Truv
+            - img [ref=e63]
+  - generic [ref=e66]:
+    - button "Scroll up":
+      - img
+    - generic [ref=e67]:
+      - navigation [ref=e69]:
+        - menu [ref=e70]:
+          - menuitem "Home" [ref=e71] [cursor=pointer]:
+            - img "Home" [ref=e72]
+          - menuitem "Bookmarks" [ref=e74] [cursor=pointer]:
+            - img "Bookmarks" [ref=e75]
+          - menuitem "CRM" [ref=e77] [cursor=pointer]:
+            - img "CRM" [ref=e78]
+          - menuitem "Marketing" [ref=e80] [cursor=pointer]:
+            - img "Marketing" [ref=e81]
+          - menuitem "Content" [ref=e83] [cursor=pointer]:
+            - img "Content" [ref=e84]
+          - menuitem "Sales" [ref=e86] [cursor=pointer]:
+            - img "Sales" [ref=e87]
+          - menuitem "Commerce" [ref=e89] [cursor=pointer]:
+            - img "Commerce" [ref=e90]
+          - menuitem "Service" [ref=e93] [cursor=pointer]:
+            - img "Service" [ref=e94]
+          - menuitem "Data Management" [ref=e98] [cursor=pointer]:
+            - img "Data Management" [ref=e99]
+          - menuitem "Automation" [ref=e101] [cursor=pointer]:
+            - img "Automation" [ref=e102]
+          - menuitem "Reporting" [ref=e104] [cursor=pointer]:
+            - img "Reporting" [ref=e105]
+          - menuitem "Breeze" [ref=e107] [cursor=pointer]:
+            - img "Breeze" [ref=e108]
+          - menuitem "Development" [ref=e110] [cursor=pointer]:
+            - img "Development" [ref=e111]
+      - button [ref=e115] [cursor=pointer]:
+        - img [ref=e116]
+    - button "Scroll down" [ref=e119] [cursor=pointer]:
+      - img [ref=e120]
+  - generic [ref=e122]:
+    - generic [ref=e172]:
+      - table [ref=e178]:
+        - rowgroup [ref=e179]:
+          - row "Select all records. Event Name Event Type Event Status Event End Date Descending sort. Press to sort ascending." [ref=e180]:
+            - columnheader "Select all records." [ref=e181]:
+              - checkbox "Select all records." [ref=e186]
+            - columnheader "Event Name" [ref=e192] [cursor=pointer]:
+              - generic [ref=e201]: Event Name
+            - columnheader "Event Type" [ref=e204] [cursor=pointer]:
+              - generic [ref=e213]: Event Type
+            - columnheader "Event Status" [ref=e216] [cursor=pointer]:
+              - generic [ref=e225]: Event Status
+            - columnheader "Event End Date Descending sort. Press to sort ascending." [ref=e228] [cursor=pointer]:
+              - generic [ref=e234]:
+                - generic [ref=e237]: Event End Date
+                - generic "Descending sort. Press to sort ascending." [ref=e239]:
+                  - img [ref=e240]
+        - rowgroup [ref=e244]:
+          - row "Select row Great River MBA 2026 Preview Conference Upcoming May 7, 2026" [ref=e245]:
+            - cell "Select row" [ref=e246]:
+              - checkbox "Select row" [ref=e251]
+            - cell "Great River MBA 2026 Preview" [ref=e257]:
+              - generic [ref=e258]:
+                - link "Great River MBA 2026" [ref=e265] [cursor=pointer]:
+                  - /url: https://app.hubspot.com/contacts/19933594/record/2-56342751/46191820573?eschref=%2Fcontacts%2F19933594%2Fobjects%2F2-56342751%2Fviews%2Fall%2Flist%3Fnoprefetch%3D
+                  - generic [ref=e267]: Great River MBA 2026
+                - button "Preview" [ref=e270] [cursor=pointer]:
+                  - generic [ref=e272]: Preview
+            - button "Conference" [ref=e273]:
+              - generic [ref=e275]: Conference
+            - button "Upcoming" [ref=e276]:
+              - generic [ref=e278]: Upcoming
+            - button "May 7, 2026" [ref=e279]:
+              - generic [ref=e281]: May 7, 2026
+          - row "Select row The Gathering 2026 Preview Conference Upcoming Apr 30, 2026" [ref=e282]:
+            - cell "Select row" [ref=e283]:
+              - checkbox "Select row" [ref=e288]
+            - cell "The Gathering 2026 Preview" [ref=e294]:
+              - generic [ref=e295]:
+                - link "The Gathering 2026" [ref=e302] [cursor=pointer]:
+                  - /url: https://app.hubspot.com/contacts/19933594/record/2-56342751/46215916705?eschref=%2Fcontacts%2F19933594%2Fobjects%2F2-56342751%2Fviews%2Fall%2Flist%3Fnoprefetch%3D
+                  - generic [ref=e304]: The Gathering 2026
+                - button "Preview" [ref=e307] [cursor=pointer]:
+                  - generic [ref=e309]: Preview
+            - button "Conference" [ref=e310]:
+              - generic [ref=e312]: Conference
+            - button "Upcoming" [ref=e313]:
+              - generic [ref=e315]: Upcoming
+            - button "Apr 30, 2026" [ref=e316]:
+              - generic [ref=e318]: Apr 30, 2026
+          - row "Select row Dark Matter Conf 2026 Preview Conference Upcoming Apr 3, 2026" [ref=e319]:
+            - cell "Select row" [ref=e320]:
+              - checkbox "Select row" [ref=e325]
+            - cell "Dark Matter Conf 2026 Preview" [ref=e331]:
+              - generic [ref=e332]:
+                - link "Dark Matter Conf 2026" [ref=e339] [cursor=pointer]:
+                  - /url: https://app.hubspot.com/contacts/19933594/record/2-56342751/46191820571?eschref=%2Fcontacts%2F19933594%2Fobjects%2F2-56342751%2Fviews%2Fall%2Flist%3Fnoprefetch%3D
+                  - generic [ref=e341]: Dark Matter Conf 2026
+                - button "Preview" [ref=e344] [cursor=pointer]:
+                  - generic [ref=e346]: Preview
+            - button "Conference" [ref=e347]:
+              - generic [ref=e349]: Conference
+            - button "Upcoming" [ref=e350]:
+              - generic [ref=e352]: Upcoming
+            - button "Apr 3, 2026" [ref=e353]:
+              - generic [ref=e355]: Apr 3, 2026
+          - row "Select row March Insider, Public Sector Preview Webinar Upcoming Mar 18, 2026" [ref=e356]:
+            - cell "Select row" [ref=e357]:
+              - checkbox "Select row" [ref=e362]
+            - cell "March Insider, Public Sector Preview" [ref=e368]:
+              - generic [ref=e369]:
+                - link "March Insider, Public Sector" [ref=e376] [cursor=pointer]:
+                  - /url: https://app.hubspot.com/contacts/19933594/record/2-56342751/49512150380?eschref=%2Fcontacts%2F19933594%2Fobjects%2F2-56342751%2Fviews%2Fall%2Flist%3Fnoprefetch%3D
+                  - generic [ref=e378]: March Insider, Public Sector
+                - button "Preview" [ref=e381] [cursor=pointer]:
+                  - generic [ref=e383]: Preview
+            - button "Webinar" [ref=e384]:
+              - generic [ref=e386]: Webinar
+            - button "Upcoming" [ref=e387]:
+              - generic [ref=e389]: Upcoming
+            - button "Mar 18, 2026" [ref=e390]:
+              - generic [ref=e392]: Mar 18, 2026
+          - row "Select row ICE Experience 2026 Preview Conference Upcoming Mar 18, 2026" [ref=e393]:
+            - cell "Select row" [ref=e394]:
+              - checkbox "Select row" [ref=e399]
+            - cell "ICE Experience 2026 Preview" [ref=e405]:
+              - generic [ref=e406]:
+                - link "ICE Experience 2026" [ref=e413] [cursor=pointer]:
+                  - /url: https://app.hubspot.com/contacts/19933594/record/2-56342751/46215916701?eschref=%2Fcontacts%2F19933594%2Fobjects%2F2-56342751%2Fviews%2Fall%2Flist%3Fnoprefetch%3D
+                  - generic [ref=e415]: ICE Experience 2026
+                - button "Preview" [ref=e418] [cursor=pointer]:
+                  - generic [ref=e420]: Preview
+            - button "Conference" [ref=e421]:
+              - generic [ref=e423]: Conference
+            - button "Upcoming" [ref=e424]:
+              - generic [ref=e426]: Upcoming
+            - button "Mar 18, 2026" [ref=e427]:
+              - generic [ref=e429]: Mar 18, 2026
+          - row "Select row First Continental Mortgage Webinar Preview Webinar Upcoming Mar 10, 2026" [ref=e430]:
+            - cell "Select row" [ref=e431]:
+              - checkbox "Select row" [ref=e436]
+            - cell "First Continental Mortgage Webinar Preview" [ref=e442]:
+              - generic [ref=e443]:
+                - link "First Continental Mortgage Webinar" [ref=e450] [cursor=pointer]:
+                  - /url: https://app.hubspot.com/contacts/19933594/record/2-56342751/45755969646?eschref=%2Fcontacts%2F19933594%2Fobjects%2F2-56342751%2Fviews%2Fall%2Flist%3Fnoprefetch%3D
+                  - generic [ref=e452]: First Continental Mortgage Webinar
+                - button "Preview" [ref=e455] [cursor=pointer]:
+                  - generic [ref=e457]: Preview
+            - button "Webinar" [ref=e458]:
+              - generic [ref=e460]: Webinar
+            - button "Upcoming" [ref=e461]:
+              - generic [ref=e463]: Upcoming
+            - button "Mar 10, 2026" [ref=e464]:
+              - generic [ref=e466]: Mar 10, 2026
+          - row "Select row L1 Summit 2026 Preview Conference Upcoming Mar 4, 2026" [ref=e467]:
+            - cell "Select row" [ref=e468]:
+              - checkbox "Select row" [ref=e473]
+            - cell "L1 Summit 2026 Preview" [ref=e479]:
+              - generic [ref=e480]:
+                - link "L1 Summit 2026" [ref=e487] [cursor=pointer]:
+                  - /url: https://app.hubspot.com/contacts/19933594/record/2-56342751/46191820564?eschref=%2Fcontacts%2F19933594%2Fobjects%2F2-56342751%2Fviews%2Fall%2Flist%3Fnoprefetch%3D
+                  - generic [ref=e489]: L1 Summit 2026
+                - button "Preview" [ref=e492] [cursor=pointer]:
+                  - generic [ref=e494]: Preview
+            - button "Conference" [ref=e495]:
+              - generic [ref=e497]: Conference
+            - button "Upcoming" [ref=e498]:
+              - generic [ref=e500]: Upcoming
+            - button "Mar 4, 2026" [ref=e501]:
+              - generic [ref=e503]: Mar 4, 2026
+          - row "Select row Northeast Mortgage Summit '26 Preview Conference Upcoming Feb 26, 2026" [ref=e504]:
+            - cell "Select row" [ref=e505]:
+              - checkbox "Select row" [ref=e510]
+            - cell "Northeast Mortgage Summit '26 Preview" [ref=e516]:
+              - generic [ref=e517]:
+                - link "Northeast Mortgage Summit '26" [ref=e524] [cursor=pointer]:
+                  - /url: https://app.hubspot.com/contacts/19933594/record/2-56342751/46122390616?eschref=%2Fcontacts%2F19933594%2Fobjects%2F2-56342751%2Fviews%2Fall%2Flist%3Fnoprefetch%3D
+                  - generic [ref=e526]: Northeast Mortgage Summit '26
+                - button "Preview" [ref=e529] [cursor=pointer]:
+                  - generic [ref=e531]: Preview
+            - button "Conference" [ref=e532]:
+              - generic [ref=e534]: Conference
+            - button "Upcoming" [ref=e535]:
+              - generic [ref=e537]: Upcoming
+            - button "Feb 26, 2026" [ref=e538]:
+              - generic [ref=e540]: Feb 26, 2026
+          - row "Select row HIT Connect 2026 Preview Conference Upcoming Feb 26, 2026" [ref=e541]:
+            - cell "Select row" [ref=e542]:
+              - checkbox "Select row" [ref=e547]
+            - cell "HIT Connect 2026 Preview" [ref=e553]:
+              - generic [ref=e554]:
+                - link "HIT Connect 2026" [ref=e561] [cursor=pointer]:
+                  - /url: https://app.hubspot.com/contacts/19933594/record/2-56342751/46122267540?eschref=%2Fcontacts%2F19933594%2Fobjects%2F2-56342751%2Fviews%2Fall%2Flist%3Fnoprefetch%3D
+                  - generic [ref=e563]: HIT Connect 2026
+                - button "Preview" [ref=e566] [cursor=pointer]:
+                  - generic [ref=e568]: Preview
+            - button "Conference" [ref=e569]:
+              - generic [ref=e571]: Conference
+            - button "Upcoming" [ref=e572]:
+              - generic [ref=e574]: Upcoming
+            - button "Feb 26, 2026" [ref=e575]:
+              - generic [ref=e577]: Feb 26, 2026
+          - row "Select row Desert Disruption 2026 Preview Conference Upcoming Feb 24, 2026" [ref=e578]:
+            - cell "Select row" [ref=e579]:
+              - checkbox "Select row" [ref=e584]
+            - cell "Desert Disruption 2026 Preview" [ref=e590]:
+              - generic [ref=e591]:
+                - link "Desert Disruption 2026" [ref=e598] [cursor=pointer]:
+                  - /url: https://app.hubspot.com/contacts/19933594/record/2-56342751/46191820557?eschref=%2Fcontacts%2F19933594%2Fobjects%2F2-56342751%2Fviews%2Fall%2Flist%3Fnoprefetch%3D
+                  - generic [ref=e600]: Desert Disruption 2026
+                - button "Preview" [ref=e603] [cursor=pointer]:
+                  - generic [ref=e605]: Preview
+            - button "Conference" [ref=e606]:
+              - generic [ref=e608]: Conference
+            - button "Upcoming" [ref=e609]:
+              - generic [ref=e611]: Upcoming
+            - button "Feb 24, 2026" [ref=e612]:
+              - generic [ref=e614]: Feb 24, 2026
+          - row "Select row MBA IMB 2026 Preview Conference Upcoming Feb 4, 2026" [ref=e615]:
+            - cell "Select row" [ref=e616]:
+              - checkbox "Select row" [ref=e621]
+            - cell "MBA IMB 2026 Preview" [ref=e627]:
+              - generic [ref=e628]:
+                - link "MBA IMB 2026" [ref=e635] [cursor=pointer]:
+                  - /url: https://app.hubspot.com/contacts/19933594/record/2-56342751/46122390607?eschref=%2Fcontacts%2F19933594%2Fobjects%2F2-56342751%2Fviews%2Fall%2Flist%3Fnoprefetch%3D
+                  - generic [ref=e637]: MBA IMB 2026
+                - button "Preview" [ref=e640] [cursor=pointer]:
+                  - generic [ref=e642]: Preview
+            - button "Conference" [ref=e643]:
+              - generic [ref=e645]: Conference
+            - button "Upcoming" [ref=e646]:
+              - generic [ref=e648]: Upcoming
+            - button "Feb 4, 2026" [ref=e649]:
+              - generic [ref=e651]: Feb 4, 2026
+          - row "Select row New England Mortgage Expo Preview Conference Complete Jan 16, 2026" [ref=e652]:
+            - cell "Select row" [ref=e653]:
+              - checkbox "Select row" [ref=e658]
+            - cell "New England Mortgage Expo Preview" [ref=e664]:
+              - generic [ref=e665]:
+                - link "New England Mortgage Expo" [ref=e672] [cursor=pointer]:
+                  - /url: https://app.hubspot.com/contacts/19933594/record/2-56342751/45891586407?eschref=%2Fcontacts%2F19933594%2Fobjects%2F2-56342751%2Fviews%2Fall%2Flist%3Fnoprefetch%3D
+                  - generic [ref=e674]: New England Mortgage Expo
+                - button "Preview" [ref=e677] [cursor=pointer]:
+                  - generic [ref=e679]: Preview
+            - button "Conference" [ref=e680]:
+              - generic [ref=e682]: Conference
+            - button "Complete" [ref=e683]:
+              - generic [ref=e685]: Complete
+            - button "Jan 16, 2026" [ref=e686]:
+              - generic [ref=e688]: Jan 16, 2026
+          - row "Select row MISMO 2026 Preview Conference Complete Jan 15, 2026" [ref=e689]:
+            - cell "Select row" [ref=e690]:
+              - checkbox "Select row" [ref=e695]
+            - cell "MISMO 2026 Preview" [ref=e701]:
+              - generic [ref=e702]:
+                - link "MISMO 2026" [ref=e709] [cursor=pointer]:
+                  - /url: https://app.hubspot.com/contacts/19933594/record/2-56342751/45696477699?eschref=%2Fcontacts%2F19933594%2Fobjects%2F2-56342751%2Fviews%2Fall%2Flist%3Fnoprefetch%3D
+                  - generic [ref=e711]: MISMO 2026
+                - button "Preview" [ref=e714] [cursor=pointer]:
+                  - generic [ref=e716]: Preview
+            - button "Conference" [ref=e717]:
+              - generic [ref=e719]: Conference
+            - button "Complete" [ref=e720]:
+              - generic [ref=e722]: Complete
+            - button "Jan 15, 2026" [ref=e723]:
+              - generic [ref=e725]: Jan 15, 2026
+          - row "Select row PHM Elite Conference 2026 Preview Conference Upcoming --" [ref=e726]:
+            - cell "Select row" [ref=e727]:
+              - checkbox "Select row" [ref=e732]
+            - cell "PHM Elite Conference 2026 Preview" [ref=e738]:
+              - generic [ref=e739]:
+                - link "PHM Elite Conference 2026" [ref=e746] [cursor=pointer]:
+                  - /url: https://app.hubspot.com/contacts/19933594/record/2-56342751/46215978564?eschref=%2Fcontacts%2F19933594%2Fobjects%2F2-56342751%2Fviews%2Fall%2Flist%3Fnoprefetch%3D
+                  - generic [ref=e748]: PHM Elite Conference 2026
+                - button "Preview" [ref=e751] [cursor=pointer]:
+                  - generic [ref=e753]: Preview
+            - button "Conference" [ref=e754]:
+              - generic [ref=e756]: Conference
+            - button "Upcoming" [ref=e757]:
+              - generic [ref=e759]: Upcoming
+            - button "--" [ref=e760]:
+              - generic [ref=e762]: "--"
+      - generic [ref=e764]:
+        - navigation "Pagination" [ref=e765]:
+          - button "Previous page" [disabled] [ref=e767]:
+            - generic [ref=e768]:
+              - img [ref=e769]
+              - generic [ref=e771]: Prev
+          - button "You are currently on Page 1" [ref=e773] [cursor=pointer]:
+            - generic [ref=e774]:
+              - generic [ref=e775]: You are currently on Page
+              - text: "1"
+          - button "Next page" [disabled] [ref=e777]:
+            - generic [ref=e778]:
+              - generic [ref=e779]: Next
+              - img [ref=e780]
+        - button "25 per page" [ref=e782] [cursor=pointer]:
+          - generic [ref=e785]: 25 per page
+    - complementary

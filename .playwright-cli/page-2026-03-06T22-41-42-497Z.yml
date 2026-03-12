@@ -1,0 +1,73 @@
+- generic [active] [ref=e1]:
+  - region "Cookie banner":
+    - dialog "Cookie banner" [ref=e2]:
+      - button "close" [ref=e4] [cursor=pointer]:
+        - text: ×
+        - generic [ref=e5]: close
+      - generic [ref=e6]:
+        - paragraph [ref=e8]:
+          - text: We use cookies to improve HubSpot’s site. Some cookies are necessary for our website and services to function properly. Other cookies are optional and help personalize your experience, including advertising and analytics. You can consent to all cookies, decline all optional cookies, or manage optional cookies. Without a selection, our default cookie settings will apply. You can change your preferences at any time. To learn more, check out our
+          - link "Cookie Policy" [ref=e9] [cursor=pointer]:
+            - /url: https://legal.hubspot.com/cookie-policy?_ga=2.50914222.648097249.1661181827-2085802971.1659562077
+          - text: .
+        - generic [ref=e10]:
+          - generic [ref=e12]:
+            - button "Accept all" [ref=e13] [cursor=pointer]
+            - button "Decline all" [ref=e14] [cursor=pointer]
+          - button "Manage Cookies" [ref=e15] [cursor=pointer]:
+            - text: Manage Cookies
+            - img [ref=e17]
+  - generic [ref=e20]:
+    - generic [ref=e21]:
+      - generic [ref=e22]:
+        - link "Hubspot Homepage" [ref=e25] [cursor=pointer]:
+          - /url: https://www.hubspot.com
+          - img "Hubspot Homepage" [ref=e26]
+        - paragraph [ref=e27]: Sign in
+        - paragraph [ref=e28]:
+          - generic [ref=e29]:
+            - text: or
+            - link "create an account" [ref=e30] [cursor=pointer]:
+              - /url: https://app.hubspot.com/signup-hubspot/crm?loginRedirectUrl=https%3A%2F%2Fapp.hubspot.com%2Fcontacts%2F19933594%2Fobjects%2F2-56342751%2Fviews%2Fall%2Flist&hubs_signup-cta=login-signup-cta&hubs_signup-url=app.hubspot.com%2Flogin
+        - generic [ref=e31]:
+          - paragraph [ref=e32]: cameron.wolf@truv.com
+          - button "Change email" [ref=e34] [cursor=pointer]:
+            - img [ref=e36]
+        - generic [ref=e41] [cursor=pointer]:
+          - checkbox "Remember me" [ref=e42]
+          - paragraph [ref=e50]: Remember me
+        - generic [ref=e52]:
+          - button "Sign in with passkey" [ref=e53] [cursor=pointer]:
+            - generic [ref=e54]:
+              - img [ref=e55]
+              - generic [ref=e57]: Sign in with passkey
+          - button "Google Sign in with Google" [ref=e58] [cursor=pointer]:
+            - generic [ref=e59]:
+              - img "Google" [ref=e60]
+              - generic [ref=e61]: Sign in with Google
+          - button "Sign in with Microsoft" [ref=e62] [cursor=pointer]:
+            - generic [ref=e64]: Sign in with Microsoft
+          - button "Apple Sign in with Apple" [ref=e65] [cursor=pointer]:
+            - generic [ref=e66]:
+              - img "Apple" [ref=e67]
+              - generic [ref=e68]: Sign in with Apple
+          - button "Sign in with password" [ref=e69] [cursor=pointer]:
+            - generic [ref=e71]: Sign in with password
+          - button "Sign in with SSO" [ref=e72] [cursor=pointer]:
+            - generic [ref=e73]:
+              - img [ref=e74]
+              - generic [ref=e76]: Sign in with SSO
+      - generic [ref=e78]:
+        - paragraph [ref=e79]: See how HubSpot can help you achieve your growth goals.
+        - link "Get a demo" [ref=e80] [cursor=pointer]:
+          - /url: https://offers.hubspot.com/crm-platform-demo?hubs_signup-url=app.hubspot.com/login&hubs_signup-cta=login-demo-existing
+          - generic [ref=e81]: Get a demo
+    - contentinfo [ref=e82]:
+      - generic [ref=e83]: ©2026 HubSpot, Inc. All Rights Reserved.
+      - generic [ref=e84]:
+        - link "Privacy Policy" [ref=e85] [cursor=pointer]:
+          - /url: https://legal.hubspot.com/privacy-policy
+        - button "Manage Cookies" [ref=e87] [cursor=pointer]
+        - button "California Consumer Privacy Act (CCPA) Opt-Out Icon Your Privacy Choices" [ref=e89] [cursor=pointer]:
+          - img "California Consumer Privacy Act (CCPA) Opt-Out Icon" [ref=e90]
+          - text: Your Privacy Choices

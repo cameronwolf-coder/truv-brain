@@ -1,0 +1,1087 @@
+- generic [ref=e1]:
+  - generic:
+    - iframe
+  - generic [ref=e2]:
+    - generic [ref=e7]:
+      - region "Page Section" [ref=e8]:
+        - group [ref=e10]:
+          - generic [ref=e11]:
+            - button "Exit" [ref=e13] [cursor=pointer]:
+              - generic [ref=e15]: Exit
+            - heading "Event record page Default view" [level=1] [ref=e17]:
+              - generic [ref=e18]:
+                - paragraph [ref=e19]: Event record page
+                - textbox "Name editor" [ref=e24]: Default view
+            - generic [ref=e26]:
+              - button "Save" [ref=e27] [cursor=pointer]:
+                - generic [ref=e30]: Save
+              - button "Save and exit" [ref=e31] [cursor=pointer]:
+                - generic [ref=e34]: Save and exit
+        - navigation [ref=e42]:
+          - button "Edit layout" [ref=e43] [cursor=pointer]: Edit layout
+          - button "Settings" [ref=e45] [cursor=pointer]: Settings
+      - region "Page Section" [ref=e50]:
+        - main [ref=e53]:
+          - generic [ref=e58]:
+            - generic [ref=e61]:
+              - generic [ref=e67]:
+                - generic [ref=e74]:
+                  - img [ref=e77]
+                  - paragraph [ref=e79]: Event name
+                - generic [ref=e108]:
+                  - button "Add card" [ref=e1505] [cursor=pointer]:
+                    - generic [ref=e1507]: Add card
+                  - generic [ref=e135]:
+                    - generic [ref=e137]:
+                      - generic [ref=e138]:
+                        - heading "About this Event" [level=2] [ref=e140]:
+                          - generic [ref=e142]: About this Event
+                        - img [ref=e146]
+                      - generic [ref=e151]: About this Event (default)
+                    - generic [ref=e152]:
+                      - button "Edit card" [ref=e153] [cursor=pointer]:
+                        - img [ref=e155]
+                      - button "More card actions" [ref=e157] [cursor=pointer]:
+                        - img [ref=e159]
+                  - button "Add card" [ref=e1508] [cursor=pointer]:
+                    - generic [ref=e1510]: Add card
+              - generic [ref=e179]:
+                - generic [ref=e181]:
+                  - generic [ref=e182]:
+                    - navigation [ref=e186]:
+                      - button "Overview" [ref=e187] [cursor=pointer]:
+                        - generic [ref=e191]: Overview
+                      - button "Activities" [ref=e193] [cursor=pointer]:
+                        - generic [ref=e194]: Activities
+                    - button "Create new tab" [ref=e196] [cursor=pointer]:
+                      - img [ref=e198]
+                    - button "Change tab order" [ref=e201] [cursor=pointer]:
+                      - generic [ref=e203]: Change tab order
+                  - separator [ref=e204]
+                - generic [ref=e210]:
+                  - generic [ref=e212]:
+                    - button "Add card" [ref=e1511] [cursor=pointer]:
+                      - generic [ref=e1513]: Add card
+                    - generic [ref=e239]:
+                      - generic [ref=e241]:
+                        - generic [ref=e242]:
+                          - heading "Key Dates" [level=2] [ref=e244]:
+                            - generic [ref=e246]: Key Dates
+                          - img [ref=e250]
+                        - generic [ref=e255]: Data highlights - Event (default)
+                      - generic [ref=e256]:
+                        - button "Edit card" [ref=e257] [cursor=pointer]:
+                          - img [ref=e259]
+                        - button "More card actions" [ref=e261] [cursor=pointer]:
+                          - img [ref=e263]
+                    - button "Add card" [ref=e1514] [cursor=pointer]:
+                      - generic [ref=e1516]: Add card
+                  - generic [ref=e283]:
+                    - generic [ref=e299]:
+                      - generic [ref=e301]:
+                        - generic [ref=e302]:
+                          - heading "Goals & Performance" [level=2] [ref=e304]:
+                            - generic [ref=e306]: Goals & Performance
+                          - img [ref=e310]
+                        - generic [ref=e315]: New data highlight card - (03/05/2026 8:45 PM)
+                      - generic [ref=e316]:
+                        - button "Edit card" [ref=e317] [cursor=pointer]:
+                          - img [ref=e319]
+                        - button "More card actions" [ref=e321] [cursor=pointer]:
+                          - img [ref=e323]
+                    - button "Add card" [ref=e1517] [cursor=pointer]:
+                      - generic [ref=e1519]: Add card
+                  - generic [ref=e343]:
+                    - generic [ref=e359]:
+                      - generic [ref=e361]:
+                        - generic [ref=e362]:
+                          - heading "Recent activities" [level=2] [ref=e364]:
+                            - generic [ref=e366]: Recent activities
+                          - img [ref=e370]
+                        - generic [ref=e375]: Recent activities - Event (default)
+                      - generic [ref=e376]:
+                        - button "Edit card" [ref=e377] [cursor=pointer]:
+                          - img [ref=e379]
+                        - button "More card actions" [ref=e381] [cursor=pointer]:
+                          - img [ref=e383]
+                    - button "Add card" [ref=e1520] [cursor=pointer]:
+                      - generic [ref=e1522]: Add card
+                  - generic [ref=e403]:
+                    - generic [ref=e419]:
+                      - generic [ref=e421]:
+                        - generic [ref=e422]:
+                          - heading "Contacts" [level=2] [ref=e424]:
+                            - generic [ref=e426]: Contacts
+                          - img [ref=e430]
+                        - generic [ref=e435]: Contacts Association table (default)
+                      - generic [ref=e436]:
+                        - button "Edit card" [ref=e437] [cursor=pointer]:
+                          - img [ref=e439]
+                        - button "More card actions" [ref=e441] [cursor=pointer]:
+                          - img [ref=e443]
+                    - button "Add card" [ref=e1523] [cursor=pointer]:
+                      - generic [ref=e1525]: Add card
+                  - generic [ref=e463]:
+                    - generic [ref=e479]:
+                      - generic [ref=e481]:
+                        - generic [ref=e482]:
+                          - heading "Deals" [level=2] [ref=e484]:
+                            - generic [ref=e486]: Deals
+                          - img [ref=e490]
+                        - generic [ref=e495]: Deals Association table (default)
+                      - generic [ref=e496]:
+                        - button "Edit card" [ref=e497] [cursor=pointer]:
+                          - img [ref=e499]
+                        - button "More card actions" [ref=e501] [cursor=pointer]:
+                          - img [ref=e503]
+                    - button "Add card" [ref=e1526] [cursor=pointer]:
+                      - generic [ref=e1528]: Add card
+                  - generic [ref=e523]:
+                    - generic [ref=e539]:
+                      - generic [ref=e541]:
+                        - generic [ref=e542]:
+                          - heading "Upcoming activities" [level=2] [ref=e544]:
+                            - generic [ref=e546]: Upcoming activities
+                          - img [ref=e550]
+                        - generic [ref=e555]: Upcoming activities - Event (default)
+                      - generic [ref=e556]:
+                        - button "Edit card" [ref=e557] [cursor=pointer]:
+                          - img [ref=e559]
+                        - button "More card actions" [ref=e561] [cursor=pointer]:
+                          - img [ref=e563]
+                    - button "Add card" [ref=e1529] [cursor=pointer]:
+                      - generic [ref=e1531]: Add card
+              - generic [ref=e586]:
+                - generic [ref=e588]:
+                  - button "Add card" [ref=e1532] [cursor=pointer]:
+                    - generic [ref=e1534]: Add card
+                  - generic [ref=e615]:
+                    - generic [ref=e617]:
+                      - generic [ref=e618]:
+                        - heading "Contacts" [level=2] [ref=e620]:
+                          - generic [ref=e622]: Contacts
+                        - img [ref=e626]
+                      - generic [ref=e631]: Contacts Association card (default)
+                    - generic [ref=e632]:
+                      - button "Edit card" [ref=e633] [cursor=pointer]:
+                        - img [ref=e635]
+                      - button "More card actions" [ref=e637] [cursor=pointer]:
+                        - img [ref=e639]
+                  - button "Add card" [ref=e1535] [cursor=pointer]:
+                    - generic [ref=e1537]: Add card
+                - generic [ref=e659]:
+                  - generic [ref=e675]:
+                    - generic [ref=e677]:
+                      - generic [ref=e678]:
+                        - heading "Deals" [level=2] [ref=e680]:
+                          - generic [ref=e682]: Deals
+                        - img [ref=e686]
+                      - generic [ref=e691]: Deals Association card (default)
+                    - generic [ref=e692]:
+                      - button "Edit card" [ref=e693] [cursor=pointer]:
+                        - img [ref=e695]
+                      - button "More card actions" [ref=e697] [cursor=pointer]:
+                        - img [ref=e699]
+                  - button "Add card" [ref=e1538] [cursor=pointer]:
+                    - generic [ref=e1540]: Add card
+            - complementary:
+              - region "Collaboration sidebar":
+                - iframe [ref=e718]:
+                  
+            - generic:
+              - generic:
+                - generic:
+                  - complementary
+                  - complementary:
+                    - generic [ref=e720]:
+                      - button [ref=e721]:
+                        - img [ref=e724]
+                      - button "Collaborate with Assistant" [ref=e729] [cursor=pointer]:
+                        - img [ref=e731]
+                  - complementary
+                  - complementary
+    - complementary
+  - generic [ref=e735]:
+    - banner [ref=e737]:
+      - generic [ref=e738]:
+        - button "Close" [ref=e739] [cursor=pointer]:
+          - img [ref=e742]
+        - heading "Edit default card" [level=2] [ref=e744]
+    - generic [ref=e746]:
+      - generic [ref=e752]:
+        - generic [ref=e757]:
+          - generic [ref=e759]:
+            - generic [ref=e760]: "Added to:"
+            - button "1 view" [ref=e763] [cursor=pointer]
+          - generic [ref=e767]:
+            - generic [ref=e773]:
+              - text: Card title
+              - generic [ref=e774]: "*"
+              - img [ref=e776]
+            - generic "Card title *" [ref=e778]:
+              - textbox "Card title *" [ref=e779]: About this Event
+              - button [ref=e1541] [cursor=pointer]:
+                - img [ref=e1543]
+          - generic [ref=e787]:
+            - paragraph [ref=e788]:
+              - generic [ref=e790]: Internal name
+            - paragraph [ref=e791]:
+              - img [ref=e794]
+            - paragraph [ref=e796]: ":"
+            - paragraph [ref=e797]:
+              - generic [ref=e799]: About this Event (default)
+            - button [disabled] [ref=e800]:
+              - img [ref=e802]
+        - generic [ref=e810]:
+          - generic [ref=e811]:
+            - paragraph [ref=e814]: User permissions
+            - text: Let users add more properties to this card in their view.
+          - checkbox "User permissions" [checked] [ref=e819]
+        - generic [ref=e824]:
+          - generic [ref=e825]: Properties
+          - paragraph [ref=e827]: Decide which properties should appear on this card.
+          - generic [ref=e833]:
+            - button "Add properties (18/50)" [expanded] [ref=e835] [cursor=pointer]:
+              - generic [ref=e1545]:
+                - generic [ref=e1546]: Add properties
+                - generic [ref=e1547]: (18/50)
+              - generic [ref=e1550]:
+                - combobox "Search properties" [active] [ref=e1551]
+                - generic:
+                  - generic:
+                    - img
+              - listbox [ref=e1555]:
+                - generic [ref=e1556]:
+                  - listitem [ref=e1558]:
+                    - option "Event Information" [ref=e1559]:
+                      - button "Event Information" [ref=e1561]:
+                        - generic [ref=e1564]: Event Information
+                  - option "Cost Per Attendee" [ref=e1565]:
+                    - listitem [ref=e1566]:
+                      - option "Cost Per Attendee" [ref=e1567]:
+                        - generic "Cost Per Attendee" [ref=e1569]:
+                          - generic [ref=e1571]:
+                            - checkbox "Cost Per Attendee" [checked] [ref=e1572]
+                            - generic [ref=e1581]: Cost Per Attendee
+                  - option "Event Budget" [ref=e1582]:
+                    - listitem [ref=e1583]:
+                      - option "Event Budget" [ref=e1584]:
+                        - generic "Event Budget" [ref=e1586]:
+                          - generic [ref=e1588]:
+                            - checkbox "Event Budget" [checked] [ref=e1589]
+                            - generic [ref=e1598]: Event Budget
+                  - option "Event End Date" [ref=e1599]:
+                    - listitem [ref=e1600]:
+                      - option "Event End Date" [ref=e1601]:
+                        - generic "Event End Date" [ref=e1603]:
+                          - generic [ref=e1605]:
+                            - checkbox "Event End Date" [checked] [ref=e1606]
+                            - generic [ref=e1615]: Event End Date
+                  - option "Event Location" [ref=e1616]:
+                    - listitem [ref=e1617]:
+                      - option "Event Location" [ref=e1618]:
+                        - generic "Event Location" [ref=e1620]:
+                          - generic [ref=e1622]:
+                            - checkbox "Event Location" [checked] [ref=e1623]
+                            - generic [ref=e1632]: Event Location
+                  - option "Event Name" [ref=e1633]:
+                    - listitem [ref=e1634]:
+                      - option "Event Name" [ref=e1635]:
+                        - generic "Event Name" [ref=e1637]:
+                          - generic [ref=e1639]:
+                            - checkbox "Event Name" [checked] [ref=e1640]
+                            - generic [ref=e1649]: Event Name
+                  - option "Event Start Date" [ref=e1650]:
+                    - listitem [ref=e1651]:
+                      - option "Event Start Date" [ref=e1652]:
+                        - generic "Event Start Date" [ref=e1654]:
+                          - generic [ref=e1656]:
+                            - checkbox "Event Start Date" [checked] [ref=e1657]
+                            - generic [ref=e1666]: Event Start Date
+                  - option "Event Status" [ref=e1667]:
+                    - listitem [ref=e1668]:
+                      - option "Event Status" [ref=e1669]:
+                        - generic "Event Status" [ref=e1671]:
+                          - generic [ref=e1673]:
+                            - checkbox "Event Status" [checked] [ref=e1674]
+                            - generic [ref=e1683]: Event Status
+                  - option "Event Type" [ref=e1684]:
+                    - listitem [ref=e1685]:
+                      - option "Event Type" [ref=e1686]:
+                        - generic "Event Type" [ref=e1688]:
+                          - generic [ref=e1690]:
+                            - checkbox "Event Type" [checked] [ref=e1691]
+                            - generic [ref=e1700]: Event Type
+                  - option "Event URL" [ref=e1701]:
+                    - listitem [ref=e1702]:
+                      - option "Event URL" [ref=e1703]:
+                        - generic "Event URL" [ref=e1705]:
+                          - generic [ref=e1707]:
+                            - checkbox "Event URL" [checked] [ref=e1708]
+                            - generic [ref=e1717]: Event URL
+                  - option "Event Vertical" [ref=e1718]:
+                    - listitem [ref=e1719]:
+                      - option "Event Vertical" [ref=e1720]:
+                        - generic "Event Vertical" [ref=e1722]:
+                          - generic [ref=e1724]:
+                            - checkbox "Event Vertical" [checked] [ref=e1725]
+                            - generic [ref=e1734]: Event Vertical
+                  - option "Created by user ID" [ref=e1735]:
+                    - listitem [ref=e1736]:
+                      - option "Created by user ID" [ref=e1737]:
+                        - generic "Created by user ID" [ref=e1739]:
+                          - generic [ref=e1741]:
+                            - checkbox "Created by user ID" [checked] [ref=e1742]
+                            - generic [ref=e1751]: Created by user ID
+                  - option "Object create date/time" [ref=e1752]:
+                    - listitem [ref=e1753]:
+                      - option "Object create date/time" [ref=e1754]:
+                        - generic "Object create date/time" [ref=e1756]:
+                          - generic [ref=e1758]:
+                            - checkbox "Object create date/time" [ref=e1759]
+                            - generic [ref=e1768]: Object create date/time
+                  - option "Object last modified date/time" [ref=e1769]:
+                    - listitem [ref=e1770]:
+                      - option "Object last modified date/time" [ref=e1771]:
+                        - generic "Object last modified date/time" [ref=e1773]:
+                          - generic [ref=e1775]:
+                            - checkbox "Object last modified date/time" [ref=e1776]
+                            - generic [ref=e1785]: Object last modified date/time
+                  - option "Merged record IDs" [ref=e1786]:
+                    - listitem [ref=e1787]:
+                      - option "Merged record IDs" [ref=e1788]:
+                        - generic "Merged record IDs" [ref=e1790]:
+                          - generic [ref=e1792]:
+                            - checkbox "Merged record IDs" [ref=e1793]
+                            - generic [ref=e1802]: Merged record IDs
+                  - option "Record ID" [ref=e1803]:
+                    - listitem [ref=e1804]:
+                      - option "Record ID" [ref=e1805]:
+                        - generic "Record ID" [ref=e1807]:
+                          - generic [ref=e1809]:
+                            - checkbox "Record ID" [ref=e1810]
+                            - generic [ref=e1819]: Record ID
+                  - option "Record source detail 1" [ref=e1820]:
+                    - listitem [ref=e1821]:
+                      - option "Record source detail 1" [ref=e1822]:
+                        - generic "Record source detail 1" [ref=e1824]:
+                          - generic [ref=e1826]:
+                            - checkbox "Record source detail 1" [ref=e1827]
+                            - generic [ref=e1836]: Record source detail 1
+                  - option "Record source detail 2" [ref=e1837]:
+                    - listitem [ref=e1838]:
+                      - option "Record source detail 2" [ref=e1839]:
+                        - generic "Record source detail 2" [ref=e1841]:
+                          - generic [ref=e1843]:
+                            - checkbox "Record source detail 2" [ref=e1844]
+                            - generic [ref=e1853]: Record source detail 2
+                  - option "Record source detail 3" [ref=e1854]:
+                    - listitem [ref=e1855]:
+                      - option "Record source detail 3" [ref=e1856]:
+                        - generic "Record source detail 3" [ref=e1858]:
+                          - generic [ref=e1860]:
+                            - checkbox "Record source detail 3" [ref=e1861]
+                            - generic [ref=e1870]: Record source detail 3
+                  - option "Record source" [ref=e1871]:
+                    - listitem [ref=e1872]:
+                      - option "Record source" [ref=e1873]:
+                        - generic "Record source" [ref=e1875]:
+                          - generic [ref=e1877]:
+                            - checkbox "Record source" [ref=e1878]
+                            - generic [ref=e1887]: Record source
+                  - option "Shared teams" [ref=e1888]:
+                    - listitem [ref=e1889]:
+                      - option "Shared teams" [ref=e1890]:
+                        - generic "Shared teams" [ref=e1892]:
+                          - generic [ref=e1894]:
+                            - checkbox "Shared teams" [ref=e1895]
+                            - generic [ref=e1904]: Shared teams
+                  - option "Shared users" [ref=e1905]:
+                    - listitem [ref=e1906]:
+                      - option "Shared users" [ref=e1907]:
+                        - generic "Shared users" [ref=e1909]:
+                          - generic [ref=e1911]:
+                            - checkbox "Shared users" [ref=e1912]
+                            - generic [ref=e1921]: Shared users
+                  - option "Updated by user ID" [ref=e1922]:
+                    - listitem [ref=e1923]:
+                      - option "Updated by user ID" [ref=e1924]:
+                        - generic "Updated by user ID" [ref=e1926]:
+                          - generic [ref=e1928]:
+                            - checkbox "Updated by user ID" [ref=e1929]
+                            - generic [ref=e1938]: Updated by user ID
+                  - option "Owner assigned date" [ref=e1939]:
+                    - listitem [ref=e1940]:
+                      - option "Owner assigned date" [ref=e1941]:
+                        - generic "Owner assigned date" [ref=e1943]:
+                          - generic [ref=e1945]:
+                            - checkbox "Owner assigned date" [ref=e1946]
+                            - generic [ref=e1955]: Owner assigned date
+                  - option "Owner" [ref=e1956]:
+                    - listitem [ref=e1957]:
+                      - option "Owner" [ref=e1958]:
+                        - generic "Owner" [ref=e1960]:
+                          - generic [ref=e1962]:
+                            - checkbox "Owner" [checked] [ref=e1963]
+                            - generic [ref=e1972]: Owner
+                  - option "Owner's main team" [ref=e1973]:
+                    - listitem [ref=e1974]:
+                      - option "Owner's main team" [ref=e1975]:
+                        - generic "Owner's main team" [ref=e1977]:
+                          - generic [ref=e1979]:
+                            - checkbox "Owner's main team" [ref=e1980]
+                            - generic [ref=e1989]: Owner's main team
+                  - option "Linear Project URL" [ref=e1990]:
+                    - listitem [ref=e1991]:
+                      - option "Linear Project URL" [ref=e1992]:
+                        - generic "Linear Project URL" [ref=e1994]:
+                          - generic [ref=e1996]:
+                            - checkbox "Linear Project URL" [checked] [ref=e1997]
+                            - generic [ref=e2006]: Linear Project URL
+                  - option "List ID" [ref=e2007]:
+                    - listitem [ref=e2008]:
+                      - option "List ID" [ref=e2009]:
+                        - generic "List ID" [ref=e2011]:
+                          - generic [ref=e2013]:
+                            - checkbox "List ID" [ref=e2014]
+                            - generic [ref=e2023]: List ID
+                  - option "Promotion Start Date" [ref=e2024]:
+                    - listitem [ref=e2025]:
+                      - option "Promotion Start Date" [ref=e2026]:
+                        - generic "Promotion Start Date" [ref=e2028]:
+                          - generic [ref=e2030]:
+                            - checkbox "Promotion Start Date" [checked] [ref=e2031]
+                            - generic [ref=e2040]: Promotion Start Date
+                  - option "Registration Deadline" [ref=e2041]:
+                    - listitem [ref=e2042]:
+                      - option "Registration Deadline" [ref=e2043]:
+                        - generic "Registration Deadline" [ref=e2045]:
+                          - generic [ref=e2047]:
+                            - checkbox "Registration Deadline" [checked] [ref=e2048]
+                            - generic [ref=e2057]: Registration Deadline
+                  - option "Target Attendees" [ref=e2058]:
+                    - listitem [ref=e2059]:
+                      - option "Target Attendees" [ref=e2060]:
+                        - generic "Target Attendees" [ref=e2062]:
+                          - generic [ref=e2064]:
+                            - checkbox "Target Attendees" [checked] [ref=e2065]
+                            - generic [ref=e2074]: Target Attendees
+                  - option "Target Registrants" [ref=e2075]:
+                    - listitem [ref=e2076]:
+                      - option "Target Registrants" [ref=e2077]:
+                        - generic "Target Registrants" [ref=e2079]:
+                          - generic [ref=e2081]:
+                            - checkbox "Target Registrants" [checked] [ref=e2082]
+                            - generic [ref=e2091]: Target Registrants
+                  - option "UTM Campaign" [ref=e2092]:
+                    - listitem [ref=e2093]:
+                      - option "UTM Campaign" [ref=e2094]:
+                        - generic "UTM Campaign" [ref=e2096]:
+                          - generic [ref=e2098]:
+                            - checkbox "UTM Campaign" [checked] [ref=e2099]
+                            - generic [ref=e2108]: UTM Campaign
+            - generic [ref=e844]:
+              - generic [ref=e851]:
+                - button "Cost Per Attendee" [ref=e857] [cursor=pointer]:
+                  - option "Cost Per Attendee" [disabled] [ref=e861]:
+                    - generic [ref=e863]: Cost Per Attendee
+                - generic [ref=e866]:
+                  - button "move down" [ref=e867] [cursor=pointer]:
+                    - img [ref=e869]
+                  - button "move up" [disabled] [ref=e871]:
+                    - img [ref=e873]
+                  - button "delete" [ref=e875] [cursor=pointer]:
+                    - img [ref=e877]
+              - generic [ref=e885]:
+                - button "Event Budget" [ref=e891] [cursor=pointer]:
+                  - option "Event Budget" [disabled] [ref=e895]:
+                    - generic [ref=e897]: Event Budget
+                - generic [ref=e900]:
+                  - button "move down" [ref=e901] [cursor=pointer]:
+                    - img [ref=e903]
+                  - button "move up" [ref=e905] [cursor=pointer]:
+                    - img [ref=e907]
+                  - button "delete" [ref=e909] [cursor=pointer]:
+                    - img [ref=e911]
+              - generic [ref=e919]:
+                - button "Event End Date" [ref=e925] [cursor=pointer]:
+                  - option "Event End Date" [disabled] [ref=e929]:
+                    - generic [ref=e931]: Event End Date
+                - generic [ref=e934]:
+                  - button "move down" [ref=e935] [cursor=pointer]:
+                    - img [ref=e937]
+                  - button "move up" [ref=e939] [cursor=pointer]:
+                    - img [ref=e941]
+                  - button "delete" [ref=e943] [cursor=pointer]:
+                    - img [ref=e945]
+              - generic [ref=e953]:
+                - button "Event Location" [ref=e959] [cursor=pointer]:
+                  - option "Event Location" [disabled] [ref=e963]:
+                    - generic [ref=e965]: Event Location
+                - generic [ref=e968]:
+                  - button "move down" [ref=e969] [cursor=pointer]:
+                    - img [ref=e971]
+                  - button "move up" [ref=e973] [cursor=pointer]:
+                    - img [ref=e975]
+                  - button "delete" [ref=e977] [cursor=pointer]:
+                    - img [ref=e979]
+              - generic [ref=e987]:
+                - button "Event Start Date" [ref=e993] [cursor=pointer]:
+                  - option "Event Start Date" [disabled] [ref=e997]:
+                    - generic [ref=e999]: Event Start Date
+                - generic [ref=e1002]:
+                  - button "move down" [ref=e1003] [cursor=pointer]:
+                    - img [ref=e1005]
+                  - button "move up" [ref=e1007] [cursor=pointer]:
+                    - img [ref=e1009]
+                  - button "delete" [ref=e1011] [cursor=pointer]:
+                    - img [ref=e1013]
+              - generic [ref=e1021]:
+                - button "Event URL" [ref=e1027] [cursor=pointer]:
+                  - option "Event URL" [disabled] [ref=e1031]:
+                    - generic [ref=e1033]: Event URL
+                - generic [ref=e1036]:
+                  - button "move down" [ref=e1037] [cursor=pointer]:
+                    - img [ref=e1039]
+                  - button "move up" [ref=e1041] [cursor=pointer]:
+                    - img [ref=e1043]
+                  - button "delete" [ref=e1045] [cursor=pointer]:
+                    - img [ref=e1047]
+              - generic [ref=e1055]:
+                - button "Event Vertical" [ref=e1061] [cursor=pointer]:
+                  - option "Event Vertical" [disabled] [ref=e1065]:
+                    - generic [ref=e1067]: Event Vertical
+                - generic [ref=e1070]:
+                  - button "move down" [ref=e1071] [cursor=pointer]:
+                    - img [ref=e1073]
+                  - button "move up" [ref=e1075] [cursor=pointer]:
+                    - img [ref=e1077]
+                  - button "delete" [ref=e1079] [cursor=pointer]:
+                    - img [ref=e1081]
+              - generic [ref=e1089]:
+                - button "Created by user ID" [ref=e1095] [cursor=pointer]:
+                  - option "Created by user ID" [disabled] [ref=e1099]:
+                    - generic [ref=e1101]: Created by user ID
+                - generic [ref=e1104]:
+                  - button "move down" [ref=e1105] [cursor=pointer]:
+                    - img [ref=e1107]
+                  - button "move up" [ref=e1109] [cursor=pointer]:
+                    - img [ref=e1111]
+                  - button "delete" [ref=e1113] [cursor=pointer]:
+                    - img [ref=e1115]
+              - generic [ref=e1123]:
+                - button "Owner" [ref=e1129] [cursor=pointer]:
+                  - option "Owner" [disabled] [ref=e1133]:
+                    - generic [ref=e1135]: Owner
+                - generic [ref=e1138]:
+                  - button "move down" [ref=e1139] [cursor=pointer]:
+                    - img [ref=e1141]
+                  - button "move up" [ref=e1143] [cursor=pointer]:
+                    - img [ref=e1145]
+                  - button "delete" [ref=e1147] [cursor=pointer]:
+                    - img [ref=e1149]
+              - generic [ref=e1157]:
+                - button "Linear Project URL" [ref=e1163] [cursor=pointer]:
+                  - option "Linear Project URL" [disabled] [ref=e1167]:
+                    - generic [ref=e1169]: Linear Project URL
+                - generic [ref=e1172]:
+                  - button "move down" [ref=e1173] [cursor=pointer]:
+                    - img [ref=e1175]
+                  - button "move up" [ref=e1177] [cursor=pointer]:
+                    - img [ref=e1179]
+                  - button "delete" [ref=e1181] [cursor=pointer]:
+                    - img [ref=e1183]
+              - generic [ref=e1191]:
+                - button "Promotion Start Date" [ref=e1197] [cursor=pointer]:
+                  - option "Promotion Start Date" [disabled] [ref=e1201]:
+                    - generic [ref=e1203]: Promotion Start Date
+                - generic [ref=e1206]:
+                  - button "move down" [ref=e1207] [cursor=pointer]:
+                    - img [ref=e1209]
+                  - button "move up" [ref=e1211] [cursor=pointer]:
+                    - img [ref=e1213]
+                  - button "delete" [ref=e1215] [cursor=pointer]:
+                    - img [ref=e1217]
+              - generic [ref=e1225]:
+                - button "Registration Deadline" [ref=e1231] [cursor=pointer]:
+                  - option "Registration Deadline" [disabled] [ref=e1235]:
+                    - generic [ref=e1237]: Registration Deadline
+                - generic [ref=e1240]:
+                  - button "move down" [ref=e1241] [cursor=pointer]:
+                    - img [ref=e1243]
+                  - button "move up" [ref=e1245] [cursor=pointer]:
+                    - img [ref=e1247]
+                  - button "delete" [ref=e1249] [cursor=pointer]:
+                    - img [ref=e1251]
+              - generic [ref=e1259]:
+                - button "Target Attendees" [ref=e1265] [cursor=pointer]:
+                  - option "Target Attendees" [disabled] [ref=e1269]:
+                    - generic [ref=e1271]: Target Attendees
+                - generic [ref=e1274]:
+                  - button "move down" [ref=e1275] [cursor=pointer]:
+                    - img [ref=e1277]
+                  - button "move up" [ref=e1279] [cursor=pointer]:
+                    - img [ref=e1281]
+                  - button "delete" [ref=e1283] [cursor=pointer]:
+                    - img [ref=e1285]
+              - generic [ref=e1293]:
+                - button "Target Registrants" [ref=e1299] [cursor=pointer]:
+                  - option "Target Registrants" [disabled] [ref=e1303]:
+                    - generic [ref=e1305]: Target Registrants
+                - generic [ref=e1308]:
+                  - button "move down" [ref=e1309] [cursor=pointer]:
+                    - img [ref=e1311]
+                  - button "move up" [ref=e1313] [cursor=pointer]:
+                    - img [ref=e1315]
+                  - button "delete" [ref=e1317] [cursor=pointer]:
+                    - img [ref=e1319]
+              - generic [ref=e1327]:
+                - button "Event Name" [ref=e1333] [cursor=pointer]:
+                  - option "Event Name" [disabled] [ref=e1337]:
+                    - generic [ref=e1339]: Event Name
+                - generic [ref=e1342]:
+                  - button "move down" [ref=e1343] [cursor=pointer]:
+                    - img [ref=e1345]
+                  - button "move up" [ref=e1347] [cursor=pointer]:
+                    - img [ref=e1349]
+                  - button "delete" [ref=e1351] [cursor=pointer]:
+                    - img [ref=e1353]
+              - generic [ref=e1361]:
+                - button "Event Status" [ref=e1367] [cursor=pointer]:
+                  - option "Event Status" [disabled] [ref=e1371]:
+                    - generic [ref=e1373]: Event Status
+                - generic [ref=e1376]:
+                  - button "move down" [ref=e1377] [cursor=pointer]:
+                    - img [ref=e1379]
+                  - button "move up" [ref=e1381] [cursor=pointer]:
+                    - img [ref=e1383]
+                  - button "delete" [ref=e1385] [cursor=pointer]:
+                    - img [ref=e1387]
+              - generic [ref=e1395]:
+                - button "Event Type" [ref=e1401] [cursor=pointer]:
+                  - option "Event Type" [disabled] [ref=e1405]:
+                    - generic [ref=e1407]: Event Type
+                - generic [ref=e1410]:
+                  - button "move down" [ref=e1411] [cursor=pointer]:
+                    - img [ref=e1413]
+                  - button "move up" [ref=e1415] [cursor=pointer]:
+                    - img [ref=e1417]
+                  - button "delete" [ref=e1419] [cursor=pointer]:
+                    - img [ref=e1421]
+              - generic [ref=e1429]:
+                - button "UTM Campaign" [ref=e1435] [cursor=pointer]:
+                  - option "UTM Campaign" [disabled] [ref=e1439]:
+                    - generic [ref=e1441]: UTM Campaign
+                - generic [ref=e1444]:
+                  - button "move down" [disabled] [ref=e1445]:
+                    - img [ref=e1447]
+                  - button "move up" [ref=e1449] [cursor=pointer]:
+                    - img [ref=e1451]
+                  - button "delete" [ref=e1453] [cursor=pointer]:
+                    - img [ref=e1455]
+      - generic [ref=e1463]:
+        - banner [ref=e1464]:
+          - heading "Preview" [level=6] [ref=e1465]
+          - button "Dark Matter Conf 2026" [ref=e1469] [cursor=pointer]:
+            - option "Dark Matter Conf 2026" [ref=e1473]:
+              - generic [ref=e1475]: Dark Matter Conf 2026
+        - iframe [ref=e1497]:
+          - generic [ref=f40e2]:
+            - generic [ref=f40e4]:
+              - generic:
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - heading "About this Event" [level=5]:
+                          - generic:
+                            - generic:
+                              - generic: About this Event
+                        - generic:
+                          - generic:
+                            - generic:
+                              - generic:
+                                - button "Actions":
+                                  - generic:
+                                    - generic:
+                                      - generic:
+                                        - generic: Actions
+                    - generic:
+                      - generic:
+                        - generic:
+                          - generic:
+                            - list:
+                              - generic:
+                                - generic:
+                                  - generic:
+                                    - generic:
+                                      - generic:
+                                        - generic:
+                                          - generic:
+                                            - generic:
+                                              - generic: Cost Per Attendee
+                                    - generic:
+                                      - generic:
+                                        - generic:
+                                          - link "Details":
+                                            - /url: /contacts/19933594/record/2-56342751/46191820571/history?search=Cost%20Per%20Attendee
+                                            - generic: Details
+                                    - textbox "Cost Per Attendee":
+                                      - /placeholder: "--"
+                              - generic:
+                                - generic:
+                                  - generic:
+                                    - generic:
+                                      - generic:
+                                        - generic:
+                                          - generic:
+                                            - generic:
+                                              - generic: Event Budget
+                                    - generic:
+                                      - generic:
+                                        - generic:
+                                          - link "Details":
+                                            - /url: /contacts/19933594/record/2-56342751/46191820571/history?search=Event%20Budget
+                                            - generic: Details
+                                    - textbox "Event Budget":
+                                      - /placeholder: "--"
+                              - generic:
+                                - generic:
+                                  - generic:
+                                    - generic:
+                                      - generic:
+                                        - generic:
+                                          - generic:
+                                            - generic:
+                                              - generic: Event End Date
+                                    - generic:
+                                      - generic:
+                                        - generic:
+                                          - link "Details":
+                                            - /url: /contacts/19933594/record/2-56342751/46191820571/history?search=Event%20End%20Date
+                                            - generic: Details
+                                    - generic:
+                                      - textbox "Event End Date":
+                                        - /placeholder: "--"
+                                        - text: 04/03/2026
+                                      - generic:
+                                        - img
+                              - generic:
+                                - generic:
+                                  - generic:
+                                    - generic:
+                                      - generic:
+                                        - generic:
+                                          - generic:
+                                            - generic:
+                                              - generic: Event Location
+                                    - generic:
+                                      - generic:
+                                        - generic:
+                                          - link "Details":
+                                            - /url: /contacts/19933594/record/2-56342751/46191820571/history?search=Event%20Location
+                                            - generic: Details
+                                    - generic:
+                                      - generic:
+                                        - textbox "Event Location":
+                                          - /placeholder: "--"
+                                          - text: Ponte Vedra, FL
+                              - generic:
+                                - generic:
+                                  - generic:
+                                    - generic:
+                                      - generic:
+                                        - generic:
+                                          - generic:
+                                            - generic:
+                                              - generic: Event Start Date
+                                    - generic:
+                                      - generic:
+                                        - generic:
+                                          - link "Details":
+                                            - /url: /contacts/19933594/record/2-56342751/46191820571/history?search=Event%20Start%20Date
+                                            - generic: Details
+                                    - generic:
+                                      - textbox "Event Start Date":
+                                        - /placeholder: "--"
+                                        - text: 04/01/2026
+                                      - generic:
+                                        - img
+                              - generic:
+                                - generic:
+                                  - generic:
+                                    - generic:
+                                      - generic:
+                                        - generic:
+                                          - generic:
+                                            - generic:
+                                              - generic: Event URL
+                                    - generic:
+                                      - generic:
+                                        - link:
+                                          - /url: https://marketing.dmatter.com/horizon2026
+                                          - img
+                                        - generic:
+                                          - link "Details":
+                                            - /url: /contacts/19933594/record/2-56342751/46191820571/history?search=Event%20URL
+                                            - generic: Details
+                                    - generic:
+                                      - generic:
+                                        - textbox "Event URL":
+                                          - /placeholder: "--"
+                                          - text: https://marketing.dmatter.com/horizon2026
+                              - generic:
+                                - generic:
+                                  - generic:
+                                    - generic:
+                                      - generic:
+                                        - generic:
+                                          - generic:
+                                            - generic:
+                                              - generic: Event Vertical
+                                    - generic:
+                                      - generic:
+                                        - generic:
+                                          - link "Details":
+                                            - /url: /contacts/19933594/record/2-56342751/46191820571/history?search=Event%20Vertical
+                                            - generic: Details
+                                    - generic:
+                                      - button "Event Vertical --":
+                                        - generic:
+                                          - generic:
+                                            - generic:
+                                              - option "--":
+                                                - generic:
+                                                  - generic: "--"
+                              - generic:
+                                - generic:
+                                  - generic:
+                                    - generic:
+                                      - generic:
+                                        - generic:
+                                          - generic:
+                                            - generic:
+                                              - generic: Created by user ID
+                                    - generic:
+                                      - generic:
+                                        - generic:
+                                          - link "Details":
+                                            - /url: /contacts/19933594/record/2-56342751/46191820571/history?search=Created%20by%20user%20ID
+                                            - generic: Details
+                                    - generic:
+                                      - generic:
+                                        - generic:
+                                          - img
+                                      - generic:
+                                        - button "Created by user ID Melissa Hausser":
+                                          - generic:
+                                            - generic:
+                                              - generic:
+                                                - option "Melissa Hausser":
+                                                  - generic:
+                                                    - generic: Melissa Hausser
+                              - generic:
+                                - generic:
+                                  - generic:
+                                    - generic:
+                                      - generic:
+                                        - generic:
+                                          - generic:
+                                            - generic:
+                                              - generic: Owner
+                                    - generic:
+                                      - generic:
+                                        - generic:
+                                          - link "Details":
+                                            - /url: /contacts/19933594/record/2-56342751/46191820571/history?search=Owner
+                                            - generic: Details
+                                    - generic:
+                                      - button "Owner Melissa Hausser":
+                                        - generic:
+                                          - generic:
+                                            - generic:
+                                              - option "Melissa Hausser":
+                                                - generic:
+                                                  - generic: Melissa Hausser
+                              - generic:
+                                - generic:
+                                  - generic:
+                                    - generic:
+                                      - generic:
+                                        - generic:
+                                          - generic:
+                                            - generic:
+                                              - generic: Linear Project URL
+                                    - generic:
+                                      - generic:
+                                        - generic:
+                                          - link "Details":
+                                            - /url: /contacts/19933594/record/2-56342751/46191820571/history?search=Linear%20Project%20URL
+                                            - generic: Details
+                                    - generic:
+                                      - generic:
+                                        - textbox "Linear Project URL":
+                                          - /placeholder: "--"
+                              - generic:
+                                - generic:
+                                  - generic:
+                                    - generic:
+                                      - generic:
+                                        - generic:
+                                          - generic:
+                                            - generic:
+                                              - generic: Promotion Start Date
+                                    - generic:
+                                      - generic:
+                                        - generic:
+                                          - link "Details":
+                                            - /url: /contacts/19933594/record/2-56342751/46191820571/history?search=Promotion%20Start%20Date
+                                            - generic: Details
+                                    - generic:
+                                      - textbox "Promotion Start Date":
+                                        - /placeholder: "--"
+                                      - generic:
+                                        - img
+                              - generic:
+                                - generic:
+                                  - generic:
+                                    - generic:
+                                      - generic:
+                                        - generic:
+                                          - generic:
+                                            - generic:
+                                              - generic: Registration Deadline
+                                    - generic:
+                                      - generic:
+                                        - generic:
+                                          - link "Details":
+                                            - /url: /contacts/19933594/record/2-56342751/46191820571/history?search=Registration%20Deadline
+                                            - generic: Details
+                                    - generic:
+                                      - textbox "Registration Deadline":
+                                        - /placeholder: "--"
+                                      - generic:
+                                        - img
+                              - generic:
+                                - generic:
+                                  - generic:
+                                    - generic:
+                                      - generic:
+                                        - generic:
+                                          - generic:
+                                            - generic:
+                                              - generic: Target Attendees
+                                    - generic:
+                                      - generic:
+                                        - generic:
+                                          - link "Details":
+                                            - /url: /contacts/19933594/record/2-56342751/46191820571/history?search=Target%20Attendees
+                                            - generic: Details
+                                    - textbox "Target Attendees":
+                                      - /placeholder: "--"
+                              - generic:
+                                - generic:
+                                  - generic:
+                                    - generic:
+                                      - generic:
+                                        - generic:
+                                          - generic:
+                                            - generic:
+                                              - generic: Target Registrants
+                                    - generic:
+                                      - generic:
+                                        - generic:
+                                          - link "Details":
+                                            - /url: /contacts/19933594/record/2-56342751/46191820571/history?search=Target%20Registrants
+                                            - generic: Details
+                                    - textbox "Target Registrants":
+                                      - /placeholder: "--"
+                              - generic:
+                                - generic:
+                                  - generic:
+                                    - generic:
+                                      - generic:
+                                        - generic:
+                                          - generic:
+                                            - generic:
+                                              - generic: Event Name
+                                    - generic:
+                                      - generic:
+                                        - generic:
+                                          - link "Details":
+                                            - /url: /contacts/19933594/record/2-56342751/46191820571/history?search=Event%20Name
+                                            - generic: Details
+                                    - generic:
+                                      - generic:
+                                        - textbox "Event Name":
+                                          - /placeholder: "--"
+                                          - text: Dark Matter Conf 2026
+                              - generic:
+                                - generic:
+                                  - generic:
+                                    - generic:
+                                      - generic:
+                                        - generic:
+                                          - generic:
+                                            - generic:
+                                              - generic: Event Status
+                                    - generic:
+                                      - generic:
+                                        - generic:
+                                          - link "Details":
+                                            - /url: /contacts/19933594/record/2-56342751/46191820571/history?search=Event%20Status
+                                            - generic: Details
+                                    - generic:
+                                      - button "Event Status Upcoming":
+                                        - generic:
+                                          - generic:
+                                            - generic:
+                                              - option "Upcoming":
+                                                - generic:
+                                                  - generic: Upcoming
+                              - generic:
+                                - generic:
+                                  - generic:
+                                    - generic:
+                                      - generic:
+                                        - generic:
+                                          - generic:
+                                            - generic:
+                                              - generic: Event Type
+                                    - generic:
+                                      - generic:
+                                        - generic:
+                                          - link "Details":
+                                            - /url: /contacts/19933594/record/2-56342751/46191820571/history?search=Event%20Type
+                                            - generic: Details
+                                    - generic:
+                                      - button "Event Type Conference":
+                                        - generic:
+                                          - generic:
+                                            - generic:
+                                              - option "Conference":
+                                                - generic:
+                                                  - generic: Conference
+                              - generic:
+                                - generic:
+                                  - generic:
+                                    - generic:
+                                      - generic:
+                                        - generic:
+                                          - generic:
+                                            - generic:
+                                              - generic: UTM Campaign
+                                    - generic:
+                                      - generic:
+                                        - generic:
+                                          - link "Details":
+                                            - /url: /contacts/19933594/record/2-56342751/46191820571/history?search=UTM%20Campaign
+                                            - generic: Details
+                                    - generic:
+                                      - generic:
+                                        - textbox "UTM Campaign":
+                                          - /placeholder: "--"
+            - complementary
+    - contentinfo [ref=e1498]:
+      - button "Save" [ref=e1501] [cursor=pointer]:
+        - generic [ref=e1504]: Save

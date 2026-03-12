@@ -1,0 +1,1181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lead Signal Detection — Agno Agent Flows</title>
+    <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=clash-display@600,700&f[]=satoshi@400,500,700&display=swap">
+    <style>
+        /* ===========================================
+           THEME: Dark technical blueprint
+           =========================================== */
+        :root {
+            --bg-primary: #0a0e1a;
+            --bg-card: #111827;
+            --bg-card-hover: #1a2237;
+            --border: rgba(44, 100, 227, 0.15);
+            --border-bright: rgba(44, 100, 227, 0.4);
+            --text-primary: #f0f2f5;
+            --text-secondary: #8b95a8;
+            --text-muted: #5a6478;
+            --accent: #2c64e3;
+            --accent-glow: rgba(44, 100, 227, 0.25);
+            --accent-light: #5b8def;
+            --green: #22c55e;
+            --green-glow: rgba(34, 197, 94, 0.2);
+            --amber: #f59e0b;
+            --amber-glow: rgba(245, 158, 11, 0.2);
+            --red: #ef4444;
+            --red-glow: rgba(239, 68, 68, 0.15);
+            --purple: #a855f7;
+            --purple-glow: rgba(168, 85, 247, 0.2);
+            --cyan: #06b6d4;
+            --cyan-glow: rgba(6, 182, 212, 0.2);
+
+            --font-display: 'Clash Display', sans-serif;
+            --font-body: 'Satoshi', sans-serif;
+            --title-size: clamp(2rem, 5.5vw, 4.5rem);
+            --h2-size: clamp(1.4rem, 3.5vw, 2.5rem);
+            --h3-size: clamp(1rem, 2.2vw, 1.5rem);
+            --body-size: clamp(0.75rem, 1.3vw, 1.05rem);
+            --small-size: clamp(0.65rem, 1vw, 0.85rem);
+            --label-size: clamp(0.6rem, 0.9vw, 0.75rem);
+            --slide-padding: clamp(1.5rem, 4vw, 4rem);
+            --content-gap: clamp(0.75rem, 2vw, 2rem);
+            --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html {
+            scroll-snap-type: y mandatory;
+            scroll-behavior: smooth;
+            height: 100%;
+            overflow-x: hidden;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            height: 100%;
+            overflow-x: hidden;
+        }
+
+        /* ===========================================
+           GRID BACKGROUND
+           =========================================== */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(44, 100, 227, 0.04) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(44, 100, 227, 0.04) 1px, transparent 1px);
+            background-size: 60px 60px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* ===========================================
+           SLIDE SYSTEM
+           =========================================== */
+        .slide {
+            width: 100vw;
+            height: 100vh;
+            height: 100dvh;
+            overflow: hidden;
+            scroll-snap-align: start;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            z-index: 1;
+        }
+
+        .slide-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            max-height: 100%;
+            overflow: hidden;
+            padding: var(--slide-padding);
+        }
+
+        /* ===========================================
+           TYPOGRAPHY
+           =========================================== */
+        h1 {
+            font-family: var(--font-display);
+            font-size: var(--title-size);
+            font-weight: 700;
+            line-height: 1.05;
+            letter-spacing: -0.02em;
+        }
+
+        h2 {
+            font-family: var(--font-display);
+            font-size: var(--h2-size);
+            font-weight: 600;
+            line-height: 1.15;
+            letter-spacing: -0.01em;
+        }
+
+        h3 {
+            font-family: var(--font-display);
+            font-size: var(--h3-size);
+            font-weight: 600;
+            line-height: 1.2;
+        }
+
+        p, li {
+            font-size: var(--body-size);
+            line-height: 1.55;
+            color: var(--text-secondary);
+        }
+
+        .label {
+            font-size: var(--label-size);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--accent-light);
+        }
+
+        .subtitle {
+            font-size: clamp(0.9rem, 1.8vw, 1.25rem);
+            color: var(--text-secondary);
+            max-width: 600px;
+        }
+
+        /* ===========================================
+           ANIMATIONS
+           =========================================== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.7s var(--ease-out-expo), transform 0.7s var(--ease-out-expo);
+        }
+        .slide.visible .reveal { opacity: 1; transform: translateY(0); }
+        .slide.visible .reveal:nth-child(1) { transition-delay: 0.05s; }
+        .slide.visible .reveal:nth-child(2) { transition-delay: 0.15s; }
+        .slide.visible .reveal:nth-child(3) { transition-delay: 0.25s; }
+        .slide.visible .reveal:nth-child(4) { transition-delay: 0.35s; }
+        .slide.visible .reveal:nth-child(5) { transition-delay: 0.45s; }
+        .slide.visible .reveal:nth-child(6) { transition-delay: 0.55s; }
+
+        /* ===========================================
+           COMPONENTS
+           =========================================== */
+
+        /* Flow diagram nodes */
+        .flow {
+            display: flex;
+            align-items: center;
+            gap: clamp(0.3rem, 1vw, 0.75rem);
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .flow-vertical {
+            flex-direction: column;
+        }
+
+        .node {
+            display: flex;
+            align-items: center;
+            gap: clamp(0.35rem, 0.7vw, 0.6rem);
+            padding: clamp(0.5rem, 1vw, 0.75rem) clamp(0.75rem, 1.5vw, 1.25rem);
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            background: var(--bg-card);
+            font-size: var(--small-size);
+            font-weight: 500;
+            white-space: nowrap;
+            position: relative;
+        }
+
+        .node-icon {
+            width: clamp(18px, 2vw, 26px);
+            height: clamp(18px, 2vw, 26px);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: clamp(10px, 1.2vw, 14px);
+            flex-shrink: 0;
+        }
+
+        .node--blue { border-color: var(--border-bright); }
+        .node--blue .node-icon { background: var(--accent-glow); color: var(--accent-light); }
+
+        .node--green { border-color: rgba(34, 197, 94, 0.25); }
+        .node--green .node-icon { background: var(--green-glow); color: var(--green); }
+
+        .node--amber { border-color: rgba(245, 158, 11, 0.25); }
+        .node--amber .node-icon { background: var(--amber-glow); color: var(--amber); }
+
+        .node--purple { border-color: rgba(168, 85, 247, 0.25); }
+        .node--purple .node-icon { background: var(--purple-glow); color: var(--purple); }
+
+        .node--cyan { border-color: rgba(6, 182, 212, 0.25); }
+        .node--cyan .node-icon { background: var(--cyan-glow); color: var(--cyan); }
+
+        .node--red { border-color: rgba(239, 68, 68, 0.2); }
+        .node--red .node-icon { background: var(--red-glow); color: var(--red); }
+
+        .arrow {
+            color: var(--text-muted);
+            font-size: clamp(12px, 1.5vw, 18px);
+            flex-shrink: 0;
+        }
+
+        .arrow-down {
+            color: var(--text-muted);
+            font-size: clamp(12px, 1.5vw, 18px);
+            text-align: center;
+        }
+
+        /* Parallel bracket */
+        .parallel-group {
+            display: flex;
+            flex-direction: column;
+            gap: clamp(0.3rem, 0.6vw, 0.5rem);
+            border-left: 2px solid var(--accent);
+            padding-left: clamp(0.5rem, 1vw, 0.75rem);
+            position: relative;
+        }
+
+        .parallel-label {
+            font-size: var(--label-size);
+            color: var(--accent-light);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: clamp(0.1rem, 0.3vw, 0.2rem);
+        }
+
+        /* Cards */
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: clamp(0.75rem, 1.5vw, 1.25rem);
+        }
+
+        .card h3 {
+            margin-bottom: clamp(0.3rem, 0.6vw, 0.5rem);
+        }
+
+        .card-grid {
+            display: grid;
+            gap: clamp(0.5rem, 1.2vw, 1rem);
+        }
+
+        .card-grid-2 { grid-template-columns: 1fr 1fr; }
+        .card-grid-3 { grid-template-columns: 1fr 1fr 1fr; }
+
+        /* Tags */
+        .tag {
+            display: inline-block;
+            font-size: var(--label-size);
+            font-weight: 600;
+            padding: 2px 8px;
+            border-radius: 4px;
+            margin-bottom: clamp(0.2rem, 0.4vw, 0.35rem);
+        }
+
+        .tag--blue { background: var(--accent-glow); color: var(--accent-light); }
+        .tag--green { background: var(--green-glow); color: var(--green); }
+        .tag--amber { background: var(--amber-glow); color: var(--amber); }
+        .tag--purple { background: var(--purple-glow); color: var(--purple); }
+        .tag--cyan { background: var(--cyan-glow); color: var(--cyan); }
+
+        /* Metric row */
+        .metric-row {
+            display: flex;
+            gap: clamp(0.75rem, 2vw, 2rem);
+            flex-wrap: wrap;
+        }
+
+        .metric {
+            text-align: center;
+        }
+
+        .metric-value {
+            font-family: var(--font-display);
+            font-size: clamp(1.5rem, 3vw, 2.5rem);
+            font-weight: 700;
+            color: var(--accent-light);
+        }
+
+        .metric-label {
+            font-size: var(--label-size);
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
+        /* Bullet list */
+        .bullet-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: clamp(0.25rem, 0.6vw, 0.5rem);
+        }
+
+        .bullet-list li {
+            padding-left: 1.2em;
+            position: relative;
+        }
+
+        .bullet-list li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--accent-light);
+        }
+
+        /* Comparison table */
+        .compare-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: var(--small-size);
+        }
+
+        .compare-table th {
+            font-family: var(--font-display);
+            font-weight: 600;
+            font-size: var(--small-size);
+            text-align: left;
+            padding: clamp(0.3rem, 0.6vw, 0.5rem) clamp(0.5rem, 1vw, 0.75rem);
+            border-bottom: 1px solid var(--border-bright);
+            color: var(--text-secondary);
+        }
+
+        .compare-table td {
+            padding: clamp(0.3rem, 0.6vw, 0.5rem) clamp(0.5rem, 1vw, 0.75rem);
+            border-bottom: 1px solid var(--border);
+            color: var(--text-secondary);
+            font-size: var(--small-size);
+        }
+
+        .compare-table tr:last-child td { border-bottom: none; }
+
+        /* Progress bar */
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 2px;
+            background: var(--accent);
+            z-index: 100;
+            transition: width 0.3s ease;
+        }
+
+        /* Nav dots */
+        .nav-dots {
+            position: fixed;
+            right: clamp(0.75rem, 1.5vw, 1.25rem);
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            z-index: 99;
+        }
+
+        .nav-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--text-muted);
+            opacity: 0.3;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+        }
+
+        .nav-dot.active {
+            opacity: 1;
+            background: var(--accent);
+            box-shadow: 0 0 8px var(--accent-glow);
+        }
+
+        /* Slide-specific layouts */
+        .title-slide .slide-content {
+            align-items: flex-start;
+            gap: clamp(0.75rem, 1.5vw, 1.25rem);
+        }
+
+        .centered .slide-content {
+            align-items: center;
+            text-align: center;
+        }
+
+        /* Glow accent line */
+        .glow-line {
+            width: 60px;
+            height: 3px;
+            background: var(--accent);
+            border-radius: 2px;
+            box-shadow: 0 0 12px var(--accent-glow);
+        }
+
+        /* Code-like box */
+        .code-box {
+            background: rgba(0,0,0,0.3);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: clamp(0.5rem, 1vw, 0.75rem) clamp(0.75rem, 1.5vw, 1rem);
+            font-family: 'SF Mono', 'Fira Code', monospace;
+            font-size: var(--small-size);
+            color: var(--text-secondary);
+            white-space: pre;
+            overflow: hidden;
+        }
+
+        .code-box .keyword { color: var(--purple); }
+        .code-box .string { color: var(--green); }
+        .code-box .comment { color: var(--text-muted); }
+        .code-box .fn { color: var(--accent-light); }
+
+        /* Section divider */
+        .section-divider {
+            display: flex;
+            align-items: center;
+            gap: var(--content-gap);
+        }
+
+        .section-number {
+            font-family: var(--font-display);
+            font-size: clamp(3rem, 8vw, 7rem);
+            font-weight: 700;
+            color: var(--accent);
+            opacity: 0.15;
+            line-height: 1;
+        }
+
+        .section-info {
+            display: flex;
+            flex-direction: column;
+            gap: clamp(0.25rem, 0.5vw, 0.4rem);
+        }
+
+        /* Output example */
+        .output-box {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: clamp(0.6rem, 1.2vw, 1rem);
+            display: flex;
+            flex-direction: column;
+            gap: clamp(0.3rem, 0.6vw, 0.5rem);
+        }
+
+        .output-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .output-name {
+            font-weight: 600;
+            font-size: var(--body-size);
+            color: var(--text-primary);
+        }
+
+        .output-score {
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: clamp(1rem, 2vw, 1.5rem);
+        }
+
+        .score-hot { color: var(--green); }
+        .score-warm { color: var(--amber); }
+
+        .output-reason {
+            font-size: var(--small-size);
+            color: var(--text-secondary);
+            font-style: italic;
+            line-height: 1.4;
+        }
+
+        .output-action {
+            font-size: var(--label-size);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+        }
+
+        .action-route { color: var(--green); }
+        .action-nurture { color: var(--amber); }
+
+        /* ===========================================
+           RESPONSIVE
+           =========================================== */
+        @media (max-width: 768px) {
+            .card-grid-2, .card-grid-3 { grid-template-columns: 1fr; }
+            .flow { flex-direction: column; align-items: stretch; }
+            .arrow { transform: rotate(90deg); text-align: center; }
+            .metric-row { justify-content: center; }
+            .nav-dots { display: none; }
+        }
+
+        @media (max-height: 700px) {
+            :root {
+                --slide-padding: clamp(1rem, 3vw, 2.5rem);
+                --content-gap: clamp(0.5rem, 1.5vw, 1rem);
+            }
+        }
+
+        @media (max-height: 600px) {
+            :root {
+                --slide-padding: clamp(0.75rem, 2.5vw, 1.5rem);
+                --content-gap: clamp(0.4rem, 1vw, 0.75rem);
+                --title-size: clamp(1.5rem, 5vw, 3rem);
+                --h2-size: clamp(1.1rem, 3vw, 1.75rem);
+            }
+            .nav-dots { display: none; }
+        }
+
+        @media (max-height: 500px) {
+            :root {
+                --slide-padding: clamp(0.5rem, 2vw, 1rem);
+                --title-size: clamp(1.25rem, 4vw, 2rem);
+                --body-size: clamp(0.65rem, 1vw, 0.85rem);
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .reveal { transition: opacity 0.3s ease; transform: none; }
+            html { scroll-behavior: auto; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="progress-bar" id="progressBar"></div>
+
+<nav class="nav-dots" id="navDots"></nav>
+
+<!-- =============================================
+     SLIDE 1: TITLE
+     ============================================= -->
+<section class="slide title-slide" data-slide="0">
+    <div class="slide-content">
+        <div class="glow-line reveal"></div>
+        <div class="label reveal">Agno + Claude SDK</div>
+        <h1 class="reveal">Lead Signal<br>Detection</h1>
+        <p class="subtitle reveal">Three architecture options for AI-powered buying intent, from a scoring upgrade to a full multi-agent pipeline.</p>
+        <div class="metric-row reveal" style="margin-top: clamp(0.5rem, 1vw, 1rem);">
+            <div class="metric">
+                <div class="metric-value">3</div>
+                <div class="metric-label">Flows</div>
+            </div>
+            <div class="metric">
+                <div class="metric-value" style="color: var(--green);">A→C</div>
+                <div class="metric-label">Complexity</div>
+            </div>
+            <div class="metric">
+                <div class="metric-value" style="color: var(--amber);">v1</div>
+                <div class="metric-label">Recommendation</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- =============================================
+     SLIDE 2: THE PROBLEM
+     ============================================= -->
+<section class="slide" data-slide="1">
+    <div class="slide-content" style="gap: var(--content-gap);">
+        <div class="label reveal">The Gap</div>
+        <h2 class="reveal">External triggers are hardcoded to 40</h2>
+        <p class="reveal" style="max-width: 700px;">Your scorer has four dimensions, but only three use real data. The external triggers dimension returns a static score: no job change detection, no company news, no intent signals.</p>
+        <div class="card-grid card-grid-2 reveal" style="margin-top: clamp(0.3rem, 0.8vw, 0.75rem);">
+            <div class="card">
+                <div class="tag tag--green">Working Today</div>
+                <h3>Current Scoring</h3>
+                <ul class="bullet-list">
+                    <li>Engagement (25%): email opens/clicks</li>
+                    <li>Timing (25%): days since activity</li>
+                    <li>Deal Context (30%): lifecycle stage</li>
+                </ul>
+            </div>
+            <div class="card" style="border-color: var(--red-glow);">
+                <div class="tag" style="background: var(--red-glow); color: var(--red);">Hardcoded</div>
+                <h3>External Triggers (20%)</h3>
+                <div class="code-box" style="margin-top: clamp(0.2rem, 0.5vw, 0.4rem);">
+<span class="keyword">def</span> <span class="fn">_score_external_triggers</span>(self, contact):
+    <span class="comment"># TODO: implement</span>
+    <span class="keyword">return</span> <span class="string">40</span></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- =============================================
+     SLIDE 3: FLOW A — SECTION DIVIDER
+     ============================================= -->
+<section class="slide" data-slide="2">
+    <div class="slide-content">
+        <div class="section-divider reveal">
+            <div class="section-number">A</div>
+            <div class="section-info">
+                <div class="tag tag--green">Recommended for v1</div>
+                <h2>Smart Scorer</h2>
+                <p style="max-width: 500px;">Replace hardcoded scoring with Claude reasoning. No new data sources, just smarter interpretation of what you already have.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- =============================================
+     SLIDE 4: FLOW A — DIAGRAM
+     ============================================= -->
+<section class="slide" data-slide="3">
+    <div class="slide-content" style="gap: var(--content-gap); align-items: center;">
+        <div class="label reveal">Flow A: Smart Scorer</div>
+        <h2 class="reveal">AI layer on your Friday automation</h2>
+
+        <div class="flow reveal">
+            <div class="node node--blue">
+                <div class="node-icon">📋</div>
+                HubSpot Contacts
+            </div>
+            <div class="arrow">→</div>
+            <div class="node node--amber">
+                <div class="node-icon">⚡</div>
+                Existing Scorer
+            </div>
+            <div class="arrow">→</div>
+            <div class="node node--purple">
+                <div class="node-icon">🧠</div>
+                Claude Reviews Top 25
+            </div>
+            <div class="arrow">→</div>
+            <div class="node node--green">
+                <div class="node-icon">📊</div>
+                Reasoning + Re-rank
+            </div>
+        </div>
+
+        <div class="card-grid card-grid-3 reveal" style="margin-top: clamp(0.3rem, 0.8vw, 0.75rem); width: 100%; max-width: 900px;">
+            <div class="card" style="text-align: center;">
+                <div class="metric-value" style="font-size: clamp(1.25rem, 2.5vw, 2rem);">~$0.02</div>
+                <div class="metric-label">Per run (25 leads)</div>
+            </div>
+            <div class="card" style="text-align: center;">
+                <div class="metric-value" style="font-size: clamp(1.25rem, 2.5vw, 2rem); color: var(--green);">30s</div>
+                <div class="metric-label">Execution time</div>
+            </div>
+            <div class="card" style="text-align: center;">
+                <div class="metric-value" style="font-size: clamp(1.25rem, 2.5vw, 2rem); color: var(--amber);">0</div>
+                <div class="metric-label">New APIs needed</div>
+            </div>
+        </div>
+
+        <p class="reveal" style="max-width: 650px; text-align: center; font-size: var(--small-size);">Claude gets each lead's HubSpot data and writes a paragraph explaining <em>why</em> they're worth reaching out to. Catches patterns your weighted formula misses.</p>
+    </div>
+</section>
+
+<!-- =============================================
+     SLIDE 5: FLOW A — EXAMPLE OUTPUT
+     ============================================= -->
+<section class="slide" data-slide="4">
+    <div class="slide-content" style="gap: var(--content-gap); align-items: center;">
+        <div class="label reveal">Flow A Output</div>
+        <h2 class="reveal">What Claude returns</h2>
+
+        <div style="display: flex; flex-direction: column; gap: clamp(0.4rem, 0.8vw, 0.6rem); width: 100%; max-width: 700px;" class="reveal">
+            <div class="output-box">
+                <div class="output-header">
+                    <span class="output-name">Sarah Chen, VP Lending, Acme Financial</span>
+                    <span class="output-score score-hot">92</span>
+                </div>
+                <div class="output-reason">"Opened 3 product update emails in the last 2 weeks after 6 months of silence. Lifecycle stage is Closed Lost from Q3, likely re-evaluating vendors. Job title changed from Director to VP, suggesting expanded authority."</div>
+                <div class="output-action action-route">→ Route to sales (high re-engagement signal)</div>
+            </div>
+            <div class="output-box">
+                <div class="output-header">
+                    <span class="output-name">Mike Torres, Head of Operations, LendFirst</span>
+                    <span class="output-score score-warm">74</span>
+                </div>
+                <div class="output-reason">"Consistent low-level engagement (1 open/month) but never clicks. SAL stage for 90+ days without progression. Timing suggests nurture rather than direct outreach."</div>
+                <div class="output-action action-nurture">→ Add to nurture sequence</div>
+            </div>
+        </div>
+
+        <p class="reveal" style="font-size: var(--small-size); color: var(--text-muted); max-width: 550px; text-align: center;">Same HubSpot data, but now you get <strong style="color: var(--text-primary);">reasoning</strong> instead of just a number.</p>
+    </div>
+</section>
+
+<!-- =============================================
+     SLIDE 6: FLOW B — SECTION DIVIDER
+     ============================================= -->
+<section class="slide" data-slide="5">
+    <div class="slide-content">
+        <div class="section-divider reveal">
+            <div class="section-number">B</div>
+            <div class="section-info">
+                <div class="tag tag--amber">v2 Upgrade</div>
+                <h2>Signal Enricher</h2>
+                <p style="max-width: 500px;">Claude calls tools to gather external signals: web searches for news, job changes, hiring patterns. Real buying intent from outside the CRM.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- =============================================
+     SLIDE 7: FLOW B — DIAGRAM
+     ============================================= -->
+<section class="slide" data-slide="6">
+    <div class="slide-content" style="gap: var(--content-gap); align-items: center;">
+        <div class="label reveal">Flow B: Signal Enricher</div>
+        <h2 class="reveal">Claude decides what to research per lead</h2>
+
+        <div class="flow reveal">
+            <div class="node node--blue">
+                <div class="node-icon">📋</div>
+                HubSpot Leads
+            </div>
+            <div class="arrow">→</div>
+            <div class="node node--purple" style="border-color: rgba(168, 85, 247, 0.4);">
+                <div class="node-icon">🧠</div>
+                Claude Agent
+            </div>
+            <div class="arrow">→</div>
+            <div class="parallel-group">
+                <div class="parallel-label">Tools (called as needed)</div>
+                <div class="node node--cyan">
+                    <div class="node-icon">🔍</div>
+                    search_company_news()
+                </div>
+                <div class="node node--amber">
+                    <div class="node-icon">👤</div>
+                    check_job_changes()
+                </div>
+                <div class="node node--green">
+                    <div class="node-icon">📈</div>
+                    get_hubspot_activity()
+                </div>
+            </div>
+            <div class="arrow">→</div>
+            <div class="node node--green">
+                <div class="node-icon">📊</div>
+                Score + Reason
+            </div>
+        </div>
+
+        <div class="card-grid card-grid-3 reveal" style="margin-top: clamp(0.3rem, 0.8vw, 0.75rem); width: 100%; max-width: 900px;">
+            <div class="card" style="text-align: center;">
+                <div class="metric-value" style="font-size: clamp(1.25rem, 2.5vw, 2rem);">~$0.50</div>
+                <div class="metric-label">Per run (25 leads)</div>
+            </div>
+            <div class="card" style="text-align: center;">
+                <div class="metric-value" style="font-size: clamp(1.25rem, 2.5vw, 2rem); color: var(--amber);">3-5 min</div>
+                <div class="metric-label">Execution time</div>
+            </div>
+            <div class="card" style="text-align: center;">
+                <div class="metric-value" style="font-size: clamp(1.25rem, 2.5vw, 2rem); color: var(--cyan);">Firecrawl</div>
+                <div class="metric-label">External API</div>
+            </div>
+        </div>
+
+        <p class="reveal" style="font-size: var(--small-size); color: var(--text-muted); max-width: 600px; text-align: center;">This is where Agno's tool system shines. Define Python functions as tools, Claude calls them when it needs signal.</p>
+    </div>
+</section>
+
+<!-- =============================================
+     SLIDE 8: FLOW B — AGNO CODE
+     ============================================= -->
+<section class="slide" data-slide="7">
+    <div class="slide-content" style="gap: var(--content-gap); align-items: center;">
+        <div class="label reveal">Flow B: How It Looks in Code</div>
+        <h2 class="reveal">Agno wraps your tools + Claude</h2>
+
+        <div class="code-box reveal" style="max-width: 750px; width: 100%; font-size: clamp(0.6rem, 1vw, 0.8rem); line-height: 1.6;">
+<span class="keyword">from</span> agno.agent <span class="keyword">import</span> Agent
+<span class="keyword">from</span> agno.models.anthropic <span class="keyword">import</span> Claude
+
+<span class="keyword">def</span> <span class="fn">search_company_news</span>(domain: str) -> str:
+    <span class="string">"""Search for recent news about a company."""</span>
+    <span class="comment"># Firecrawl web search (already integrated)</span>
+    ...
+
+<span class="keyword">def</span> <span class="fn">check_job_changes</span>(domain: str) -> str:
+    <span class="string">"""Check for leadership changes at company."""</span>
+    ...
+
+signal_agent = Agent(
+    model=Claude(id=<span class="string">"claude-sonnet-4-20250514"</span>),
+    tools=[search_company_news, check_job_changes,
+           get_hubspot_activity],
+    instructions=<span class="string">"Analyze each lead. Call tools as needed.
+    Score 0-100 with reasoning and next action."</span>,
+)</div>
+    </div>
+</section>
+
+<!-- =============================================
+     SLIDE 9: FLOW C — SECTION DIVIDER
+     ============================================= -->
+<section class="slide" data-slide="8">
+    <div class="slide-content">
+        <div class="section-divider reveal">
+            <div class="section-number">C</div>
+            <div class="section-info">
+                <div class="tag tag--purple">Full Pipeline</div>
+                <h2>Multi-Agent Team</h2>
+                <p style="max-width: 500px;">Specialized agents run in parallel, each gathering their own signals. A scoring agent synthesizes everything into final rankings.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- =============================================
+     SLIDE 10: FLOW C — DIAGRAM
+     ============================================= -->
+<section class="slide" data-slide="9">
+    <div class="slide-content" style="gap: var(--content-gap); align-items: center;">
+        <div class="label reveal">Flow C: Multi-Agent Pipeline</div>
+        <h2 class="reveal">Parallel specialists → unified scoring</h2>
+
+        <div style="display: flex; flex-direction: column; align-items: center; gap: clamp(0.4rem, 0.8vw, 0.6rem);" class="reveal">
+            <div class="node node--blue">
+                <div class="node-icon">📋</div>
+                HubSpot Leads
+            </div>
+
+            <div class="arrow-down">↓</div>
+
+            <div style="display: flex; gap: clamp(0.4rem, 1vw, 0.75rem); flex-wrap: wrap; justify-content: center;">
+                <div class="card" style="flex: 1; min-width: 140px; max-width: 200px; text-align: center;">
+                    <div class="tag tag--cyan">Agent 1</div>
+                    <h3 style="font-size: var(--small-size);">Engagement</h3>
+                    <p style="font-size: var(--label-size);">HubSpot email, clicks, page views, form fills</p>
+                </div>
+                <div class="card" style="flex: 1; min-width: 140px; max-width: 200px; text-align: center;">
+                    <div class="tag tag--amber">Agent 2</div>
+                    <h3 style="font-size: var(--small-size);">Company News</h3>
+                    <p style="font-size: var(--label-size);">Hiring surges, expansion, product launches, regulation</p>
+                </div>
+                <div class="card" style="flex: 1; min-width: 140px; max-width: 200px; text-align: center;">
+                    <div class="tag tag--purple">Agent 3</div>
+                    <h3 style="font-size: var(--small-size);">Job Changes</h3>
+                    <p style="font-size: var(--label-size);">New decision-makers, title changes, team growth</p>
+                </div>
+            </div>
+
+            <div class="arrow-down">↓ all signals merge</div>
+
+            <div class="node node--green" style="padding: clamp(0.6rem, 1.2vw, 1rem) clamp(1.5rem, 3vw, 2.5rem);">
+                <div class="node-icon">🏆</div>
+                Scoring Agent: synthesize + rank + recommend
+            </div>
+        </div>
+
+        <div class="card-grid card-grid-3 reveal" style="margin-top: clamp(0.3rem, 0.5vw, 0.5rem); width: 100%; max-width: 900px;">
+            <div class="card" style="text-align: center;">
+                <div class="metric-value" style="font-size: clamp(1.25rem, 2.5vw, 2rem);">~$2.00</div>
+                <div class="metric-label">Per run (25 leads)</div>
+            </div>
+            <div class="card" style="text-align: center;">
+                <div class="metric-value" style="font-size: clamp(1.25rem, 2.5vw, 2rem); color: var(--amber);">5-8 min</div>
+                <div class="metric-label">Execution time</div>
+            </div>
+            <div class="card" style="text-align: center;">
+                <div class="metric-value" style="font-size: clamp(1.25rem, 2.5vw, 2rem); color: var(--purple);">4 agents</div>
+                <div class="metric-label">Parallel execution</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- =============================================
+     SLIDE 11: FLOW C — AGNO TEAM CODE
+     ============================================= -->
+<section class="slide" data-slide="10">
+    <div class="slide-content" style="gap: var(--content-gap); align-items: center;">
+        <div class="label reveal">Flow C: Agno Team Pattern</div>
+        <h2 class="reveal">Coordinate mode: leader orchestrates</h2>
+
+        <div class="code-box reveal" style="max-width: 750px; width: 100%; font-size: clamp(0.55rem, 0.95vw, 0.75rem); line-height: 1.55;">
+<span class="keyword">from</span> agno.team <span class="keyword">import</span> Team
+
+engagement = Agent(
+    name=<span class="string">"Engagement"</span>, tools=[get_hubspot_activity],
+    instructions=<span class="string">"Analyze HubSpot engagement signals."</span>)
+
+news = Agent(
+    name=<span class="string">"News"</span>, tools=[search_company_news],
+    instructions=<span class="string">"Find buying signals in company news."</span>)
+
+jobs = Agent(
+    name=<span class="string">"Jobs"</span>, tools=[check_job_changes],
+    instructions=<span class="string">"Detect leadership changes."</span>)
+
+scorer = Agent(
+    name=<span class="string">"Scorer"</span>,
+    instructions=<span class="string">"Score 0-100 from all signals. Recommend action."</span>)
+
+team = Team(
+    name=<span class="string">"Lead Signal Detection"</span>,
+    mode=<span class="string">"coordinate"</span>,
+    members=[engagement, news, jobs, scorer],
+)</div>
+    </div>
+</section>
+
+<!-- =============================================
+     SLIDE 12: COMPARISON
+     ============================================= -->
+<section class="slide" data-slide="11">
+    <div class="slide-content" style="gap: var(--content-gap); align-items: center;">
+        <div class="label reveal">Side by Side</div>
+        <h2 class="reveal">Pick your complexity level</h2>
+
+        <div class="reveal" style="width: 100%; max-width: 850px; overflow: hidden;">
+            <table class="compare-table">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th><span class="tag tag--green">A: Smart Scorer</span></th>
+                        <th><span class="tag tag--amber">B: Signal Enricher</span></th>
+                        <th><span class="tag tag--purple">C: Multi-Agent</span></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="color: var(--text-primary); font-weight: 600;">What changes</td>
+                        <td>Add Claude reasoning to existing output</td>
+                        <td>Claude calls tools per lead</td>
+                        <td>Parallel specialist agents</td>
+                    </tr>
+                    <tr>
+                        <td style="color: var(--text-primary); font-weight: 600;">New data</td>
+                        <td>None (reuses HubSpot)</td>
+                        <td>Web search, company news</td>
+                        <td>Web search, news, job tracking</td>
+                    </tr>
+                    <tr>
+                        <td style="color: var(--text-primary); font-weight: 600;">Cost / run</td>
+                        <td style="color: var(--green);">~$0.02</td>
+                        <td style="color: var(--amber);">~$0.50</td>
+                        <td style="color: var(--red);">~$2.00</td>
+                    </tr>
+                    <tr>
+                        <td style="color: var(--text-primary); font-weight: 600;">Speed</td>
+                        <td style="color: var(--green);">30 seconds</td>
+                        <td style="color: var(--amber);">3-5 minutes</td>
+                        <td style="color: var(--amber);">5-8 minutes</td>
+                    </tr>
+                    <tr>
+                        <td style="color: var(--text-primary); font-weight: 600;">Build effort</td>
+                        <td style="color: var(--green);">Half day</td>
+                        <td style="color: var(--amber);">1-2 days</td>
+                        <td style="color: var(--red);">3-5 days</td>
+                    </tr>
+                    <tr>
+                        <td style="color: var(--text-primary); font-weight: 600;">Signal quality</td>
+                        <td>Good: smarter CRM reads</td>
+                        <td>Better: external context</td>
+                        <td>Best: comprehensive</td>
+                    </tr>
+                    <tr>
+                        <td style="color: var(--text-primary); font-weight: 600;">Dependencies</td>
+                        <td>anthropic, agno</td>
+                        <td>+ Firecrawl</td>
+                        <td>+ Firecrawl, more API calls</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+<!-- =============================================
+     SLIDE 13: BUILD PLAN
+     ============================================= -->
+<section class="slide" data-slide="12">
+    <div class="slide-content" style="gap: var(--content-gap); align-items: center;">
+        <div class="label reveal" style="color: var(--accent-light);">Build Plan</div>
+        <h2 class="reveal">11 tasks, 3 independently shippable flows</h2>
+
+        <div class="reveal" style="width: 100%; max-width: 900px; overflow: hidden;">
+            <table style="width: 100%; border-collapse: collapse; font-size: var(--body-size);">
+                <thead>
+                    <tr style="border-bottom: 2px solid var(--border-bright);">
+                        <th style="text-align: left; padding: clamp(0.3rem, 0.5vw, 0.5rem); color: var(--text-secondary); font-weight: 500;">Flow</th>
+                        <th style="padding: clamp(0.3rem, 0.5vw, 0.5rem); color: var(--text-secondary); font-weight: 500;">Tasks</th>
+                        <th style="padding: clamp(0.3rem, 0.5vw, 0.5rem); color: var(--text-secondary); font-weight: 500;">Build Time</th>
+                        <th style="padding: clamp(0.3rem, 0.5vw, 0.5rem); color: var(--text-secondary); font-weight: 500;">New Files</th>
+                        <th style="padding: clamp(0.3rem, 0.5vw, 0.5rem); color: var(--text-secondary); font-weight: 500;">CLI</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr style="border-bottom: 1px solid var(--border);">
+                        <td style="padding: clamp(0.3rem, 0.5vw, 0.5rem); color: var(--green); font-weight: 600;">A: Smart Scorer</td>
+                        <td style="padding: clamp(0.3rem, 0.5vw, 0.5rem); text-align: center;">4</td>
+                        <td style="padding: clamp(0.3rem, 0.5vw, 0.5rem); text-align: center;">3-4 hrs</td>
+                        <td style="padding: clamp(0.3rem, 0.5vw, 0.5rem); text-align: center;"><code style="font-size: var(--small-size); color: var(--accent-light);">signal_agent.py</code></td>
+                        <td style="padding: clamp(0.3rem, 0.5vw, 0.5rem); text-align: center;"><code style="font-size: var(--small-size); color: var(--text-secondary);">signal-review</code></td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid var(--border);">
+                        <td style="padding: clamp(0.3rem, 0.5vw, 0.5rem); color: var(--amber); font-weight: 600;">B: Signal Enricher</td>
+                        <td style="padding: clamp(0.3rem, 0.5vw, 0.5rem); text-align: center;">4</td>
+                        <td style="padding: clamp(0.3rem, 0.5vw, 0.5rem); text-align: center;">4-6 hrs</td>
+                        <td style="padding: clamp(0.3rem, 0.5vw, 0.5rem); text-align: center;"><code style="font-size: var(--small-size); color: var(--accent-light);">signal_tools.py</code></td>
+                        <td style="padding: clamp(0.3rem, 0.5vw, 0.5rem); text-align: center;"><code style="font-size: var(--small-size); color: var(--text-secondary);">signal-enrich</code></td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid var(--border);">
+                        <td style="padding: clamp(0.3rem, 0.5vw, 0.5rem); color: var(--purple); font-weight: 600;">C: Multi-Agent Team</td>
+                        <td style="padding: clamp(0.3rem, 0.5vw, 0.5rem); text-align: center;">2</td>
+                        <td style="padding: clamp(0.3rem, 0.5vw, 0.5rem); text-align: center;">3-4 hrs</td>
+                        <td style="padding: clamp(0.3rem, 0.5vw, 0.5rem); text-align: center;"><code style="font-size: var(--small-size); color: var(--accent-light);">signal_team.py</code></td>
+                        <td style="padding: clamp(0.3rem, 0.5vw, 0.5rem); text-align: center;"><code style="font-size: var(--small-size); color: var(--text-secondary);">signal-team</code></td>
+                    </tr>
+                    <tr style="border-top: 2px solid var(--border-bright);">
+                        <td style="padding: clamp(0.3rem, 0.5vw, 0.5rem); color: var(--cyan); font-weight: 600;">+ Pipedream</td>
+                        <td style="padding: clamp(0.3rem, 0.5vw, 0.5rem); text-align: center;">1</td>
+                        <td style="padding: clamp(0.3rem, 0.5vw, 0.5rem); text-align: center;">2-3 hrs</td>
+                        <td style="padding: clamp(0.3rem, 0.5vw, 0.5rem); text-align: center;" colspan="2">API route + workflow step</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="reveal" style="display: flex; gap: clamp(0.4rem, 1vw, 0.75rem); flex-wrap: wrap; justify-content: center;">
+            <div class="node node--green" style="font-size: var(--small-size);">
+                <div class="node-icon">⏱</div>
+                <strong>Total: 12-17 hours</strong>
+            </div>
+            <div class="node" style="font-size: var(--small-size);">
+                <div class="node-icon">📦</div>
+                <strong>7 new files, 3 modified</strong>
+            </div>
+            <div class="node" style="font-size: var(--small-size);">
+                <div class="node-icon">🧪</div>
+                <strong>TDD: every task starts with a failing test</strong>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- =============================================
+     SLIDE 14: RECOMMENDATION
+     ============================================= -->
+<section class="slide centered" data-slide="13">
+    <div class="slide-content" style="gap: var(--content-gap);">
+        <div class="glow-line reveal" style="margin: 0 auto;"></div>
+        <div class="label reveal">Recommendation</div>
+        <h2 class="reveal">Start with A, upgrade to B when you<br>know which signals matter</h2>
+        <div style="display: flex; flex-direction: column; gap: clamp(0.3rem, 0.6vw, 0.5rem); max-width: 600px;" class="reveal">
+            <div class="node node--green" style="justify-content: center;">
+                <div class="node-icon">✓</div>
+                <strong>Now:</strong>&nbsp; Build Flow A. Ship this week
+            </div>
+            <div class="node node--amber" style="justify-content: center;">
+                <div class="node-icon">⟳</div>
+                <strong>Next:</strong>&nbsp; Review Claude's reasoning. Which signals does it wish it had?
+            </div>
+            <div class="node node--purple" style="justify-content: center;">
+                <div class="node-icon">↑</div>
+                <strong>Then:</strong>&nbsp; Add the tools Claude asks for, then upgrade to Flow B
+            </div>
+        </div>
+        <p class="reveal" style="font-size: var(--small-size); color: var(--text-muted); max-width: 500px;">
+            Start with Flow A. Let the agent tell you what data it needs, then build toward C.
+        </p>
+    </div>
+</section>
+
+<script>
+    /* ===========================================
+       SLIDE PRESENTATION CONTROLLER
+       =========================================== */
+    class SlidePresentation {
+        constructor() {
+            this.slides = document.querySelectorAll('.slide');
+            this.progressBar = document.getElementById('progressBar');
+            this.navDots = document.getElementById('navDots');
+            this.currentSlide = 0;
+
+            this.createNavDots();
+            this.setupIntersectionObserver();
+            this.setupKeyboardNav();
+            this.setupTouchNav();
+        }
+
+        createNavDots() {
+            this.slides.forEach((_, i) => {
+                const dot = document.createElement('button');
+                dot.className = 'nav-dot' + (i === 0 ? ' active' : '');
+                dot.setAttribute('aria-label', `Go to slide ${i + 1}`);
+                dot.addEventListener('click', () => this.goToSlide(i));
+                this.navDots.appendChild(dot);
+            });
+        }
+
+        setupIntersectionObserver() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        const index = parseInt(entry.target.dataset.slide);
+                        this.currentSlide = index;
+                        this.updateProgress(index);
+                        this.updateDots(index);
+                    }
+                });
+            }, { threshold: 0.4 });
+
+            this.slides.forEach(slide => observer.observe(slide));
+        }
+
+        setupKeyboardNav() {
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowDown' || e.key === 'ArrowRight' || e.key === ' ') {
+                    e.preventDefault();
+                    this.goToSlide(Math.min(this.currentSlide + 1, this.slides.length - 1));
+                } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
+                    e.preventDefault();
+                    this.goToSlide(Math.max(this.currentSlide - 1, 0));
+                }
+            });
+        }
+
+        setupTouchNav() {
+            let startY = 0;
+            document.addEventListener('touchstart', (e) => { startY = e.touches[0].clientY; });
+            document.addEventListener('touchend', (e) => {
+                const diff = startY - e.changedTouches[0].clientY;
+                if (Math.abs(diff) > 50) {
+                    if (diff > 0) this.goToSlide(Math.min(this.currentSlide + 1, this.slides.length - 1));
+                    else this.goToSlide(Math.max(this.currentSlide - 1, 0));
+                }
+            });
+        }
+
+        goToSlide(index) {
+            this.slides[index].scrollIntoView({ behavior: 'smooth' });
+        }
+
+        updateProgress(index) {
+            const pct = ((index + 1) / this.slides.length) * 100;
+            this.progressBar.style.width = pct + '%';
+        }
+
+        updateDots(index) {
+            this.navDots.querySelectorAll('.nav-dot').forEach((dot, i) => {
+                dot.classList.toggle('active', i === index);
+            });
+        }
+    }
+
+    new SlidePresentation();
+</script>
+
+</body>
+</html>

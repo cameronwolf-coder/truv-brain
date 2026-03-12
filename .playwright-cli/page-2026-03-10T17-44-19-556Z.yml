@@ -1,0 +1,1245 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e4]:
+    - link "HubSpot logo" [ref=e6] [cursor=pointer]:
+      - /url: /global-home/19933594
+      - img "HubSpot logo" [ref=e7]
+    - generic [ref=e9]:
+      - generic [ref=e14]:
+        - img
+        - searchbox "Search HubSpot" [ref=e15]
+        - generic:
+          - generic: ⌘
+          - generic: K
+      - button "Create new" [ref=e18] [cursor=pointer]:
+        - img [ref=e19]
+    - navigation "Global toolbar" [ref=e21]:
+      - menu [ref=e22]:
+        - menuitem "Calls" [ref=e23]:
+          - button "Calls" [ref=e24] [cursor=pointer]:
+            - img "Calling" [ref=e25]
+        - menuitem "Academy" [ref=e27]:
+          - button "Academy" [ref=e28] [cursor=pointer]:
+            - img "Academy" [ref=e29]
+        - menuitem "Marketplace" [ref=e33]:
+          - button "Marketplace" [ref=e34] [cursor=pointer]:
+            - img "Marketplace" [ref=e35]
+        - menuitem "Help" [ref=e37]:
+          - button "Help" [ref=e39] [cursor=pointer]:
+            - img "Help" [ref=e40]
+        - menuitem "Settings" [ref=e42]:
+          - link "Settings" [ref=e43] [cursor=pointer]:
+            - /url: /user-preferences/19933594?eschref=%2Fcontacts%2F19933594%2Frecord%2F2-56342751%2F45755969646
+            - img "Settings" [ref=e44]
+        - generic [ref=e46]:
+          - 'menuitem "Notifications: 4 unseen" [ref=e47]':
+            - 'button "Notifications: 4 unseen" [ref=e48] [cursor=pointer]':
+              - img [ref=e49]
+          - generic: "4"
+        - menuitem "Open Assistant" [ref=e52]:
+          - button "Open Assistant" [ref=e53] [cursor=pointer]:
+            - img "Open Assistant" [ref=e54]
+            - generic [ref=e57]: Assistant
+        - menuitem "View profile and more" [ref=e59]:
+          - button "View profile and more" [ref=e60] [cursor=pointer]:
+            - img "Cam Wolf" [ref=e61]
+            - generic [ref=e62]: Truv
+            - img [ref=e63]
+  - generic [ref=e66]:
+    - button "Scroll up":
+      - img
+    - generic [ref=e67]:
+      - navigation [ref=e69]:
+        - menu [ref=e70]:
+          - menuitem "Home" [ref=e71] [cursor=pointer]:
+            - img "Home" [ref=e72]
+          - menuitem "Bookmarks" [ref=e74] [cursor=pointer]:
+            - img "Bookmarks" [ref=e75]
+          - menuitem "CRM" [ref=e77] [cursor=pointer]:
+            - img "CRM" [ref=e78]
+          - menuitem "Marketing" [ref=e80] [cursor=pointer]:
+            - img "Marketing" [ref=e81]
+          - menuitem "Content" [ref=e83] [cursor=pointer]:
+            - img "Content" [ref=e84]
+          - menuitem "Sales" [ref=e86] [cursor=pointer]:
+            - img "Sales" [ref=e87]
+          - menuitem "Commerce" [ref=e89] [cursor=pointer]:
+            - img "Commerce" [ref=e90]
+          - menuitem "Service" [ref=e93] [cursor=pointer]:
+            - img "Service" [ref=e94]
+          - menuitem "Data Management" [ref=e98] [cursor=pointer]:
+            - img "Data Management" [ref=e99]
+          - menuitem "Automation" [ref=e101] [cursor=pointer]:
+            - img "Automation" [ref=e102]
+          - menuitem "Reporting" [ref=e104] [cursor=pointer]:
+            - img "Reporting" [ref=e105]
+          - menuitem "Breeze" [ref=e107] [cursor=pointer]:
+            - img "Breeze" [ref=e108]
+          - menuitem "Development" [ref=e110] [cursor=pointer]:
+            - img "Development" [ref=e111]
+      - button [ref=e115] [cursor=pointer]:
+        - img [ref=e116]
+    - button "Scroll down" [ref=e119] [cursor=pointer]:
+      - img [ref=e120]
+  - generic [ref=e122]:
+    - generic [ref=e129]:
+      - complementary [ref=e132]:
+        - generic [ref=e136]:
+          - generic [ref=e147]:
+            - generic [ref=e148]:
+              - navigation [ref=e150]:
+                - link "Events" [ref=e151] [cursor=pointer]:
+                  - /url: https://app.hubspot.com/contacts/19933594/objects/2-56342751/restore
+                  - generic [ref=e152]:
+                    - img [ref=e154]
+                    - text: Events
+              - button "Actions" [ref=e157] [cursor=pointer]:
+                - generic [ref=e160]: Actions
+            - generic [ref=e162]:
+              - generic [ref=e163]:
+                - img [ref=e167]
+                - generic [ref=e170]:
+                  - heading "First Continental Mortgage Webinar" [level=2] [ref=e171]:
+                    - generic [ref=e172]: First Continental Mortgage Webinar
+                  - button "Edit" [ref=e174] [cursor=pointer]:
+                    - img [ref=e176]
+              - generic [ref=e178]:
+                - generic [ref=e179]:
+                  - paragraph [ref=e181]: "Event Type:"
+                  - generic [ref=e184]: Webinar
+                - generic [ref=e185]:
+                  - paragraph [ref=e187]: "Event Status:"
+                  - generic [ref=e190]: Upcoming
+              - list [ref=e192]:
+                - generic [ref=e195]:
+                  - button "Create a note" [ref=e196] [cursor=pointer]:
+                    - img [ref=e198]
+                  - generic [ref=e200]: Note
+                - generic [ref=e203]:
+                  - button "Create an email" [ref=e204] [cursor=pointer]:
+                    - img [ref=e206]
+                  - generic [ref=e208]: Email
+                - generic [ref=e212]:
+                  - button "Make a phone call" [ref=e213] [cursor=pointer]:
+                    - img [ref=e215]
+                  - generic [ref=e217]: Call
+                - generic [ref=e220]:
+                  - button "Create a task" [ref=e221] [cursor=pointer]:
+                    - img [ref=e223]
+                  - generic [ref=e225]: Task
+                - generic [ref=e228]:
+                  - button "Schedule a meeting" [ref=e229] [cursor=pointer]:
+                    - img [ref=e231]
+                  - generic [ref=e233]: Meeting
+                - generic [ref=e237]:
+                  - button "More activities, menu pop up" [ref=e238] [cursor=pointer]:
+                    - img [ref=e240]
+                  - generic [ref=e242]: More
+          - separator [ref=e243]
+          - generic [ref=e252]:
+            - generic [ref=e253]:
+              - button "About this Event" [expanded] [ref=e257] [cursor=pointer]:
+                - img [ref=e258]:
+                  - img [ref=e259]
+                - generic [ref=e263]: About this Event
+              - generic [ref=e268]:
+                - button "Actions" [ref=e269] [cursor=pointer]:
+                  - generic [ref=e273]: Actions
+                - link [ref=e275] [cursor=pointer]:
+                  - /url: https://app.hubspot.com/layout-editor/19933594/CRM_RECORD_LEFT/2-56342751/edit/HubspotProvided-CRM_RECORD_PAGE%3A%7C%3A2-56342751/card-builder/PROPERTIES_V3%2F2-56342751%2F0?eschref=%2Fcontacts%2F19933594%2Frecord%2F2-56342751%2F45755969646
+                  - img [ref=e276]
+            - list [ref=e283]:
+              - generic [ref=e286]:
+                - generic [ref=e292]: Cost Per Attendee
+                - button "Details" [ref=e296] [cursor=pointer]:
+                  - generic [ref=e298]: Details
+                - textbox "Cost Per Attendee" [ref=e299]:
+                  - /placeholder: "--"
+              - generic [ref=e302]:
+                - generic [ref=e308]: Event Budget
+                - button "Details" [ref=e312] [cursor=pointer]:
+                  - generic [ref=e314]: Details
+                - textbox "Event Budget" [ref=e315]:
+                  - /placeholder: "--"
+              - generic [ref=e318]:
+                - generic [ref=e324]: Event End Date
+                - button "Details" [ref=e328] [cursor=pointer]:
+                  - generic [ref=e330]: Details
+                - generic [ref=e331]:
+                  - textbox "Event End Date" [ref=e332]:
+                    - /placeholder: "--"
+                    - text: 03/10/2026
+                  - generic:
+                    - img
+              - generic [ref=e335]:
+                - generic [ref=e341]: Event Location
+                - button "Details" [ref=e345] [cursor=pointer]:
+                  - generic [ref=e347]: Details
+                - textbox "Event Location" [ref=e350]:
+                  - /placeholder: "--"
+                  - text: Zoom
+              - generic [ref=e353]:
+                - generic [ref=e359]: Event Start Date
+                - button "Details" [ref=e363] [cursor=pointer]:
+                  - generic [ref=e365]: Details
+                - generic [ref=e366]:
+                  - textbox "Event Start Date" [ref=e367]:
+                    - /placeholder: "--"
+                    - text: 02/23/2026
+                  - generic:
+                    - img
+              - generic [ref=e370]:
+                - generic [ref=e376]: Event URL
+                - generic [ref=e378]:
+                  - link [ref=e379] [cursor=pointer]:
+                    - /url: https://truv.com/events/how-first-continental-mortgage-slashed-verification-costs-by-80
+                    - img [ref=e380]
+                  - button "Details" [ref=e383] [cursor=pointer]:
+                    - generic [ref=e385]: Details
+                - textbox "Event URL" [ref=e388]:
+                  - /placeholder: "--"
+                  - text: https://truv.com/events/how-first-continental-mortgage-slashed-verification-costs-by-80
+              - generic [ref=e391]:
+                - generic [ref=e397]: Event Vertical
+                - button "Details" [ref=e401] [cursor=pointer]:
+                  - generic [ref=e403]: Details
+                - button "Event Vertical --" [ref=e405] [cursor=pointer]:
+                  - option "--" [ref=e409]:
+                    - generic [ref=e411]: "--"
+              - generic [ref=e414]:
+                - generic [ref=e420]: Created by user ID
+                - button "Details" [ref=e424] [cursor=pointer]:
+                  - generic [ref=e426]: Details
+                - generic [ref=e427]:
+                  - img [ref=e430]
+                  - button "Created by user ID Cam Wolf" [ref=e433]:
+                    - option "Cam Wolf" [ref=e437]:
+                      - generic [ref=e439]: Cam Wolf
+              - generic [ref=e442]:
+                - generic [ref=e448]: Owner
+                - button "Details" [ref=e452] [cursor=pointer]:
+                  - generic [ref=e454]: Details
+                - button "Owner Cam Wolf" [ref=e456] [cursor=pointer]:
+                  - option "Cam Wolf" [ref=e460]:
+                    - generic [ref=e462]: Cam Wolf
+              - generic [ref=e465]:
+                - generic [ref=e471]: Linear Project URL
+                - button "Details" [ref=e475] [cursor=pointer]:
+                  - generic [ref=e477]: Details
+                - textbox "Linear Project URL" [ref=e480]:
+                  - /placeholder: "--"
+              - generic [ref=e483]:
+                - generic [ref=e489]: Promotion Start Date
+                - button "Details" [ref=e493] [cursor=pointer]:
+                  - generic [ref=e495]: Details
+                - generic [ref=e496]:
+                  - textbox "Promotion Start Date" [ref=e497]:
+                    - /placeholder: "--"
+                  - generic:
+                    - img
+              - generic [ref=e500]:
+                - generic [ref=e506]: Registration Deadline
+                - button "Details" [ref=e510] [cursor=pointer]:
+                  - generic [ref=e512]: Details
+                - generic [ref=e513]:
+                  - textbox "Registration Deadline" [ref=e514]:
+                    - /placeholder: "--"
+                  - generic:
+                    - img
+              - generic [ref=e517]:
+                - generic [ref=e523]: Target Attendees
+                - button "Details" [ref=e527] [cursor=pointer]:
+                  - generic [ref=e529]: Details
+                - textbox "Target Attendees" [ref=e530]:
+                  - /placeholder: "--"
+              - generic [ref=e533]:
+                - generic [ref=e539]: Target Registrants
+                - button "Details" [ref=e543] [cursor=pointer]:
+                  - generic [ref=e545]: Details
+                - textbox "Target Registrants" [ref=e546]:
+                  - /placeholder: "--"
+              - generic [ref=e549]:
+                - generic [ref=e555]: Event Name
+                - button "Details" [ref=e559] [cursor=pointer]:
+                  - generic [ref=e561]: Details
+                - textbox "Event Name" [ref=e564]:
+                  - /placeholder: "--"
+                  - text: First Continental Mortgage Webinar
+              - generic [ref=e567]:
+                - generic [ref=e573]: Event Status
+                - button "Details" [ref=e577] [cursor=pointer]:
+                  - generic [ref=e579]: Details
+                - button "Event Status Upcoming" [ref=e581] [cursor=pointer]:
+                  - option "Upcoming" [ref=e585]:
+                    - generic [ref=e587]: Upcoming
+              - generic [ref=e590]:
+                - generic [ref=e596]: Event Type
+                - button "Details" [ref=e600] [cursor=pointer]:
+                  - generic [ref=e602]: Details
+                - button "Event Type Webinar" [ref=e604] [cursor=pointer]:
+                  - option "Webinar" [ref=e608]:
+                    - generic [ref=e610]: Webinar
+              - generic [ref=e613]:
+                - generic [ref=e619]: UTM Campaign
+                - button "Details" [ref=e623] [cursor=pointer]:
+                  - generic [ref=e625]: Details
+                - textbox "UTM Campaign" [ref=e628]:
+                  - /placeholder: "--"
+                  - text: fcm-webinar-mar2026-24hr
+              - generic [ref=e631]:
+                - generic [ref=e637]: List ID
+                - button "Details" [ref=e641] [cursor=pointer]:
+                  - generic [ref=e643]: Details
+                - textbox "List ID" [ref=e646]:
+                  - /placeholder: "--"
+                  - text: "9199"
+      - generic [ref=e651]:
+        - generic [ref=e653]:
+          - navigation [ref=e657]:
+            - button "Overview" [ref=e658] [cursor=pointer]
+            - button "Activities" [ref=e659] [cursor=pointer]
+          - link "Customize" [ref=e660] [cursor=pointer]:
+            - /url: https://app.hubspot.com/sales-products-settings/19933594/object/2-56342751/record-customization?eschref=%2Fcontacts%2F19933594%2Frecord%2F2-56342751%2F45755969646%3Feschref%3D%252Fcontacts%252F19933594%252Fobjects%252F2-56342751%252Fviews%252Fall%252Flist%253Fnoprefetch%253D%26initialCardsReadyMarkerExtension%3DNOPREFETCH
+            - img [ref=e661]
+            - generic [ref=e663]: Customize
+        - generic [ref=e668]:
+          - generic [ref=e670]:
+            - generic [ref=e672]:
+              - heading "Key Dates" [level=5] [ref=e673]:
+                - generic [ref=e676]: Key Dates
+              - link [ref=e681] [cursor=pointer]:
+                - /url: https://app.hubspot.com/layout-editor/19933594/CRM_RECORD_MIDDLE/2-56342751/edit/HubspotProvided-CRM_RECORD_PAGE%3A%7C%3A2-56342751/card-builder/DATA_HIGHLIGHTS%2F2-56342751%2F0?eschref=%2Fcontacts%2F19933594%2Frecord%2F2-56342751%2F45755969646
+                - img [ref=e682]
+            - list [ref=e686]:
+              - listitem [ref=e687]:
+                - generic [ref=e688]:
+                  - paragraph [ref=e689]: Event Start Date
+                  - paragraph [ref=e690]:
+                    - generic [ref=e693]: 02/23/2026
+              - listitem [ref=e694]:
+                - generic [ref=e695]:
+                  - paragraph [ref=e696]: Event End Date
+                  - paragraph [ref=e697]:
+                    - generic [ref=e700]: 03/10/2026
+              - listitem [ref=e701]:
+                - generic [ref=e702]:
+                  - paragraph [ref=e703]: Registration Deadline
+                  - paragraph [ref=e704]:
+                    - generic [ref=e707]: "--"
+              - listitem [ref=e708]:
+                - generic [ref=e709]:
+                  - paragraph [ref=e710]: Promotion Start Date
+                  - paragraph [ref=e711]:
+                    - generic [ref=e714]: "--"
+          - generic [ref=e716]:
+            - generic [ref=e718]:
+              - heading "Goals & Performance" [level=5] [ref=e719]:
+                - generic [ref=e722]: Goals & Performance
+              - link [ref=e727] [cursor=pointer]:
+                - /url: https://app.hubspot.com/layout-editor/19933594/CRM_RECORD_MIDDLE/2-56342751/edit/HubspotProvided-CRM_RECORD_PAGE%3A%7C%3A2-56342751/card-builder/252276881?eschref=%2Fcontacts%2F19933594%2Frecord%2F2-56342751%2F45755969646
+                - img [ref=e728]
+            - list [ref=e732]:
+              - listitem [ref=e733]:
+                - generic [ref=e734]:
+                  - paragraph [ref=e735]: Target Registrants
+                  - paragraph [ref=e736]:
+                    - generic [ref=e739]: "--"
+              - listitem [ref=e740]:
+                - generic [ref=e741]:
+                  - paragraph [ref=e742]: Target Attendees
+                  - paragraph [ref=e743]:
+                    - generic [ref=e746]: "--"
+              - listitem [ref=e747]:
+                - generic [ref=e748]:
+                  - paragraph [ref=e749]: Event Budget
+                  - paragraph [ref=e750]:
+                    - generic [ref=e753]: "--"
+              - listitem [ref=e754]:
+                - generic [ref=e755]:
+                  - paragraph [ref=e756]: Cost Per Attendee
+                  - paragraph [ref=e757]:
+                    - generic [ref=e760]: "--"
+          - generic [ref=e762]:
+            - heading "Recent activities" [level=5] [ref=e765]:
+              - generic [ref=e768]: Recent activities
+            - generic [ref=e773]:
+              - generic [ref=e774]:
+                - button "Collapse all" [ref=e778] [cursor=pointer]:
+                  - option "Collapse all" [ref=e782]:
+                    - generic [ref=e784]: Collapse all
+                - generic [ref=e788]:
+                  - generic [ref=e790]:
+                    - search "Search activities" [ref=e791]
+                    - generic:
+                      - generic:
+                        - img
+                  - button "More activities, menu pop up" [ref=e795] [cursor=pointer]:
+                    - generic [ref=e799]: Add activities
+                - generic [ref=e802]:
+                  - heading "Activity Display Settings" [level=3] [ref=e804]
+                  - generic [ref=e805]:
+                    - button "All time so far" [ref=e808] [cursor=pointer]:
+                      - generic [ref=e811]: All time so far
+                    - generic [ref=e813]:
+                      - generic "Filter by Activity Type" [ref=e814]:
+                        - generic [ref=e817]: Filter by Activity Type
+                        - button "Filter by Activity Type" [ref=e818] [cursor=pointer]:
+                          - generic [ref=e821]: Activity (5/9)
+                      - button [ref=e823] [cursor=pointer]:
+                        - img [ref=e825]
+              - list "Activities" [ref=e827]:
+                - generic [ref=e828]:
+                  - generic [ref=e829]:
+                    - paragraph [ref=e831]: March 2026
+                    - generic [ref=e833]:
+                      - img [ref=e835]
+                      - article [ref=e839]:
+                        - button "Task assigned to Cam Wolf via Pipedream Due:Mar 10, 2026 at 6:00 PM CDT Task content preview Task is incomplete. [First Continental Mortgage Webinar] Export attendance data and create Clay tables" [ref=e841] [cursor=pointer]:
+                          - img [ref=e844]
+                          - generic [ref=e846]:
+                            - generic [ref=e847]:
+                              - heading "Task assigned to Cam Wolf via Pipedream" [level=4] [ref=e848]:
+                                - generic [ref=e854]:
+                                  - strong [ref=e855]: Task
+                                  - text: assigned to
+                                  - generic [ref=e857]: Cam Wolf
+                                  - generic [ref=e858]: via Pipedream
+                              - generic [ref=e860]:
+                                - button [ref=e861]:
+                                  - img [ref=e864]
+                                - generic [ref=e870]:
+                                  - generic [ref=e871]: "Due:"
+                                  - time [ref=e872]: Mar 10, 2026 at 6:00 PM CDT
+                            - generic [ref=e873]:
+                              - separator [ref=e874]
+                              - generic [ref=e875]:
+                                - generic [ref=e878]: Task content preview
+                                - generic "Task content preview" [ref=e879]:
+                                  - generic [ref=e881]:
+                                    - button "Task is incomplete." [ref=e882]:
+                                      - generic [ref=e883]:
+                                        - paragraph [ref=e885]: Task is incomplete.
+                                        - img [ref=e889]
+                                    - generic [ref=e893]: "[First Continental Mortgage Webinar] Export attendance data and create Clay tables"
+                    - generic [ref=e895]:
+                      - img [ref=e897]
+                      - article [ref=e901]:
+                        - 'button "Task created via Pipedream Due:Mar 10, 2026 at 6:00 PM CDT Task content preview Task is incomplete. [First Continental Mortgage Webinar] Sales: personalized follow-up to attendees" [ref=e903] [cursor=pointer]':
+                          - img [ref=e906]
+                          - generic [ref=e908]:
+                            - generic [ref=e909]:
+                              - heading "Task created via Pipedream" [level=4] [ref=e910]:
+                                - generic [ref=e916]:
+                                  - strong [ref=e917]: Task
+                                  - generic [ref=e918]: created via Pipedream
+                              - generic [ref=e920]:
+                                - button [ref=e921]:
+                                  - img [ref=e924]
+                                - generic [ref=e930]:
+                                  - generic [ref=e931]: "Due:"
+                                  - time [ref=e932]: Mar 10, 2026 at 6:00 PM CDT
+                            - generic [ref=e933]:
+                              - separator [ref=e934]
+                              - generic [ref=e935]:
+                                - generic [ref=e938]: Task content preview
+                                - generic "Task content preview" [ref=e939]:
+                                  - generic [ref=e941]:
+                                    - button "Task is incomplete." [ref=e942]:
+                                      - generic [ref=e943]:
+                                        - paragraph [ref=e945]: Task is incomplete.
+                                        - img [ref=e949]
+                                    - generic [ref=e953]: "[First Continental Mortgage Webinar] Sales: personalized follow-up to attendees"
+                    - generic [ref=e955]:
+                      - img [ref=e957]
+                      - article [ref=e961]:
+                        - button "Task assigned to Cam Wolf via Pipedream Overdue:Mar 9, 2026 at 6:00 PM CDT Task content preview Task is overdue. [First Continental Mortgage Webinar] Commitment-focused email to non-registrants" [ref=e963] [cursor=pointer]:
+                          - img [ref=e966]
+                          - generic [ref=e968]:
+                            - generic [ref=e969]:
+                              - heading "Task assigned to Cam Wolf via Pipedream" [level=4] [ref=e970]:
+                                - generic [ref=e976]:
+                                  - strong [ref=e977]: Task
+                                  - text: assigned to
+                                  - generic [ref=e979]: Cam Wolf
+                                  - generic [ref=e980]: via Pipedream
+                              - generic [ref=e982]:
+                                - button [ref=e983]:
+                                  - img [ref=e986]
+                                - generic [ref=e992]:
+                                  - generic [ref=e993]: "Overdue:"
+                                  - time [ref=e994]: Mar 9, 2026 at 6:00 PM CDT
+                            - generic [ref=e995]:
+                              - separator [ref=e996]
+                              - generic [ref=e997]:
+                                - generic [ref=e1000]: Task content preview
+                                - generic "Task content preview" [ref=e1001]:
+                                  - generic [ref=e1003]:
+                                    - button "Task is overdue." [ref=e1004]:
+                                      - generic [ref=e1005]:
+                                        - paragraph [ref=e1007]: Task is overdue.
+                                        - img [ref=e1011]
+                                    - generic [ref=e1015]: "[First Continental Mortgage Webinar] Commitment-focused email to non-registrants"
+                    - generic [ref=e1017]:
+                      - img [ref=e1019]
+                      - article [ref=e1023]:
+                        - button "Task assigned to Cam Wolf via Pipedream Overdue:Mar 9, 2026 at 6:00 PM CDT Task content preview Task is overdue. [First Continental Mortgage Webinar] Stop prospecting - shift to attendance enablement" [ref=e1025] [cursor=pointer]:
+                          - img [ref=e1028]
+                          - generic [ref=e1030]:
+                            - generic [ref=e1031]:
+                              - heading "Task assigned to Cam Wolf via Pipedream" [level=4] [ref=e1032]:
+                                - generic [ref=e1038]:
+                                  - strong [ref=e1039]: Task
+                                  - text: assigned to
+                                  - generic [ref=e1041]: Cam Wolf
+                                  - generic [ref=e1042]: via Pipedream
+                              - generic [ref=e1044]:
+                                - button [ref=e1045]:
+                                  - img [ref=e1048]
+                                - generic [ref=e1054]:
+                                  - generic [ref=e1055]: "Overdue:"
+                                  - time [ref=e1056]: Mar 9, 2026 at 6:00 PM CDT
+                            - generic [ref=e1057]:
+                              - separator [ref=e1058]
+                              - generic [ref=e1059]:
+                                - generic [ref=e1062]: Task content preview
+                                - generic "Task content preview" [ref=e1063]:
+                                  - generic [ref=e1065]:
+                                    - button "Task is overdue." [ref=e1066]:
+                                      - generic [ref=e1067]:
+                                        - paragraph [ref=e1069]: Task is overdue.
+                                        - img [ref=e1073]
+                                    - generic [ref=e1077]: "[First Continental Mortgage Webinar] Stop prospecting - shift to attendance enablement"
+                    - generic [ref=e1079]:
+                      - img [ref=e1081]
+                      - article [ref=e1085]:
+                        - button "Task assigned to Cam Wolf via Pipedream Overdue:Mar 9, 2026 at 6:00 PM CDT Task content preview Task is overdue. [First Continental Mortgage Webinar] Edit webinar recording and upload to YouTube" [ref=e1087] [cursor=pointer]:
+                          - img [ref=e1090]
+                          - generic [ref=e1092]:
+                            - generic [ref=e1093]:
+                              - heading "Task assigned to Cam Wolf via Pipedream" [level=4] [ref=e1094]:
+                                - generic [ref=e1100]:
+                                  - strong [ref=e1101]: Task
+                                  - text: assigned to
+                                  - generic [ref=e1103]: Cam Wolf
+                                  - generic [ref=e1104]: via Pipedream
+                              - generic [ref=e1106]:
+                                - button [ref=e1107]:
+                                  - img [ref=e1110]
+                                - generic [ref=e1116]:
+                                  - generic [ref=e1117]: "Overdue:"
+                                  - time [ref=e1118]: Mar 9, 2026 at 6:00 PM CDT
+                            - generic [ref=e1119]:
+                              - separator [ref=e1120]
+                              - generic [ref=e1121]:
+                                - generic [ref=e1124]: Task content preview
+                                - generic "Task content preview" [ref=e1125]:
+                                  - generic [ref=e1127]:
+                                    - button "Task is overdue." [ref=e1128]:
+                                      - generic [ref=e1129]:
+                                        - paragraph [ref=e1131]: Task is overdue.
+                                        - img [ref=e1135]
+                                    - generic [ref=e1139]: "[First Continental Mortgage Webinar] Edit webinar recording and upload to YouTube"
+                    - generic [ref=e1141]:
+                      - img [ref=e1143]
+                      - article [ref=e1147]:
+                        - button "Task assigned to Cam Wolf via Pipedream Overdue:Mar 8, 2026 at 7:00 PM CDT Task content preview Task is overdue. [First Continental Mortgage Webinar] Snapshot pipeline influenced - complete post-mortem" [ref=e1149] [cursor=pointer]:
+                          - img [ref=e1152]
+                          - generic [ref=e1154]:
+                            - generic [ref=e1155]:
+                              - heading "Task assigned to Cam Wolf via Pipedream" [level=4] [ref=e1156]:
+                                - generic [ref=e1162]:
+                                  - strong [ref=e1163]: Task
+                                  - text: assigned to
+                                  - generic [ref=e1165]: Cam Wolf
+                                  - generic [ref=e1166]: via Pipedream
+                              - generic [ref=e1168]:
+                                - button [ref=e1169]:
+                                  - img [ref=e1172]
+                                - generic [ref=e1178]:
+                                  - generic [ref=e1179]: "Overdue:"
+                                  - time [ref=e1180]: Mar 8, 2026 at 7:00 PM CDT
+                            - generic [ref=e1181]:
+                              - separator [ref=e1182]
+                              - generic [ref=e1183]:
+                                - generic [ref=e1186]: Task content preview
+                                - generic "Task content preview" [ref=e1187]:
+                                  - generic [ref=e1189]:
+                                    - button "Task is overdue." [ref=e1190]:
+                                      - generic [ref=e1191]:
+                                        - paragraph [ref=e1193]: Task is overdue.
+                                        - img [ref=e1197]
+                                    - generic [ref=e1201]: "[First Continental Mortgage Webinar] Snapshot pipeline influenced - complete post-mortem"
+                    - generic [ref=e1203]:
+                      - img [ref=e1205]
+                      - article [ref=e1209]:
+                        - button "Task assigned to Melissa Hausser via Pipedream Overdue:Mar 6, 2026 at 6:00 PM CST Task content preview Task is overdue. [First Continental Mortgage Webinar] Final LinkedIn reminder + technical check" [ref=e1211] [cursor=pointer]:
+                          - img [ref=e1214]
+                          - generic [ref=e1216]:
+                            - generic [ref=e1217]:
+                              - heading "Task assigned to Melissa Hausser via Pipedream" [level=4] [ref=e1218]:
+                                - generic [ref=e1224]:
+                                  - strong [ref=e1225]: Task
+                                  - text: assigned to
+                                  - generic [ref=e1227]: Melissa Hausser
+                                  - generic [ref=e1228]: via Pipedream
+                              - generic [ref=e1230]:
+                                - button [ref=e1231]:
+                                  - img [ref=e1234]
+                                - generic [ref=e1240]:
+                                  - generic [ref=e1241]: "Overdue:"
+                                  - time [ref=e1242]: Mar 6, 2026 at 6:00 PM CST
+                            - generic [ref=e1243]:
+                              - separator [ref=e1244]
+                              - generic [ref=e1245]:
+                                - generic [ref=e1248]: Task content preview
+                                - generic "Task content preview" [ref=e1249]:
+                                  - generic [ref=e1251]:
+                                    - button "Task is overdue." [ref=e1252]:
+                                      - generic [ref=e1253]:
+                                        - paragraph [ref=e1255]: Task is overdue.
+                                        - img [ref=e1259]
+                                    - generic [ref=e1263]: "[First Continental Mortgage Webinar] Final LinkedIn reminder + technical check"
+                    - generic [ref=e1265]:
+                      - generic [ref=e1266]:
+                        - img [ref=e1267]
+                        - img [ref=e1272]
+                      - article [ref=e1275]:
+                        - button "Task assigned to Cam Wolf via Pipedream Overdue:Mar 1, 2026 at 6:00 PM CST Task content preview Task is overdue. [First Continental Mortgage Webinar] Review meetings booked by engagement tier - validate SLA" [ref=e1277] [cursor=pointer]:
+                          - img [ref=e1280]
+                          - generic [ref=e1282]:
+                            - generic [ref=e1283]:
+                              - heading "Task assigned to Cam Wolf via Pipedream" [level=4] [ref=e1284]:
+                                - generic [ref=e1290]:
+                                  - strong [ref=e1291]: Task
+                                  - text: assigned to
+                                  - generic [ref=e1293]: Cam Wolf
+                                  - generic [ref=e1294]: via Pipedream
+                              - generic [ref=e1296]:
+                                - button [ref=e1297]:
+                                  - img [ref=e1300]
+                                - generic [ref=e1306]:
+                                  - generic [ref=e1307]: "Overdue:"
+                                  - time [ref=e1308]: Mar 1, 2026 at 6:00 PM CST
+                            - generic [ref=e1309]:
+                              - separator [ref=e1310]
+                              - generic [ref=e1311]:
+                                - generic [ref=e1314]: Task content preview
+                                - generic "Task content preview" [ref=e1315]:
+                                  - generic [ref=e1317]:
+                                    - button "Task is overdue." [ref=e1318]:
+                                      - generic [ref=e1319]:
+                                        - paragraph [ref=e1321]: Task is overdue.
+                                        - img [ref=e1325]
+                                    - generic [ref=e1329]: "[First Continental Mortgage Webinar] Review meetings booked by engagement tier - validate SLA"
+                    - paragraph [ref=e1331]: February 2026
+                    - generic [ref=e1333]:
+                      - img [ref=e1335]
+                      - article [ref=e1339]:
+                        - 'button "Task created via Pipedream Overdue:Feb 23, 2026 at 6:00 PM CST Task content preview Task is overdue. [First Continental Mortgage Webinar] Sales: assign owners to 100% of attendees" [ref=e1341] [cursor=pointer]':
+                          - img [ref=e1344]
+                          - generic [ref=e1346]:
+                            - generic [ref=e1347]:
+                              - heading "Task created via Pipedream" [level=4] [ref=e1348]:
+                                - generic [ref=e1354]:
+                                  - strong [ref=e1355]: Task
+                                  - generic [ref=e1356]: created via Pipedream
+                              - generic [ref=e1358]:
+                                - button [ref=e1359]:
+                                  - img [ref=e1362]
+                                - generic [ref=e1368]:
+                                  - generic [ref=e1369]: "Overdue:"
+                                  - time [ref=e1370]: Feb 23, 2026 at 6:00 PM CST
+                            - generic [ref=e1371]:
+                              - separator [ref=e1372]
+                              - generic [ref=e1373]:
+                                - generic [ref=e1376]: Task content preview
+                                - generic "Task content preview" [ref=e1377]:
+                                  - generic [ref=e1379]:
+                                    - button "Task is overdue." [ref=e1380]:
+                                      - generic [ref=e1381]:
+                                        - paragraph [ref=e1383]: Task is overdue.
+                                        - img [ref=e1387]
+                                    - generic [ref=e1391]: "[First Continental Mortgage Webinar] Sales: assign owners to 100% of attendees"
+                    - generic [ref=e1393]:
+                      - img [ref=e1395]
+                      - article [ref=e1399]:
+                        - button "Task assigned to Cam Wolf via Pipedream Overdue:Feb 15, 2026 at 6:00 PM CST Task content preview Task is overdue. [First Continental Mortgage Webinar] Final organic LinkedIn post" [ref=e1401] [cursor=pointer]:
+                          - img [ref=e1404]
+                          - generic [ref=e1406]:
+                            - generic [ref=e1407]:
+                              - heading "Task assigned to Cam Wolf via Pipedream" [level=4] [ref=e1408]:
+                                - generic [ref=e1414]:
+                                  - strong [ref=e1415]: Task
+                                  - text: assigned to
+                                  - generic [ref=e1417]: Cam Wolf
+                                  - generic [ref=e1418]: via Pipedream
+                              - generic [ref=e1420]:
+                                - button [ref=e1421]:
+                                  - img [ref=e1424]
+                                - generic [ref=e1430]:
+                                  - generic [ref=e1431]: "Overdue:"
+                                  - time [ref=e1432]: Feb 15, 2026 at 6:00 PM CST
+                            - generic [ref=e1433]:
+                              - separator [ref=e1434]
+                              - generic [ref=e1435]:
+                                - generic [ref=e1438]: Task content preview
+                                - generic "Task content preview" [ref=e1439]:
+                                  - generic [ref=e1441]:
+                                    - button "Task is overdue." [ref=e1442]:
+                                      - generic [ref=e1443]:
+                                        - paragraph [ref=e1445]: Task is overdue.
+                                        - img [ref=e1449]
+                                    - generic [ref=e1453]: "[First Continental Mortgage Webinar] Final organic LinkedIn post"
+                    - generic [ref=e1455]:
+                      - img [ref=e1457]
+                      - article [ref=e1461]:
+                        - 'button "Task created via Pipedream Overdue:Feb 8, 2026 at 6:00 PM CST Task content preview Task is overdue. [First Continental Mortgage Webinar] Sales: manually invite Tier-1 target accounts" [ref=e1463] [cursor=pointer]':
+                          - img [ref=e1466]
+                          - generic [ref=e1468]:
+                            - generic [ref=e1469]:
+                              - heading "Task created via Pipedream" [level=4] [ref=e1470]:
+                                - generic [ref=e1476]:
+                                  - strong [ref=e1477]: Task
+                                  - generic [ref=e1478]: created via Pipedream
+                              - generic [ref=e1480]:
+                                - button [ref=e1481]:
+                                  - img [ref=e1484]
+                                - generic [ref=e1490]:
+                                  - generic [ref=e1491]: "Overdue:"
+                                  - time [ref=e1492]: Feb 8, 2026 at 6:00 PM CST
+                            - generic [ref=e1493]:
+                              - separator [ref=e1494]
+                              - generic [ref=e1495]:
+                                - generic [ref=e1498]: Task content preview
+                                - generic "Task content preview" [ref=e1499]:
+                                  - generic [ref=e1501]:
+                                    - button "Task is overdue." [ref=e1502]:
+                                      - generic [ref=e1503]:
+                                        - paragraph [ref=e1505]: Task is overdue.
+                                        - img [ref=e1509]
+                                    - generic [ref=e1513]: "[First Continental Mortgage Webinar] Sales: manually invite Tier-1 target accounts"
+                    - generic [ref=e1515]:
+                      - img [ref=e1517]
+                      - article [ref=e1521]:
+                        - button "Task assigned to Cam Wolf via Pipedream Feb 8, 2026 at 6:00 PM CST Task content preview Task is complete. [First Continental Mortgage Webinar] Send follow-up email to warm audiences" [ref=e1523] [cursor=pointer]:
+                          - img [ref=e1526]
+                          - generic [ref=e1528]:
+                            - generic [ref=e1529]:
+                              - heading "Task assigned to Cam Wolf via Pipedream" [level=4] [ref=e1530]:
+                                - generic [ref=e1536]:
+                                  - strong [ref=e1537]: Task
+                                  - text: assigned to
+                                  - generic [ref=e1539]: Cam Wolf
+                                  - generic [ref=e1540]: via Pipedream
+                              - generic [ref=e1542]:
+                                - button [ref=e1543]:
+                                  - img [ref=e1546]
+                                - time [ref=e1553]: Feb 8, 2026 at 6:00 PM CST
+                            - generic [ref=e1554]:
+                              - separator [ref=e1555]
+                              - generic [ref=e1556]:
+                                - generic [ref=e1559]: Task content preview
+                                - generic "Task content preview" [ref=e1560]:
+                                  - generic [ref=e1562]:
+                                    - button "Task is complete." [ref=e1563]:
+                                      - generic [ref=e1564]:
+                                        - paragraph [ref=e1566]: Task is complete.
+                                        - img [ref=e1570]
+                                    - generic [ref=e1575]: "[First Continental Mortgage Webinar] Send follow-up email to warm audiences"
+                    - generic [ref=e1577]:
+                      - img [ref=e1579]
+                      - article [ref=e1583]:
+                        - button "Task assigned to Cam Wolf via Pipedream Feb 1, 2026 at 6:00 PM CST Task content preview Task is complete. [First Continental Mortgage Webinar] Publish first LinkedIn post (speaker POV)" [ref=e1585] [cursor=pointer]:
+                          - img [ref=e1588]
+                          - generic [ref=e1590]:
+                            - generic [ref=e1591]:
+                              - heading "Task assigned to Cam Wolf via Pipedream" [level=4] [ref=e1592]:
+                                - generic [ref=e1598]:
+                                  - strong [ref=e1599]: Task
+                                  - text: assigned to
+                                  - generic [ref=e1601]: Cam Wolf
+                                  - generic [ref=e1602]: via Pipedream
+                              - generic [ref=e1604]:
+                                - button [ref=e1605]:
+                                  - img [ref=e1608]
+                                - time [ref=e1615]: Feb 1, 2026 at 6:00 PM CST
+                            - generic [ref=e1616]:
+                              - separator [ref=e1617]
+                              - generic [ref=e1618]:
+                                - generic [ref=e1621]: Task content preview
+                                - generic "Task content preview" [ref=e1622]:
+                                  - generic [ref=e1624]:
+                                    - button "Task is complete." [ref=e1625]:
+                                      - generic [ref=e1626]:
+                                        - paragraph [ref=e1628]: Task is complete.
+                                        - img [ref=e1632]
+                                    - generic [ref=e1637]: "[First Continental Mortgage Webinar] Publish first LinkedIn post (speaker POV)"
+                    - generic [ref=e1639]:
+                      - img [ref=e1641]
+                      - article [ref=e1645]:
+                        - button "Task assigned to Cam Wolf via Pipedream Feb 1, 2026 at 6:00 PM CST Task content preview Task is complete. [First Continental Mortgage Webinar] Build HTML email templates in Knock" [ref=e1647] [cursor=pointer]:
+                          - img [ref=e1650]
+                          - generic [ref=e1652]:
+                            - generic [ref=e1653]:
+                              - heading "Task assigned to Cam Wolf via Pipedream" [level=4] [ref=e1654]:
+                                - generic [ref=e1660]:
+                                  - strong [ref=e1661]: Task
+                                  - text: assigned to
+                                  - generic [ref=e1663]: Cam Wolf
+                                  - generic [ref=e1664]: via Pipedream
+                              - generic [ref=e1666]:
+                                - button [ref=e1667]:
+                                  - img [ref=e1670]
+                                - time [ref=e1677]: Feb 1, 2026 at 6:00 PM CST
+                            - generic [ref=e1678]:
+                              - separator [ref=e1679]
+                              - generic [ref=e1680]:
+                                - generic [ref=e1683]: Task content preview
+                                - generic "Task content preview" [ref=e1684]:
+                                  - generic [ref=e1686]:
+                                    - button "Task is complete." [ref=e1687]:
+                                      - generic [ref=e1688]:
+                                        - paragraph [ref=e1690]: Task is complete.
+                                        - img [ref=e1694]
+                                    - generic [ref=e1699]: "[First Continental Mortgage Webinar] Build HTML email templates in Knock"
+                    - generic [ref=e1701]:
+                      - img [ref=e1703]
+                      - article [ref=e1707]:
+                        - button "Task assigned to Cam Wolf via Pipedream Feb 1, 2026 at 6:00 PM CST Task content preview Task is complete. [First Continental Mortgage Webinar] Configure Knock / Wrapper triggers and dry-run QA" [ref=e1709] [cursor=pointer]:
+                          - img [ref=e1712]
+                          - generic [ref=e1714]:
+                            - generic [ref=e1715]:
+                              - heading "Task assigned to Cam Wolf via Pipedream" [level=4] [ref=e1716]:
+                                - generic [ref=e1722]:
+                                  - strong [ref=e1723]: Task
+                                  - text: assigned to
+                                  - generic [ref=e1725]: Cam Wolf
+                                  - generic [ref=e1726]: via Pipedream
+                              - generic [ref=e1728]:
+                                - button [ref=e1729]:
+                                  - img [ref=e1732]
+                                - time [ref=e1739]: Feb 1, 2026 at 6:00 PM CST
+                            - generic [ref=e1740]:
+                              - separator [ref=e1741]
+                              - generic [ref=e1742]:
+                                - generic [ref=e1745]: Task content preview
+                                - generic "Task content preview" [ref=e1746]:
+                                  - generic [ref=e1748]:
+                                    - button "Task is complete." [ref=e1749]:
+                                      - generic [ref=e1750]:
+                                        - paragraph [ref=e1752]: Task is complete.
+                                        - img [ref=e1756]
+                                    - generic [ref=e1761]: "[First Continental Mortgage Webinar] Configure Knock / Wrapper triggers and dry-run QA"
+                    - generic [ref=e1763]:
+                      - generic [ref=e1764]:
+                        - img [ref=e1765]
+                        - img [ref=e1770]
+                      - article [ref=e1773]:
+                        - button "Task assigned to Cam Wolf via Pipedream Feb 1, 2026 at 6:00 PM CST Task content preview Task is complete. [First Continental Mortgage Webinar] Launch awareness email (non-urgent)" [ref=e1775] [cursor=pointer]:
+                          - img [ref=e1778]
+                          - generic [ref=e1780]:
+                            - generic [ref=e1781]:
+                              - heading "Task assigned to Cam Wolf via Pipedream" [level=4] [ref=e1782]:
+                                - generic [ref=e1788]:
+                                  - strong [ref=e1789]: Task
+                                  - text: assigned to
+                                  - generic [ref=e1791]: Cam Wolf
+                                  - generic [ref=e1792]: via Pipedream
+                              - generic [ref=e1794]:
+                                - button [ref=e1795]:
+                                  - img [ref=e1798]
+                                - time [ref=e1805]: Feb 1, 2026 at 6:00 PM CST
+                            - generic [ref=e1806]:
+                              - separator [ref=e1807]
+                              - generic [ref=e1808]:
+                                - generic [ref=e1811]: Task content preview
+                                - generic "Task content preview" [ref=e1812]:
+                                  - generic [ref=e1814]:
+                                    - button "Task is complete." [ref=e1815]:
+                                      - generic [ref=e1816]:
+                                        - paragraph [ref=e1818]: Task is complete.
+                                        - img [ref=e1822]
+                                    - generic [ref=e1827]: "[First Continental Mortgage Webinar] Launch awareness email (non-urgent)"
+                    - paragraph [ref=e1829]: January 2026
+                    - generic [ref=e1831]:
+                      - img [ref=e1833]
+                      - article [ref=e1837]:
+                        - button "Task assigned to Cam Wolf via Pipedream Jan 25, 2026 at 6:00 PM CST Task content preview Task is complete. [First Continental Mortgage Webinar] Finalize audience segments in HubSpot" [ref=e1839] [cursor=pointer]:
+                          - img [ref=e1842]
+                          - generic [ref=e1844]:
+                            - generic [ref=e1845]:
+                              - heading "Task assigned to Cam Wolf via Pipedream" [level=4] [ref=e1846]:
+                                - generic [ref=e1852]:
+                                  - strong [ref=e1853]: Task
+                                  - text: assigned to
+                                  - generic [ref=e1855]: Cam Wolf
+                                  - generic [ref=e1856]: via Pipedream
+                              - generic [ref=e1858]:
+                                - button [ref=e1859]:
+                                  - img [ref=e1862]
+                                - time [ref=e1869]: Jan 25, 2026 at 6:00 PM CST
+                            - generic [ref=e1870]:
+                              - separator [ref=e1871]
+                              - generic [ref=e1872]:
+                                - generic [ref=e1875]: Task content preview
+                                - generic "Task content preview" [ref=e1876]:
+                                  - generic [ref=e1878]:
+                                    - button "Task is complete." [ref=e1879]:
+                                      - generic [ref=e1880]:
+                                        - paragraph [ref=e1882]: Task is complete.
+                                        - img [ref=e1886]
+                                    - generic [ref=e1891]: "[First Continental Mortgage Webinar] Finalize audience segments in HubSpot"
+                    - generic [ref=e1893]:
+                      - img [ref=e1895]
+                      - article [ref=e1899]:
+                        - button "Task assigned to Cam Wolf via Pipedream Jan 25, 2026 at 6:00 PM CST Task content preview Task is complete. [First Continental Mortgage Webinar] Create Clay registrant table schema" [ref=e1901] [cursor=pointer]:
+                          - img [ref=e1904]
+                          - generic [ref=e1906]:
+                            - generic [ref=e1907]:
+                              - heading "Task assigned to Cam Wolf via Pipedream" [level=4] [ref=e1908]:
+                                - generic [ref=e1914]:
+                                  - strong [ref=e1915]: Task
+                                  - text: assigned to
+                                  - generic [ref=e1917]: Cam Wolf
+                                  - generic [ref=e1918]: via Pipedream
+                              - generic [ref=e1920]:
+                                - button [ref=e1921]:
+                                  - img [ref=e1924]
+                                - time [ref=e1931]: Jan 25, 2026 at 6:00 PM CST
+                            - generic [ref=e1932]:
+                              - separator [ref=e1933]
+                              - generic [ref=e1934]:
+                                - generic [ref=e1937]: Task content preview
+                                - generic "Task content preview" [ref=e1938]:
+                                  - generic [ref=e1940]:
+                                    - button "Task is complete." [ref=e1941]:
+                                      - generic [ref=e1942]:
+                                        - paragraph [ref=e1944]: Task is complete.
+                                        - img [ref=e1948]
+                                    - generic [ref=e1953]: "[First Continental Mortgage Webinar] Create Clay registrant table schema"
+                    - generic [ref=e1955]:
+                      - img [ref=e1957]
+                      - article [ref=e1961]:
+                        - button "Task assigned to Kaytren Bruner via Pipedream Jan 25, 2026 at 6:00 PM CST Task content preview Task is complete. [First Continental Mortgage Webinar] Draft email copy by audience tier" [ref=e1963] [cursor=pointer]:
+                          - img [ref=e1966]
+                          - generic [ref=e1968]:
+                            - generic [ref=e1969]:
+                              - heading "Task assigned to Kaytren Bruner via Pipedream" [level=4] [ref=e1970]:
+                                - generic [ref=e1976]:
+                                  - strong [ref=e1977]: Task
+                                  - text: assigned to
+                                  - generic [ref=e1979]: Kaytren Bruner
+                                  - generic [ref=e1980]: via Pipedream
+                              - generic [ref=e1982]:
+                                - button [ref=e1983]:
+                                  - img [ref=e1986]
+                                - time [ref=e1993]: Jan 25, 2026 at 6:00 PM CST
+                            - generic [ref=e1994]:
+                              - separator [ref=e1995]
+                              - generic [ref=e1996]:
+                                - generic [ref=e1999]: Task content preview
+                                - generic "Task content preview" [ref=e2000]:
+                                  - generic [ref=e2002]:
+                                    - button "Task is complete." [ref=e2003]:
+                                      - generic [ref=e2004]:
+                                        - paragraph [ref=e2006]: Task is complete.
+                                        - img [ref=e2010]
+                                    - generic [ref=e2015]: "[First Continental Mortgage Webinar] Draft email copy by audience tier"
+                    - generic [ref=e2017]:
+                      - img [ref=e2019]
+                      - article [ref=e2023]:
+                        - button "Task assigned to Kaytren Bruner via Pipedream Jan 25, 2026 at 6:00 PM CST Task content preview Task is complete. [First Continental Mortgage Webinar] Draft LinkedIn copy (organic + paid if applicable)" [ref=e2025] [cursor=pointer]:
+                          - img [ref=e2028]
+                          - generic [ref=e2030]:
+                            - generic [ref=e2031]:
+                              - heading "Task assigned to Kaytren Bruner via Pipedream" [level=4] [ref=e2032]:
+                                - generic [ref=e2038]:
+                                  - strong [ref=e2039]: Task
+                                  - text: assigned to
+                                  - generic [ref=e2041]: Kaytren Bruner
+                                  - generic [ref=e2042]: via Pipedream
+                              - generic [ref=e2044]:
+                                - button [ref=e2045]:
+                                  - img [ref=e2048]
+                                - time [ref=e2055]: Jan 25, 2026 at 6:00 PM CST
+                            - generic [ref=e2056]:
+                              - separator [ref=e2057]
+                              - generic [ref=e2058]:
+                                - generic [ref=e2061]: Task content preview
+                                - generic "Task content preview" [ref=e2062]:
+                                  - generic [ref=e2064]:
+                                    - button "Task is complete." [ref=e2065]:
+                                      - generic [ref=e2066]:
+                                        - paragraph [ref=e2068]: Task is complete.
+                                        - img [ref=e2072]
+                                    - generic [ref=e2077]: "[First Continental Mortgage Webinar] Draft LinkedIn copy (organic + paid if applicable)"
+                    - generic [ref=e2079]:
+                      - img [ref=e2081]
+                      - article [ref=e2085]:
+                        - button "Task assigned to Cam Wolf via Pipedream Jan 25, 2026 at 6:00 PM CST Task content preview Task is complete. [First Continental Mortgage Webinar] Confirm email/Knock/Wrapper/SendGrid readiness" [ref=e2087] [cursor=pointer]:
+                          - img [ref=e2090]
+                          - generic [ref=e2092]:
+                            - generic [ref=e2093]:
+                              - heading "Task assigned to Cam Wolf via Pipedream" [level=4] [ref=e2094]:
+                                - generic [ref=e2100]:
+                                  - strong [ref=e2101]: Task
+                                  - text: assigned to
+                                  - generic [ref=e2103]: Cam Wolf
+                                  - generic [ref=e2104]: via Pipedream
+                              - generic [ref=e2106]:
+                                - button [ref=e2107]:
+                                  - img [ref=e2110]
+                                - time [ref=e2117]: Jan 25, 2026 at 6:00 PM CST
+                            - generic [ref=e2118]:
+                              - separator [ref=e2119]
+                              - generic [ref=e2120]:
+                                - generic [ref=e2123]: Task content preview
+                                - generic "Task content preview" [ref=e2124]:
+                                  - generic [ref=e2126]:
+                                    - button "Task is complete." [ref=e2127]:
+                                      - generic [ref=e2128]:
+                                        - paragraph [ref=e2130]: Task is complete.
+                                        - img [ref=e2134]
+                                    - generic [ref=e2139]: "[First Continental Mortgage Webinar] Confirm email/Knock/Wrapper/SendGrid readiness"
+                  - generic [ref=e2141]:
+                    - generic [ref=e2142]:
+                      - img [ref=e2144]
+                      - article [ref=e2147]
+                    - generic [ref=e2149]:
+                      - img [ref=e2151]
+                      - article [ref=e2154]
+                    - generic [ref=e2156]:
+                      - img [ref=e2158]
+                      - article [ref=e2161]
+          - generic [ref=e2164]:
+            - generic [ref=e2166]:
+              - heading "Contacts" [level=5] [ref=e2167]:
+                - generic [ref=e2170]: Contacts
+              - generic [ref=e2174]:
+                - button "Add" [ref=e2175] [cursor=pointer]:
+                  - generic [ref=e2176]:
+                    - img [ref=e2177]
+                    - generic [ref=e2179]: Add
+                - link [ref=e2180] [cursor=pointer]:
+                  - /url: https://app.hubspot.com/layout-editor/19933594/CRM_RECORD_MIDDLE/2-56342751/edit/HubspotProvided-CRM_RECORD_PAGE%3A%7C%3A2-56342751/card-builder/ASSOCIATION_TABLE%2F0-1?eschref=%2Fcontacts%2F19933594%2Frecord%2F2-56342751%2F45755969646
+                  - img [ref=e2181]
+            - generic [ref=e2184]:
+              - generic [ref=e2185]:
+                - generic [ref=e2190]:
+                  - searchbox "Search" [ref=e2191]
+                  - generic:
+                    - generic:
+                      - img
+                - generic [ref=e2192]:
+                  - button "Filter associations" [ref=e2193] [cursor=pointer]:
+                    - generic [ref=e2194]:
+                      - img [ref=e2195]
+                      - generic [ref=e2197]: Filters
+                  - button "Sort" [ref=e2199] [cursor=pointer]:
+                    - generic [ref=e2200]:
+                      - img [ref=e2201]
+                      - generic [ref=e2203]: Sort
+                  - generic "Admin applied filters" [ref=e2204]:
+                    - img [ref=e2206]
+              - table [ref=e2223]:
+                - rowgroup [ref=e2224]:
+                  - row "Name Press to sort. Email Press to sort. Phone Number Press to sort. Job Title Press to sort. Contact priority Press to sort. AI Outreach Rank Ascending sort. Press to sort descending. AI Outreach Recommendation Press to sort. SCR | Scoring Status Press to sort." [ref=e2225]:
+                    - columnheader "Name Press to sort." [ref=e2226] [cursor=pointer]:
+                      - generic [ref=e2228]:
+                        - generic [ref=e2236]: Name
+                        - generic "Press to sort." [ref=e2239]:
+                          - img [ref=e2240]
+                    - columnheader "Email Press to sort." [ref=e2244] [cursor=pointer]:
+                      - generic [ref=e2246]:
+                        - generic [ref=e2254]: Email
+                        - generic "Press to sort." [ref=e2257]:
+                          - img [ref=e2258]
+                    - columnheader "Phone Number Press to sort." [ref=e2262] [cursor=pointer]:
+                      - generic [ref=e2264]:
+                        - generic [ref=e2272]: Phone Number
+                        - generic "Press to sort." [ref=e2275]:
+                          - img [ref=e2276]
+                    - columnheader "Job Title Press to sort." [ref=e2280] [cursor=pointer]:
+                      - generic [ref=e2282]:
+                        - generic [ref=e2290]: Job Title
+                        - generic "Press to sort." [ref=e2293]:
+                          - img [ref=e2294]
+                    - columnheader "Contact priority Press to sort." [ref=e2298] [cursor=pointer]:
+                      - generic [ref=e2300]:
+                        - generic [ref=e2308]: Contact priority
+                        - generic "Press to sort." [ref=e2311]:
+                          - img [ref=e2312]
+                    - columnheader "AI Outreach Rank Ascending sort. Press to sort descending." [ref=e2316] [cursor=pointer]:
+                      - generic [ref=e2318]:
+                        - generic [ref=e2326]: AI Outreach Rank
+                        - generic "Ascending sort. Press to sort descending." [ref=e2329]:
+                          - img [ref=e2330]
+                    - columnheader "AI Outreach Recommendation Press to sort." [ref=e2334] [cursor=pointer]:
+                      - generic [ref=e2336]:
+                        - generic [ref=e2344]: AI Outreach Recommendation
+                        - generic "Press to sort." [ref=e2347]:
+                          - img [ref=e2348]
+                    - columnheader "SCR | Scoring Status Press to sort." [ref=e2352] [cursor=pointer]:
+                      - generic [ref=e2354]:
+                        - generic [ref=e2362]: SCR | Scoring Status
+                        - generic "Press to sort." [ref=e2365]:
+                          - img [ref=e2366]
+                - rowgroup [ref=e2370]:
+                  - row "Sara Wiggins sara.wiggins@nflp.com Link opens in a new window (713) 267-0148 Support Center Manager Closed won 10 -- --" [ref=e2371]:
+                    - cell "Sara Wiggins" [ref=e2372]:
+                      - link "Sara Wiggins" [ref=e2380] [cursor=pointer]:
+                        - /url: /contacts/19933594/record/0-1/77809124360/
+                    - button "sara.wiggins@nflp.com Link opens in a new window" [ref=e2381]:
+                      - link "sara.wiggins@nflp.com Link opens in a new window" [ref=e2385] [cursor=pointer]:
+                        - /url: mailto:sara.wiggins@nflp.com
+                        - text: sara.wiggins@nflp.com
+                        - img "Link opens in a new window" [ref=e2387]
+                    - button "(713) 267-0148" [ref=e2389]:
+                      - button "(713) 267-0148" [ref=e2392] [cursor=pointer]
+                    - button "Support Center Manager" [ref=e2393]:
+                      - generic [ref=e2395]: Support Center Manager
+                    - cell "Closed won" [ref=e2396]:
+                      - generic [ref=e2398]: Closed won
+                    - button "10" [ref=e2399]:
+                      - generic [ref=e2401]: "10"
+                    - button "--" [ref=e2402]:
+                      - generic [ref=e2404]: "--"
+                    - button "--" [ref=e2405]:
+                      - generic [ref=e2407]: "--"
+          - heading "Deals" [level=5] [ref=e2412]:
+            - generic [ref=e2415]: Deals
+          - heading "Upcoming activities" [level=5] [ref=e2422]:
+            - generic [ref=e2425]: Upcoming activities
+      - generic [ref=e2428]:
+        - button "Collapse sidebar" [ref=e2430] [cursor=pointer]:
+          - img [ref=e2432]
+        - complementary [ref=e2435]:
+          - generic [ref=e2445]:
+            - generic [ref=e2448]:
+              - generic [ref=e2449]:
+                - button "Contacts (42)" [expanded] [ref=e2453] [cursor=pointer]:
+                  - img [ref=e2454]:
+                    - img [ref=e2455]
+                  - generic [ref=e2458]: Contacts (42)
+                - generic [ref=e2463]:
+                  - button "Add" [ref=e2464] [cursor=pointer]:
+                    - generic [ref=e2465]:
+                      - img [ref=e2466]
+                      - generic [ref=e2468]: Add
+                  - link "Manage card settings" [ref=e2469] [cursor=pointer]:
+                    - /url: https://app.hubspot.com/layout-editor/19933594/CRM_RECORD_RIGHT/2-56342751/edit/HubspotProvided-CRM_RECORD_PAGE%3A%7C%3A2-56342751/card-builder/ASSOCIATION_V3%2F0-1?eschref=%2Fcontacts%2F19933594%2Frecord%2F2-56342751%2F45755969646
+                    - img [ref=e2470]
+              - generic [ref=e2475]:
+                - generic [ref=e2476]:
+                  - generic [ref=e2477]:
+                    - button "Search associations" [ref=e2480] [cursor=pointer]:
+                      - img [ref=e2482]
+                    - button "Sort" [ref=e2487] [cursor=pointer]:
+                      - generic [ref=e2488]:
+                        - img [ref=e2489]
+                        - generic [ref=e2491]: Sort
+                  - generic [ref=e2492]:
+                    - searchbox "Search name, phone, email addresses, company, or association label" [ref=e2493]
+                    - generic:
+                      - generic:
+                        - img
+                - generic [ref=e2497]:
+                  - generic [ref=e2500]:
+                    - link "Julie Raphael" [ref=e2510] [cursor=pointer]:
+                      - /url: https://app.hubspot.com/contacts/19933594/record/0-1/208088663961?eschref=%2Fcontacts%2F19933594%2Frecord%2F2-56342751%2F45755969646%3Feschref%3D%252Fcontacts%252F19933594%252Fobjects%252F2-56342751%252Fviews%252Fall%252Flist%253Fnoprefetch%253D%26initialCardsReadyMarkerExtension%3DNOPREFETCH
+                      - generic [ref=e2513]: Julie Raphael
+                    - list [ref=e2514]:
+                      - paragraph [ref=e2516]:
+                        - generic [ref=e2518]: Valorhl
+                      - listitem [ref=e2519]:
+                        - generic [ref=e2522]:
+                          - generic [ref=e2523]: "Buying Role:"
+                          - generic [ref=e2524]: "--"
+                      - listitem [ref=e2525]:
+                        - generic [ref=e2528]:
+                          - generic [ref=e2529]: "Relationship Depth:"
+                          - generic [ref=e2530]: "--"
+                    - button "Add association label" [ref=e2536] [cursor=pointer]:
+                      - paragraph [ref=e2538]: Add association label
+                  - generic [ref=e2541]:
+                    - link "Jaime Reedy" [ref=e2551] [cursor=pointer]:
+                      - /url: https://app.hubspot.com/contacts/19933594/record/0-1/208091409746?eschref=%2Fcontacts%2F19933594%2Frecord%2F2-56342751%2F45755969646%3Feschref%3D%252Fcontacts%252F19933594%252Fobjects%252F2-56342751%252Fviews%252Fall%252Flist%253Fnoprefetch%253D%26initialCardsReadyMarkerExtension%3DNOPREFETCH
+                      - generic [ref=e2554]: Jaime Reedy
+                    - list [ref=e2555]:
+                      - paragraph [ref=e2557]:
+                        - generic [ref=e2559]: Valorhl
+                      - listitem [ref=e2560]:
+                        - generic [ref=e2563]:
+                          - generic [ref=e2564]: "Buying Role:"
+                          - generic [ref=e2565]: "--"
+                      - listitem [ref=e2566]:
+                        - generic [ref=e2569]:
+                          - generic [ref=e2570]: "Relationship Depth:"
+                          - generic [ref=e2571]: "--"
+                    - button "Add association label" [ref=e2577] [cursor=pointer]:
+                      - paragraph [ref=e2579]: Add association label
+                  - generic [ref=e2582]:
+                    - link "Sara Hilliard" [ref=e2592] [cursor=pointer]:
+                      - /url: https://app.hubspot.com/contacts/19933594/record/0-1/207324655501?eschref=%2Fcontacts%2F19933594%2Frecord%2F2-56342751%2F45755969646%3Feschref%3D%252Fcontacts%252F19933594%252Fobjects%252F2-56342751%252Fviews%252Fall%252Flist%253Fnoprefetch%253D%26initialCardsReadyMarkerExtension%3DNOPREFETCH
+                      - generic [ref=e2595]: Sara Hilliard
+                    - list [ref=e2596]:
+                      - paragraph [ref=e2598]:
+                        - generic [ref=e2600]: oppbank.com
+                      - listitem [ref=e2601]:
+                        - generic [ref=e2604]:
+                          - generic [ref=e2605]: "Buying Role:"
+                          - generic [ref=e2606]: "--"
+                      - listitem [ref=e2607]:
+                        - generic [ref=e2610]:
+                          - generic [ref=e2611]: "Relationship Depth:"
+                          - generic [ref=e2612]: "--"
+                    - button "Add association label" [ref=e2618] [cursor=pointer]:
+                      - paragraph [ref=e2620]: Add association label
+                  - generic [ref=e2623]:
+                    - generic [ref=e2625]:
+                      - img [ref=e2630]
+                      - link "Wekipew wekipew" [ref=e2637] [cursor=pointer]:
+                        - /url: https://app.hubspot.com/contacts/19933594/record/0-1/207262263552?eschref=%2Fcontacts%2F19933594%2Frecord%2F2-56342751%2F45755969646%3Feschref%3D%252Fcontacts%252F19933594%252Fobjects%252F2-56342751%252Fviews%252Fall%252Flist%253Fnoprefetch%253D%26initialCardsReadyMarkerExtension%3DNOPREFETCH
+                        - generic [ref=e2640]: Wekipew wekipew
+                    - list [ref=e2641]:
+                      - listitem [ref=e2642]:
+                        - generic [ref=e2645]:
+                          - generic [ref=e2646]: "Buying Role:"
+                          - generic [ref=e2647]: "--"
+                      - listitem [ref=e2648]:
+                        - generic [ref=e2651]:
+                          - generic [ref=e2652]: "Relationship Depth:"
+                          - generic [ref=e2653]: "--"
+                    - button "Add association label" [ref=e2659] [cursor=pointer]:
+                      - paragraph [ref=e2661]: Add association label
+                  - status [ref=e2663]:
+                    - list [ref=e2670]
+                  - status [ref=e2675]:
+                    - list [ref=e2682]
+                  - status [ref=e2687]:
+                    - list [ref=e2694]
+                  - status [ref=e2699]:
+                    - list [ref=e2706]
+                - link "View all associated Contacts Link opens in a new window" [ref=e2711] [cursor=pointer]:
+                  - /url: /contacts/19933594/objects/0-1/views/all/list?filters=%5B%7B%22operator%22%3A%22EQ%22%2C%22value%22%3A45755969646%2C%22property%22%3A%22associations.1-40%22%7D%5D
+                  - generic [ref=e2713]: View all associated Contacts
+                  - img "Link opens in a new window" [ref=e2715]
+            - generic [ref=e2719]:
+              - generic [ref=e2720]:
+                - button "Deals (0)" [expanded] [ref=e2724] [cursor=pointer]:
+                  - img [ref=e2725]:
+                    - img [ref=e2726]
+                  - generic [ref=e2729]: Deals (0)
+                - generic [ref=e2734]:
+                  - button "Add" [ref=e2735] [cursor=pointer]:
+                    - generic [ref=e2736]:
+                      - img [ref=e2737]
+                      - generic [ref=e2739]: Add
+                  - link "Manage card settings" [ref=e2740] [cursor=pointer]:
+                    - /url: https://app.hubspot.com/layout-editor/19933594/CRM_RECORD_RIGHT/2-56342751/edit/HubspotProvided-CRM_RECORD_PAGE%3A%7C%3A2-56342751/card-builder/ASSOCIATION_V3%2F0-3?eschref=%2Fcontacts%2F19933594%2Frecord%2F2-56342751%2F45755969646
+                    - img [ref=e2741]
+              - alert [ref=e2746]:
+                - img "empty-state-charts illustration" [ref=e2747]
+                - generic [ref=e2748]: Track the revenue opportunities associated with this record.
+    - complementary
+  - generic [ref=e2749]: BESbswy
+  - generic [ref=e2750]: BESbswy

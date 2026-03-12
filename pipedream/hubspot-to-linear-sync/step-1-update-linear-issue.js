@@ -22,11 +22,17 @@ export default defineComponent({
     }
 
     // ── Issue workflow state IDs (Growth team) ──────────────────
+    // HubSpot may send internal values (COMPLETED) or display labels (Completed)
     const STATE_MAP = {
       "COMPLETED":   "e5970814-1386-4ee0-ac9a-6bb8307f76f8",  // Done
       "IN_PROGRESS": "fae285fd-2f85-4c9e-80b5-f8e2780ad2d3",  // In Progress
       "NOT_STARTED": "ce315851-4e6e-495f-82fe-d800ddf4388b",  // Todo
-      "DEFERRED":    "f7472bb0-b7d0-4bab-9679-2199873df58b"   // Canceled
+      "DEFERRED":    "f7472bb0-b7d0-4bab-9679-2199873df58b",  // Canceled
+      // Display label variants
+      "Completed":   "e5970814-1386-4ee0-ac9a-6bb8307f76f8",
+      "In progress": "fae285fd-2f85-4c9e-80b5-f8e2780ad2d3",
+      "Not started": "ce315851-4e6e-495f-82fe-d800ddf4388b",
+      "Deferred":    "f7472bb0-b7d0-4bab-9679-2199873df58b"
     };
 
     const targetStateId = STATE_MAP[status];

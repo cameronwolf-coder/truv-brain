@@ -1,0 +1,758 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e4]:
+    - link "HubSpot logo" [ref=e6] [cursor=pointer]:
+      - /url: /global-home/19933594
+      - img "HubSpot logo" [ref=e7]
+    - button "Create new" [ref=e13] [cursor=pointer]:
+      - img [ref=e14]
+    - navigation "Global toolbar" [ref=e16]:
+      - menu [ref=e17]:
+        - menuitem "Calls" [ref=e18]:
+          - button "Calls" [ref=e19] [cursor=pointer]:
+            - img "Calling" [ref=e20]
+        - menuitem "Academy" [ref=e22]:
+          - button "Academy" [ref=e23] [cursor=pointer]:
+            - img "Academy" [ref=e24]
+        - menuitem "Marketplace" [ref=e28]:
+          - button "Marketplace" [ref=e29] [cursor=pointer]:
+            - img "Marketplace" [ref=e30]
+        - menuitem "Help" [ref=e32]:
+          - button "Help" [ref=e34] [cursor=pointer]:
+            - img "Help" [ref=e35]
+        - menuitem "Settings" [ref=e37]:
+          - link "Settings" [ref=e38] [cursor=pointer]:
+            - /url: /settings/19933594/user-preferences/workflows?eschref=%2Fworkflows%2F19933594%2Fview%2Fdefault
+            - img "Settings" [ref=e39]
+        - generic [ref=e41]:
+          - 'menuitem "Notifications: 4 unseen" [ref=e42]':
+            - 'button "Notifications: 4 unseen" [ref=e43] [cursor=pointer]':
+              - img [ref=e44]
+          - generic: "4"
+        - menuitem "Open Assistant" [ref=e47]:
+          - button "Open Assistant" [ref=e48] [cursor=pointer]:
+            - img "Open Assistant" [ref=e49]
+            - generic [ref=e52]: Assistant
+        - menuitem "View profile and more" [ref=e54]:
+          - button "View profile and more" [ref=e55] [cursor=pointer]:
+            - img "Cam Wolf" [ref=e56]
+            - generic [ref=e57]: Truv
+            - img [ref=e58]
+  - generic [ref=e61]:
+    - button "Scroll up":
+      - img
+    - generic [ref=e62]:
+      - navigation [ref=e64]:
+        - menu [ref=e65]:
+          - menuitem "Home" [ref=e66] [cursor=pointer]:
+            - img "Home" [ref=e67]
+          - menuitem "Bookmarks" [ref=e69] [cursor=pointer]:
+            - img "Bookmarks" [ref=e70]
+          - menuitem "CRM" [ref=e72] [cursor=pointer]:
+            - img "CRM" [ref=e73]
+          - menuitem "Marketing" [ref=e75] [cursor=pointer]:
+            - img "Marketing" [ref=e76]
+          - menuitem "Content" [ref=e78] [cursor=pointer]:
+            - img "Content" [ref=e79]
+          - menuitem "Sales" [ref=e81] [cursor=pointer]:
+            - img "Sales" [ref=e82]
+          - menuitem "Commerce" [ref=e84] [cursor=pointer]:
+            - img "Commerce" [ref=e85]
+          - menuitem "Service" [ref=e88] [cursor=pointer]:
+            - img "Service" [ref=e89]
+          - menuitem "Data Management" [ref=e93] [cursor=pointer]:
+            - img "Data Management" [ref=e94]
+          - menuitem "Automation" [ref=e96] [cursor=pointer]:
+            - img "Automation" [ref=e97]
+          - menuitem "Reporting" [ref=e99] [cursor=pointer]:
+            - img "Reporting" [ref=e100]
+          - menuitem "Breeze" [ref=e102] [cursor=pointer]:
+            - img "Breeze" [ref=e103]
+          - menuitem "Development" [ref=e105] [cursor=pointer]:
+            - img "Development" [ref=e106]
+      - button [ref=e110] [cursor=pointer]:
+        - img [ref=e111]
+    - button "Scroll down" [ref=e114] [cursor=pointer]:
+      - img [ref=e115]
+  - generic [ref=e117]:
+    - generic [ref=e122]:
+      - region "Page Section" [ref=e123]:
+        - banner [ref=e124]:
+          - heading "Automation" [level=1] [ref=e126]
+          - generic [ref=e129]:
+            - button [ref=e130] [cursor=pointer]:
+              - img [ref=e132]
+            - link "Review automation issues" [ref=e137] [cursor=pointer]:
+              - /url: /automation-issues/19933594?sourceApp=WORKFLOWS_APP
+              - generic [ref=e139]: Review automation issues
+            - button "Create workflow" [ref=e140] [cursor=pointer]:
+              - generic [ref=e144]: Create workflow
+        - navigation [ref=e148]:
+          - button "Overview" [ref=e149] [cursor=pointer]: Overview
+          - button "Workflows" [ref=e151] [cursor=pointer]: Workflows
+          - button "Analyze" [ref=e153] [cursor=pointer]: Analyze
+          - button "Health" [ref=e155] [cursor=pointer]: Health
+      - region "Page Section" [ref=e159]:
+        - main [ref=e162]:
+          - generic [ref=e164]:
+            - generic [ref=e165]:
+              - generic [ref=e166]:
+                - tablist [ref=e171]:
+                  - button "309 All workflows All workflows" [ref=e172]:
+                    - generic [ref=e173]:
+                      - generic [ref=e178]:
+                        - generic [ref=e180]:
+                          - text: "309"
+                          - generic [ref=e181]: All workflows
+                        - text: All workflows
+                      - button [ref=e183] [cursor=pointer]:
+                        - img [ref=e185]
+                  - button "Deleted" [ref=e187]:
+                    - generic [ref=e193]: Deleted
+                  - button "Unused" [ref=e194]:
+                    - generic [ref=e200]: Unused
+                - generic [ref=e201]:
+                  - button "Add view (3/50)" [ref=e202] [cursor=pointer]:
+                    - generic [ref=e204]:
+                      - img [ref=e205]
+                      - generic [ref=e207]: Add view (3/50)
+                  - link "All views" [ref=e208] [cursor=pointer]:
+                    - /url: /manage-views/19933594/all?namespace=WORKFLOWS&objectTypeId=0-44&returnLink=%2Fworkflows%2F19933594%2Fview%2Fdefault&ownerId=82949240
+                    - generic [ref=e209]: All views
+              - generic [ref=e212] [cursor=pointer]:
+                - img [ref=e213]
+                - generic [ref=e215]: Folders
+            - group [ref=e216]:
+              - generic [ref=e217]:
+                - generic [ref=e219]:
+                  - generic [ref=e220]:
+                    - button "On or Off" [ref=e223] [cursor=pointer]:
+                      - generic [ref=e227]: On or Off
+                    - button "Object Type" [ref=e231] [cursor=pointer]:
+                      - generic [ref=e235]: Object Type
+                    - button "Created by" [ref=e239] [cursor=pointer]:
+                      - generic [ref=e243]: Created by
+                    - button "Folder" [ref=e247] [cursor=pointer]:
+                      - generic [ref=e251]: Folder
+                    - button "Created in" [ref=e255] [cursor=pointer]:
+                      - generic [ref=e259]: Created in
+                    - button "Action type" [ref=e263] [cursor=pointer]:
+                      - generic [ref=e267]: Action type
+                  - button "Set as default view" [disabled] [ref=e269]:
+                    - generic [ref=e272]: Set as default view
+                - generic [ref=e275]:
+                  - button [disabled] [ref=e276]:
+                    - img [ref=e278]
+                  - button [ref=e280] [cursor=pointer]:
+                    - img [ref=e282]
+                  - button [disabled] [ref=e284]:
+                    - img [ref=e286]
+            - generic [ref=e293]:
+              - generic [ref=e295]:
+                - generic [ref=e300]:
+                  - searchbox "Search workflows" [ref=e301]
+                  - generic:
+                    - generic:
+                      - img
+                - button "Actions" [ref=e304] [cursor=pointer]:
+                  - generic [ref=e307]: Actions
+              - table [ref=e314]:
+                - rowgroup [ref=e315]:
+                  - row "Select all records. Descending sort. Press to sort ascending." [ref=e316]:
+                    - columnheader "Select all records." [ref=e317]:
+                      - checkbox "Select all records." [ref=e322]
+                    - columnheader [ref=e328] [cursor=pointer]:
+                      - generic [ref=e339]: Name
+                    - columnheader [ref=e342] [cursor=pointer]:
+                      - generic [ref=e351]:
+                        - generic [ref=e353]: On or Off
+                        - img [ref=e356]
+                    - columnheader [ref=e360] [cursor=pointer]:
+                      - generic [ref=e371]: Description
+                    - columnheader [ref=e374] [cursor=pointer]:
+                      - generic [ref=e383]:
+                        - generic [ref=e385]: Object type
+                        - img [ref=e388]
+                    - columnheader [ref=e392] [cursor=pointer]:
+                      - generic [ref=e403]: Trigger Type
+                    - columnheader [ref=e406] [cursor=pointer]:
+                      - generic [ref=e415]:
+                        - generic [ref=e417]: Enrolled total
+                        - img [ref=e420]
+                    - columnheader [ref=e424] [cursor=pointer]:
+                      - generic [ref=e433]:
+                        - generic [ref=e435]: Enrolled last 7-days
+                        - img [ref=e438]
+                    - columnheader [ref=e442] [cursor=pointer]:
+                      - generic [ref=e451]:
+                        - generic [ref=e453]: Enrolled unique
+                        - img [ref=e456]
+                    - columnheader [ref=e460] [cursor=pointer]:
+                      - generic [ref=e469]:
+                        - generic [ref=e471]: Created in
+                        - img [ref=e474]
+                    - columnheader "Descending sort. Press to sort ascending." [ref=e478] [cursor=pointer]:
+                      - generic [ref=e484]:
+                        - generic [ref=e490]: Updated on (CDT)
+                        - generic "Descending sort. Press to sort ascending." [ref=e492]:
+                          - img [ref=e493]
+                    - columnheader [disabled] [ref=e497]:
+                      - generic [ref=e508]: Updated by
+                    - columnheader [ref=e511] [cursor=pointer]:
+                      - generic [ref=e523]: Created on (CDT)
+                    - columnheader [disabled] [ref=e526]:
+                      - generic [ref=e537]: Created by
+                - rowgroup [ref=e540]:
+                  - row "Select row Name On or Off Description Object type Trigger Type Enrolled total Enrolled last 7-days Enrolled unique Created in Updated on Updated by" [ref=e541]:
+                    - cell "Select row" [ref=e542]:
+                      - checkbox "Select row" [ref=e547]
+                    - cell "Name" [ref=e553]
+                    - cell "On or Off" [ref=e560]:
+                      - generic [ref=e569]: "On"
+                    - cell "Description" [ref=e570]:
+                      - generic [ref=e571]: Updates contact properties and sends a Slack notification when the "Upcoming Event Form" is submitted, then associates the contact with an event based on their UTM campaign.
+                    - cell "Object type" [ref=e572]
+                    - cell "Trigger Type" [ref=e574]:
+                      - generic [ref=e575]: Events
+                    - cell "Enrolled total" [ref=e576]:
+                      - generic [ref=e577]: "28"
+                    - cell "Enrolled last 7-days" [ref=e578]:
+                      - generic [ref=e579]: "24"
+                    - cell "Enrolled unique" [ref=e580]:
+                      - generic [ref=e581]: "27"
+                    - cell "Created in" [ref=e582]:
+                      - generic [ref=e583]: Workflows tool
+                    - cell "Updated on" [ref=e584]:
+                      - generic [ref=e587]: March 9, 2026
+                    - cell "Updated by" [ref=e588]
+                    - cell [ref=e590]
+                    - cell [ref=e591]
+                  - row "Select row Name On or Off Description Object type Trigger Type Enrolled total Enrolled last 7-days Enrolled unique Created in Updated on Updated by" [ref=e592]:
+                    - cell "Select row" [ref=e593]:
+                      - checkbox "Select row" [ref=e598]
+                    - cell "Name" [ref=e604]
+                    - cell "On or Off" [ref=e611]:
+                      - generic [ref=e612]: "Off"
+                    - cell "Description" [ref=e613]:
+                      - generic [ref=e614]: "--"
+                    - cell "Object type" [ref=e615]
+                    - cell "Trigger Type" [ref=e617]:
+                      - generic [ref=e618]: Filter criteria
+                    - cell "Enrolled total" [ref=e619]:
+                      - generic [ref=e620]: "136"
+                    - cell "Enrolled last 7-days" [ref=e621]:
+                      - generic [ref=e622]: "14"
+                    - cell "Enrolled unique" [ref=e623]:
+                      - generic [ref=e624]: "127"
+                    - cell "Created in" [ref=e625]:
+                      - generic [ref=e626]: Workflows tool
+                    - cell "Updated on" [ref=e627]:
+                      - generic [ref=e630]: March 6, 2026
+                    - cell "Updated by" [ref=e631]
+                    - cell [ref=e633]
+                    - cell [ref=e634]
+                  - row "Select row Name On or Off Description Object type Trigger Type Enrolled total Enrolled last 7-days Enrolled unique Created in Updated on Updated by" [ref=e635]:
+                    - cell "Select row" [ref=e636]:
+                      - checkbox "Select row" [ref=e641]
+                    - cell "Name" [ref=e647]
+                    - cell "On or Off" [ref=e654]:
+                      - generic [ref=e663]: "On"
+                    - cell "Description" [ref=e664]:
+                      - generic [ref=e665]: Sends a Slack message celebrating a closed deal and creates a new record in the onboarding pipeline when a deal stage is "Closed Won".
+                    - cell "Object type" [ref=e666]
+                    - cell "Trigger Type" [ref=e668]:
+                      - generic [ref=e669]: Filter criteria
+                    - cell "Enrolled total" [ref=e670]:
+                      - generic [ref=e671]: "7"
+                    - cell "Enrolled last 7-days" [ref=e672]:
+                      - generic [ref=e673]: "7"
+                    - cell "Enrolled unique" [ref=e674]:
+                      - generic [ref=e675]: "7"
+                    - cell "Created in" [ref=e676]:
+                      - generic [ref=e677]: Workflows tool
+                    - cell "Updated on" [ref=e678]:
+                      - generic [ref=e681]: March 5, 2026
+                    - cell "Updated by" [ref=e682]
+                    - cell [ref=e684]
+                    - cell [ref=e685]
+                  - row "Select row Name On or Off Description Object type Trigger Type Enrolled total Enrolled last 7-days Enrolled unique Created in Updated on Updated by" [ref=e686]:
+                    - cell "Select row" [ref=e687]:
+                      - checkbox "Select row" [ref=e692]
+                    - cell "Name" [ref=e698]
+                    - cell "On or Off" [ref=e705]:
+                      - generic [ref=e714]: "On"
+                    - cell "Description" [ref=e715]:
+                      - generic [ref=e716]: Sends a webhook when the "Task Status" property changes and "Linear Issue ID" is known.
+                    - cell "Object type" [ref=e717]
+                    - cell "Trigger Type" [ref=e719]:
+                      - generic [ref=e720]: Events
+                    - cell "Enrolled total" [ref=e721]:
+                      - generic [ref=e722]: "23"
+                    - cell "Enrolled last 7-days" [ref=e723]:
+                      - generic [ref=e724]: "23"
+                    - cell "Enrolled unique" [ref=e725]:
+                      - generic [ref=e726]: "22"
+                    - cell "Created in" [ref=e727]:
+                      - generic [ref=e728]: Workflows tool
+                    - cell "Updated on" [ref=e729]:
+                      - generic [ref=e732]: March 4, 2026
+                    - cell "Updated by" [ref=e733]
+                    - cell [ref=e735]
+                    - cell [ref=e736]
+                  - row "Select row Name On or Off Description Object type Trigger Type Enrolled total Enrolled last 7-days Enrolled unique Created in Updated on Updated by" [ref=e737]:
+                    - cell "Select row" [ref=e738]:
+                      - checkbox "Select row" [ref=e743]
+                    - cell "Name" [ref=e749]
+                    - cell "On or Off" [ref=e756]:
+                      - generic [ref=e765]: "On"
+                    - cell "Description" [ref=e766]:
+                      - generic [ref=e767]: Sends data to a webhook when a record is created or when a specific property changes with a known value.
+                    - cell "Object type" [ref=e768]
+                    - cell "Trigger Type" [ref=e770]:
+                      - generic [ref=e771]: Events
+                    - cell "Enrolled total" [ref=e772]:
+                      - generic [ref=e773]: "6"
+                    - cell "Enrolled last 7-days" [ref=e774]:
+                      - generic [ref=e775]: "6"
+                    - cell "Enrolled unique" [ref=e776]:
+                      - generic [ref=e777]: "6"
+                    - cell "Created in" [ref=e778]:
+                      - generic [ref=e779]: Workflows tool
+                    - cell "Updated on" [ref=e780]:
+                      - generic [ref=e783]: March 4, 2026
+                    - cell "Updated by" [ref=e784]
+                    - cell [ref=e786]
+                    - cell [ref=e787]
+                  - row "Select row Name On or Off Description Object type Trigger Type Enrolled total Enrolled last 7-days Enrolled unique Created in Updated on Updated by" [ref=e788]:
+                    - cell "Select row" [ref=e789]:
+                      - checkbox "Select row" [ref=e794]
+                    - cell "Name" [ref=e800]
+                    - cell "On or Off" [ref=e807]:
+                      - generic [ref=e816]: "On"
+                    - cell "Description" [ref=e817]:
+                      - generic [ref=e818]: "--"
+                    - cell "Object type" [ref=e819]
+                    - cell "Trigger Type" [ref=e821]:
+                      - generic [ref=e822]: Events
+                    - cell "Enrolled total" [ref=e823]:
+                      - generic [ref=e824]: "5"
+                    - cell "Enrolled last 7-days" [ref=e825]:
+                      - generic [ref=e826]: "--"
+                    - cell "Enrolled unique" [ref=e827]:
+                      - generic [ref=e828]: "3"
+                    - cell "Created in" [ref=e829]:
+                      - generic [ref=e830]: Workflows tool
+                    - cell "Updated on" [ref=e831]:
+                      - generic [ref=e834]: February 27, 2026
+                    - cell "Updated by" [ref=e835]
+                    - cell [ref=e837]
+                    - cell [ref=e838]
+                  - row "Select row Name On or Off Description Object type Trigger Type Enrolled total Enrolled last 7-days Enrolled unique Created in Updated on Updated by" [ref=e839]:
+                    - cell "Select row" [ref=e840]:
+                      - checkbox "Select row" [ref=e845]
+                    - cell "Name" [ref=e851]
+                    - cell "On or Off" [ref=e858]:
+                      - generic [ref=e859]: "Off"
+                    - cell "Description" [ref=e860]:
+                      - generic [ref=e861]: "--"
+                    - cell "Object type" [ref=e862]
+                    - cell "Trigger Type" [ref=e864]:
+                      - generic [ref=e865]: "--"
+                    - cell "Enrolled total" [ref=e866]:
+                      - generic [ref=e867]: "--"
+                    - cell "Enrolled last 7-days" [ref=e868]:
+                      - generic [ref=e869]: "--"
+                    - cell "Enrolled unique" [ref=e870]:
+                      - generic [ref=e871]: "--"
+                    - cell "Created in" [ref=e872]:
+                      - generic [ref=e873]: Workflows tool
+                    - cell "Updated on" [ref=e874]:
+                      - generic [ref=e877]: February 24, 2026
+                    - cell "Updated by" [ref=e878]
+                    - cell [ref=e880]
+                    - cell [ref=e881]
+                  - row "Select row Name On or Off Description Object type Trigger Type Enrolled total Enrolled last 7-days Enrolled unique Created in Updated on Updated by" [ref=e882]:
+                    - cell "Select row" [ref=e883]:
+                      - checkbox "Select row" [ref=e888]
+                    - cell "Name" [ref=e894]
+                    - cell "On or Off" [ref=e901]:
+                      - generic [ref=e902]: "Off"
+                    - cell "Description" [ref=e903]:
+                      - generic [ref=e904]: "--"
+                    - cell "Object type" [ref=e905]
+                    - cell "Trigger Type" [ref=e907]:
+                      - generic [ref=e908]: "--"
+                    - cell "Enrolled total" [ref=e909]:
+                      - generic [ref=e910]: "--"
+                    - cell "Enrolled last 7-days" [ref=e911]:
+                      - generic [ref=e912]: "--"
+                    - cell "Enrolled unique" [ref=e913]:
+                      - generic [ref=e914]: "--"
+                    - cell "Created in" [ref=e915]:
+                      - generic [ref=e916]: Workflows tool
+                    - cell "Updated on" [ref=e917]:
+                      - generic [ref=e920]: February 24, 2026
+                    - cell "Updated by" [ref=e921]
+                    - cell [ref=e923]
+                    - cell [ref=e924]
+                  - row "Select row Name On or Off Description Object type Trigger Type Enrolled total Enrolled last 7-days Enrolled unique Created in Updated on Updated by" [ref=e925]:
+                    - cell "Select row" [ref=e926]:
+                      - checkbox "Select row" [ref=e931]
+                    - cell "Name" [ref=e937]
+                    - cell "On or Off" [ref=e944]:
+                      - generic [ref=e953]: "On"
+                    - cell "Description" [ref=e954]:
+                      - generic [ref=e955]: Sends a Slack notification after a 5-minute delay when a contact submits the NEW Get Started form.
+                    - cell "Object type" [ref=e956]
+                    - cell "Trigger Type" [ref=e958]:
+                      - generic [ref=e959]: Events
+                    - cell "Enrolled total" [ref=e960]:
+                      - generic [ref=e961]: 2,469
+                    - cell "Enrolled last 7-days" [ref=e962]:
+                      - generic [ref=e963]: "232"
+                    - cell "Enrolled unique" [ref=e964]:
+                      - generic [ref=e965]: 1,539
+                    - cell "Created in" [ref=e966]:
+                      - generic [ref=e967]: Workflows tool
+                    - cell "Updated on" [ref=e968]:
+                      - generic [ref=e971]: February 18, 2026
+                    - cell "Updated by" [ref=e972]
+                    - cell [ref=e974]
+                    - cell [ref=e975]
+                  - row "Select row Name On or Off Description Object type Trigger Type Enrolled total Enrolled last 7-days Enrolled unique Created in Updated on Updated by" [ref=e976]:
+                    - cell "Select row" [ref=e977]:
+                      - checkbox "Select row" [ref=e982]
+                    - cell "Name" [ref=e988]
+                    - cell "On or Off" [ref=e995]:
+                      - generic [ref=e1004]: "On"
+                    - cell "Description" [ref=e1005]:
+                      - generic [ref=e1006]: Clears the Lead Owner property for leads currently assigned to Allan Kaganov or Dhiraj Mukkamala.
+                    - cell "Object type" [ref=e1007]
+                    - cell "Trigger Type" [ref=e1009]:
+                      - generic [ref=e1010]: Filter criteria
+                    - cell "Enrolled total" [ref=e1011]:
+                      - generic [ref=e1012]: "8"
+                    - cell "Enrolled last 7-days" [ref=e1013]:
+                      - generic [ref=e1014]: "--"
+                    - cell "Enrolled unique" [ref=e1015]:
+                      - generic [ref=e1016]: "8"
+                    - cell "Created in" [ref=e1017]:
+                      - generic [ref=e1018]: Workflows tool
+                    - cell "Updated on" [ref=e1019]:
+                      - generic [ref=e1022]: February 12, 2026
+                    - cell "Updated by" [ref=e1023]
+                    - cell [ref=e1025]
+                    - cell [ref=e1026]
+                  - row "Select row Name On or Off Description Object type Trigger Type Enrolled total Enrolled last 7-days Enrolled unique Created in Updated on Updated by" [ref=e1027]:
+                    - cell "Select row" [ref=e1028]:
+                      - checkbox "Select row" [ref=e1033]
+                    - cell "Name" [ref=e1039]
+                    - cell "On or Off" [ref=e1046]:
+                      - generic [ref=e1055]: "On"
+                    - cell "Description" [ref=e1056]:
+                      - generic [ref=e1057]: Clears the contact owner property when the owner is either Allan Kaganov or Dhiraj Mukkamala.
+                    - cell "Object type" [ref=e1058]
+                    - cell "Trigger Type" [ref=e1060]:
+                      - generic [ref=e1061]: Filter criteria
+                    - cell "Enrolled total" [ref=e1062]:
+                      - generic [ref=e1063]: 26,652
+                    - cell "Enrolled last 7-days" [ref=e1064]:
+                      - generic [ref=e1065]: "--"
+                    - cell "Enrolled unique" [ref=e1066]:
+                      - generic [ref=e1067]: 26,652
+                    - cell "Created in" [ref=e1068]:
+                      - generic [ref=e1069]: Workflows tool
+                    - cell "Updated on" [ref=e1070]:
+                      - generic [ref=e1073]: February 12, 2026
+                    - cell "Updated by" [ref=e1074]
+                    - cell [ref=e1076]
+                    - cell [ref=e1077]
+                  - row "Select row Name On or Off Description Object type Trigger Type Enrolled total Enrolled last 7-days Enrolled unique Created in Updated on Updated by" [ref=e1078]:
+                    - cell "Select row" [ref=e1079]:
+                      - checkbox "Select row" [ref=e1084]
+                    - cell "Name" [ref=e1090]
+                    - cell "On or Off" [ref=e1097]:
+                      - generic [ref=e1106]: "On"
+                    - cell "Description" [ref=e1107]:
+                      - generic [ref=e1108]: Clears the Company owner property for records where the owner is Allan Kaganov or Dhiraj Mukkamala.
+                    - cell "Object type" [ref=e1109]
+                    - cell "Trigger Type" [ref=e1111]:
+                      - generic [ref=e1112]: Filter criteria
+                    - cell "Enrolled total" [ref=e1113]:
+                      - generic [ref=e1114]: "649"
+                    - cell "Enrolled last 7-days" [ref=e1115]:
+                      - generic [ref=e1116]: "--"
+                    - cell "Enrolled unique" [ref=e1117]:
+                      - generic [ref=e1118]: "649"
+                    - cell "Created in" [ref=e1119]:
+                      - generic [ref=e1120]: Workflows tool
+                    - cell "Updated on" [ref=e1121]:
+                      - generic [ref=e1124]: February 12, 2026
+                    - cell "Updated by" [ref=e1125]
+                    - cell [ref=e1127]
+                    - cell [ref=e1128]
+                  - row "Select row" [ref=e1129]:
+                    - cell "Select row" [ref=e1130]:
+                      - checkbox "Select row" [ref=e1135]
+                    - cell [ref=e1141]
+                    - cell [ref=e1142]
+                    - cell [ref=e1143]
+                    - cell [ref=e1144]
+                    - cell [ref=e1145]
+                    - cell [ref=e1146]
+                    - cell [ref=e1147]
+                    - cell [ref=e1148]
+                    - cell [ref=e1149]
+                    - cell [ref=e1150]
+                    - cell [ref=e1151]
+                    - cell [ref=e1152]
+                    - cell [ref=e1153]
+                  - row "Select row" [ref=e1154]:
+                    - cell "Select row" [ref=e1155]:
+                      - checkbox "Select row" [ref=e1160]
+                    - cell [ref=e1166]
+                    - cell [ref=e1167]
+                    - cell [ref=e1168]
+                    - cell [ref=e1169]
+                    - cell [ref=e1170]
+                    - cell [ref=e1171]
+                    - cell [ref=e1172]
+                    - cell [ref=e1173]
+                    - cell [ref=e1174]
+                    - cell [ref=e1175]
+                    - cell [ref=e1176]
+                    - cell [ref=e1177]
+                    - cell [ref=e1178]
+                  - row "Select row" [ref=e1179]:
+                    - cell "Select row" [ref=e1180]:
+                      - checkbox "Select row" [ref=e1185]
+                    - cell [ref=e1191]
+                    - cell [ref=e1192]
+                    - cell [ref=e1193]
+                    - cell [ref=e1194]
+                    - cell [ref=e1195]
+                    - cell [ref=e1196]
+                    - cell [ref=e1197]
+                    - cell [ref=e1198]
+                    - cell [ref=e1199]
+                    - cell [ref=e1200]
+                    - cell [ref=e1201]
+                    - cell [ref=e1202]
+                    - cell [ref=e1203]
+                  - row "Select row" [ref=e1204]:
+                    - cell "Select row" [ref=e1205]:
+                      - checkbox "Select row" [ref=e1210]
+                    - cell [ref=e1216]
+                    - cell [ref=e1217]
+                    - cell [ref=e1218]
+                    - cell [ref=e1219]
+                    - cell [ref=e1220]
+                    - cell [ref=e1221]
+                    - cell [ref=e1222]
+                    - cell [ref=e1223]
+                    - cell [ref=e1224]
+                    - cell [ref=e1225]
+                    - cell [ref=e1226]
+                    - cell [ref=e1227]
+                    - cell [ref=e1228]
+                  - row "Select row" [ref=e1229]:
+                    - cell "Select row" [ref=e1230]:
+                      - checkbox "Select row" [ref=e1235]
+                    - cell [ref=e1241]
+                    - cell [ref=e1242]
+                    - cell [ref=e1243]
+                    - cell [ref=e1244]
+                    - cell [ref=e1245]
+                    - cell [ref=e1246]
+                    - cell [ref=e1247]
+                    - cell [ref=e1248]
+                    - cell [ref=e1249]
+                    - cell [ref=e1250]
+                    - cell [ref=e1251]
+                    - cell [ref=e1252]
+                    - cell [ref=e1253]
+                  - row "Select row" [ref=e1254]:
+                    - cell "Select row" [ref=e1255]:
+                      - checkbox "Select row" [ref=e1260]
+                    - cell [ref=e1266]
+                    - cell [ref=e1267]
+                    - cell [ref=e1268]
+                    - cell [ref=e1269]
+                    - cell [ref=e1270]
+                    - cell [ref=e1271]
+                    - cell [ref=e1272]
+                    - cell [ref=e1273]
+                    - cell [ref=e1274]
+                    - cell [ref=e1275]
+                    - cell [ref=e1276]
+                    - cell [ref=e1277]
+                    - cell [ref=e1278]
+                  - row "Select row" [ref=e1279]:
+                    - cell "Select row" [ref=e1280]:
+                      - checkbox "Select row" [ref=e1285]
+                    - cell [ref=e1291]
+                    - cell [ref=e1292]
+                    - cell [ref=e1293]
+                    - cell [ref=e1294]
+                    - cell [ref=e1295]
+                    - cell [ref=e1296]
+                    - cell [ref=e1297]
+                    - cell [ref=e1298]
+                    - cell [ref=e1299]
+                    - cell [ref=e1300]
+                    - cell [ref=e1301]
+                    - cell [ref=e1302]
+                    - cell [ref=e1303]
+                  - row "Select row" [ref=e1304]:
+                    - cell "Select row" [ref=e1305]:
+                      - checkbox "Select row" [ref=e1310]
+                    - cell [ref=e1316]
+                    - cell [ref=e1317]
+                    - cell [ref=e1318]
+                    - cell [ref=e1319]
+                    - cell [ref=e1320]
+                    - cell [ref=e1321]
+                    - cell [ref=e1322]
+                    - cell [ref=e1323]
+                    - cell [ref=e1324]
+                    - cell [ref=e1325]
+                    - cell [ref=e1326]
+                    - cell [ref=e1327]
+                    - cell [ref=e1328]
+                  - row "Select row" [ref=e1329]:
+                    - cell "Select row" [ref=e1330]:
+                      - checkbox "Select row" [ref=e1335]
+                    - cell [ref=e1341]
+                    - cell [ref=e1342]
+                    - cell [ref=e1343]
+                    - cell [ref=e1344]
+                    - cell [ref=e1345]
+                    - cell [ref=e1346]
+                    - cell [ref=e1347]
+                    - cell [ref=e1348]
+                    - cell [ref=e1349]
+                    - cell [ref=e1350]
+                    - cell [ref=e1351]
+                    - cell [ref=e1352]
+                    - cell [ref=e1353]
+                  - row "Select row" [ref=e1354]:
+                    - cell "Select row" [ref=e1355]:
+                      - checkbox "Select row" [ref=e1360]
+                    - cell [ref=e1366]
+                    - cell [ref=e1367]
+                    - cell [ref=e1368]
+                    - cell [ref=e1369]
+                    - cell [ref=e1370]
+                    - cell [ref=e1371]
+                    - cell [ref=e1372]
+                    - cell [ref=e1373]
+                    - cell [ref=e1374]
+                    - cell [ref=e1375]
+                    - cell [ref=e1376]
+                    - cell [ref=e1377]
+                    - cell [ref=e1378]
+                  - row "Select row" [ref=e1379]:
+                    - cell "Select row" [ref=e1380]:
+                      - checkbox "Select row" [ref=e1385]
+                    - cell [ref=e1391]
+                    - cell [ref=e1392]
+                    - cell [ref=e1393]
+                    - cell [ref=e1394]
+                    - cell [ref=e1395]
+                    - cell [ref=e1396]
+                    - cell [ref=e1397]
+                    - cell [ref=e1398]
+                    - cell [ref=e1399]
+                    - cell [ref=e1400]
+                    - cell [ref=e1401]
+                    - cell [ref=e1402]
+                    - cell [ref=e1403]
+                  - row "Select row" [ref=e1404]:
+                    - cell "Select row" [ref=e1405]:
+                      - checkbox "Select row" [ref=e1410]
+                    - cell [ref=e1416]
+                    - cell [ref=e1417]
+                    - cell [ref=e1418]
+                    - cell [ref=e1419]
+                    - cell [ref=e1420]
+                    - cell [ref=e1421]
+                    - cell [ref=e1422]
+                    - cell [ref=e1423]
+                    - cell [ref=e1424]
+                    - cell [ref=e1425]
+                    - cell [ref=e1426]
+                    - cell [ref=e1427]
+                    - cell [ref=e1428]
+                  - row "Select row" [ref=e1429]:
+                    - cell "Select row" [ref=e1430]:
+                      - checkbox "Select row" [ref=e1435]
+                    - cell [ref=e1441]
+                    - cell [ref=e1442]
+                    - cell [ref=e1443]
+                    - cell [ref=e1444]
+                    - cell [ref=e1445]
+                    - cell [ref=e1446]
+                    - cell [ref=e1447]
+                    - cell [ref=e1448]
+                    - cell [ref=e1449]
+                    - cell [ref=e1450]
+                    - cell [ref=e1451]
+                    - cell [ref=e1452]
+                    - cell [ref=e1453]
+              - generic [ref=e1455]:
+                - navigation "Pagination" [ref=e1456]:
+                  - button "Previous page" [disabled] [ref=e1458]:
+                    - generic [ref=e1459]:
+                      - img [ref=e1460]
+                      - generic [ref=e1462]: Prev
+                  - generic [ref=e1463]:
+                    - button "You are currently on Page 1" [ref=e1464] [cursor=pointer]:
+                      - generic [ref=e1465]:
+                        - generic [ref=e1466]: You are currently on Page
+                        - text: "1"
+                    - button "Page 2" [ref=e1467] [cursor=pointer]:
+                      - generic [ref=e1468]:
+                        - generic [ref=e1469]: Page
+                        - text: "2"
+                    - button "Page 3" [ref=e1470] [cursor=pointer]:
+                      - generic [ref=e1471]:
+                        - generic [ref=e1472]: Page
+                        - text: "3"
+                    - button "Page 4" [ref=e1473] [cursor=pointer]:
+                      - generic [ref=e1474]:
+                        - generic [ref=e1475]: Page
+                        - text: "4"
+                    - button "Page 5" [ref=e1476] [cursor=pointer]:
+                      - generic [ref=e1477]:
+                        - generic [ref=e1478]: Page
+                        - text: "5"
+                    - button "Page 6" [ref=e1479] [cursor=pointer]:
+                      - generic [ref=e1480]:
+                        - generic [ref=e1481]: Page
+                        - text: "6"
+                    - button "Page 7" [ref=e1482] [cursor=pointer]:
+                      - generic [ref=e1483]:
+                        - generic [ref=e1484]: Page
+                        - text: "7"
+                    - button "Page 8" [ref=e1485] [cursor=pointer]:
+                      - generic [ref=e1486]:
+                        - generic [ref=e1487]: Page
+                        - text: "8"
+                    - button "Page 9" [ref=e1488] [cursor=pointer]:
+                      - generic [ref=e1489]:
+                        - generic [ref=e1490]: Page
+                        - text: "9"
+                    - button "Page 10" [ref=e1491] [cursor=pointer]:
+                      - generic [ref=e1492]:
+                        - generic [ref=e1493]: Page
+                        - text: "10"
+                    - button "Page 11" [ref=e1494] [cursor=pointer]:
+                      - generic [ref=e1495]:
+                        - generic [ref=e1496]: Page
+                        - text: "11"
+                  - button "Next page" [ref=e1498] [cursor=pointer]:
+                    - generic [ref=e1499]:
+                      - generic [ref=e1500]: Next
+                      - img [ref=e1501]
+                - button "25 per page" [ref=e1503] [cursor=pointer]:
+                  - generic [ref=e1506]: 25 per page
+    - complementary

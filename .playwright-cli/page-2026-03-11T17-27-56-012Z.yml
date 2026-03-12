@@ -1,0 +1,90 @@
+- generic [ref=e1]:
+  - generic:
+    - region "Notification Toasts":
+      - heading "0 notifications total" [level=2] [ref=e2]
+  - iframe [active] [ref=e3]:
+    - generic [ref=f60e2]:
+      - banner [ref=f60e3]:
+        - link "LinkedIn" [ref=f60e4] [cursor=pointer]:
+          - /url: /
+          - generic "LinkedIn" [ref=f60e5]:
+            - img [ref=f60e6]
+      - main [ref=f60e8]:
+        - generic [ref=f60e10]:
+          - generic [ref=f60e11]:
+            - heading "Sign in" [level=1] [ref=f60e12]
+            - paragraph
+          - generic [ref=f60e13]:
+            - generic [ref=f60e15] [cursor=pointer]:
+              - button "Continue with Google" [ref=f60e17]:
+                - generic [ref=f60e19]:
+                  - img [ref=f60e21]
+                  - generic [ref=f60e28]: Continue with Google
+              - iframe
+            - button "Sign in with Apple" [ref=f60e29] [cursor=pointer]:
+              - img [ref=f60e30]
+              - generic [ref=f60e33]: Sign in with Apple
+            - paragraph [ref=f60e34]:
+              - text: By clicking Continue, you agree to LinkedIn’s
+              - link "User Agreement" [ref=f60e35] [cursor=pointer]:
+                - /url: /legal/user-agreement
+              - text: ","
+              - link "Privacy Policy" [ref=f60e36] [cursor=pointer]:
+                - /url: /legal/privacy-policy
+              - text: ", and"
+              - link "Cookie Policy" [ref=f60e37] [cursor=pointer]:
+                - /url: /legal/cookie-policy
+              - text: .
+            - generic [ref=f60e39]: or
+          - generic [ref=f60e40]:
+            - generic [ref=f60e41]:
+              - textbox "Email or phone" [active] [ref=f60e42]:
+                - /placeholder: " "
+              - generic [ref=f60e43]: Email or phone
+            - generic [ref=f60e44]:
+              - textbox "Password" [ref=f60e45]
+              - generic [ref=f60e46]: Password
+              - button "Show" [ref=f60e47] [cursor=pointer]
+            - link "Forgot password?" [ref=f60e48] [cursor=pointer]:
+              - /url: /checkpoint/rp/request-password-reset?session_redirect=%2Fcampaignmanager%2FloginRedirect%2Ehtml&trk=campaign_manager_login
+            - generic [ref=f60e49]:
+              - checkbox "Keep me logged in" [checked]
+              - generic [ref=f60e50]: Keep me logged in
+            - button "Sign in" [ref=f60e52] [cursor=pointer]
+        - generic [ref=f60e53]:
+          - text: New to LinkedIn?
+          - link "Join now" [ref=f60e54] [cursor=pointer]:
+            - /url: /signup/cold-join?session_redirect=%2Fcampaignmanager%2FloginRedirect.html&source=campaign_manager_login
+      - contentinfo [ref=f60e55]:
+        - generic [ref=f60e56]:
+          - paragraph [ref=f60e57]:
+            - img [ref=f60e59]
+            - emphasis [ref=f60e71]:
+              - generic: LinkedIn
+              - text: © 2026
+          - list "Footer Legal Menu" [ref=f60e73]:
+            - listitem [ref=f60e74]:
+              - link "User Agreement" [ref=f60e75] [cursor=pointer]:
+                - /url: /legal/user-agreement?trk=d_checkpoint_lg_consumer_login_ft_user_agreement
+            - listitem [ref=f60e76]:
+              - link "Privacy Policy" [ref=f60e77] [cursor=pointer]:
+                - /url: /legal/privacy-policy?trk=d_checkpoint_lg_consumer_login_ft_privacy_policy
+            - listitem [ref=f60e78]:
+              - link "Your California Privacy Choices" [ref=f60e79] [cursor=pointer]:
+                - /url: /legal/california-privacy-disclosure?trk=d_checkpoint_lg_consumer_login_ft_california_privacy_choices
+            - listitem [ref=f60e80]:
+              - link "Community Guidelines" [ref=f60e81] [cursor=pointer]:
+                - /url: /help/linkedin/answer/34593?lang=en&trk=d_checkpoint_lg_consumer_login_ft_community_guidelines
+            - listitem [ref=f60e82]:
+              - link "Cookie Policy" [ref=f60e83] [cursor=pointer]:
+                - /url: /legal/cookie-policy?trk=d_checkpoint_lg_consumer_login_ft_cookie_policy
+            - listitem [ref=f60e84]:
+              - link "Copyright Policy" [ref=f60e85] [cursor=pointer]:
+                - /url: /legal/copyright-policy?trk=d_checkpoint_lg_consumer_login_ft_copyright_policy
+            - listitem [ref=f60e86]:
+              - link "Send Feedback" [ref=f60e87] [cursor=pointer]:
+                - /url: /help/linkedin?trk=d_checkpoint_lg_consumer_login_ft_send_feedback&lang=en
+            - listitem [ref=f60e88]:
+              - button "Language" [ref=f60e90] [cursor=pointer]:
+                - text: Language
+                - img [ref=f60e92]

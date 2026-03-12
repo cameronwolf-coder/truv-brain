@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Localhost Scanner</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #1a1a2e; color: #eee; font-family: system-ui, -apple-system, sans-serif; min-height: 100vh; padding: 40px 20px; }
+  h1 { font-size: 20px; font-weight: 600; text-align: center; margin-bottom: 8px; }
+  #status { font-size: 13px; color: #888; text-align: center; margin-bottom: 24px; }
+  #list { max-width: 400px; margin: 0 auto; }
+  .port-btn {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 12px 16px; margin-bottom: 10px;
+    background: #16213e; border: 1px solid #0f3460; border-radius: 10px;
+    color: #e2e2e2; text-decoration: none; font-size: 14px;
+    transition: background .15s, transform .1s;
+  }
+  .port-btn:hover { background: #0f3460; transform: translateX(2px); }
+  .dot { font-size: 12px; color: #53c28b; }
+  .empty { color: #555; font-size: 13px; text-align: center; padding: 60px 0; }
+  .scanning { color: #888; font-size: 13px; text-align: center; padding: 60px 0; }
+  .refresh-btn {
+    display: block; margin: 20px auto 0; padding: 8px 20px;
+    background: #0f3460; border: 1px solid #1a4a8a; border-radius: 8px;
+    color: #ccc; font-size: 13px; cursor: pointer; transition: background .15s;
+  }
+  .refresh-btn:hover { background: #1a4a8a; }
+</style>
+</head>
+<body>
+  <h1>Localhost Scanner</h1>
+  <div id="status">Starting scan...</div>
+  <div id="list"><div class="scanning">Scanning ports...</div></div>
+  <button class="refresh-btn" onclick="scan()">Rescan</button>
+<script>
+const PORTS = [
+  3000, 3001, 3003, 3005, 3030, 3333,
+  4000, 4173, 4200, 4321,
+  5000, 5173, 5174, 5500, 5555,
+  6006,
+  8000, 8001, 8080, 8081, 8088, 8443, 8888,
+  9000, 9090, 9999
+];
+
+function scan() {
+  const list = document.getElementById('list');
+  const status = document.getElementById('status');
+  list.innerHTML = '<div class="scanning">Scanning ports...</div>';
+  status.textContent = 'Scanning...';
+
+  let found = 0, done = 0;
+  const results = [];
+
+  PORTS.forEach(port => {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 2000);
+
+    fetch(`http://localhost:${port}/`, { mode: 'no-cors', signal: controller.signal })
+      .then(() => {
+        clearTimeout(timeout);
+        found++;
+        results.push(port);
+        render();
+      })
+      .catch(() => {
+        clearTimeout(timeout);
+      })
+      .finally(() => {
+        done++;
+        status.textContent = `${done}/${PORTS.length} checked \u2022 ${found} live`;
+        if (done === PORTS.length && found === 0) {
+          list.innerHTML = '<div class="empty">No live servers found</div>';
+        }
+      });
+  });
+
+  function render() {
+    results.sort((a, b) => a - b);
+    list.innerHTML = results.map(p =>
+      `<a class="port-btn" href="http://localhost:${p}" target="_blank">
+        <span><strong>:${p}</strong></span>
+        <span class="dot">&#x2022; live</span>
+      </a>`
+    ).join('');
+  }
+}
+
+scan();
+</script>
+</body>
+</html>

@@ -1,0 +1,507 @@
+- generic [ref=e1]:
+  - generic [ref=e2]:
+    - iframe [ref=e194]:
+      - banner [ref=f57e6]:
+        - generic [ref=f57e7]:
+          - heading "You’ve used all your monthly credits" [level=5] [ref=f57e8]
+          - generic [ref=f57e9]:
+            - generic [ref=f57e12]: Usage is paused until your credits reset on Mar 25, 2026 or you add more.
+            - link "Add credits" [ref=f57e13] [cursor=pointer]:
+              - /url: https://app.hubspot.com/api/notification-station/general/v1/notifications/cta/ad1945e2-7ce6-4b56-b932-753c0738e0c8?notificationPortalId=19933594
+              - generic [ref=f57e14]: Add credits
+        - button "Close" [ref=f57e15] [cursor=pointer]:
+          - img [ref=f57e18]
+    - banner [ref=e4]:
+      - link "HubSpot logo" [ref=e6] [cursor=pointer]:
+        - /url: /global-home/19933594
+        - img "HubSpot logo" [ref=e7]
+      - generic [ref=e9]:
+        - generic [ref=e14]:
+          - img
+          - searchbox "Search HubSpot" [ref=e15]
+          - generic:
+            - generic: ⌘
+            - generic: K
+        - button "Create new" [ref=e18] [cursor=pointer]:
+          - img [ref=e19]
+      - navigation "Global toolbar" [ref=e21]:
+        - menu [ref=e22]:
+          - menuitem "Calls" [ref=e23]:
+            - button "Calls" [ref=e24] [cursor=pointer]:
+              - img "Calling" [ref=e25]
+          - menuitem "Academy" [ref=e27]:
+            - button "Academy" [ref=e28] [cursor=pointer]:
+              - img "Academy" [ref=e29]
+          - menuitem "Marketplace" [ref=e33]:
+            - button "Marketplace" [ref=e34] [cursor=pointer]:
+              - img "Marketplace" [ref=e35]
+          - menuitem "Help" [ref=e37]:
+            - button "Help" [ref=e39] [cursor=pointer]:
+              - img "Help" [ref=e40]
+          - menuitem "Settings" [ref=e42]:
+            - link "Settings" [ref=e43] [cursor=pointer]:
+              - /url: /user-preferences/19933594?eschref=%2Fcontacts%2F19933594%2FobjectLists%2F9218%2Ffilters
+              - img "Settings" [ref=e44]
+          - generic [ref=e46]:
+            - 'menuitem "Notifications: 4 unseen" [ref=e47]':
+              - 'button "Notifications: 4 unseen" [ref=e48] [cursor=pointer]':
+                - img [ref=e49]
+            - generic: "4"
+          - menuitem "Open Assistant" [ref=e52]:
+            - button "Open Assistant" [ref=e53] [cursor=pointer]:
+              - img "Open Assistant" [ref=e54]
+              - generic [ref=e57]: Assistant
+          - menuitem "View profile and more" [ref=e59]:
+            - button "View profile and more" [ref=e60] [cursor=pointer]:
+              - img "Cam Wolf" [ref=e61]
+              - generic [ref=e62]: Truv
+              - img [ref=e63]
+  - generic [ref=e66]:
+    - button "Scroll up":
+      - img
+    - generic [ref=e67]:
+      - navigation [ref=e69]:
+        - menu [ref=e70]:
+          - menuitem "Home" [ref=e71] [cursor=pointer]:
+            - img "Home" [ref=e72]
+          - menuitem "Bookmarks" [ref=e74] [cursor=pointer]:
+            - img "Bookmarks" [ref=e1863]
+          - menuitem "CRM" [ref=e77] [cursor=pointer]:
+            - img "CRM" [ref=e78]
+          - menuitem "Marketing" [ref=e80] [cursor=pointer]:
+            - img "Marketing" [ref=e81]
+          - menuitem "Content" [ref=e83] [cursor=pointer]:
+            - img "Content" [ref=e84]
+          - menuitem "Sales" [ref=e86] [cursor=pointer]:
+            - img "Sales" [ref=e87]
+          - menuitem "Commerce" [ref=e89] [cursor=pointer]:
+            - img "Commerce" [ref=e90]
+          - menuitem "Service" [ref=e93] [cursor=pointer]:
+            - img "Service" [ref=e94]
+          - menuitem "Data Management" [ref=e98] [cursor=pointer]:
+            - img "Data Management" [ref=e99]
+          - menuitem "Automation" [ref=e101] [cursor=pointer]:
+            - img "Automation" [ref=e102]
+          - menuitem "Reporting" [ref=e104] [cursor=pointer]:
+            - img "Reporting" [ref=e105]
+          - menuitem "Breeze" [ref=e107] [cursor=pointer]:
+            - img "Breeze" [ref=e108]
+          - menuitem "Development" [ref=e110] [cursor=pointer]:
+            - img "Development" [ref=e111]
+      - button [ref=e115] [cursor=pointer]:
+        - img [ref=e116]
+    - button "Scroll down" [ref=e119] [cursor=pointer]:
+      - img [ref=e120]
+  - generic:
+    - iframe
+  - generic [ref=e122]:
+    - generic [ref=e1865]:
+      - generic [ref=e1867]:
+        - region "Page Section" [ref=e1868]:
+          - navigation [ref=e1869]:
+            - link "Back to segments" [ref=e1870] [cursor=pointer]:
+              - /url: /contacts/19933594/objectLists/views/all?count=25&query=March%2BInsider%2BRegistrants
+              - generic [ref=e1871]:
+                - img [ref=e1873]
+                - generic [ref=e1875]: Back to segments
+          - generic [ref=e1876]:
+            - 'heading "March Insider Registrants Contacts Active Size: 3" [level=1] [ref=e1878]':
+              - generic [ref=e1879]:
+                - generic [ref=e1882]:
+                  - textbox "Segment name" [ref=e1884]:
+                    - /placeholder: Name your new segment
+                    - text: March Insider Registrants
+                  - generic:
+                    - img
+                - generic [ref=e1886]:
+                  - generic [ref=e1891]: Contacts
+                  - generic [ref=e1897]: Active
+                  - generic [ref=e1903]: "Size: 3"
+            - generic [ref=e1905]:
+              - button "Edit" [ref=e1906] [cursor=pointer]:
+                - generic [ref=e1908]: Edit
+              - button "Details" [ref=e1909] [cursor=pointer]:
+                - generic [ref=e1911]: Details
+              - button "Use in" [ref=e1912] [cursor=pointer]:
+                - generic [ref=e1916]: Use in
+              - button "Actions" [expanded] [active] [ref=e1918] [cursor=pointer]:
+                - generic [ref=e1922]: Actions
+                - list [ref=e2574]:
+                  - listitem
+                  - listitem [ref=e2575]:
+                    - button "Clone" [ref=e2576]:
+                      - generic [ref=e2577]: Clone
+                  - listitem [ref=e2578]:
+                    - button "Compare" [ref=e2579]:
+                      - generic [ref=e2580]: Compare
+                  - listitem
+                  - listitem [ref=e2581]:
+                    - button "Convert to static" [ref=e2582]:
+                      - generic [ref=e2583]: Convert to static
+                  - listitem
+                  - listitem
+                  - listitem [ref=e2584]:
+                    - separator [ref=e2585]
+                  - listitem [ref=e2586]:
+                    - button "Delete" [ref=e2587]:
+                      - generic [ref=e2588]: Delete
+                  - listitem [ref=e2589]:
+                    - button "Move to folder" [ref=e2590]:
+                      - generic [ref=e2591]: Move to folder
+                  - listitem
+                  - listitem [ref=e2592]:
+                    - separator [ref=e2593]
+                  - listitem [ref=e2594]:
+                    - button "Create lookalike segment" [ref=e2595]:
+                      - generic [ref=e2596]:
+                        - text: Create lookalike segment
+                        - img [ref=e2597]
+                  - listitem [ref=e2599]:
+                    - button "Create random sample" [ref=e2600]:
+                      - generic [ref=e2601]: Create random sample
+                  - listitem [ref=e2602]:
+                    - button "Split segment" [ref=e2603]:
+                      - generic [ref=e2604]:
+                        - text: Split segment
+                        - img [ref=e2605]
+                  - listitem [ref=e2607]:
+                    - separator [ref=e2608]
+                  - listitem [ref=e2609]:
+                    - button "Resync segment with Salesforce" [ref=e2610]:
+                      - generic [ref=e2611]: Resync segment with Salesforce
+                  - listitem [ref=e2612]:
+                    - button "Use this segment to limit Salesforce Sync" [ref=e2613]:
+                      - generic [ref=e2614]: Use this segment to limit Salesforce Sync
+                  - listitem [ref=e2615]:
+                    - separator [ref=e2616]
+                  - listitem [ref=e2617]:
+                    - button "Enrich segment" [ref=e2618]:
+                      - generic [ref=e2619]:
+                        - img [ref=e2620]
+                        - text: Enrich segment
+                  - listitem [ref=e2622]:
+                    - button "Fill smart properties" [ref=e2623]:
+                      - generic [ref=e2624]:
+                        - img [ref=e2625]
+                        - text: Fill smart properties
+                  - listitem
+          - generic [ref=e1925]:
+            - paragraph [ref=e1926]: What is the purpose of this segment?
+            - button "Create description" [ref=e1927] [cursor=pointer]:
+              - generic [ref=e1929]: Create description
+          - navigation [ref=e1932]:
+            - button "Overview" [ref=e1933] [cursor=pointer]: Overview
+            - button "Performance" [ref=e1935] [cursor=pointer]: Performance
+            - button "Activity" [ref=e1937] [cursor=pointer]: Activity
+            - button "Settings" [ref=e1939] [cursor=pointer]: Settings
+        - region "Page Section" [ref=e1943]:
+          - main [ref=e1946]:
+            - generic [ref=e1950]:
+              - generic [ref=e1955]:
+                - generic [ref=e1956]:
+                  - generic [ref=e1957]:
+                    - heading "Filters" [level=4] [ref=e1958]
+                    - button "Edit" [ref=e1959] [cursor=pointer]:
+                      - generic [ref=e1961]: Edit
+                  - generic [ref=e1962]:
+                    - generic [ref=e1964]: Test matches
+                    - generic [ref=e1965] [cursor=pointer]:
+                      - checkbox "Test matches OFF" [ref=e1967]
+                      - generic [ref=e1968]: "OFF"
+                - generic [ref=e1978]:
+                  - heading "Group 1" [level=5] [ref=e1982]
+                  - generic [ref=e1987]:
+                    - generic [ref=e1988]:
+                      - generic [ref=e1995]:
+                        - text: "Contact is associated to:"
+                        - strong [ref=e1996]: Any Event
+                      - separator [ref=e1997]
+                      - generic [ref=e1998]: "And associated Event has all of:"
+                    - generic [ref=e2011]:
+                      - strong [ref=e2012]: Event Name
+                      - text: is equal to any of
+                      - generic [ref=e2014]: March Insider, Public Sector
+              - generic [ref=e2018]:
+                - generic [ref=e2020]:
+                  - generic [ref=e2022]:
+                    - searchbox "Search in segment" [ref=e2023]
+                    - generic:
+                      - generic:
+                        - img
+                  - list [ref=e2025]:
+                    - listitem [ref=e2026]:
+                      - button "Export segment" [ref=e2027] [cursor=pointer]:
+                        - generic [ref=e2029]: Export segment
+                    - listitem [ref=e2030]:
+                      - button "Edit columns" [ref=e2031] [cursor=pointer]:
+                        - generic [ref=e2033]: Edit columns
+                    - button "View" [ref=e2036] [cursor=pointer]:
+                      - generic [ref=e2040]:
+                        - img [ref=e2041]
+                        - generic [ref=e2043]: View
+                    - button [ref=e2045] [cursor=pointer]:
+                      - img [ref=e2047]
+                - generic [ref=e2053]:
+                  - generic [ref=e2056]:
+                    - generic [ref=e2059]:
+                      - paragraph [ref=e2060]: Size
+                      - generic [ref=e2061]: "3"
+                      - button "View performance" [ref=e2063] [cursor=pointer]:
+                        - generic [ref=e2065]: View performance
+                    - generic [ref=e2068]:
+                      - paragraph [ref=e2069]: "% of database"
+                      - generic [ref=e2070]: 0.01%
+                      - generic [ref=e2071]: Contacts
+                    - generic [ref=e2074]:
+                      - paragraph [ref=e2075]: 7 day change
+                      - generic [ref=e2076]: "--"
+                    - generic [ref=e2079]:
+                      - paragraph [ref=e2080]: Created on
+                      - generic [ref=e2081]: 03/05/26
+                      - button "View details" [ref=e2083] [cursor=pointer]:
+                        - generic [ref=e2085]: View details
+                    - generic [ref=e2088]:
+                      - paragraph [ref=e2089]: Type
+                      - generic [ref=e2092]: Active
+                      - button "Convert" [ref=e2094] [cursor=pointer]:
+                        - generic [ref=e2096]: Convert
+                  - button [ref=e2098] [cursor=pointer]:
+                    - img [ref=e2100]
+                - generic [ref=e2102]:
+                  - table [ref=e2110]:
+                    - rowgroup [ref=e2111]:
+                      - row "Select all records. name Press to sort. Email Press to sort. Phone Number Press to sort. Contact owner Press to sort. Last Activity Date Press to sort. Lead Status Press to sort. Marketing contact status Press to sort. Create Date Press to sort. utm_source Press to sort. Added to segment date Press to sort." [ref=e2112]:
+                        - columnheader "Select all records." [ref=e2113]:
+                          - checkbox "Select all records." [ref=e2118]
+                        - columnheader "name Press to sort." [ref=e2124] [cursor=pointer]:
+                          - generic [ref=e2126]:
+                            - generic [ref=e2132]: name
+                            - generic "Press to sort." [ref=e2135]:
+                              - img [ref=e2136]
+                        - columnheader "Email Press to sort." [ref=e2140]:
+                          - generic [ref=e2142]:
+                            - generic [ref=e2148]: Email
+                            - generic "Press to sort." [ref=e2151]:
+                              - img [ref=e2152]
+                        - columnheader "Phone Number Press to sort." [ref=e2156]:
+                          - generic [ref=e2158]:
+                            - generic [ref=e2164]: Phone Number
+                            - generic "Press to sort." [ref=e2167]:
+                              - img [ref=e2168]
+                        - columnheader "Contact owner Press to sort." [ref=e2172]:
+                          - generic [ref=e2174]:
+                            - generic [ref=e2180]: Contact owner
+                            - generic "Press to sort." [ref=e2183]:
+                              - img [ref=e2184]
+                        - columnheader "Last Activity Date Press to sort." [ref=e2188]:
+                          - generic [ref=e2190]:
+                            - generic [ref=e2196]: Last Activity Date
+                            - generic "Press to sort." [ref=e2199]:
+                              - img [ref=e2200]
+                        - columnheader "Lead Status Press to sort." [ref=e2204]:
+                          - generic [ref=e2206]:
+                            - generic [ref=e2212]: Lead Status
+                            - generic "Press to sort." [ref=e2215]:
+                              - img [ref=e2216]
+                        - columnheader "Marketing contact status Press to sort." [ref=e2220]:
+                          - generic [ref=e2222]:
+                            - generic [ref=e2228]: Marketing contact status
+                            - generic "Press to sort." [ref=e2231]:
+                              - img [ref=e2232]
+                        - columnheader "Create Date Press to sort." [ref=e2236]:
+                          - generic [ref=e2238]:
+                            - generic [ref=e2244]: Create Date
+                            - generic "Press to sort." [ref=e2247]:
+                              - img [ref=e2248]
+                        - columnheader "utm_source Press to sort." [ref=e2252]:
+                          - generic [ref=e2254]:
+                            - generic [ref=e2260]: utm_source
+                            - generic "Press to sort." [ref=e2263]:
+                              - img [ref=e2264]
+                        - columnheader "Added to segment date Press to sort." [ref=e2268]:
+                          - generic [ref=e2270]:
+                            - generic [ref=e2276]: Added to segment date
+                            - generic "Press to sort." [ref=e2279]:
+                              - img [ref=e2280]
+                    - rowgroup [ref=e2284]:
+                      - row "Select row Gerald Baretto Preview gbaretto@deloitte.com Link opens in a new window -- Tommy Jayne (thomas.jayne@truv.com) Aug 11, 2025 10:51 AM CDT -- Marketing contact Jan 3, 2025 7:55 PM CST email Today at 11:12 AM CDT" [ref=e2536]:
+                        - cell "Select row" [ref=e2286]:
+                          - checkbox "Select row" [ref=e2291]
+                        - cell "Gerald Baretto Preview" [ref=e2297]:
+                          - generic [ref=e2298]:
+                            - link "Gerald Baretto" [ref=e2314] [cursor=pointer]:
+                              - /url: /contacts/19933594/record/0-1/88926927248/
+                              - text: Gerald Baretto
+                            - button "Preview" [ref=e2317] [cursor=pointer]:
+                              - generic [ref=e2319]: Preview
+                        - button "gbaretto@deloitte.com Link opens in a new window" [ref=e2537]:
+                          - link "gbaretto@deloitte.com Link opens in a new window" [ref=e2324] [cursor=pointer]:
+                            - /url: mailto:gbaretto@deloitte.com
+                            - text: gbaretto@deloitte.com
+                            - img "Link opens in a new window" [ref=e2326]
+                        - button "--" [ref=e2538]:
+                          - generic [ref=e2330]: "--"
+                        - button "Tommy Jayne (thomas.jayne@truv.com)" [ref=e2539]:
+                          - generic [ref=e2540]:
+                            - img [ref=e2546]:
+                              - generic [ref=e2547]: TJ
+                            - generic [ref=e2549]: Tommy Jayne (thomas.jayne@truv.com)
+                        - cell "Aug 11, 2025 10:51 AM CDT" [ref=e2335]:
+                          - generic [ref=e2337]: Aug 11, 2025 10:51 AM CDT
+                        - button "--" [ref=e2550]:
+                          - generic [ref=e2340]: "--"
+                        - cell "Marketing contact" [ref=e2341]:
+                          - generic [ref=e2343]: Marketing contact
+                        - cell "Jan 3, 2025 7:55 PM CST" [ref=e2344]:
+                          - generic [ref=e2346]: Jan 3, 2025 7:55 PM CST
+                        - button "email" [ref=e2551]:
+                          - generic [ref=e2349]: email
+                        - cell "Today at 11:12 AM CDT" [ref=e2350]
+                      - row "Select row Cameron Test Preview cameron.wolf+test@truv.com Link opens in a new window +1 (825) 998-6632 Finley Turing (Deactivated/Removed) (finley@truv.com) -- -- Non-marketing contact Oct 14, 2025 8:31 PM CDT -- Mar 5, 2026 5:15 PM" [ref=e2552]:
+                        - cell "Select row" [ref=e2352]:
+                          - checkbox "Select row" [ref=e2357]
+                        - cell "Cameron Test Preview" [ref=e2363]:
+                          - generic [ref=e2364]:
+                            - link "Cameron Test" [ref=e2380] [cursor=pointer]:
+                              - /url: /contacts/19933594/record/0-1/164004663173/
+                              - text: Cameron Test
+                            - button "Preview" [ref=e2383] [cursor=pointer]:
+                              - generic [ref=e2385]: Preview
+                        - button "cameron.wolf+test@truv.com Link opens in a new window" [ref=e2553]:
+                          - link "cameron.wolf+test@truv.com Link opens in a new window" [ref=e2390] [cursor=pointer]:
+                            - /url: mailto:cameron.wolf+test@truv.com
+                            - text: cameron.wolf+test@truv.com
+                            - img "Link opens in a new window" [ref=e2392]
+                        - button "+1 (825) 998-6632" [ref=e2554]:
+                          - button "+1 (825) 998-6632" [ref=e2555] [cursor=pointer]
+                        - button "Finley Turing (Deactivated/Removed) (finley@truv.com)" [ref=e2556]:
+                          - generic [ref=e2557]:
+                            - img [ref=e2563]:
+                              - generic [ref=e2564]: F(
+                            - generic [ref=e2566]: Finley Turing (Deactivated/Removed) (finley@truv.com)
+                        - cell "--" [ref=e2401]:
+                          - generic [ref=e2403]: "--"
+                        - button "--" [ref=e2567]:
+                          - generic [ref=e2406]: "--"
+                        - cell "Non-marketing contact" [ref=e2407]:
+                          - generic [ref=e2409]: Non-marketing contact
+                        - cell "Oct 14, 2025 8:31 PM CDT" [ref=e2410]:
+                          - generic [ref=e2412]: Oct 14, 2025 8:31 PM CDT
+                        - button "--" [ref=e2568]:
+                          - generic [ref=e2415]: "--"
+                        - cell "Mar 5, 2026 5:15 PM" [ref=e2416]
+                      - row "Select row Cameron Test Preview cameron.wolf.8+thx@gmail.com Link opens in a new window -- No owner -- -- Non-marketing contact Mar 6, 2026 5:57 PM CST -- Mar 6, 2026 6:02 PM" [ref=e2417]:
+                        - cell "Select row" [ref=e2418]:
+                          - checkbox "Select row" [ref=e2423]
+                        - cell "Cameron Test Preview" [ref=e2429]:
+                          - generic [ref=e2430]:
+                            - generic [ref=e2436]:
+                              - img [ref=e2442]:
+                                - generic [ref=e2443]: CT
+                              - link "Cameron Test" [ref=e2446] [cursor=pointer]:
+                                - /url: /contacts/19933594/record/0-1/207564819356/
+                                - text: Cameron Test
+                            - button "Preview" [ref=e2449] [cursor=pointer]:
+                              - generic [ref=e2451]: Preview
+                        - button "cameron.wolf.8+thx@gmail.com Link opens in a new window" [ref=e2569]:
+                          - link "cameron.wolf.8+thx@gmail.com Link opens in a new window" [ref=e2456] [cursor=pointer]:
+                            - /url: mailto:cameron.wolf.8+thx@gmail.com
+                            - text: cameron.wolf.8+thx@gmail.com
+                            - img "Link opens in a new window" [ref=e2458]
+                        - button "--" [ref=e2570]:
+                          - generic [ref=e2462]: "--"
+                        - button "No owner" [ref=e2571]:
+                          - generic [ref=e2465]: No owner
+                        - cell "--" [ref=e2466]:
+                          - generic [ref=e2468]: "--"
+                        - button "--" [ref=e2572]:
+                          - generic [ref=e2471]: "--"
+                        - cell "Non-marketing contact" [ref=e2472]:
+                          - generic [ref=e2474]: Non-marketing contact
+                        - cell "Mar 6, 2026 5:57 PM CST" [ref=e2475]:
+                          - generic [ref=e2477]: Mar 6, 2026 5:57 PM CST
+                        - button "--" [ref=e2573]:
+                          - generic [ref=e2480]: "--"
+                        - cell "Mar 6, 2026 6:02 PM" [ref=e2481]
+                  - generic [ref=e2482]:
+                    - navigation "Pagination" [ref=e2483]:
+                      - button "Previous page" [disabled] [ref=e2485]:
+                        - generic [ref=e2486]:
+                          - img [ref=e2487]
+                          - generic [ref=e2489]: Prev
+                      - button "You are currently on Page 1" [ref=e2491] [cursor=pointer]:
+                        - generic [ref=e2492]:
+                          - generic [ref=e2493]: You are currently on Page
+                          - text: "1"
+                      - button "Next page" [disabled] [ref=e2495]:
+                        - generic [ref=e2496]:
+                          - generic [ref=e2497]: Next
+                          - img [ref=e2498]
+                    - combobox "25 per page" [ref=e2503] [cursor=pointer]:
+                      - generic [ref=e2505]:
+                        - generic [ref=e2507]: 25 per page
+                        - img [ref=e2509]
+      - complementary:
+        - region "Collaboration sidebar":
+          - iframe [ref=e2511]:
+            - generic [ref=f59e5]:
+              - paragraph [ref=f59e8]: Comments
+              - generic [ref=f59e10]:
+                - generic [ref=f59e11]:
+                  - button "Open comments" [ref=f59e14] [cursor=pointer]:
+                    - option "Open comments" [ref=f59e18]:
+                      - generic [ref=f59e20]: Open comments
+                  - button [ref=f59e22] [cursor=pointer]:
+                    - img [ref=f59e24]
+                - paragraph [ref=f59e30]:
+                  - heading "There are no comments on this list" [level=4] [ref=f59e31]
+                  - generic [ref=f59e32]:
+                    - text: Collaborate with coworkers with comments. Leave a comment below and notify a coworker using
+                    - strong [ref=f59e33]: "@mentions"
+                    - text: .
+                - generic [ref=f59e34]:
+                  - generic [ref=f59e37]:
+                    - generic [ref=f59e39]:
+                      - generic: Write a comment. Send your colleague a notification by typing @ followed by their name.
+                      - paragraph [ref=f59e42]
+                    - generic [ref=f59e45]:
+                      - button [ref=f59e47]:
+                        - img [ref=f59e50]
+                      - button [ref=f59e53]:
+                        - img [ref=f59e56]
+                      - button [ref=f59e59]:
+                        - img [ref=f59e62]
+                      - button [ref=f59e65]:
+                        - img [ref=f59e68]
+                      - group [ref=f59e70]:
+                        - button [ref=f59e71]:
+                          - img [ref=f59e74]
+                        - button [ref=f59e76]
+                      - button [ref=f59e82]:
+                        - img [ref=f59e85]
+                      - button "Insert Emoji" [ref=f59e88]:
+                        - img [ref=f59e91]
+                  - generic [ref=f59e94]:
+                    - button "Comment" [disabled] [ref=f59e95]:
+                      - generic [ref=f59e98]: Comment
+                    - button "Cancel" [disabled] [ref=f59e99]:
+                      - generic [ref=f59e101]: Cancel
+      - generic:
+        - generic:
+          - generic:
+            - generic:
+              - complementary
+              - complementary:
+                - generic [ref=e2513]:
+                  - button [ref=e2514]:
+                    - img [ref=e2517]
+                  - generic [ref=e2519]:
+                    - button "Collaborate with Assistant" [ref=e2522] [cursor=pointer]:
+                      - img [ref=e2524]
+                    - button "Comments" [ref=e2528] [cursor=pointer]:
+                      - img [ref=e2530]
+              - complementary
+              - complementary
+    - complementary
+  - button [ref=e2533] [cursor=pointer]
+  - button [ref=e2535] [cursor=pointer]

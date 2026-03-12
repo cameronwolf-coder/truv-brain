@@ -1,0 +1,137 @@
+- generic [active] [ref=e1]:
+  - generic:
+    - region "Notification Toasts":
+      - heading "1 notification total" [level=2] [ref=e9]
+      - generic [ref=e11]:
+        - img [ref=e13]
+        - alert [ref=e16]:
+          - generic [ref=e18]: We’ve updated certain metrics.
+          - link "View metric restatements to learn more." [ref=e19] [cursor=pointer]:
+            - /url: /campaignmanager/accounts/517969837/metric-restatements
+        - button "Dismiss “We’ve updated certain metrics.” notification 1 of 1." [ref=e21] [cursor=pointer]:
+          - img [ref=e23]
+  - button "Chat with us" [ref=e27] [cursor=pointer]:
+    - img [ref=e29]
+  - generic [ref=e32]:
+    - generic [ref=e35]:
+      - button "Skip to main content" [ref=e36] [cursor=pointer]
+      - button "Close jump menu" [ref=e37] [cursor=pointer]:
+        - img [ref=e38]
+        - generic [ref=e40]: Close jump menu
+    - banner [ref=e41]:
+      - generic [ref=e42]:
+        - button [ref=e49] [cursor=pointer]:
+          - generic [ref=e51]:
+            - generic [ref=e52]:
+              - img [ref=e54]:
+                - img [ref=e55]
+              - img [ref=e58]
+            - img [ref=e61]
+        - generic [ref=e384]:
+          - heading "Actions List" [level=2] [ref=e63]
+          - list [ref=e385]:
+            - listitem [ref=e386]:
+              - generic [ref=e388]: Truv Ad Account
+              - img "Truv company icon" [ref=e391]
+          - separator [ref=e392]
+        - button "At least one account has unseen notifications, click to enter notifications experience 2 new account notifications" [ref=e65] [cursor=pointer]:
+          - generic [ref=e66]:
+            - generic [ref=e67]: At least one account has unseen notifications, click to enter notifications experience
+            - generic [ref=e68]:
+              - generic [ref=e69]:
+                - generic [ref=e70]: "2"
+                - generic [ref=e71]: 2 new account notifications
+              - img [ref=e73]
+        - button "Learn more about campaign manager" [ref=e76] [cursor=pointer]:
+          - img "Help" [ref=e78]:
+            - img [ref=e80]
+        - button "Open user menu Icon for Truv" [ref=e82] [cursor=pointer]:
+          - generic [ref=e83]:
+            - generic [ref=e84]: Open user menu
+            - img "Icon for Truv" [ref=e86]
+    - main [ref=e180]:
+      - generic [ref=e394]:
+        - link "Back to conversion tracking" [ref=e395] [cursor=pointer]:
+          - /url: "#"
+          - img [ref=e397]
+        - heading "Create Insight Tag conversion" [level=1] [ref=e402]
+      - generic [ref=e403]:
+        - list [ref=e407]:
+          - listitem [ref=e901]:
+            - generic [ref=e902]: Completed
+            - generic [ref=e904]: "1"
+            - paragraph [ref=e906]: Settings
+          - listitem [ref=e907]:
+            - generic [ref=e908]: Completed
+            - generic [ref=e910]: "2"
+            - paragraph [ref=e912]: Sources
+          - listitem [ref=e913]:
+            - generic [ref=e914]: Current
+            - generic [ref=e916]: "3"
+            - paragraph [ref=e918]: Review
+        - generic [ref=e919]:
+          - heading "Review your conversion details" [level=2] [ref=e920]
+          - generic [ref=e921]:
+            - generic [ref=e922]:
+              - heading "Settings" [level=2] [ref=e923]
+              - button "Edit Settings" [ref=e924] [cursor=pointer]:
+                - generic [ref=e925]: Edit
+            - generic [ref=e926]:
+              - generic [ref=e927]:
+                - paragraph [ref=e928]: Name
+                - paragraph [ref=e929]: Case Study Lead
+              - generic [ref=e930]:
+                - paragraph [ref=e931]: Category
+                - paragraph [ref=e932]: Lead
+            - generic [ref=e933]:
+              - generic [ref=e934]:
+                - paragraph [ref=e935]: Timeframe
+                - generic [ref=e936]:
+                  - paragraph [ref=e937]:
+                    - strong [ref=e938]: "Clicks:"
+                    - text: 90 days
+                  - paragraph [ref=e940]:
+                    - strong [ref=e941]: "Views:"
+                    - text: 90 days
+              - generic [ref=e942]:
+                - paragraph [ref=e943]: Attribution model
+                - paragraph [ref=e944]: Last Touch - Each ad set
+          - generic [ref=e945]:
+            - generic [ref=e946]:
+              - heading "Source" [level=2] [ref=e947]
+              - button "Edit Source" [ref=e948] [cursor=pointer]:
+                - generic [ref=e949]: Edit
+            - generic [ref=e950]:
+              - paragraph [ref=e951]: Method
+              - paragraph [ref=e952]: Manual conversions setup, event-specific
+          - generic [ref=e953]:
+            - generic [ref=e954]:
+              - heading "Ad sets" [level=2] [ref=e956]
+              - button "Edit ad sets" [ref=e957] [cursor=pointer]:
+                - generic [ref=e958]: Edit
+            - generic [ref=e959]:
+              - paragraph [ref=e960]: Selected ad sets
+              - button "All conversion ad sets (4)" [ref=e961] [cursor=pointer]:
+                - generic [ref=e962]: All conversion ad sets (4)
+              - status [ref=e963]:
+                - generic [ref=e964]:
+                  - img [ref=e966]
+                  - generic [ref=e969]: Ad set selection is determined by the conversion category you specified
+        - generic:
+          - alert
+          - alert
+          - alert
+          - alert
+        - generic [ref=e971]:
+          - button "Cancel" [ref=e972] [cursor=pointer]:
+            - generic [ref=e973]: Cancel
+          - generic [ref=e974]:
+            - generic [ref=e975]:
+              - text: By clicking “Create” you agree to the
+              - link "Ads Agreement" [ref=e976] [cursor=pointer]:
+                - /url: https://www.linkedin.com/legal/sas-terms
+            - button "Previous step" [ref=e977] [cursor=pointer]:
+              - generic [ref=e978]: Previous step
+            - button "Create" [ref=e979] [cursor=pointer]:
+              - generic [ref=e980]: Create
+  - generic [ref=e203]: There is 1 search result

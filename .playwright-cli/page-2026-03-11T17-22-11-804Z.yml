@@ -1,0 +1,964 @@
+- generic [active] [ref=e1]:
+  - main [ref=e4]:
+    - generic [ref=e7]:
+      - region "Page Section" [ref=e8]:
+        - group [ref=e11]:
+          - navigation [ref=e13]:
+            - link "Back to all forms" [ref=e14] [cursor=pointer]:
+              - /url: /forms/19933594/?reload=true
+              - generic [ref=e15]:
+                - img [ref=e17]
+                - generic [ref=e19]: Back to all forms
+          - generic [ref=e22]:
+            - textbox [ref=e24]: Lead Magnet Form
+            - generic:
+              - img
+          - button "Update" [ref=e26] [cursor=pointer]:
+            - generic [ref=e29]: Update
+        - group [ref=e31]:
+          - button "Learn more" [ref=e33] [cursor=pointer]:
+            - generic [ref=e35]: Learn more
+          - navigation [ref=e40]:
+            - button "Form" [ref=e41] [cursor=pointer]: Form
+            - button "Options" [ref=e44] [cursor=pointer]: Options
+            - button "Style & preview" [ref=e46] [cursor=pointer]: Style & preview
+            - button "Automation" [ref=e48] [cursor=pointer]: Automation
+          - generic [ref=e53]:
+            - button "Embed" [ref=e54] [cursor=pointer]:
+              - generic [ref=e56]: Embed
+            - button "Actions" [ref=e58] [cursor=pointer]:
+              - generic [ref=e62]: Actions
+      - region "Page Section" [ref=e66]:
+        - main [ref=e69]:
+          - generic [ref=e71]:
+            - generic [ref=e72]:
+              - generic [ref=e73]:
+                - generic [ref=e75]:
+                  - generic [ref=e76]:
+                    - navigation [ref=e79]:
+                      - button "Existing properties" [ref=e80] [cursor=pointer]
+                      - button "Create new" [ref=e81] [cursor=pointer]
+                    - generic [ref=e85]:
+                      - searchbox "search properties" [ref=e86]
+                      - generic:
+                        - generic:
+                          - img
+                    - generic [ref=e87]:
+                      - generic [ref=e90]:
+                        - button "Frequently used properties" [expanded] [ref=e91] [cursor=pointer]:
+                          - img [ref=e94]
+                          - heading "Frequently used properties" [level=2] [ref=e96]
+                        - generic [ref=e99]:
+                          - generic [ref=e109]: First name
+                          - generic [ref=e119]: Last name
+                          - generic [ref=e127]:
+                            - generic [ref=e129]: Email
+                            - heading "*" [level=5] [ref=e131]
+                          - generic [ref=e140]: Phone number
+                          - generic [ref=e150]: Street address
+                          - generic [ref=e160]: City
+                          - generic [ref=e170]: State/Region
+                          - generic [ref=e180]: Country/Region
+                          - generic [ref=e189]: Mobile phone number
+                          - generic [ref=e199]: Company name
+                      - separator [ref=e200]
+                      - button "Other form elements ( Captcha, data privacy and more )" [ref=e205] [cursor=pointer]:
+                        - img [ref=e208]
+                        - generic [ref=e210]:
+                          - heading "Other form elements" [level=2] [ref=e211]
+                          - text: (
+                          - generic [ref=e212]: Captcha, data privacy and more
+                          - text: )
+                      - separator [ref=e213]
+                      - generic [ref=e214]:
+                        - button "Payment" [ref=e216] [cursor=pointer]:
+                          - img [ref=e219]
+                          - paragraph [ref=e221]: Payment
+                        - generic [ref=e225]:
+                          - checkbox "OFF" [disabled] [ref=e227]
+                          - generic [ref=e228]: "OFF"
+                      - separator [ref=e230]
+                      - generic [ref=e231]:
+                        - button "Contact Properties (184)" [ref=e235] [cursor=pointer]:
+                          - img [ref=e238]
+                          - generic [ref=e240]:
+                            - strong [ref=e241]: Contact Properties
+                            - text: (184)
+                        - separator [ref=e242]
+                        - button "Company Properties (153)" [ref=e246] [cursor=pointer]:
+                          - img [ref=e249]
+                          - generic [ref=e251]:
+                            - strong [ref=e252]: Company Properties
+                            - text: (153)
+                        - separator [ref=e253]
+                        - generic [ref=e254]:
+                          - button "Ticket Properties (40)" [ref=e257] [cursor=pointer]:
+                            - img [ref=e260]
+                            - generic [ref=e262]:
+                              - strong [ref=e263]: Ticket Properties
+                              - text: (40)
+                          - generic [ref=e265] [cursor=pointer]:
+                            - checkbox "OFF" [ref=e267]
+                            - generic [ref=e268]: "OFF"
+                        - separator [ref=e270]
+                        - button "transactions Properties (0)" [disabled] [ref=e274]:
+                          - img [ref=e277]
+                          - generic [ref=e279]:
+                            - strong [ref=e280]: transactions Properties
+                            - text: (0)
+                        - separator [ref=e281]
+                        - button "events Properties (13)" [ref=e285] [cursor=pointer]:
+                          - img [ref=e288]
+                          - generic [ref=e290]:
+                            - strong [ref=e291]: events Properties
+                            - text: (13)
+                        - separator [ref=e292]
+                        - button "ze_session Properties (0)" [disabled] [ref=e296]:
+                          - img [ref=e299]
+                          - generic [ref=e301]:
+                            - strong [ref=e302]: ze_session Properties
+                            - text: (0)
+                        - separator [ref=e303]
+                      - alert [ref=e306]:
+                        - generic [ref=e307]:
+                          - heading "Don't see what you're looking for?" [level=5] [ref=e308]
+                          - button "Create a new field" [ref=e310] [cursor=pointer]:
+                            - generic [ref=e312]: Create a new field
+                        - button "Close" [ref=e313] [cursor=pointer]:
+                          - img [ref=e316]
+                  - generic [ref=e319]:
+                    - button "Done" [ref=e323] [cursor=pointer]:
+                      - generic [ref=e324]:
+                        - img [ref=e325]
+                        - generic [ref=e327]: Done
+                    - generic [ref=e328]:
+                      - heading "Configuration for submit button" [level=4] [ref=e330]
+                      - generic [ref=e333]:
+                        - generic [ref=e334]:
+                          - generic [ref=e339]:
+                            - text: Label
+                            - img [ref=e341]
+                          - generic [ref=e343]: (Required)
+                        - textbox "Label" [ref=e344]: Watch
+                      - paragraph [ref=e345]:
+                        - generic [ref=e346]:
+                          - text: To change the color, alignment, and fonts for your buttons, go to
+                          - link "style and preview" [disabled] [ref=e347]
+                          - text: .
+                - generic [ref=e351]:
+                  - generic [ref=e353]:
+                    - generic [ref=e355]:
+                      - button "Leave comment" [ref=e362]:
+                        - generic [ref=e365]:
+                          - group [ref=e366]:
+                            - button [ref=e367] [cursor=pointer]
+                            - button [ref=e369] [cursor=pointer]
+                            - button "More" [ref=e371] [cursor=pointer]:
+                              - generic [ref=e372]: More
+                          - button [ref=e375]:
+                            - generic [ref=e376]:
+                              - generic:
+                                - group:
+                                  - generic:
+                                    - generic:
+                                      - generic:
+                                        - generic:
+                                          - generic:
+                                            - generic:
+                                              - generic:
+                                                - generic:
+                                                  - generic:
+                                                    - generic:
+                                                      - generic:
+                                                        - generic:
+                                                          - generic:
+                                                            - generic:
+                                                              - emphasis:
+                                                                - generic:
+                                                                  - generic: "*"
+                                                              - generic: firstname
+                                                              - generic:
+                                                                - generic:
+                                                                  - generic:
+                                                                    - generic:
+                                                                      - generic:
+                                                                        - generic:
+                                                                          - generic: Contact Property
+                                            - textbox "* firstname Contact Property":
+                                              - /placeholder: First Name
+                      - button "Leave comment" [ref=e383]:
+                        - generic [ref=e386]:
+                          - group [ref=e387]:
+                            - button [ref=e388] [cursor=pointer]
+                            - button [ref=e390] [cursor=pointer]
+                            - button "More" [ref=e392] [cursor=pointer]:
+                              - generic [ref=e393]: More
+                          - button [ref=e396]:
+                            - generic [ref=e397]:
+                              - generic:
+                                - group:
+                                  - generic:
+                                    - generic:
+                                      - generic:
+                                        - generic:
+                                          - generic:
+                                            - generic:
+                                              - generic:
+                                                - generic:
+                                                  - generic:
+                                                    - generic:
+                                                      - generic:
+                                                        - generic:
+                                                          - generic:
+                                                            - generic:
+                                                              - emphasis:
+                                                                - generic:
+                                                                  - generic: "*"
+                                                              - generic: lastname
+                                                              - generic:
+                                                                - generic:
+                                                                  - generic:
+                                                                    - generic:
+                                                                      - generic:
+                                                                        - generic:
+                                                                          - generic: Contact Property
+                                            - textbox "* lastname Contact Property":
+                                              - /placeholder: Last Name
+                      - button "Leave comment" [ref=e404]:
+                        - generic [ref=e407]:
+                          - group [ref=e408]:
+                            - button [ref=e409] [cursor=pointer]
+                            - button [ref=e411] [cursor=pointer]
+                            - button "More" [ref=e413] [cursor=pointer]:
+                              - generic [ref=e414]: More
+                          - button [ref=e417]:
+                            - generic [ref=e418]:
+                              - generic:
+                                - group:
+                                  - generic:
+                                    - generic:
+                                      - generic:
+                                        - generic:
+                                          - generic:
+                                            - generic:
+                                              - generic:
+                                                - generic:
+                                                  - generic:
+                                                    - generic:
+                                                      - generic:
+                                                        - generic:
+                                                          - generic:
+                                                            - generic:
+                                                              - emphasis:
+                                                                - generic:
+                                                                  - generic: "*"
+                                                              - generic: email
+                                                              - generic:
+                                                                - generic:
+                                                                  - generic:
+                                                                    - generic:
+                                                                      - generic:
+                                                                        - generic:
+                                                                          - generic: Contact Property
+                                            - textbox "* email Contact Property":
+                                              - /placeholder: Work Email
+                      - button "Leave comment" [ref=e425]:
+                        - generic [ref=e428]:
+                          - group [ref=e429]:
+                            - button [ref=e430] [cursor=pointer]
+                            - button [ref=e432] [cursor=pointer]
+                            - button "More" [ref=e434] [cursor=pointer]:
+                              - generic [ref=e435]: More
+                          - button [ref=e438]:
+                            - generic [ref=e439]:
+                              - generic:
+                                - group:
+                                  - generic:
+                                    - generic:
+                                      - generic:
+                                        - generic:
+                                          - generic:
+                                            - generic:
+                                              - generic:
+                                                - generic:
+                                                  - generic:
+                                                    - generic:
+                                                      - generic:
+                                                        - generic:
+                                                          - generic:
+                                                            - generic:
+                                                              - emphasis
+                                                              - generic: which_of_these_best_describes_your_job_title_
+                                                              - generic:
+                                                                - generic:
+                                                                  - generic:
+                                                                    - generic:
+                                                                      - generic:
+                                                                        - generic:
+                                                                          - generic: Contact Property
+                                            - generic:
+                                              - button "which_of_these_best_describes_your_job_title_ Contact Property Role":
+                                                - generic:
+                                                  - generic:
+                                                    - generic:
+                                                      - option "Role":
+                                                        - generic:
+                                                          - generic: Role
+                      - button "Leave comment" [ref=e446]:
+                        - generic [ref=e449]:
+                          - group [ref=e450]:
+                            - button [ref=e451] [cursor=pointer]:
+                              - img [ref=e453]
+                            - button [ref=e455] [cursor=pointer]:
+                              - img [ref=e457]
+                            - button "More" [ref=e459] [cursor=pointer]:
+                              - generic [ref=e463]: More
+                          - button [ref=e466]:
+                            - generic [ref=e467]:
+                              - generic:
+                                - group:
+                                  - generic:
+                                    - generic:
+                                      - generic:
+                                        - generic:
+                                          - generic:
+                                            - generic:
+                                              - generic:
+                                                - generic:
+                                                  - generic:
+                                                    - generic:
+                                                      - generic:
+                                                        - generic:
+                                                          - generic:
+                                                            - generic:
+                                                              - emphasis
+                                                              - generic: li_fat_id
+                                                              - generic:
+                                                                - generic:
+                                                                  - generic:
+                                                                    - generic:
+                                                                      - generic:
+                                                                        - generic:
+                                                                          - generic: Contact Property
+                                                              - generic:
+                                                                - generic:
+                                                                  - generic:
+                                                                    - generic:
+                                                                      - generic:
+                                                                        - generic:
+                                                                          - generic: Hidden Field
+                                            - textbox "li_fat_id Contact Property Hidden Field":
+                                              - /placeholder: ""
+                      - button "Leave comment" [ref=e475]:
+                        - generic [ref=e478]:
+                          - group [ref=e479]:
+                            - button [ref=e480] [cursor=pointer]
+                            - button [ref=e482] [cursor=pointer]
+                            - button "More" [ref=e484] [cursor=pointer]:
+                              - generic [ref=e485]: More
+                          - button [ref=e488]:
+                            - generic [ref=e489]:
+                              - generic:
+                                - group:
+                                  - generic:
+                                    - generic:
+                                      - generic:
+                                        - generic:
+                                          - generic:
+                                            - generic:
+                                              - generic:
+                                                - generic:
+                                                  - generic:
+                                                    - generic:
+                                                      - generic:
+                                                        - generic:
+                                                          - generic:
+                                                            - generic:
+                                                              - emphasis
+                                                              - generic: utm_medium
+                                                              - generic:
+                                                                - generic:
+                                                                  - generic:
+                                                                    - generic:
+                                                                      - generic:
+                                                                        - generic:
+                                                                          - generic: Contact Property
+                                                              - generic:
+                                                                - generic:
+                                                                  - generic:
+                                                                    - generic:
+                                                                      - generic:
+                                                                        - generic:
+                                                                          - generic: Hidden Field
+                                            - textbox "utm_medium Contact Property Hidden Field":
+                                              - /placeholder: ""
+                      - button "Leave comment" [ref=e496]:
+                        - generic [ref=e499]:
+                          - group [ref=e500]:
+                            - button [ref=e501] [cursor=pointer]
+                            - button [ref=e503] [cursor=pointer]
+                            - button "More" [ref=e505] [cursor=pointer]:
+                              - generic [ref=e506]: More
+                          - button [ref=e509]:
+                            - generic [ref=e510]:
+                              - generic:
+                                - group:
+                                  - generic:
+                                    - generic:
+                                      - generic:
+                                        - generic:
+                                          - generic:
+                                            - generic:
+                                              - generic:
+                                                - generic:
+                                                  - generic:
+                                                    - generic:
+                                                      - generic:
+                                                        - generic:
+                                                          - generic:
+                                                            - generic:
+                                                              - emphasis
+                                                              - generic: utm_campaign
+                                                              - generic:
+                                                                - generic:
+                                                                  - generic:
+                                                                    - generic:
+                                                                      - generic:
+                                                                        - generic:
+                                                                          - generic: Contact Property
+                                                              - generic:
+                                                                - generic:
+                                                                  - generic:
+                                                                    - generic:
+                                                                      - generic:
+                                                                        - generic:
+                                                                          - generic: Hidden Field
+                                            - textbox "utm_campaign Contact Property Hidden Field":
+                                              - /placeholder: ""
+                      - button "Leave comment" [ref=e517]:
+                        - generic [ref=e520]:
+                          - group [ref=e521]:
+                            - button [ref=e522] [cursor=pointer]
+                            - button [ref=e524] [cursor=pointer]
+                            - button "More" [ref=e526] [cursor=pointer]:
+                              - generic [ref=e527]: More
+                          - button [ref=e530]:
+                            - generic [ref=e531]:
+                              - generic:
+                                - group:
+                                  - generic:
+                                    - generic:
+                                      - generic:
+                                        - generic:
+                                          - generic:
+                                            - generic:
+                                              - generic:
+                                                - generic:
+                                                  - generic:
+                                                    - generic:
+                                                      - generic:
+                                                        - generic:
+                                                          - generic:
+                                                            - generic:
+                                                              - emphasis
+                                                              - generic: utm_id
+                                                              - generic:
+                                                                - generic:
+                                                                  - generic:
+                                                                    - generic:
+                                                                      - generic:
+                                                                        - generic:
+                                                                          - generic: Contact Property
+                                                              - generic:
+                                                                - generic:
+                                                                  - generic:
+                                                                    - generic:
+                                                                      - generic:
+                                                                        - generic:
+                                                                          - generic: Hidden Field
+                                            - textbox "utm_id Contact Property Hidden Field":
+                                              - /placeholder: ""
+                      - button "Leave comment" [ref=e538]:
+                        - generic [ref=e541]:
+                          - group [ref=e542]:
+                            - button [ref=e543] [cursor=pointer]
+                            - button [ref=e545] [cursor=pointer]
+                            - button "More" [ref=e547] [cursor=pointer]:
+                              - generic [ref=e548]: More
+                          - button [ref=e551]:
+                            - generic [ref=e552]:
+                              - generic:
+                                - group:
+                                  - generic:
+                                    - generic:
+                                      - generic:
+                                        - generic:
+                                          - generic:
+                                            - generic:
+                                              - generic:
+                                                - generic:
+                                                  - generic:
+                                                    - generic:
+                                                      - generic:
+                                                        - generic:
+                                                          - generic:
+                                                            - generic:
+                                                              - emphasis
+                                                              - generic: utm_term
+                                                              - generic:
+                                                                - generic:
+                                                                  - generic:
+                                                                    - generic:
+                                                                      - generic:
+                                                                        - generic:
+                                                                          - generic: Contact Property
+                                                              - generic:
+                                                                - generic:
+                                                                  - generic:
+                                                                    - generic:
+                                                                      - generic:
+                                                                        - generic:
+                                                                          - generic: Hidden Field
+                                            - textbox "utm_term Contact Property Hidden Field":
+                                              - /placeholder: ""
+                      - button "Leave comment" [ref=e559]:
+                        - generic [ref=e562]:
+                          - group [ref=e563]:
+                            - button [ref=e564] [cursor=pointer]
+                            - button [ref=e566] [cursor=pointer]
+                            - button "More" [ref=e568] [cursor=pointer]:
+                              - generic [ref=e569]: More
+                          - button [ref=e572]:
+                            - generic [ref=e573]:
+                              - generic:
+                                - group:
+                                  - generic:
+                                    - generic:
+                                      - generic:
+                                        - generic:
+                                          - generic:
+                                            - generic:
+                                              - generic:
+                                                - generic:
+                                                  - generic:
+                                                    - generic:
+                                                      - generic:
+                                                        - generic:
+                                                          - generic:
+                                                            - generic:
+                                                              - emphasis
+                                                              - generic: gclid
+                                                              - generic:
+                                                                - generic:
+                                                                  - generic:
+                                                                    - generic:
+                                                                      - generic:
+                                                                        - generic:
+                                                                          - generic: Contact Property
+                                                              - generic:
+                                                                - generic:
+                                                                  - generic:
+                                                                    - generic:
+                                                                      - generic:
+                                                                        - generic:
+                                                                          - generic: Hidden Field
+                                            - textbox "gclid Contact Property Hidden Field":
+                                              - /placeholder: ""
+                      - button "Leave comment" [ref=e580]:
+                        - generic [ref=e583]:
+                          - group [ref=e584]:
+                            - button [ref=e585] [cursor=pointer]
+                            - button [ref=e587] [cursor=pointer]
+                            - button "More" [ref=e589] [cursor=pointer]:
+                              - generic [ref=e590]: More
+                          - button [ref=e593]:
+                            - generic [ref=e594]:
+                              - generic:
+                                - group:
+                                  - generic:
+                                    - generic:
+                                      - generic:
+                                        - generic:
+                                          - generic:
+                                            - generic:
+                                              - generic:
+                                                - generic:
+                                                  - generic:
+                                                    - generic:
+                                                      - generic:
+                                                        - generic:
+                                                          - generic:
+                                                            - generic:
+                                                              - emphasis
+                                                              - generic: fbclid
+                                                              - generic:
+                                                                - generic:
+                                                                  - generic:
+                                                                    - generic:
+                                                                      - generic:
+                                                                        - generic:
+                                                                          - generic: Contact Property
+                                                              - generic:
+                                                                - generic:
+                                                                  - generic:
+                                                                    - generic:
+                                                                      - generic:
+                                                                        - generic:
+                                                                          - generic: Hidden Field
+                                            - textbox "fbclid Contact Property Hidden Field":
+                                              - /placeholder: ""
+                      - button "Leave comment" [ref=e601]:
+                        - generic [ref=e604]:
+                          - group [ref=e605]:
+                            - button [ref=e606] [cursor=pointer]
+                            - button [ref=e608] [cursor=pointer]
+                            - button "More" [ref=e610] [cursor=pointer]:
+                              - generic [ref=e611]: More
+                          - button [ref=e614]:
+                            - generic [ref=e615]:
+                              - generic:
+                                - group:
+                                  - generic:
+                                    - generic:
+                                      - generic:
+                                        - generic:
+                                          - generic:
+                                            - generic:
+                                              - generic:
+                                                - generic:
+                                                  - generic:
+                                                    - generic:
+                                                      - generic:
+                                                        - generic:
+                                                          - generic:
+                                                            - generic:
+                                                              - emphasis
+                                                              - generic: msclkid
+                                                              - generic:
+                                                                - generic:
+                                                                  - generic:
+                                                                    - generic:
+                                                                      - generic:
+                                                                        - generic:
+                                                                          - generic: Contact Property
+                                                              - generic:
+                                                                - generic:
+                                                                  - generic:
+                                                                    - generic:
+                                                                      - generic:
+                                                                        - generic:
+                                                                          - generic: Hidden Field
+                                            - textbox "msclkid Contact Property Hidden Field":
+                                              - /placeholder: ""
+                      - button "Leave comment" [ref=e622]:
+                        - generic [ref=e625]:
+                          - group [ref=e626]:
+                            - button [ref=e627] [cursor=pointer]
+                            - button [ref=e629] [cursor=pointer]
+                            - button "More" [ref=e631] [cursor=pointer]:
+                              - generic [ref=e632]: More
+                          - button [ref=e635]:
+                            - generic [ref=e636]:
+                              - generic:
+                                - group:
+                                  - generic:
+                                    - generic:
+                                      - generic:
+                                        - generic:
+                                          - generic:
+                                            - generic:
+                                              - generic:
+                                                - generic:
+                                                  - generic:
+                                                    - generic:
+                                                      - generic:
+                                                        - generic:
+                                                          - generic:
+                                                            - generic:
+                                                              - emphasis
+                                                              - generic: utm_source
+                                                              - generic:
+                                                                - generic:
+                                                                  - generic:
+                                                                    - generic:
+                                                                      - generic:
+                                                                        - generic:
+                                                                          - generic: Contact Property
+                                                              - generic:
+                                                                - generic:
+                                                                  - generic:
+                                                                    - generic:
+                                                                      - generic:
+                                                                        - generic:
+                                                                          - generic: Hidden Field
+                                            - textbox "utm_source Contact Property Hidden Field":
+                                              - /placeholder: ""
+                      - button "Leave comment" [ref=e643]:
+                        - generic [ref=e646]:
+                          - group [ref=e647]:
+                            - button [ref=e648] [cursor=pointer]
+                            - button [ref=e650] [cursor=pointer]
+                            - button "More" [ref=e652] [cursor=pointer]:
+                              - generic [ref=e653]: More
+                          - button [ref=e656]:
+                            - generic [ref=e657]:
+                              - generic:
+                                - group:
+                                  - generic:
+                                    - generic:
+                                      - generic:
+                                        - generic:
+                                          - generic:
+                                            - generic:
+                                              - generic:
+                                                - generic:
+                                                  - generic:
+                                                    - generic:
+                                                      - generic:
+                                                        - generic:
+                                                          - generic:
+                                                            - generic:
+                                                              - emphasis
+                                                              - generic: referrer
+                                                              - generic:
+                                                                - generic:
+                                                                  - generic:
+                                                                    - generic:
+                                                                      - generic:
+                                                                        - generic:
+                                                                          - generic: Contact Property
+                                                              - generic:
+                                                                - generic:
+                                                                  - generic:
+                                                                    - generic:
+                                                                      - generic:
+                                                                        - generic:
+                                                                          - generic: Hidden Field
+                                            - textbox "referrer Contact Property Hidden Field":
+                                              - /placeholder: ""
+                      - button "Leave comment" [ref=e664]:
+                        - generic [ref=e667]:
+                          - group [ref=e668]:
+                            - button [ref=e669] [cursor=pointer]
+                            - button [ref=e671] [cursor=pointer]
+                            - button "More" [ref=e673] [cursor=pointer]:
+                              - generic [ref=e674]: More
+                          - button [ref=e677]:
+                            - generic [ref=e678]:
+                              - generic:
+                                - group:
+                                  - generic:
+                                    - generic:
+                                      - generic:
+                                        - generic:
+                                          - generic:
+                                            - generic:
+                                              - generic:
+                                                - generic:
+                                                  - generic:
+                                                    - generic:
+                                                      - generic:
+                                                        - generic:
+                                                          - generic:
+                                                            - generic:
+                                                              - emphasis
+                                                              - generic: first_form_url
+                                                              - generic:
+                                                                - generic:
+                                                                  - generic:
+                                                                    - generic:
+                                                                      - generic:
+                                                                        - generic:
+                                                                          - generic: Contact Property
+                                                              - generic:
+                                                                - generic:
+                                                                  - generic:
+                                                                    - generic:
+                                                                      - generic:
+                                                                        - generic:
+                                                                          - generic: Hidden Field
+                                            - textbox "first_form_url Contact Property Hidden Field":
+                                              - /placeholder: ""
+                      - button "Leave comment" [ref=e685]:
+                        - generic [ref=e688]:
+                          - group [ref=e689]:
+                            - button [ref=e690] [cursor=pointer]
+                            - button [ref=e692] [cursor=pointer]
+                            - button "More" [ref=e694] [cursor=pointer]:
+                              - generic [ref=e695]: More
+                          - button [ref=e698]:
+                            - generic [ref=e699]:
+                              - generic:
+                                - group:
+                                  - generic:
+                                    - generic:
+                                      - generic:
+                                        - generic:
+                                          - generic:
+                                            - generic:
+                                              - generic:
+                                                - generic:
+                                                  - generic:
+                                                    - generic:
+                                                      - generic:
+                                                        - generic:
+                                                          - generic:
+                                                            - generic:
+                                                              - emphasis
+                                                              - generic: page_title
+                                                              - generic:
+                                                                - generic:
+                                                                  - generic:
+                                                                    - generic:
+                                                                      - generic:
+                                                                        - generic:
+                                                                          - generic: Contact Property
+                                                              - generic:
+                                                                - generic:
+                                                                  - generic:
+                                                                    - generic:
+                                                                      - generic:
+                                                                        - generic:
+                                                                          - generic: Hidden Field
+                                            - textbox "page_title Contact Property Hidden Field":
+                                              - /placeholder: ""
+                      - button "Leave comment" [ref=e706]:
+                        - generic [ref=e709]:
+                          - group [ref=e710]:
+                            - button [ref=e711] [cursor=pointer]
+                            - button [ref=e713] [cursor=pointer]
+                            - button "More" [ref=e715] [cursor=pointer]:
+                              - generic [ref=e716]: More
+                          - button [ref=e719]:
+                            - generic [ref=e720]:
+                              - generic:
+                                - group:
+                                  - generic:
+                                    - generic:
+                                      - generic:
+                                        - generic:
+                                          - generic:
+                                            - generic:
+                                              - generic:
+                                                - generic:
+                                                  - generic:
+                                                    - generic:
+                                                      - generic:
+                                                        - generic:
+                                                          - generic:
+                                                            - generic:
+                                                              - emphasis
+                                                              - generic: page_url
+                                                              - generic:
+                                                                - generic:
+                                                                  - generic:
+                                                                    - generic:
+                                                                      - generic:
+                                                                        - generic:
+                                                                          - generic: Contact Property
+                                                              - generic:
+                                                                - generic:
+                                                                  - generic:
+                                                                    - generic:
+                                                                      - generic:
+                                                                        - generic:
+                                                                          - generic: Hidden Field
+                                            - textbox "page_url Contact Property Hidden Field":
+                                              - /placeholder: ""
+                    - button "Leave comment" [ref=e722]:
+                      - button "Watch" [pressed] [ref=e723] [cursor=pointer]:
+                        - generic [ref=e724]:
+                          - generic:
+                            - button "Watch":
+                              - generic:
+                                - generic: Watch
+                  - button "Leave comment" [ref=e727]:
+                    - button "Queued progressive fields (0)" [ref=e732] [cursor=pointer]:
+                      - img [ref=e735]
+                      - text: Queued progressive fields (0)
+              - alertdialog "Collect payments" [ref=e742]:
+                - banner [ref=e743]:
+                  - heading "Collect payments" [level=4] [ref=e745]
+                  - button "Close" [ref=e746] [cursor=pointer]:
+                    - img [ref=e749]
+                - generic [ref=e753]: Turn on payments in forms you're already using or the one you're about to create.
+                - contentinfo [ref=e754]:
+                  - button "Skip tour" [ref=e755] [cursor=pointer]:
+                    - generic [ref=e757]: Skip tour
+                  - button "Next" [ref=e758] [cursor=pointer]:
+                    - generic [ref=e760]: Next
+                - img
+            - complementary:
+              - region "Collaboration sidebar":
+                - iframe [ref=e763]:
+                  - generic [ref=f51e5]:
+                    - generic [ref=f51e6]:
+                      - paragraph [ref=f51e8]: Comments
+                      - generic [ref=f51e9]:
+                        - button "Comment mode" [ref=f51e11] [cursor=pointer]:
+                          - generic [ref=f51e13]: Comment mode
+                        - button "More" [ref=f51e14] [cursor=pointer]:
+                          - generic [ref=f51e18]: More
+                    - generic [ref=f51e20]:
+                      - generic [ref=f51e21]:
+                        - button "Open comments" [ref=f51e24] [cursor=pointer]:
+                          - option "Open comments" [ref=f51e28]:
+                            - generic [ref=f51e30]: Open comments
+                        - button [ref=f51e32] [cursor=pointer]:
+                          - img [ref=f51e34]
+                      - paragraph [ref=f51e40]:
+                        - heading "There are no comments on this form" [level=4] [ref=f51e41]
+                        - generic [ref=f51e42]:
+                          - text: Collaborate with coworkers with comments. Leave a comment below and notify a coworker using
+                          - strong [ref=f51e43]: "@mentions"
+                          - text: .
+                      - generic [ref=f51e44]:
+                        - generic [ref=f51e47]:
+                          - generic [ref=f51e49]:
+                            - generic: Write a comment. Send your colleague a notification by typing @ followed by their name.
+                            - paragraph [ref=f51e52]
+                          - generic [ref=f51e55]:
+                            - button [ref=f51e57]:
+                              - img [ref=f51e60]
+                            - button [ref=f51e63]:
+                              - img [ref=f51e66]
+                            - button [ref=f51e69]:
+                              - img [ref=f51e72]
+                            - button [ref=f51e75]:
+                              - img [ref=f51e78]
+                            - group [ref=f51e80]:
+                              - button [ref=f51e81]:
+                                - img [ref=f51e84]
+                              - button [ref=f51e86]
+                            - button [ref=f51e92]:
+                              - img [ref=f51e95]
+                            - button "Insert Emoji" [ref=f51e98]:
+                              - img [ref=f51e101]
+                        - generic [ref=f51e104]:
+                          - button "Comment" [disabled] [ref=f51e105]:
+                            - generic [ref=f51e108]: Comment
+                          - button "Cancel" [disabled] [ref=f51e109]:
+                            - generic [ref=f51e111]: Cancel
+            - generic:
+              - generic:
+                - generic:
+                  - complementary
+                  - complementary:
+                    - generic [ref=e765]:
+                      - button [ref=e766]:
+                        - img [ref=e769]
+                      - generic [ref=e771]:
+                        - button "Collaborate with Assistant" [disabled] [ref=e774]:
+                          - img [ref=e776]
+                        - button "Comments" [ref=e780] [cursor=pointer]:
+                          - img [ref=e782]
+                        - button "Tasks" [ref=e786] [cursor=pointer]:
+                          - img [ref=e788]
+                        - button "Calendar" [ref=e792] [cursor=pointer]:
+                          - img [ref=e794]
+                  - complementary
+                  - complementary
+  - complementary
+  - generic:
+    - generic:
+      - iframe

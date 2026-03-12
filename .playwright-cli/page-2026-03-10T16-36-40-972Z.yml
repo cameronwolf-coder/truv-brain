@@ -1,0 +1,622 @@
+- generic [ref=e1]:
+  - generic [ref=e2]:
+    - iframe [ref=e884]:
+      - banner [ref=f74e6]:
+        - generic [ref=f74e7]:
+          - heading "You’ve used all your monthly credits" [level=5] [ref=f74e8]
+          - generic [ref=f74e9]:
+            - generic [ref=f74e12]: Usage is paused until your credits reset on Mar 25, 2026 or you add more.
+            - link "Add credits" [ref=f74e13] [cursor=pointer]:
+              - /url: https://app.hubspot.com/api/notification-station/general/v1/notifications/cta/ad1945e2-7ce6-4b56-b932-753c0738e0c8?notificationPortalId=19933594
+              - generic [ref=f74e14]: Add credits
+        - button "Close" [ref=f74e15] [cursor=pointer]:
+          - img [ref=f74e18]
+    - banner [ref=e4]:
+      - link "HubSpot logo" [ref=e6] [cursor=pointer]:
+        - /url: /global-home/19933594
+        - img "HubSpot logo" [ref=e7]
+      - generic [ref=e9]:
+        - generic [ref=e14]:
+          - img
+          - searchbox "Search HubSpot" [ref=e15]
+          - generic:
+            - generic: ⌘
+            - generic: K
+        - button "Create new" [ref=e18] [cursor=pointer]:
+          - img [ref=e19]
+      - navigation "Global toolbar" [ref=e21]:
+        - menu [ref=e22]:
+          - menuitem "Calls" [ref=e23]:
+            - button "Calls" [ref=e24] [cursor=pointer]:
+              - img "Calling" [ref=e25]
+          - menuitem "Academy" [ref=e27]:
+            - button "Academy" [ref=e28] [cursor=pointer]:
+              - img "Academy" [ref=e29]
+          - menuitem "Marketplace" [ref=e33]:
+            - button "Marketplace" [ref=e34] [cursor=pointer]:
+              - img "Marketplace" [ref=e35]
+          - menuitem "Help" [ref=e37]:
+            - button "Help" [ref=e39] [cursor=pointer]:
+              - img "Help" [ref=e40]
+          - menuitem "Settings" [ref=e42]:
+            - link "Settings" [ref=e43] [cursor=pointer]:
+              - /url: /sales-products-settings/19933594/object/?eschref=%2Fcontacts%2F19933594%2Fobjects%2F2-56342751%2Fviews%2Fall%2Flist
+              - img "Settings" [ref=e44]
+          - generic [ref=e46]:
+            - 'menuitem "Notifications: 4 unseen" [ref=e47]':
+              - 'button "Notifications: 4 unseen" [ref=e48] [cursor=pointer]':
+                - img [ref=e49]
+            - generic: "4"
+          - menuitem "Open Assistant" [ref=e52]:
+            - button "Open Assistant" [ref=e53] [cursor=pointer]:
+              - img "Open Assistant" [ref=e54]
+              - generic [ref=e57]: Assistant
+          - menuitem "View profile and more" [ref=e59]:
+            - button "View profile and more" [ref=e60] [cursor=pointer]:
+              - img "Cam Wolf" [ref=e61]
+              - generic [ref=e62]: Truv
+              - img [ref=e63]
+  - generic [ref=e66]:
+    - button "Scroll up":
+      - img
+    - generic [ref=e67]:
+      - navigation [ref=e69]:
+        - menu [ref=e70]:
+          - menuitem "Home" [ref=e71] [cursor=pointer]:
+            - img "Home" [ref=e72]
+          - menuitem "Bookmarks" [ref=e74] [cursor=pointer]:
+            - img "Bookmarks" [ref=e885]
+          - menuitem "CRM" [ref=e77] [cursor=pointer]:
+            - img "CRM" [ref=e78]
+          - menuitem "Marketing" [ref=e80] [cursor=pointer]:
+            - img "Marketing" [ref=e81]
+          - menuitem "Content" [ref=e83] [cursor=pointer]:
+            - img "Content" [ref=e84]
+          - menuitem "Sales" [ref=e86] [cursor=pointer]:
+            - img "Sales" [ref=e87]
+          - menuitem "Commerce" [ref=e89] [cursor=pointer]:
+            - img "Commerce" [ref=e90]
+          - menuitem "Service" [ref=e93] [cursor=pointer]:
+            - img "Service" [ref=e94]
+          - menuitem "Data Management" [ref=e98] [cursor=pointer]:
+            - img "Data Management" [ref=e99]
+          - menuitem "Automation" [ref=e101] [cursor=pointer]:
+            - img "Automation" [ref=e102]
+          - menuitem "Reporting" [ref=e104] [cursor=pointer]:
+            - img "Reporting" [ref=e105]
+          - menuitem "Breeze" [ref=e107] [cursor=pointer]:
+            - img "Breeze" [ref=e108]
+          - menuitem "Development" [ref=e110] [cursor=pointer]:
+            - img "Development" [ref=e111]
+      - button [ref=e115] [cursor=pointer]:
+        - img [ref=e116]
+    - button "Scroll down" [ref=e119] [cursor=pointer]:
+      - img [ref=e120]
+  - generic:
+    - iframe
+  - generic [ref=e122]:
+    - generic [ref=e125]:
+      - generic [ref=e127]:
+        - generic [ref=e129]:
+          - button "Object Type Selector" [ref=e132] [cursor=pointer]:
+            - generic [ref=e133]:
+              - img [ref=e134]
+              - generic [ref=e136]: Events
+          - generic [ref=e138]:
+            - tablist [ref=e143]:
+              - tab "All records 14" [selected] [ref=e144] [cursor=pointer]:
+                - generic [ref=e147]:
+                  - button "All records 14" [ref=e148]:
+                    - generic [ref=e149]:
+                      - generic [ref=e151]: All records
+                      - generic [ref=e155]: "14"
+                  - button [ref=e157]:
+                    - img [ref=e159]
+            - button "Create or add existing view" [ref=e164] [cursor=pointer]:
+              - img "Create or add existing view" [ref=e166]
+        - generic [ref=e169]:
+          - button [ref=e170] [cursor=pointer]:
+            - img [ref=e172]
+          - button "Add events" [ref=e175] [cursor=pointer]:
+            - generic [ref=e178]: Add events
+      - generic [ref=e183]:
+        - generic [ref=e185]:
+          - generic [ref=e186]:
+            - generic [ref=e187]:
+              - generic [ref=e190]:
+                - searchbox "Search" [ref=e191]
+                - generic:
+                  - generic:
+                    - img
+              - button "Table view" [ref=e195] [cursor=pointer]:
+                - generic [ref=e196]:
+                  - img [ref=e197]
+                  - generic [ref=e199]: Table view
+              - button "Open Settings Sidebar" [ref=e203] [cursor=pointer]:
+                - img [ref=e205]
+              - button "Edit columns" [ref=e208] [cursor=pointer]:
+                - generic [ref=e210]: Edit columns
+              - button "All Pipelines" [ref=e217] [cursor=pointer]:
+                - listitem [ref=e221]:
+                  - generic [ref=e224]: All Pipelines
+              - button "Filters" [pressed] [ref=e230] [cursor=pointer]:
+                - generic [ref=e231]:
+                  - img [ref=e232]
+                  - generic [ref=e234]: Filters
+              - button "Sort" [ref=e236] [cursor=pointer]:
+                - generic [ref=e237]:
+                  - img [ref=e238]
+                  - generic [ref=e240]: Sort
+              - button "Export" [ref=e244] [cursor=pointer]:
+                - generic [ref=e246]: Export
+            - generic [ref=e247]:
+              - button [ref=e251] [cursor=pointer]:
+                - img [ref=e253]
+              - button "Save" [disabled] [ref=e256]:
+                - generic [ref=e258]: Save
+          - generic [ref=e888]:
+            - generic [ref=e889]:
+              - button "Event Name" [ref=e893] [cursor=pointer]:
+                - generic [ref=e899]:
+                  - generic [ref=e901]: Event Name
+                  - img [ref=e903]
+              - button "Object create date/time" [ref=e910] [cursor=pointer]:
+                - generic [ref=e915]: Object create date/time
+              - button "Object last modified date/time" [ref=e921] [cursor=pointer]:
+                - generic [ref=e926]: Object last modified date/time
+              - button "Event Type" [ref=e932] [cursor=pointer]:
+                - generic [ref=e938]: Event Type
+            - generic [ref=e940]:
+              - button "More" [ref=e943] [cursor=pointer]:
+                - generic [ref=e945]:
+                  - img [ref=e946]
+                  - generic [ref=e948]: More
+              - button "Advanced filters" [ref=e953] [cursor=pointer]:
+                - generic [ref=e954]:
+                  - img [ref=e955]
+                  - generic [ref=e957]: Advanced filters
+        - generic [ref=e267]:
+          - table [ref=e273]:
+            - rowgroup [ref=e274]:
+              - row "Select all records. Event Name Event Type Event Status Event End Date Descending sort. Press to sort ascending." [ref=e275]:
+                - columnheader "Select all records." [ref=e276]:
+                  - checkbox "Select all records." [ref=e281]
+                - columnheader "Event Name" [ref=e287] [cursor=pointer]:
+                  - generic [ref=e966]: Event Name
+                - columnheader "Event Type" [ref=e299] [cursor=pointer]:
+                  - generic [ref=e977]: Event Type
+                - columnheader "Event Status" [ref=e311] [cursor=pointer]:
+                  - generic [ref=e988]: Event Status
+                - columnheader "Event End Date Descending sort. Press to sort ascending." [ref=e323] [cursor=pointer]:
+                  - generic [ref=e996]:
+                    - generic [ref=e999]: Event End Date
+                    - generic "Descending sort. Press to sort ascending." [ref=e1001]:
+                      - img [ref=e1002]
+            - rowgroup [ref=e339]:
+              - row "Select row Great River MBA 2026 Preview Conference Upcoming May 7, 2026" [ref=e340]:
+                - cell "Select row" [ref=e341]:
+                  - checkbox "Select row" [ref=e346]
+                - cell "Great River MBA 2026 Preview" [ref=e352]:
+                  - generic [ref=e353]:
+                    - link "Great River MBA 2026" [ref=e360] [cursor=pointer]:
+                      - /url: https://app.hubspot.com/contacts/19933594/record/2-56342751/46191820573?eschref=%2Fcontacts%2F19933594%2Fobjects%2F2-56342751%2Fviews%2Fall%2Flist%3Fnoprefetch%3D
+                      - generic [ref=e362]: Great River MBA 2026
+                    - button "Preview" [ref=e365] [cursor=pointer]:
+                      - generic [ref=e367]: Preview
+                - button "Conference" [ref=e368]:
+                  - generic [ref=e370]: Conference
+                - button "Upcoming" [ref=e371]:
+                  - generic [ref=e373]: Upcoming
+                - button "May 7, 2026" [ref=e374]:
+                  - generic [ref=e376]: May 7, 2026
+              - row "Select row The Gathering 2026 Preview Conference Upcoming Apr 30, 2026" [ref=e377]:
+                - cell "Select row" [ref=e378]:
+                  - checkbox "Select row" [ref=e383]
+                - cell "The Gathering 2026 Preview" [ref=e389]:
+                  - generic [ref=e390]:
+                    - link "The Gathering 2026" [ref=e397] [cursor=pointer]:
+                      - /url: https://app.hubspot.com/contacts/19933594/record/2-56342751/46215916705?eschref=%2Fcontacts%2F19933594%2Fobjects%2F2-56342751%2Fviews%2Fall%2Flist%3Fnoprefetch%3D
+                      - generic [ref=e399]: The Gathering 2026
+                    - button "Preview" [ref=e402] [cursor=pointer]:
+                      - generic [ref=e404]: Preview
+                - button "Conference" [ref=e405]:
+                  - generic [ref=e407]: Conference
+                - button "Upcoming" [ref=e408]:
+                  - generic [ref=e410]: Upcoming
+                - button "Apr 30, 2026" [ref=e411]:
+                  - generic [ref=e413]: Apr 30, 2026
+              - row "Select row Dark Matter Conf 2026 Preview Conference Upcoming Apr 3, 2026" [ref=e414]:
+                - cell "Select row" [ref=e415]:
+                  - checkbox "Select row" [ref=e420]
+                - cell "Dark Matter Conf 2026 Preview" [ref=e426]:
+                  - generic [ref=e427]:
+                    - link "Dark Matter Conf 2026" [ref=e434] [cursor=pointer]:
+                      - /url: https://app.hubspot.com/contacts/19933594/record/2-56342751/46191820571?eschref=%2Fcontacts%2F19933594%2Fobjects%2F2-56342751%2Fviews%2Fall%2Flist%3Fnoprefetch%3D
+                      - generic [ref=e436]: Dark Matter Conf 2026
+                    - button "Preview" [ref=e439] [cursor=pointer]:
+                      - generic [ref=e441]: Preview
+                - button "Conference" [ref=e442]:
+                  - generic [ref=e444]: Conference
+                - button "Upcoming" [ref=e445]:
+                  - generic [ref=e447]: Upcoming
+                - button "Apr 3, 2026" [ref=e448]:
+                  - generic [ref=e450]: Apr 3, 2026
+              - row "Select row March Insider, Public Sector Preview Webinar Upcoming Mar 18, 2026" [ref=e451]:
+                - cell "Select row" [ref=e452]:
+                  - checkbox "Select row" [ref=e457]
+                - cell "March Insider, Public Sector Preview" [ref=e463]:
+                  - generic [ref=e464]:
+                    - link "March Insider, Public Sector" [ref=e471] [cursor=pointer]:
+                      - /url: https://app.hubspot.com/contacts/19933594/record/2-56342751/49512150380?eschref=%2Fcontacts%2F19933594%2Fobjects%2F2-56342751%2Fviews%2Fall%2Flist%3Fnoprefetch%3D
+                      - generic [ref=e473]: March Insider, Public Sector
+                    - button "Preview" [ref=e476] [cursor=pointer]:
+                      - generic [ref=e478]: Preview
+                - button "Webinar" [ref=e479]:
+                  - generic [ref=e481]: Webinar
+                - button "Upcoming" [ref=e482]:
+                  - generic [ref=e484]: Upcoming
+                - button "Mar 18, 2026" [ref=e485]:
+                  - generic [ref=e487]: Mar 18, 2026
+              - row "Select row ICE Experience 2026 Preview Conference Upcoming Mar 18, 2026" [ref=e488]:
+                - cell "Select row" [ref=e489]:
+                  - checkbox "Select row" [ref=e494]
+                - cell "ICE Experience 2026 Preview" [ref=e500]:
+                  - generic [ref=e501]:
+                    - link "ICE Experience 2026" [ref=e508] [cursor=pointer]:
+                      - /url: https://app.hubspot.com/contacts/19933594/record/2-56342751/46215916701?eschref=%2Fcontacts%2F19933594%2Fobjects%2F2-56342751%2Fviews%2Fall%2Flist%3Fnoprefetch%3D
+                      - generic [ref=e510]: ICE Experience 2026
+                    - button "Preview" [ref=e513] [cursor=pointer]:
+                      - generic [ref=e515]: Preview
+                - button "Conference" [ref=e516]:
+                  - generic [ref=e518]: Conference
+                - button "Upcoming" [ref=e519]:
+                  - generic [ref=e521]: Upcoming
+                - button "Mar 18, 2026" [ref=e522]:
+                  - generic [ref=e524]: Mar 18, 2026
+              - row "Select row First Continental Mortgage Webinar Preview Webinar Upcoming Today" [ref=e525]:
+                - cell "Select row" [ref=e526]:
+                  - checkbox "Select row" [ref=e531]
+                - cell "First Continental Mortgage Webinar Preview" [ref=e537]:
+                  - generic [ref=e538]:
+                    - link "First Continental Mortgage Webinar" [ref=e545] [cursor=pointer]:
+                      - /url: https://app.hubspot.com/contacts/19933594/record/2-56342751/45755969646?eschref=%2Fcontacts%2F19933594%2Fobjects%2F2-56342751%2Fviews%2Fall%2Flist%3Fnoprefetch%3D
+                      - generic [ref=e547]: First Continental Mortgage Webinar
+                    - button "Preview" [ref=e550] [cursor=pointer]:
+                      - generic [ref=e552]: Preview
+                - button "Webinar" [ref=e553]:
+                  - generic [ref=e555]: Webinar
+                - button "Upcoming" [ref=e556]:
+                  - generic [ref=e558]: Upcoming
+                - button "Today" [ref=e559]:
+                  - generic [ref=e561]: Today
+              - row "Select row L1 Summit 2026 Preview Conference Upcoming Mar 4, 2026" [ref=e562]:
+                - cell "Select row" [ref=e563]:
+                  - checkbox "Select row" [ref=e568]
+                - cell "L1 Summit 2026 Preview" [ref=e574]:
+                  - generic [ref=e575]:
+                    - link "L1 Summit 2026" [ref=e582] [cursor=pointer]:
+                      - /url: https://app.hubspot.com/contacts/19933594/record/2-56342751/46191820564?eschref=%2Fcontacts%2F19933594%2Fobjects%2F2-56342751%2Fviews%2Fall%2Flist%3Fnoprefetch%3D
+                      - generic [ref=e584]: L1 Summit 2026
+                    - button "Preview" [ref=e587] [cursor=pointer]:
+                      - generic [ref=e589]: Preview
+                - button "Conference" [ref=e590]:
+                  - generic [ref=e592]: Conference
+                - button "Upcoming" [ref=e593]:
+                  - generic [ref=e595]: Upcoming
+                - button "Mar 4, 2026" [ref=e596]:
+                  - generic [ref=e598]: Mar 4, 2026
+              - row "Select row Northeast Mortgage Summit '26 Preview Conference Upcoming Feb 26, 2026" [ref=e599]:
+                - cell "Select row" [ref=e600]:
+                  - checkbox "Select row" [ref=e605]
+                - cell "Northeast Mortgage Summit '26 Preview" [ref=e611]:
+                  - generic [ref=e612]:
+                    - link "Northeast Mortgage Summit '26" [ref=e619] [cursor=pointer]:
+                      - /url: https://app.hubspot.com/contacts/19933594/record/2-56342751/46122390616?eschref=%2Fcontacts%2F19933594%2Fobjects%2F2-56342751%2Fviews%2Fall%2Flist%3Fnoprefetch%3D
+                      - generic [ref=e621]: Northeast Mortgage Summit '26
+                    - button "Preview" [ref=e624] [cursor=pointer]:
+                      - generic [ref=e626]: Preview
+                - button "Conference" [ref=e627]:
+                  - generic [ref=e629]: Conference
+                - button "Upcoming" [ref=e630]:
+                  - generic [ref=e632]: Upcoming
+                - button "Feb 26, 2026" [ref=e633]:
+                  - generic [ref=e635]: Feb 26, 2026
+              - row "Select row HIT Connect 2026 Preview Conference Upcoming Feb 26, 2026" [ref=e636]:
+                - cell "Select row" [ref=e637]:
+                  - checkbox "Select row" [ref=e642]
+                - cell "HIT Connect 2026 Preview" [ref=e648]:
+                  - generic [ref=e649]:
+                    - link "HIT Connect 2026" [ref=e656] [cursor=pointer]:
+                      - /url: https://app.hubspot.com/contacts/19933594/record/2-56342751/46122267540?eschref=%2Fcontacts%2F19933594%2Fobjects%2F2-56342751%2Fviews%2Fall%2Flist%3Fnoprefetch%3D
+                      - generic [ref=e658]: HIT Connect 2026
+                    - button "Preview" [ref=e661] [cursor=pointer]:
+                      - generic [ref=e663]: Preview
+                - button "Conference" [ref=e664]:
+                  - generic [ref=e666]: Conference
+                - button "Upcoming" [ref=e667]:
+                  - generic [ref=e669]: Upcoming
+                - button "Feb 26, 2026" [ref=e670]:
+                  - generic [ref=e672]: Feb 26, 2026
+              - row "Select row Desert Disruption 2026 Preview Conference Upcoming Feb 24, 2026" [ref=e673]:
+                - cell "Select row" [ref=e674]:
+                  - checkbox "Select row" [ref=e679]
+                - cell "Desert Disruption 2026 Preview" [ref=e685]:
+                  - generic [ref=e686]:
+                    - link "Desert Disruption 2026" [ref=e693] [cursor=pointer]:
+                      - /url: https://app.hubspot.com/contacts/19933594/record/2-56342751/46191820557?eschref=%2Fcontacts%2F19933594%2Fobjects%2F2-56342751%2Fviews%2Fall%2Flist%3Fnoprefetch%3D
+                      - generic [ref=e695]: Desert Disruption 2026
+                    - button "Preview" [ref=e698] [cursor=pointer]:
+                      - generic [ref=e700]: Preview
+                - button "Conference" [ref=e701]:
+                  - generic [ref=e703]: Conference
+                - button "Upcoming" [ref=e704]:
+                  - generic [ref=e706]: Upcoming
+                - button "Feb 24, 2026" [ref=e707]:
+                  - generic [ref=e709]: Feb 24, 2026
+              - row "Select row MBA IMB 2026 Preview Conference Upcoming Feb 4, 2026" [ref=e710]:
+                - cell "Select row" [ref=e711]:
+                  - checkbox "Select row" [ref=e716]
+                - cell "MBA IMB 2026 Preview" [ref=e722]:
+                  - generic [ref=e723]:
+                    - link "MBA IMB 2026" [ref=e730] [cursor=pointer]:
+                      - /url: https://app.hubspot.com/contacts/19933594/record/2-56342751/46122390607?eschref=%2Fcontacts%2F19933594%2Fobjects%2F2-56342751%2Fviews%2Fall%2Flist%3Fnoprefetch%3D
+                      - generic [ref=e732]: MBA IMB 2026
+                    - button "Preview" [ref=e735] [cursor=pointer]:
+                      - generic [ref=e737]: Preview
+                - button "Conference" [ref=e738]:
+                  - generic [ref=e740]: Conference
+                - button "Upcoming" [ref=e741]:
+                  - generic [ref=e743]: Upcoming
+                - button "Feb 4, 2026" [ref=e744]:
+                  - generic [ref=e746]: Feb 4, 2026
+              - row "Select row New England Mortgage Expo Preview Conference Complete Jan 16, 2026" [ref=e747]:
+                - cell "Select row" [ref=e748]:
+                  - checkbox "Select row" [ref=e753]
+                - cell "New England Mortgage Expo Preview" [ref=e759]:
+                  - generic [ref=e760]:
+                    - link "New England Mortgage Expo" [ref=e767] [cursor=pointer]:
+                      - /url: https://app.hubspot.com/contacts/19933594/record/2-56342751/45891586407?eschref=%2Fcontacts%2F19933594%2Fobjects%2F2-56342751%2Fviews%2Fall%2Flist%3Fnoprefetch%3D
+                      - generic [ref=e769]: New England Mortgage Expo
+                    - button "Preview" [ref=e772] [cursor=pointer]:
+                      - generic [ref=e774]: Preview
+                - button "Conference" [ref=e775]:
+                  - generic [ref=e777]: Conference
+                - button "Complete" [ref=e778]:
+                  - generic [ref=e780]: Complete
+                - button "Jan 16, 2026" [ref=e781]:
+                  - generic [ref=e783]: Jan 16, 2026
+              - row "Select row MISMO 2026 Preview Conference Complete Jan 15, 2026" [ref=e784]:
+                - cell "Select row" [ref=e785]:
+                  - checkbox "Select row" [ref=e790]
+                - cell "MISMO 2026 Preview" [ref=e796]:
+                  - generic [ref=e797]:
+                    - link "MISMO 2026" [ref=e804] [cursor=pointer]:
+                      - /url: https://app.hubspot.com/contacts/19933594/record/2-56342751/45696477699?eschref=%2Fcontacts%2F19933594%2Fobjects%2F2-56342751%2Fviews%2Fall%2Flist%3Fnoprefetch%3D
+                      - generic [ref=e806]: MISMO 2026
+                    - button "Preview" [ref=e809] [cursor=pointer]:
+                      - generic [ref=e811]: Preview
+                - button "Conference" [ref=e812]:
+                  - generic [ref=e814]: Conference
+                - button "Complete" [ref=e815]:
+                  - generic [ref=e817]: Complete
+                - button "Jan 15, 2026" [ref=e818]:
+                  - generic [ref=e820]: Jan 15, 2026
+              - row "Select row PHM Elite Conference 2026 Preview Conference Upcoming --" [ref=e821]:
+                - cell "Select row" [ref=e822]:
+                  - checkbox "Select row" [ref=e827]
+                - cell "PHM Elite Conference 2026 Preview" [ref=e833]:
+                  - generic [ref=e834]:
+                    - link "PHM Elite Conference 2026" [ref=e841] [cursor=pointer]:
+                      - /url: https://app.hubspot.com/contacts/19933594/record/2-56342751/46215978564?eschref=%2Fcontacts%2F19933594%2Fobjects%2F2-56342751%2Fviews%2Fall%2Flist%3Fnoprefetch%3D
+                      - generic [ref=e843]: PHM Elite Conference 2026
+                    - button "Preview" [ref=e846] [cursor=pointer]:
+                      - generic [ref=e848]: Preview
+                - button "Conference" [ref=e849]:
+                  - generic [ref=e851]: Conference
+                - button "Upcoming" [ref=e852]:
+                  - generic [ref=e854]: Upcoming
+                - button "--" [ref=e855]:
+                  - generic [ref=e857]: "--"
+          - generic [ref=e859]:
+            - navigation "Pagination" [ref=e860]:
+              - button "Previous page" [disabled] [ref=e862]:
+                - generic [ref=e863]:
+                  - img [ref=e864]
+                  - generic [ref=e866]: Prev
+              - button "You are currently on Page 1" [ref=e868] [cursor=pointer]:
+                - generic [ref=e869]:
+                  - generic [ref=e870]: You are currently on Page
+                  - text: "1"
+              - button "Next page" [disabled] [ref=e872]:
+                - generic [ref=e873]:
+                  - generic [ref=e874]: Next
+                  - img [ref=e875]
+            - button "25 per page" [ref=e877] [cursor=pointer]:
+              - generic [ref=e880]: 25 per page
+    - complementary
+  - dialog [ref=e1008]:
+    - banner [ref=e1009]:
+      - generic [ref=e1010]:
+        - heading "Choose which columns you see" [level=2] [ref=e1011]
+        - button "Close" [ref=e1012] [cursor=pointer]:
+          - img [ref=e1015]
+    - generic [ref=e1018]:
+      - generic [ref=e1020]:
+        - banner [ref=e1021]:
+          - generic [ref=e1022]:
+            - searchbox "Search columns..." [ref=e1023]
+            - generic:
+              - generic:
+                - img
+        - generic [ref=e1027]:
+          - generic [ref=e1028]:
+            - heading "Associations" [level=6] [ref=e1029]
+            - generic [ref=e1032] [cursor=pointer]:
+              - checkbox "Event → Calls" [ref=e1033]
+              - generic [ref=e1039]: Event → Calls
+            - generic [ref=e1042] [cursor=pointer]:
+              - checkbox "Event → Communications" [ref=e1043]
+              - generic [ref=e1049]: Event → Communications
+            - generic [ref=e1052] [cursor=pointer]:
+              - checkbox "Event → Contacts" [ref=e1053]
+              - generic [ref=e1059]: Event → Contacts
+            - generic [ref=e1062] [cursor=pointer]:
+              - checkbox "Event → Deals" [ref=e1063]
+              - generic [ref=e1069]: Event → Deals
+            - generic [ref=e1072] [cursor=pointer]:
+              - checkbox "Event → Emails" [ref=e1073]
+              - generic [ref=e1079]: Event → Emails
+            - generic [ref=e1082] [cursor=pointer]:
+              - checkbox "Event → Meetings" [ref=e1083]
+              - generic [ref=e1089]: Event → Meetings
+            - generic [ref=e1092] [cursor=pointer]:
+              - checkbox "Event → Notes" [ref=e1093]
+              - generic [ref=e1099]: Event → Notes
+            - generic [ref=e1102] [cursor=pointer]:
+              - checkbox "Event → Postal Mail" [ref=e1103]
+              - generic [ref=e1109]: Event → Postal Mail
+            - generic [ref=e1112] [cursor=pointer]:
+              - checkbox "Event → Tasks" [ref=e1113]
+              - generic [ref=e1119]: Event → Tasks
+          - generic [ref=e1120]:
+            - heading "Event Information" [level=6] [ref=e1121]
+            - generic [ref=e1124] [cursor=pointer]:
+              - checkbox "Cost Per Attendee" [ref=e1125]
+              - generic [ref=e1131]: Cost Per Attendee
+            - generic [ref=e1134] [cursor=pointer]:
+              - checkbox "Created by user ID" [ref=e1135]
+              - generic [ref=e1141]: Created by user ID
+            - generic [ref=e1144] [cursor=pointer]:
+              - checkbox "Event Budget" [ref=e1145]
+              - generic [ref=e1151]: Event Budget
+            - generic [ref=e1154] [cursor=pointer]:
+              - checkbox "Event End Date" [checked] [ref=e1155]
+              - generic [ref=e1161]: Event End Date
+            - generic [ref=e1164] [cursor=pointer]:
+              - checkbox "Event Location" [ref=e1165]
+              - generic [ref=e1171]: Event Location
+            - generic [ref=e1174] [cursor=pointer]:
+              - checkbox "Event Start Date" [ref=e1175]
+              - generic [ref=e1181]: Event Start Date
+            - generic [ref=e1184] [cursor=pointer]:
+              - checkbox "Event Status" [checked] [ref=e1185]
+              - generic [ref=e1191]: Event Status
+            - generic [ref=e1194] [cursor=pointer]:
+              - checkbox "Event Type" [checked] [ref=e1195]
+              - generic [ref=e1201]: Event Type
+            - generic [ref=e1204] [cursor=pointer]:
+              - checkbox "Event URL" [ref=e1205]
+              - generic [ref=e1211]: Event URL
+            - generic [ref=e1214] [cursor=pointer]:
+              - checkbox "Event Vertical" [ref=e1215]
+              - generic [ref=e1221]: Event Vertical
+            - generic [ref=e1224] [cursor=pointer]:
+              - checkbox "Linear Project URL" [ref=e1225]
+              - generic [ref=e1231]: Linear Project URL
+            - generic [ref=e1234] [cursor=pointer]:
+              - checkbox "List ID" [ref=e1235]
+              - generic [ref=e1241]: List ID
+            - generic [ref=e1244] [cursor=pointer]:
+              - checkbox "Merged record IDs" [ref=e1245]
+              - generic [ref=e1251]: Merged record IDs
+            - generic [ref=e1254] [cursor=pointer]:
+              - checkbox "Object create date/time" [ref=e1255]
+              - generic [ref=e1261]: Object create date/time
+            - generic [ref=e1264] [cursor=pointer]:
+              - checkbox "Object last modified date/time" [ref=e1265]
+              - generic [ref=e1271]: Object last modified date/time
+            - generic [ref=e1274] [cursor=pointer]:
+              - checkbox "Owner" [ref=e1275]
+              - generic [ref=e1281]: Owner
+            - generic [ref=e1284] [cursor=pointer]:
+              - checkbox "Owner assigned date" [ref=e1285]
+              - generic [ref=e1291]: Owner assigned date
+            - generic [ref=e1294] [cursor=pointer]:
+              - checkbox "Owner's main team" [ref=e1295]
+              - generic [ref=e1301]: Owner's main team
+            - generic [ref=e1304] [cursor=pointer]:
+              - checkbox "Promotion Start Date" [ref=e1305]
+              - generic [ref=e1311]: Promotion Start Date
+            - generic [ref=e1314] [cursor=pointer]:
+              - checkbox "Record ID" [ref=e1315]
+              - generic [ref=e1321]: Record ID
+            - generic [ref=e1324] [cursor=pointer]:
+              - checkbox "Record source" [ref=e1325]
+              - generic [ref=e1331]: Record source
+            - generic [ref=e1334] [cursor=pointer]:
+              - checkbox "Record source detail 1" [ref=e1335]
+              - generic [ref=e1341]: Record source detail 1
+            - generic [ref=e1344] [cursor=pointer]:
+              - checkbox "Record source detail 2" [ref=e1345]
+              - generic [ref=e1351]: Record source detail 2
+            - generic [ref=e1354] [cursor=pointer]:
+              - checkbox "Record source detail 3" [ref=e1355]
+              - generic [ref=e1361]: Record source detail 3
+            - generic [ref=e1364] [cursor=pointer]:
+              - checkbox "Registration Deadline" [ref=e1365]
+              - generic [ref=e1371]: Registration Deadline
+            - generic [ref=e1374] [cursor=pointer]:
+              - checkbox "Shared teams" [ref=e1375]
+              - generic [ref=e1381]: Shared teams
+            - generic [ref=e1384] [cursor=pointer]:
+              - checkbox "Shared users" [ref=e1385]
+              - generic [ref=e1391]: Shared users
+            - generic [ref=e1394] [cursor=pointer]:
+              - checkbox "Target Attendees" [ref=e1395]
+              - generic [ref=e1401]: Target Attendees
+            - generic [ref=e1404] [cursor=pointer]:
+              - checkbox "Target Registrants" [ref=e1405]
+              - generic [ref=e1411]: Target Registrants
+            - generic [ref=e1414] [cursor=pointer]:
+              - checkbox "Updated by user ID" [ref=e1415]
+              - generic [ref=e1421]: Updated by user ID
+            - generic [ref=e1424] [cursor=pointer]:
+              - checkbox "UTM Campaign" [ref=e1425]
+              - generic [ref=e1431]: UTM Campaign
+        - contentinfo [ref=e1432]:
+          - generic [ref=e1434]:
+            - text: Don't see the property you're looking for?
+            - link "Create a property Link opens in a new window" [ref=e1435] [cursor=pointer]:
+              - /url: /property-settings/19933594/properties?type=2-56342751&action=create
+              - text: Create a property
+              - img "Link opens in a new window" [ref=e1437]
+      - generic [ref=e1440]:
+        - banner [ref=e1441]:
+          - generic [ref=e1442]:
+            - heading "Selected Columns (4)" [level=6] [ref=e1443]
+            - generic [ref=e1444]:
+              - paragraph [ref=e1446]: Frozen columns
+              - combobox [ref=e1450] [cursor=pointer]:
+                - generic [ref=e1452]: "0"
+                - img [ref=e1454]
+        - generic [ref=e1459]:
+          - generic [ref=e1464]:
+            - paragraph
+            - text: Event Name
+          - generic [ref=e1465]:
+            - button "Event Type Close" [ref=e1467]:
+              - generic [ref=e1468]:
+                - listitem [ref=e1473]:
+                  - generic [ref=e1474]: Event Type
+                - button "Close" [ref=e1476] [cursor=pointer]:
+                  - img [ref=e1479]
+            - button "Event Status Close" [ref=e1482]:
+              - generic [ref=e1483]:
+                - listitem [ref=e1488]:
+                  - generic [ref=e1489]: Event Status
+                - button "Close" [ref=e1491] [cursor=pointer]:
+                  - img [ref=e1494]
+            - button "Event End Date Close" [ref=e1497]:
+              - generic [ref=e1498]:
+                - listitem [ref=e1503]:
+                  - generic [ref=e1504]: Event End Date
+                - button "Close" [ref=e1506] [cursor=pointer]:
+                  - img [ref=e1509]
+    - contentinfo [ref=e1511]:
+      - generic [ref=e1513]:
+        - button "Apply" [ref=e1514] [cursor=pointer]:
+          - generic [ref=e1516]: Apply
+        - button "Cancel" [ref=e1517] [cursor=pointer]:
+          - generic [ref=e1519]: Cancel
+        - button "Remove All Columns" [ref=e1520] [cursor=pointer]:
+          - generic [ref=e1522]: Remove All Columns

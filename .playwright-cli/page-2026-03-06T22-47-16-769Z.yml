@@ -1,0 +1,281 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - iframe [ref=e188]:
+      - banner [ref=f63e6]:
+        - generic [ref=f63e7]:
+          - heading "You’ve used all your monthly credits" [level=5] [ref=f63e8]
+          - generic [ref=f63e9]:
+            - generic [ref=f63e12]: Usage is paused until your credits reset on Mar 25, 2026 or you add more.
+            - link "Add credits" [ref=f63e13] [cursor=pointer]:
+              - /url: https://app.hubspot.com/api/notification-station/general/v1/notifications/cta/ad1945e2-7ce6-4b56-b932-753c0738e0c8?notificationPortalId=19933594
+              - generic [ref=f63e14]: Add credits
+        - button "Close" [ref=f63e15] [cursor=pointer]:
+          - img [ref=f63e18]
+    - banner [ref=e1977]:
+      - link "HubSpot logo" [ref=e1979] [cursor=pointer]:
+        - /url: /global-home/19933594
+        - img "HubSpot logo" [ref=e1980]
+      - generic [ref=e1982]:
+        - generic [ref=e1987]:
+          - img
+          - searchbox "Search HubSpot" [ref=e1988]
+          - generic:
+            - generic: ⌘
+            - generic: K
+        - button "Create new" [ref=e1991] [cursor=pointer]:
+          - img [ref=e1992]
+      - navigation "Global toolbar" [ref=e1994]:
+        - menu [ref=e1995]:
+          - menuitem "Calls" [ref=e1996]:
+            - button "Calls" [ref=e1997] [cursor=pointer]:
+              - img "Calling" [ref=e1998]
+          - menuitem "Academy" [ref=e2000]:
+            - button "Academy" [ref=e2001] [cursor=pointer]:
+              - img "Academy" [ref=e2002]
+          - menuitem "Marketplace" [ref=e2006]:
+            - button "Marketplace" [ref=e2007] [cursor=pointer]:
+              - img "Marketplace" [ref=e2008]
+          - menuitem "Help" [ref=e2010]:
+            - button "Help" [ref=e2012] [cursor=pointer]:
+              - img "Help" [ref=e2013]
+          - menuitem "Settings" [ref=e2015]:
+            - link "Settings" [ref=e2016] [cursor=pointer]:
+              - /url: /user-preferences/19933594?eschref=%2Fcontacts%2F19933594%2FobjectLists%2F9229%2Ffilters
+              - img "Settings" [ref=e2017]
+          - generic [ref=e2019]:
+            - 'menuitem "Notifications: 4 unseen" [ref=e2020]':
+              - 'button "Notifications: 4 unseen" [ref=e2021] [cursor=pointer]':
+                - img [ref=e2022]
+            - generic: "4"
+          - menuitem "Open Assistant" [ref=e2025]:
+            - button "Open Assistant" [ref=e2026] [cursor=pointer]:
+              - img "Open Assistant" [ref=e2027]
+              - generic [ref=e2030]: Assistant
+          - menuitem "View profile and more" [ref=e2032]:
+            - button "View profile and more" [ref=e2033] [cursor=pointer]:
+              - img "Cam Wolf" [ref=e2034]
+              - generic [ref=e2035]: Truv
+              - img [ref=e2036]
+  - generic [ref=e2039]:
+    - button "Scroll up":
+      - img
+    - generic [ref=e2040]:
+      - navigation [ref=e2042]:
+        - menu [ref=e2043]:
+          - menuitem "Home" [ref=e2044] [cursor=pointer]:
+            - img "Home" [ref=e2045]
+          - menuitem "Bookmarks" [ref=e2047] [cursor=pointer]:
+            - img "Bookmarks" [ref=e2048]
+          - menuitem "CRM" [ref=e2050] [cursor=pointer]:
+            - img "CRM" [ref=e2051]
+          - menuitem "Marketing" [ref=e2053] [cursor=pointer]:
+            - img "Marketing" [ref=e2054]
+          - menuitem "Content" [ref=e2056] [cursor=pointer]:
+            - img "Content" [ref=e2057]
+          - menuitem "Sales" [ref=e2059] [cursor=pointer]:
+            - img "Sales" [ref=e2060]
+          - menuitem "Commerce" [ref=e2062] [cursor=pointer]:
+            - img "Commerce" [ref=e2063]
+          - menuitem "Service" [ref=e2066] [cursor=pointer]:
+            - img "Service" [ref=e2067]
+          - menuitem "Data Management" [ref=e2071] [cursor=pointer]:
+            - img "Data Management" [ref=e2072]
+          - menuitem "Automation" [ref=e2074] [cursor=pointer]:
+            - img "Automation" [ref=e2075]
+          - menuitem "Reporting" [ref=e2077] [cursor=pointer]:
+            - img "Reporting" [ref=e2078]
+          - menuitem "Breeze" [ref=e2080] [cursor=pointer]:
+            - img "Breeze" [ref=e2081]
+          - menuitem "Development" [ref=e2083] [cursor=pointer]:
+            - img "Development" [ref=e2084]
+      - button [ref=e2088] [cursor=pointer]:
+        - img [ref=e2089]
+    - button "Scroll down" [ref=e2092] [cursor=pointer]:
+      - img [ref=e2093]
+  - generic:
+    - iframe
+    - iframe
+  - generic [ref=e117]:
+    - generic [ref=e2095]:
+      - generic [ref=e2097]:
+        - region "Page Section" [ref=e2098]:
+          - navigation [ref=e2099]:
+            - link "Back to segments" [ref=e2100] [cursor=pointer]:
+              - /url: /contacts/19933594/objectLists/views/all
+              - generic [ref=e2101]:
+                - img [ref=e2103]
+                - generic [ref=e2105]: Back to segments
+          - generic [ref=e2106]:
+            - 'heading "Event Registrants: March Insider, Public Sector Contacts Active Size: Processing" [level=1] [ref=e2108]':
+              - generic [ref=e2109]:
+                - generic [ref=e2112]:
+                  - textbox "Segment name" [ref=e2114]:
+                    - /placeholder: Name your new segment
+                    - text: "Event Registrants: March Insider, Public Sector"
+                  - generic:
+                    - img
+                - generic [ref=e2116]:
+                  - generic [ref=e2121]: Contacts
+                  - generic [ref=e2127]: Active
+                  - generic [ref=e2133]: "Size: Processing"
+            - generic [ref=e2135]:
+              - button "Edit" [ref=e2136] [cursor=pointer]:
+                - generic [ref=e2138]: Edit
+              - button "Details" [ref=e2139] [cursor=pointer]:
+                - generic [ref=e2141]: Details
+              - button "Use in" [disabled] [ref=e2142]:
+                - generic [ref=e2146]: Use in
+              - button "Actions" [disabled] [ref=e2148]:
+                - generic [ref=e2152]: Actions
+          - status [ref=e2154]
+          - navigation [ref=e2157]:
+            - button "Overview" [ref=e2158] [cursor=pointer]: Overview
+            - button "Performance" [ref=e2160] [cursor=pointer]: Performance
+            - button "Activity" [ref=e2162] [cursor=pointer]: Activity
+            - button "Settings" [ref=e2164] [cursor=pointer]: Settings
+        - region "Page Section" [ref=e2168]:
+          - main [ref=e2171]:
+            - generic [ref=e2172]:
+              - generic [ref=e2175]:
+                - generic [ref=e2180]:
+                  - generic [ref=e2181]:
+                    - generic [ref=e2182]:
+                      - heading "Filters" [level=4] [ref=e2183]
+                      - button "Edit" [ref=e2184] [cursor=pointer]:
+                        - generic [ref=e2186]: Edit
+                    - generic [ref=e2187]:
+                      - generic [ref=e2189]: Test matches
+                      - generic [ref=e2190] [cursor=pointer]:
+                        - checkbox "Test matches OFF" [ref=e2192]
+                        - generic [ref=e2193]: "OFF"
+                  - generic [ref=e2203]:
+                    - heading "Group 1" [level=5] [ref=e2207]
+                    - generic [ref=e2212]:
+                      - generic [ref=e2213]:
+                        - generic [ref=e2220]:
+                          - text: "Contact is associated to:"
+                          - strong [ref=e2221]: Any Event
+                        - separator [ref=e2222]
+                        - generic [ref=e2223]: "And associated Event has all of:"
+                      - generic [ref=e2236]:
+                        - strong [ref=e2237]: Event Name
+                        - text: is equal to any of
+                        - generic [ref=e2239]: March Insider, Public Sector
+                - generic [ref=e2243]:
+                  - generic [ref=e2245]:
+                    - generic [ref=e2247]:
+                      - searchbox "Search in segment" [disabled] [ref=e2248]
+                      - generic:
+                        - generic:
+                          - img
+                    - list [ref=e2250]:
+                      - listitem [ref=e2251]:
+                        - button "Export segment" [disabled] [ref=e2252]:
+                          - generic [ref=e2254]: Export segment
+                      - listitem [ref=e2255]:
+                        - button "Edit columns" [ref=e2256] [cursor=pointer]:
+                          - generic [ref=e2258]: Edit columns
+                      - button "View" [ref=e2261] [cursor=pointer]:
+                        - generic [ref=e2265]:
+                          - img [ref=e2266]
+                          - generic [ref=e2268]: View
+                      - button [ref=e2270] [cursor=pointer]:
+                        - img [ref=e2272]
+                  - generic [ref=e2278]:
+                    - generic [ref=e2281]:
+                      - generic [ref=e2284]:
+                        - paragraph [ref=e2285]: Size
+                        - status [ref=e2286]
+                        - button "View performance" [ref=e2288] [cursor=pointer]:
+                          - generic [ref=e2290]: View performance
+                      - generic [ref=e2293]:
+                        - paragraph [ref=e2294]: "% of database"
+                        - status [ref=e2295]
+                        - generic [ref=e2296]: Contacts
+                      - generic [ref=e2299]:
+                        - paragraph [ref=e2300]: 7 day change
+                        - generic [ref=e2301]: "--"
+                      - generic [ref=e2304]:
+                        - paragraph [ref=e2305]: Created on
+                        - generic [ref=e2306]: 03/06/26
+                        - button "View details" [ref=e2308] [cursor=pointer]:
+                          - generic [ref=e2310]: View details
+                      - generic [ref=e2313]:
+                        - paragraph [ref=e2314]: Type
+                        - generic [ref=e2317]: Active
+                        - button "Convert" [disabled] [ref=e2319]:
+                          - generic [ref=e2321]: Convert
+                    - button [ref=e2323] [cursor=pointer]:
+                      - img [ref=e2325]
+                  - status [ref=e2333]:
+                    - generic [ref=e2334]:
+                      - img [ref=e2337]
+                      - img [ref=e2343]
+                    - generic [ref=e2345]: Loading
+              - status [ref=e2347]:
+                - generic [ref=e2348]:
+                  - img [ref=e2351]
+                  - img [ref=e2357]
+                - generic [ref=e2359]: Loading
+      - complementary:
+        - region "Collaboration sidebar":
+          - iframe [ref=e2360]:
+            - generic [ref=f67e5]:
+              - paragraph [ref=f67e8]: Comments
+              - generic [ref=f67e10]:
+                - generic [ref=f67e11]:
+                  - button "Open comments" [ref=f67e14] [cursor=pointer]:
+                    - option "Open comments" [ref=f67e18]:
+                      - generic [ref=f67e20]: Open comments
+                  - button [ref=f67e22] [cursor=pointer]:
+                    - img [ref=f67e24]
+                - paragraph [ref=f67e30]:
+                  - heading "There are no comments on this list" [level=4] [ref=f67e31]
+                  - generic [ref=f67e32]:
+                    - text: Collaborate with coworkers with comments. Leave a comment below and notify a coworker using
+                    - strong [ref=f67e33]: "@mentions"
+                    - text: .
+                - generic [ref=f67e34]:
+                  - generic [ref=f67e37]:
+                    - generic [ref=f67e39]:
+                      - generic: Write a comment. Send your colleague a notification by typing @ followed by their name.
+                      - paragraph [ref=f67e42]
+                    - generic [ref=f67e45]:
+                      - button [ref=f67e47]:
+                        - img [ref=f67e50]
+                      - button [ref=f67e53]:
+                        - img [ref=f67e56]
+                      - button [ref=f67e59]:
+                        - img [ref=f67e62]
+                      - button [ref=f67e65]:
+                        - img [ref=f67e68]
+                      - group [ref=f67e70]:
+                        - button [ref=f67e71]:
+                          - img [ref=f67e74]
+                        - button [ref=f67e76]
+                      - button [ref=f67e82]:
+                        - img [ref=f67e85]
+                      - button "Insert Emoji" [ref=f67e88]:
+                        - img [ref=f67e91]
+                  - generic [ref=f67e94]:
+                    - button "Comment" [disabled] [ref=f67e95]:
+                      - generic [ref=f67e98]: Comment
+                    - button "Cancel" [disabled] [ref=f67e99]:
+                      - generic [ref=f67e101]: Cancel
+      - generic:
+        - generic:
+          - generic:
+            - generic:
+              - complementary
+              - complementary:
+                - generic [ref=e2362]:
+                  - button [ref=e2363]:
+                    - img [ref=e2366]
+                  - generic [ref=e2368]:
+                    - button "Collaborate with Assistant" [ref=e2371] [cursor=pointer]:
+                      - img [ref=e2373]
+                    - button "Comments" [ref=e2377] [cursor=pointer]:
+                      - img [ref=e2379]
+              - complementary
+              - complementary
+    - complementary

@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Marketing Wins — Week of Mar 6, 2026</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { height: 100%; overflow: hidden; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: #ffffff;
+    color: #1a1a1a;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding: 2.8rem 3.5rem 3rem 3.5rem;
+  }
+
+  /* Header */
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1.4rem;
+    flex-shrink: 0;
+  }
+  .header h1 {
+    font-size: 3.4rem;
+    font-weight: 800;
+    color: #2c64e3;
+    line-height: 1.1;
+  }
+  .header .subtitle {
+    font-size: 0.95rem;
+    color: #666;
+    margin-top: 4px;
+  }
+
+  /* Two-column layout */
+  .columns {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 2.5rem;
+    flex: 1;
+    min-height: 0;
+    overflow: hidden;
+  }
+  .col {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    justify-content: space-between;
+  }
+
+  /* Section headers */
+  h2 {
+    font-size: 1.45rem;
+    font-weight: 700;
+    color: #2c64e3;
+    border-bottom: 2px solid #2c64e3;
+    padding-bottom: 6px;
+    margin-bottom: 0.6rem;
+  }
+  h3 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #2c64e3;
+  }
+
+  /* Metric cards */
+  .metric-cards {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0.5rem;
+  }
+  .metric-card {
+    background: #f9fafb;
+    border: 1px solid #e5e7eb;
+    border-radius: 6px;
+    padding: 0.75rem 0.4rem;
+    text-align: center;
+  }
+  .metric-card .value {
+    font-size: 2.6rem;
+    font-weight: 800;
+    line-height: 1.2;
+  }
+  .metric-card .label {
+    font-size: 0.75rem;
+    color: #666;
+    line-height: 1.3;
+  }
+
+  /* Funnel */
+  .funnel { display: flex; flex-direction: column; gap: 0.45rem; }
+  .funnel-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .funnel-label {
+    font-size: 0.75rem;
+    color: #666;
+    width: 120px;
+    text-align: right;
+    flex-shrink: 0;
+  }
+  .funnel-bar {
+    height: 36px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: #fff;
+  }
+
+  /* Email stats */
+  .email-stats { display: flex; flex-direction: column; gap: 0.45rem; }
+  .email-row {
+    background: #f9fafb;
+    border: 1px solid #e5e7eb;
+    border-radius: 6px;
+    padding: 0.6rem 0.8rem;
+  }
+  .email-row .name {
+    font-size: 0.95rem;
+    font-weight: 700;
+    margin-bottom: 3px;
+  }
+  .email-row .stats {
+    font-size: 0.85rem;
+    color: #666;
+  }
+  .email-row .stats strong { color: #1a1a1a; }
+
+  /* Completed / Upcoming lists */
+  .task-list {
+    font-size: 1rem;
+    line-height: 1.9;
+    list-style: none;
+  }
+  .task-list li {
+    padding-left: 16px;
+    position: relative;
+  }
+  .task-list li::before {
+    content: "\2022";
+    color: #2c64e3;
+    font-weight: 700;
+    position: absolute;
+    left: 0;
+  }
+
+  /* Hot leads callout */
+  .callout {
+    background: #eff6ff;
+    border-left: 3px solid #2c64e3;
+    border-radius: 0 6px 6px 0;
+    padding: 0.7rem 0.9rem;
+    font-size: 0.85rem;
+    line-height: 1.6;
+  }
+  .callout strong { color: #2c64e3; }
+
+  /* Paid media table */
+  .ad-spend {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.82rem;
+  }
+  .ad-spend th {
+    background: #f9fafb;
+    color: #0f1c47;
+    font-weight: 700;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    padding: 0.4rem 0.5rem;
+    text-align: left;
+    border-bottom: 2px solid #e5e7eb;
+  }
+  .ad-spend td {
+    padding: 0.35rem 0.5rem;
+    border-bottom: 1px solid #f0f0f0;
+  }
+  .ad-spend tr:last-child td {
+    border-bottom: none;
+    font-weight: 700;
+  }
+  .ad-spend .num { text-align: right; }
+  .ad-spend .total-row { background: #f9fafb; }
+
+  /* Right column specific */
+  .webinar-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+  .hub-card {
+    background: #f9fafb;
+    border: 1px solid #e5e7eb;
+    border-radius: 6px;
+    padding: 0.85rem 1rem;
+  }
+  .hub-card .hub-title {
+    font-size: 0.9rem;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+  .hub-card .hub-desc {
+    font-size: 0.82rem;
+    color: #666;
+    line-height: 1.5;
+  }
+  .hub-card .hub-url {
+    font-size: 0.75rem;
+    color: #2c64e3;
+    font-weight: 600;
+    margin-top: 6px;
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div>
+    <h1>Marketing Wins</h1>
+    <div class="subtitle">Week of Feb 28 &ndash; Mar 6, 2026</div>
+  </div>
+</div>
+
+<div class="columns">
+  <!-- LEFT COLUMN -->
+  <div class="col">
+    <div>
+      <h2>Inbound</h2>
+      <div class="metric-cards">
+        <div class="metric-card">
+          <div class="value">8</div>
+          <div class="label">Contact Sales (deduped)</div>
+        </div>
+        <div class="metric-card">
+          <div class="value">4</div>
+          <div class="label">Sales Outreach Completed</div>
+        </div>
+        <div class="metric-card">
+          <div class="value">2</div>
+          <div class="label">Meetings Scheduled</div>
+        </div>
+        <div class="metric-card">
+          <div class="value">93</div>
+          <div class="label">Login (deduped)</div>
+        </div>
+        <div class="metric-card">
+          <div class="value">74</div>
+          <div class="label">Verification Help (deduped)</div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <h2>Conversion Funnel</h2>
+      <div class="funnel">
+        <div class="funnel-row">
+          <span class="funnel-label">Form Fill</span>
+          <div class="funnel-bar" style="width:100%; background:#4ade80;">8</div>
+        </div>
+        <div class="funnel-row">
+          <span class="funnel-label">Assigned to Rep</span>
+          <div class="funnel-bar" style="width:100%; background:#2dd4bf;">8</div>
+        </div>
+        <div class="funnel-row">
+          <span class="funnel-label">First Contact</span>
+          <div class="funnel-bar" style="width:50%; background:#f87171;">4</div>
+        </div>
+        <div class="funnel-row">
+          <span class="funnel-label">Meeting (SAL)</span>
+          <div class="funnel-bar" style="width:25%; background:#fb923c;">2</div>
+        </div>
+        <div class="funnel-row">
+          <span class="funnel-label">Deal Created</span>
+          <div class="funnel-bar" style="width:12.5%; background:#60a5fa;">1</div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <h2>Email Campaigns Sent</h2>
+      <div class="email-stats">
+        <div class="email-row">
+          <div class="name">FCM Webinar Invites (Main List)</div>
+          <div class="stats">Delivered: <strong>~2,046</strong> &nbsp;|&nbsp; Opens: <strong>~22.9%</strong> &nbsp;|&nbsp; CTO: <strong>58.1%</strong></div>
+        </div>
+        <div class="email-row">
+          <div class="name">FCM Webinar Closed-Lost Invite</div>
+          <div class="stats">Delivered: <strong>667</strong> &nbsp;|&nbsp; Opens: <strong>35.7%</strong> &nbsp;|&nbsp; CTO: <strong>54.2%</strong></div>
+        </div>
+        <div class="email-row">
+          <div class="name">CMG Case Study Email</div>
+          <div class="stats">Delivered: <strong>3,761</strong> &nbsp;|&nbsp; Opens: <strong>23.1%</strong> &nbsp;|&nbsp; CTO: <strong>58.3%</strong></div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <h2>Paid Media (Mar 2&ndash;5)</h2>
+      <table class="ad-spend">
+        <thead>
+          <tr>
+            <th>Platform</th>
+            <th class="num">Spend</th>
+            <th class="num">Impr.</th>
+            <th class="num">CPM</th>
+            <th class="num">Clicks</th>
+            <th class="num">CTR</th>
+            <th class="num">CPC</th>
+            <th class="num">Leads</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Meta</td>
+            <td class="num">$93</td>
+            <td class="num">5,255</td>
+            <td class="num">$17.74</td>
+            <td class="num">44</td>
+            <td class="num">0.84%</td>
+            <td class="num">$2.12</td>
+            <td class="num">0</td>
+          </tr>
+          <tr>
+            <td>LinkedIn</td>
+            <td class="num">$450</td>
+            <td class="num">3,520</td>
+            <td class="num">$127.84</td>
+            <td class="num">18</td>
+            <td class="num">0.51%</td>
+            <td class="num">$25.00</td>
+            <td class="num">1</td>
+          </tr>
+          <tr class="total-row">
+            <td>Total</td>
+            <td class="num">$543</td>
+            <td class="num">8,775</td>
+            <td class="num">$61.91</td>
+            <td class="num">62</td>
+            <td class="num">0.71%</td>
+            <td class="num">&mdash;</td>
+            <td class="num">1</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- RIGHT COLUMN -->
+  <div class="col">
+    <div>
+      <h2>FCM Webinar</h2>
+      <div class="webinar-grid">
+        <div class="metric-card">
+          <div class="value" style="color:#2c64e3;">22</div>
+          <div class="label">Registrants</div>
+        </div>
+        <div class="metric-card">
+          <div class="value">2,720</div>
+          <div class="label">Emails Delivered</div>
+        </div>
+      </div>
+      <div class="callout">
+        <strong>Stood up entire campaign this week</strong> &mdash; project plan, audience segments, Knock/Wrapper, Clay table, 2 invite sends, LinkedIn post, plus closed-lost re-engagement to 494 contacts
+      </div>
+    </div>
+
+    <div>
+      <h2>Segmentation &amp; Targeting</h2>
+      <div class="callout" style="margin-bottom:0.4rem;">
+        <strong>Found 39,956 untagged contacts</strong> (19.1% of CRM) &mdash; built auto-tagging script that classified 33,333 business emails by vertical. Tagged 4,273 companies automatically.
+      </div>
+      <div class="callout">
+        <strong>New lending audience: 3,301 contacts</strong> &mdash; queried 5 lending verticals (IMB, Bank, CU, Home Equity, Subprime) with 12-month engagement signals. Synced to Knock for campaign sends.
+      </div>
+    </div>
+
+    <div>
+      <h2>What's New: Truv Marketing Hub</h2>
+      <div style="font-size:0.82rem; color:#666; line-height:1.5;">
+        Bi-directional HubSpot &harr; Linear sync. Read-only dashboard for the whole team &mdash; no access needed. <span style="color:#2c64e3; font-weight:600;">truv-brain.vercel.app/hub</span>
+      </div>
+    </div>
+
+    <div>
+      <h2>Upcoming Next Week</h2>
+      <ul class="task-list">
+        <li>FCM Webinar Invites 3 &amp; 4 + day-of reminder</li>
+        <li>Product Update Email &mdash; live send</li>
+        <li>BankSouth Case Study Email &mdash; live send</li>
+        <li>FCM Closed-Lost reminder emails (2 of 3, 3 of 3)</li>
+        <li>Case Study emails to Mortgage Ops (CCM, PHM, FCM)</li>
+        <li>Whitepaper Email Campaign send</li>
+        <li>March Insider Public Sector Webinar setup</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

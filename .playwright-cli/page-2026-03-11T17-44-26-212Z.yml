@@ -1,0 +1,159 @@
+- generic [ref=e1]:
+  - generic:
+    - region "Notification Toasts":
+      - heading "1 notification total" [level=2] [ref=e9]
+      - generic [ref=e11]:
+        - img [ref=e13]
+        - alert [ref=e16]:
+          - generic [ref=e18]: We’ve updated certain metrics.
+          - link "View metric restatements to learn more." [ref=e19] [cursor=pointer]:
+            - /url: /campaignmanager/accounts/517969837/metric-restatements
+        - button "Dismiss “We’ve updated certain metrics.” notification 1 of 1." [ref=e21] [cursor=pointer]:
+          - img [ref=e23]
+  - button "Chat with us" [ref=e27] [cursor=pointer]:
+    - img [ref=e29]
+  - generic [ref=e32]:
+    - generic [ref=e35]:
+      - button "Skip to main content" [ref=e36] [cursor=pointer]
+      - button "Close jump menu" [ref=e37] [cursor=pointer]:
+        - img [ref=e38]
+        - generic [ref=e40]: Close jump menu
+    - banner [ref=e41]:
+      - generic [ref=e42]:
+        - button [ref=e49] [cursor=pointer]:
+          - generic [ref=e51]:
+            - generic [ref=e52]:
+              - img [ref=e54]:
+                - img [ref=e55]
+              - img [ref=e58]
+            - img [ref=e61]
+        - generic [ref=e384]:
+          - heading "Actions List" [level=2] [ref=e63]
+          - list [ref=e385]:
+            - listitem [ref=e386]:
+              - generic [ref=e388]: Truv Ad Account
+              - img "Truv company icon" [ref=e391]
+          - separator [ref=e392]
+        - button "At least one account has unseen notifications, click to enter notifications experience 2 new account notifications" [ref=e65] [cursor=pointer]:
+          - generic [ref=e66]:
+            - generic [ref=e67]: At least one account has unseen notifications, click to enter notifications experience
+            - generic [ref=e68]:
+              - generic [ref=e69]:
+                - generic [ref=e70]: "2"
+                - generic [ref=e71]: 2 new account notifications
+              - img [ref=e73]
+        - button "Learn more about campaign manager" [ref=e76] [cursor=pointer]:
+          - img "Help" [ref=e78]:
+            - img [ref=e80]
+        - button "Open user menu Icon for Truv" [ref=e82] [cursor=pointer]:
+          - generic [ref=e83]:
+            - generic [ref=e84]: Open user menu
+            - img "Icon for Truv" [ref=e86]
+    - main [ref=e180]:
+      - generic [ref=e394]:
+        - link "Back to conversion tracking" [ref=e395] [cursor=pointer]:
+          - /url: "#"
+          - img [ref=e397]
+        - heading "Create Insight Tag conversion" [level=1] [ref=e402]
+      - generic [ref=e403]:
+        - list [ref=e407]:
+          - listitem [ref=e408]:
+            - generic [ref=e409]: Current
+            - generic [ref=e411]: "1"
+            - paragraph [ref=e413]: Settings
+          - listitem [ref=e414]:
+            - generic [ref=e417]: "2"
+            - paragraph [ref=e419]: Sources
+          - listitem [ref=e420]:
+            - generic [ref=e423]: "3"
+            - paragraph [ref=e425]: Review
+        - generic [ref=e426]:
+          - heading "Define the rules of the conversion" [level=2] [ref=e427]
+          - paragraph [ref=e428]:
+            - generic [ref=e429]:
+              - text: Learn about Insight Tag conversions at the Help Center.
+              - link "Learn more about defining conversion rules." [ref=e430] [cursor=pointer]:
+                - /url: https://www.linkedin.com/help/lms/answer/a425606?accountId=517969837
+                - text: Learn more
+        - generic [ref=e431]:
+          - generic [ref=e432]:
+            - generic [ref=e433]: Name
+            - generic [ref=e434]:
+              - generic [ref=e435]:
+                - textbox "Name" [ref=e436]:
+                  - /placeholder: "Example: Thank you page"
+                  - text: Conversion - Mar 11, 2026, 12:44:24
+                - generic "Maximum 100 characters" [ref=e438]: 35/100
+              - generic:
+                - alert
+            - generic [ref=e440]: Select the category of the conversion
+            - generic [ref=e441]:
+              - button "Select conversion type" [active] [ref=e443] [cursor=pointer]:
+                - img [ref=e445]
+                - generic [ref=e447]: Select
+              - generic:
+                - alert
+            - status
+            - generic [ref=e448]:
+              - generic [ref=e449]: Set the value of the conversion
+              - generic [ref=e450]:
+                - generic [ref=e451]:
+                  - combobox "Set the value of the conversion" [ref=e452] [cursor=pointer]:
+                    - option "Make a selection"
+                    - option "Use the same value"
+                    - option "Use a dynamic value" [selected]
+                    - option "No value (not recommended)"
+                  - paragraph [ref=e453]: The value will be determined from your connected source. A default value is required in case we don’t receive one from the API.
+                - generic:
+                  - alert
+              - generic [ref=e454]: Default Value
+              - generic [ref=e455]:
+                - generic [ref=e457]:
+                  - generic [ref=e458]: Default Value Currency in United States of America, Dollar (USD)
+                  - generic [ref=e460]:
+                    - textbox "Default Value Currency in United States of America, Dollar (USD)" [ref=e461]:
+                      - /placeholder: USD
+                      - text: $0.00
+                    - generic [ref=e463]: Must be $0.00 or greater
+                - generic:
+                  - alert
+            - generic [ref=e465]:
+              - text: Select the timeframe for when the conversion can be counted.
+              - link "Learn more about timeframes for a conversion" [ref=e466] [cursor=pointer]:
+                - /url: https://www.linkedin.com/help/lms/answer/a426359
+                - text: Learn more
+            - generic [ref=e467]:
+              - generic [ref=e468]:
+                - generic [ref=e469]: Clicks
+                - 'combobox "Select the timeframe for when the conversion can be counted: Clicks" [ref=e472] [cursor=pointer]':
+                  - option "90 days" [selected]
+                  - option "30 days"
+                  - option "7 days"
+                  - option "1 day"
+              - generic [ref=e473]:
+                - generic [ref=e474]: Views
+                - combobox "Views" [ref=e477] [cursor=pointer]:
+                  - option "90 days" [selected]
+                  - option "30 days"
+                  - option "7 days"
+                  - option "1 day"
+            - status
+            - generic [ref=e478]: Select the attribution model to specify how each ad interaction is credited
+            - generic [ref=e479]:
+              - text: The attribution model determines how each ad interaction is credited for a conversion across multiple ad sets.
+              - link "Learn more about the attribution model." [ref=e480] [cursor=pointer]:
+                - /url: https://www.linkedin.com/help/lms/answer/109619
+                - text: Learn more
+              - text: .
+            - combobox "Select the attribution model to specify how each ad interaction is credited" [ref=e483] [cursor=pointer]:
+              - option "Last Touch - Each ad set" [selected]
+              - option "Last Touch - Last ad set"
+          - generic:
+            - alert
+            - alert
+        - generic [ref=e485]:
+          - button "Cancel" [ref=e486] [cursor=pointer]:
+            - generic [ref=e487]: Cancel
+          - button "Next step" [disabled] [ref=e489]:
+            - generic [ref=e490]: Next step
+  - generic [ref=e203]: There is 1 search result

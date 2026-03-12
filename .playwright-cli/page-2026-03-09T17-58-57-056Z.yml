@@ -1,0 +1,176 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e3]:
+    - banner [ref=e4]:
+      - navigation [ref=e6]:
+        - button "logo" [disabled] [ref=e9]:
+          - img "Clay Logo" [ref=e10]
+        - generic [ref=e11]:
+          - button "Billing menu" [disabled] [ref=e13]:
+            - generic [ref=e14]:
+              - img [ref=e16]
+              - paragraph [ref=e18]: Credits
+          - button [ref=e20] [cursor=pointer]:
+            - img [ref=e21]
+        - button "Profile menu" [ref=e24] [cursor=pointer]:
+          - generic [ref=e26]:
+            - paragraph [ref=e27]: Cam Wolf
+            - paragraph [ref=e28]: truv.com
+    - main [ref=e29]:
+      - navigation [ref=e30]:
+        - generic [ref=e31]:
+          - link "Home" [ref=e35] [cursor=pointer]:
+            - /url: /workspaces/276559/home
+            - img [ref=e36]
+            - text: Home
+          - separator [ref=e38]
+          - button "Find leads" [ref=e40] [cursor=pointer]:
+            - generic [ref=e41]:
+              - img [ref=e42]
+              - text: Find leads
+            - img [ref=e44]
+          - separator [ref=e46]
+          - generic [ref=e47]:
+            - link "Signals" [ref=e49] [cursor=pointer]:
+              - /url: /workspaces/276559/signals
+              - img [ref=e50]
+              - text: Signals
+            - generic [ref=e52]:
+              - img [ref=e53]
+              - text: Ads
+              - generic [ref=e55]:
+                - img [ref=e56]
+                - paragraph [ref=e59]: Upgrade
+            - link "Campaigns" [ref=e61] [cursor=pointer]:
+              - /url: /workspaces/276559/campaigns
+              - img [ref=e62]
+              - text: Campaigns
+            - link "Claygents" [ref=e65] [cursor=pointer]:
+              - /url: /workspaces/276559/claygents
+              - img [ref=e66]
+              - text: Claygents
+        - generic [ref=e68]:
+          - link "Exports" [ref=e70] [cursor=pointer]:
+            - /url: /workspaces/276559/exports
+            - img [ref=e71]
+            - text: Exports
+          - link "Trash" [ref=e74] [cursor=pointer]:
+            - /url: /workspaces/276559/trash
+            - img [ref=e75]
+            - text: Trash
+          - link "Settings" [ref=e78] [cursor=pointer]:
+            - /url: /workspaces/276559/settings
+            - img [ref=e79]
+            - text: Settings
+          - link "AI context" [ref=e82] [cursor=pointer]:
+            - /url: /workspaces/276559/settings/ai-context
+            - img [ref=e83]
+            - text: AI context
+          - button "Resources" [ref=e85] [cursor=pointer]:
+            - generic [ref=e86]:
+              - img [ref=e87]
+              - text: Resources
+            - img [ref=e89]
+      - generic [ref=e95]:
+        - generic [ref=e97]:
+          - generic [ref=e98]:
+            - generic [ref=e99]:
+              - heading "Hey Cam, ready to get started?" [level=1] [ref=e100]
+              - generic [ref=e102]:
+                - img "Sculptor" [ref=e103]
+                - textbox "Ask me anything about Clay or describe what you'd like to do..." [ref=e108]
+                - button "Submit" [disabled] [ref=e109]:
+                  - img [ref=e110]
+            - button "Show less" [ref=e112] [cursor=pointer]:
+              - text: Show less
+              - img [ref=e113]
+          - generic [ref=e116]:
+            - button "Action card claymation image Find leads Find people, companies, jobs and more." [ref=e117] [cursor=pointer]:
+              - generic [ref=e118]:
+                - img "Action card claymation image" [ref=e119]
+                - generic [ref=e120]:
+                  - heading "Find leads" [level=5] [ref=e121]
+                  - paragraph [ref=e122]: Find people, companies, jobs and more.
+            - button "Action card claymation image Import data Import your existing list from CRM or CSV." [ref=e123] [cursor=pointer]:
+              - generic [ref=e124]:
+                - img "Action card claymation image" [ref=e125]
+                - generic [ref=e126]:
+                  - heading "Import data" [level=5] [ref=e127]
+                  - paragraph [ref=e128]: Import your existing list from CRM or CSV.
+            - button "Action card claymation image Create a campaign Build and automate your outreach campaigns." [ref=e129] [cursor=pointer]:
+              - img "Action card claymation image" [ref=e130]
+              - generic [ref=e131]:
+                - heading "Create a campaign" [level=5] [ref=e132]
+                - paragraph [ref=e133]: Build and automate your outreach campaigns.
+            - button "Action card claymation image Start from template Choose from pre-built workflows to get started." [ref=e134] [cursor=pointer]:
+              - img "Action card claymation image" [ref=e135]
+              - generic [ref=e136]:
+                - heading "Start from template" [level=5] [ref=e137]
+                - paragraph [ref=e138]: Choose from pre-built workflows to get started.
+        - generic [ref=e139]:
+          - generic [ref=e140]:
+            - radiogroup [ref=e141]:
+              - generic [ref=e142]:
+                - radio "All files" [checked] [ref=e143]:
+                  - generic [ref=e144] [cursor=pointer]: All files
+                - radio [checked] [ref=e145]
+                - radio "Recents" [ref=e147]:
+                  - generic [ref=e148] [cursor=pointer]: Recents
+                - radio [ref=e149]
+                - radio "Favorites" [ref=e151]:
+                  - generic [ref=e152] [cursor=pointer]: Favorites
+                - radio [ref=e153]
+            - textbox [ref=e154]: all-files
+          - generic [ref=e155]:
+            - heading "workspace-name" [level=4] [ref=e158]: All Files
+            - generic [ref=e159]:
+              - generic [ref=e163]:
+                - img [ref=e164]
+                - textbox "Search" [ref=e166]
+              - button "New" [ref=e167] [cursor=pointer]:
+                - img [ref=e168]
+                - text: New
+          - generic [ref=e171]:
+            - generic [ref=e172]:
+              - paragraph [ref=e174]: Owner
+              - button "All" [ref=e176] [cursor=pointer]:
+                - paragraph [ref=e177]: All
+                - img [ref=e178]
+            - button "Filters" [ref=e180] [cursor=pointer]:
+              - img [ref=e181]
+              - text: Filters
+        - generic [ref=e183]:
+          - generic [ref=e184]:
+            - table [ref=e189]:
+              - rowgroup [ref=e190]:
+                - row "Name Favorite Last opened by me Owner Access" [ref=e191]:
+                  - columnheader [ref=e192]:
+                    - checkbox [ref=e195]
+                  - columnheader "Name" [ref=e196] [cursor=pointer]:
+                    - button "Name" [ref=e197]:
+                      - generic [ref=e198]: Name
+                      - img [ref=e200]
+                  - columnheader "Favorite" [ref=e202] [cursor=pointer]:
+                    - button "Favorite" [ref=e203]:
+                      - generic [ref=e204]: Favorite
+                      - img [ref=e206]
+                  - columnheader "Last opened by me" [ref=e208] [cursor=pointer]:
+                    - button "Last opened by me" [ref=e209]:
+                      - generic [ref=e210]: Last opened by me
+                      - img [ref=e212]
+                  - columnheader "Owner" [ref=e214] [cursor=pointer]:
+                    - button "Owner" [ref=e215]:
+                      - generic [ref=e216]: Owner
+                      - img [ref=e218]
+                  - columnheader "Access" [ref=e220] [cursor=pointer]:
+                    - button "Access" [ref=e221]:
+                      - generic [ref=e222]: Access
+                      - img [ref=e224]
+                  - columnheader [ref=e226]
+            - table [ref=e231]:
+              - rowgroup
+            - paragraph [ref=e233]:
+              - img [ref=e234]
+              - text: Loading...
+          - status [ref=e236]
+  - iframe [ref=e237]:
+    

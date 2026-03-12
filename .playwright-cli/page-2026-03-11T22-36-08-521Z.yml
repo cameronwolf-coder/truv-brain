@@ -1,0 +1,134 @@
+- generic [ref=e2]:
+  - banner [ref=e3]:
+    - generic [ref=e4]:
+      - link "CAN/AM Logo" [ref=e6] [cursor=pointer]:
+        - /url: https://www.canamhockey.com/
+        - img "CAN/AM Logo" [ref=e9]
+      - navigation [ref=e12]:
+        - list [ref=e13]:
+          - listitem [ref=e14]:
+            - link "tournaments" [ref=e15] [cursor=pointer]:
+              - /url: https://www.canamhockey.com/tournaments
+          - listitem [ref=e16]:
+            - link "camps" [ref=e17] [cursor=pointer]:
+              - /url: https://www.canamhockey.com/camps
+          - listitem [ref=e18]:
+            - link "Scores" [ref=e19] [cursor=pointer]:
+              - /url: https://www.canamhockey.com/scores
+          - listitem [ref=e20]:
+            - link "about" [ref=e21] [cursor=pointer]:
+              - /url: https://www.canamhockey.com/about
+          - listitem [ref=e22]:
+            - link "contact" [ref=e23] [cursor=pointer]:
+              - /url: https://www.canamhockey.com/contact
+          - listitem [ref=e24]:
+            - button "C" [ref=e25] [cursor=pointer]
+  - main [ref=e26]:
+    - generic [ref=e27]:
+      - list [ref=e29]:
+        - listitem [ref=e30]:
+          - link "Team Dashboard" [ref=e31] [cursor=pointer]:
+            - /url: TeamDashboard.aspx
+        - listitem [ref=e32]:
+          - link "Team Reservation" [ref=e33] [cursor=pointer]:
+            - /url: TeamReservation.aspx
+        - listitem [ref=e34]:
+          - link "Manage Roster" [ref=e35] [cursor=pointer]:
+            - /url: ParticipantRoster.aspx
+        - listitem [ref=e36]:
+          - link "Team Event Info" [ref=e37] [cursor=pointer]:
+            - /url: TeamEventInfo.aspx
+        - listitem [ref=e38]:
+          - link "Team Profile" [ref=e39] [cursor=pointer]:
+            - /url: TeamProfile.aspx
+        - listitem [ref=e40]:
+          - link "Balance Information" [ref=e41] [cursor=pointer]:
+            - /url: BalanceInformation.aspx
+      - generic [ref=e42]:
+        - generic [ref=e45]:
+          - heading "Tournament Management" [level=1] [ref=e46]
+          - heading "April 10 - 12, 2026 | Austin, TX" [level=3] [ref=e48]
+          - generic [ref=e50]: Monday Night Hockey Club - ID 39647
+        - list [ref=e53]:
+          - listitem [ref=e54]:
+            - link "Team Reservation" [ref=e56] [cursor=pointer]:
+              - /url: TeamReservation.aspx
+          - listitem [ref=e57]:
+            - link "Manage Roster" [ref=e59] [cursor=pointer]:
+              - /url: ParticipantRoster.aspx
+          - listitem [ref=e60]:
+            - link "Team Event Info" [ref=e62] [cursor=pointer]:
+              - /url: TeamEventInfo.aspx
+          - listitem [ref=e63]:
+            - link "Team Profile" [ref=e65] [cursor=pointer]:
+              - /url: TeamProfile.aspx
+          - listitem [ref=e66]:
+            - link "Team Dashboard" [ref=e68] [cursor=pointer]:
+              - /url: TeamDashboard.aspx
+        - generic [ref=e69]:
+          - generic [ref=e70]:
+            - heading "Manage Roster" [level=2] [ref=e71]
+            - paragraph [ref=e72]: Add each player from your roster. The player will receive an invitation to join your team and complete a player profile. Add all coaches to the Coaching Staff section.
+            - separator [ref=e73]
+            - generic [ref=e74]:
+              - link "Toggle Jersey and Room Info" [ref=e76] [cursor=pointer]:
+                - /url: javascript:void(0);
+              - heading "Players" [level=3] [ref=e77]
+              - generic [ref=e79]:
+                - generic [ref=e81]: First name
+                - generic [ref=e82]: Last name
+                - generic [ref=e83]: Status
+              - generic [ref=e84]:
+                - generic [ref=e85]: "Add players:"
+                - generic [ref=e86]:
+                  - textbox "First name" [ref=e88]: Corey
+                  - textbox "Last name" [ref=e90]: Chess
+                  - textbox "Email" [ref=e92]: cchess30@gmail.com
+                  - generic [ref=e93]:
+                    - link "Add":
+                      - /url: "javascript:"
+              - generic [ref=e94]:
+                - button "Send Invites"
+          - separator [ref=e95]
+          - generic [ref=e96]:
+            - generic [ref=e97]:
+              - paragraph [ref=e98]: Send waiver & deposit reminders
+              - link "Send reminders..." [ref=e99] [cursor=pointer]:
+                - /url: javascript:void(0)
+            - generic [ref=e100]:
+              - button "Back" [ref=e101] [cursor=pointer]
+              - button "Next" [ref=e102] [cursor=pointer]
+  - contentinfo [ref=e110]:
+    - generic [ref=e111]:
+      - generic [ref=e114]:
+        - link "Facebook" [ref=e115] [cursor=pointer]:
+          - /url: https://www.facebook.com/canamhockey
+          - generic [ref=e116]: Facebook
+        - link "Instagram" [ref=e117] [cursor=pointer]:
+          - /url: https://www.instagram.com/canamhockey/
+          - generic [ref=e118]: Instagram
+        - link "Youtube" [ref=e119] [cursor=pointer]:
+          - /url: http://www.youtube.com/channel/UC7MsGoiW7BLgxjW-0_m_9nQ
+          - generic [ref=e120]: Youtube
+      - generic [ref=e121]:
+        - img "CANAM_logo 2017 with stroke" [ref=e124]
+        - generic [ref=e126]:
+          - paragraph [ref=e127]: U.S. Office
+          - separator [ref=e128]
+          - paragraph [ref=e129]:
+            - text: P.O Box 160
+            - text: Williams Bay, WI
+            - text: 53191-0160
+        - generic [ref=e131]:
+          - paragraph [ref=e132]: Canadian Office
+          - separator [ref=e133]
+          - paragraph [ref=e134]:
+            - text: P.O Box 134
+            - text: Welland, Ontario
+            - text: L3B 5P4
+        - generic [ref=e136]:
+          - paragraph [ref=e137]: Contact Us
+          - separator [ref=e138]
+          - paragraph [ref=e139]:
+            - text: "Phone: 262-249-1210"
+            - text: "Email: score@canamhockey.com"

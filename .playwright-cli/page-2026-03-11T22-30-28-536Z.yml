@@ -1,0 +1,128 @@
+- generic [ref=e2]:
+  - button "Request edit access" [ref=e4] [cursor=pointer]:
+    - generic [ref=e6]:
+      - img [ref=e8]
+      - generic [ref=e12]: Request edit access
+  - generic [ref=e13]:
+    - generic [ref=e16]:
+      - generic [ref=e18]:
+        - generic [ref=e20]:
+          - heading "Can/Am Hockey Tournament Interest Form - Austin, TX" [level=1] [ref=e22]
+          - generic [ref=e23]: Express your interest in joining the team for the Can/Am Hockey Tournament in Austin, TX, April 10th-12th at Crossover Cedar Park. Team fee is $2,575.00, which will be divided among participating players.
+        - generic [ref=e25]:
+          - generic [ref=e27]:
+            - link "Sign in to Google" [ref=e28] [cursor=pointer]:
+              - /url: https://accounts.google.com/AccountChooser?continue=https://docs.google.com/forms/d/1SbJOiwlH9NFXbC7i9AIP4W1eTH0gevijtgt_rBALuXQ/viewform?edit_requested%3Dtrue&service=wise
+            - text: to save your progress.
+            - button "Learn more" [ref=e29] [cursor=pointer]
+          - generic [ref=e31]: "* Indicates required question"
+      - list [ref=e32]:
+        - listitem [ref=e33]:
+          - generic [ref=e35]:
+            - heading "Full Name Required question" [level=3] [ref=e38]:
+              - generic [ref=e39]: Full Name
+              - generic "Required question" [ref=e40]: "*"
+            - generic [ref=e45]:
+              - textbox "Full Name Required question" [disabled] [ref=e46]
+              - generic: Your answer
+        - listitem [ref=e48]:
+          - generic [ref=e50]:
+            - heading "Email Address Required question" [level=3] [ref=e53]:
+              - generic [ref=e54]: Email Address
+              - generic "Required question" [ref=e55]: "*"
+            - generic [ref=e60]:
+              - textbox "Email Address Required question" [disabled] [ref=e61]
+              - generic: Your answer
+        - listitem [ref=e63]:
+          - generic [ref=e65]:
+            - heading "Mobile Phone Number Required question" [level=3] [ref=e68]:
+              - generic [ref=e69]: Mobile Phone Number
+              - generic "Required question" [ref=e70]: "*"
+            - generic [ref=e75]:
+              - textbox "Mobile Phone Number Required question" [disabled] [ref=e76]
+              - generic: Your answer
+        - listitem [ref=e78]:
+          - generic [ref=e80]:
+            - heading "Preferred Position" [level=3] [ref=e83]:
+              - generic [ref=e84]: Preferred Position
+            - radiogroup "Preferred Position" [ref=e87]:
+              - generic [ref=e88]:
+                - generic [ref=e91]:
+                  - generic [ref=e92]:
+                    - radio "Forward (F)" [disabled]
+                  - generic [ref=e95]: Forward (F)
+                - generic [ref=e98]:
+                  - generic [ref=e99]:
+                    - radio "Defense (D)" [disabled]
+                  - generic [ref=e102]: Defense (D)
+                - generic [ref=e105]:
+                  - generic [ref=e106]:
+                    - radio "Goaltender (G)" [disabled]
+                  - generic [ref=e109]: Goaltender (G)
+        - listitem [ref=e110]:
+          - generic [ref=e112]:
+            - heading "The tournament runs from April 10th to April 12th. Please confirm your availability for all dates. Required question" [level=3] [ref=e115]:
+              - generic [ref=e116]: The tournament runs from April 10th to April 12th. Please confirm your availability for all dates.
+              - generic "Required question" [ref=e117]: "*"
+            - radiogroup "The tournament runs from April 10th to April 12th. Please confirm your availability for all dates. Required question" [ref=e120]:
+              - generic [ref=e121]:
+                - generic [ref=e124]:
+                  - generic [ref=e125]:
+                    - radio "Yes, I am fully available for all dates (April 10-12)." [disabled]
+                  - generic [ref=e128]: Yes, I am fully available for all dates (April 10-12).
+                - generic [ref=e131]:
+                  - generic [ref=e132]:
+                    - radio "I am available, but may miss a portion (Please specify below)." [disabled]
+                  - generic [ref=e135]: I am available, but may miss a portion (Please specify below).
+                - generic [ref=e138]:
+                  - generic [ref=e139]:
+                    - radio "I am only interested in being an alternate/substitute." [disabled]
+                  - generic [ref=e142]: I am only interested in being an alternate/substitute.
+        - listitem [ref=e143]:
+          - generic [ref=e145]:
+            - heading "If you selected partial availability, please specify which dates/times you might be unavailable." [level=3] [ref=e148]:
+              - generic [ref=e149]: If you selected partial availability, please specify which dates/times you might be unavailable.
+            - generic [ref=e152]:
+              - generic: Your answer
+              - textbox "If you selected partial availability, please specify which dates/times you might be unavailable." [disabled] [ref=e154]
+        - listitem [ref=e156]:
+          - generic [ref=e158]:
+            - heading "The total team fee is $2,575.00. Based on the number of players, the individual cost will be determined. Do you acknowledge and accept the responsibility for your share of the team fee? Required question" [level=3] [ref=e161]:
+              - generic [ref=e162]: The total team fee is $2,575.00. Based on the number of players, the individual cost will be determined. Do you acknowledge and accept the responsibility for your share of the team fee?
+              - generic "Required question" [ref=e163]: "*"
+            - radiogroup "The total team fee is $2,575.00. Based on the number of players, the individual cost will be determined. Do you acknowledge and accept the responsibility for your share of the team fee? Required question" [ref=e166]:
+              - generic [ref=e167]:
+                - generic [ref=e170]:
+                  - generic [ref=e171]:
+                    - radio "Yes, I acknowledge and accept the financial commitment." [disabled]
+                  - generic [ref=e174]: Yes, I acknowledge and accept the financial commitment.
+                - generic [ref=e177]:
+                  - generic [ref=e178]:
+                    - radio "I need more information on the final player count/cost before committing." [disabled]
+                  - generic [ref=e181]: I need more information on the final player count/cost before committing.
+      - generic [ref=e182]:
+        - generic [ref=e183]:
+          - button "Submit" [ref=e185] [cursor=pointer]:
+            - generic [ref=e188]: Submit
+          - button "Clear form" [ref=e190] [cursor=pointer]:
+            - generic [ref=e193]: Clear form
+        - generic [ref=e194]: Never submit passwords through Google Forms.
+    - generic [ref=e195]:
+      - generic [ref=e196]:
+        - text: This content is neither created nor endorsed by Google. -
+        - link "Terms of Service" [ref=e197] [cursor=pointer]:
+          - /url: https://policies.google.com/terms
+        - text: "-"
+        - link "Privacy Policy" [ref=e198] [cursor=pointer]:
+          - /url: https://policies.google.com/privacy
+        - paragraph [ref=e199]:
+          - text: Does this form look suspicious?
+          - link "Report" [ref=e200] [cursor=pointer]:
+            - /url: https://drive.google.com/abuse?id=AKkXjowUH8BQ2c6nc4ybrmiU4iZoMdgBN4N_Gsn8QrM_6feBdN0NLONu_NB2KAPVGO-wp3ulc0zNTILEuuupjxY:0&docurl=https://docs.google.com/forms/d/1SbJOiwlH9NFXbC7i9AIP4W1eTH0gevijtgt_rBALuXQ/viewform?edit_requested%3Dtrue
+      - link "Google Forms" [ref=e202] [cursor=pointer]:
+        - /url: //www.google.com/forms/about/?utm_source=product&utm_medium=forms_logo&utm_campaign=forms
+        - img "Google" [ref=e203]
+        - text: Forms
+  - generic [ref=e207]:
+    - button "help and feedback" [ref=e208] [cursor=pointer]
+    - tooltip [ref=e211]: Help and feedback

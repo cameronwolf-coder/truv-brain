@@ -1,6 +1,7 @@
 """Gemini-powered video analysis."""
 import json
 import re
+import time
 from pathlib import Path
 
 from google import genai
@@ -86,6 +87,17 @@ def analyze_video(
     print(f"Uploading {video_path} to Gemini...")
     uploaded_file = client.files.upload(file=video_path)
     print(f"Upload complete: {uploaded_file.name}")
+
+    # Wait for file to become ACTIVE (Gemini processes video async)
+    while uploaded_file.state.name == "PROCESSING":
+        print("Waiting for Gemini to process video...")
+        time.sleep(5)
+        uploaded_file = client.files.get(name=uploaded_file.name)
+
+    if uploaded_file.state.name != "ACTIVE":
+        raise RuntimeError(f"File processing failed: {uploaded_file.state.name}")
+
+    print("File ready.")
 
     try:
         prompt = _build_prompt(personas)

@@ -201,7 +201,8 @@ def main():
     push_cmd = sub.add_parser("push", help="Push contacts to a Smartlead campaign")
     push_cmd.add_argument("hubspot_list_id", help="HubSpot static list ID")
     push_cmd.add_argument("campaign_id", help="Smartlead campaign ID")
-    push_cmd.add_argument("--clay-csv", dest="clay_csv", help="Path to Clay CSV (overrides HubSpot as source)")
+    push_cmd.add_argument("--enriched-csv", dest="enriched_csv", help="Path to Apollo-enriched CSV (primary input)")
+    push_cmd.add_argument("--clay-csv", dest="clay_csv", help="[DEPRECATED] Use --enriched-csv instead")
     push_cmd.add_argument("--dry-run", action="store_true", help="Show plan without uploading")
 
     # status
@@ -212,10 +213,13 @@ def main():
     sl = SmartleadClient()
 
     if args.command == "push":
+        csv_path = args.enriched_csv or args.clay_csv
+        if args.clay_csv and not args.enriched_csv:
+            print("WARNING: --clay-csv is deprecated. Use --enriched-csv instead.", flush=True)
         push_to_smartlead(
             hubspot_list_id=args.hubspot_list_id,
             campaign_id=args.campaign_id,
-            clay_csv_path=args.clay_csv,
+            clay_csv_path=csv_path,
             dry_run=args.dry_run,
         )
 

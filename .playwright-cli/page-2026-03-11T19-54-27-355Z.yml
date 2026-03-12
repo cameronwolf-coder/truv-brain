@@ -1,0 +1,160 @@
+- generic [ref=e1]:
+  - generic:
+    - region "Notification Toasts":
+      - heading "1 notification total" [level=2] [ref=e4508]
+      - generic [ref=e4510]:
+        - img [ref=e4512]
+        - alert [ref=e4515]:
+          - generic [ref=e4517]: 1 document has been selected successfully
+        - button "Dismiss “1 document has been selected successfully” notification 1 of 1." [ref=e4519] [cursor=pointer]:
+          - img [ref=e4521]
+  - button [ref=e4302] [cursor=pointer]:
+    - img [ref=e29]
+  - generic [ref=e32]:
+    - generic [ref=e35]:
+      - button [ref=e4303] [cursor=pointer]: Skip to main content
+      - button [ref=e4304] [cursor=pointer]:
+        - img [ref=e38]
+        - generic [ref=e40]: Close jump menu
+    - banner [ref=e41]:
+      - generic [ref=e42]:
+        - button [ref=e49] [cursor=pointer]:
+          - generic [ref=e51]:
+            - generic [ref=e52]:
+              - img [ref=e54]:
+                - img [ref=e55]
+              - img [ref=e58]
+            - img [ref=e61]
+        - generic [ref=e1071]:
+          - heading [level=2] [ref=e4305]: Actions List
+          - list [ref=e1072]:
+            - listitem [ref=e1073]:
+              - generic [ref=e1075]: Truv Ad Account
+              - img [ref=e4306]
+          - separator [ref=e1079]
+        - button [ref=e4307] [cursor=pointer]:
+          - generic [ref=e66]:
+            - generic [ref=e67]: At least one account has unseen notifications, click to enter notifications experience
+            - generic [ref=e68]:
+              - generic [ref=e69]:
+                - generic [ref=e70]: "2"
+                - generic [ref=e71]: 2 new account notifications
+              - img [ref=e73]
+        - button [ref=e4308] [cursor=pointer]:
+          - img [ref=e4309]:
+            - img [ref=e80]
+        - button [ref=e4310] [cursor=pointer]:
+          - generic [ref=e83]:
+            - generic [ref=e84]: Open user menu
+            - img [ref=e4311]
+    - main [ref=e180]:
+      - generic [ref=e3973]:
+        - generic [ref=e3976]:
+          - button [ref=e4312] [cursor=pointer]:
+            - img [ref=e3979]
+            - generic [ref=e3981]: Back to ad set
+          - list [ref=e3983]:
+            - listitem [ref=e3984]:
+              - generic [ref=e3985]: ... / CCM Document Ad - Lending / CCM Document Ad - Ops & Lending
+            - listitem [ref=e3986]:
+              - generic [ref=e3987]: CCM Case Study - Document Ad
+        - generic [ref=e3989]:
+          - generic [ref=e3991]:
+            - generic [ref=e3992]:
+              - heading [level=3] [ref=e4313]:
+                - button [disabled] [expanded] [ref=e4314] [cursor=pointer]:
+                  - generic [ref=e3995]:
+                    - text: Ad
+                    - img [ref=e4073]
+              - form [ref=e4315]:
+                - generic [ref=e4076]:
+                  - generic [ref=e4077]:
+                    - generic [ref=e4078]:
+                      - generic [ref=e4079]: Name this ad (optional)
+                      - button [ref=e4316] [cursor=pointer]:
+                        - img [ref=e4082]
+                        - generic [ref=e4084]: More information about the ad name
+                    - generic [ref=e4088]:
+                      - textbox [ref=e4317]:
+                        - /placeholder: Example 1
+                        - text: CCM Case Study - Document Ad
+                      - generic [ref=e4318]: 28/255
+                  - generic [ref=e4093]:
+                    - generic [ref=e4094]:
+                      - generic [ref=e4095]: Introductory text
+                      - button [ref=e4319] [cursor=pointer]:
+                        - img [ref=e4098]
+                        - generic [ref=e4100]: Learn more about Introductory text
+                      - text: "*"
+                    - generic [ref=e4104]:
+                      - textbox [ref=e4320]:
+                        - /placeholder: This is your introductory text
+                        - text: CrossCountry Mortgage cut verification costs and closed loans faster with Truv. See how they saved $10M annually — swipe through the results.
+                      - generic [ref=e4321]: 141/600
+                  - generic [ref=e4109]: Document
+                  - generic [ref=e4110]:
+                    - list [ref=e4524]:
+                      - listitem [ref=e4525]:
+                        - generic [ref=e4526]:
+                          - img [ref=e4528]
+                          - generic [ref=e4529]:
+                            - generic [ref=e4530]:
+                              - button [active] [ref=e4531] [cursor=pointer]:
+                                - generic [ref=e4532]: CCM_x_Truv_LinkedIn_Document_Ad_2026.pdf
+                              - region [ref=e4533]
+                            - button [ref=e4534] [cursor=pointer]:
+                              - img [ref=e4536]
+                        - generic [ref=e4539]:
+                          - text: Previewable pages
+                          - generic [ref=e4540]: "1"
+                          - button [ref=e4541] [cursor=pointer]:
+                            - img [ref=e4543]
+                            - generic [ref=e4545]: Learn more about previewable pages
+                        - generic [ref=e4549]:
+                          - slider [ref=e4550] [cursor=pointer]: "1"
+                          - list [ref=e4551]:
+                            - listitem [ref=e4552]: "1"
+                            - listitem [ref=e4553]: "2"
+                            - listitem [ref=e4554]: "3"
+                            - listitem [ref=e4555]: "4"
+                            - listitem [ref=e4556]: "5"
+                        - generic [ref=e4557]:
+                          - generic [ref=e4558]:
+                            - generic [ref=e4559]: Headline
+                            - button [ref=e4560] [cursor=pointer]:
+                              - img [ref=e4562]
+                              - generic [ref=e4564]: Learn more about Headline text
+                            - text: "*"
+                          - generic [ref=e4568]:
+                            - textbox [ref=e4569]:
+                              - /placeholder: This is your ad headline.
+                              - text: CCM_x_Truv_LinkedIn_Document_Ad_2026.pdf
+                            - generic [ref=e4571]: 40/200
+                    - generic [ref=e4112]:
+                      - generic [ref=e4113]: Support for PDF documents.
+                      - button [ref=e4322] [cursor=pointer]:
+                        - generic [ref=e4115]: Upload or select
+            - heading [level=2] [ref=e4323]:
+              - button [ref=e4324] [cursor=pointer]:
+                - generic [ref=e4003]:
+                  - generic [ref=e4004]: Form details
+                  - img [ref=e4116]
+          - generic [ref=e4046]:
+            - heading [level=2] [ref=e4325]: Preview
+            - button [ref=e4326] [cursor=pointer]:
+              - img [ref=e4051]
+              - generic [ref=e4053]: Mobile Feed
+            - generic [ref=e4056]:
+              - status [ref=e4057]:
+                - generic [ref=e4058]:
+                  - img [ref=e4060]
+                  - generic [ref=e4063]: This is a static image of a mobile document ad.
+              - img [ref=e4327]
+        - generic [ref=e4066]:
+          - button [ref=e4328] [cursor=pointer]:
+            - generic [ref=e4069]: Cancel
+          - button [ref=e4329] [cursor=pointer]:
+            - generic [ref=e4072]: Save ad
+  - generic:
+    - generic [ref=e908]: Some of your forecast metrics have changed.
+    - generic [ref=e909]: CCM_x_Truv_LinkedIn_Document_Ad_2026.pdf

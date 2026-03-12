@@ -1,0 +1,633 @@
+- generic [ref=e1]:
+  - generic [ref=e2]:
+    - iframe [ref=e1012]:
+      - banner [ref=f23e6]:
+        - generic [ref=f23e7]:
+          - heading "You’ve used all your monthly credits" [level=5] [ref=f23e8]
+          - generic [ref=f23e9]:
+            - generic [ref=f23e12]: Usage is paused until your credits reset on Mar 25, 2026 or you add more.
+            - link "Add credits" [ref=f23e13] [cursor=pointer]:
+              - /url: https://app.hubspot.com/api/notification-station/general/v1/notifications/cta/ad1945e2-7ce6-4b56-b932-753c0738e0c8?notificationPortalId=19933594
+              - generic [ref=f23e14]: Add credits
+        - button "Close" [ref=f23e15] [cursor=pointer]:
+          - img [ref=f23e18]
+    - banner [ref=e4]:
+      - link "HubSpot logo" [ref=e6] [cursor=pointer]:
+        - /url: /global-home/19933594
+        - img "HubSpot logo" [ref=e7]
+      - generic [ref=e9]:
+        - generic [ref=e1016]:
+          - img
+          - searchbox "Search HubSpot" [ref=e1017]
+          - generic:
+            - generic: ⌘
+            - generic: K
+        - button "Create new" [ref=e13] [cursor=pointer]:
+          - img [ref=e14]
+      - navigation "Global toolbar" [ref=e16]:
+        - menu [ref=e17]:
+          - menuitem "Calls" [ref=e18]:
+            - button "Calls" [ref=e19] [cursor=pointer]:
+              - img "Calling" [ref=e20]
+          - menuitem "Academy" [ref=e22]:
+            - button "Academy" [ref=e23] [cursor=pointer]:
+              - img "Academy" [ref=e24]
+          - menuitem "Marketplace" [ref=e28]:
+            - button "Marketplace" [ref=e29] [cursor=pointer]:
+              - img "Marketplace" [ref=e30]
+          - menuitem "Help" [ref=e32]:
+            - button "Help" [ref=e34] [cursor=pointer]:
+              - img "Help" [ref=e35]
+          - menuitem "Settings" [ref=e37]:
+            - link "Settings" [ref=e38] [cursor=pointer]:
+              - /url: /user-preferences/19933594?eschref=%2Fproperty-settings%2F19933594%2Fproperties
+              - img "Settings" [ref=e39]
+          - generic [ref=e41]:
+            - 'menuitem "Notifications: 4 unseen" [ref=e42]':
+              - 'button "Notifications: 4 unseen" [ref=e43] [cursor=pointer]':
+                - img [ref=e44]
+            - generic: "4"
+          - menuitem "Open Assistant" [ref=e47]:
+            - button "Open Assistant" [ref=e48] [cursor=pointer]:
+              - img "Open Assistant" [ref=e49]
+              - generic [ref=e52]: Assistant
+          - menuitem "View profile and more" [ref=e54]:
+            - button "View profile and more" [ref=e55] [cursor=pointer]:
+              - img "Cam Wolf" [ref=e56]
+              - generic [ref=e57]: Truv
+              - img [ref=e58]
+  - generic [ref=e61]:
+    - button "Scroll up":
+      - img
+    - generic [ref=e62]:
+      - navigation [ref=e64]:
+        - menu [ref=e65]:
+          - menuitem "Home" [ref=e66] [cursor=pointer]:
+            - img "Home" [ref=e67]
+          - menuitem "Bookmarks" [ref=e69] [cursor=pointer]:
+            - img "Bookmarks" [ref=e1018]
+          - menuitem "CRM" [ref=e72] [cursor=pointer]:
+            - img "CRM" [ref=e73]
+          - menuitem "Marketing" [ref=e75] [cursor=pointer]:
+            - img "Marketing" [ref=e76]
+          - menuitem "Content" [ref=e78] [cursor=pointer]:
+            - img "Content" [ref=e79]
+          - menuitem "Sales" [ref=e81] [cursor=pointer]:
+            - img "Sales" [ref=e82]
+          - menuitem "Commerce" [ref=e84] [cursor=pointer]:
+            - img "Commerce" [ref=e85]
+          - menuitem "Service" [ref=e88] [cursor=pointer]:
+            - img "Service" [ref=e89]
+          - menuitem "Data Management" [ref=e93] [cursor=pointer]:
+            - img "Data Management" [ref=e94]
+          - menuitem "Automation" [ref=e96] [cursor=pointer]:
+            - img "Automation" [ref=e97]
+          - menuitem "Reporting" [ref=e99] [cursor=pointer]:
+            - img "Reporting" [ref=e100]
+          - menuitem "Breeze" [ref=e102] [cursor=pointer]:
+            - img "Breeze" [ref=e103]
+          - menuitem "Development" [ref=e105] [cursor=pointer]:
+            - img "Development" [ref=e106]
+      - button [ref=e110] [cursor=pointer]:
+        - img [ref=e111]
+    - button "Scroll down" [ref=e114] [cursor=pointer]:
+      - img [ref=e115]
+  - generic:
+    - iframe
+  - generic [ref=e117]:
+    - region "Page Section" [ref=e123]:
+      - generic [ref=e124]:
+        - generic [ref=e1020]:
+          - link "Dashboard" [ref=e1022] [cursor=pointer]:
+            - /url: https://app.hubspot.com/dashboard/19933594
+            - generic [ref=e1023]:
+              - img [ref=e1024]
+              - generic [ref=e1026]: Dashboard
+          - generic [ref=e1027]:
+            - heading "Settings" [level=4] [ref=e1029]
+            - button [ref=e1031] [cursor=pointer]:
+              - img [ref=e1033]
+          - navigation "Your Preferences" [ref=e1035]:
+            - heading "Your Preferences" [level=5] [ref=e1037]
+            - list [ref=e1038]:
+              - listitem [ref=e1039]:
+                - link "General" [ref=e1040] [cursor=pointer]:
+                  - /url: /settings/19933594/user-preferences
+                  - generic [ref=e1043]: General
+              - listitem [ref=e1044]:
+                - link "Notifications" [ref=e1045] [cursor=pointer]:
+                  - /url: /notification-preferences/19933594
+                  - generic [ref=e1048]: Notifications
+          - navigation "Account Management" [ref=e1049]:
+            - heading "Account Management" [level=5] [ref=e1051]
+            - list [ref=e1052]:
+              - listitem [ref=e1053]:
+                - link "Account Defaults" [ref=e1054] [cursor=pointer]:
+                  - /url: /settings/19933594/account-defaults
+                  - generic [ref=e1057]: Account Defaults
+              - listitem [ref=e1058]:
+                - link "Account Cleanup Beta" [ref=e1059] [cursor=pointer]:
+                  - /url: /settings/19933594/account-cleanup
+                  - generic [ref=e1062]: Account Cleanup
+                  - generic [ref=e1067]: Beta
+              - listitem [ref=e1068]:
+                - link "Audit Log" [ref=e1069] [cursor=pointer]:
+                  - /url: /settings/19933594/audits
+                  - generic [ref=e1072]: Audit Log
+              - listitem [ref=e1073]:
+                - link "Users & Teams" [ref=e1074] [cursor=pointer]:
+                  - /url: /settings/19933594/users
+                  - generic [ref=e1077]: Users & Teams
+              - listitem [ref=e1078]:
+                - link "Product Updates" [ref=e1079] [cursor=pointer]:
+                  - /url: /product-updates/19933594
+                  - generic [ref=e1082]: Product Updates
+                  - img [ref=e1085]
+              - listitem [ref=e1087]:
+                - button "Integrations" [ref=e1088] [cursor=pointer]:
+                  - generic [ref=e1091]: Integrations
+                  - img [ref=e1094]
+              - listitem [ref=e1096]:
+                - link "Marketplace Downloads" [ref=e1097] [cursor=pointer]:
+                  - /url: /marketplace-settings/19933594/downloads
+                  - generic [ref=e1100]: Marketplace Downloads
+              - listitem [ref=e1101]:
+                - button "Tracking & Analytics" [ref=e1102] [cursor=pointer]:
+                  - generic [ref=e1105]: Tracking & Analytics
+                  - img [ref=e1108]
+              - listitem [ref=e1110]:
+                - link "Privacy & Consent" [ref=e1111] [cursor=pointer]:
+                  - /url: /settings/19933594/data-privacy
+                  - generic [ref=e1114]: Privacy & Consent
+              - listitem [ref=e1115]:
+                - link "Sandboxes" [ref=e1116] [cursor=pointer]:
+                  - /url: /sandboxes/19933594
+                  - generic [ref=e1119]: Sandboxes
+              - listitem [ref=e1120]:
+                - link "Security" [ref=e1121] [cursor=pointer]:
+                  - /url: /settings/19933594/security
+                  - generic [ref=e1124]: Security
+              - listitem [ref=e1125]:
+                - link "Approvals" [ref=e1126] [cursor=pointer]:
+                  - /url: /settings/19933594/approvals
+                  - generic [ref=e1129]: Approvals
+              - listitem [ref=e1130]:
+                - link "Routing" [ref=e1131] [cursor=pointer]:
+                  - /url: /settings/19933594/routing
+                  - generic [ref=e1134]: Routing
+              - listitem [ref=e1135]:
+                - link "AI" [ref=e1136] [cursor=pointer]:
+                  - /url: /ai-settings/19933594
+                  - generic [ref=e1139]: AI
+              - listitem [ref=e1140]:
+                - link "Payments Account" [ref=e1141] [cursor=pointer]:
+                  - /url: /settings/19933594/payments-accounts
+                  - generic [ref=e1144]: Payments Account
+          - navigation "Data Management" [ref=e1145]:
+            - heading "Data Management" [level=5] [ref=e1147]
+            - list [ref=e1148]:
+              - listitem [ref=e1149]:
+                - link "Properties" [ref=e1150] [cursor=pointer]:
+                  - /url: /property-settings/19933594
+                  - generic [ref=e1153]: Properties
+              - listitem [ref=e1154]:
+                - button "Objects" [ref=e1155] [cursor=pointer]:
+                  - generic [ref=e1158]: Objects
+                  - img [ref=e1161]
+              - listitem [ref=e1163]:
+                - link "Translations" [ref=e1164] [cursor=pointer]:
+                  - /url: /settings/19933594/custom-translations
+                  - generic [ref=e1167]: Translations
+              - listitem [ref=e1168]:
+                - link "Data Enrichment" [ref=e1169] [cursor=pointer]:
+                  - /url: /settings/19933594/enrichment
+                  - generic [ref=e1172]: Data Enrichment
+              - listitem [ref=e1173]:
+                - link "Markets Beta" [ref=e1174] [cursor=pointer]:
+                  - /url: /settings/19933594/markets
+                  - generic [ref=e1177]: Markets
+                  - generic [ref=e1182]: Beta
+              - listitem [ref=e1183]:
+                - link "Import & Export" [ref=e1184] [cursor=pointer]:
+                  - /url: /sales-products-settings/19933594/importexport
+                  - generic [ref=e1187]: Import & Export
+              - listitem [ref=e1188]:
+                - link "Backup & Restore" [ref=e1189] [cursor=pointer]:
+                  - /url: /settings/19933594/data-backup
+                  - generic [ref=e1192]: Backup & Restore
+          - navigation "Tools" [ref=e1193]:
+            - heading "Tools" [level=5] [ref=e1195]
+            - list [ref=e1196]:
+              - listitem [ref=e1197]:
+                - link "Meetings" [ref=e1198] [cursor=pointer]:
+                  - /url: /settings/19933594/meetings
+                  - generic [ref=e1201]: Meetings
+              - listitem [ref=e1202]:
+                - button "Calling" [ref=e1203] [cursor=pointer]:
+                  - generic [ref=e1206]: Calling
+                  - img [ref=e1209]
+              - listitem [ref=e1211]:
+                - link "Sales Workspace" [ref=e1212] [cursor=pointer]:
+                  - /url: /sales-workspace-settings/19933594
+                  - generic [ref=e1215]: Sales Workspace
+              - listitem [ref=e1216]:
+                - link "Sales Performance" [ref=e1217] [cursor=pointer]:
+                  - /url: /settings/19933594/sales-performance
+                  - generic [ref=e1220]: Sales Performance
+              - listitem [ref=e1221]:
+                - button "Inbox & Help Desk" [ref=e1222] [cursor=pointer]:
+                  - generic [ref=e1225]: Inbox & Help Desk
+                  - img [ref=e1228]
+              - listitem [ref=e1230]:
+                - link "Customer Success" [ref=e1231] [cursor=pointer]:
+                  - /url: /customer-success-settings/19933594
+                  - generic [ref=e1234]: Customer Success
+              - listitem [ref=e1235]:
+                - button "Marketing" [ref=e1236] [cursor=pointer]:
+                  - generic [ref=e1239]: Marketing
+                  - img [ref=e1242]
+              - listitem [ref=e1244]:
+                - link "SMS" [ref=e1245] [cursor=pointer]:
+                  - /url: /settings/19933594/messaging/sms
+                  - generic [ref=e1248]: SMS
+              - listitem [ref=e1249]:
+                - button "Content" [ref=e1250] [cursor=pointer]:
+                  - generic [ref=e1253]: Content
+                  - img [ref=e1256]
+              - listitem [ref=e1258]:
+                - button "Commerce" [ref=e1259] [cursor=pointer]:
+                  - generic [ref=e1262]: Commerce
+                  - img [ref=e1265]
+        - main [ref=e376]:
+          - generic [ref=e377]:
+            - generic [ref=e378]:
+              - heading "Properties" [level=2] [ref=e379]
+              - button "Export properties" [ref=e381] [cursor=pointer]:
+                - generic [ref=e383]: Export properties
+            - paragraph [ref=e384]: Properties are used to collect and store information about your records in HubSpot. For example, a contact might have properties like First Name or Lead Status.
+            - generic [ref=e387]:
+              - generic [ref=e389]: "Select an object:"
+              - button "Event properties" [ref=e394] [cursor=pointer]:
+                - option "Event properties" [ref=e398]:
+                  - generic [ref=e400]: Event properties
+              - button "Go to Events settings" [ref=e403] [cursor=pointer]
+            - generic [ref=e405]:
+              - tablist [ref=e407]:
+                - tab "Properties (31)" [selected] [ref=e408] [cursor=pointer]
+                - tab "Conditional logic" [ref=e409] [cursor=pointer]
+                - tab "Groups" [ref=e410] [cursor=pointer]
+                - tab "Archived (0)" [ref=e411] [cursor=pointer]
+              - tabpanel [ref=e412]:
+                - group [ref=e413]:
+                  - generic [ref=e417]:
+                    - button "All groups" [ref=e421] [cursor=pointer]:
+                      - option "All groups" [ref=e425]:
+                        - generic [ref=e427]: All groups
+                    - button "All field types" [ref=e432] [cursor=pointer]:
+                      - listitem [ref=e436]:
+                        - option "All field types" [ref=e437]:
+                          - generic [ref=e439]: All field types
+                    - button "All users" [ref=e444] [cursor=pointer]:
+                      - generic [ref=e448]: All users
+                    - button "All access" [ref=e453] [cursor=pointer]:
+                      - option "All access" [ref=e457]:
+                        - generic [ref=e459]: All access
+                - group [ref=e461]:
+                  - generic [ref=e462]:
+                    - generic [ref=e467]:
+                      - searchbox "Search" [ref=e468]
+                      - generic:
+                        - generic:
+                          - img
+                    - button "Create property" [ref=e472] [cursor=pointer]:
+                      - generic [ref=e474]: Create property
+                - table [ref=e478]:
+                  - rowgroup [ref=e479]:
+                    - row "Toggle selection for all rows Name Ascending sort. Press to sort descending. Property Access Press to sort. Group Press to sort. Created by Press to sort. Used In Press to sort. Fill Rate" [ref=e480]:
+                      - columnheader "Toggle selection for all rows" [ref=e481]:
+                        - checkbox "Toggle selection for all rows" [ref=e485]
+                      - button "Name Ascending sort. Press to sort descending." [ref=e491] [cursor=pointer]:
+                        - generic [ref=e493]:
+                          - generic [ref=e494]: Name
+                          - generic "Ascending sort. Press to sort descending." [ref=e495]:
+                            - img [ref=e496]
+                      - button "Property Access Press to sort." [ref=e498] [cursor=pointer]:
+                        - generic [ref=e500]:
+                          - generic [ref=e501]: Property Access
+                          - generic "Press to sort." [ref=e502]:
+                            - img [ref=e503]
+                      - button "Group Press to sort." [ref=e505] [cursor=pointer]:
+                        - generic [ref=e507]:
+                          - generic [ref=e508]: Group
+                          - generic "Press to sort." [ref=e509]:
+                            - img [ref=e510]
+                      - button "Created by Press to sort." [ref=e512] [cursor=pointer]:
+                        - generic [ref=e514]:
+                          - generic [ref=e515]: Created by
+                          - generic "Press to sort." [ref=e516]:
+                            - img [ref=e517]
+                      - button "Used In Press to sort." [ref=e519] [cursor=pointer]:
+                        - generic [ref=e521]:
+                          - generic [ref=e522]: Used In
+                          - generic "Press to sort." [ref=e523]:
+                            - img [ref=e524]
+                      - columnheader "Fill Rate" [ref=e526]
+                  - rowgroup [ref=e527]:
+                    - row "Toggle selection for this row Cost Per Attendee Number More Everyone can view and edit Event Information Cam Wolf 2 0%" [ref=e1267]:
+                      - cell "Toggle selection for this row" [ref=e529]:
+                        - checkbox "Toggle selection for this row" [ref=e533]
+                      - cell "Cost Per Attendee Number More" [ref=e539]:
+                        - generic [ref=e540]:
+                          - generic [ref=e545]:
+                            - button "Cost Per Attendee" [ref=e546] [cursor=pointer]:
+                              - generic [ref=e549]: Cost Per Attendee
+                            - generic [ref=e550]: Number
+                          - button "More" [ref=e553] [cursor=pointer]:
+                            - generic [ref=e557]: More
+                      - cell "Everyone can view and edit" [ref=e559]:
+                        - button "Everyone can view and edit" [ref=e560] [cursor=pointer]:
+                          - generic [ref=e562]: Everyone can view and edit
+                      - cell "Event Information" [ref=e563]:
+                        - generic [ref=e565]: Event Information
+                      - cell "Cam Wolf" [ref=e566]:
+                        - generic [ref=e568]: Cam Wolf
+                      - cell "2" [ref=e1268]:
+                        - button "2" [ref=e1269] [cursor=pointer]
+                      - cell "0%" [ref=e1270]
+                    - row "Toggle selection for this row Created by user ID Number More Everyone can view and edit Event Information HubSpot 1 100%" [ref=e1271]:
+                      - cell "Toggle selection for this row" [ref=e574]:
+                        - checkbox "Toggle selection for this row" [ref=e578]
+                      - cell "Created by user ID Number More" [ref=e584]:
+                        - generic [ref=e585]:
+                          - generic [ref=e590]:
+                            - button "Created by user ID" [ref=e591] [cursor=pointer]:
+                              - generic [ref=e594]: Created by user ID
+                            - generic [ref=e595]: Number
+                          - button "More" [ref=e598] [cursor=pointer]:
+                            - generic [ref=e602]: More
+                      - cell "Everyone can view and edit" [ref=e604]:
+                        - button "Everyone can view and edit" [ref=e605] [cursor=pointer]:
+                          - generic [ref=e607]: Everyone can view and edit
+                      - cell "Event Information" [ref=e608]:
+                        - generic [ref=e610]: Event Information
+                      - cell "HubSpot" [ref=e611]:
+                        - generic [ref=e613]: HubSpot
+                      - cell "1" [ref=e1272]:
+                        - button "1" [ref=e1273] [cursor=pointer]
+                      - cell "100%" [ref=e1274]
+                    - row "Toggle selection for this row Event Budget Number More Everyone can view and edit Event Information Cam Wolf 2 0%" [ref=e1275]:
+                      - cell "Toggle selection for this row" [ref=e619]:
+                        - checkbox "Toggle selection for this row" [ref=e623]
+                      - cell "Event Budget Number More" [ref=e629]:
+                        - generic [ref=e630]:
+                          - generic [ref=e635]:
+                            - button "Event Budget" [ref=e636] [cursor=pointer]:
+                              - generic [ref=e639]: Event Budget
+                            - generic [ref=e640]: Number
+                          - button "More" [ref=e643] [cursor=pointer]:
+                            - generic [ref=e647]: More
+                      - cell "Everyone can view and edit" [ref=e649]:
+                        - button "Everyone can view and edit" [ref=e650] [cursor=pointer]:
+                          - generic [ref=e652]: Everyone can view and edit
+                      - cell "Event Information" [ref=e653]:
+                        - generic [ref=e655]: Event Information
+                      - cell "Cam Wolf" [ref=e656]:
+                        - generic [ref=e658]: Cam Wolf
+                      - cell "2" [ref=e1276]:
+                        - button "2" [ref=e1277] [cursor=pointer]
+                      - cell "0%" [ref=e1278]
+                    - row "Toggle selection for this row Event End Date Date picker More Everyone can view and edit Event Information Cam Wolf 3 92.86%" [ref=e1279]:
+                      - cell "Toggle selection for this row" [ref=e664]:
+                        - checkbox "Toggle selection for this row" [ref=e668]
+                      - cell "Event End Date Date picker More" [ref=e674]:
+                        - generic [ref=e675]:
+                          - generic [ref=e680]:
+                            - button "Event End Date" [ref=e681] [cursor=pointer]:
+                              - generic [ref=e684]: Event End Date
+                            - generic [ref=e685]: Date picker
+                          - button "More" [ref=e688] [cursor=pointer]:
+                            - generic [ref=e692]: More
+                      - cell "Everyone can view and edit" [ref=e694]:
+                        - button "Everyone can view and edit" [ref=e695] [cursor=pointer]:
+                          - generic [ref=e697]: Everyone can view and edit
+                      - cell "Event Information" [ref=e698]:
+                        - generic [ref=e700]: Event Information
+                      - cell "Cam Wolf" [ref=e701]:
+                        - generic [ref=e703]: Cam Wolf
+                      - cell "3" [ref=e1280]:
+                        - button "3" [ref=e1281] [cursor=pointer]
+                      - cell "92.86%" [ref=e1282]
+                    - row "Toggle selection for this row Event Location Single-line text More Everyone can view and edit Event Information Cam Wolf 2 85.71%" [ref=e1283]:
+                      - cell "Toggle selection for this row" [ref=e709]:
+                        - checkbox "Toggle selection for this row" [ref=e713]
+                      - cell "Event Location Single-line text More" [ref=e719]:
+                        - generic [ref=e720]:
+                          - generic [ref=e725]:
+                            - button "Event Location" [ref=e726] [cursor=pointer]:
+                              - generic [ref=e729]: Event Location
+                            - generic [ref=e730]: Single-line text
+                          - button "More" [ref=e733] [cursor=pointer]:
+                            - generic [ref=e737]: More
+                      - cell "Everyone can view and edit" [ref=e739]:
+                        - button "Everyone can view and edit" [ref=e740] [cursor=pointer]:
+                          - generic [ref=e742]: Everyone can view and edit
+                      - cell "Event Information" [ref=e743]:
+                        - generic [ref=e745]: Event Information
+                      - cell "Cam Wolf" [ref=e746]:
+                        - generic [ref=e748]: Cam Wolf
+                      - cell "2" [ref=e1284]:
+                        - button "2" [ref=e1285] [cursor=pointer]
+                      - cell "85.71%" [ref=e1286]
+                    - row "Toggle selection for this row Event Name Single-line text More Everyone can view and edit Event Information Unknown user 4 100%" [ref=e1287]:
+                      - cell "Toggle selection for this row" [ref=e754]:
+                        - checkbox "Toggle selection for this row" [ref=e758]
+                      - cell "Event Name Single-line text More" [ref=e764]:
+                        - generic [ref=e765]:
+                          - generic [ref=e770]:
+                            - button "Event Name" [ref=e771] [cursor=pointer]:
+                              - generic [ref=e774]: Event Name
+                            - generic [ref=e775]: Single-line text
+                          - button "More" [ref=e778] [cursor=pointer]:
+                            - generic [ref=e782]: More
+                      - cell "Everyone can view and edit" [ref=e784]:
+                        - button "Everyone can view and edit" [ref=e785] [cursor=pointer]:
+                          - generic [ref=e787]: Everyone can view and edit
+                      - cell "Event Information" [ref=e788]:
+                        - generic [ref=e790]: Event Information
+                      - cell "Unknown user" [ref=e791]:
+                        - generic [ref=e793]: Unknown user
+                      - cell "4" [ref=e1288]:
+                        - button "4" [ref=e1289] [cursor=pointer]
+                      - cell "100%" [ref=e1290]
+                    - row "Toggle selection for this row Event Start Date Date picker More Everyone can view and edit Event Information Cam Wolf 3 92.86%" [ref=e1291]:
+                      - cell "Toggle selection for this row" [ref=e799]:
+                        - checkbox "Toggle selection for this row" [ref=e803]
+                      - cell "Event Start Date Date picker More" [ref=e809]:
+                        - generic [ref=e810]:
+                          - generic [ref=e815]:
+                            - button "Event Start Date" [ref=e816] [cursor=pointer]:
+                              - generic [ref=e819]: Event Start Date
+                            - generic [ref=e820]: Date picker
+                          - button "More" [ref=e823] [cursor=pointer]:
+                            - generic [ref=e827]: More
+                      - cell "Everyone can view and edit" [ref=e829]:
+                        - button "Everyone can view and edit" [ref=e830] [cursor=pointer]:
+                          - generic [ref=e832]: Everyone can view and edit
+                      - cell "Event Information" [ref=e833]:
+                        - generic [ref=e835]: Event Information
+                      - cell "Cam Wolf" [ref=e836]:
+                        - generic [ref=e838]: Cam Wolf
+                      - cell "3" [ref=e1292]:
+                        - button "3" [ref=e1293] [cursor=pointer]
+                      - cell "92.86%" [ref=e1294]
+                    - row "Toggle selection for this row Event Status Dropdown select More Everyone can view and edit Event Information Unknown user 2 100%" [ref=e1295]:
+                      - cell "Toggle selection for this row" [ref=e844]:
+                        - checkbox "Toggle selection for this row" [ref=e848]
+                      - cell "Event Status Dropdown select More" [ref=e854]:
+                        - generic [ref=e855]:
+                          - generic [ref=e860]:
+                            - button "Event Status" [ref=e861] [cursor=pointer]:
+                              - generic [ref=e864]: Event Status
+                            - generic [ref=e865]: Dropdown select
+                          - button "More" [ref=e868] [cursor=pointer]:
+                            - generic [ref=e872]: More
+                      - cell "Everyone can view and edit" [ref=e874]:
+                        - button "Everyone can view and edit" [ref=e875] [cursor=pointer]:
+                          - generic [ref=e877]: Everyone can view and edit
+                      - cell "Event Information" [ref=e878]:
+                        - generic [ref=e880]: Event Information
+                      - cell "Unknown user" [ref=e881]:
+                        - generic [ref=e883]: Unknown user
+                      - cell "2" [ref=e1296]:
+                        - button "2" [ref=e1297] [cursor=pointer]
+                      - cell "100%" [ref=e1298]
+                    - row "Toggle selection for this row Event Type Dropdown select More Everyone can view and edit Event Information Unknown user 2 100%" [ref=e1299]:
+                      - cell "Toggle selection for this row" [ref=e889]:
+                        - checkbox "Toggle selection for this row" [ref=e893]
+                      - cell "Event Type Dropdown select More" [ref=e899]:
+                        - generic [ref=e900]:
+                          - generic [ref=e905]:
+                            - button "Event Type" [ref=e906] [cursor=pointer]:
+                              - generic [ref=e909]: Event Type
+                            - generic [ref=e910]: Dropdown select
+                          - button "More" [ref=e913] [cursor=pointer]:
+                            - generic [ref=e917]: More
+                      - cell "Everyone can view and edit" [ref=e919]:
+                        - button "Everyone can view and edit" [ref=e920] [cursor=pointer]:
+                          - generic [ref=e922]: Everyone can view and edit
+                      - cell "Event Information" [ref=e923]:
+                        - generic [ref=e925]: Event Information
+                      - cell "Unknown user" [ref=e926]:
+                        - generic [ref=e928]: Unknown user
+                      - cell "2" [ref=e1300]:
+                        - button "2" [ref=e1301] [cursor=pointer]
+                      - cell "100%" [ref=e1302]
+                    - row "Toggle selection for this row Event URL URL More Everyone can view and edit Event Information Cam Wolf 2 85.71%" [ref=e1303]:
+                      - cell "Toggle selection for this row" [ref=e934]:
+                        - checkbox "Toggle selection for this row" [ref=e938]
+                      - cell "Event URL URL More" [ref=e944]:
+                        - generic [ref=e945]:
+                          - generic [ref=e950]:
+                            - button "Event URL" [ref=e951] [cursor=pointer]:
+                              - generic [ref=e954]: Event URL
+                            - generic [ref=e955]: URL
+                          - button "More" [ref=e958] [cursor=pointer]:
+                            - generic [ref=e962]: More
+                      - cell "Everyone can view and edit" [ref=e964]:
+                        - button "Everyone can view and edit" [ref=e965] [cursor=pointer]:
+                          - generic [ref=e967]: Everyone can view and edit
+                      - cell "Event Information" [ref=e968]:
+                        - generic [ref=e970]: Event Information
+                      - cell "Cam Wolf" [ref=e971]:
+                        - generic [ref=e973]: Cam Wolf
+                      - cell "2" [ref=e1304]:
+                        - button "2" [ref=e1305] [cursor=pointer]
+                      - cell "85.71%" [ref=e1306]
+                - generic [ref=e978]:
+                  - navigation "Pagination" [ref=e979]:
+                    - button "Previous page" [disabled] [ref=e981]:
+                      - generic [ref=e982]:
+                        - img [ref=e983]
+                        - generic [ref=e985]: Prev
+                    - generic [ref=e986]:
+                      - button "You are currently on Page 1" [ref=e987] [cursor=pointer]:
+                        - generic [ref=e988]:
+                          - generic [ref=e989]: You are currently on Page
+                          - text: "1"
+                      - button "Page 2" [ref=e990] [cursor=pointer]:
+                        - generic [ref=e991]:
+                          - generic [ref=e992]: Page
+                          - text: "2"
+                      - button "Page 3" [ref=e993] [cursor=pointer]:
+                        - generic [ref=e994]:
+                          - generic [ref=e995]: Page
+                          - text: "3"
+                      - button "Page 4" [ref=e996] [cursor=pointer]:
+                        - generic [ref=e997]:
+                          - generic [ref=e998]: Page
+                          - text: "4"
+                    - button "Next page" [ref=e1000] [cursor=pointer]:
+                      - generic [ref=e1001]:
+                        - generic [ref=e1002]: Next
+                        - img [ref=e1003]
+                  - button "10 per page" [ref=e1005] [cursor=pointer]:
+                    - generic [ref=e1009]: 10 per page
+    - complementary
+  - generic [ref=e1311]:
+    - banner [ref=e1313]:
+      - generic [ref=e1314]:
+        - heading "Create new property" [level=2] [ref=e1315]
+        - button "Close" [ref=e1316] [cursor=pointer]:
+          - img [ref=e1319]
+    - generic [ref=e1322]:
+      - tablist [ref=e1324]:
+        - tab "Create manually" [selected] [ref=e1325] [cursor=pointer]:
+          - generic [ref=e1326]:
+            - img [ref=e1329]
+            - generic [ref=e1331]: Create manually
+        - tab "Create with Breeze" [ref=e1333] [cursor=pointer]:
+          - generic [ref=e1334]:
+            - img [ref=e1337]
+            - generic [ref=e1339]: Create with Breeze
+      - tabpanel [ref=e1341]:
+        - generic [ref=e1342]:
+          - generic [ref=e1344]:
+            - generic [ref=e1347]:
+              - generic [ref=e1353]:
+                - text: Property label
+                - generic [ref=e1354]: "*"
+              - textbox "Property label *" [active] [ref=e1355]: List ID
+            - button [ref=e1357] [cursor=pointer]:
+              - img [ref=e1359]
+          - generic [ref=e1363]:
+            - generic [ref=e1369]:
+              - text: Field type
+              - generic [ref=e1370]: "*"
+            - button "Field type * Single-line text" [ref=e1372] [cursor=pointer]:
+              - option "Single-line text" [ref=e1376]:
+                - generic [ref=e1377]:
+                  - img [ref=e1379]
+                  - generic [ref=e1381]: Single-line text
+          - generic [ref=e1383]:
+            - generic [ref=e1387]:
+              - generic [ref=e1388]: Data Agent prompt
+              - img [ref=e1389]
+            - generic [ref=e1396] [cursor=pointer]:
+              - checkbox "Make this a smart property and let Data Agent research and fill this property for you." [ref=e1397]
+              - paragraph [ref=e1405]: Make this a smart property and let Data Agent research and fill this property for you.
+          - generic "Rules" [ref=e1409]:
+            - generic [ref=e1412] [cursor=pointer]:
+              - checkbox "Require unique values for this property (0 of 10)" [ref=e1413]
+              - generic [ref=e1421]:
+                - text: Require unique values for this property (
+                - generic [ref=e1422]: 0 of 10
+                - text: )
+    - contentinfo [ref=e1423]:
+      - generic [ref=e1425]:
+        - generic [ref=e1427]:
+          - button "Create property" [ref=e1428] [cursor=pointer]:
+            - generic [ref=e1431]: Create property
+          - button "Edit more options" [ref=e1432] [cursor=pointer]:
+            - generic [ref=e1434]: Edit more options
+        - button "Cancel" [ref=e1435] [cursor=pointer]:
+          - generic [ref=e1437]: Cancel

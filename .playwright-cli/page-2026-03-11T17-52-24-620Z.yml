@@ -1,0 +1,259 @@
+- generic [ref=e1]:
+  - generic:
+    - region "Notification Toasts":
+      - heading "1 notification total" [level=2] [ref=e9]
+      - generic [ref=e11]:
+        - img [ref=e13]
+        - alert [ref=e16]:
+          - generic [ref=e18]: We’ve updated certain metrics.
+          - link "View metric restatements to learn more." [ref=e19] [cursor=pointer]:
+            - /url: /campaignmanager/accounts/517969837/metric-restatements
+        - button "Dismiss “We’ve updated certain metrics.” notification 1 of 1." [ref=e21] [cursor=pointer]:
+          - img [ref=e23]
+  - button "Chat with us" [ref=e27] [cursor=pointer]:
+    - img [ref=e29]
+  - generic [ref=e515]:
+    - generic [ref=e516]:
+      - heading "Measure key results with Website Actions" [level=1] [ref=e517]
+      - paragraph [ref=e518]: Track conversions from vital website buttons and pages to measure how your ads influenced diverse actions, such as eBook downloads.
+      - button "Got it" [ref=e520] [cursor=pointer]:
+        - generic [ref=e521]: Got it
+    - button "Dismiss" [ref=e522] [cursor=pointer]:
+      - img [ref=e523]
+  - generic [ref=e32]:
+    - generic [ref=e35]:
+      - button "Skip to main content" [ref=e36] [cursor=pointer]
+      - button "Close jump menu" [ref=e37] [cursor=pointer]:
+        - img [ref=e38]
+        - generic [ref=e40]: Close jump menu
+    - banner [ref=e41]:
+      - generic [ref=e42]:
+        - button [ref=e49] [cursor=pointer]:
+          - generic [ref=e51]:
+            - generic [ref=e52]:
+              - img [ref=e54]:
+                - img [ref=e55]
+              - img [ref=e58]
+            - img [ref=e61]
+        - generic [ref=e384]:
+          - heading "Actions List" [level=2] [ref=e63]
+          - list [ref=e385]:
+            - listitem [ref=e386]:
+              - generic [ref=e388]: Truv Ad Account
+              - img "Truv company icon" [ref=e391]
+          - separator [ref=e392]
+        - button "At least one account has unseen notifications, click to enter notifications experience 2 new account notifications" [ref=e65] [cursor=pointer]:
+          - generic [ref=e66]:
+            - generic [ref=e67]: At least one account has unseen notifications, click to enter notifications experience
+            - generic [ref=e68]:
+              - generic [ref=e69]:
+                - generic [ref=e70]: "2"
+                - generic [ref=e71]: 2 new account notifications
+              - img [ref=e73]
+        - button "Learn more about campaign manager" [ref=e76] [cursor=pointer]:
+          - img "Help" [ref=e78]:
+            - img [ref=e80]
+        - button "Open user menu Icon for Truv" [ref=e82] [cursor=pointer]:
+          - generic [ref=e83]:
+            - generic [ref=e84]: Open user menu
+            - img "Icon for Truv" [ref=e86]
+    - main [ref=e180]:
+      - generic [ref=e394]:
+        - link "Back to conversion tracking" [ref=e395] [cursor=pointer]:
+          - /url: "#"
+          - img [ref=e397]
+        - heading "Create Insight Tag conversion" [level=1] [ref=e402]
+      - generic [ref=e403]:
+        - list [ref=e407]:
+          - listitem [ref=e526]:
+            - generic [ref=e527]: Completed
+            - generic [ref=e529]: "1"
+            - paragraph [ref=e531]: Settings
+          - listitem [ref=e532]:
+            - generic [ref=e533]: Current
+            - generic [ref=e535]: "2"
+            - paragraph [ref=e537]: Sources
+          - listitem [ref=e538]:
+            - generic [ref=e541]: "3"
+            - paragraph [ref=e543]: Review
+        - heading "Choose the conversion tracking method" [level=2] [ref=e545]
+        - generic [ref=e546]:
+          - group "Use LinkedIn’s new website actions to automatically track conversion events on your website, manually set up conversions, or use an advanced method using a tag manager to define your conversion." [ref=e547]:
+            - generic [ref=e549]:
+              - text: Use LinkedIn’s new
+              - link "website actions" [ref=e550] [cursor=pointer]:
+                - /url: https://www.linkedin.com/help/lms/answer/a1377948?accountId=517969837
+              - text: to automatically track conversion events on your website,
+              - link "manually set up conversions" [ref=e551] [cursor=pointer]:
+                - /url: https://www.linkedin.com/help/lms/answer/a420536?accountId=517969837
+              - text: ", or use an advanced method using a"
+              - link "tag manager" [ref=e552] [cursor=pointer]:
+                - /url: https://www.linkedin.com/help/lms/answer/a422760?accountId=517969837
+              - text: to define your conversion.
+            - generic [ref=e553]:
+              - generic [ref=e554]:
+                - radio "Website actions (new)" [checked] [active] [ref=e556] [cursor=pointer]
+                - generic [ref=e557]: Website actions (new)
+              - generic [ref=e558]: Track conversions that matter to you with one click
+            - generic [ref=e559]:
+              - generic [ref=e560]:
+                - radio "Manual conversions setup" [ref=e562] [cursor=pointer]
+                - generic [ref=e563]: Manual conversions setup
+              - generic [ref=e564]: Manually set up conversion events using the Insight Tag
+            - generic [ref=e565]:
+              - generic [ref=e566]:
+                - radio "Tag manager" [ref=e568] [cursor=pointer]
+                - generic [ref=e569]: Tag manager
+              - generic [ref=e570]: Use a tag manager to implement Insight Tag and track conversions
+          - generic [ref=e575]:
+            - generic [ref=e576]: Select actions from your website
+            - generic [ref=e578]:
+              - tablist [ref=e579]:
+                - tab "Buttons" [selected] [ref=e580] [cursor=pointer]
+                - tab "Pages" [ref=e581] [cursor=pointer]
+              - tabpanel "Buttons" [ref=e583]:
+                - generic [ref=e585]:
+                  - generic [ref=e586]: There are 12 results shown in the table. There are 12 results total.
+                  - table "List of button clicks in the table" [ref=e587]:
+                    - caption [ref=e588]: List of button clicks in the table
+                    - rowgroup [ref=e589]:
+                      - 'row "Domain: truvcom.wpcomstaging.com" [ref=e590]':
+                        - columnheader [ref=e591]:
+                          - textbox "Search button name" [ref=e595]
+                        - 'columnheader "Domain: truvcom.wpcomstaging.com" [ref=e596]':
+                          - 'button "Domain: truvcom.wpcomstaging.com" [ref=e603] [cursor=pointer]':
+                            - img [ref=e606]
+                            - generic [ref=e609]: "Domain: truvcom.wpcomstaging.com"
+                      - row "Button Will sort by button name in natural order Number of clicks (last 30 days) Will sort by number of clicks in natural order" [ref=e610]:
+                        - columnheader "Button Will sort by button name in natural order" [ref=e611]:
+                          - generic [ref=e612]:
+                            - generic [ref=e613]: Button
+                            - generic "Will sort by button name in natural order" [ref=e614]:
+                              - button "Will sort by button name in natural order" [ref=e615] [cursor=pointer]:
+                                - img [ref=e618]
+                        - columnheader "Number of clicks (last 30 days) Will sort by number of clicks in natural order" [ref=e621]:
+                          - generic [ref=e623]:
+                            - button "Number of clicks (last 30 days)" [ref=e624] [cursor=pointer]
+                            - generic "Will sort by number of clicks in natural order" [ref=e625]:
+                              - button "Will sort by number of clicks in natural order" [ref=e626] [cursor=pointer]:
+                                - img [ref=e629]
+                    - rowgroup [ref=e632]:
+                      - row "go to Truv Home page Appears on 1 page ~1" [ref=e633]:
+                        - cell "go to Truv Home page Appears on 1 page" [ref=e634]:
+                          - generic [ref=e635]:
+                            - checkbox "go to Truv Home page" [ref=e637]
+                            - generic [ref=e638]:
+                              - generic [ref=e640]: go to Truv Home page
+                              - button "Appears on 1 page" [ref=e642] [cursor=pointer]
+                        - cell "~1" [ref=e643]:
+                          - generic [ref=e645]: ~1
+                      - row "go to Truv linkedin in a new tab Appears on 1 page ~1" [ref=e646]:
+                        - cell "go to Truv linkedin in a new tab Appears on 1 page" [ref=e647]:
+                          - generic [ref=e648]:
+                            - checkbox "go to Truv linkedin in a new tab" [ref=e650]
+                            - generic [ref=e651]:
+                              - generic [ref=e653]: go to Truv linkedin in a new tab
+                              - button "Appears on 1 page" [ref=e655] [cursor=pointer]
+                        - cell "~1" [ref=e656]:
+                          - generic [ref=e658]: ~1
+                      - row "Legal & Privacy Policy Appears on 1 page ~1" [ref=e659]:
+                        - cell "Legal & Privacy Policy Appears on 1 page" [ref=e660]:
+                          - generic [ref=e661]:
+                            - checkbox "Legal & Privacy Policy" [ref=e663]
+                            - generic [ref=e664]:
+                              - generic [ref=e666]: Legal & Privacy Policy
+                              - button "Appears on 1 page" [ref=e668] [cursor=pointer]
+                        - cell "~1" [ref=e669]:
+                          - generic [ref=e671]: ~1
+                      - row "OK Appears on 1 page ~1" [ref=e672]:
+                        - cell "OK Appears on 1 page" [ref=e673]:
+                          - generic [ref=e674]:
+                            - checkbox "OK" [ref=e676]
+                            - generic [ref=e677]:
+                              - generic [ref=e679]: OK
+                              - button "Appears on 1 page" [ref=e681] [cursor=pointer]
+                        - cell "~1" [ref=e682]:
+                          - generic [ref=e684]: ~1
+                      - row "Verify LG&E & KU Energy employee Appears on 1 page ~1" [ref=e685]:
+                        - cell "Verify LG&E & KU Energy employee Appears on 1 page" [ref=e686]:
+                          - generic [ref=e687]:
+                            - checkbox "Verify LG&E & KU Energy employee" [ref=e689]
+                            - generic [ref=e690]:
+                              - generic [ref=e692]: Verify LG&E & KU Energy employee
+                              - button "Appears on 1 page" [ref=e694] [cursor=pointer]
+                        - cell "~1" [ref=e695]:
+                          - generic [ref=e697]: ~1
+                      - row "Log in Appears on 1 page ~1" [ref=e698]:
+                        - cell "Log in Appears on 1 page" [ref=e699]:
+                          - generic [ref=e700]:
+                            - checkbox "Log in" [ref=e702]
+                            - generic [ref=e703]:
+                              - generic [ref=e705]: Log in
+                              - button "Appears on 1 page" [ref=e707] [cursor=pointer]
+                        - cell "~1" [ref=e708]:
+                          - generic [ref=e710]: ~1
+                      - row "Consumer Lending. Cash Flow. Income & Employment. Payroll Pay. Learn more Appears on 1 page ~1" [ref=e711]:
+                        - cell "Consumer Lending. Cash Flow. Income & Employment. Payroll Pay. Learn more Appears on 1 page" [ref=e712]:
+                          - generic [ref=e713]:
+                            - checkbox "Consumer Lending. Cash Flow. Income & Employment. Payroll Pay. Learn more" [ref=e715]
+                            - generic [ref=e716]:
+                              - generic [ref=e718]: Consumer Lending. Cash Flow. Income & Employment. Payroll Pay. Learn more
+                              - button "Appears on 1 page" [ref=e720] [cursor=pointer]
+                        - cell "~1" [ref=e721]:
+                          - generic [ref=e723]: ~1
+                      - row "Pricing Appears on 1 page ~1" [ref=e724]:
+                        - cell "Pricing Appears on 1 page" [ref=e725]:
+                          - generic [ref=e726]:
+                            - checkbox "Pricing" [ref=e728]
+                            - generic [ref=e729]:
+                              - generic [ref=e731]: Pricing
+                              - button "Appears on 1 page" [ref=e733] [cursor=pointer]
+                        - cell "~1" [ref=e734]:
+                          - generic [ref=e736]: ~1
+                      - row "Verify C.W. Matthews Contracting employee Appears on 1 page ~1" [ref=e737]:
+                        - cell "Verify C.W. Matthews Contracting employee Appears on 1 page" [ref=e738]:
+                          - generic [ref=e739]:
+                            - checkbox "Verify C.W. Matthews Contracting employee" [ref=e741]
+                            - generic [ref=e742]:
+                              - generic [ref=e744]: Verify C.W. Matthews Contracting employee
+                              - button "Appears on 1 page" [ref=e746] [cursor=pointer]
+                        - cell "~1" [ref=e747]:
+                          - generic [ref=e749]: ~1
+                      - row "New French Bakery website Appears on 1 page ~1" [ref=e750]:
+                        - cell "New French Bakery website Appears on 1 page" [ref=e751]:
+                          - generic [ref=e752]:
+                            - checkbox "New French Bakery website" [ref=e754]
+                            - generic [ref=e755]:
+                              - generic [ref=e757]: New French Bakery website
+                              - button "Appears on 1 page" [ref=e759] [cursor=pointer]
+                        - cell "~1" [ref=e760]:
+                          - generic [ref=e762]: ~1
+                      - row "Verify PalAmerican Security employee Appears on 1 page ~1" [ref=e763]:
+                        - cell "Verify PalAmerican Security employee Appears on 1 page" [ref=e764]:
+                          - generic [ref=e765]:
+                            - checkbox "Verify PalAmerican Security employee" [ref=e767]
+                            - generic [ref=e768]:
+                              - generic [ref=e770]: Verify PalAmerican Security employee
+                              - button "Appears on 1 page" [ref=e772] [cursor=pointer]
+                        - cell "~1" [ref=e773]:
+                          - generic [ref=e775]: ~1
+                      - row "Verify New French Bakery employee Appears on 1 page ~1" [ref=e776]:
+                        - cell "Verify New French Bakery employee Appears on 1 page" [ref=e777]:
+                          - generic [ref=e778]:
+                            - checkbox "Verify New French Bakery employee" [ref=e780]
+                            - generic [ref=e781]:
+                              - generic [ref=e783]: Verify New French Bakery employee
+                              - button "Appears on 1 page" [ref=e785] [cursor=pointer]
+                        - cell "~1" [ref=e786]:
+                          - generic [ref=e788]: ~1
+        - generic:
+          - alert
+        - generic [ref=e790]:
+          - button "Cancel" [ref=e791] [cursor=pointer]:
+            - generic [ref=e792]: Cancel
+          - generic [ref=e793]:
+            - button "Previous step" [ref=e794] [cursor=pointer]:
+              - generic [ref=e795]: Previous step
+            - button "Next step" [disabled] [ref=e796]:
+              - generic [ref=e797]: Next step
+  - generic [ref=e203]: There is 1 search result

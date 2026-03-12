@@ -1,0 +1,211 @@
+- generic [ref=e1]:
+  - generic [ref=e2]:
+    - iframe [ref=e1510]:
+      - banner [ref=f9e6]:
+        - generic [ref=f9e7]:
+          - heading "You’ve used all your monthly credits" [level=5] [ref=f9e8]
+          - generic [ref=f9e9]:
+            - generic [ref=f9e12]: Usage is paused until your credits reset on Mar 25, 2026 or you add more.
+            - link "Add credits" [ref=f9e13] [cursor=pointer]:
+              - /url: https://app.hubspot.com/api/notification-station/general/v1/notifications/cta/ad1945e2-7ce6-4b56-b932-753c0738e0c8?notificationPortalId=19933594
+              - generic [ref=f9e14]: Add credits
+        - button "Close" [ref=f9e15] [cursor=pointer]:
+          - img [ref=f9e18]
+    - banner [ref=e4]:
+      - link "HubSpot logo" [ref=e6] [cursor=pointer]:
+        - /url: /global-home/19933594
+        - img "HubSpot logo" [ref=e7]
+      - generic [ref=e9]:
+        - generic [ref=e1514]:
+          - img
+          - searchbox "Search HubSpot" [ref=e1515]
+          - generic:
+            - generic: ⌘
+            - generic: K
+        - button "Create new" [ref=e13] [cursor=pointer]:
+          - img [ref=e14]
+      - navigation "Global toolbar" [ref=e16]:
+        - menu [ref=e17]:
+          - menuitem "Calls" [ref=e18]:
+            - button "Calls" [ref=e19] [cursor=pointer]:
+              - img "Calling" [ref=e20]
+          - menuitem "Academy" [ref=e22]:
+            - button "Academy" [ref=e23] [cursor=pointer]:
+              - img "Academy" [ref=e24]
+          - menuitem "Marketplace" [ref=e28]:
+            - button "Marketplace" [ref=e29] [cursor=pointer]:
+              - img "Marketplace" [ref=e30]
+          - menuitem "Help" [ref=e32]:
+            - button "Help" [ref=e34] [cursor=pointer]:
+              - img "Help" [ref=e35]
+          - menuitem "Settings" [ref=e37]:
+            - link "Settings" [ref=e38] [cursor=pointer]:
+              - /url: /settings/19933594/user-preferences/workflows?eschref=%2Fworkflows%2F19933594%2Fview%2Fdefault
+              - img "Settings" [ref=e39]
+          - generic [ref=e41]:
+            - 'menuitem "Notifications: 4 unseen" [ref=e42]':
+              - 'button "Notifications: 4 unseen" [ref=e43] [cursor=pointer]':
+                - img [ref=e44]
+            - generic: "4"
+          - menuitem "Open Assistant" [ref=e47]:
+            - button "Open Assistant" [ref=e48] [cursor=pointer]:
+              - img "Open Assistant" [ref=e49]
+              - generic [ref=e52]: Assistant
+          - menuitem "View profile and more" [ref=e54]:
+            - button "View profile and more" [ref=e55] [cursor=pointer]:
+              - img "Cam Wolf" [ref=e56]
+              - generic [ref=e57]: Truv
+              - img [ref=e58]
+  - generic [ref=e61]:
+    - button "Scroll up":
+      - img
+    - generic [ref=e62]:
+      - navigation [ref=e64]:
+        - menu [ref=e65]:
+          - menuitem "Home" [ref=e66] [cursor=pointer]:
+            - img "Home" [ref=e67]
+          - menuitem "Bookmarks" [ref=e69] [cursor=pointer]:
+            - img "Bookmarks" [ref=e1516]
+          - menuitem "CRM" [ref=e72] [cursor=pointer]:
+            - img "CRM" [ref=e73]
+          - menuitem "Marketing" [ref=e75] [cursor=pointer]:
+            - img "Marketing" [ref=e76]
+          - menuitem "Content" [ref=e78] [cursor=pointer]:
+            - img "Content" [ref=e79]
+          - menuitem "Sales" [ref=e81] [cursor=pointer]:
+            - img "Sales" [ref=e82]
+          - menuitem "Commerce" [ref=e84] [cursor=pointer]:
+            - img "Commerce" [ref=e85]
+          - menuitem "Service" [ref=e88] [cursor=pointer]:
+            - img "Service" [ref=e89]
+          - menuitem "Data Management" [ref=e93] [cursor=pointer]:
+            - img "Data Management" [ref=e94]
+          - menuitem "Automation" [ref=e96] [cursor=pointer]:
+            - img "Automation" [ref=e97]
+          - menuitem "Reporting" [ref=e99] [cursor=pointer]:
+            - img "Reporting" [ref=e100]
+          - menuitem "Breeze" [ref=e102] [cursor=pointer]:
+            - img "Breeze" [ref=e103]
+          - menuitem "Development" [ref=e105] [cursor=pointer]:
+            - img "Development" [ref=e106]
+      - button [ref=e110] [cursor=pointer]:
+        - img [ref=e111]
+    - button "Scroll down" [ref=e114] [cursor=pointer]:
+      - img [ref=e115]
+  - generic:
+    - iframe
+  - generic [ref=e117]:
+    - generic [ref=e1520]:
+      - region "Page Section" [ref=e1521]:
+        - banner [ref=e1522]:
+          - heading "Automation" [level=1] [ref=e1524]
+          - generic [ref=e1527]:
+            - button [ref=e3110] [cursor=pointer]:
+              - img [ref=e3112]
+            - link "Review automation issues" [ref=e1535] [cursor=pointer]:
+              - /url: /automation-issues/19933594?sourceApp=WORKFLOWS_APP
+              - generic [ref=e1536]:
+                - img [ref=e1537]
+                - generic [ref=e1539]: Review automation issues
+            - button "Create workflow" [ref=e1541] [cursor=pointer]:
+              - generic [ref=e1545]: Create workflow
+        - navigation [ref=e1549]:
+          - button "Overview" [ref=e1550] [cursor=pointer]: Overview
+          - button "Workflows" [ref=e1552] [cursor=pointer]: Workflows
+          - button "Analyze" [ref=e1554] [cursor=pointer]: Analyze
+          - button "Health" [ref=e1556] [cursor=pointer]: Health
+        - alert [ref=e1559]:
+          - generic [ref=e1561]:
+            - heading "Some credit-based workflow usage is paused" [level=5] [ref=e1562]:
+              - generic [ref=e1563]: Some credit-based workflow usage is paused
+            - paragraph [ref=e1565]:
+              - generic [ref=e1566]: You've used all your credits. Some credit-based workflow usage will be available when your credits reset on Mar 25, 2026. Need it sooner? Add credits.
+            - link "Add credits" [ref=e1569] [cursor=pointer]:
+              - /url: /pricing/19933594/hubspot-credits
+              - generic [ref=e1570]: Add credits
+          - button "Close" [ref=e1571] [cursor=pointer]:
+            - img [ref=e1574]
+      - region "Page Section" [ref=e1578]:
+        - main [ref=e1581]:
+          - generic [ref=e1583]:
+            - generic [ref=e1584]:
+              - generic [ref=e1585]:
+                - tablist [ref=e1590]:
+                  - button "309 All workflows All workflows" [ref=e1591]:
+                    - generic [ref=e1592]:
+                      - generic [ref=e1597]:
+                        - generic [ref=e1599]:
+                          - text: "309"
+                          - generic [ref=e1600]: All workflows
+                        - text: All workflows
+                      - button [ref=e1602] [cursor=pointer]:
+                        - img [ref=e1604]
+                  - button "Deleted" [ref=e1606]:
+                    - generic [ref=e1612]: Deleted
+                  - button "171 Unused Unused" [ref=e1613]:
+                    - generic [ref=e1619]:
+                      - generic [ref=e1621]:
+                        - text: "171"
+                        - generic [ref=e1622]: Unused
+                      - text: Unused
+                - generic [ref=e1623]:
+                  - button "Add view (3/50)" [ref=e1624] [cursor=pointer]:
+                    - generic [ref=e1626]:
+                      - img [ref=e1627]
+                      - generic [ref=e1629]: Add view (3/50)
+                  - link "All views" [ref=e1630] [cursor=pointer]:
+                    - /url: /manage-views/19933594/all?namespace=WORKFLOWS&objectTypeId=0-44&returnLink=%2Fworkflows%2F19933594%2Fview%2Fdefault&ownerId=82949240
+                    - generic [ref=e1631]: All views
+              - generic [ref=e1634] [cursor=pointer]:
+                - img [ref=e1635]
+                - generic [ref=e1637]: Folders
+            - group [ref=e1638]:
+              - generic [ref=e1639]:
+                - generic [ref=e1641]:
+                  - generic [ref=e1642]:
+                    - button "On or Off" [ref=e1645] [cursor=pointer]:
+                      - generic [ref=e3116]: On or Off
+                    - button "Object Type" [ref=e1653] [cursor=pointer]:
+                      - generic [ref=e3117]: Object Type
+                    - button "Created by" [ref=e1661] [cursor=pointer]:
+                      - generic [ref=e3118]: Created by
+                    - button "Teams" [ref=e1669] [cursor=pointer]:
+                      - generic [ref=e1673]: Teams
+                    - button "Folder" [ref=e1677] [cursor=pointer]:
+                      - generic [ref=e3119]: Folder
+                    - button "Created in" [ref=e1685] [cursor=pointer]:
+                      - generic [ref=e3120]: Created in
+                    - button "Action type" [ref=e1693] [cursor=pointer]:
+                      - generic [ref=e3121]: Action type
+                    - generic [ref=e1702]:
+                      - button "More" [ref=e1705] [cursor=pointer]:
+                        - generic [ref=e1707]:
+                          - img [ref=e1708]
+                          - generic [ref=e1710]: More
+                      - button "Advanced filters" [ref=e1715] [cursor=pointer]:
+                        - generic [ref=e1716]:
+                          - img [ref=e1717]
+                          - generic [ref=e1719]: Advanced filters
+                  - button "Set as default view" [disabled] [ref=e1720]:
+                    - generic [ref=e1723]: Set as default view
+                - generic [ref=e1726]:
+                  - button [disabled] [ref=e1727]:
+                    - img [ref=e1729]
+                  - button [ref=e1731] [cursor=pointer]:
+                    - img [ref=e1733]
+                  - button [disabled] [ref=e1735]:
+                    - img [ref=e1737]
+            - generic [ref=e1744]:
+              - generic [ref=e1746]:
+                - generic [ref=e1751]:
+                  - searchbox "Search workflows" [active] [ref=e1752]: webinar signup
+                  - button "Clear input" [ref=e3122] [cursor=pointer]:
+                    - img [ref=e3123]
+                - button "Actions" [ref=e1755] [cursor=pointer]:
+                  - generic [ref=e1758]: Actions
+              - generic [ref=e3128]:
+                - generic [ref=e3129]:
+                  - heading "No workflows match the current filters." [level=4] [ref=e3130]
+                  - generic [ref=e3131]: Expecting to see new workflows? Try again in a few seconds as the system catches up.
+                - img "empty-state-charts illustration" [ref=e3133]
+    - complementary
