@@ -5,6 +5,7 @@ import { createSend, cancelSend } from '../../services/campaignClient';
 import type { Send } from '../../types/campaign';
 import { SendTimeline } from './SendTimeline';
 import { AddSendDrawer } from './AddSendDrawer';
+import { CampaignResources } from './CampaignResources';
 import { CampaignAnalyticsPanel } from './CampaignAnalytics';
 import { CampaignHealthPanel } from './CampaignHealth';
 
@@ -48,6 +49,8 @@ export function Detail({ campaignId, onBack }: DetailProps) {
           </div>
         </div>
       </div>
+
+      <CampaignResources campaign={campaign} />
 
       <SendTimeline sends={campaign.sends || []} onCancel={handleCancel} onAddSend={() => setShowAddSend(true)} />
 
