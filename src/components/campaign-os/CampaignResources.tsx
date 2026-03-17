@@ -115,10 +115,14 @@ function ListPicker({ current, onSelect, onCancel }: { current: string; onSelect
 
 // ---- Template Picker (inline) ----
 
-function TemplatePicker({ onSelect, onCancel }: { onSelect: (id: string, name: string) => void; onCancel: () => void }) {
+function TemplatePicker({ onSelect, onCancel, campaignName }: { onSelect: (id: string, name: string) => void; onCancel: () => void; campaignName: string }) {
   const [tplMode, setTplMode] = useState<'create' | 'existing'>('create');
   const [templateId, setTemplateId] = useState('');
-  const [templateName, setTemplateName] = useState('');
+  const [templateName, setTemplateName] = useState(campaignName);
+  const [subject, setSubject] = useState('');
+  const [content, setContent] = useState('');
+  const [ctaUrl, setCtaUrl] = useState('');
+  const [ctaText, setCtaText] = useState('');
   const [creating, setCreating] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -130,7 +134,14 @@ function TemplatePicker({ onSelect, onCancel }: { onSelect: (id: string, name: s
       const res = await fetch('/api/campaigns/create-template', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name: templateName.trim() }),
+        body: JSON.stringify({
+          name: templateName.trim(),
+          subject: subject.trim() || undefined,
+          content: content.trim() || undefined,
+          ctaUrl: ctaUrl.trim() || undefined,
+          ctaText: ctaText.trim() || undefined,
+          campaignSlug: campaignName.toLowerCase().replace(/[^a-z0-9]+/g, '-'),
+        }),
       });
       if (!res.ok) {
         const data = await res.json();
@@ -146,7 +157,6 @@ function TemplatePicker({ onSelect, onCancel }: { onSelect: (id: string, name: s
 
   return (
     <div className="mt-2 border border-blue-200 rounded-lg bg-blue-50 p-3 space-y-2">
-      {/* Mode toggle */}
       <div className="flex gap-1 bg-white rounded-md p-0.5 border border-gray-200">
         <button
           onClick={() => setTplMode('create')}
@@ -170,18 +180,52 @@ function TemplatePicker({ onSelect, onCancel }: { onSelect: (id: string, name: s
             type="text"
             value={templateName}
             onChange={(e) => setTemplateName(e.target.value)}
-            placeholder="Template name (e.g., Webinar Invite - March 2026)"
+            placeholder="Template name"
             autoFocus
             className="w-full px-2.5 py-1.5 border border-gray-300 rounded-md text-xs focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
           />
-          <p className="text-xs text-gray-400">Creates an empty dynamic template in SendGrid. You can design it in SendGrid afterwards.</p>
+          <input
+            type="text"
+            value={subject}
+            onChange={(e) => setSubject(e.target.value)}
+            placeholder="Subject line"
+            className="w-full px-2.5 py-1.5 border border-gray-300 rounded-md text-xs focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
+          />
+          <textarea
+            value={content}
+            onChange={(e) => setContent(e.target.value)}
+            placeholder="Email body content — describe what the email should say. Include bullet points, sections, key messages. AI will generate branded Truv HTML from this."
+            rows={5}
+            className="w-full px-2.5 py-1.5 border border-gray-300 rounded-md text-xs focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white resize-y"
+          />
+          <div className="grid grid-cols-2 gap-2">
+            <input
+              type="text"
+              value={ctaUrl}
+              onChange={(e) => setCtaUrl(e.target.value)}
+              placeholder="CTA URL (e.g., https://truv.com/...)"
+              className="px-2.5 py-1.5 border border-gray-300 rounded-md text-xs focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
+            />
+            <input
+              type="text"
+              value={ctaText}
+              onChange={(e) => setCtaText(e.target.value)}
+              placeholder="CTA button text"
+              className="px-2.5 py-1.5 border border-gray-300 rounded-md text-xs focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
+            />
+          </div>
+          <p className="text-xs text-gray-400">
+            {content.trim()
+              ? 'AI will generate a branded Truv HTML email from your content and upload it to SendGrid.'
+              : 'Add content above to auto-generate HTML, or leave blank to create an empty template.'}
+          </p>
           <div className="flex gap-2">
             <button
               onClick={handleCreate}
               disabled={!templateName.trim() || creating}
               className="px-2.5 py-1 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-300 text-white text-xs rounded-md"
             >
-              {creating ? 'Creating...' : 'Create Template'}
+              {creating ? (content.trim() ? 'Generating...' : 'Creating...') : (content.trim() ? 'Generate & Create' : 'Create Empty')}
             </button>
             <button onClick={onCancel} className="text-xs text-gray-500 hover:text-gray-700">Cancel</button>
           </div>
@@ -451,7 +495,7 @@ export function CampaignResources({ campaign, onRefresh }: CampaignResourcesProp
               <button onClick={() => setEditingField('template')} className="text-sm text-blue-600 hover:underline">+ Add template</button>
             )}
             {editingField === 'template' && (
-              <TemplatePicker onSelect={handleTemplateSelect} onCancel={() => setEditingField(null)} />
+              <TemplatePicker onSelect={handleTemplateSelect} onCancel={() => setEditingField(null)} campaignName={campaign.name} />
             )}
           </div>
 
