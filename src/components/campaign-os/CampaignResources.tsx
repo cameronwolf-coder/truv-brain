@@ -161,15 +161,29 @@ function TemplatePicker({ onSelect, onCancel, campaignName }: { onSelect: (id: s
     return () => clearTimeout(t);
   }, [sgQuery]);
 
-  const handleClone = async (sourceId: string, sourceName: string) => {
-    const cloneName = `${campaignName} (from ${sourceName})`;
+  const [cloneSource, setCloneSource] = useState<SgTemplate | null>(null);
+  const [cloneContent, setCloneContent] = useState('');
+  const [cloneCtaUrl, setCloneCtaUrl] = useState('');
+  const [cloneCtaText, setCloneCtaText] = useState('');
+
+  const handleCloneSubmit = async () => {
+    if (!cloneSource) return;
+    const cloneName = `${campaignName}`;
     setCreating(true);
     setError(null);
     try {
       const res = await fetch('/api/campaigns/create-template', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name: cloneName, subject: subject.trim() || cloneName, cloneFromId: sourceId }),
+        body: JSON.stringify({
+          name: cloneName,
+          subject: subject.trim() || cloneName,
+          cloneFromId: cloneSource.id,
+          content: cloneContent.trim() || undefined,
+          ctaUrl: cloneCtaUrl.trim() || undefined,
+          ctaText: cloneCtaText.trim() || undefined,
+          campaignSlug: campaignName.toLowerCase().replace(/[^a-z0-9]+/g, '-'),
+        }),
       });
       if (!res.ok) {
         const data = await res.json();
@@ -252,31 +266,75 @@ function TemplatePicker({ onSelect, onCancel, campaignName }: { onSelect: (id: s
           ) : sgTemplates.length === 0 ? (
             <p className="text-xs text-gray-400 py-3 text-center">No templates found.</p>
           ) : (
-            <div className="max-h-52 overflow-y-auto divide-y divide-blue-100 rounded border border-blue-100 bg-white">
+            <div className="max-h-64 overflow-y-auto divide-y divide-blue-100 rounded border border-blue-100 bg-white">
               {sgTemplates.map((t) => (
-                <div key={t.id} className="px-2.5 py-2 text-xs hover:bg-blue-50 transition-colors">
-                  <div className="flex justify-between items-start">
-                    <div className="min-w-0 flex-1">
-                      <p className="font-medium text-gray-900 truncate">{t.name}</p>
-                      {t.subject && <p className="text-gray-500 truncate mt-0.5">{t.subject}</p>}
-                      <p className="text-gray-400 mt-0.5 font-mono">{t.id}</p>
-                    </div>
-                    <div className="flex gap-1.5 ml-2 flex-shrink-0">
-                      <button
-                        onClick={() => onSelect(t.id, t.name)}
-                        className="px-2 py-1 bg-blue-600 hover:bg-blue-700 text-white text-xs rounded transition-colors"
-                      >
-                        Use
-                      </button>
-                      <button
-                        onClick={() => handleClone(t.id, t.name)}
-                        disabled={creating}
-                        className="px-2 py-1 border border-blue-300 text-blue-600 hover:bg-blue-100 text-xs rounded transition-colors disabled:opacity-50"
-                      >
-                        {creating ? '...' : 'Clone'}
-                      </button>
+                <div key={t.id}>
+                  <div className="px-2.5 py-2 text-xs hover:bg-blue-50 transition-colors">
+                    <div className="flex justify-between items-start">
+                      <div className="min-w-0 flex-1">
+                        <p className="font-medium text-gray-900 truncate">{t.name}</p>
+                        {t.subject && <p className="text-gray-500 truncate mt-0.5">{t.subject}</p>}
+                        <p className="text-gray-400 mt-0.5 font-mono">{t.id}</p>
+                      </div>
+                      <div className="flex gap-1.5 ml-2 flex-shrink-0">
+                        <button
+                          onClick={() => onSelect(t.id, t.name)}
+                          className="px-2 py-1 bg-blue-600 hover:bg-blue-700 text-white text-xs rounded transition-colors"
+                        >
+                          Use
+                        </button>
+                        <button
+                          onClick={() => setCloneSource(cloneSource?.id === t.id ? null : t)}
+                          className={`px-2 py-1 border text-xs rounded transition-colors ${
+                            cloneSource?.id === t.id
+                              ? 'border-blue-600 bg-blue-100 text-blue-700'
+                              : 'border-blue-300 text-blue-600 hover:bg-blue-100'
+                          }`}
+                        >
+                          Clone
+                        </button>
+                      </div>
                     </div>
                   </div>
+                  {cloneSource?.id === t.id && (
+                    <div className="px-2.5 pb-2.5 space-y-2 bg-blue-50 border-t border-blue-100">
+                      <p className="text-xs text-gray-600 pt-2">Cloning design from <strong>{t.name}</strong>. Add your new content below:</p>
+                      <textarea
+                        value={cloneContent}
+                        onChange={(e) => setCloneContent(e.target.value)}
+                        placeholder="New email content — hero title, body paragraphs, bullet points, sections. AI will replace the copy while keeping the design."
+                        rows={4}
+                        autoFocus
+                        className="w-full px-2 py-1.5 border border-gray-300 rounded-md text-xs focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white resize-y"
+                      />
+                      <div className="grid grid-cols-2 gap-2">
+                        <input
+                          type="text"
+                          value={cloneCtaUrl}
+                          onChange={(e) => setCloneCtaUrl(e.target.value)}
+                          placeholder="CTA URL"
+                          className="px-2 py-1.5 border border-gray-300 rounded-md text-xs focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
+                        />
+                        <input
+                          type="text"
+                          value={cloneCtaText}
+                          onChange={(e) => setCloneCtaText(e.target.value)}
+                          placeholder="CTA button text"
+                          className="px-2 py-1.5 border border-gray-300 rounded-md text-xs focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
+                        />
+                      </div>
+                      <div className="flex gap-2">
+                        <button
+                          onClick={handleCloneSubmit}
+                          disabled={creating}
+                          className="px-2.5 py-1 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-300 text-white text-xs rounded-md"
+                        >
+                          {creating ? 'Generating...' : (cloneContent.trim() ? 'Clone & Rewrite' : 'Clone As-Is')}
+                        </button>
+                        <button onClick={() => setCloneSource(null)} className="text-xs text-gray-500">Cancel</button>
+                      </div>
+                    </div>
+                  )}
                 </div>
               ))}
             </div>

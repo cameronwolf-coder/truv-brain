@@ -49,7 +49,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     const { name, subject, content, ctaUrl, ctaText, heroStyle, campaignSlug, cloneFromId } = req.body;
     if (!name) return res.status(400).json({ error: 'Template name is required' });
 
-    // Clone mode: copy HTML from an existing template
+    // Clone mode: copy HTML structure from existing template, regenerate content with Gemini
     if (cloneFromId) {
       const srcRes = await fetch(`https://api.sendgrid.com/v3/templates/${cloneFromId}`, {
         headers: { Authorization: `Bearer ${SENDGRID_API_KEY}` },
@@ -59,6 +59,60 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       const activeVersion = (srcData.versions || []).find((v: { active: number }) => v.active === 1);
       if (!activeVersion) throw new Error('Source template has no active version');
 
+      let finalHtml = activeVersion.html_content;
+
+      // If content is provided, use Gemini to rewrite the HTML with new content
+      if (content && GEMINI_API_KEY) {
+        const client = new OpenAI({ apiKey: GEMINI_API_KEY, baseURL: GEMINI_BASE_URL });
+
+        const rewriteResponse = await client.chat.completions.create({
+          model: 'gemini-2.0-flash',
+          max_tokens: 12000,
+          messages: [
+            {
+              role: 'system',
+              content: `You are an HTML email editor. You will receive an existing HTML email template and new content. Your job is to keep the EXACT same HTML structure, CSS styles, layout, hero design, footer, and brand elements — but replace the text content (title, subtitle, body paragraphs, bullet points, section headings, CTA text) with the new content provided.
+
+RULES:
+- Keep ALL CSS, @font-face, @media queries, table structure, colors, images, logos EXACTLY as-is
+- Keep {{firstName}} personalization and {{{unsubscribe}}} link
+- Replace the <title> tag text
+- Replace hero h1, subtitle, badge text, and CTA button text
+- Replace body paragraphs, bullet lists, section headings with new content
+- Replace bottom CTA button text
+- Update UTM campaign slug if a new one is provided
+- Output ONLY the complete modified HTML, no explanation or markdown fences
+- If the new content has fewer sections than the original, remove extra sections
+- If the new content has more sections, add them following the same HTML pattern as existing sections`,
+            },
+            {
+              role: 'user',
+              content: `EXISTING HTML TEMPLATE:
+${activeVersion.html_content}
+
+---
+
+NEW CONTENT TO USE:
+Template name: ${name}
+Subject: ${subject || name}
+Campaign slug: ${campaignSlug || name.toLowerCase().replace(/[^a-z0-9]+/g, '-')}
+CTA URL: ${ctaUrl || 'https://truv.com'}
+CTA button text: ${ctaText || 'Learn More'}
+
+${content}
+
+Rewrite the HTML template with this new content, keeping the exact same design and structure.`,
+            },
+          ],
+        });
+
+        const rewrittenHtml = rewriteResponse.choices[0]?.message?.content || '';
+        if (rewrittenHtml && (rewrittenHtml.includes('<!DOCTYPE') || rewrittenHtml.includes('<html'))) {
+          finalHtml = rewrittenHtml.replace(/^```html?\n?/i, '').replace(/\n?```$/i, '').trim();
+        }
+      }
+
+      // Create new template
       const createRes = await fetch('https://api.sendgrid.com/v3/templates', {
         method: 'POST',
         headers: { Authorization: `Bearer ${SENDGRID_API_KEY}`, 'Content-Type': 'application/json' },
@@ -73,7 +127,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         body: JSON.stringify({
           name: 'v1',
           subject: subject || name,
-          html_content: activeVersion.html_content,
+          html_content: finalHtml,
           active: 1,
         }),
       });
@@ -83,7 +137,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         templateId: newTemplate.id,
         name: newTemplate.name,
         editUrl: `https://mc.sendgrid.com/dynamic-templates/${newTemplate.id}`,
-        generated: false,
+        generated: !!content,
         clonedFrom: cloneFromId,
         clonedFromName: srcData.name,
       });
