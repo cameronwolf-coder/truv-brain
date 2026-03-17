@@ -161,6 +161,28 @@ function TemplatePicker({ onSelect, onCancel, campaignName }: { onSelect: (id: s
     return () => clearTimeout(t);
   }, [sgQuery]);
 
+  const handleClone = async (sourceId: string, sourceName: string) => {
+    const cloneName = `${campaignName} (from ${sourceName})`;
+    setCreating(true);
+    setError(null);
+    try {
+      const res = await fetch('/api/campaigns/create-template', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name: cloneName, subject: subject.trim() || cloneName, cloneFromId: sourceId }),
+      });
+      if (!res.ok) {
+        const data = await res.json();
+        throw new Error(data.error || `Failed: ${res.status}`);
+      }
+      const data = await res.json();
+      onSelect(data.templateId, cloneName);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Clone failed');
+    }
+    setCreating(false);
+  };
+
   const handleCreate = async () => {
     if (!templateName.trim()) return;
     setCreating(true);
@@ -232,20 +254,30 @@ function TemplatePicker({ onSelect, onCancel, campaignName }: { onSelect: (id: s
           ) : (
             <div className="max-h-52 overflow-y-auto divide-y divide-blue-100 rounded border border-blue-100 bg-white">
               {sgTemplates.map((t) => (
-                <button
-                  key={t.id}
-                  onClick={() => onSelect(t.id, t.name)}
-                  className="w-full text-left px-2.5 py-2 text-xs hover:bg-blue-50 transition-colors"
-                >
+                <div key={t.id} className="px-2.5 py-2 text-xs hover:bg-blue-50 transition-colors">
                   <div className="flex justify-between items-start">
                     <div className="min-w-0 flex-1">
                       <p className="font-medium text-gray-900 truncate">{t.name}</p>
-                      {t.subject && <p className="text-gray-500 truncate mt-0.5">Subject: {t.subject}</p>}
+                      {t.subject && <p className="text-gray-500 truncate mt-0.5">{t.subject}</p>}
+                      <p className="text-gray-400 mt-0.5 font-mono">{t.id}</p>
                     </div>
-                    <span className="text-gray-400 font-mono ml-2 flex-shrink-0">{t.id.slice(0, 12)}...</span>
+                    <div className="flex gap-1.5 ml-2 flex-shrink-0">
+                      <button
+                        onClick={() => onSelect(t.id, t.name)}
+                        className="px-2 py-1 bg-blue-600 hover:bg-blue-700 text-white text-xs rounded transition-colors"
+                      >
+                        Use
+                      </button>
+                      <button
+                        onClick={() => handleClone(t.id, t.name)}
+                        disabled={creating}
+                        className="px-2 py-1 border border-blue-300 text-blue-600 hover:bg-blue-100 text-xs rounded transition-colors disabled:opacity-50"
+                      >
+                        {creating ? '...' : 'Clone'}
+                      </button>
+                    </div>
                   </div>
-                  <p className="text-gray-400 mt-0.5">{new Date(t.updatedAt).toLocaleDateString()}</p>
-                </button>
+                </div>
               ))}
             </div>
           )}
