@@ -25,6 +25,7 @@ export function AudienceStage({ campaign, onComplete }: StageProps) {
   const [listQuery, setListQuery] = useState('');
   const [loadingLists, setLoadingLists] = useState(false);
   const [selectedList, setSelectedList] = useState<HubSpotList | null>(null);
+  const [lookupError, setLookupError] = useState<string | null>(null);
 
   // Search mode state
   const [query, setQuery] = useState('');
@@ -37,6 +38,35 @@ export function AudienceStage({ campaign, onComplete }: StageProps) {
   const [totalCount, setTotalCount] = useState(0);
 
   const pipelineStage = campaign.pipeline.find((s) => s.stage === 'audience');
+
+  // Extract list ID from URL or raw input
+  const extractListId = (input: string): string | null => {
+    // URL format: https://app.hubspot.com/contacts/19933594/lists/9248
+    const urlMatch = input.match(/lists\/(\d+)/);
+    if (urlMatch) return urlMatch[1];
+    // Pure numeric ID
+    if (/^\d+$/.test(input.trim())) return input.trim();
+    return null;
+  };
+
+  // Look up a single list by ID
+  const lookupList = async (id: string) => {
+    setLookupError(null);
+    setLoadingLists(true);
+    try {
+      const res = await fetch(`/api/campaigns/hubspot-lists?listId=${id}`);
+      if (!res.ok) throw new Error(`List ${id} not found`);
+      const data = await res.json();
+      if (data.list) {
+        setSelectedList(data.list);
+      } else {
+        throw new Error(`List ${id} not found`);
+      }
+    } catch (err) {
+      setLookupError(err instanceof Error ? err.message : 'Lookup failed');
+    }
+    setLoadingLists(false);
+  };
 
   // Load HubSpot lists
   const loadLists = async () => {
@@ -56,9 +86,14 @@ export function AudienceStage({ campaign, onComplete }: StageProps) {
     if (mode === 'list') loadLists();
   }, [mode]);
 
-  // Debounced list search
+  // Handle query changes — check for URL/ID, else debounced search
   useEffect(() => {
     if (mode !== 'list') return;
+    const id = extractListId(listQuery);
+    if (id) {
+      lookupList(id);
+      return;
+    }
     const timer = setTimeout(loadLists, 300);
     return () => clearTimeout(timer);
   }, [listQuery]);
@@ -192,10 +227,15 @@ export function AudienceStage({ campaign, onComplete }: StageProps) {
                 type="text"
                 value={listQuery}
                 onChange={(e) => setListQuery(e.target.value)}
-                placeholder="Search HubSpot lists..."
+                placeholder="Search by name, paste a HubSpot list URL, or enter a list ID..."
                 className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
+              <p className="text-xs text-gray-400 mt-1">e.g., "webinar" or https://app.hubspot.com/contacts/.../lists/9248 or just 9248</p>
             </div>
+
+            {lookupError && (
+              <div className="text-xs text-red-600 bg-red-50 border border-red-100 rounded-lg px-3 py-2">{lookupError}</div>
+            )}
 
             {loadingLists ? (
               <p className="text-xs text-gray-400 py-4 text-center">Loading lists...</p>
