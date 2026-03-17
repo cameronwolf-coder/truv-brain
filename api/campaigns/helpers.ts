@@ -3,7 +3,7 @@ import { Redis } from '@upstash/redis';
 export function getRedis(): Redis {
   const url = process.env.UPSTASH_REDIS_REST_URL;
   const token = process.env.UPSTASH_REDIS_REST_TOKEN;
-  if (!url || !token) throw new Error('Redis not configured');
+  if (!url || !token) throw new Error('Redis not configured — UPSTASH_REDIS_REST_URL and UPSTASH_REDIS_REST_TOKEN env vars required');
   return new Redis({ url, token });
 }
 
