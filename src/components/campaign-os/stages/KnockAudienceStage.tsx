@@ -7,8 +7,6 @@ interface StageProps {
   onComplete: (stage: StageName, result: Record<string, unknown>) => Promise<void>;
 }
 
-const KNOCK_WRAPPER_URL = 'https://knock-wrapper.vercel.app';
-
 export function KnockAudienceStage({ campaign, onComplete }: StageProps) {
   const audienceKey = campaign.id;
   const pipelineStage = campaign.pipeline.find((s) => s.stage === 'knock_audience');
@@ -18,22 +16,22 @@ export function KnockAudienceStage({ campaign, onComplete }: StageProps) {
     const listId = campaign.audience?.hubspotListId;
     if (!listId) throw new Error('No HubSpot list ID — complete the previous stage first.');
 
-    const res = await fetch(`${KNOCK_WRAPPER_URL}/api/audiences`, {
+    const res = await fetch('/api/campaigns/sync-audience', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ audienceKey, hubspotListId: listId }),
+      body: JSON.stringify({ campaignId: campaign.id }),
     });
 
     if (!res.ok) {
-      const errText = await res.text();
-      throw new Error(`Knock audience push failed: ${errText}`);
+      const data = await res.json().catch(() => ({}));
+      throw new Error(data.error || `Sync failed: ${res.status}`);
     }
 
     const data = await res.json();
     setMemberCount(data.memberCount || campaign.audience?.count || 0);
 
     await onComplete('knock_audience', {
-      audienceKey,
+      audienceKey: data.audienceKey || audienceKey,
       memberCount: data.memberCount || campaign.audience?.count || 0,
     });
   };
