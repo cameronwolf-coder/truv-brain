@@ -18,9 +18,17 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     }
 
     const redis = new Redis({ url, token });
+
+    // If ?fix=1 is passed, delete the bad key
+    if (req.query.fix === '1') {
+      await redis.del('campaigns:index');
+      return res.status(200).json({ status: 'fixed', message: 'Deleted campaigns:index key' });
+    }
+
+    const keyType = await redis.type('campaigns:index');
     const ping = await redis.ping();
 
-    return res.status(200).json({ status: 'ok', ping, redisUrl: url.substring(0, 30) + '...' });
+    return res.status(200).json({ status: 'ok', ping, keyType, redisUrl: url.substring(0, 30) + '...' });
   } catch (error) {
     return res.status(200).json({
       status: 'error',
