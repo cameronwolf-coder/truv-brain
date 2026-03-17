@@ -10,7 +10,6 @@ import { ProofPoints } from './pages/ProofPoints';
 import { Products } from './pages/Products';
 import { Personas } from './pages/Personas';
 import { Brand } from './pages/Brand';
-import { Campaigns } from './pages/Campaigns';
 import { EmailBuilder } from './pages/EmailBuilder';
 import { ListBuilder } from './pages/ListBuilder';
 import { SmartListBuilder } from './pages/SmartListBuilder';
@@ -23,6 +22,7 @@ import { EmailPerformance } from './pages/EmailPerformance';
 const MarketingHub = lazy(() => import('./pages/MarketingHub').then((m) => ({ default: m.MarketingHub })));
 const Hub = lazy(() => import('./pages/Hub').then((m) => ({ default: m.Hub })));
 const VideoEditor = lazy(() => import('./pages/VideoEditor').then((m) => ({ default: m.VideoEditor })));
+const CampaignOS = lazy(() => import('./pages/CampaignOS').then((m) => ({ default: m.CampaignOS })));
 import './index.css';
 
 const router = createBrowserRouter([
@@ -56,7 +56,7 @@ const router = createBrowserRouter([
       },
       {
         path: 'campaigns',
-        element: <Campaigns />,
+        element: <Suspense fallback={<div className="p-8 text-gray-500">Loading...</div>}><CampaignOS /></Suspense>,
       },
       {
         path: 'email-builder',
