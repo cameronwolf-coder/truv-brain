@@ -165,34 +165,7 @@ function TemplatePicker({ onSelect, onCancel, campaignName }: { onSelect: (id: s
   const [cloneContent, setCloneContent] = useState('');
   const [cloneCtaUrl, setCloneCtaUrl] = useState('');
   const [cloneCtaText, setCloneCtaText] = useState('');
-  const [notionUrl, setNotionUrl] = useState('');
-  const [fetchingNotion, setFetchingNotion] = useState(false);
-
-  const handleFetchNotion = async (targetSetter: (content: string) => void) => {
-    if (!notionUrl.trim()) return;
-    setFetchingNotion(true);
-    setError(null);
-    try {
-      const res = await fetch('/api/campaigns/fetch-notion', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          notionUrl: notionUrl.trim(),
-          campaignSlug: campaignName.toLowerCase().replace(/[^a-z0-9]+/g, '-'),
-        }),
-      });
-      if (!res.ok) {
-        const data = await res.json();
-        throw new Error(data.error || `Failed: ${res.status}`);
-      }
-      const data = await res.json();
-      targetSetter(data.content || '');
-      if (data.title && !subject) setSubject(data.title);
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Notion fetch failed');
-    }
-    setFetchingNotion(false);
-  };
+  // Notion import removed — workspace doesn't allow integration creation
 
   const handleCloneSubmit = async () => {
     if (!cloneSource) return;
@@ -326,27 +299,11 @@ function TemplatePicker({ onSelect, onCancel, campaignName }: { onSelect: (id: s
                   </div>
                   {cloneSource?.id === t.id && (
                     <div className="px-2.5 pb-2.5 space-y-2 bg-blue-50 border-t border-blue-100">
-                      <p className="text-xs text-gray-600 pt-2">Cloning design from <strong>{t.name}</strong>. Add content via Notion or type it:</p>
-                      <div className="flex gap-1.5">
-                        <input
-                          type="text"
-                          value={notionUrl}
-                          onChange={(e) => setNotionUrl(e.target.value)}
-                          placeholder="Paste Notion page URL to import content..."
-                          className="flex-1 px-2 py-1.5 border border-gray-300 rounded-md text-xs focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
-                        />
-                        <button
-                          onClick={() => handleFetchNotion(setCloneContent)}
-                          disabled={!notionUrl.trim() || fetchingNotion}
-                          className="px-2.5 py-1.5 bg-gray-700 hover:bg-gray-800 disabled:bg-gray-300 text-white text-xs rounded-md flex-shrink-0"
-                        >
-                          {fetchingNotion ? 'Fetching...' : 'Import'}
-                        </button>
-                      </div>
+                      <p className="text-xs text-gray-600 pt-2">Cloning design from <strong>{t.name}</strong>. Add your new content:</p>
                       <textarea
                         value={cloneContent}
                         onChange={(e) => setCloneContent(e.target.value)}
-                        placeholder="Or type content directly — hero title, body paragraphs, bullet points, sections. AI will replace the copy while keeping the design."
+                        placeholder="Paste or type your new content — hero title, body paragraphs, bullet points, sections. AI will replace the copy while keeping the design."
                         rows={4}
                         className="w-full px-2 py-1.5 border border-gray-300 rounded-md text-xs focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white resize-y"
                       />
@@ -401,26 +358,10 @@ function TemplatePicker({ onSelect, onCancel, campaignName }: { onSelect: (id: s
             placeholder="Subject line"
             className="w-full px-2.5 py-1.5 border border-gray-300 rounded-md text-xs focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
           />
-          <div className="flex gap-1.5">
-            <input
-              type="text"
-              value={notionUrl}
-              onChange={(e) => setNotionUrl(e.target.value)}
-              placeholder="Paste Notion page URL to import content..."
-              className="flex-1 px-2.5 py-1.5 border border-gray-300 rounded-md text-xs focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
-            />
-            <button
-              onClick={() => handleFetchNotion(setContent)}
-              disabled={!notionUrl.trim() || fetchingNotion}
-              className="px-2.5 py-1.5 bg-gray-700 hover:bg-gray-800 disabled:bg-gray-300 text-white text-xs rounded-md flex-shrink-0"
-            >
-              {fetchingNotion ? 'Fetching...' : 'Import'}
-            </button>
-          </div>
           <textarea
             value={content}
             onChange={(e) => setContent(e.target.value)}
-            placeholder="Or type content — describe what the email should say. Include bullet points, sections, key messages. AI will generate branded Truv HTML from this."
+            placeholder="Paste or type content — describe what the email should say. Include bullet points, sections, key messages. AI will generate branded Truv HTML from this."
             rows={5}
             className="w-full px-2.5 py-1.5 border border-gray-300 rounded-md text-xs focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white resize-y"
           />
