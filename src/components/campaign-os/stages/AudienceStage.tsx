@@ -18,47 +18,45 @@ export function AudienceStage({ campaign, onComplete }: StageProps) {
   const pipelineStage = campaign.pipeline.find((s) => s.stage === 'audience');
 
   const handleExecute = async () => {
-    const body = {
-      filters: [] as Array<{ property: string; operator: string; value: unknown }>,
-      properties: ['email', 'firstname', 'lastname', 'company', 'hs_email_open', 'hs_email_click', 'lifecyclestage'],
+    const body: Record<string, unknown> = {
       limit: 100,
+      requireTitle: false,
     };
 
-    if (minOpens > 0) {
-      body.filters.push({ property: 'hs_email_open', operator: 'GT', value: minOpens });
-    }
-    if (minClicks > 0) {
-      body.filters.push({ property: 'hs_email_click', operator: 'GT', value: minClicks });
-    }
-    if (query.trim()) {
-      body.filters.push({ property: 'company', operator: 'CONTAINS_TOKEN', value: query.trim() });
+    if (excludeCustomers) {
+      body.excludeStages = ['customer', 'opportunity', 'evangelist', 'advocate', 'disqualified'];
     }
 
-    const res = await fetch('/api/list-builder/search', {
+    const engagement: Record<string, number> = {};
+    if (minOpens > 0) engagement.emailOpensWithin = minOpens;
+    if (minClicks > 0) engagement.emailClicksWithin = minClicks;
+    if (Object.keys(engagement).length > 0) body.engagement = engagement;
+
+    if (query.trim()) {
+      body.verticals = [query.trim()];
+    }
+
+    const res = await fetch('/api/search-contacts', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(body),
     });
 
-    if (!res.ok) throw new Error(`Search failed: ${res.status}`);
+    if (!res.ok) {
+      const errText = await res.text();
+      throw new Error(`Search failed (${res.status}): ${errText.slice(0, 200)}`);
+    }
     const data = await res.json();
 
-    let results = data.contacts || [];
-
-    if (excludeCustomers) {
-      const excluded = ['customer', 'opportunity', 'evangelist', 'advocate', 'disqualified'];
-      results = results.filter((c: { lifecyclestage?: string }) =>
-        !excluded.includes((c.lifecyclestage || '').toLowerCase())
-      );
-    }
+    const results = data.contacts || [];
 
     setContacts(results.slice(0, 20));
     setTotalCount(results.length);
 
     await onComplete('audience', {
       count: results.length,
-      contactIds: results.map((c: { hs_object_id?: string; vid?: string }) => c.hs_object_id || c.vid),
-      filterConfig: { filters: body.filters, excludeCustomers },
+      contactIds: results.map((c: { id?: string }) => c.id),
+      filterConfig: { filters: [], excludeCustomers },
     });
   };
 
