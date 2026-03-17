@@ -1,17 +1,10 @@
 import { useSearchParams } from 'react-router-dom';
+import { Wizard } from '../components/campaign-os/Wizard';
 
 function DashboardTab() {
   return (
     <div className="text-center py-20 text-gray-400">
       Dashboard — coming soon
-    </div>
-  );
-}
-
-function WizardTab() {
-  return (
-    <div className="text-center py-20 text-gray-400">
-      New Campaign wizard — coming soon
     </div>
   );
 }
@@ -66,7 +59,7 @@ export function CampaignOS() {
       </div>
 
       {tab === 'dashboard' && <DashboardTab />}
-      {tab === 'new' && <WizardTab />}
+      {tab === 'new' && <Wizard onComplete={() => setTab('dashboard')} />}
       {tab === 'library' && <LibraryTab />}
     </div>
   );
