@@ -86,7 +86,17 @@ export function Wizard({ onComplete }: WizardProps) {
     const updates: Partial<Campaign> = { pipeline: updatedPipeline };
 
     if (stageKey === 'audience' && result.count) {
-      updates.audience = { ...campaign.audience, count: result.count as number, hubspotListId: '' };
+      if (result.useExistingList && result.listId) {
+        // Existing list selected — skip list creation stage, mark it done too
+        updates.audience = { ...campaign.audience, count: result.count as number, hubspotListId: result.listId as string };
+        updates.status = 'building';
+        const listStageUpdate = updatedPipeline.map((s) =>
+          s.stage === 'list' ? { ...s, status: 'success' as const, result: { listId: result.listId, listName: result.listName, contactCount: result.count, skipped: true }, completedAt: new Date().toISOString() } : s
+        );
+        updates.pipeline = listStageUpdate;
+      } else {
+        updates.audience = { ...campaign.audience, count: result.count as number, hubspotListId: '' };
+      }
     }
     if (stageKey === 'list' && result.listId) {
       updates.audience = { ...campaign.audience, hubspotListId: result.listId as string };
@@ -109,8 +119,13 @@ export function Wizard({ onComplete }: WizardProps) {
     const updated = await updateCampaign(campaign.id, updates);
     setCampaign(updated);
 
-    if (currentStage < STAGES.length - 1) {
-      setCurrentStage(currentStage + 1);
+    // Auto-advance — skip stage 2 (list) if existing list was used
+    let nextStage = currentStage + 1;
+    if (stageKey === 'audience' && result.useExistingList && nextStage === 1) {
+      nextStage = 2; // jump to Knock Audience (stage index 2)
+    }
+    if (nextStage < STAGES.length) {
+      setCurrentStage(nextStage);
     }
   };
 
