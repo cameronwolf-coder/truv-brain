@@ -190,6 +190,8 @@ export function CampaignResources({ campaign, onRefresh }: CampaignResourcesProp
   const [loadingRecipients, setLoadingRecipients] = useState(true);
   const [editingField, setEditingField] = useState<'list' | 'template' | 'workflow' | null>(null);
   const [saving, setSaving] = useState(false);
+  const [actionLoading, setActionLoading] = useState<string | null>(null);
+  const [actionError, setActionError] = useState<string | null>(null);
 
   useEffect(() => {
     setLoadingRecipients(true);
@@ -239,6 +241,46 @@ export function CampaignResources({ campaign, onRefresh }: CampaignResourcesProp
     });
   };
 
+  const handleSyncAudience = async () => {
+    setActionLoading('sync-audience');
+    setActionError(null);
+    try {
+      const res = await fetch('/api/campaigns/sync-audience', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ campaignId: campaign.id }),
+      });
+      if (!res.ok) {
+        const data = await res.json();
+        throw new Error(data.error || `Failed: ${res.status}`);
+      }
+      onRefresh();
+    } catch (err) {
+      setActionError(err instanceof Error ? err.message : 'Sync failed');
+    }
+    setActionLoading(null);
+  };
+
+  const handleCreateWorkflow = async () => {
+    setActionLoading('create-workflow');
+    setActionError(null);
+    try {
+      const res = await fetch('/api/campaigns/create-workflow', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ campaignId: campaign.id }),
+      });
+      if (!res.ok) {
+        const data = await res.json();
+        throw new Error(data.error || `Failed: ${res.status}`);
+      }
+      onRefresh();
+    } catch (err) {
+      setActionError(err instanceof Error ? err.message : 'Creation failed');
+    }
+    setActionLoading(null);
+  };
+
   const changeButton = (field: 'list' | 'template' | 'workflow') => (
     <button
       onClick={() => setEditingField(editingField === field ? null : field)}
@@ -258,6 +300,12 @@ export function CampaignResources({ campaign, onRefresh }: CampaignResourcesProp
       <div className="p-4 space-y-5">
         {saving && (
           <div className="text-xs text-blue-600 bg-blue-50 rounded px-2 py-1">Saving...</div>
+        )}
+        {actionError && (
+          <div className="text-xs text-red-600 bg-red-50 border border-red-100 rounded px-3 py-2 flex items-center justify-between">
+            <span>{actionError}</span>
+            <button onClick={() => setActionError(null)} className="text-red-400 hover:text-red-600 ml-2">&times;</button>
+          </div>
         )}
 
         {/* Resource Links Grid */}
@@ -294,9 +342,26 @@ export function CampaignResources({ campaign, onRefresh }: CampaignResourcesProp
               <div>
                 <code className="text-sm bg-gray-100 px-1.5 py-0.5 rounded text-gray-800">{knockAudienceKey}</code>
                 <p className="text-xs text-gray-500 mt-0.5">{recipients.length || campaign.audience?.count || 0} members</p>
+                {hubspotListId && (
+                  <button
+                    onClick={handleSyncAudience}
+                    disabled={actionLoading === 'sync-audience'}
+                    className="text-xs text-blue-600 hover:underline mt-1"
+                  >
+                    {actionLoading === 'sync-audience' ? 'Syncing...' : 'Re-sync from HubSpot'}
+                  </button>
+                )}
               </div>
+            ) : hubspotListId ? (
+              <button
+                onClick={handleSyncAudience}
+                disabled={actionLoading === 'sync-audience'}
+                className="px-2.5 py-1.5 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-300 text-white text-xs font-medium rounded-md transition-colors"
+              >
+                {actionLoading === 'sync-audience' ? 'Syncing...' : 'Sync from HubSpot'}
+              </button>
             ) : (
-              <p className="text-sm text-gray-400">Not synced — set a HubSpot list first</p>
+              <p className="text-sm text-gray-400">Set a HubSpot list first</p>
             )}
           </div>
 
@@ -344,8 +409,20 @@ export function CampaignResources({ campaign, onRefresh }: CampaignResourcesProp
                   <p className="text-xs text-gray-500 mt-0.5">Preset: <code className="bg-gray-100 px-1 rounded">{presetKey}</code></p>
                 )}
               </div>
+            ) : templateId ? (
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={handleCreateWorkflow}
+                  disabled={actionLoading === 'create-workflow'}
+                  className="px-2.5 py-1.5 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-300 text-white text-xs font-medium rounded-md transition-colors"
+                >
+                  {actionLoading === 'create-workflow' ? 'Creating...' : 'Create Workflow'}
+                </button>
+                <span className="text-gray-300">or</span>
+                <button onClick={() => setEditingField('workflow')} className="text-xs text-blue-600 hover:underline">link existing</button>
+              </div>
             ) : (
-              <button onClick={() => setEditingField('workflow')} className="text-sm text-blue-600 hover:underline">+ Set workflow</button>
+              <p className="text-sm text-gray-400">Add a SendGrid template first</p>
             )}
             {editingField === 'workflow' && (
               <WorkflowEditor current={workflowKey || ''} onSave={handleWorkflowSave} onCancel={() => setEditingField(null)} />
