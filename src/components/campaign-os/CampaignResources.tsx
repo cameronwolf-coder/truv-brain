@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import type { Campaign } from '../../types/campaign';
+import { updateCampaign } from '../../services/campaignClient';
 
 interface Recipient {
   id: string;
@@ -9,21 +10,195 @@ interface Recipient {
   title: string | null;
 }
 
-interface CampaignResourcesProps {
-  campaign: Campaign;
+interface HubSpotList {
+  id: string;
+  name: string;
+  type: string;
+  size: number;
+  updatedAt: string | null;
 }
 
-export function CampaignResources({ campaign }: CampaignResourcesProps) {
+interface CampaignResourcesProps {
+  campaign: Campaign;
+  onRefresh: () => void;
+}
+
+function EditIcon() {
+  return (
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/>
+    </svg>
+  );
+}
+
+// ---- List Picker (inline) ----
+
+function ListPicker({ current, onSelect, onCancel }: { current: string; onSelect: (list: HubSpotList) => void; onCancel: () => void }) {
+  const [query, setQuery] = useState('');
+  const [lists, setLists] = useState<HubSpotList[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const extractListId = (input: string): string | null => {
+    const urlMatch = input.match(/lists\/(\d+)/);
+    if (urlMatch) return urlMatch[1];
+    if (/^\d+$/.test(input.trim())) return input.trim();
+    return null;
+  };
+
+  const loadLists = async (q: string) => {
+    setLoading(true);
+    setError(null);
+    try {
+      const id = extractListId(q);
+      if (id) {
+        const res = await fetch(`/api/campaigns/hubspot-lists?listId=${id}`);
+        if (res.ok) {
+          const data = await res.json();
+          if (data.list) { setLists([data.list]); setLoading(false); return; }
+        }
+        setError(`List ${id} not found`);
+        setLists([]);
+      } else {
+        const params = q ? `?q=${encodeURIComponent(q)}` : '';
+        const res = await fetch(`/api/campaigns/hubspot-lists${params}`);
+        if (res.ok) {
+          const data = await res.json();
+          setLists(data.lists || []);
+        }
+      }
+    } catch { setError('Failed to load lists'); }
+    setLoading(false);
+  };
+
+  useEffect(() => { loadLists(''); }, []);
+  useEffect(() => {
+    const t = setTimeout(() => loadLists(query), 300);
+    return () => clearTimeout(t);
+  }, [query]);
+
+  return (
+    <div className="mt-2 border border-blue-200 rounded-lg bg-blue-50 p-3 space-y-2">
+      <input
+        type="text"
+        value={query}
+        onChange={(e) => setQuery(e.target.value)}
+        placeholder="Search lists, paste URL, or enter ID..."
+        autoFocus
+        className="w-full px-2.5 py-1.5 border border-gray-300 rounded-md text-xs focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
+      />
+      {error && <p className="text-xs text-red-600">{error}</p>}
+      {loading ? (
+        <p className="text-xs text-gray-400">Loading...</p>
+      ) : (
+        <div className="max-h-40 overflow-y-auto divide-y divide-blue-100 rounded border border-blue-100 bg-white">
+          {lists.map((list) => (
+            <button
+              key={list.id}
+              onClick={() => onSelect(list)}
+              className={`w-full text-left px-2.5 py-2 text-xs hover:bg-blue-50 transition-colors ${list.id === current ? 'bg-blue-100' : ''}`}
+            >
+              <div className="flex justify-between">
+                <span className="font-medium text-gray-900">{list.name}</span>
+                <span className="text-gray-500">{list.size} contacts</span>
+              </div>
+              <span className="text-gray-400">ID: {list.id} · {list.type.toLowerCase()}</span>
+            </button>
+          ))}
+          {lists.length === 0 && !loading && <p className="px-2.5 py-2 text-xs text-gray-400">No lists found</p>}
+        </div>
+      )}
+      <button onClick={onCancel} className="text-xs text-gray-500 hover:text-gray-700">Cancel</button>
+    </div>
+  );
+}
+
+// ---- Template Picker (inline) ----
+
+function TemplatePicker({ onSelect, onCancel }: { onSelect: (id: string, name: string) => void; onCancel: () => void }) {
+  const [templateId, setTemplateId] = useState('');
+  const [templateName, setTemplateName] = useState('');
+
+  return (
+    <div className="mt-2 border border-blue-200 rounded-lg bg-blue-50 p-3 space-y-2">
+      <div>
+        <input
+          type="text"
+          value={templateId}
+          onChange={(e) => setTemplateId(e.target.value)}
+          placeholder="SendGrid Template ID (d-abc123...)"
+          autoFocus
+          className="w-full px-2.5 py-1.5 border border-gray-300 rounded-md text-xs font-mono focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
+        />
+      </div>
+      <div>
+        <input
+          type="text"
+          value={templateName}
+          onChange={(e) => setTemplateName(e.target.value)}
+          placeholder="Template name (optional)"
+          className="w-full px-2.5 py-1.5 border border-gray-300 rounded-md text-xs focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
+        />
+      </div>
+      <div className="flex gap-2">
+        <button
+          onClick={() => { if (templateId.trim()) onSelect(templateId.trim(), templateName.trim() || templateId.trim()); }}
+          disabled={!templateId.trim()}
+          className="px-2.5 py-1 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-300 text-white text-xs rounded-md"
+        >
+          Save
+        </button>
+        <button onClick={onCancel} className="text-xs text-gray-500 hover:text-gray-700">Cancel</button>
+      </div>
+    </div>
+  );
+}
+
+// ---- Workflow Editor (inline) ----
+
+function WorkflowEditor({ current, onSave, onCancel }: { current: string; onSave: (key: string) => void; onCancel: () => void }) {
+  const [workflowKey, setWorkflowKey] = useState(current);
+
+  return (
+    <div className="mt-2 border border-blue-200 rounded-lg bg-blue-50 p-3 space-y-2">
+      <input
+        type="text"
+        value={workflowKey}
+        onChange={(e) => setWorkflowKey(e.target.value)}
+        placeholder="Knock workflow key"
+        autoFocus
+        className="w-full px-2.5 py-1.5 border border-gray-300 rounded-md text-xs font-mono focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
+      />
+      <div className="flex gap-2">
+        <button
+          onClick={() => { if (workflowKey.trim()) onSave(workflowKey.trim()); }}
+          disabled={!workflowKey.trim()}
+          className="px-2.5 py-1 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-300 text-white text-xs rounded-md"
+        >
+          Save
+        </button>
+        <button onClick={onCancel} className="text-xs text-gray-500 hover:text-gray-700">Cancel</button>
+      </div>
+    </div>
+  );
+}
+
+// ---- Main Component ----
+
+export function CampaignResources({ campaign, onRefresh }: CampaignResourcesProps) {
   const [recipients, setRecipients] = useState<Recipient[]>([]);
   const [loadingRecipients, setLoadingRecipients] = useState(true);
+  const [editingField, setEditingField] = useState<'list' | 'template' | 'workflow' | null>(null);
+  const [saving, setSaving] = useState(false);
 
   useEffect(() => {
+    setLoadingRecipients(true);
     fetch(`/api/campaigns/${campaign.id}/recipients`)
       .then((r) => r.json())
       .then((data) => setRecipients(data.recipients || []))
       .catch(() => {})
       .finally(() => setLoadingRecipients(false));
-  }, [campaign.id]);
+  }, [campaign.id, campaign.audience?.knockAudienceKey]);
 
   const hubspotListId = campaign.audience?.hubspotListId;
   const knockAudienceKey = campaign.audience?.knockAudienceKey;
@@ -36,6 +211,44 @@ export function CampaignResources({ campaign }: CampaignResourcesProps) {
     .filter((s) => s.status === 'scheduled')
     .sort((a, b) => a.scheduledAt.localeCompare(b.scheduledAt))[0];
 
+  const saveField = async (updates: Partial<Campaign>) => {
+    setSaving(true);
+    try {
+      await updateCampaign(campaign.id, updates);
+      setEditingField(null);
+      onRefresh();
+    } catch { /* ignore */ }
+    setSaving(false);
+  };
+
+  const handleListSelect = (list: HubSpotList) => {
+    saveField({
+      audience: { ...campaign.audience, hubspotListId: list.id, count: list.size },
+    });
+  };
+
+  const handleTemplateSelect = (id: string, name: string) => {
+    saveField({
+      template: { sendgridTemplateId: id, name },
+    });
+  };
+
+  const handleWorkflowSave = (key: string) => {
+    saveField({
+      workflow: { ...campaign.workflow, knockWorkflowKey: key },
+    });
+  };
+
+  const changeButton = (field: 'list' | 'template' | 'workflow') => (
+    <button
+      onClick={() => setEditingField(editingField === field ? null : field)}
+      className="text-gray-300 hover:text-blue-600 transition-colors ml-1"
+      title="Change"
+    >
+      <EditIcon />
+    </button>
+  );
+
   return (
     <div className="bg-white border border-gray-200 rounded-xl overflow-hidden">
       <div className="p-4 bg-gray-50 border-b border-gray-200">
@@ -43,11 +256,17 @@ export function CampaignResources({ campaign }: CampaignResourcesProps) {
       </div>
 
       <div className="p-4 space-y-5">
+        {saving && (
+          <div className="text-xs text-blue-600 bg-blue-50 rounded px-2 py-1">Saving...</div>
+        )}
+
         {/* Resource Links Grid */}
         <div className="grid grid-cols-2 gap-4">
           {/* HubSpot List */}
           <div className="space-y-1">
-            <p className="text-xs font-medium text-gray-500 uppercase tracking-wide">HubSpot List</p>
+            <p className="text-xs font-medium text-gray-500 uppercase tracking-wide flex items-center">
+              HubSpot List {changeButton('list')}
+            </p>
             {hubspotListId ? (
               <div>
                 <a
@@ -61,7 +280,10 @@ export function CampaignResources({ campaign }: CampaignResourcesProps) {
                 <p className="text-xs text-gray-500 mt-0.5">{campaign.audience?.count || 0} contacts</p>
               </div>
             ) : (
-              <p className="text-sm text-gray-400">Not created</p>
+              <button onClick={() => setEditingField('list')} className="text-sm text-blue-600 hover:underline">+ Select a list</button>
+            )}
+            {editingField === 'list' && (
+              <ListPicker current={hubspotListId || ''} onSelect={handleListSelect} onCancel={() => setEditingField(null)} />
             )}
           </div>
 
@@ -74,13 +296,15 @@ export function CampaignResources({ campaign }: CampaignResourcesProps) {
                 <p className="text-xs text-gray-500 mt-0.5">{recipients.length || campaign.audience?.count || 0} members</p>
               </div>
             ) : (
-              <p className="text-sm text-gray-400">Not synced</p>
+              <p className="text-sm text-gray-400">Not synced — set a HubSpot list first</p>
             )}
           </div>
 
           {/* SendGrid Template */}
           <div className="space-y-1">
-            <p className="text-xs font-medium text-gray-500 uppercase tracking-wide">SendGrid Template</p>
+            <p className="text-xs font-medium text-gray-500 uppercase tracking-wide flex items-center">
+              SendGrid Template {changeButton('template')}
+            </p>
             {templateId ? (
               <div>
                 <a
@@ -94,13 +318,18 @@ export function CampaignResources({ campaign }: CampaignResourcesProps) {
                 <p className="text-xs text-gray-400 mt-0.5 font-mono">{templateId}</p>
               </div>
             ) : (
-              <p className="text-sm text-gray-400">Not selected</p>
+              <button onClick={() => setEditingField('template')} className="text-sm text-blue-600 hover:underline">+ Add template</button>
+            )}
+            {editingField === 'template' && (
+              <TemplatePicker onSelect={handleTemplateSelect} onCancel={() => setEditingField(null)} />
             )}
           </div>
 
           {/* Knock Workflow */}
           <div className="space-y-1">
-            <p className="text-xs font-medium text-gray-500 uppercase tracking-wide">Knock Workflow</p>
+            <p className="text-xs font-medium text-gray-500 uppercase tracking-wide flex items-center">
+              Knock Workflow {changeButton('workflow')}
+            </p>
             {workflowKey ? (
               <div>
                 <a
@@ -116,7 +345,10 @@ export function CampaignResources({ campaign }: CampaignResourcesProps) {
                 )}
               </div>
             ) : (
-              <p className="text-sm text-gray-400">Not created</p>
+              <button onClick={() => setEditingField('workflow')} className="text-sm text-blue-600 hover:underline">+ Set workflow</button>
+            )}
+            {editingField === 'workflow' && (
+              <WorkflowEditor current={workflowKey || ''} onSave={handleWorkflowSave} onCancel={() => setEditingField(null)} />
             )}
           </div>
         </div>

@@ -115,7 +115,7 @@ export function Detail({ campaignId, onBack }: DetailProps) {
         </div>
       </div>
 
-      <CampaignResources campaign={campaign} />
+      <CampaignResources campaign={campaign} onRefresh={refresh} />
 
       <SendTimeline sends={campaign.sends || []} onCancel={handleCancel} onAddSend={() => setShowAddSend(true)} />
 
