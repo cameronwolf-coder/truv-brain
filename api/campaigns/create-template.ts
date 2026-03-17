@@ -1,8 +1,9 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import Anthropic from '@anthropic-ai/sdk';
+import OpenAI from 'openai';
 
 const SENDGRID_API_KEY = process.env.SENDGRID_API_KEY;
-const ANTHROPIC_API_KEY = process.env.ANTHROPIC_API_KEY;
+const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
+const GEMINI_BASE_URL = 'https://generativelanguage.googleapis.com/v1beta/openai/';
 
 function corsHeaders(res: VercelResponse): void {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -44,14 +45,12 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
   try {
     if (!SENDGRID_API_KEY) throw new Error('SendGrid API key not configured');
-    if (!ANTHROPIC_API_KEY) throw new Error('Anthropic API key not configured');
 
     const { name, subject, content, ctaUrl, ctaText, heroStyle, campaignSlug, cloneFromId } = req.body;
     if (!name) return res.status(400).json({ error: 'Template name is required' });
 
     // Clone mode: copy HTML from an existing template
     if (cloneFromId) {
-      // Fetch source template
       const srcRes = await fetch(`https://api.sendgrid.com/v3/templates/${cloneFromId}`, {
         headers: { Authorization: `Bearer ${SENDGRID_API_KEY}` },
       });
@@ -60,7 +59,6 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       const activeVersion = (srcData.versions || []).find((v: { active: number }) => v.active === 1);
       if (!activeVersion) throw new Error('Source template has no active version');
 
-      // Create new template
       const createRes = await fetch('https://api.sendgrid.com/v3/templates', {
         method: 'POST',
         headers: { Authorization: `Bearer ${SENDGRID_API_KEY}`, 'Content-Type': 'application/json' },
@@ -69,7 +67,6 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       if (!createRes.ok) throw new Error(`SendGrid error: ${createRes.status}`);
       const newTemplate = await createRes.json();
 
-      // Copy version with HTML structure but new subject
       const versionRes = await fetch(`https://api.sendgrid.com/v3/templates/${newTemplate.id}/versions`, {
         method: 'POST',
         headers: { Authorization: `Bearer ${SENDGRID_API_KEY}`, 'Content-Type': 'application/json' },
@@ -117,8 +114,10 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       });
     }
 
-    // Generate HTML with Claude
-    const client = new Anthropic({ apiKey: ANTHROPIC_API_KEY });
+    // Generate HTML with Gemini
+    if (!GEMINI_API_KEY) throw new Error('Gemini API key not configured');
+
+    const client = new OpenAI({ apiKey: GEMINI_API_KEY, baseURL: GEMINI_BASE_URL });
 
     const userPrompt = `Create a Truv branded email template with these details:
 
@@ -134,19 +133,18 @@ ${content}
 
 Generate the complete HTML email.`;
 
-    const message = await client.messages.create({
-      model: 'claude-sonnet-4-20250514',
+    const response = await client.chat.completions.create({
+      model: 'gemini-2.0-flash',
       max_tokens: 8000,
-      system: EMAIL_SYSTEM_PROMPT,
-      messages: [{ role: 'user', content: userPrompt }],
+      messages: [
+        { role: 'system', content: EMAIL_SYSTEM_PROMPT },
+        { role: 'user', content: userPrompt },
+      ],
     });
 
-    let html = '';
-    for (const block of message.content) {
-      if (block.type === 'text') html += block.text;
-    }
+    let html = response.choices[0]?.message?.content || '';
 
-    // Strip markdown fences if Claude wrapped it
+    // Strip markdown fences if wrapped
     html = html.replace(/^```html?\n?/i, '').replace(/\n?```$/i, '').trim();
 
     if (!html.includes('<!DOCTYPE') && !html.includes('<html')) {
