@@ -115,8 +115,15 @@ function ListPicker({ current, onSelect, onCancel }: { current: string; onSelect
 
 // ---- Template Picker (inline) ----
 
+interface SgTemplate {
+  id: string;
+  name: string;
+  subject: string | null;
+  updatedAt: string;
+}
+
 function TemplatePicker({ onSelect, onCancel, campaignName }: { onSelect: (id: string, name: string) => void; onCancel: () => void; campaignName: string }) {
-  const [tplMode, setTplMode] = useState<'create' | 'existing'>('create');
+  const [tplMode, setTplMode] = useState<'pick' | 'create' | 'existing'>('pick');
   const [templateId, setTemplateId] = useState('');
   const [templateName, setTemplateName] = useState(campaignName);
   const [subject, setSubject] = useState('');
@@ -125,6 +132,34 @@ function TemplatePicker({ onSelect, onCancel, campaignName }: { onSelect: (id: s
   const [ctaText, setCtaText] = useState('');
   const [creating, setCreating] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  // Pick mode state
+  const [sgTemplates, setSgTemplates] = useState<SgTemplate[]>([]);
+  const [sgQuery, setSgQuery] = useState('');
+  const [sgLoading, setSgLoading] = useState(false);
+
+  const loadTemplates = async (q: string) => {
+    setSgLoading(true);
+    try {
+      const params = q ? `?q=${encodeURIComponent(q)}` : '';
+      const res = await fetch(`/api/campaigns/sendgrid-templates${params}`);
+      if (res.ok) {
+        const data = await res.json();
+        setSgTemplates(data.templates || []);
+      }
+    } catch { /* ignore */ }
+    setSgLoading(false);
+  };
+
+  useEffect(() => {
+    if (tplMode === 'pick') loadTemplates('');
+  }, [tplMode]);
+
+  useEffect(() => {
+    if (tplMode !== 'pick') return;
+    const t = setTimeout(() => loadTemplates(sgQuery), 300);
+    return () => clearTimeout(t);
+  }, [sgQuery]);
 
   const handleCreate = async () => {
     if (!templateName.trim()) return;
@@ -159,6 +194,12 @@ function TemplatePicker({ onSelect, onCancel, campaignName }: { onSelect: (id: s
     <div className="mt-2 border border-blue-200 rounded-lg bg-blue-50 p-3 space-y-2">
       <div className="flex gap-1 bg-white rounded-md p-0.5 border border-gray-200">
         <button
+          onClick={() => setTplMode('pick')}
+          className={`flex-1 px-2 py-1 rounded text-xs font-medium transition-colors ${tplMode === 'pick' ? 'bg-blue-600 text-white' : 'text-gray-500'}`}
+        >
+          Pick Template
+        </button>
+        <button
           onClick={() => setTplMode('create')}
           className={`flex-1 px-2 py-1 rounded text-xs font-medium transition-colors ${tplMode === 'create' ? 'bg-blue-600 text-white' : 'text-gray-500'}`}
         >
@@ -168,13 +209,49 @@ function TemplatePicker({ onSelect, onCancel, campaignName }: { onSelect: (id: s
           onClick={() => setTplMode('existing')}
           className={`flex-1 px-2 py-1 rounded text-xs font-medium transition-colors ${tplMode === 'existing' ? 'bg-blue-600 text-white' : 'text-gray-500'}`}
         >
-          Use Existing ID
+          Paste ID
         </button>
       </div>
 
       {error && <p className="text-xs text-red-600">{error}</p>}
 
-      {tplMode === 'create' ? (
+      {tplMode === 'pick' ? (
+        <>
+          <input
+            type="text"
+            value={sgQuery}
+            onChange={(e) => setSgQuery(e.target.value)}
+            placeholder="Search templates by name, subject, or ID..."
+            autoFocus
+            className="w-full px-2.5 py-1.5 border border-gray-300 rounded-md text-xs focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
+          />
+          {sgLoading ? (
+            <p className="text-xs text-gray-400 py-3 text-center">Loading templates...</p>
+          ) : sgTemplates.length === 0 ? (
+            <p className="text-xs text-gray-400 py-3 text-center">No templates found.</p>
+          ) : (
+            <div className="max-h-52 overflow-y-auto divide-y divide-blue-100 rounded border border-blue-100 bg-white">
+              {sgTemplates.map((t) => (
+                <button
+                  key={t.id}
+                  onClick={() => onSelect(t.id, t.name)}
+                  className="w-full text-left px-2.5 py-2 text-xs hover:bg-blue-50 transition-colors"
+                >
+                  <div className="flex justify-between items-start">
+                    <div className="min-w-0 flex-1">
+                      <p className="font-medium text-gray-900 truncate">{t.name}</p>
+                      {t.subject && <p className="text-gray-500 truncate mt-0.5">Subject: {t.subject}</p>}
+                    </div>
+                    <span className="text-gray-400 font-mono ml-2 flex-shrink-0">{t.id.slice(0, 12)}...</span>
+                  </div>
+                  <p className="text-gray-400 mt-0.5">{new Date(t.updatedAt).toLocaleDateString()}</p>
+                </button>
+              ))}
+            </div>
+          )}
+          <button onClick={onCancel} className="text-xs text-gray-500 hover:text-gray-700">Cancel</button>
+        </>
+      ) : tplMode === 'create' ? (
         <>
           <input
             type="text"
