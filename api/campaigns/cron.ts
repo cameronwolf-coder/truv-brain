@@ -4,7 +4,7 @@ import { Redis } from '@upstash/redis';
 function getRedis(): Redis {
   const url = process.env.UPSTASH_REDIS_REST_URL;
   const token = process.env.UPSTASH_REDIS_REST_TOKEN;
-  if (!url || !token) throw new Error('Redis not configured — UPSTASH_REDIS_REST_URL and UPSTASH_REDIS_REST_TOKEN env vars required');
+  if (!url || !token) throw new Error('Redis not configured');
   return new Redis({ url, token });
 }
 
@@ -14,7 +14,8 @@ function corsHeaders(res: import('@vercel/node').VercelResponse): void {
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 }
 
-const KNOCK_WRAPPER_URL = process.env.KNOCK_WRAPPER_URL || 'https://knock-wrapper.vercel.app';
+const KNOCK_API_URL = 'https://api.knock.app/v1';
+const KNOCK_SERVICE_TOKEN = process.env.KNOCK_SERVICE_TOKEN;
 const SLACK_WEBHOOK_URL = process.env.CAMPAIGN_SLACK_WEBHOOK;
 
 async function notifySlack(text: string): Promise<void> {
@@ -24,6 +25,58 @@ async function notifySlack(text: string): Promise<void> {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ text }),
   }).catch(() => {});
+}
+
+async function getAudienceMembers(audienceKey: string): Promise<string[]> {
+  if (!KNOCK_SERVICE_TOKEN) throw new Error('KNOCK_SERVICE_TOKEN not set');
+  const ids: string[] = [];
+  let after: string | null = null;
+
+  while (true) {
+    const params = new URLSearchParams({ limit: '50' });
+    if (after) params.set('after', after);
+
+    const res = await fetch(`${KNOCK_API_URL}/audiences/${audienceKey}/members?${params}`, {
+      headers: { Authorization: `Bearer ${KNOCK_SERVICE_TOKEN}` },
+    });
+    if (!res.ok) throw new Error(`Knock audience fetch failed: ${res.status}`);
+    const data = await res.json();
+
+    for (const entry of data.entries || []) {
+      const userId = entry.user?.id || entry.user_id;
+      if (userId) ids.push(userId);
+    }
+
+    after = data.page_info?.after || null;
+    if (!after) break;
+  }
+
+  return ids;
+}
+
+async function triggerWorkflow(workflowKey: string, recipientIds: string[], data?: Record<string, unknown>): Promise<void> {
+  if (!KNOCK_SERVICE_TOKEN) throw new Error('KNOCK_SERVICE_TOKEN not set');
+
+  // Knock allows max 1000 recipients per trigger
+  for (let i = 0; i < recipientIds.length; i += 1000) {
+    const batch = recipientIds.slice(i, i + 1000);
+    const body: Record<string, unknown> = { recipients: batch };
+    if (data) body.data = data;
+
+    const res = await fetch(`${KNOCK_API_URL}/workflows/${workflowKey}/trigger`, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${KNOCK_SERVICE_TOKEN}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(body),
+    });
+
+    if (!res.ok) {
+      const errText = await res.text();
+      throw new Error(`Knock trigger failed: ${res.status} ${errText}`);
+    }
+  }
 }
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
@@ -52,21 +105,23 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         changed = true;
 
         try {
-          const triggerRes = await fetch(`${KNOCK_WRAPPER_URL}/api/send`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ presetKey: send.presetKey }),
-          });
+          // Get audience members from Knock
+          const audienceKey = campaign.audience?.knockAudienceKey || campaignId;
+          const recipientIds = await getAudienceMembers(audienceKey);
 
-          if (!triggerRes.ok) {
-            const errText = await triggerRes.text();
-            throw new Error(`knock-wrapper ${triggerRes.status}: ${errText}`);
+          if (recipientIds.length === 0) {
+            throw new Error('No audience members found');
           }
+
+          // Trigger the Knock workflow directly
+          const workflowKey = send.workflowKey || campaign.workflow?.knockWorkflowKey || campaignId;
+          await triggerWorkflow(workflowKey, recipientIds);
 
           send.status = 'sent';
           send.sentAt = now;
+          send.recipientCount = recipientIds.length;
           results.push({ campaignId, sendId: send.id, status: 'sent' });
-          await notifySlack(`Campaign "${campaign.name}" send "${send.name}" completed (${send.recipientCount} recipients)`);
+          await notifySlack(`Campaign "${campaign.name}" send "${send.name}" completed (${recipientIds.length} recipients)`);
         } catch (err) {
           send.status = 'error';
           send.error = err instanceof Error ? err.message : 'Unknown error';
@@ -88,7 +143,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
     return res.status(200).json({ processed: results.length, results });
   } catch (error) {
-    console.error('Campaign API error:', error);
+    console.error('Campaign cron error:', error);
     return res.status(500).json({ error: error instanceof Error ? error.message : 'Internal server error' });
   }
 }
