@@ -4,7 +4,7 @@ import { useTimeline } from '../../hooks/useTimeline';
 import { TimelineRuler } from './TimelineRuler';
 import { TimelineSegment } from './TimelineSegment';
 import { parseTimestamp, formatTimestamp } from '../../utils/videoEditorUtils';
-import type { Segment } from '../../types/videoEditor';
+import type { Segment as _Segment } from '../../types/videoEditor';
 
 interface DragData {
   segmentIndex: number;

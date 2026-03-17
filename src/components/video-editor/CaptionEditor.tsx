@@ -11,7 +11,7 @@ interface CaptionEditorProps {
 
 function CaptionEntryRow({
   entry,
-  index,
+  index: _index,
   onUpdate,
   onDelete,
   onAdd,

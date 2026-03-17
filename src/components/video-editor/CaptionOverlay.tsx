@@ -21,7 +21,7 @@ export function CaptionOverlay({ captions, videoRef }: CaptionOverlayProps) {
     if (!ctx) return;
 
     const draw = () => {
-      const { videoWidth, videoHeight, currentTime } = video;
+      const { videoWidth, videoHeight: _videoHeight, currentTime } = video;
       if (videoWidth === 0) {
         rafRef.current = requestAnimationFrame(draw);
         return;

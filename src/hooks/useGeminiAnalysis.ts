@@ -90,7 +90,7 @@ export function useGeminiAnalysis() {
 
         // Step 2: Poll until file is ACTIVE
         setStage('processing');
-        const fileManager = genAI;
+        // genAI instance used for file upload above
         let fileName = '';
 
         // Get the file name from the list (most recent upload)
