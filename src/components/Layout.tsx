@@ -120,8 +120,8 @@ export function Layout() {
                   }`
                 }
               >
-                <span className="text-lg">📧</span>
-                Campaign Logic
+                <span className="text-lg">🚀</span>
+                Campaign OS
               </NavLink>
             </li>
             <li>
