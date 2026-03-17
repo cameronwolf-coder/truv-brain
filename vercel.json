@@ -1,5 +1,9 @@
 {
   "devCommand": "vite --port $PORT",
+  "crons": [{
+    "path": "/api/campaigns/cron",
+    "schedule": "*/15 * * * *"
+  }],
   "rewrites": [
     {
       "source": "/api/:path*",
