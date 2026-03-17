@@ -46,8 +46,51 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     if (!SENDGRID_API_KEY) throw new Error('SendGrid API key not configured');
     if (!ANTHROPIC_API_KEY) throw new Error('Anthropic API key not configured');
 
-    const { name, subject, content, ctaUrl, ctaText, heroStyle, campaignSlug } = req.body;
+    const { name, subject, content, ctaUrl, ctaText, heroStyle, campaignSlug, cloneFromId } = req.body;
     if (!name) return res.status(400).json({ error: 'Template name is required' });
+
+    // Clone mode: copy HTML from an existing template
+    if (cloneFromId) {
+      // Fetch source template
+      const srcRes = await fetch(`https://api.sendgrid.com/v3/templates/${cloneFromId}`, {
+        headers: { Authorization: `Bearer ${SENDGRID_API_KEY}` },
+      });
+      if (!srcRes.ok) throw new Error(`Source template ${cloneFromId} not found`);
+      const srcData = await srcRes.json();
+      const activeVersion = (srcData.versions || []).find((v: { active: number }) => v.active === 1);
+      if (!activeVersion) throw new Error('Source template has no active version');
+
+      // Create new template
+      const createRes = await fetch('https://api.sendgrid.com/v3/templates', {
+        method: 'POST',
+        headers: { Authorization: `Bearer ${SENDGRID_API_KEY}`, 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, generation: 'dynamic' }),
+      });
+      if (!createRes.ok) throw new Error(`SendGrid error: ${createRes.status}`);
+      const newTemplate = await createRes.json();
+
+      // Copy version with HTML structure but new subject
+      const versionRes = await fetch(`https://api.sendgrid.com/v3/templates/${newTemplate.id}/versions`, {
+        method: 'POST',
+        headers: { Authorization: `Bearer ${SENDGRID_API_KEY}`, 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: 'v1',
+          subject: subject || name,
+          html_content: activeVersion.html_content,
+          active: 1,
+        }),
+      });
+      if (!versionRes.ok) throw new Error(`Version creation failed: ${(await versionRes.text()).slice(0, 200)}`);
+
+      return res.status(201).json({
+        templateId: newTemplate.id,
+        name: newTemplate.name,
+        editUrl: `https://mc.sendgrid.com/dynamic-templates/${newTemplate.id}`,
+        generated: false,
+        clonedFrom: cloneFromId,
+        clonedFromName: srcData.name,
+      });
+    }
 
     // If no content provided, just create an empty template
     if (!content) {
