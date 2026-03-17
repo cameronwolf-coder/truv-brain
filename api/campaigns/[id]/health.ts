@@ -6,43 +6,48 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   if (req.method === 'OPTIONS') return res.status(200).end();
   if (req.method !== 'GET') return res.status(405).json({ error: 'Method not allowed' });
 
-  const { id } = req.query;
-  if (!id || typeof id !== 'string') return res.status(400).json({ error: 'Missing campaign id' });
+  try {
+    const { id } = req.query;
+    if (!id || typeof id !== 'string') return res.status(400).json({ error: 'Missing campaign id' });
 
-  const redis = getRedis();
-  const raw = await redis.get(`campaign:${id}`);
-  if (!raw) return res.status(404).json({ error: 'Campaign not found' });
-  const campaign = typeof raw === 'string' ? JSON.parse(raw) : raw;
+    const redis = getRedis();
+    const raw = await redis.get(`campaign:${id}`);
+    if (!raw) return res.status(404).json({ error: 'Campaign not found' });
+    const campaign = typeof raw === 'string' ? JSON.parse(raw) : raw;
 
-  const pipelineErrors = (campaign.pipeline || [])
-    .filter((s: { status: string }) => s.status === 'error')
-    .map((s: { stage: string; error: string; completedAt: string }) => ({
-      stage: s.stage,
-      error: s.error,
-      timestamp: s.completedAt,
-    }));
+    const pipelineErrors = (campaign.pipeline || [])
+      .filter((s: { status: string }) => s.status === 'error')
+      .map((s: { stage: string; error: string; completedAt: string }) => ({
+        stage: s.stage,
+        error: s.error,
+        timestamp: s.completedAt,
+      }));
 
-  const sendErrors = (campaign.sends || [])
-    .filter((s: { status: string }) => s.status === 'error')
-    .map((s: { id: string; name: string; error: string }) => ({
-      sendId: s.id,
-      name: s.name,
-      error: s.error,
-    }));
+    const sendErrors = (campaign.sends || [])
+      .filter((s: { status: string }) => s.status === 'error')
+      .map((s: { id: string; name: string; error: string }) => ({
+        sendId: s.id,
+        name: s.name,
+        error: s.error,
+      }));
 
-  const deliveryErrors: Array<{ email: string; type: string; reason: string; timestamp: number }> = [];
+    const deliveryErrors: Array<{ email: string; type: string; reason: string; timestamp: number }> = [];
 
-  for (const send of campaign.sends || []) {
-    if (!send.workflowKey) continue;
-    const bounces = await redis.smembers(`sg:${send.workflowKey}:bounced`) || [];
-    for (const email of bounces.slice(0, 50)) {
-      deliveryErrors.push({ email: email as string, type: 'bounce', reason: 'Hard bounce', timestamp: 0 });
+    for (const send of campaign.sends || []) {
+      if (!send.workflowKey) continue;
+      const bounces = await redis.smembers(`sg:${send.workflowKey}:bounced`) || [];
+      for (const email of bounces.slice(0, 50)) {
+        deliveryErrors.push({ email: email as string, type: 'bounce', reason: 'Hard bounce', timestamp: 0 });
+      }
+      const drops = await redis.smembers(`sg:${send.workflowKey}:dropped`) || [];
+      for (const email of drops.slice(0, 50)) {
+        deliveryErrors.push({ email: email as string, type: 'dropped', reason: 'Suppressed', timestamp: 0 });
+      }
     }
-    const drops = await redis.smembers(`sg:${send.workflowKey}:dropped`) || [];
-    for (const email of drops.slice(0, 50)) {
-      deliveryErrors.push({ email: email as string, type: 'dropped', reason: 'Suppressed', timestamp: 0 });
-    }
+
+    return res.status(200).json({ pipelineErrors, sendErrors, deliveryErrors });
+  } catch (error) {
+    console.error('Campaign API error:', error);
+    return res.status(500).json({ error: error instanceof Error ? error.message : 'Internal server error' });
   }
-
-  return res.status(200).json({ pipelineErrors, sendErrors, deliveryErrors });
 }
