@@ -1,29 +1,19 @@
+import { useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
+import { Dashboard } from '../components/campaign-os/Dashboard';
 import { Wizard } from '../components/campaign-os/Wizard';
-
-function DashboardTab() {
-  return (
-    <div className="text-center py-20 text-gray-400">
-      Dashboard — coming soon
-    </div>
-  );
-}
-
-function LibraryTab() {
-  return (
-    <div className="text-center py-20 text-gray-400">
-      Building blocks library — coming soon
-    </div>
-  );
-}
+import { Library } from '../components/campaign-os/Library';
+import { Detail } from '../components/campaign-os/Detail';
 
 type Tab = 'dashboard' | 'new' | 'library';
 
 export function CampaignOS() {
   const [searchParams, setSearchParams] = useSearchParams();
   const tab = (searchParams.get('tab') as Tab) || 'dashboard';
+  const [selectedCampaignId, setSelectedCampaignId] = useState<string | null>(null);
 
   const setTab = (t: Tab) => {
+    setSelectedCampaignId(null);
     setSearchParams(t === 'dashboard' ? {} : { tab: t });
   };
 
@@ -32,6 +22,18 @@ export function CampaignOS() {
     { id: 'new', label: 'New Campaign' },
     { id: 'library', label: 'Library' },
   ];
+
+  // Detail view takes over when a campaign is selected
+  if (selectedCampaignId) {
+    return (
+      <div className="p-8">
+        <Detail
+          campaignId={selectedCampaignId}
+          onBack={() => setSelectedCampaignId(null)}
+        />
+      </div>
+    );
+  }
 
   return (
     <div className="p-8">
@@ -58,9 +60,18 @@ export function CampaignOS() {
         ))}
       </div>
 
-      {tab === 'dashboard' && <DashboardTab />}
-      {tab === 'new' && <Wizard onComplete={() => setTab('dashboard')} />}
-      {tab === 'library' && <LibraryTab />}
+      {tab === 'dashboard' && (
+        <Dashboard
+          onNewCampaign={() => setTab('new')}
+          onSelectCampaign={(id) => setSelectedCampaignId(id)}
+        />
+      )}
+      {tab === 'new' && (
+        <Wizard onComplete={() => setTab('dashboard')} />
+      )}
+      {tab === 'library' && (
+        <Library onUseBlock={() => setTab('new')} />
+      )}
     </div>
   );
 }
