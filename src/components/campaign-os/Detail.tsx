@@ -1,13 +1,14 @@
 import { useState } from 'react';
 import { AnimatePresence } from 'framer-motion';
 import { useCampaign } from '../../hooks/useCampaign';
-import { createSend, cancelSend, updateCampaign, deleteCampaign } from '../../services/campaignClient';
+import { createSend, cancelSend, updateCampaign } from '../../services/campaignClient';
 import type { Send } from '../../types/campaign';
 import { SendTimeline } from './SendTimeline';
 import { AddSendDrawer } from './AddSendDrawer';
 import { CampaignResources } from './CampaignResources';
 import { CampaignAnalyticsPanel } from './CampaignAnalytics';
 import { CampaignHealthPanel } from './CampaignHealth';
+import { DeleteDialog } from './DeleteDialog';
 
 interface DetailProps {
   campaignId: string;
@@ -19,7 +20,7 @@ export function Detail({ campaignId, onBack }: DetailProps) {
   const [showAddSend, setShowAddSend] = useState(false);
   const [editing, setEditing] = useState(false);
   const [editName, setEditName] = useState('');
-  const [deleting, setDeleting] = useState(false);
+  const [showDeleteDialog, setShowDeleteDialog] = useState(false);
 
   if (loading) return <div className="text-gray-400 text-sm py-12 text-center">Loading...</div>;
   if (error) return <div className="bg-red-50 border border-red-200 rounded-xl p-4 text-sm text-red-800">{error}</div>;
@@ -35,14 +36,12 @@ export function Detail({ campaignId, onBack }: DetailProps) {
     refresh();
   };
 
-  const handleDelete = async () => {
-    if (!confirm(`Delete "${campaign.name}"? This cannot be undone.`)) return;
-    setDeleting(true);
-    try {
-      await deleteCampaign(campaignId);
+  const handleDeleteConfirm = async (options: { deleteCampaign: boolean }) => {
+    if (options.deleteCampaign) {
       onBack();
-    } catch {
-      setDeleting(false);
+    } else {
+      setShowDeleteDialog(false);
+      refresh();
     }
   };
 
@@ -106,11 +105,10 @@ export function Detail({ campaignId, onBack }: DetailProps) {
         {/* Actions */}
         <div className="flex items-center gap-2">
           <button
-            onClick={handleDelete}
-            disabled={deleting}
+            onClick={() => setShowDeleteDialog(true)}
             className="px-3 py-1.5 text-red-600 hover:bg-red-50 text-xs font-medium rounded-lg transition-colors border border-red-200"
           >
-            {deleting ? 'Deleting...' : 'Delete Campaign'}
+            Delete Campaign
           </button>
         </div>
       </div>
@@ -128,6 +126,10 @@ export function Detail({ campaignId, onBack }: DetailProps) {
           <AddSendDrawer existingSends={campaign.sends || []} onAdd={handleAddSend} onClose={() => setShowAddSend(false)} />
         )}
       </AnimatePresence>
+
+      {showDeleteDialog && (
+        <DeleteDialog campaign={campaign} onConfirm={handleDeleteConfirm} onCancel={() => setShowDeleteDialog(false)} />
+      )}
     </div>
   );
 }
