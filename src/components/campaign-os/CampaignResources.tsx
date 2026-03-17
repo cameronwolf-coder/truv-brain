@@ -116,40 +116,105 @@ function ListPicker({ current, onSelect, onCancel }: { current: string; onSelect
 // ---- Template Picker (inline) ----
 
 function TemplatePicker({ onSelect, onCancel }: { onSelect: (id: string, name: string) => void; onCancel: () => void }) {
+  const [tplMode, setTplMode] = useState<'create' | 'existing'>('create');
   const [templateId, setTemplateId] = useState('');
   const [templateName, setTemplateName] = useState('');
+  const [creating, setCreating] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const handleCreate = async () => {
+    if (!templateName.trim()) return;
+    setCreating(true);
+    setError(null);
+    try {
+      const res = await fetch('/api/campaigns/create-template', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name: templateName.trim() }),
+      });
+      if (!res.ok) {
+        const data = await res.json();
+        throw new Error(data.error || `Failed: ${res.status}`);
+      }
+      const data = await res.json();
+      onSelect(data.templateId, templateName.trim());
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Creation failed');
+    }
+    setCreating(false);
+  };
 
   return (
     <div className="mt-2 border border-blue-200 rounded-lg bg-blue-50 p-3 space-y-2">
-      <div>
-        <input
-          type="text"
-          value={templateId}
-          onChange={(e) => setTemplateId(e.target.value)}
-          placeholder="SendGrid Template ID (d-abc123...)"
-          autoFocus
-          className="w-full px-2.5 py-1.5 border border-gray-300 rounded-md text-xs font-mono focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
-        />
-      </div>
-      <div>
-        <input
-          type="text"
-          value={templateName}
-          onChange={(e) => setTemplateName(e.target.value)}
-          placeholder="Template name (optional)"
-          className="w-full px-2.5 py-1.5 border border-gray-300 rounded-md text-xs focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
-        />
-      </div>
-      <div className="flex gap-2">
+      {/* Mode toggle */}
+      <div className="flex gap-1 bg-white rounded-md p-0.5 border border-gray-200">
         <button
-          onClick={() => { if (templateId.trim()) onSelect(templateId.trim(), templateName.trim() || templateId.trim()); }}
-          disabled={!templateId.trim()}
-          className="px-2.5 py-1 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-300 text-white text-xs rounded-md"
+          onClick={() => setTplMode('create')}
+          className={`flex-1 px-2 py-1 rounded text-xs font-medium transition-colors ${tplMode === 'create' ? 'bg-blue-600 text-white' : 'text-gray-500'}`}
         >
-          Save
+          Create New
         </button>
-        <button onClick={onCancel} className="text-xs text-gray-500 hover:text-gray-700">Cancel</button>
+        <button
+          onClick={() => setTplMode('existing')}
+          className={`flex-1 px-2 py-1 rounded text-xs font-medium transition-colors ${tplMode === 'existing' ? 'bg-blue-600 text-white' : 'text-gray-500'}`}
+        >
+          Use Existing ID
+        </button>
       </div>
+
+      {error && <p className="text-xs text-red-600">{error}</p>}
+
+      {tplMode === 'create' ? (
+        <>
+          <input
+            type="text"
+            value={templateName}
+            onChange={(e) => setTemplateName(e.target.value)}
+            placeholder="Template name (e.g., Webinar Invite - March 2026)"
+            autoFocus
+            className="w-full px-2.5 py-1.5 border border-gray-300 rounded-md text-xs focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
+          />
+          <p className="text-xs text-gray-400">Creates an empty dynamic template in SendGrid. You can design it in SendGrid afterwards.</p>
+          <div className="flex gap-2">
+            <button
+              onClick={handleCreate}
+              disabled={!templateName.trim() || creating}
+              className="px-2.5 py-1 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-300 text-white text-xs rounded-md"
+            >
+              {creating ? 'Creating...' : 'Create Template'}
+            </button>
+            <button onClick={onCancel} className="text-xs text-gray-500 hover:text-gray-700">Cancel</button>
+          </div>
+        </>
+      ) : (
+        <>
+          <input
+            type="text"
+            value={templateId}
+            onChange={(e) => setTemplateId(e.target.value)}
+            placeholder="SendGrid Template ID (d-abc123...)"
+            autoFocus
+            className="w-full px-2.5 py-1.5 border border-gray-300 rounded-md text-xs font-mono focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
+          />
+          <input
+            type="text"
+            value={templateName}
+            onChange={(e) => setTemplateName(e.target.value)}
+            placeholder="Template name (optional)"
+            className="w-full px-2.5 py-1.5 border border-gray-300 rounded-md text-xs focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
+          />
+          <div className="flex gap-2">
+            <button
+              onClick={() => { if (templateId.trim()) onSelect(templateId.trim(), templateName.trim() || templateId.trim()); }}
+              disabled={!templateId.trim()}
+              className="px-2.5 py-1 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-300 text-white text-xs rounded-md"
+            >
+              Save
+            </button>
+            <button onClick={onCancel} className="text-xs text-gray-500 hover:text-gray-700">Cancel</button>
+          </div>
+        </>
+      )}
     </div>
   );
 }
