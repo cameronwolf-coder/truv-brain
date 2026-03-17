@@ -1,5 +1,18 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import { getRedis, corsHeaders } from './helpers';
+import { Redis } from '@upstash/redis';
+
+function getRedis(): Redis {
+  const url = process.env.UPSTASH_REDIS_REST_URL;
+  const token = process.env.UPSTASH_REDIS_REST_TOKEN;
+  if (!url || !token) throw new Error('Redis not configured — UPSTASH_REDIS_REST_URL and UPSTASH_REDIS_REST_TOKEN env vars required');
+  return new Redis({ url, token });
+}
+
+function corsHeaders(res: import('@vercel/node').VercelResponse): void {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+}
 
 const KNOCK_WRAPPER_URL = process.env.KNOCK_WRAPPER_URL || 'https://knock-wrapper.vercel.app';
 const SLACK_WEBHOOK_URL = process.env.CAMPAIGN_SLACK_WEBHOOK;
