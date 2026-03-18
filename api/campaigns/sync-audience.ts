@@ -37,10 +37,10 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     const listId = campaign.audience?.hubspotListId;
     if (!listId) return res.status(400).json({ error: 'No HubSpot list set on this campaign' });
 
-    const audienceKey = campaignId;
+    const audienceKey = campaign.audience?.knockAudienceKey || campaignId;
 
     // Fetch contacts from HubSpot list
-    const contacts: Array<{ email: string; name: string; company: string | null; title: string | null; hubspot_contact_id: string }> = [];
+    const contacts: Array<{ email: string; firstname: string | null; lastname: string | null; name: string | null; company: string | null; title: string | null; hubspot_contact_id: string }> = [];
     let vidOffset = 0;
     let hasMore = true;
 
@@ -64,7 +64,9 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         const last = props.lastname?.value || '';
         contacts.push({
           email,
-          name: `${first} ${last}`.trim() || email,
+          firstname: first || null,
+          lastname: last || null,
+          name: `${first} ${last}`.trim() || null,
           company: props.company?.value || null,
           title: props.jobtitle?.value || null,
           hubspot_contact_id: String(c.vid || ''),
@@ -86,6 +88,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
           id: c.email,
           email: c.email,
           name: c.name,
+          firstname: c.firstname,
+          lastname: c.lastname,
           company: c.company,
           title: c.title,
           hubspot_contact_id: c.hubspot_contact_id,
