@@ -23,7 +23,8 @@ export function Detail({ campaignId, onBack }: DetailProps) {
   const [editName, setEditName] = useState('');
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
   const [sending, setSending] = useState(false);
-  const [sendResult, setSendResult] = useState<{ triggered: number; error?: string } | null>(null);
+  const [testSending, setTestSending] = useState(false);
+  const [sendResult, setSendResult] = useState<{ triggered: number; error?: string; isTest?: boolean } | null>(null);
 
   if (loading) return <div className="text-gray-400 text-sm py-12 text-center">Loading...</div>;
   if (error) return <div className="bg-red-50 border border-red-200 rounded-xl p-4 text-sm text-red-800">{error}</div>;
@@ -134,6 +135,31 @@ export function Detail({ campaignId, onBack }: DetailProps) {
               {sending ? 'Sending...' : 'Send Now'}
             </button>
           )}
+          {campaign.workflow?.knockWorkflowKey && (
+            <button
+              onClick={async () => {
+                setTestSending(true);
+                setSendResult(null);
+                try {
+                  const res = await fetch('/api/campaigns/test-send', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ workflowKey: campaign.workflow?.knockWorkflowKey }),
+                  });
+                  const data = await res.json();
+                  if (!res.ok) throw new Error(data.error || `Failed: ${res.status}`);
+                  setSendResult({ triggered: data.count, isTest: true });
+                } catch (err) {
+                  setSendResult({ triggered: 0, error: err instanceof Error ? err.message : 'Test failed', isTest: true });
+                }
+                setTestSending(false);
+              }}
+              disabled={testSending}
+              className="px-3 py-1.5 border border-blue-300 text-blue-600 hover:bg-blue-50 disabled:bg-gray-100 disabled:text-gray-400 text-xs font-medium rounded-lg transition-colors"
+            >
+              {testSending ? 'Sending...' : 'Test Send'}
+            </button>
+          )}
           {campaign.status === 'sent' && campaign.workflow?.knockWorkflowKey && (
             <span className="px-3 py-1.5 bg-green-100 text-green-700 text-xs font-medium rounded-lg">Sent</span>
           )}
@@ -149,8 +175,8 @@ export function Detail({ campaignId, onBack }: DetailProps) {
       {sendResult && (
         <div className={`rounded-xl p-4 text-sm ${sendResult.error ? 'bg-red-50 border border-red-200 text-red-800' : 'bg-green-50 border border-green-200 text-green-800'}`}>
           {sendResult.error
-            ? `Send failed: ${sendResult.error}`
-            : `Successfully triggered ${sendResult.triggered} recipients`}
+            ? `${sendResult.isTest ? 'Test send' : 'Send'} failed: ${sendResult.error}`
+            : `${sendResult.isTest ? 'Test sent' : 'Sent'} to ${sendResult.triggered} recipients${sendResult.isTest ? ' (cameron.wolf@truv.com + 3 test addresses)' : ''}`}
         </div>
       )}
 
