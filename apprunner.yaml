@@ -1,0 +1,35 @@
+# apprunner.yaml — informational reference for App Runner image-based deployment
+#
+# Truv Scout is deployed via AWS App Runner using the image-based approach:
+#   1. docker build -f truv-scout/Dockerfile -t truv-scout .
+#   2. docker tag + push to ECR
+#   3. App Runner pulls from ECR
+#
+# The source-based approach cannot be used because the Dockerfile requires the
+# repo root as build context (to copy the sibling outreach_intel package).
+#
+# App Runner service settings (configure in AWS console):
+#   Image URI:      <account-id>.dkr.ecr.<region>.amazonaws.com/truv-scout:latest
+#   Port:           8000
+#   Health check:   GET /health
+#   CPU:            0.25 vCPU
+#   Memory:         0.5 GB
+#   Auto-scaling:   Min 1, Max 3 instances
+#
+# Required environment variables (set in App Runner service configuration):
+#   HUBSPOT_API_TOKEN
+#   APOLLO_API_KEY
+#   GOOGLE_API_KEY
+#   SLACK_WEBHOOK_URL
+#   FIRECRAWL_API_KEY
+#   SCOUT_WEBHOOK_SECRET   — shared secret; set same value in Pipedream env
+#   ENVIRONMENT            — production
+
+version: 1.0
+runtime: DOCKER
+port: 8000
+run:
+  env:
+    - name: ENVIRONMENT
+      value: production
+  command: uvicorn truv_scout.app:app --host 0.0.0.0 --port 8000
