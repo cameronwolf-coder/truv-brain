@@ -234,6 +234,25 @@ export function ScoutDashboard() {
         </div>
       </div>
 
+      {/* ── PIPELINE OVERVIEW ───────────────── */}
+      <div className="grid grid-cols-3 gap-3 mb-6">
+        {[
+          { key: 'A', color: 'border-l-blue-500', title: 'Pipeline A — Inbound', desc: 'Scores every "Get Started" form submission on truv.com in real time. Triggers via HubSpot Workflow → Pipedream → Scout API.', trigger: 'HubSpot form submit', freq: 'Real-time' },
+          { key: 'B', color: 'border-l-amber-500', title: 'Pipeline B — Closed-Lost', desc: 'Resurfaces closed-lost contacts showing buying signals. Ranks by engagement (web visits, email clicks) and scores the most active first.', trigger: 'Monday 8am CDT cron', freq: 'Weekly batch' },
+          { key: 'C', color: 'border-l-green-500', title: 'Pipeline C — Dashboard Signups', desc: 'Catches product-led signups the instant someone creates a Truv Dashboard account. Applies +25pt product intent bonus.', trigger: 'Slack DashBot message', freq: 'Real-time' },
+        ].map((p) => (
+          <div key={p.key} className={`bg-white border border-gray-200 ${p.color} border-l-4 rounded-xl px-4 py-3`}>
+            <p className="text-sm font-semibold text-gray-900">{p.title}</p>
+            <p className="text-xs text-gray-500 mt-1 mb-2">{p.desc}</p>
+            <div className="flex items-center gap-3 text-[10px] text-gray-400">
+              <span>{p.trigger}</span>
+              <span className="text-gray-300">|</span>
+              <span>{p.freq}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+
       {/* ── SERVICE STATUS ────────────────── */}
       {data!.services && (
         <div className="mb-6">
