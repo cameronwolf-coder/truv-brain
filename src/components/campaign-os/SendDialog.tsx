@@ -33,7 +33,7 @@ export function SendDialog({ campaign, onSendNow, onSchedule, onCancel }: SendDi
         const scheduledAt = new Date(`${scheduledDate}T${scheduledTime}:00`).toISOString();
         await onSchedule(scheduledAt);
       } else if (mode === 'now') {
-        await onSendNow(recipientCount, 0); // all at once
+        await onSendNow(1000, 5); // batch at 1000 (Knock max), 5s delay
       } else {
         await onSendNow(batchSize, delaySeconds);
       }
