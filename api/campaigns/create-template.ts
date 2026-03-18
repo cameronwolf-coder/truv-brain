@@ -168,16 +168,77 @@ Rewrite the HTML template with this new content, keeping the exact same design a
       });
     }
 
-    // Generate HTML with Gemini
+    // Generate HTML with Gemini — using reference template for quality
     if (!GEMINI_API_KEY) throw new Error('Gemini API key not configured');
 
     const client = new OpenAI({ apiKey: GEMINI_API_KEY, baseURL: GEMINI_BASE_URL });
 
-    const userPrompt = `Create a Truv branded email template with these details:
+    // Step 1: Fetch a reference template from SendGrid (most recent, as a structural example)
+    let referenceHtml = '';
+    try {
+      const listRes = await fetch(
+        'https://api.sendgrid.com/v3/templates?generations=dynamic&page_size=10',
+        { headers: { Authorization: `Bearer ${SENDGRID_API_KEY}` } }
+      );
+      if (listRes.ok) {
+        const listData = await listRes.json();
+        const templates = listData.templates || listData.result || [];
+        // Pick one with an active version
+        for (const t of templates) {
+          if (referenceHtml) break;
+          const activeVersion = (t.versions || []).find((v: { active: number }) => v.active === 1);
+          if (activeVersion?.html_content) {
+            referenceHtml = activeVersion.html_content;
+          } else if (t.id) {
+            // Fetch full template to get HTML
+            const fullRes = await fetch(`https://api.sendgrid.com/v3/templates/${t.id}`, {
+              headers: { Authorization: `Bearer ${SENDGRID_API_KEY}` },
+            });
+            if (fullRes.ok) {
+              const fullData = await fullRes.json();
+              const av = (fullData.versions || []).find((v: { active: number }) => v.active === 1);
+              if (av?.html_content) referenceHtml = av.html_content;
+            }
+          }
+        }
+      }
+    } catch { /* reference is optional */ }
+
+    // Step 2: Build the prompt with reference template context
+    const slug = campaignSlug || name.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+
+    const userPrompt = referenceHtml
+      ? `You have two jobs:
+1. Study the REFERENCE TEMPLATE below to understand the exact HTML structure, CSS patterns, table layout, font loading, hero design, body section patterns, CTA button styles, footer structure, and mobile responsive patterns used by this brand.
+2. Create a NEW email using that exact same HTML/CSS structure but with the NEW CONTENT provided.
+
+REFERENCE TEMPLATE (use this as your structural blueprint):
+${referenceHtml}
+
+---
+
+NEW EMAIL TO CREATE:
+Template name: ${name}
+Subject line: ${subject || name}
+Campaign slug (for UTMs): ${slug}
+Hero style: ${heroStyle || 'dark'}
+CTA URL: ${ctaUrl || 'https://truv.com'}
+CTA button text: ${ctaText || 'Learn More'}
+
+EMAIL CONTENT:
+${content}
+
+IMPORTANT:
+- Copy the EXACT same HTML structure, CSS, @font-face declarations, table nesting, border-radius values, padding, colors, and responsive breakpoints from the reference template.
+- Only change the text content, subject, hero title/subtitle/badge, body paragraphs, bullet points, CTA URLs, CTA button text, and UTM campaign slug.
+- Keep {{firstName}} for personalization and {{{unsubscribe}}} for the unsubscribe link.
+- Do NOT invent new CSS or layout patterns. Match the reference exactly.
+- Output ONLY the complete HTML.`
+      : `Create a Truv branded email template with these details:
 
 Template name: ${name}
 Subject line: ${subject || name}
-Campaign slug (for UTMs): ${campaignSlug || name.toLowerCase().replace(/[^a-z0-9]+/g, '-')}
+Campaign slug (for UTMs): ${slug}
 Hero style: ${heroStyle || 'dark'}
 CTA URL: ${ctaUrl || 'https://truv.com'}
 CTA button text: ${ctaText || 'Learn More'}
@@ -189,7 +250,7 @@ Generate the complete HTML email.`;
 
     const response = await client.chat.completions.create({
       model: 'gemini-2.0-flash',
-      max_tokens: 8000,
+      max_tokens: 12000,
       messages: [
         { role: 'system', content: EMAIL_SYSTEM_PROMPT },
         { role: 'user', content: userPrompt },
