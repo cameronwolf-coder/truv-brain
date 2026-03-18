@@ -9,6 +9,7 @@ import { CampaignResources } from './CampaignResources';
 import { CampaignAnalyticsPanel } from './CampaignAnalytics';
 import { CampaignHealthPanel } from './CampaignHealth';
 import { DeliveryStatus } from './DeliveryStatus';
+import { SendDialog } from './SendDialog';
 import { DeleteDialog } from './DeleteDialog';
 
 interface DetailProps {
@@ -22,9 +23,9 @@ export function Detail({ campaignId, onBack }: DetailProps) {
   const [editing, setEditing] = useState(false);
   const [editName, setEditName] = useState('');
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
-  const [sending, setSending] = useState(false);
   const [testSending, setTestSending] = useState(false);
   const [sendResult, setSendResult] = useState<{ triggered: number; error?: string; isTest?: boolean } | null>(null);
+  const [showSendDialog, setShowSendDialog] = useState(false);
 
   if (loading) return <div className="text-gray-400 text-sm py-12 text-center">Loading...</div>;
   if (error) return <div className="bg-red-50 border border-red-200 rounded-xl p-4 text-sm text-red-800">{error}</div>;
@@ -110,29 +111,10 @@ export function Detail({ campaignId, onBack }: DetailProps) {
         <div className="flex items-center gap-2">
           {campaign.workflow?.knockWorkflowKey && campaign.audience?.knockAudienceKey && campaign.status !== 'sent' && (
             <button
-              onClick={async () => {
-                if (!confirm(`Send "${campaign.name}" to ${campaign.audience?.count || 0} recipients now?`)) return;
-                setSending(true);
-                setSendResult(null);
-                try {
-                  const res = await fetch('/api/campaigns/trigger-send', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ campaignId }),
-                  });
-                  const data = await res.json();
-                  if (!res.ok) throw new Error(data.error || `Failed: ${res.status}`);
-                  setSendResult({ triggered: data.triggered });
-                  refresh();
-                } catch (err) {
-                  setSendResult({ triggered: 0, error: err instanceof Error ? err.message : 'Send failed' });
-                }
-                setSending(false);
-              }}
-              disabled={sending}
-              className="px-4 py-1.5 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-300 text-white text-xs font-medium rounded-lg transition-colors"
+              onClick={() => setShowSendDialog(true)}
+              className="px-4 py-1.5 bg-blue-600 hover:bg-blue-700 text-white text-xs font-medium rounded-lg transition-colors"
             >
-              {sending ? 'Sending...' : 'Send Now'}
+              Send
             </button>
           )}
           {campaign.workflow?.knockWorkflowKey && (
@@ -195,6 +177,48 @@ export function Detail({ campaignId, onBack }: DetailProps) {
           <AddSendDrawer existingSends={campaign.sends || []} onAdd={handleAddSend} onClose={() => setShowAddSend(false)} />
         )}
       </AnimatePresence>
+
+      {showSendDialog && campaign && (
+        <SendDialog
+          campaign={campaign}
+          onSendNow={async (batchSize, delaySeconds) => {
+            setSendResult(null);
+            try {
+              const res = await fetch('/api/campaigns/trigger-send', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ campaignId, batchSize, delaySeconds }),
+              });
+              const data = await res.json();
+              if (!res.ok) throw new Error(data.error || `Failed: ${res.status}`);
+              setSendResult({ triggered: data.triggered });
+              setShowSendDialog(false);
+              refresh();
+            } catch (err) {
+              throw err;
+            }
+          }}
+          onSchedule={async (scheduledAt) => {
+            try {
+              await createSend(campaignId, {
+                name: `${campaign.name} - Scheduled`,
+                templateId: campaign.template?.sendgridTemplateId || '',
+                templateName: campaign.template?.name || '',
+                scheduledAt,
+                audienceFilter: { type: 'all' },
+                recipientCount: campaign.audience?.count || 0,
+                workflowKey: campaign.workflow?.knockWorkflowKey || '',
+                presetKey: campaign.preset?.key || '',
+              });
+              setShowSendDialog(false);
+              refresh();
+            } catch (err) {
+              throw err;
+            }
+          }}
+          onCancel={() => setShowSendDialog(false)}
+        />
+      )}
 
       {showDeleteDialog && (
         <DeleteDialog campaign={campaign} onConfirm={handleDeleteConfirm} onCancel={() => setShowDeleteDialog(false)} />
