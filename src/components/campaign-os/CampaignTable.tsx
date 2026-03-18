@@ -31,9 +31,8 @@ export function CampaignTable({ campaigns, onSelect }: CampaignTableProps) {
             <th className="px-4 py-3 font-medium">Name</th>
             <th className="px-4 py-3 font-medium">Channel</th>
             <th className="px-4 py-3 font-medium">Audience</th>
-            <th className="px-4 py-3 font-medium">Sends</th>
             <th className="px-4 py-3 font-medium">Status</th>
-            <th className="px-4 py-3 font-medium">Created</th>
+            <th className="px-4 py-3 font-medium">Sent</th>
           </tr>
         </thead>
         <tbody className="divide-y divide-gray-100">
@@ -44,11 +43,12 @@ export function CampaignTable({ campaigns, onSelect }: CampaignTableProps) {
                 <span className={`px-2 py-0.5 rounded text-xs font-medium ${c.channel === 'marketing' ? 'bg-blue-100 text-blue-700' : 'bg-orange-100 text-orange-700'}`}>{c.channel}</span>
               </td>
               <td className="px-4 py-3 text-gray-600">{c.audienceCount.toLocaleString()}</td>
-              <td className="px-4 py-3 text-gray-600">{c.sendCount}</td>
               <td className="px-4 py-3">
                 <span className={`px-2 py-0.5 rounded text-xs font-medium ${STATUS_STYLES[c.status] || ''}`}>{c.status}</span>
               </td>
-              <td className="px-4 py-3 text-gray-500">{new Date(c.createdAt).toLocaleDateString()}</td>
+              <td className="px-4 py-3 text-gray-500">
+                {c.sentAt ? new Date(c.sentAt).toLocaleDateString() : '—'}
+              </td>
             </tr>
           ))}
         </tbody>
