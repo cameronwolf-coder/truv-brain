@@ -353,9 +353,6 @@ export function ScoutDashboard() {
             s === 'failed' ? 'border-red-200 bg-red-50 text-red-700' :
             s === 'fallback' ? 'border-amber-200 bg-amber-50 text-amber-700' :
             'border-gray-200 bg-gray-50 text-gray-500';
-          const stepDot = (s: string) =>
-            s === 'complete' ? 'bg-green-500' : s === 'failed' ? 'bg-red-500' : s === 'fallback' ? 'bg-amber-500' : 'bg-gray-300';
-
           return (
             <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 8 }}
               className="bg-white border border-gray-200 rounded-xl overflow-hidden mb-6">
