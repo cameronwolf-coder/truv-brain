@@ -8,6 +8,7 @@ import { AddSendDrawer } from './AddSendDrawer';
 import { CampaignResources } from './CampaignResources';
 import { CampaignAnalyticsPanel } from './CampaignAnalytics';
 import { CampaignHealthPanel } from './CampaignHealth';
+import { DeliveryStatus } from './DeliveryStatus';
 import { DeleteDialog } from './DeleteDialog';
 
 interface DetailProps {
@@ -21,6 +22,8 @@ export function Detail({ campaignId, onBack }: DetailProps) {
   const [editing, setEditing] = useState(false);
   const [editName, setEditName] = useState('');
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [sendResult, setSendResult] = useState<{ triggered: number; error?: string } | null>(null);
 
   if (loading) return <div className="text-gray-400 text-sm py-12 text-center">Loading...</div>;
   if (error) return <div className="bg-red-50 border border-red-200 rounded-xl p-4 text-sm text-red-800">{error}</div>;
@@ -104,6 +107,36 @@ export function Detail({ campaignId, onBack }: DetailProps) {
 
         {/* Actions */}
         <div className="flex items-center gap-2">
+          {campaign.workflow?.knockWorkflowKey && campaign.audience?.knockAudienceKey && campaign.status !== 'sent' && (
+            <button
+              onClick={async () => {
+                if (!confirm(`Send "${campaign.name}" to ${campaign.audience?.count || 0} recipients now?`)) return;
+                setSending(true);
+                setSendResult(null);
+                try {
+                  const res = await fetch('/api/campaigns/trigger-send', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ campaignId }),
+                  });
+                  const data = await res.json();
+                  if (!res.ok) throw new Error(data.error || `Failed: ${res.status}`);
+                  setSendResult({ triggered: data.triggered });
+                  refresh();
+                } catch (err) {
+                  setSendResult({ triggered: 0, error: err instanceof Error ? err.message : 'Send failed' });
+                }
+                setSending(false);
+              }}
+              disabled={sending}
+              className="px-4 py-1.5 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-300 text-white text-xs font-medium rounded-lg transition-colors"
+            >
+              {sending ? 'Sending...' : 'Send Now'}
+            </button>
+          )}
+          {campaign.status === 'sent' && campaign.workflow?.knockWorkflowKey && (
+            <span className="px-3 py-1.5 bg-green-100 text-green-700 text-xs font-medium rounded-lg">Sent</span>
+          )}
           <button
             onClick={() => setShowDeleteDialog(true)}
             className="px-3 py-1.5 text-red-600 hover:bg-red-50 text-xs font-medium rounded-lg transition-colors border border-red-200"
@@ -113,9 +146,19 @@ export function Detail({ campaignId, onBack }: DetailProps) {
         </div>
       </div>
 
+      {sendResult && (
+        <div className={`rounded-xl p-4 text-sm ${sendResult.error ? 'bg-red-50 border border-red-200 text-red-800' : 'bg-green-50 border border-green-200 text-green-800'}`}>
+          {sendResult.error
+            ? `Send failed: ${sendResult.error}`
+            : `Successfully triggered ${sendResult.triggered} recipients`}
+        </div>
+      )}
+
       <CampaignResources campaign={campaign} onRefresh={refresh} />
 
       <SendTimeline sends={campaign.sends || []} onCancel={handleCancel} onAddSend={() => setShowAddSend(true)} />
+
+      <DeliveryStatus workflowKey={campaign.workflow?.knockWorkflowKey} />
 
       <CampaignAnalyticsPanel campaignId={campaignId} />
 
