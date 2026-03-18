@@ -1,0 +1,67 @@
+{
+  "los_pos": {
+    "description": "Mortgage LOS/POS systems — integration fit signals",
+    "providers": [
+      "Encompass",
+      "ICE Mortgage Technology",
+      "Blend",
+      "Byte Software",
+      "MortgageFlex",
+      "Calyx",
+      "Calyx Point",
+      "Calyx Path",
+      "LoanSphere",
+      "Black Knight",
+      "Mortgage Cadence",
+      "LendingPad",
+      "OpenClose"
+    ]
+  },
+  "voi_voe": {
+    "description": "VOI/VOE providers — displacement opportunity signals",
+    "providers": [
+      "Equifax Workforce Solutions",
+      "The Work Number",
+      "Work Number",
+      "Truework",
+      "Argyle",
+      "Plaid Income",
+      "Plaid",
+      "Finicity",
+      "Mastercard Open Banking",
+      "FormFree",
+      "PointServ"
+    ],
+    "legacy": [
+      "Equifax Workforce Solutions",
+      "The Work Number",
+      "Work Number",
+      "PointServ"
+    ],
+    "modern_competitors": [
+      "Truework",
+      "Argyle",
+      "Plaid",
+      "Plaid Income",
+      "Finicity",
+      "FormFree"
+    ]
+  },
+  "hiring_keywords": {
+    "description": "Job title keywords that signal lending/compliance hiring",
+    "keywords": [
+      "lending",
+      "loan",
+      "mortgage",
+      "underwrite",
+      "underwriting",
+      "compliance",
+      "verification",
+      "credit",
+      "origination",
+      "servicing",
+      "risk",
+      "fraud"
+    ]
+  }
+}

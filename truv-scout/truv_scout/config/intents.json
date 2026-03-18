@@ -1,0 +1,26 @@
+{
+  "greenfield": {
+    "condition": "LOS match + no VOI/VOE provider detected",
+    "description": "Greenfield opportunity — no existing verification provider",
+    "angle": "New implementation, emphasize speed-to-market and compliance coverage",
+    "score_adjustment": 10
+  },
+  "displacement": {
+    "condition": "LOS match + legacy VOI provider (Work Number, Equifax, PointServ)",
+    "description": "Displacement play — legacy provider with high costs",
+    "angle": "Cost savings and faster turnaround vs Work Number/Equifax",
+    "score_adjustment": 8
+  },
+  "competitive": {
+    "condition": "LOS match + modern VOI competitor (Truework, Argyle, Plaid, Finicity, FormFree)",
+    "description": "Competitive deal — modern provider already in place",
+    "angle": "Differentiation on coverage, accuracy, and borrower experience",
+    "score_adjustment": 3
+  },
+  "no_match": {
+    "condition": "No LOS detected in tech stack",
+    "description": "Likely not in mortgage/lending — noted but doesn't penalize",
+    "angle": "Explore other verification use cases (HR, tenant screening, background checks)",
+    "score_adjustment": 0
+  }
+}

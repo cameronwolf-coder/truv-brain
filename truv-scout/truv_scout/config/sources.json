@@ -1,0 +1,17 @@
+{
+  "customer_stories": {
+    "directory": "docs/customer-stories/",
+    "description": "Case studies and customer success stories",
+    "when_to_search": "Lead's vertical or company size matches a story"
+  },
+  "knowledge_base": {
+    "directory": "docs/knowledge-base/",
+    "description": "Product specs, ICP definitions, persona guides, competitive intel",
+    "when_to_search": "Every lead — ICP definitions, product fit, personas"
+  },
+  "ad_performance": {
+    "file": "memory/ad-experiments.md",
+    "description": "Which messaging resonated with each vertical",
+    "when_to_search": "When choosing recommended action or messaging angle"
+  }
+}

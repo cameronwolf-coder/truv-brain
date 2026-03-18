@@ -61,7 +61,7 @@ Each workflow uses the `sendgrid-customer-success` HTTP webhook channel to POST 
             {"key": "Authorization", "value": "Bearer {{ vars.sendgrid_api_key }}"},
             {"key": "Content-Type", "value": "application/json"}
           ],
-          "body": "{\n  \"personalizations\": [{\n    \"to\": [{\"email\": \"{{ recipient.email }}\"}],\n    \"dynamic_template_data\": {\n      \"firstName\": \"{{ recipient.name }}\"\n    }\n  }],\n  \"from\": {\n    \"email\": \"{from_email}\",\n    \"name\": \"{from_name}\"\n  },\n  \"template_id\": \"{sendgrid_template_id}\",\n  \"asm\": {\"group_id\": {asm_group_id}}\n}"
+          "body": "{\"personalizations\": [{\"to\": [{\"email\": \"{{ recipient.email }}\"}], \"dynamic_template_data\": {\"firstName\": \"{{ recipient.name | split: ' ' | first }}\"}}], \"from\": {\"email\": \"{from_email}\", \"name\": \"{from_name}\"}, \"template_id\": \"{sendgrid_template_id}\", \"asm\": {\"group_id\": {asm_group_id}}, \"categories\": [\"Marketing\", \"{{ workflow.key }}\"]}"
         }
       }
     ]
@@ -84,5 +84,7 @@ When creating multiple workflows at once (e.g., a 4-email webinar series), run a
 - **Wrong channel key:** Must be `sendgrid-customer-success` (the HTTP webhook channel), NOT `sendgrid` or `sendgrid---marketing` (those are email-type channels for Knock-composed emails)
 - **Missing commit:** Always add `&commit=true` to the query string, otherwise changes stay uncommitted in development
 - **Body escaping:** The `body` field is a JSON string containing JSON — escape inner quotes with `\"`
+- **CRITICAL — Liquid single quotes in filters:** When using Liquid filters like `split` inside the JSON body, you MUST use single quotes: `split: ' '`. NEVER use double quotes (`split: " "`). Double quotes inside a JSON string value create a backslash-quote (`\"`) that Knock's Liquid parser cannot handle, causing `Unexpected character '\'` template render errors. This applies to ALL Liquid filters that take string arguments.
 - **Liquid syntax:** Use `{{ recipient.email }}` and `{{ recipient.name }}` (double curly braces, Knock liquid)
 - **Missing ASM group:** ALWAYS include `"asm": {"group_id": 29127}` for unsubscribe compliance. Never omit this.
+- **Missing categories:** ALWAYS include `"categories": ["Marketing", "{{ workflow.key }}"]` for tracking in SendGrid.
