@@ -8,6 +8,24 @@ function corsHeaders(res: VercelResponse): void {
 
 const KNOCK_API_URL = 'https://api.knock.app/v1';
 const KNOCK_SERVICE_TOKEN = process.env.KNOCK_SERVICE_TOKEN;
+const SENDGRID_API_KEY = process.env.SENDGRID_API_KEY;
+
+interface KnockMessage {
+  id: string;
+  status: string;
+  email: string;
+  name: string;
+  sentAt: string;
+}
+
+function parseRecipient(r: unknown): { email: string; name: string } {
+  if (typeof r === 'string') return { email: r, name: '' };
+  if (r && typeof r === 'object') {
+    const obj = r as { id?: string; email?: string; name?: string };
+    return { email: obj.email || obj.id || '', name: obj.name || '' };
+  }
+  return { email: '', name: '' };
+}
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   corsHeaders(res);
@@ -20,52 +38,111 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     const workflowKey = req.query.workflow as string;
     if (!workflowKey) return res.status(400).json({ error: 'Missing workflow query param' });
 
-    // Fetch messages from Knock for this workflow
-    const knockRes = await fetch(
-      `${KNOCK_API_URL}/messages?source=${workflowKey}&page_size=50`,
-      { headers: { Authorization: `Bearer ${KNOCK_SERVICE_TOKEN}` } }
-    );
+    // Paginate through ALL Knock messages for this workflow
+    const allMessages: KnockMessage[] = [];
+    let after: string | null = null;
+    let totalCount = 0;
 
-    if (!knockRes.ok) throw new Error(`Knock API error: ${knockRes.status}`);
-    const data = await knockRes.json();
+    while (allMessages.length < 5000) { // safety cap
+      const params = new URLSearchParams({ source: workflowKey, page_size: '50' });
+      if (after) params.set('after', after);
 
-    const messages = (data.items || []).map((m: {
-      id: string;
-      status: string;
-      inserted_at: string;
-      recipient: string | { id?: string; email?: string; name?: string };
-      channel_id?: string;
-    }) => {
-      const r = m.recipient;
-      let email = '';
-      let name = '';
-      if (typeof r === 'string') {
-        email = r;
-      } else if (r) {
-        email = r.email || r.id || '';
-        name = r.name || '';
+      const knockRes = await fetch(`${KNOCK_API_URL}/messages?${params}`, {
+        headers: { Authorization: `Bearer ${KNOCK_SERVICE_TOKEN}` },
+      });
+      if (!knockRes.ok) throw new Error(`Knock API error: ${knockRes.status}`);
+      const data = await knockRes.json();
+
+      totalCount = data.page_info?.total_count || totalCount;
+
+      for (const m of data.items || []) {
+        const { email, name } = parseRecipient(m.recipient);
+        allMessages.push({
+          id: m.id,
+          status: m.status,
+          email,
+          name,
+          sentAt: m.inserted_at,
+        });
       }
-      return {
-        id: m.id,
-        status: m.status,
-        email,
-        name,
-        sentAt: m.inserted_at,
-      };
-    });
 
-    // Aggregate stats
-    const stats = {
-      total: data.page_info?.total_count || messages.length,
-      delivered: messages.filter((m: { status: string }) => m.status === 'delivered').length,
-      sent: messages.filter((m: { status: string }) => m.status === 'sent').length,
-      queued: messages.filter((m: { status: string }) => m.status === 'queued').length,
-      failed: messages.filter((m: { status: string }) => ['undelivered', 'not_sent', 'bounced'].includes(m.status)).length,
+      after = data.page_info?.after || null;
+      if (!after) break;
+    }
+
+    // Aggregate Knock stats from all pages
+    const knockStats = {
+      total: totalCount || allMessages.length,
+      delivered: allMessages.filter((m) => m.status === 'delivered').length,
+      sent: allMessages.filter((m) => m.status === 'sent').length,
+      queued: allMessages.filter((m) => m.status === 'queued').length,
+      failed: allMessages.filter((m) => ['undelivered', 'not_sent', 'bounced'].includes(m.status)).length,
     };
 
-    return res.status(200).json({ messages, stats });
+    // Fetch SendGrid category stats for this workflow
+    let sendgridStats = null;
+    if (SENDGRID_API_KEY) {
+      try {
+        // SendGrid categories API — get stats for this workflow key
+        const sgRes = await fetch(
+          `https://api.sendgrid.com/v3/categories/stats?categories=${workflowKey}&start_date=${getStartDate()}`,
+          { headers: { Authorization: `Bearer ${SENDGRID_API_KEY}` } }
+        );
+        if (sgRes.ok) {
+          const sgData = await sgRes.json();
+          // Aggregate across all dates
+          let requests = 0, delivered = 0, opens = 0, uniqueOpens = 0,
+              clicks = 0, uniqueClicks = 0, bounces = 0, blocks = 0,
+              spamReports = 0, unsubscribes = 0;
+
+          for (const day of sgData) {
+            for (const stat of day.stats || []) {
+              const m = stat.metrics || {};
+              requests += m.requests || 0;
+              delivered += m.delivered || 0;
+              opens += m.opens || 0;
+              uniqueOpens += m.unique_opens || 0;
+              clicks += m.clicks || 0;
+              uniqueClicks += m.unique_clicks || 0;
+              bounces += m.bounces || 0;
+              blocks += m.blocks || 0;
+              spamReports += m.spam_reports || 0;
+              unsubscribes += m.unsubscribes || 0;
+            }
+          }
+
+          sendgridStats = {
+            requests,
+            delivered,
+            opens,
+            uniqueOpens,
+            clicks,
+            uniqueClicks,
+            bounces,
+            blocks,
+            spamReports,
+            unsubscribes,
+            openRate: delivered > 0 ? uniqueOpens / delivered : 0,
+            clickRate: delivered > 0 ? uniqueClicks / delivered : 0,
+            bounceRate: requests > 0 ? bounces / requests : 0,
+          };
+        }
+      } catch { /* SendGrid stats are optional */ }
+    }
+
+    return res.status(200).json({
+      messages: allMessages,
+      stats: knockStats,
+      sendgridStats,
+    });
   } catch (error) {
     console.error('Knock status error:', error);
     return res.status(500).json({ error: error instanceof Error ? error.message : 'Internal server error' });
   }
+}
+
+function getStartDate(): string {
+  const d = new Date();
+  d.setDate(d.getDate() - 7);
+  return d.toISOString().split('T')[0];
 }
