@@ -328,30 +328,60 @@ class ContactScorer:
         return min(score, 100)
 
     def _score_engagement(self, props: dict[str, Any]) -> float:
-        """Score based on engagement history."""
+        """Score based on engagement history.
+
+        Checks email opens/clicks AND web page visits. A closed-lost contact
+        who visited truv.com or engaged with content in the last 30 days is
+        a high-priority re-engagement signal — they came back on their own.
+        """
         score = 0.0
 
-        # Email opens
-        last_open = props.get("hs_email_last_open_date")
-        if last_open:
-            days_since = self._days_since(last_open)
+        # --- Web page visits (strongest re-engagement signal) ---
+        last_visit = props.get("hs_analytics_last_visit_timestamp")
+        if last_visit:
+            days_since = self._days_since(last_visit)
             if days_since < 30:
-                score += 40  # Very recent
+                score += 60  # Visited truv.com in last 30 days — very high intent
             elif days_since < 90:
-                score += 25  # Recent
+                score += 30  # Visited recently
             elif days_since < 180:
                 score += 10  # Somewhat recent
 
-        # Email clicks (higher intent)
+        # Page view volume (repeat visitors are more engaged)
+        num_visits = int(props.get("hs_analytics_num_visits") or 0)
+        if num_visits >= 5:
+            score += 15  # Multiple sessions
+        elif num_visits >= 2:
+            score += 8   # Repeat visitor
+
+        # --- Email clicks (high intent) ---
         last_click = props.get("hs_email_last_click_date")
         if last_click:
             days_since = self._days_since(last_click)
             if days_since < 30:
-                score += 50
+                score += 40  # Clicked an email link in last 30 days
             elif days_since < 90:
-                score += 30
+                score += 20
             elif days_since < 180:
-                score += 15
+                score += 8
+
+        # --- Email opens (moderate intent) ---
+        last_open = props.get("hs_email_last_open_date")
+        if last_open:
+            days_since = self._days_since(last_open)
+            if days_since < 30:
+                score += 25  # Opened email in last 30 days
+            elif days_since < 90:
+                score += 12
+            elif days_since < 180:
+                score += 5
+
+        # --- Sales activity (someone on the team touched this contact) ---
+        last_sales = props.get("hs_last_sales_activity_timestamp")
+        if last_sales:
+            days_since = self._days_since(last_sales)
+            if days_since < 30:
+                score += 10  # Recent sales touch — momentum exists
 
         return min(score, 100)
 

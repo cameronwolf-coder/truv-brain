@@ -231,10 +231,40 @@ def score_closed_lost(
     typer.echo(f"Scored {len(results)} contacts: 🔥 {hot} hot | ♨️ {warm} warm | 🔵 {cold} cold")
 
     if dry_run:
-        typer.echo("Dry run — no HubSpot writes performed.")
+        typer.echo("Dry run — no HubSpot writes, no Slack digest.")
+    else:
+        post_closed_lost_digest(results)
+        typer.echo("Slack digest posted to #outreach-intelligence.")
 
-    post_closed_lost_digest(results)
-    typer.echo("Slack digest posted to #outreach-intelligence.")
+
+@app.command(name="score-dashboard-backlog")
+def score_dashboard_backlog(
+    limit: int = typer.Option(200, "--limit", "-n", help="Max signups to score"),
+    dry_run: bool = typer.Option(False, "--dry-run", help="Score but don't write to HubSpot"),
+    oldest: str = typer.Option("", "--oldest", help="Oldest Slack message ts to start from"),
+):
+    """Batch score historical Dashboard signups from #dashboard-signups.
+
+    Reads DashBot messages from Slack channel history, finds or creates
+    HubSpot contacts, then scores each through the full pipeline.
+    """
+    from truv_scout.dashboard import run_dashboard_backlog_batch
+    from truv_scout.slack import post_closed_lost_digest
+
+    typer.echo(f"Fetching Dashboard signups from Slack (limit={limit})...")
+    results = run_dashboard_backlog_batch(limit=limit, dry_run=dry_run, oldest=oldest)
+
+    hot = sum(1 for r in results if r.final_tier == "hot")
+    warm = sum(1 for r in results if r.final_tier == "warm")
+    cold = sum(1 for r in results if r.final_tier == "cold")
+
+    typer.echo(f"\nScored {len(results)} contacts: 🔥 {hot} hot | ♨️ {warm} warm | 🔵 {cold} cold")
+
+    if dry_run:
+        typer.echo("Dry run — no HubSpot writes performed.")
+    else:
+        post_closed_lost_digest(results)
+        typer.echo("Slack digest posted to #outreach-intelligence.")
 
 
 if __name__ == "__main__":
