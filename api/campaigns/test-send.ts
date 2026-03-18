@@ -10,11 +10,11 @@ const KNOCK_API_URL = 'https://api.knock.app/v1';
 const KNOCK_SERVICE_TOKEN = process.env.KNOCK_SERVICE_TOKEN;
 
 // Cameron's test recipients
-const DEFAULT_TEST_EMAILS = [
-  'cameron.wolf.8@gmail.com',
-  'cameron.wolf@truv.com',
-  'camerowo@umich.edu',
-  'camerowo@outlook.com',
+const DEFAULT_TEST_RECIPIENTS: Array<{ email: string; firstname?: string; lastname?: string }> = [
+  { email: 'cameron.wolf@truv.com', firstname: 'Cameron', lastname: 'Wolf' },
+  { email: 'cameron.wolf.8@gmail.com', firstname: 'Cam' },
+  { email: 'camerowo@umich.edu' },
+  { email: 'camerowo@outlook.com' },
 ];
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
@@ -25,25 +25,45 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   try {
     if (!KNOCK_SERVICE_TOKEN) throw new Error('KNOCK_SERVICE_TOKEN not configured');
 
-    const { workflowKey, emails } = req.body;
+    const { workflowKey, emails, extraEmails } = req.body;
     if (!workflowKey) return res.status(400).json({ error: 'Missing workflowKey' });
 
-    const testEmails: string[] = emails && emails.length > 0 ? emails : DEFAULT_TEST_EMAILS;
+    let testRecipients = emails && emails.length > 0
+      ? emails.map((e: string) => ({ email: e }))
+      : [...DEFAULT_TEST_RECIPIENTS];
 
-    // Identify test users in Knock (ensure they exist)
-    for (const email of testEmails) {
-      await fetch(`${KNOCK_API_URL}/users/${email}`, {
+    // Append any custom emails
+    if (extraEmails && Array.isArray(extraEmails)) {
+      for (const e of extraEmails) {
+        if (e && !testRecipients.some((r: { email: string }) => r.email === e)) {
+          testRecipients.push({ email: e });
+        }
+      }
+    }
+
+    // Identify test users in Knock with real name data
+    for (const r of testRecipients) {
+      const userData: Record<string, string | null> = { email: r.email };
+      if (r.firstname) {
+        userData.firstname = r.firstname;
+        userData.name = r.lastname ? `${r.firstname} ${r.lastname}` : r.firstname;
+      } else {
+        userData.firstname = null;
+        userData.name = null;
+      }
+      userData.lastname = r.lastname || null;
+
+      await fetch(`${KNOCK_API_URL}/users/${r.email}`, {
         method: 'PUT',
         headers: {
           Authorization: `Bearer ${KNOCK_SERVICE_TOKEN}`,
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          email,
-          name: email.split('@')[0].replace(/\./g, ' '),
-        }),
+        body: JSON.stringify(userData),
       });
     }
+
+    const testEmails = testRecipients.map((r: { email: string }) => r.email);
 
     // Trigger workflow for test recipients
     const triggerRes = await fetch(`${KNOCK_API_URL}/workflows/${workflowKey}/trigger`, {

@@ -53,10 +53,14 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
       for (const entry of data.entries || []) {
         const user = entry.user || {};
+        const email = user.email || user.id || '';
+        const rawName = user.name || null;
+        // Discard name if it's just the email address (legacy sync artifact)
+        const name = rawName && rawName !== email && !rawName.includes('@') ? rawName : null;
         members.push({
           id: user.id || '',
-          email: user.email || user.id || '',
-          name: user.name || null,
+          email,
+          name,
           company: user.company || null,
           title: user.title || null,
         });

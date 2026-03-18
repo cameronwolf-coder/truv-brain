@@ -26,6 +26,8 @@ export function Detail({ campaignId, onBack }: DetailProps) {
   const [testSending, setTestSending] = useState(false);
   const [sendResult, setSendResult] = useState<{ triggered: number; error?: string; isTest?: boolean } | null>(null);
   const [showSendDialog, setShowSendDialog] = useState(false);
+  const [showTestDialog, setShowTestDialog] = useState(false);
+  const [customTestEmail, setCustomTestEmail] = useState('');
 
   if (loading) return <div className="text-gray-400 text-sm py-12 text-center">Loading...</div>;
   if (error) return <div className="bg-red-50 border border-red-200 rounded-xl p-4 text-sm text-red-800">{error}</div>;
@@ -119,23 +121,7 @@ export function Detail({ campaignId, onBack }: DetailProps) {
           )}
           {campaign.workflow?.knockWorkflowKey && (
             <button
-              onClick={async () => {
-                setTestSending(true);
-                setSendResult(null);
-                try {
-                  const res = await fetch('/api/campaigns/test-send', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ workflowKey: campaign.workflow?.knockWorkflowKey }),
-                  });
-                  const data = await res.json();
-                  if (!res.ok) throw new Error(data.error || `Failed: ${res.status}`);
-                  setSendResult({ triggered: data.count, isTest: true });
-                } catch (err) {
-                  setSendResult({ triggered: 0, error: err instanceof Error ? err.message : 'Test failed', isTest: true });
-                }
-                setTestSending(false);
-              }}
+              onClick={() => { setShowTestDialog(true); setCustomTestEmail(''); }}
               disabled={testSending}
               className="px-3 py-1.5 border border-blue-300 text-blue-600 hover:bg-blue-50 disabled:bg-gray-100 disabled:text-gray-400 text-xs font-medium rounded-lg transition-colors"
             >
@@ -222,6 +208,72 @@ export function Detail({ campaignId, onBack }: DetailProps) {
 
       {showDeleteDialog && (
         <DeleteDialog campaign={campaign} onConfirm={handleDeleteConfirm} onCancel={() => setShowDeleteDialog(false)} />
+      )}
+
+      {showTestDialog && (
+        <div className="fixed inset-0 bg-black/40 z-50 flex items-center justify-center" onClick={() => setShowTestDialog(false)}>
+          <div className="bg-white rounded-xl shadow-xl w-full max-w-md p-5 space-y-4" onClick={(e) => e.stopPropagation()}>
+            <h3 className="text-sm font-semibold text-gray-900">Test Send</h3>
+            <div className="space-y-2">
+              <p className="text-xs text-gray-500">
+                Sends to your 4 default test addresses. Optionally add a custom email below.
+              </p>
+              <input
+                type="email"
+                value={customTestEmail}
+                onChange={(e) => setCustomTestEmail(e.target.value)}
+                placeholder="Add a custom email (optional)"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' && !testSending) {
+                    e.preventDefault();
+                    document.getElementById('test-send-btn')?.click();
+                  }
+                }}
+              />
+            </div>
+            <div className="flex justify-end gap-2">
+              <button
+                onClick={() => setShowTestDialog(false)}
+                className="px-3 py-1.5 text-xs text-gray-600 hover:text-gray-800"
+              >
+                Cancel
+              </button>
+              <button
+                id="test-send-btn"
+                disabled={testSending}
+                onClick={async () => {
+                  setTestSending(true);
+                  setSendResult(null);
+                  try {
+                    const body: Record<string, unknown> = {
+                      workflowKey: campaign.workflow?.knockWorkflowKey,
+                    };
+                    if (customTestEmail.trim()) {
+                      body.extraEmails = [customTestEmail.trim()];
+                    }
+                    const res = await fetch('/api/campaigns/test-send', {
+                      method: 'POST',
+                      headers: { 'Content-Type': 'application/json' },
+                      body: JSON.stringify(body),
+                    });
+                    const data = await res.json();
+                    if (!res.ok) throw new Error(data.error || `Failed: ${res.status}`);
+                    setSendResult({ triggered: data.count, isTest: true });
+                    setShowTestDialog(false);
+                  } catch (err) {
+                    setSendResult({ triggered: 0, error: err instanceof Error ? err.message : 'Test failed', isTest: true });
+                    setShowTestDialog(false);
+                  }
+                  setTestSending(false);
+                }}
+                className="px-4 py-1.5 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-300 text-white text-xs font-medium rounded-lg transition-colors"
+              >
+                {testSending ? 'Sending...' : 'Send Test'}
+              </button>
+            </div>
+          </div>
+        </div>
       )}
     </div>
   );

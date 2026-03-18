@@ -464,7 +464,8 @@ function WorkflowEditor({ current, onSave, onCancel }: { current: string; onSave
 export function CampaignResources({ campaign, onRefresh }: CampaignResourcesProps) {
   const [recipients, setRecipients] = useState<Recipient[]>([]);
   const [loadingRecipients, setLoadingRecipients] = useState(true);
-  const [editingField, setEditingField] = useState<'list' | 'template' | 'workflow' | null>(null);
+  const [editingField, setEditingField] = useState<'list' | 'template' | 'workflow' | 'audience' | null>(null);
+  const [audienceKeyInput, setAudienceKeyInput] = useState('');
   const [saving, setSaving] = useState(false);
   const [actionLoading, setActionLoading] = useState<string | null>(null);
   const [actionError, setActionError] = useState<string | null>(null);
@@ -515,6 +516,35 @@ export function CampaignResources({ campaign, onRefresh }: CampaignResourcesProp
     saveField({
       workflow: { ...campaign.workflow, knockWorkflowKey: key },
     });
+  };
+
+  const handleRenameAudience = async (newKey: string) => {
+    const slug = newKey.trim().toLowerCase().replace(/[^a-z0-9-]/g, '-').replace(/-+/g, '-');
+    if (!slug) return;
+    setSaving(true);
+    try {
+      // Update the audience key on the campaign
+      await updateCampaign(campaign.id, {
+        audience: { ...campaign.audience, knockAudienceKey: slug },
+      });
+      setEditingField(null);
+      setAudienceKeyInput('');
+      onRefresh();
+      // Auto re-sync to populate the new audience in Knock
+      if (campaign.audience?.hubspotListId) {
+        setActionLoading('sync-audience');
+        try {
+          await fetch('/api/campaigns/sync-audience', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ campaignId: campaign.id }),
+          });
+          onRefresh();
+        } catch { /* ignore sync errors */ }
+        setActionLoading(null);
+      }
+    } catch { /* ignore */ }
+    setSaving(false);
   };
 
   const handleSyncAudience = async () => {
@@ -613,8 +643,45 @@ export function CampaignResources({ campaign, onRefresh }: CampaignResourcesProp
 
           {/* Knock Audience */}
           <div className="space-y-1">
-            <p className="text-xs font-medium text-gray-500 uppercase tracking-wide">Knock Audience</p>
-            {knockAudienceKey ? (
+            <p className="text-xs font-medium text-gray-500 uppercase tracking-wide flex items-center">
+              Knock Audience
+              {knockAudienceKey && (
+                <button
+                  onClick={() => {
+                    setAudienceKeyInput(knockAudienceKey);
+                    setEditingField(editingField === 'audience' ? null : 'audience');
+                  }}
+                  className="text-gray-300 hover:text-blue-600 transition-colors ml-1"
+                  title="Rename"
+                >
+                  <EditIcon />
+                </button>
+              )}
+            </p>
+            {editingField === 'audience' ? (
+              <div className="flex items-center gap-2">
+                <input
+                  type="text"
+                  value={audienceKeyInput}
+                  onChange={(e) => setAudienceKeyInput(e.target.value)}
+                  placeholder="audience-key-slug"
+                  className="flex-1 px-2 py-1 border border-gray-300 rounded text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter') handleRenameAudience(audienceKeyInput);
+                    if (e.key === 'Escape') setEditingField(null);
+                  }}
+                  autoFocus
+                />
+                <button
+                  onClick={() => handleRenameAudience(audienceKeyInput)}
+                  disabled={!audienceKeyInput.trim() || saving}
+                  className="px-2.5 py-1 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-300 text-white text-xs rounded-md"
+                >
+                  Save
+                </button>
+                <button onClick={() => setEditingField(null)} className="text-xs text-gray-500 hover:text-gray-700">Cancel</button>
+              </div>
+            ) : knockAudienceKey ? (
               <div>
                 <code className="text-sm bg-gray-100 px-1.5 py-0.5 rounded text-gray-800">{knockAudienceKey}</code>
                 <p className="text-xs text-gray-500 mt-0.5">{recipients.length || campaign.audience?.count || 0} members</p>
@@ -771,7 +838,7 @@ export function CampaignResources({ campaign, onRefresh }: CampaignResourcesProp
                   {recipients.slice(0, 20).map((r) => (
                     <tr key={r.id} className="hover:bg-gray-50">
                       <td className="px-3 py-1.5 text-gray-900">{r.email}</td>
-                      <td className="px-3 py-1.5 text-gray-700">{r.name || '—'}</td>
+                      <td className="px-3 py-1.5 text-gray-700">{r.name && !r.name.includes('@') ? r.name : '—'}</td>
                       <td className="px-3 py-1.5 text-gray-600">{r.company || '—'}</td>
                       <td className="px-3 py-1.5 text-gray-600">{r.title || '—'}</td>
                     </tr>

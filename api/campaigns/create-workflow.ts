@@ -43,7 +43,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       personalizations: [{
         to: [{ email: '{{ recipient.email }}' }],
         dynamic_template_data: {
-          firstName: "{{ recipient.name | split: ' ' | first }}",
+          firstName: "{% if recipient.firstname %}{{ recipient.firstname }}{% elsif recipient.name %}{{ recipient.name | split: ' ' | first }}{% endif %}",
         },
       }],
       from: { email: sender, name: senderDisplay },
