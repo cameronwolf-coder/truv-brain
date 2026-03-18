@@ -4,6 +4,11 @@ import { motion, AnimatePresence } from 'framer-motion';
 /* ===========================================
    TYPES
    =========================================== */
+interface PipelineStep {
+  status: 'complete' | 'failed' | 'skipped' | 'no-data' | 'fallback' | 'pending';
+  detail: string;
+}
+
 interface ScoredContact {
   id: string;
   name: string;
@@ -19,10 +24,29 @@ interface ScoredContact {
   scoredAt: string | null;
   techMatches: string | null;
   lastVisit: string | null;
+  lastVisitUrl: string | null;
   numVisits: number;
   lastEmailOpen: string | null;
   lastEmailClick: string | null;
+  lastSalesActivity: string | null;
   lifecycle: string | null;
+  leadStatus: string | null;
+  useCase: string | null;
+  loanVolume: string | null;
+  appVolume: string | null;
+  roleLevel: string | null;
+  howCanWeHelp: string | null;
+  createdAt: string | null;
+  analyticsSource: string | null;
+  deals: number;
+  steps: {
+    trigger: PipelineStep;
+    hubspot: PipelineStep;
+    scorer: PipelineStep;
+    apollo: PipelineStep;
+    agent: PipelineStep;
+    writeback: PipelineStep;
+  };
 }
 
 interface DashboardData {
@@ -277,69 +301,176 @@ export function ScoutDashboard() {
 
       {/* ── CONTACT DETAIL DRAWER ──────────── */}
       <AnimatePresence>
-        {selectedContact && (
-          <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 8 }}
-            className="bg-white border border-gray-200 rounded-xl p-5 mb-6">
-            <div className="flex items-start justify-between mb-3">
-              <div>
-                <div className="flex items-center gap-2 mb-1">
-                  {sourceBadge(selectedContact.source)}
-                  <h3 className="text-lg font-semibold text-gray-900">{selectedContact.name}</h3>
-                  {tierBadge(selectedContact.tier)}
-                </div>
-                <p className="text-sm text-gray-500">{selectedContact.title}{selectedContact.title && selectedContact.company ? ' @ ' : ''}{selectedContact.company}</p>
-              </div>
-              <button onClick={() => setSelectedContact(null)} className="text-gray-400 hover:text-gray-600 text-sm px-2 py-1 rounded hover:bg-gray-100">Close ✕</button>
-            </div>
+        {selectedContact && (() => {
+          const c = selectedContact;
+          const sourceLabel: Record<string, string> = { form_submission: 'Pipeline A — Inbound', closed_lost_reengagement: 'Pipeline B — Closed-Lost', dashboard_signup: 'Pipeline C — Dashboard Signup' };
+          const stepLabels = [
+            { key: 'trigger' as const, icon: '📡', label: 'Trigger' },
+            { key: 'hubspot' as const, icon: '🔗', label: 'HubSpot' },
+            { key: 'scorer' as const, icon: '📊', label: 'Scorer' },
+            { key: 'apollo' as const, icon: '🔍', label: 'Apollo' },
+            { key: 'agent' as const, icon: '🧠', label: 'Agno Agent' },
+            { key: 'writeback' as const, icon: '✅', label: 'Write-back' },
+          ];
+          const stepStatusStyle = (s: string) =>
+            s === 'complete' ? 'border-green-200 bg-green-50 text-green-700' :
+            s === 'failed' ? 'border-red-200 bg-red-50 text-red-700' :
+            s === 'fallback' ? 'border-amber-200 bg-amber-50 text-amber-700' :
+            'border-gray-200 bg-gray-50 text-gray-500';
+          const stepDot = (s: string) =>
+            s === 'complete' ? 'bg-green-500' : s === 'failed' ? 'bg-red-500' : s === 'fallback' ? 'bg-amber-500' : 'bg-gray-300';
 
-            <div className="grid grid-cols-3 gap-4">
-              {/* Scoring */}
-              <div>
-                <p className="text-xs font-medium text-gray-400 uppercase tracking-wide mb-2">Scoring</p>
-                <div className="space-y-1.5 text-sm">
-                  <div className="flex justify-between"><span className="text-gray-500">Score</span><span className="font-semibold text-gray-900">{selectedContact.score ?? 'N/A'}</span></div>
-                  <div className="flex justify-between"><span className="text-gray-500">Tier</span><span className="font-medium text-gray-900 capitalize">{selectedContact.tier || 'N/A'}</span></div>
-                  <div className="flex justify-between"><span className="text-gray-500">Routing</span><span className="font-medium text-gray-900 capitalize">{selectedContact.routing || 'N/A'}</span></div>
-                  <div className="flex justify-between"><span className="text-gray-500">Confidence</span><span className="font-medium text-gray-900 capitalize">{selectedContact.confidence || 'N/A'}</span></div>
-                  <div className="flex justify-between"><span className="text-gray-500">Source</span><span className="font-medium text-gray-900">{selectedContact.source?.replace(/_/g, ' ') || 'N/A'}</span></div>
-                  <div className="flex justify-between"><span className="text-gray-500">Scored</span><span className="text-gray-700">{timeAgo(selectedContact.scoredAt)}</span></div>
-                </div>
-              </div>
+          return (
+            <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 8 }}
+              className="bg-white border border-gray-200 rounded-xl overflow-hidden mb-6">
 
-              {/* Engagement */}
-              <div>
-                <p className="text-xs font-medium text-gray-400 uppercase tracking-wide mb-2">Engagement</p>
-                <div className="space-y-1.5 text-sm">
-                  <div className="flex justify-between"><span className="text-gray-500">Last web visit</span><span className="text-gray-900">{timeAgo(selectedContact.lastVisit)}</span></div>
-                  <div className="flex justify-between"><span className="text-gray-500">Web sessions</span><span className="text-gray-900">{selectedContact.numVisits}</span></div>
-                  <div className="flex justify-between"><span className="text-gray-500">Last email open</span><span className="text-gray-900">{timeAgo(selectedContact.lastEmailOpen)}</span></div>
-                  <div className="flex justify-between"><span className="text-gray-500">Last email click</span><span className="text-gray-900">{timeAgo(selectedContact.lastEmailClick)}</span></div>
-                </div>
-                {selectedContact.techMatches && (
-                  <div className="mt-2">
-                    <p className="text-xs text-gray-500 mb-1">Tech Matches</p>
-                    <p className="text-xs text-gray-700">{selectedContact.techMatches}</p>
+              {/* Header */}
+              <div className="px-5 py-3 border-b border-gray-100 flex items-center justify-between bg-gray-50">
+                <div className="flex items-center gap-3">
+                  {sourceBadge(c.source)}
+                  <div>
+                    <div className="flex items-center gap-2">
+                      <h3 className="text-base font-semibold text-gray-900">{c.name}</h3>
+                      {tierBadge(c.tier)}
+                    </div>
+                    <p className="text-xs text-gray-500">{c.title}{c.title && c.company ? ' @ ' : ''}{c.company} {c.email ? `• ${c.email}` : ''}</p>
                   </div>
-                )}
+                </div>
+                <div className="flex items-center gap-2">
+                  <a href={`https://app.hubspot.com/contacts/19933594/contact/${c.id}`}
+                    target="_blank" rel="noopener noreferrer"
+                    className="px-3 py-1.5 rounded-lg text-xs font-medium bg-orange-50 text-orange-700 border border-orange-200 hover:bg-orange-100">
+                    View in HubSpot ↗
+                  </a>
+                  <button onClick={() => setSelectedContact(null)} className="text-gray-400 hover:text-gray-600 text-sm px-2 py-1 rounded hover:bg-gray-100">✕</button>
+                </div>
               </div>
 
-              {/* Reasoning */}
-              <div>
-                <p className="text-xs font-medium text-gray-400 uppercase tracking-wide mb-2">Agent Reasoning</p>
-                {selectedContact.reasoning ? (
-                  <p className="text-sm text-gray-600 italic">"{selectedContact.reasoning}"</p>
-                ) : (
-                  <p className="text-sm text-gray-400">No reasoning available — contact may not have been scored yet.</p>
-                )}
-                <a href={`https://app.hubspot.com/contacts/19933594/contact/${selectedContact.id}`}
-                  target="_blank" rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 mt-3 px-3 py-1.5 rounded-lg text-xs font-medium bg-orange-50 text-orange-700 border border-orange-200 hover:bg-orange-100 transition-colors">
-                  View in HubSpot ↗
-                </a>
+              <div className="p-5">
+                {/* Pipeline flow status */}
+                <div className="mb-5">
+                  <div className="flex items-center gap-2 mb-2">
+                    <p className="text-xs font-medium text-gray-400 uppercase tracking-wide">Pipeline Execution</p>
+                    <span className="px-2 py-0.5 rounded-full text-[10px] font-medium bg-blue-50 text-blue-700 border border-blue-200">
+                      {sourceLabel[c.source || ''] || 'Unknown Pipeline'}
+                    </span>
+                  </div>
+                  <div className="flex gap-1.5">
+                    {stepLabels.map((s, i) => {
+                      const step = c.steps?.[s.key];
+                      const status = step?.status || 'pending';
+                      return (
+                        <div key={s.key} className="flex items-center gap-1.5 flex-1">
+                          <div className={`flex-1 px-2.5 py-2 rounded-lg border text-center ${stepStatusStyle(status)}`}>
+                            <p className="text-[10px] font-medium">{s.icon} {s.label}</p>
+                            <p className="text-[9px] mt-0.5 opacity-80 truncate">{step?.detail || ''}</p>
+                          </div>
+                          {i < stepLabels.length - 1 && <span className="text-gray-300 text-[10px] flex-shrink-0">→</span>}
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-4 gap-5">
+                  {/* Col 1: Scoring */}
+                  <div>
+                    <p className="text-xs font-medium text-gray-400 uppercase tracking-wide mb-2">Scoring</p>
+                    <div className="space-y-1.5 text-sm">
+                      <div className="flex justify-between"><span className="text-gray-500">Score</span><span className="font-bold text-gray-900 text-lg">{c.score ?? '—'}</span></div>
+                      <div className="flex justify-between"><span className="text-gray-500">Tier</span><span className="font-medium text-gray-900 capitalize">{c.tier || '—'}</span></div>
+                      <div className="flex justify-between"><span className="text-gray-500">Routing</span><span className="font-medium text-gray-900 capitalize">{c.routing || '—'}</span></div>
+                      <div className="flex justify-between"><span className="text-gray-500">Confidence</span><span className="capitalize">{c.confidence || '—'}</span></div>
+                      <div className="flex justify-between"><span className="text-gray-500">Scored</span><span>{timeAgo(c.scoredAt)}</span></div>
+                    </div>
+                    {c.techMatches && (
+                      <div className="mt-2 pt-2 border-t border-gray-100">
+                        <p className="text-[10px] text-gray-400 mb-1">Tech Matches</p>
+                        <p className="text-xs text-blue-700 font-medium">{c.techMatches}</p>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Col 2: Contact Context */}
+                  <div>
+                    <p className="text-xs font-medium text-gray-400 uppercase tracking-wide mb-2">Contact Context</p>
+                    <div className="space-y-1.5 text-sm">
+                      {c.useCase && <div className="flex justify-between"><span className="text-gray-500">Use Case</span><span className="font-medium text-gray-900">{c.useCase}</span></div>}
+                      {c.roleLevel && <div className="flex justify-between"><span className="text-gray-500">Role Level</span><span className="capitalize">{c.roleLevel}</span></div>}
+                      {c.loanVolume && <div className="flex justify-between"><span className="text-gray-500">Loans/yr</span><span>{c.loanVolume}</span></div>}
+                      {c.appVolume && <div className="flex justify-between"><span className="text-gray-500">Apps/yr</span><span>{c.appVolume}</span></div>}
+                      <div className="flex justify-between"><span className="text-gray-500">Lifecycle</span><span className="capitalize">{c.lifecycle || '—'}</span></div>
+                      {c.deals > 0 && <div className="flex justify-between"><span className="text-gray-500">Deals</span><span className="font-medium">{c.deals}</span></div>}
+                      {c.analyticsSource && <div className="flex justify-between"><span className="text-gray-500">Source</span><span className="capitalize text-xs">{c.analyticsSource}</span></div>}
+                      <div className="flex justify-between"><span className="text-gray-500">Created</span><span>{timeAgo(c.createdAt)}</span></div>
+                    </div>
+                  </div>
+
+                  {/* Col 3: Engagement */}
+                  <div>
+                    <p className="text-xs font-medium text-gray-400 uppercase tracking-wide mb-2">Engagement Signals</p>
+                    <div className="space-y-1.5 text-sm">
+                      <div className="flex justify-between">
+                        <span className="text-gray-500">Web visits</span>
+                        <span className={c.numVisits > 0 ? 'font-semibold text-green-700' : 'text-gray-400'}>{c.numVisits || '0'} sessions</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-gray-500">Last visit</span>
+                        <span className={c.lastVisit ? 'text-green-700' : 'text-gray-400'}>{timeAgo(c.lastVisit)}</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-gray-500">Email open</span>
+                        <span className={c.lastEmailOpen ? 'text-gray-900' : 'text-gray-400'}>{timeAgo(c.lastEmailOpen)}</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-gray-500">Email click</span>
+                        <span className={c.lastEmailClick ? 'text-green-700' : 'text-gray-400'}>{timeAgo(c.lastEmailClick)}</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-gray-500">Sales touch</span>
+                        <span className={c.lastSalesActivity ? 'text-gray-900' : 'text-gray-400'}>{timeAgo(c.lastSalesActivity)}</span>
+                      </div>
+                    </div>
+                    {c.lastVisitUrl && (
+                      <div className="mt-2 pt-2 border-t border-gray-100">
+                        <p className="text-[10px] text-gray-400 mb-0.5">Last visited URL</p>
+                        <p className="text-[10px] text-blue-600 truncate">{c.lastVisitUrl}</p>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Col 4: Agent Reasoning */}
+                  <div>
+                    <p className="text-xs font-medium text-gray-400 uppercase tracking-wide mb-2">Agent Reasoning</p>
+                    {c.reasoning && c.reasoning !== 'Deterministic score only.' ? (
+                      <div>
+                        <p className="text-sm text-gray-600 italic leading-relaxed">"{c.reasoning}"</p>
+                        <div className="mt-2 flex gap-1">
+                          {c.steps?.agent?.status === 'complete' && (
+                            <span className="px-1.5 py-0.5 rounded text-[9px] bg-green-50 text-green-700 border border-green-200">Tools used</span>
+                          )}
+                          {c.steps?.agent?.status === 'fallback' && (
+                            <span className="px-1.5 py-0.5 rounded text-[9px] bg-amber-50 text-amber-700 border border-amber-200">Deterministic fallback</span>
+                          )}
+                        </div>
+                      </div>
+                    ) : (
+                      <div className="bg-amber-50 border border-amber-200 rounded-lg p-3">
+                        <p className="text-xs text-amber-700">Agent returned deterministic fallback — no research-backed reasoning available for this contact.</p>
+                      </div>
+                    )}
+                    {c.howCanWeHelp && (
+                      <div className="mt-2 pt-2 border-t border-gray-100">
+                        <p className="text-[10px] text-gray-400 mb-0.5">Form: "How can we help?"</p>
+                        <p className="text-xs text-gray-700">{c.howCanWeHelp}</p>
+                      </div>
+                    )}
+                  </div>
+                </div>
               </div>
-            </div>
-          </motion.div>
-        )}
+            </motion.div>
+          );
+        })()}
       </AnimatePresence>
 
       {/* ── FOOTER ──────────────────────────── */}

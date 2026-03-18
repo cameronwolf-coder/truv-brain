@@ -40,8 +40,16 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       'scout_reasoning', 'scout_confidence', 'scout_scored_at',
       'scout_tech_stack_matches', 'scout_source',
       'hs_analytics_last_visit_timestamp', 'hs_analytics_num_visits',
+      'hs_analytics_last_url',
       'hs_email_last_open_date', 'hs_email_last_click_date',
-      'lifecyclestage',
+      'hs_last_sales_activity_timestamp',
+      'lifecyclestage', 'hs_lead_status',
+      'use_case', 'what_s_your_use_case___forms_',
+      'how_many_loans_do_you_close_per_year',
+      'how_many_applications_do_you_see_per_year_',
+      'which_of_these_best_describes_your_job_title_',
+      'how_can_we_help', 'createdate',
+      'num_associated_deals', 'hs_analytics_source',
     ];
 
     // 1. Recently scored contacts (last 7 days) — sorted by scored_at desc
@@ -111,26 +119,52 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     }
 
     // Format contacts for the feed
-    const formatContact = (c: any) => ({
-      id: c.id,
-      name: `${c.properties?.firstname || ''} ${c.properties?.lastname || ''}`.trim() || 'Unknown',
-      email: c.properties?.email || '',
-      company: c.properties?.company || '',
-      title: c.properties?.jobtitle || '',
-      tier: c.properties?.inbound_lead_tier || null,
-      routing: c.properties?.lead_routing || null,
-      score: c.properties?.form_fit_score ? Number(c.properties.form_fit_score) : null,
-      reasoning: c.properties?.scout_reasoning || null,
-      confidence: c.properties?.scout_confidence || null,
-      source: c.properties?.scout_source || null,
-      scoredAt: c.properties?.scout_scored_at || null,
-      techMatches: c.properties?.scout_tech_stack_matches || null,
-      lastVisit: c.properties?.hs_analytics_last_visit_timestamp || null,
-      numVisits: c.properties?.hs_analytics_num_visits ? Number(c.properties.hs_analytics_num_visits) : 0,
-      lastEmailOpen: c.properties?.hs_email_last_open_date || null,
-      lastEmailClick: c.properties?.hs_email_last_click_date || null,
-      lifecycle: c.properties?.lifecyclestage || null,
-    });
+    const formatContact = (c: any) => {
+      const p = c.properties || {};
+      const source = p.scout_source || null;
+      // Derive pipeline steps status based on what data exists
+      const steps = {
+        trigger: { status: 'complete' as const, detail: source === 'dashboard_signup' ? 'Slack DashBot → Pipedream' : source === 'closed_lost_reengagement' ? 'Cron → Pipedream' : 'HubSpot Form → Pipedream' },
+        hubspot: { status: (p.email ? 'complete' : 'failed') as 'complete' | 'failed', detail: source === 'dashboard_signup' ? 'Find-or-create' : 'Contact lookup' },
+        scorer: { status: (p.form_fit_score ? 'complete' : 'skipped') as 'complete' | 'skipped', detail: `Base score: ${p.form_fit_score || 'N/A'}` },
+        apollo: { status: (p.scout_tech_stack_matches ? 'complete' : 'no-data') as 'complete' | 'no-data', detail: p.scout_tech_stack_matches || 'No tech matches found' },
+        agent: { status: (p.scout_reasoning && p.scout_reasoning !== 'Deterministic score only.' ? 'complete' : 'fallback') as 'complete' | 'fallback', detail: p.scout_confidence ? `Confidence: ${p.scout_confidence}` : 'Agent did not run' },
+        writeback: { status: (p.scout_scored_at ? 'complete' : 'pending') as 'complete' | 'pending', detail: p.scout_scored_at ? `Written ${p.scout_scored_at}` : 'Not written yet' },
+      };
+
+      return {
+        id: c.id,
+        name: `${p.firstname || ''} ${p.lastname || ''}`.trim() || p.email || 'Unknown',
+        email: p.email || '',
+        company: p.company || '',
+        title: p.jobtitle || '',
+        tier: p.inbound_lead_tier || null,
+        routing: p.lead_routing || null,
+        score: p.form_fit_score ? Number(p.form_fit_score) : null,
+        reasoning: p.scout_reasoning || null,
+        confidence: p.scout_confidence || null,
+        source,
+        scoredAt: p.scout_scored_at || null,
+        techMatches: p.scout_tech_stack_matches || null,
+        lastVisit: p.hs_analytics_last_visit_timestamp || null,
+        lastVisitUrl: p.hs_analytics_last_url || null,
+        numVisits: p.hs_analytics_num_visits ? Number(p.hs_analytics_num_visits) : 0,
+        lastEmailOpen: p.hs_email_last_open_date || null,
+        lastEmailClick: p.hs_email_last_click_date || null,
+        lastSalesActivity: p.hs_last_sales_activity_timestamp || null,
+        lifecycle: p.lifecyclestage || null,
+        leadStatus: p.hs_lead_status || null,
+        useCase: p.use_case || p.what_s_your_use_case___forms_ || null,
+        loanVolume: p.how_many_loans_do_you_close_per_year || null,
+        appVolume: p.how_many_applications_do_you_see_per_year_ || null,
+        roleLevel: p.which_of_these_best_describes_your_job_title_ || null,
+        howCanWeHelp: p.how_can_we_help || null,
+        createdAt: p.createdate || null,
+        analyticsSource: p.hs_analytics_source || null,
+        deals: p.num_associated_deals ? Number(p.num_associated_deals) : 0,
+        steps,
+      };
+    };
 
     return res.status(200).json({
       timestamp: new Date().toISOString(),
