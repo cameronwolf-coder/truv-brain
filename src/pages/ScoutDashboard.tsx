@@ -49,9 +49,18 @@ interface ScoredContact {
   };
 }
 
+interface ServiceStatus {
+  status: 'healthy' | 'degraded' | 'unreachable';
+  name: string;
+  url: string;
+  console: string;
+  type: string;
+}
+
 interface DashboardData {
   timestamp: string;
   scoutHealth: string;
+  services: Record<string, ServiceStatus>;
   stats: {
     total: number;
     byTier: { hot: number; warm: number; cold: number };
@@ -224,6 +233,33 @@ export function ScoutDashboard() {
           </div>
         </div>
       </div>
+
+      {/* ── SERVICE STATUS ────────────────── */}
+      {data!.services && (
+        <div className="mb-6">
+          <div className="flex items-center justify-between mb-2">
+            <p className="text-xs font-medium text-gray-400 uppercase tracking-wide">Infrastructure Status</p>
+          </div>
+          <div className="grid grid-cols-4 gap-2">
+            {Object.entries(data!.services).map(([key, svc]) => {
+              const dotColor = svc.status === 'healthy' ? 'bg-green-500' : svc.status === 'degraded' ? 'bg-amber-500' : 'bg-red-500';
+              const borderColor = svc.status === 'healthy' ? 'border-gray-200' : svc.status === 'degraded' ? 'border-amber-200' : 'border-red-200';
+              const bgColor = svc.status !== 'healthy' ? (svc.status === 'degraded' ? 'bg-amber-50' : 'bg-red-50') : 'bg-white';
+              return (
+                <a key={key} href={svc.console} target="_blank" rel="noopener noreferrer"
+                  className={`flex items-center gap-2.5 px-3 py-2.5 rounded-xl border ${borderColor} ${bgColor} hover:shadow-sm hover:border-gray-300 transition-all group`}>
+                  <span className={`w-2 h-2 rounded-full ${dotColor} flex-shrink-0`} />
+                  <div className="flex-1 min-w-0">
+                    <p className="text-sm font-medium text-gray-900 group-hover:text-blue-600 truncate">{svc.name}</p>
+                    <p className="text-[10px] text-gray-400 truncate">{svc.type}</p>
+                  </div>
+                  <span className="text-[10px] text-gray-300 group-hover:text-blue-400 flex-shrink-0">↗</span>
+                </a>
+              );
+            })}
+          </div>
+        </div>
+      )}
 
       {/* ── TWO COLUMN: FEED + HEATMAP ─────── */}
       <div className="grid grid-cols-2 gap-6 mb-6">

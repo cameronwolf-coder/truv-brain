@@ -108,15 +108,43 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       if (routing in stats.byRouting) stats.byRouting[routing as keyof typeof stats.byRouting]++;
     });
 
-    // 4. Check Scout API health
-    let scoutHealth = 'unknown';
-    try {
-      const healthResp = await fetch(`${SCOUT_API_URL}/health`, { signal: AbortSignal.timeout(5000) });
-      const healthData = await healthResp.json();
-      scoutHealth = healthData.status === 'ok' ? 'healthy' : 'degraded';
-    } catch {
-      scoutHealth = 'unreachable';
-    }
+    // 4. Check all service health
+    const checkHealth = async (url: string, timeout = 5000): Promise<'healthy' | 'degraded' | 'unreachable'> => {
+      try {
+        const resp = await fetch(url, { signal: AbortSignal.timeout(timeout) });
+        if (resp.ok) return 'healthy';
+        return 'degraded';
+      } catch {
+        return 'unreachable';
+      }
+    };
+
+    const [scoutHealth, hubspotHealth, slackHealth] = await Promise.all([
+      checkHealth(`${SCOUT_API_URL}/health`),
+      checkHealth(`${HUBSPOT_BASE_URL}/crm/v3/objects/contacts?limit=1`, 5000).then(async () => {
+        // Actually test with auth
+        try {
+          const r = await fetch(`${HUBSPOT_BASE_URL}/crm/v3/objects/contacts?limit=1`, {
+            headers: { 'Authorization': `Bearer ${HUBSPOT_API_TOKEN}` },
+            signal: AbortSignal.timeout(5000),
+          });
+          return r.ok ? 'healthy' as const : 'degraded' as const;
+        } catch { return 'unreachable' as const; }
+      }),
+      // Slack webhook — can't test without posting, so just check if configured
+      Promise.resolve(process.env.SLACK_WEBHOOK_URL ? 'healthy' as const : 'unreachable' as const),
+    ]);
+
+    const services = {
+      scout: { status: scoutHealth, name: 'Scout API', url: SCOUT_API_URL, console: 'https://us-east-1.console.aws.amazon.com/apprunner/home?region=us-east-1#/services', type: 'AWS App Runner' },
+      hubspot: { status: hubspotHealth, name: 'HubSpot CRM', url: 'https://app.hubspot.com/contacts/19933594', console: 'https://app.hubspot.com/contacts/19933594', type: 'CRM' },
+      pipedream: { status: 'healthy' as const, name: 'Pipedream', url: 'https://pipedream.com/@truvhq/projects/proj_BgsYmjp/tree', console: 'https://pipedream.com/@truvhq/projects/proj_BgsYmjp/tree', type: 'Orchestration' },
+      slack: { status: slackHealth, name: 'Slack', url: 'https://truv.slack.com/archives/C0A9Y5HLQAF', console: 'https://truv.slack.com/archives/C0A9Y5HLQAF', type: 'Alerts (#outreach-intelligence)' },
+      apollo: { status: process.env.APOLLO_API_KEY ? 'healthy' as const : 'unreachable' as const, name: 'Apollo.io', url: 'https://app.apollo.io', console: 'https://app.apollo.io', type: 'Enrichment' },
+      gemini: { status: process.env.GOOGLE_API_KEY ? 'healthy' as const : 'unreachable' as const, name: 'Gemini 2.0 Flash', url: 'https://aistudio.google.com', console: 'https://aistudio.google.com', type: 'AI Agent (via Agno)' },
+      ecr: { status: scoutHealth, name: 'AWS ECR', url: 'https://us-east-1.console.aws.amazon.com/ecr/repositories/private/968062515708/truv-scout', console: 'https://us-east-1.console.aws.amazon.com/ecr/repositories/private/968062515708/truv-scout', type: 'Container Registry' },
+      vercel: { status: 'healthy' as const, name: 'Vercel', url: 'https://truv-brain.vercel.app', console: 'https://vercel.com/truvhq/truv-brain', type: 'Frontend + API Routes' },
+    };
 
     // Format contacts for the feed
     const formatContact = (c: any) => {
@@ -169,6 +197,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     return res.status(200).json({
       timestamp: new Date().toISOString(),
       scoutHealth,
+      services,
       stats,
       recentScores: allScored.map(formatContact),
       engagedClosedLost: engagedContacts.map(formatContact),
