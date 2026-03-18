@@ -4,7 +4,7 @@ from typing import Optional
 
 from fastapi import BackgroundTasks, FastAPI, Header, HTTPException
 
-from truv_scout.models import ScoreRequest, ScoreResponse, WebhookPayload
+from truv_scout.models import DashboardSignupPayload, ScoreRequest, ScoreResponse, WebhookPayload
 from truv_scout.settings import get_settings
 
 settings = get_settings()
@@ -21,6 +21,21 @@ def _check_token(token: Optional[str]) -> None:
 @app.get("/health")
 def health():
     return {"status": "ok"}
+
+
+@app.get("/status")
+def system_status():
+    """Return system status with recent scoring activity."""
+    import os
+    return {
+        "status": "ok",
+        "environment": os.getenv("ENVIRONMENT", "development"),
+        "pipelines": {
+            "a": {"name": "Inbound", "endpoint": "/webhook"},
+            "b": {"name": "Closed-Lost", "endpoint": "/score-batch/closed-lost"},
+            "c": {"name": "Dashboard Signups", "endpoint": "/webhook/dashboard-signup"},
+        },
+    }
 
 
 @app.post("/score", response_model=ScoreResponse)
@@ -76,6 +91,30 @@ async def pipedream_webhook(
     return {"status": "accepted", "contact_id": payload.contact_id}
 
 
+@app.post("/webhook/dashboard-signup")
+async def webhook_dashboard_signup(
+    payload: DashboardSignupPayload,
+    background_tasks: BackgroundTasks,
+    x_scout_token: Optional[str] = Header(None),
+):
+    """Receive dashboard signup from Pipedream Slack trigger, score in background."""
+    _check_token(x_scout_token)
+    background_tasks.add_task(_process_dashboard_signup, payload)
+    return {"status": "accepted", "email": payload.email}
+
+
+@app.post("/score-batch/dashboard-signups")
+async def score_dashboard_signups_batch(
+    background_tasks: BackgroundTasks,
+    limit: int = 200,
+    x_scout_token: Optional[str] = Header(None),
+):
+    """Batch score historical dashboard signups from Slack channel history."""
+    _check_token(x_scout_token)
+    background_tasks.add_task(_process_dashboard_backlog, limit)
+    return {"status": "accepted", "limit": limit}
+
+
 @app.post("/score-batch/closed-lost")
 async def score_closed_lost_batch(
     background_tasks: BackgroundTasks,
@@ -106,6 +145,27 @@ def _process_webhook(payload: WebhookPayload) -> None:
 
     if result.final_tier == "hot" or result.final_routing == "enterprise":
         notify_slack(result)
+
+
+def _process_dashboard_signup(payload: DashboardSignupPayload) -> None:
+    from truv_scout.dashboard import process_dashboard_signup
+
+    try:
+        process_dashboard_signup(payload)
+    except Exception as e:
+        print(f"[dashboard-signup] Error processing {payload.email}: {e}")
+
+
+def _process_dashboard_backlog(limit: int) -> None:
+    from truv_scout.dashboard import run_dashboard_backlog_batch
+    from truv_scout.slack import post_closed_lost_digest
+
+    try:
+        results = run_dashboard_backlog_batch(limit=limit)
+        if results:
+            post_closed_lost_digest(results)
+    except Exception as e:
+        print(f"[dashboard-backlog] Error during batch run: {e}")
 
 
 def _process_closed_lost_batch(limit: int) -> None:

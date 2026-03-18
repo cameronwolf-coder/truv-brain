@@ -1,0 +1,1194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Truv Scout — AI Lead Intelligence</title>
+
+    <!-- Fonts -->
+    <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=clash-display@600,700&f[]=satoshi@400,500,700&display=swap">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* ===========================================
+           THEME: Truv Scout — Dark Intelligence
+           Dark navy bg, Truv blue accent, electric cyan highlights
+           =========================================== */
+        :root {
+            --bg-primary: #060a14;
+            --bg-surface: #0c1120;
+            --bg-card: #111827;
+            --bg-elevated: #1a2236;
+
+            --truv-blue: #2c64e3;
+            --truv-blue-glow: rgba(44, 100, 227, 0.25);
+            --cyan: #38bdf8;
+            --cyan-glow: rgba(56, 189, 248, 0.2);
+            --hot: #ef4444;
+            --hot-glow: rgba(239, 68, 68, 0.3);
+            --warm: #f59e0b;
+            --warm-glow: rgba(245, 158, 11, 0.3);
+            --cold: #3b82f6;
+            --green: #22c55e;
+            --green-glow: rgba(34, 197, 94, 0.25);
+
+            --text-primary: #f1f5f9;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+            --border: rgba(255, 255, 255, 0.06);
+            --border-accent: rgba(44, 100, 227, 0.3);
+
+            --font-display: 'Clash Display', sans-serif;
+            --font-body: 'Satoshi', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+
+            --title-size: clamp(2rem, 6vw, 4.5rem);
+            --h2-size: clamp(1.5rem, 4vw, 3rem);
+            --h3-size: clamp(1rem, 2.5vw, 1.5rem);
+            --body-size: clamp(0.8rem, 1.4vw, 1.05rem);
+            --small-size: clamp(0.65rem, 1vw, 0.85rem);
+            --mono-size: clamp(0.7rem, 1.1vw, 0.9rem);
+
+            --slide-padding: clamp(1.5rem, 5vw, 5rem);
+            --content-gap: clamp(0.75rem, 2vw, 2rem);
+            --element-gap: clamp(0.4rem, 1vw, 0.75rem);
+
+            --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+            --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+            --duration: 0.7s;
+        }
+
+        /* ===========================================
+           BASE & RESET
+           =========================================== */
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html {
+            height: 100%;
+            scroll-snap-type: y mandatory;
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            height: 100%;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ===========================================
+           SLIDE CONTAINER — CRITICAL VIEWPORT FIT
+           =========================================== */
+        .slide {
+            width: 100vw;
+            height: 100vh;
+            height: 100dvh;
+            overflow: hidden;
+            scroll-snap-align: start;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+            padding: var(--slide-padding);
+        }
+
+        .slide-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            max-height: 100%;
+            overflow: hidden;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* ===========================================
+           TYPOGRAPHY
+           =========================================== */
+        .display { font-family: var(--font-display); font-weight: 700; letter-spacing: -0.02em; line-height: 1.05; }
+        .mono { font-family: var(--font-mono); font-size: var(--mono-size); }
+        .label {
+            font-family: var(--font-mono);
+            font-size: var(--small-size);
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--text-muted);
+        }
+        .label-accent { color: var(--truv-blue); }
+
+        h1 { font-size: var(--title-size); }
+        h2 { font-size: var(--h2-size); font-family: var(--font-display); font-weight: 600; letter-spacing: -0.01em; }
+        h3 { font-size: var(--h3-size); font-family: var(--font-display); font-weight: 600; }
+        p, li { font-size: var(--body-size); line-height: 1.6; color: var(--text-secondary); }
+
+        /* ===========================================
+           COMPONENTS
+           =========================================== */
+
+        /* Pill badges */
+        .pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4em;
+            padding: 0.3em 0.8em;
+            border-radius: 100px;
+            font-family: var(--font-mono);
+            font-size: var(--small-size);
+            font-weight: 500;
+            border: 1px solid var(--border);
+            background: var(--bg-card);
+        }
+        .pill--blue { border-color: var(--truv-blue); color: var(--truv-blue); background: rgba(44, 100, 227, 0.08); }
+        .pill--green { border-color: var(--green); color: var(--green); background: rgba(34, 197, 94, 0.08); }
+        .pill--hot { border-color: var(--hot); color: var(--hot); background: rgba(239, 68, 68, 0.08); }
+        .pill--warm { border-color: var(--warm); color: var(--warm); background: rgba(245, 158, 11, 0.08); }
+
+        /* Cards */
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: clamp(8px, 1vw, 16px);
+            padding: clamp(1rem, 2vw, 1.75rem);
+            position: relative;
+            overflow: hidden;
+        }
+        .card--glow {
+            box-shadow: 0 0 40px var(--truv-blue-glow), inset 0 1px 0 rgba(255,255,255,0.04);
+            border-color: var(--border-accent);
+        }
+        .card--dim {
+            opacity: 0.5;
+            border-color: var(--border);
+        }
+
+        /* Stat counters */
+        .stat { text-align: center; }
+        .stat-value {
+            font-family: var(--font-display);
+            font-size: clamp(2rem, 5vw, 4rem);
+            font-weight: 700;
+            color: var(--text-primary);
+            line-height: 1;
+        }
+        .stat-value--blue { color: var(--truv-blue); }
+        .stat-value--green { color: var(--green); }
+        .stat-value--hot { color: var(--hot); }
+        .stat-label {
+            font-family: var(--font-mono);
+            font-size: var(--small-size);
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-top: 0.5em;
+        }
+
+        /* Grids */
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: var(--content-gap); }
+        .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--content-gap); }
+        .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--element-gap); }
+        .grid-5 { display: grid; grid-template-columns: repeat(5, 1fr); gap: var(--element-gap); }
+
+        @media (max-width: 768px) {
+            .grid-2, .grid-3, .grid-4, .grid-5 {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        /* Pipeline flow */
+        .flow { display: flex; align-items: center; gap: clamp(0.3rem, 0.8vw, 0.75rem); flex-wrap: wrap; justify-content: center; }
+        .flow-node {
+            padding: clamp(0.4rem, 0.8vw, 0.7rem) clamp(0.6rem, 1.2vw, 1.2rem);
+            border-radius: 8px;
+            font-family: var(--font-mono);
+            font-size: var(--small-size);
+            font-weight: 500;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            white-space: nowrap;
+            transition: all 0.4s var(--ease-out-expo);
+        }
+        .flow-node--active {
+            border-color: var(--truv-blue);
+            background: rgba(44, 100, 227, 0.12);
+            color: var(--cyan);
+            box-shadow: 0 0 20px var(--truv-blue-glow);
+        }
+        .flow-arrow {
+            color: var(--text-muted);
+            font-size: clamp(0.6rem, 1vw, 0.9rem);
+            opacity: 0.4;
+        }
+
+        /* Score bar */
+        .score-bar {
+            height: clamp(6px, 0.8vh, 10px);
+            background: var(--bg-elevated);
+            border-radius: 100px;
+            overflow: hidden;
+            width: 100%;
+        }
+        .score-bar-fill {
+            height: 100%;
+            border-radius: 100px;
+            background: linear-gradient(90deg, var(--truv-blue), var(--cyan));
+            transition: width 1.2s var(--ease-out-expo);
+            width: 0;
+        }
+
+        /* Decorative backgrounds */
+        .bg-grid {
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(44, 100, 227, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(44, 100, 227, 0.03) 1px, transparent 1px);
+            background-size: clamp(30px, 4vw, 60px) clamp(30px, 4vw, 60px);
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .bg-glow {
+            position: absolute;
+            width: clamp(300px, 50vw, 800px);
+            height: clamp(300px, 50vw, 800px);
+            border-radius: 50%;
+            filter: blur(120px);
+            opacity: 0.15;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .bg-glow--blue { background: var(--truv-blue); }
+        .bg-glow--cyan { background: var(--cyan); }
+
+        /* Divider line */
+        .divider {
+            width: clamp(40px, 6vw, 80px);
+            height: 3px;
+            background: var(--truv-blue);
+            border-radius: 100px;
+            margin: var(--element-gap) 0;
+        }
+
+        /* Slack preview */
+        .slack-msg {
+            background: #1a1d21;
+            border-radius: 8px;
+            padding: clamp(0.8rem, 1.5vw, 1.25rem);
+            border-left: 4px solid var(--truv-blue);
+            font-size: var(--small-size);
+        }
+        .slack-msg .header { color: var(--text-primary); font-weight: 700; margin-bottom: 0.5em; font-size: var(--body-size); }
+        .slack-msg .field { display: flex; gap: 2em; margin-top: 0.4em; }
+        .slack-msg .field-label { color: var(--text-muted); font-weight: 700; min-width: 5em; }
+        .slack-msg .field-value { color: var(--text-secondary); }
+
+        /* Comparison layout */
+        .vs { display: flex; align-items: center; justify-content: center; gap: clamp(1rem, 3vw, 3rem); }
+        .vs-divider {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5em;
+        }
+        .vs-divider span {
+            font-family: var(--font-mono);
+            font-size: var(--small-size);
+            color: var(--text-muted);
+            writing-mode: vertical-lr;
+            letter-spacing: 0.2em;
+        }
+        .vs-line {
+            width: 1px;
+            height: clamp(20px, 4vh, 60px);
+            background: var(--border);
+        }
+
+        /* Routing table */
+        .route-row {
+            display: flex;
+            align-items: center;
+            gap: clamp(0.5rem, 1.5vw, 1.5rem);
+            padding: clamp(0.5rem, 1vh, 0.75rem) 0;
+            border-bottom: 1px solid var(--border);
+        }
+        .route-row:last-child { border-bottom: none; }
+        .route-icon {
+            width: clamp(28px, 3vw, 40px);
+            height: clamp(28px, 3vw, 40px);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: clamp(0.8rem, 1.4vw, 1.2rem);
+            flex-shrink: 0;
+        }
+        .route-name {
+            font-family: var(--font-display);
+            font-weight: 600;
+            font-size: var(--body-size);
+            color: var(--text-primary);
+            min-width: clamp(80px, 10vw, 140px);
+        }
+        .route-criteria {
+            font-size: var(--small-size);
+            color: var(--text-secondary);
+            flex: 1;
+        }
+
+        /* ===========================================
+           ANIMATIONS
+           =========================================== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(25px);
+            transition: opacity var(--duration) var(--ease-out-expo),
+                        transform var(--duration) var(--ease-out-expo);
+        }
+        .slide.visible .reveal {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .reveal-scale {
+            opacity: 0;
+            transform: scale(0.92);
+            transition: opacity var(--duration) var(--ease-out-expo),
+                        transform var(--duration) var(--ease-out-expo);
+        }
+        .slide.visible .reveal-scale {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* Stagger delays */
+        .d1 { transition-delay: 0.1s; }
+        .d2 { transition-delay: 0.2s; }
+        .d3 { transition-delay: 0.3s; }
+        .d4 { transition-delay: 0.4s; }
+        .d5 { transition-delay: 0.5s; }
+        .d6 { transition-delay: 0.6s; }
+
+        /* Counter animation */
+        @keyframes countPulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        .count-done { animation: countPulse 0.4s var(--ease-spring); }
+
+        /* Glow pulse for active nodes */
+        @keyframes glowPulse {
+            0%, 100% { box-shadow: 0 0 15px var(--truv-blue-glow); }
+            50% { box-shadow: 0 0 30px var(--truv-blue-glow), 0 0 60px rgba(44, 100, 227, 0.1); }
+        }
+        .glow-pulse { animation: glowPulse 2s ease-in-out infinite; }
+
+        /* Signal dot */
+        @keyframes signalPing {
+            0% { transform: scale(1); opacity: 1; }
+            75%, 100% { transform: scale(2.5); opacity: 0; }
+        }
+        .signal-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--green);
+            position: relative;
+            display: inline-block;
+        }
+        .signal-dot::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            background: var(--green);
+            animation: signalPing 1.5s ease-in-out infinite;
+        }
+
+        /* ===========================================
+           PROGRESS BAR
+           =========================================== */
+        .progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--truv-blue), var(--cyan));
+            z-index: 100;
+            transition: width 0.3s ease;
+            box-shadow: 0 0 10px var(--truv-blue-glow);
+        }
+
+        /* Navigation dots */
+        .nav-dots {
+            position: fixed;
+            right: clamp(10px, 2vw, 24px);
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            z-index: 100;
+        }
+        .nav-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--text-muted);
+            opacity: 0.3;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            padding: 0;
+        }
+        .nav-dot.active {
+            opacity: 1;
+            background: var(--truv-blue);
+            box-shadow: 0 0 8px var(--truv-blue-glow);
+        }
+
+        /* Slide number */
+        .slide-num {
+            position: absolute;
+            bottom: clamp(10px, 2vh, 24px);
+            right: clamp(10px, 2vw, 24px);
+            font-family: var(--font-mono);
+            font-size: var(--small-size);
+            color: var(--text-muted);
+            opacity: 0.4;
+            z-index: 2;
+        }
+
+        /* Keyboard hint */
+        .key-hint {
+            position: fixed;
+            bottom: clamp(10px, 2vh, 20px);
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: var(--font-mono);
+            font-size: clamp(0.55rem, 0.8vw, 0.7rem);
+            color: var(--text-muted);
+            opacity: 0.3;
+            z-index: 100;
+            transition: opacity 0.5s;
+        }
+
+        /* ===========================================
+           RESPONSIVE
+           =========================================== */
+        @media (max-height: 700px) {
+            :root {
+                --slide-padding: clamp(1rem, 3vw, 2.5rem);
+                --content-gap: clamp(0.5rem, 1.5vw, 1rem);
+                --title-size: clamp(1.5rem, 5vw, 3rem);
+                --h2-size: clamp(1.25rem, 3.5vw, 2rem);
+            }
+        }
+        @media (max-height: 600px) {
+            :root {
+                --slide-padding: clamp(0.75rem, 2.5vw, 1.5rem);
+                --content-gap: clamp(0.4rem, 1vw, 0.75rem);
+            }
+            .nav-dots, .key-hint { display: none; }
+        }
+        @media (max-height: 500px) {
+            :root {
+                --title-size: clamp(1.1rem, 4vw, 1.75rem);
+                --h2-size: clamp(1rem, 3vw, 1.5rem);
+                --body-size: clamp(0.65rem, 1vw, 0.85rem);
+            }
+        }
+        @media (max-width: 600px) {
+            .vs { flex-direction: column; }
+            .vs-divider { flex-direction: row; }
+            .vs-divider span { writing-mode: horizontal-tb; }
+            .vs-line { width: clamp(20px, 8vw, 60px); height: 1px; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                transition-duration: 0.2s !important;
+            }
+            html { scroll-behavior: auto; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Progress bar -->
+<div class="progress" id="progress" style="width: 0%"></div>
+
+<!-- Navigation dots -->
+<nav class="nav-dots" id="navDots" aria-label="Slide navigation"></nav>
+
+<!-- Keyboard hint -->
+<div class="key-hint" id="keyHint">← → or scroll to navigate</div>
+
+<!-- ==========================================
+     SLIDE 1: TITLE
+     ========================================== -->
+<section class="slide" data-title="Title">
+    <div class="bg-grid"></div>
+    <div class="bg-glow bg-glow--blue" style="top: -20%; left: -10%;"></div>
+    <div class="bg-glow bg-glow--cyan" style="bottom: -30%; right: -15%;"></div>
+
+    <div class="slide-content" style="align-items: center; text-align: center; gap: var(--content-gap);">
+        <div class="reveal d1" style="display: flex; align-items: center; gap: 0.6em;">
+            <span class="signal-dot"></span>
+            <span class="label label-accent">LIVE IN PRODUCTION</span>
+        </div>
+
+        <h1 class="display reveal d2" style="font-size: var(--title-size);">
+            Truv Scout
+        </h1>
+
+        <p class="reveal d3" style="font-size: clamp(1rem, 2vw, 1.4rem); color: var(--text-secondary); max-width: 600px;">
+            AI-powered lead intelligence that scores, enriches, and routes every inbound signup — automatically.
+        </p>
+
+        <div class="reveal d4" style="display: flex; gap: 0.6em; margin-top: 0.5em;">
+            <span class="pill pill--blue">FastAPI</span>
+            <span class="pill pill--blue">AWS App Runner</span>
+            <span class="pill pill--blue">Gemini AI</span>
+        </div>
+    </div>
+    <div class="slide-num">01</div>
+</section>
+
+<!-- ==========================================
+     SLIDE 2: THE PROBLEM
+     ========================================== -->
+<section class="slide" data-title="Problem">
+    <div class="bg-grid"></div>
+    <div class="slide-content" style="gap: var(--content-gap);">
+        <span class="label reveal d1">THE PROBLEM</span>
+        <h2 class="display reveal d2">We were paying $720/mo<br>for a lead scoring black box.</h2>
+        <div class="divider reveal d3"></div>
+        <div class="grid-3 reveal d4" style="margin-top: var(--element-gap);">
+            <div class="card">
+                <p class="mono" style="color: var(--hot); font-weight: 700;">SLOW</p>
+                <p style="margin-top: 0.5em; font-size: var(--small-size);">Clay workflows take hours. Hot leads go cold before sales sees them.</p>
+            </div>
+            <div class="card">
+                <p class="mono" style="color: var(--warm); font-weight: 700;">EXPENSIVE</p>
+                <p style="margin-top: 0.5em; font-size: var(--small-size);">$720/month for enrichment credits. No control over what you're paying for.</p>
+            </div>
+            <div class="card">
+                <p class="mono" style="color: var(--text-muted); font-weight: 700;">OPAQUE</p>
+                <p style="margin-top: 0.5em; font-size: var(--small-size);">No reasoning. No transparency. Just a number with no explanation.</p>
+            </div>
+        </div>
+    </div>
+    <div class="slide-num">02</div>
+</section>
+
+<!-- ==========================================
+     SLIDE 3: THE SOLUTION — BEFORE/AFTER
+     ========================================== -->
+<section class="slide" data-title="Solution">
+    <div class="bg-grid"></div>
+    <div class="slide-content" style="gap: var(--content-gap);">
+        <span class="label reveal d1">THE SOLUTION</span>
+        <h2 class="display reveal d2">Self-hosted AI scoring<br>for 96% less.</h2>
+
+        <div class="vs reveal-scale d3" style="margin-top: var(--element-gap);">
+            <div class="card card--dim" style="flex: 1; max-width: 320px; text-align: center;">
+                <p class="label" style="text-decoration: line-through; margin-bottom: 0.5em;">BEFORE — CLAY</p>
+                <p class="stat-value" style="color: var(--hot); text-decoration: line-through; opacity: 0.6;">$720</p>
+                <p class="stat-label">per month</p>
+                <p style="font-size: var(--small-size); margin-top: 1em; color: var(--text-muted);">Limited credits, slow batch processing, no AI reasoning</p>
+            </div>
+
+            <div class="vs-divider">
+                <div class="vs-line"></div>
+                <span>→</span>
+                <div class="vs-line"></div>
+            </div>
+
+            <div class="card card--glow" style="flex: 1; max-width: 320px; text-align: center;">
+                <p class="label label-accent" style="margin-bottom: 0.5em;">AFTER — SCOUT</p>
+                <p class="stat-value stat-value--green" data-count="30">~$30</p>
+                <p class="stat-label">per month</p>
+                <p style="font-size: var(--small-size); margin-top: 1em; color: var(--text-secondary);">Real-time scoring, AI reasoning, unlimited runs, full control</p>
+            </div>
+        </div>
+
+        <div class="reveal d4" style="text-align: center; margin-top: var(--element-gap);">
+            <span class="pill pill--green" style="font-size: var(--body-size);">$8,300/yr saved</span>
+        </div>
+    </div>
+    <div class="slide-num">03</div>
+</section>
+
+<!-- ==========================================
+     SLIDE 4: HOW IT WORKS — PIPELINE A
+     ========================================== -->
+<section class="slide" data-title="Pipeline A">
+    <div class="bg-grid"></div>
+    <div class="bg-glow bg-glow--blue" style="top: 20%; right: -20%;"></div>
+
+    <div class="slide-content" style="gap: var(--content-gap);">
+        <span class="label reveal d1">PIPELINE A — INBOUND</span>
+        <h2 class="display reveal d2">Every form submission<br>scored in real time.</h2>
+
+        <div class="flow reveal d3" style="margin: var(--element-gap) 0;">
+            <span class="flow-node" id="fn1">HubSpot Form</span>
+            <span class="flow-arrow">→</span>
+            <span class="flow-node" id="fn2">HubSpot Workflow</span>
+            <span class="flow-arrow">→</span>
+            <span class="flow-node" id="fn3">Pipedream</span>
+            <span class="flow-arrow">→</span>
+            <span class="flow-node flow-node--active" id="fn4">Scout API</span>
+            <span class="flow-arrow">→</span>
+            <span class="flow-node" id="fn5">HubSpot + Slack</span>
+        </div>
+
+        <div class="grid-2 reveal d4">
+            <div class="card" style="display: flex; flex-direction: column; gap: 0.6em;">
+                <p class="mono" style="color: var(--cyan); font-weight: 700; font-size: var(--small-size);">WHAT TRIGGERS IT</p>
+                <p style="font-size: var(--small-size);">Any "Get Started" form submission on truv.com fires the pipeline automatically.</p>
+            </div>
+            <div class="card" style="display: flex; flex-direction: column; gap: 0.6em;">
+                <p class="mono" style="color: var(--cyan); font-weight: 700; font-size: var(--small-size);">WHAT HAPPENS NEXT</p>
+                <p style="font-size: var(--small-size);">Contact is scored, enriched, routed, and a Slack alert hits #outreach-intelligence — all within 45 seconds.</p>
+            </div>
+        </div>
+    </div>
+    <div class="slide-num">04</div>
+</section>
+
+<!-- ==========================================
+     SLIDE 5: THE 4 SCORING LAYERS
+     ========================================== -->
+<section class="slide" data-title="Scoring Layers">
+    <div class="bg-grid"></div>
+
+    <div class="slide-content" style="gap: var(--content-gap);">
+        <span class="label reveal d1">SCORING ENGINE</span>
+        <h2 class="display reveal d2">Four layers of intelligence.</h2>
+
+        <div style="display: flex; flex-direction: column; gap: var(--element-gap); margin-top: var(--element-gap);">
+            <div class="card reveal d2" style="display: flex; align-items: center; gap: clamp(0.75rem, 1.5vw, 1.5rem);">
+                <div style="width: clamp(36px, 4vw, 52px); height: clamp(36px, 4vw, 52px); border-radius: 10px; background: rgba(44, 100, 227, 0.12); border: 1px solid rgba(44, 100, 227, 0.3); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                    <span style="font-size: clamp(0.9rem, 1.5vw, 1.3rem);">1</span>
+                </div>
+                <div style="flex: 1;">
+                    <p style="color: var(--text-primary); font-weight: 600; font-size: var(--body-size);">Deterministic Scorer</p>
+                    <p style="font-size: var(--small-size);">Form fit, engagement signals, timing, deal context, external triggers — weighted and combined.</p>
+                </div>
+                <span class="mono" style="color: var(--text-muted); flex-shrink: 0;">0–100 pts</span>
+            </div>
+
+            <div class="card reveal d3" style="display: flex; align-items: center; gap: clamp(0.75rem, 1.5vw, 1.5rem);">
+                <div style="width: clamp(36px, 4vw, 52px); height: clamp(36px, 4vw, 52px); border-radius: 10px; background: rgba(56, 189, 248, 0.1); border: 1px solid rgba(56, 189, 248, 0.25); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                    <span style="font-size: clamp(0.9rem, 1.5vw, 1.3rem);">2</span>
+                </div>
+                <div style="flex: 1;">
+                    <p style="color: var(--text-primary); font-weight: 600; font-size: var(--body-size);">Apollo Enrichment</p>
+                    <p style="font-size: var(--small-size);">Firmographics, employee count, revenue, tech stack — filtered to LOS/POS + VOI/VOE providers.</p>
+                </div>
+                <span class="mono" style="color: var(--text-muted); flex-shrink: 0;">3 credits</span>
+            </div>
+
+            <div class="card reveal d4" style="display: flex; align-items: center; gap: clamp(0.75rem, 1.5vw, 1.5rem);">
+                <div style="width: clamp(36px, 4vw, 52px); height: clamp(36px, 4vw, 52px); border-radius: 10px; background: rgba(139, 92, 246, 0.12); border: 1px solid rgba(139, 92, 246, 0.25); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                    <span style="font-size: clamp(0.9rem, 1.5vw, 1.3rem);">3</span>
+                </div>
+                <div style="flex: 1;">
+                    <p style="color: var(--text-primary); font-weight: 600; font-size: var(--body-size);">Gemini AI Agent</p>
+                    <p style="font-size: var(--small-size);">Adjusts score ±15 pts, produces plain-English reasoning, and recommends a specific next action.</p>
+                </div>
+                <span class="mono" style="color: var(--text-muted); flex-shrink: 0;">±15 pts</span>
+            </div>
+
+            <div class="card reveal d5" style="display: flex; align-items: center; gap: clamp(0.75rem, 1.5vw, 1.5rem);">
+                <div style="width: clamp(36px, 4vw, 52px); height: clamp(36px, 4vw, 52px); border-radius: 10px; background: rgba(34, 197, 94, 0.1); border: 1px solid rgba(34, 197, 94, 0.25); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                    <span style="font-size: clamp(0.9rem, 1.5vw, 1.3rem);">4</span>
+                </div>
+                <div style="flex: 1;">
+                    <p style="color: var(--text-primary); font-weight: 600; font-size: var(--body-size);">HubSpot Write-back + Slack</p>
+                    <p style="font-size: var(--small-size);">Score, tier, routing, reasoning, and tech matches all written to the contact record. Hot leads alert Slack.</p>
+                </div>
+                <span class="mono" style="color: var(--green); flex-shrink: 0;">~45s</span>
+            </div>
+        </div>
+    </div>
+    <div class="slide-num">05</div>
+</section>
+
+<!-- ==========================================
+     SLIDE 6: SCORE BREAKDOWN
+     ========================================== -->
+<section class="slide" data-title="Score Weights">
+    <div class="bg-grid"></div>
+
+    <div class="slide-content" style="gap: var(--content-gap);">
+        <span class="label reveal d1">SCORE COMPOSITION</span>
+        <h2 class="display reveal d2">What goes into the number.</h2>
+
+        <div style="display: flex; flex-direction: column; gap: clamp(0.6rem, 1.2vh, 1rem); margin-top: var(--element-gap);">
+            <div class="reveal d2">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 0.3em;">
+                    <span class="mono" style="font-size: var(--small-size); color: var(--text-primary);">Form Fit</span>
+                    <span class="mono" style="font-size: var(--small-size); color: var(--truv-blue);">35%</span>
+                </div>
+                <div class="score-bar"><div class="score-bar-fill" data-width="35"></div></div>
+                <p style="font-size: var(--small-size); margin-top: 0.2em;">Title seniority, use case match, loan/app volume, company size</p>
+            </div>
+            <div class="reveal d3">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 0.3em;">
+                    <span class="mono" style="font-size: var(--small-size); color: var(--text-primary);">Deal Context</span>
+                    <span class="mono" style="font-size: var(--small-size); color: var(--truv-blue);">20%</span>
+                </div>
+                <div class="score-bar"><div class="score-bar-fill" data-width="20"></div></div>
+                <p style="font-size: var(--small-size); margin-top: 0.2em;">Existing deals, lifecycle stage, sales activity, target account flag</p>
+            </div>
+            <div class="reveal d3">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 0.3em;">
+                    <span class="mono" style="font-size: var(--small-size); color: var(--text-primary);">External Triggers</span>
+                    <span class="mono" style="font-size: var(--small-size); color: var(--truv-blue);">20%</span>
+                </div>
+                <div class="score-bar"><div class="score-bar-fill" data-width="20"></div></div>
+                <p style="font-size: var(--small-size); margin-top: 0.2em;">Apollo tech stack matches (LOS/POS, VOI/VOE), hiring signals, revenue intel</p>
+            </div>
+            <div class="reveal d4">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 0.3em;">
+                    <span class="mono" style="font-size: var(--small-size); color: var(--text-primary);">Engagement</span>
+                    <span class="mono" style="font-size: var(--small-size); color: var(--truv-blue);">15%</span>
+                </div>
+                <div class="score-bar"><div class="score-bar-fill" data-width="15"></div></div>
+                <p style="font-size: var(--small-size); margin-top: 0.2em;">Email opens/clicks, site visits, recency of last interaction</p>
+            </div>
+            <div class="reveal d5">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 0.3em;">
+                    <span class="mono" style="font-size: var(--small-size); color: var(--text-primary);">Timing</span>
+                    <span class="mono" style="font-size: var(--small-size); color: var(--truv-blue);">10%</span>
+                </div>
+                <div class="score-bar"><div class="score-bar-fill" data-width="10"></div></div>
+                <p style="font-size: var(--small-size); margin-top: 0.2em;">Days since last activity, first touch recency, form submission freshness</p>
+            </div>
+        </div>
+    </div>
+    <div class="slide-num">06</div>
+</section>
+
+<!-- ==========================================
+     SLIDE 7: ROUTING LOGIC
+     ========================================== -->
+<section class="slide" data-title="Routing">
+    <div class="bg-grid"></div>
+
+    <div class="slide-content" style="gap: var(--content-gap);">
+        <span class="label reveal d1">ROUTING ENGINE</span>
+        <h2 class="display reveal d2">Right lead, right lane.</h2>
+
+        <div style="display: flex; flex-direction: column; margin-top: var(--element-gap);">
+            <div class="route-row reveal d2">
+                <div class="route-icon" style="background: rgba(139, 92, 246, 0.15); border: 1px solid rgba(139, 92, 246, 0.3);">🏢</div>
+                <span class="route-name">Enterprise</span>
+                <span class="route-criteria">Exec/VP/Director title OR 10k+ apps/yr OR 3k+ loans/yr OR Apollo: 100+ employees / $50M+ rev</span>
+            </div>
+            <div class="route-row reveal d3">
+                <div class="route-icon" style="background: rgba(56, 189, 248, 0.12); border: 1px solid rgba(56, 189, 248, 0.25);">🏛️</div>
+                <span class="route-name">Government</span>
+                <span class="route-criteria">Use case = "Public Services" or government-related keywords detected</span>
+            </div>
+            <div class="route-row reveal d4">
+                <div class="route-icon" style="background: rgba(34, 197, 94, 0.12); border: 1px solid rgba(34, 197, 94, 0.25);">🧑‍💻</div>
+                <span class="route-name">Self-Service</span>
+                <span class="route-criteria">Manager or non-manager + low volume — routes to dashboard signup</span>
+            </div>
+            <div class="route-row reveal d5">
+                <div class="route-icon" style="background: rgba(100, 116, 139, 0.15); border: 1px solid rgba(100, 116, 139, 0.25);">🚫</div>
+                <span class="route-name">Not a Lead</span>
+                <span class="route-criteria">"Log In" or "Verification Help" form submissions — filtered out automatically</span>
+            </div>
+        </div>
+    </div>
+    <div class="slide-num">07</div>
+</section>
+
+<!-- ==========================================
+     SLIDE 8: REAL EXAMPLE
+     ========================================== -->
+<section class="slide" data-title="Live Example">
+    <div class="bg-grid"></div>
+    <div class="bg-glow bg-glow--blue" style="bottom: -20%; left: -15%;"></div>
+
+    <div class="slide-content" style="gap: var(--content-gap);">
+        <span class="label reveal d1">LIVE EXAMPLE — TODAY'S RUN</span>
+        <h2 class="display reveal d2">Amy Rios, VP Operations</h2>
+
+        <div class="grid-2 reveal-scale d3" style="margin-top: var(--element-gap);">
+            <div class="card" style="display: flex; flex-direction: column; gap: clamp(0.4rem, 0.8vh, 0.6rem);">
+                <p class="label" style="margin-bottom: 0.3em;">CONTACT DATA</p>
+                <div style="display: flex; justify-content: space-between; font-size: var(--small-size);">
+                    <span style="color: var(--text-muted);">Company</span>
+                    <span style="color: var(--text-primary);">RoundHouse Lending</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; font-size: var(--small-size);">
+                    <span style="color: var(--text-muted);">Title</span>
+                    <span style="color: var(--text-primary);">VP, Operations</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; font-size: var(--small-size);">
+                    <span style="color: var(--text-muted);">Employees</span>
+                    <span style="color: var(--text-primary);">14</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; font-size: var(--small-size);">
+                    <span style="color: var(--text-muted);">Loan Volume</span>
+                    <span style="color: var(--text-primary);">&lt;1,000/yr</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; font-size: var(--small-size);">
+                    <span style="color: var(--text-muted);">Lifecycle</span>
+                    <span class="pill pill--blue" style="font-size: 0.65rem;">SQL</span>
+                </div>
+            </div>
+
+            <div class="card card--glow" style="display: flex; flex-direction: column; gap: clamp(0.4rem, 0.8vh, 0.6rem);">
+                <p class="label label-accent" style="margin-bottom: 0.3em;">SCOUT RESULT</p>
+                <div style="display: flex; align-items: baseline; gap: 0.5em;">
+                    <span class="stat-value" style="font-size: clamp(2rem, 4vw, 3.5rem); color: var(--warm);">40</span>
+                    <span class="mono" style="color: var(--text-muted);">/ 100</span>
+                </div>
+                <div style="display: flex; gap: 0.5em;">
+                    <span class="pill pill--warm">Self-Service</span>
+                    <span class="pill" style="border-color: var(--text-muted); color: var(--text-muted);">Nurture</span>
+                </div>
+                <p style="font-size: var(--small-size); margin-top: 0.3em; font-style: italic; color: var(--text-secondary);">
+                    "Senior title at a small lender. Company scale limits deal size. Add to nurture campaign for smaller lenders."
+                </p>
+                <p class="mono" style="color: var(--text-muted); font-size: 0.65rem;">Confidence: HIGH &nbsp;|&nbsp; 46.1s execution</p>
+            </div>
+        </div>
+    </div>
+    <div class="slide-num">08</div>
+</section>
+
+<!-- ==========================================
+     SLIDE 9: SLACK OUTPUT
+     ========================================== -->
+<section class="slide" data-title="Slack">
+    <div class="bg-grid"></div>
+
+    <div class="slide-content" style="gap: var(--content-gap);">
+        <span class="label reveal d1">SLACK OUTPUT</span>
+        <h2 class="display reveal d2">What the team sees.</h2>
+        <p class="reveal d2" style="max-width: 550px;">Every scored lead posts to <span class="mono" style="color: var(--cyan);">#outreach-intelligence</span> with score, routing, reasoning, and a direct HubSpot link.</p>
+
+        <div class="reveal-scale d3" style="max-width: 600px; margin-top: var(--element-gap);">
+            <div class="slack-msg">
+                <div class="header">🔥 Scout Score: 82 — HOT</div>
+                <div class="field">
+                    <span class="field-label">Contact</span>
+                    <span class="field-value">John Martinez (VP Engineering)</span>
+                </div>
+                <div class="field">
+                    <span class="field-label">Routing</span>
+                    <span class="field-value">Enterprise</span>
+                </div>
+                <div class="field">
+                    <span class="field-label">Confidence</span>
+                    <span class="field-value">High</span>
+                </div>
+                <div class="field">
+                    <span class="field-label">Score</span>
+                    <span class="field-value">Form: 30 | Eng: 12 | Time: 8 | Deal: 18 | Ext: 14</span>
+                </div>
+                <div style="margin-top: 0.6em; padding-top: 0.6em; border-top: 1px solid rgba(255,255,255,0.06);">
+                    <span class="field-label">Reasoning</span>
+                    <p class="field-value" style="margin-top: 0.3em; font-style: italic;">VP at a mid-size lender using Encompass. High loan volume and active engagement signal strong fit. Route to enterprise AE immediately.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="slide-num">09</div>
+</section>
+
+<!-- ==========================================
+     SLIDE 10: PIPELINE B — CLOSED-LOST
+     ========================================== -->
+<section class="slide" data-title="Pipeline B">
+    <div class="bg-grid"></div>
+
+    <div class="slide-content" style="gap: var(--content-gap);">
+        <span class="label reveal d1">PIPELINE B — RE-ENGAGEMENT</span>
+        <h2 class="display reveal d2">Closed-lost contacts<br>get a second look.</h2>
+
+        <div class="grid-2 reveal d3" style="margin-top: var(--element-gap);">
+            <div class="card" style="display: flex; flex-direction: column; gap: clamp(0.5rem, 1vh, 0.8rem);">
+                <p class="mono" style="color: var(--cyan); font-weight: 700; font-size: var(--small-size);">SCHEDULE</p>
+                <p style="font-size: var(--body-size); color: var(--text-primary); font-weight: 600;">Every Monday, 8:00 AM CDT</p>
+                <p style="font-size: var(--small-size);">Pipedream cron fires → Scout API batches up to 50 stale contacts through the full scoring pipeline.</p>
+            </div>
+            <div class="card" style="display: flex; flex-direction: column; gap: clamp(0.5rem, 1vh, 0.8rem);">
+                <p class="mono" style="color: var(--cyan); font-weight: 700; font-size: var(--small-size);">WHO QUALIFIES</p>
+                <div style="display: flex; flex-direction: column; gap: 0.3em;">
+                    <p style="font-size: var(--small-size);">✓ &nbsp;Lifecycle = <span class="mono" style="color: var(--text-primary);">closed-lost</span></p>
+                    <p style="font-size: var(--small-size);">✓ &nbsp;Not in active outreach sequence</p>
+                    <p style="font-size: var(--small-size);">✓ &nbsp;Deal closed <span class="mono" style="color: var(--text-primary);">&gt;90 days</span> ago</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="reveal d4" style="max-width: 550px; margin-top: var(--element-gap);">
+            <div class="slack-msg" style="border-left-color: var(--warm);">
+                <div class="header">🔍 Closed-Lost Re-engagement Digest — Mon Mar 18</div>
+                <p class="field-value">Scored 47 contacts. <strong style="color: var(--text-primary);">6 worth a look:</strong></p>
+                <div style="margin-top: 0.4em; font-size: var(--small-size);">
+                    <p style="color: var(--text-secondary);">1. 🔥 <strong>Acme Mortgage</strong> — Score: 82 — Enterprise — Encompass</p>
+                    <p style="color: var(--text-secondary);">2. ♨️ <strong>FirstHome Lending</strong> — Score: 63 — Self-Service</p>
+                    <p style="color: var(--text-muted);">3. ♨️ <strong>Pacific Loans</strong> — Score: 58 — Self-Service</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="slide-num">10</div>
+</section>
+
+<!-- ==========================================
+     SLIDE 11: ARCHITECTURE
+     ========================================== -->
+<section class="slide" data-title="Architecture">
+    <div class="bg-grid"></div>
+
+    <div class="slide-content" style="gap: var(--content-gap);">
+        <span class="label reveal d1">ARCHITECTURE</span>
+        <h2 class="display reveal d2">What's under the hood.</h2>
+
+        <div class="grid-3 reveal d3" style="margin-top: var(--element-gap);">
+            <div class="card" style="text-align: center;">
+                <p style="font-size: clamp(1.2rem, 2vw, 1.8rem); margin-bottom: 0.3em;">⚡</p>
+                <p class="mono" style="color: var(--text-primary); font-weight: 700; font-size: var(--small-size);">COMPUTE</p>
+                <p style="font-size: var(--small-size); margin-top: 0.4em;">AWS App Runner<br>0.25 vCPU / 0.5 GB<br>Auto-scales to zero</p>
+            </div>
+            <div class="card" style="text-align: center;">
+                <p style="font-size: clamp(1.2rem, 2vw, 1.8rem); margin-bottom: 0.3em;">🐍</p>
+                <p class="mono" style="color: var(--text-primary); font-weight: 700; font-size: var(--small-size);">RUNTIME</p>
+                <p style="font-size: var(--small-size); margin-top: 0.4em;">FastAPI + Python 3.12<br>Docker on ECR<br>Background tasks</p>
+            </div>
+            <div class="card" style="text-align: center;">
+                <p style="font-size: clamp(1.2rem, 2vw, 1.8rem); margin-bottom: 0.3em;">🧠</p>
+                <p class="mono" style="color: var(--text-primary); font-weight: 700; font-size: var(--small-size);">AI LAYER</p>
+                <p style="font-size: var(--small-size); margin-top: 0.4em;">Gemini 1.5 Pro<br>Structured reasoning<br>±15pt adjustment</p>
+            </div>
+        </div>
+
+        <div class="grid-3 reveal d4">
+            <div class="card" style="text-align: center;">
+                <p style="font-size: clamp(1.2rem, 2vw, 1.8rem); margin-bottom: 0.3em;">📊</p>
+                <p class="mono" style="color: var(--text-primary); font-weight: 700; font-size: var(--small-size);">ENRICHMENT</p>
+                <p style="font-size: var(--small-size); margin-top: 0.4em;">Apollo.io API<br>People + Company<br>Tech stack matching</p>
+            </div>
+            <div class="card" style="text-align: center;">
+                <p style="font-size: clamp(1.2rem, 2vw, 1.8rem); margin-bottom: 0.3em;">🔗</p>
+                <p class="mono" style="color: var(--text-primary); font-weight: 700; font-size: var(--small-size);">ORCHESTRATION</p>
+                <p style="font-size: var(--small-size); margin-top: 0.4em;">Pipedream relay<br>HubSpot webhooks<br>Cron scheduling</p>
+            </div>
+            <div class="card" style="text-align: center;">
+                <p style="font-size: clamp(1.2rem, 2vw, 1.8rem); margin-bottom: 0.3em;">📢</p>
+                <p class="mono" style="color: var(--text-primary); font-weight: 700; font-size: var(--small-size);">OUTPUT</p>
+                <p style="font-size: var(--small-size); margin-top: 0.4em;">HubSpot write-back<br>Slack alerts (hot/warm)<br>Weekly digests</p>
+            </div>
+        </div>
+    </div>
+    <div class="slide-num">11</div>
+</section>
+
+<!-- ==========================================
+     SLIDE 12: STATUS & CLOSE
+     ========================================== -->
+<section class="slide" data-title="Status">
+    <div class="bg-grid"></div>
+    <div class="bg-glow bg-glow--blue" style="top: -15%; right: -10%;"></div>
+    <div class="bg-glow bg-glow--cyan" style="bottom: -25%; left: -15%;"></div>
+
+    <div class="slide-content" style="align-items: center; text-align: center; gap: var(--content-gap);">
+        <div class="reveal d1" style="display: flex; align-items: center; gap: 0.6em;">
+            <span class="signal-dot"></span>
+            <span class="label label-accent">ALL SYSTEMS LIVE</span>
+        </div>
+
+        <h1 class="display reveal d2" style="font-size: var(--title-size);">Scout is running.</h1>
+
+        <div class="grid-4 reveal d3" style="max-width: 700px; margin-top: var(--element-gap);">
+            <div class="stat">
+                <p class="stat-value stat-value--green" style="font-size: clamp(1.5rem, 3.5vw, 2.5rem);">✓</p>
+                <p class="stat-label">App Runner</p>
+            </div>
+            <div class="stat">
+                <p class="stat-value stat-value--green" style="font-size: clamp(1.5rem, 3.5vw, 2.5rem);">✓</p>
+                <p class="stat-label">Pipeline A</p>
+            </div>
+            <div class="stat">
+                <p class="stat-value stat-value--green" style="font-size: clamp(1.5rem, 3.5vw, 2.5rem);">✓</p>
+                <p class="stat-label">Pipeline B</p>
+            </div>
+            <div class="stat">
+                <p class="stat-value stat-value--green" style="font-size: clamp(1.5rem, 3.5vw, 2.5rem);">✓</p>
+                <p class="stat-label">Slack Alerts</p>
+            </div>
+        </div>
+
+        <div class="reveal d4" style="max-width: 500px; margin-top: var(--element-gap);">
+            <p style="font-size: var(--body-size); color: var(--text-secondary);">
+                Every form submission is scored. Every Monday, closed-lost contacts are re-evaluated.
+                The team gets actionable intelligence in Slack — no manual work required.
+            </p>
+        </div>
+
+        <div class="reveal d5" style="margin-top: var(--element-gap);">
+            <span class="pill pill--green" style="font-size: var(--body-size);">$720/mo → ~$30/mo&nbsp;&nbsp;|&nbsp;&nbsp;$8,300/yr saved</span>
+        </div>
+    </div>
+    <div class="slide-num">12</div>
+</section>
+
+
+<!-- ===========================================
+     PRESENTATION CONTROLLER
+     =========================================== -->
+<script>
+class SlidePresentation {
+    constructor() {
+        this.slides = document.querySelectorAll('.slide');
+        this.currentSlide = 0;
+        this.totalSlides = this.slides.length;
+        this.isAnimating = false;
+
+        this.createNavDots();
+        this.setupObserver();
+        this.setupKeyboard();
+        this.setupWheel();
+        this.setupTouch();
+        this.animateScoreBars();
+
+        // Initial state
+        this.slides[0].classList.add('visible');
+        this.updateProgress(0);
+
+        // Hide keyboard hint after 5s
+        setTimeout(() => {
+            const hint = document.getElementById('keyHint');
+            if (hint) hint.style.opacity = '0';
+        }, 5000);
+    }
+
+    /* -- Navigation Dots -- */
+    createNavDots() {
+        const nav = document.getElementById('navDots');
+        this.slides.forEach((slide, i) => {
+            const dot = document.createElement('button');
+            dot.className = 'nav-dot' + (i === 0 ? ' active' : '');
+            dot.setAttribute('aria-label', slide.dataset.title || `Slide ${i + 1}`);
+            dot.addEventListener('click', () => this.goToSlide(i));
+            nav.appendChild(dot);
+        });
+        this.dots = nav.querySelectorAll('.nav-dot');
+    }
+
+    /* -- Intersection Observer for scroll-triggered animations -- */
+    setupObserver() {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    const idx = Array.from(this.slides).indexOf(entry.target);
+                    if (idx !== -1) {
+                        this.currentSlide = idx;
+                        this.updateProgress(idx);
+                        this.updateDots(idx);
+                        this.animateScoreBarsInSlide(entry.target);
+                    }
+                }
+            });
+        }, { threshold: 0.5 });
+
+        this.slides.forEach(slide => observer.observe(slide));
+    }
+
+    /* -- Keyboard -- */
+    setupKeyboard() {
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowDown' || e.key === 'ArrowRight' || e.key === ' ') {
+                e.preventDefault();
+                this.goToSlide(Math.min(this.currentSlide + 1, this.totalSlides - 1));
+            } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
+                e.preventDefault();
+                this.goToSlide(Math.max(this.currentSlide - 1, 0));
+            }
+        });
+    }
+
+    /* -- Mouse wheel navigation -- */
+    setupWheel() {
+        let lastWheel = 0;
+        document.addEventListener('wheel', (e) => {
+            const now = Date.now();
+            if (now - lastWheel < 800) return;
+            lastWheel = now;
+
+            if (e.deltaY > 30) {
+                this.goToSlide(Math.min(this.currentSlide + 1, this.totalSlides - 1));
+            } else if (e.deltaY < -30) {
+                this.goToSlide(Math.max(this.currentSlide - 1, 0));
+            }
+        }, { passive: true });
+    }
+
+    /* -- Touch / swipe -- */
+    setupTouch() {
+        let startY = 0;
+        document.addEventListener('touchstart', (e) => { startY = e.touches[0].clientY; }, { passive: true });
+        document.addEventListener('touchend', (e) => {
+            const diff = startY - e.changedTouches[0].clientY;
+            if (Math.abs(diff) > 50) {
+                if (diff > 0) this.goToSlide(Math.min(this.currentSlide + 1, this.totalSlides - 1));
+                else this.goToSlide(Math.max(this.currentSlide - 1, 0));
+            }
+        }, { passive: true });
+    }
+
+    /* -- Navigate -- */
+    goToSlide(idx) {
+        if (idx === this.currentSlide || idx < 0 || idx >= this.totalSlides) return;
+        this.slides[idx].scrollIntoView({ behavior: 'smooth' });
+    }
+
+    /* -- Progress & dots -- */
+    updateProgress(idx) {
+        const pct = ((idx + 1) / this.totalSlides) * 100;
+        document.getElementById('progress').style.width = pct + '%';
+    }
+
+    updateDots(idx) {
+        if (!this.dots) return;
+        this.dots.forEach((d, i) => d.classList.toggle('active', i === idx));
+    }
+
+    /* -- Score bar animation -- */
+    animateScoreBars() {
+        // Animate bars when their slide becomes visible
+    }
+
+    animateScoreBarsInSlide(slide) {
+        const bars = slide.querySelectorAll('.score-bar-fill[data-width]');
+        bars.forEach(bar => {
+            setTimeout(() => {
+                bar.style.width = bar.dataset.width + '%';
+            }, 400);
+        });
+    }
+}
+
+// Boot
+document.addEventListener('DOMContentLoaded', () => new SlidePresentation());
+</script>
+
+</body>
+</html>

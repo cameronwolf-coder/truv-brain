@@ -6,7 +6,7 @@ from outreach_intel.hubspot_client import HubSpotClient
 from truv_scout.models import PipelineResult
 
 
-def write_scores_to_hubspot(result: PipelineResult) -> bool:
+def write_scores_to_hubspot(result: PipelineResult, source: str = "form_submission") -> bool:
     """Write scoring results to HubSpot contact properties.
 
     Properties written:
@@ -17,9 +17,11 @@ def write_scores_to_hubspot(result: PipelineResult) -> bool:
     - scout_confidence: high/medium/low
     - scout_scored_at: ISO timestamp
     - scout_tech_stack_matches: JSON string of tech matches
+    - scout_source: form_submission/closed_lost_reengagement/dashboard_signup
 
     Args:
         result: Pipeline result with all scoring data.
+        source: Which pipeline triggered the score.
 
     Returns:
         True if update succeeded, False otherwise.
@@ -42,6 +44,7 @@ def write_scores_to_hubspot(result: PipelineResult) -> bool:
         "scout_reasoning": (result.reasoning or "")[:1000],
         "scout_confidence": result.confidence,
         "scout_scored_at": datetime.now(timezone.utc).isoformat(),
+        "scout_source": source,
     }
 
     if tech_matches_str:

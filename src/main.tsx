@@ -23,6 +23,8 @@ const MarketingHub = lazy(() => import('./pages/MarketingHub').then((m) => ({ de
 const Hub = lazy(() => import('./pages/Hub').then((m) => ({ default: m.Hub })));
 const VideoEditor = lazy(() => import('./pages/VideoEditor').then((m) => ({ default: m.VideoEditor })));
 const CampaignOS = lazy(() => import('./pages/CampaignOS').then((m) => ({ default: m.CampaignOS })));
+const ScoutShowcase = lazy(() => import('./pages/ScoutShowcase').then((m) => ({ default: m.ScoutShowcase })));
+const ScoutDashboard = lazy(() => import('./pages/ScoutDashboard').then((m) => ({ default: m.ScoutDashboard })));
 import './index.css';
 
 const router = createBrowserRouter([
@@ -93,6 +95,14 @@ const router = createBrowserRouter([
       {
         path: 'email-performance',
         element: <EmailPerformance />,
+      },
+      {
+        path: 'showcase/scout',
+        element: <Suspense fallback={<div className="p-8 text-gray-500">Loading...</div>}><ScoutShowcase /></Suspense>,
+      },
+      {
+        path: 'scout-dashboard',
+        element: <Suspense fallback={<div className="p-8 text-gray-500">Loading...</div>}><ScoutDashboard /></Suspense>,
       },
       {
         path: 'video-editor',

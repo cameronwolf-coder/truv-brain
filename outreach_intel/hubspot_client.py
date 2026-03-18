@@ -437,6 +437,37 @@ class HubSpotClient:
             json_data={"properties": properties},
         )
 
+    def create_contact(
+        self,
+        properties: dict[str, str],
+    ) -> dict[str, Any]:
+        """Create a new HubSpot contact.
+
+        Handles 409 Conflict (email already exists) by falling back to
+        get_contact_by_email and returning the existing contact.
+
+        Args:
+            properties: Contact properties (must include 'email').
+
+        Returns:
+            Created or existing contact record.
+        """
+        try:
+            return self._request(
+                "POST",
+                "/crm/v3/objects/contacts",
+                json_data={"properties": properties},
+            )
+        except requests.HTTPError as e:
+            if e.response is not None and e.response.status_code == 409:
+                # Contact already exists — race condition between lookup and create
+                email = properties.get("email", "")
+                if email:
+                    existing = self.get_contact_by_email(email)
+                    if existing:
+                        return existing
+            raise
+
     # ── Associations ───────────────────────────────────────────────────
 
     def get_associations(
