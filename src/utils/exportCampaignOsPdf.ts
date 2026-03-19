@@ -82,14 +82,34 @@ export async function exportCampaignOsPdf(
   const hasAnalyticsData = analytics &&
     (analytics.totals.delivered > 0 || analytics.totals.opens > 0 || analytics.totals.recipients > 0);
 
-  // 3. If no data, fall back to email performance API (live Knock + SendGrid)
-  let liveSummary: CampaignSummary | null = null;
-  if (!hasAnalyticsData) {
+  // 3. If no data, fetch live from Knock + SendGrid via knock-status API
+  //    This is the same endpoint the DeliveryStatus component uses
+  interface KnockStatusResponse {
+    stats: { total: number; delivered: number; sent: number; queued: number; failed: number };
+    sendgridStats: {
+      requests: number; delivered: number; opens: number; uniqueOpens: number;
+      clicks: number; uniqueClicks: number; bounces: number; blocks: number;
+      spamReports: number; unsubscribes: number;
+      openRate: number; clickRate: number; bounceRate: number;
+    } | null;
+  }
+
+  let knockData: KnockStatusResponse | null = null;
+  const wfKey = campaign.workflow?.knockWorkflowKey;
+
+  if (!hasAnalyticsData && wfKey) {
     onProgress?.('Fetching live data from Knock + SendGrid...');
     try {
+      const res = await fetch(`/api/campaigns/knock-status?workflow=${wfKey}`);
+      if (res.ok) knockData = await res.json();
+    } catch { /* knock-status API not available */ }
+  }
+
+  // 4. Also try the email performance API as a second fallback
+  let liveSummary: CampaignSummary | null = null;
+  if (!hasAnalyticsData && !knockData) {
+    try {
       const allCampaigns = await getCampaigns();
-      // Match by workflow key or template ID
-      const wfKey = campaign.workflow?.knockWorkflowKey;
       const tplId = campaign.template?.sendgridTemplateId;
       liveSummary = allCampaigns.find(
         (c) => (wfKey && c.workflow_key === wfKey) || (tplId && c.template_id === tplId)
@@ -194,6 +214,7 @@ export async function exportCampaignOsPdf(
 
   // Build KPIs from whichever source has data
   let kpis: Array<{ label: string; value: string }>;
+  let dataSource = '';
 
   if (hasAnalyticsData && analytics) {
     const t = analytics.totals;
@@ -207,6 +228,31 @@ export async function exportCampaignOsPdf(
       { label: 'Bounces', value: t.bounces.toLocaleString() },
       { label: 'Sends', value: analytics.sends.length.toString() },
     ];
+    dataSource = 'Campaign OS analytics cache';
+  } else if (knockData) {
+    // Use Knock + SendGrid live data
+    const k = knockData.stats;
+    const sg = knockData.sendgridStats;
+    if (sg) {
+      kpis = [
+        { label: 'Sent (Knock)', value: k.total.toLocaleString() },
+        { label: 'Delivered', value: sg.delivered.toLocaleString() },
+        { label: 'Unique Opens', value: sg.uniqueOpens.toLocaleString() },
+        { label: 'Unique Clicks', value: sg.uniqueClicks.toLocaleString() },
+        { label: 'Open Rate', value: pct(sg.openRate) },
+        { label: 'Click Rate', value: pct(sg.clickRate) },
+        { label: 'Bounces', value: sg.bounces.toLocaleString() },
+        { label: 'Blocks', value: sg.blocks.toLocaleString() },
+      ];
+    } else {
+      kpis = [
+        { label: 'Sent (Knock)', value: k.total.toLocaleString() },
+        { label: 'Delivered', value: k.delivered.toLocaleString() },
+        { label: 'Queued', value: k.queued.toLocaleString() },
+        { label: 'Failed', value: k.failed.toLocaleString() },
+      ];
+    }
+    dataSource = 'Knock + SendGrid (live)';
   } else if (liveSummary) {
     const m = liveSummary.metrics;
     kpis = [
@@ -219,8 +265,10 @@ export async function exportCampaignOsPdf(
       { label: 'Click-to-Open', value: pct(m.click_to_open) },
       { label: 'Bounce Rate', value: pct(m.bounce_rate) },
     ];
+    dataSource = 'Email performance API';
   } else {
     kpis = [{ label: 'Status', value: 'No engagement data yet — check back after sends complete' }];
+    dataSource = '';
   }
 
   if (kpis.length === 1 && kpis[0].label === 'Status') {
@@ -357,15 +405,12 @@ export async function exportCampaignOsPdf(
   }
 
   // ── Data source note ──────────────────────────
-  const sourcePage = pdf.getNumberOfPages();
-  pdf.setPage(1);
-  const noteY = pageH - 14;
-  pdf.setFontSize(7);
-  pdf.setTextColor(180, 180, 180);
-  if (liveSummary && !hasAnalyticsData) {
-    pdf.text('Metrics from Knock + SendGrid (live). Campaign OS cache not yet populated.', margin, noteY);
-  } else if (hasAnalyticsData) {
-    pdf.text('Metrics from Campaign OS analytics cache.', margin, noteY);
+  if (dataSource) {
+    pdf.setPage(1);
+    const noteY = pageH - 14;
+    pdf.setFontSize(7);
+    pdf.setTextColor(180, 180, 180);
+    pdf.text(`Data source: ${dataSource}`, margin, noteY);
   }
 
   // ── Footers ──────────────────────────
