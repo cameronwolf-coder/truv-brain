@@ -70,13 +70,20 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       if (!after) break;
     }
 
-    // Aggregate Knock stats from all pages
+    // Filter out internal/test recipients
+    const TEST_DOMAINS = ['truv.com', 'citadelid.com'];
+    const isTestEmail = (email: string) => TEST_DOMAINS.some(d => email.toLowerCase().endsWith(`@${d}`));
+    const productionMessages = allMessages.filter(m => !isTestEmail(m.email));
+    const testMessages = allMessages.filter(m => isTestEmail(m.email));
+
+    // Aggregate Knock stats from production messages only
     const knockStats = {
-      total: totalCount || allMessages.length,
-      delivered: allMessages.filter((m) => m.status === 'delivered').length,
-      sent: allMessages.filter((m) => m.status === 'sent').length,
-      queued: allMessages.filter((m) => m.status === 'queued').length,
-      failed: allMessages.filter((m) => ['undelivered', 'not_sent', 'bounced'].includes(m.status)).length,
+      total: productionMessages.length,
+      delivered: productionMessages.filter((m) => m.status === 'delivered').length,
+      sent: productionMessages.filter((m) => m.status === 'sent').length,
+      queued: productionMessages.filter((m) => m.status === 'queued').length,
+      failed: productionMessages.filter((m) => ['undelivered', 'not_sent', 'bounced'].includes(m.status)).length,
+      testExcluded: testMessages.length,
     };
 
     // Fetch SendGrid category stats for this workflow
@@ -131,7 +138,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     }
 
     return res.status(200).json({
-      messages: allMessages,
+      messages: productionMessages,
       stats: knockStats,
       sendgridStats,
     });

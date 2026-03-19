@@ -68,6 +68,40 @@ export async function exportCampaignOsPdf(
 
   onProgress?.('Generating PDF...');
 
+  // ── Filter out test/internal data ──────────────────────────
+  const TEST_DOMAINS = ['truv.com', 'citadelid.com'];
+  const isTestEmail = (email: string) => TEST_DOMAINS.some(d => email.toLowerCase().endsWith(`@${d}`));
+
+  // Filter delivery errors to exclude internal emails
+  if (health) {
+    health = {
+      ...health,
+      deliveryErrors: health.deliveryErrors.filter(e => !isTestEmail(e.email)),
+    };
+  }
+
+  // Filter analytics sends — exclude any sends named "Test" or with 0 recipients
+  if (analytics) {
+    analytics = {
+      ...analytics,
+      sends: analytics.sends.filter(s =>
+        !s.name.toLowerCase().includes('test') && s.recipients > 0
+      ),
+    };
+    // Recalculate totals from filtered sends
+    const t = { recipients: 0, delivered: 0, opens: 0, clicks: 0, bounces: 0, openRate: 0, clickRate: 0 };
+    for (const s of analytics.sends) {
+      t.recipients += s.recipients;
+      t.delivered += s.delivered;
+      t.opens += s.opens;
+      t.clicks += s.clicks;
+      t.bounces += s.bounces;
+    }
+    t.openRate = t.delivered > 0 ? t.opens / t.delivered : 0;
+    t.clickRate = t.delivered > 0 ? t.clicks / t.delivered : 0;
+    analytics = { ...analytics, totals: t };
+  }
+
   // ── Determine KPIs ──────────────────────────
   let kpis: Array<{ label: string; value: string; highlight?: boolean }> = [];
   let dataSource = '';
