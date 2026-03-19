@@ -11,6 +11,7 @@ import { CampaignHealthPanel } from './CampaignHealth';
 import { DeliveryStatus } from './DeliveryStatus';
 import { SendDialog } from './SendDialog';
 import { DeleteDialog } from './DeleteDialog';
+import { exportCampaignOsPdf } from '../../utils/exportCampaignOsPdf';
 
 interface DetailProps {
   campaignId: string;
@@ -28,6 +29,8 @@ export function Detail({ campaignId, onBack }: DetailProps) {
   const [showSendDialog, setShowSendDialog] = useState(false);
   const [showTestDialog, setShowTestDialog] = useState(false);
   const [customTestEmail, setCustomTestEmail] = useState('');
+  const [exporting, setExporting] = useState(false);
+  const [exportProgress, setExportProgress] = useState('');
 
   if (loading) return <div className="text-gray-400 text-sm py-12 text-center">Loading...</div>;
   if (error) return <div className="bg-red-50 border border-red-200 rounded-xl p-4 text-sm text-red-800">{error}</div>;
@@ -131,6 +134,23 @@ export function Detail({ campaignId, onBack }: DetailProps) {
           {campaign.status === 'sent' && campaign.workflow?.knockWorkflowKey && (
             <span className="px-3 py-1.5 bg-green-100 text-green-700 text-xs font-medium rounded-lg">Sent</span>
           )}
+          <button
+            onClick={async () => {
+              setExporting(true);
+              setExportProgress('');
+              try {
+                await exportCampaignOsPdf(campaign, setExportProgress);
+              } catch (e: any) {
+                setExportProgress(`Export failed: ${e.message}`);
+              } finally {
+                setExporting(false);
+              }
+            }}
+            disabled={exporting}
+            className="px-3 py-1.5 text-gray-600 hover:bg-gray-50 disabled:text-gray-300 text-xs font-medium rounded-lg transition-colors border border-gray-200"
+          >
+            {exporting ? exportProgress || 'Exporting...' : '📄 Export PDF'}
+          </button>
           <button
             onClick={() => setShowDeleteDialog(true)}
             className="px-3 py-1.5 text-red-600 hover:bg-red-50 text-xs font-medium rounded-lg transition-colors border border-red-200"
