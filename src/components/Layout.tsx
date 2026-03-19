@@ -265,9 +265,9 @@ export function Layout() {
             </li>
           </ul>
 
-          {/* Showcase Section — Scout pages removed from prod, re-enable when ready
+          {/* Showcase */}
           <p className="text-xs font-medium text-gray-400 uppercase tracking-wide mb-2 mt-6 px-3">
-            Showcase
+            Scout
           </p>
           <ul className="space-y-1">
             <li>
@@ -283,7 +283,6 @@ export function Layout() {
               </NavLink>
             </li>
           </ul>
-          */}
         </nav>
 
         {/* Footer */}
