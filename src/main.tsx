@@ -98,11 +98,11 @@ const router = createBrowserRouter([
       },
       {
         path: 'showcase/scout',
-        element: <Suspense fallback={<div className="p-8 text-gray-500">Loading...</div>}><ScoutShowcase /></Suspense>,
+        element: <Suspense fallback={<div className="p-8 text-gray-500">Loading...</div>}><ProtectedRoute><ScoutShowcase /></ProtectedRoute></Suspense>,
       },
       {
         path: 'scout-dashboard',
-        element: <Suspense fallback={<div className="p-8 text-gray-500">Loading...</div>}><ScoutDashboard /></Suspense>,
+        element: <Suspense fallback={<div className="p-8 text-gray-500">Loading...</div>}><ProtectedRoute><ScoutDashboard /></ProtectedRoute></Suspense>,
       },
       {
         path: 'video-editor',

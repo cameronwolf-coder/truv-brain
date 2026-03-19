@@ -31,6 +31,13 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
   if (req.method === 'OPTIONS') return res.status(200).end();
   if (req.method !== 'GET') return res.status(405).json({ error: 'Method not allowed' });
+
+  // Auth: require Referer from truv-brain.vercel.app or localhost (blocks direct API access)
+  const referer = req.headers.referer || req.headers.origin || '';
+  const allowedOrigins = ['truv-brain.vercel.app', 'localhost', '127.0.0.1'];
+  const isAllowed = allowedOrigins.some(o => referer.includes(o));
+  if (!isAllowed) return res.status(401).json({ error: 'Unauthorized — access via dashboard only' });
+
   if (!HUBSPOT_API_TOKEN) return res.status(500).json({ error: 'HubSpot API token not configured' });
 
   try {
