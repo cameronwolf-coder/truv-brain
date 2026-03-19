@@ -96,14 +96,15 @@ const router = createBrowserRouter([
         path: 'email-performance',
         element: <EmailPerformance />,
       },
-      {
-        path: 'showcase/scout',
-        element: <Suspense fallback={<div className="p-8 text-gray-500">Loading...</div>}><ProtectedRoute><ScoutShowcase /></ProtectedRoute></Suspense>,
-      },
-      {
-        path: 'scout-dashboard',
-        element: <Suspense fallback={<div className="p-8 text-gray-500">Loading...</div>}><ProtectedRoute><ScoutDashboard /></ProtectedRoute></Suspense>,
-      },
+      // Scout pages removed from production — re-enable when ready
+      // {
+      //   path: 'showcase/scout',
+      //   element: <Suspense fallback={<div className="p-8 text-gray-500">Loading...</div>}><ProtectedRoute><ScoutShowcase /></ProtectedRoute></Suspense>,
+      // },
+      // {
+      //   path: 'scout-dashboard',
+      //   element: <Suspense fallback={<div className="p-8 text-gray-500">Loading...</div>}><ProtectedRoute><ScoutDashboard /></ProtectedRoute></Suspense>,
+      // },
       {
         path: 'video-editor',
         element: <Suspense fallback={<div className="p-8 text-gray-500">Loading...</div>}><VideoEditor /></Suspense>,
