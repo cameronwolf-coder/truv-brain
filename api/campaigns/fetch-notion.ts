@@ -8,9 +8,9 @@ function corsHeaders(res: VercelResponse): void {
 }
 
 const NOTION_API_KEY = process.env.NOTION_API_KEY;
-const CLOUDINARY_CLOUD = 'dc0r5pclf';
-const CLOUDINARY_API_KEY = '572344996457451';
-const CLOUDINARY_API_SECRET = 'wxK3fvncJb4B-qZQo7EIBT5Oq_s';
+const CLOUDINARY_CLOUD = process.env.CLOUDINARY_CLOUD_NAME || '';
+const CLOUDINARY_API_KEY = process.env.CLOUDINARY_API_KEY || '';
+const CLOUDINARY_API_SECRET = process.env.CLOUDINARY_API_SECRET || '';
 
 async function uploadToCloudinary(imageUrl: string, publicId: string): Promise<string> {
   // Download image

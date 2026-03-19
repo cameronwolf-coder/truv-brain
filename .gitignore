@@ -71,3 +71,7 @@ public/tinymce
 
 roi-calc-internal/
 sendgrid-mcp/
+
+# Claude Code local settings (contains permission history with tokens)
+.claude/settings.local.json
+.claude/projects/
