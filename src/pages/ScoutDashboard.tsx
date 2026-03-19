@@ -133,7 +133,11 @@ export function ScoutDashboard() {
 
   const fetchData = useCallback(async () => {
     try {
-      const resp = await fetch('/api/scout-dashboard');
+      const resp = await fetch('/api/scout-dashboard', {
+        headers: {
+          'X-Dashboard-Key': import.meta.env.VITE_SCOUT_DASHBOARD_KEY || '',
+        },
+      });
       if (!resp.ok) throw new Error(`API error: ${resp.status}`);
       const json = await resp.json();
       setData(json);

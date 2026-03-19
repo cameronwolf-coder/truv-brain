@@ -24,8 +24,9 @@ def health():
 
 
 @app.get("/status")
-def system_status():
+def system_status(x_scout_token: Optional[str] = Header(None)):
     """Return system status with recent scoring activity."""
+    _check_token(x_scout_token)
     import os
     return {
         "status": "ok",
@@ -39,8 +40,12 @@ def system_status():
 
 
 @app.post("/score", response_model=ScoreResponse)
-async def score_lead(request: ScoreRequest):
+async def score_lead(
+    request: ScoreRequest,
+    x_scout_token: Optional[str] = Header(None),
+):
     """Score an inbound lead through the full pipeline."""
+    _check_token(x_scout_token)
     from truv_scout.pipeline import run_pipeline
 
     if not request.contact_id and not request.email:
@@ -58,7 +63,9 @@ async def score_lead(request: ScoreRequest):
             skip_agent=request.skip_agent,
         )
     except Exception as e:
-        raise HTTPException(500, f"Pipeline error: {e}")
+        import logging
+        logging.exception("Pipeline error in /score")
+        raise HTTPException(500, "Internal scoring error")
 
     return ScoreResponse(
         contact_id=result.contact_id,

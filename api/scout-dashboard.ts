@@ -2,7 +2,8 @@ import type { VercelRequest, VercelResponse } from '@vercel/node';
 
 const HUBSPOT_API_TOKEN = process.env.HUBSPOT_API_TOKEN;
 const HUBSPOT_BASE_URL = 'https://api.hubapi.com';
-const SCOUT_API_URL = 'https://8svutjrjpz.us-east-1.awsapprunner.com';
+const SCOUT_API_URL = process.env.SCOUT_API_URL || 'https://8svutjrjpz.us-east-1.awsapprunner.com';
+const SCOUT_DASHBOARD_KEY = process.env.SCOUT_DASHBOARD_KEY;
 
 async function hubspotSearch(filters: any[], properties: string[], limit = 50, sorts?: any[]) {
   const body: any = {
@@ -25,18 +26,21 @@ async function hubspotSearch(filters: any[], properties: string[], limit = 50, s
 }
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
-  res.setHeader('Access-Control-Allow-Origin', '*');
+  const allowedOrigins = ['https://truv-brain.vercel.app', 'http://localhost:5173', 'http://127.0.0.1:5173'];
+  const origin = req.headers.origin || '';
+  const corsOrigin = allowedOrigins.includes(origin) ? origin : allowedOrigins[0];
+  res.setHeader('Access-Control-Allow-Origin', corsOrigin);
   res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, X-Dashboard-Key');
 
   if (req.method === 'OPTIONS') return res.status(200).end();
   if (req.method !== 'GET') return res.status(405).json({ error: 'Method not allowed' });
 
-  // Auth: require Referer from truv-brain.vercel.app or localhost (blocks direct API access)
-  const referer = req.headers.referer || req.headers.origin || '';
-  const allowedOrigins = ['truv-brain.vercel.app', 'localhost', '127.0.0.1'];
-  const isAllowed = allowedOrigins.some(o => referer.includes(o));
-  if (!isAllowed) return res.status(401).json({ error: 'Unauthorized — access via dashboard only' });
+  // Auth: require X-Dashboard-Key header matching SCOUT_DASHBOARD_KEY env var
+  const dashboardKey = req.headers['x-dashboard-key'] as string | undefined;
+  if (!SCOUT_DASHBOARD_KEY || dashboardKey !== SCOUT_DASHBOARD_KEY) {
+    return res.status(401).json({ error: 'Unauthorized' });
+  }
 
   if (!HUBSPOT_API_TOKEN) return res.status(500).json({ error: 'HubSpot API token not configured' });
 
@@ -212,6 +216,6 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
   } catch (error: any) {
     console.error('Scout dashboard error:', error);
-    return res.status(500).json({ error: error.message || 'Internal server error' });
+    return res.status(500).json({ error: 'Internal server error' });
   }
 }
