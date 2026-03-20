@@ -11,8 +11,8 @@ export default defineConfig({
     },
   },
   define: {
-    __GIT_COMMIT_SHA__: JSON.stringify(process.env.GIT_COMMIT_SHA || 'dev'),
-    __GIT_COMMIT_MESSAGE__: JSON.stringify(process.env.GIT_COMMIT_MESSAGE || ''),
+    __GIT_COMMIT_SHA__: JSON.stringify(process.env.VERCEL_GIT_COMMIT_SHA || 'dev'),
+    __GIT_COMMIT_MESSAGE__: JSON.stringify(process.env.VERCEL_GIT_COMMIT_MESSAGE || ''),
   },
   server: {
     proxy: {
