@@ -1,8 +1,8 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-const BOT_URL = 'https://em8y3yp3qk.us-east-1.awsapprunner.com';
-const BOT_TOKEN = '***REDACTED***';
+const BOT_URL = import.meta.env.VITE_LOS_POS_BOT_URL || 'https://em8y3yp3qk.us-east-1.awsapprunner.com';
+const BOT_TOKEN = import.meta.env.VITE_LOS_POS_BOT_TOKEN || '';
 
 // ---------------------------------------------------------------------------
 // Types
