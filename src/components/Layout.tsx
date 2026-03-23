@@ -282,6 +282,12 @@ export function Layout() {
                 Truv Scout
               </NavLink>
             </li>
+            <li>
+              <NavLink to="/los-pos-dashboard" className={({ isActive }) => `flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${isActive ? 'bg-blue-50 text-blue-700' : 'text-gray-700 hover:bg-gray-100'}`}>
+                <span className="text-lg">🏦</span>
+                LOS/POS Bot
+              </NavLink>
+            </li>
           </ul>
         </nav>
 

@@ -19,12 +19,13 @@ import { DataEnrichment } from './pages/DataEnrichment';
 import { ExpertReview } from './pages/ExpertReview';
 import { UrlToEmail } from './pages/UrlToEmail';
 import { EmailPerformance } from './pages/EmailPerformance';
-const MarketingHub = lazy(() => import('./pages/MarketingHub').then((m) => ({ default: m.MarketingHub })));
+// const MarketingHub = lazy(() => import('./pages/MarketingHub').then((m) => ({ default: m.MarketingHub })));
 // const Hub = lazy(() => import('./pages/Hub').then((m) => ({ default: m.Hub })));
 const VideoEditor = lazy(() => import('./pages/VideoEditor').then((m) => ({ default: m.VideoEditor })));
 const CampaignOS = lazy(() => import('./pages/CampaignOS').then((m) => ({ default: m.CampaignOS })));
-// const ScoutShowcase = lazy(() => import('./pages/ScoutShowcase').then((m) => ({ default: m.ScoutShowcase })));
-// const ScoutDashboard = lazy(() => import('./pages/ScoutDashboard').then((m) => ({ default: m.ScoutDashboard })));
+const ScoutShowcase = lazy(() => import('./pages/ScoutShowcase').then((m) => ({ default: m.ScoutShowcase })));
+const ScoutDashboard = lazy(() => import('./pages/ScoutDashboard').then((m) => ({ default: m.ScoutDashboard })));
+const LOSPOSDashboard = lazy(() => import('./pages/LOSPOSDashboard').then((m) => ({ default: m.LOSPOSDashboard })));
 import './index.css';
 
 const router = createBrowserRouter([
@@ -104,6 +105,10 @@ const router = createBrowserRouter([
       {
         path: 'scout-dashboard',
         element: <Suspense fallback={<div className="p-8 text-gray-500">Loading...</div>}><ProtectedRoute><ScoutDashboard /></ProtectedRoute></Suspense>,
+      },
+      {
+        path: 'los-pos-dashboard',
+        element: <Suspense fallback={<div className="p-8 text-gray-500">Loading...</div>}><LOSPOSDashboard /></Suspense>,
       },
       {
         path: 'video-editor',
