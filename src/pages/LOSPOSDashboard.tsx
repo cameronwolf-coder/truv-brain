@@ -1,8 +1,7 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-const BOT_URL = import.meta.env.VITE_LOS_POS_BOT_URL || 'https://em8y3yp3qk.us-east-1.awsapprunner.com';
-const BOT_TOKEN = import.meta.env.VITE_LOS_POS_BOT_TOKEN || '';
+const BOT_URL = 'https://em8y3yp3qk.us-east-1.awsapprunner.com';
 
 // ---------------------------------------------------------------------------
 // Types
@@ -433,9 +432,9 @@ export function LOSPOSDashboard() {
     setBatchRunning(true);
     setBatchMsg(null);
     try {
-      const resp = await fetch(`${BOT_URL}/run-batch`, {
+      const resp = await fetch('/api/los-pos-batch', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'X-Scout-Token': BOT_TOKEN },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ limit: 100 }),
       });
       const data = await resp.json();
