@@ -55,6 +55,7 @@ interface ServiceStatus {
   url: string;
   console: string;
   type: string;
+  rateLimit?: { used: number; remaining: number; limit: number };
 }
 
 interface DashboardData {
@@ -124,12 +125,16 @@ function healthDot(status: string) {
 /* ===========================================
    PAGE
    =========================================== */
+type PipelineFilter = 'all' | 'form_submission' | 'closed_lost_reengagement' | 'dashboard_signup';
+
 export function ScoutDashboard() {
   const [data, setData] = useState<DashboardData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [lastRefresh, setLastRefresh] = useState<Date>(new Date());
   const [selectedContact, setSelectedContact] = useState<ScoredContact | null>(null);
+  const [pipelineFilter, setPipelineFilter] = useState<PipelineFilter>('all');
+  const [rescoringId, setRescoringId] = useState<string | null>(null);
 
   const fetchData = useCallback(async () => {
     try {
@@ -150,6 +155,21 @@ export function ScoutDashboard() {
     fetchData();
     const interval = setInterval(fetchData, 30000); // Refresh every 30s
     return () => clearInterval(interval);
+  }, [fetchData]);
+
+  const handleRescore = useCallback(async (c: ScoredContact) => {
+    setRescoringId(c.id);
+    try {
+      await fetch('/api/rescore-contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ contactId: c.id, email: c.email }),
+      });
+      // Refresh data after rescore completes
+      await fetchData();
+    } finally {
+      setRescoringId(null);
+    }
   }, [fetchData]);
 
   if (loading && !data) {
@@ -184,6 +204,9 @@ export function ScoutDashboard() {
   }
 
   const stats = data!.stats;
+  const filteredScores = pipelineFilter === 'all'
+    ? data!.recentScores
+    : data!.recentScores.filter(c => c.source === pipelineFilter);
 
   return (
     <div className="p-8 max-w-6xl">
@@ -270,13 +293,31 @@ export function ScoutDashboard() {
               const dotColor = svc.status === 'healthy' ? 'bg-green-500' : svc.status === 'degraded' ? 'bg-amber-500' : 'bg-red-500';
               const borderColor = svc.status === 'healthy' ? 'border-gray-200' : svc.status === 'degraded' ? 'border-amber-200' : 'border-red-200';
               const bgColor = svc.status !== 'healthy' ? (svc.status === 'degraded' ? 'bg-amber-50' : 'bg-red-50') : 'bg-white';
+              const isApollo = key === 'apollo' && svc.rateLimit;
               return (
                 <a key={key} href={svc.console} target="_blank" rel="noopener noreferrer"
                   className={`flex items-center gap-2.5 px-3 py-2.5 rounded-xl border ${borderColor} ${bgColor} hover:shadow-sm hover:border-gray-300 transition-all group`}>
                   <span className={`w-2 h-2 rounded-full ${dotColor} flex-shrink-0`} />
                   <div className="flex-1 min-w-0">
                     <p className="text-sm font-medium text-gray-900 group-hover:text-blue-600 truncate">{svc.name}</p>
-                    <p className="text-[10px] text-gray-400 truncate">{svc.type}</p>
+                    {isApollo ? (
+                      <div className="mt-0.5">
+                        <div className="flex items-center gap-1 mb-0.5">
+                          <div className="flex-1 h-1 bg-gray-100 rounded-full overflow-hidden">
+                            <div
+                              className="h-full bg-blue-400 rounded-full"
+                              style={{ width: `${Math.round((svc.rateLimit!.used / svc.rateLimit!.limit) * 100)}%` }}
+                            />
+                          </div>
+                          <span className="text-[9px] text-gray-400 flex-shrink-0">
+                            {svc.rateLimit!.used}/{svc.rateLimit!.limit}/min
+                          </span>
+                        </div>
+                        <p className="text-[9px] text-gray-400">{svc.rateLimit!.remaining} req remaining</p>
+                      </div>
+                    ) : (
+                      <p className="text-[10px] text-gray-400 truncate">{svc.type}</p>
+                    )}
                   </div>
                   <span className="text-[10px] text-gray-300 group-hover:text-blue-400 flex-shrink-0">↗</span>
                 </a>
@@ -291,34 +332,68 @@ export function ScoutDashboard() {
 
         {/* Left: Recent Scores Feed */}
         <div>
-          <h2 className="text-lg font-semibold text-gray-900 mb-3">Recent Scores</h2>
+          <div className="flex items-center justify-between mb-2">
+            <h2 className="text-lg font-semibold text-gray-900">Recent Scores</h2>
+            <span className="text-xs text-gray-400">{filteredScores.length} contacts</span>
+          </div>
+          {/* Pipeline filter tabs */}
+          <div className="flex gap-1 mb-2">
+            {([
+              { key: 'all', label: 'All' },
+              { key: 'form_submission', label: 'A — Inbound' },
+              { key: 'closed_lost_reengagement', label: 'B — Closed-Lost' },
+              { key: 'dashboard_signup', label: 'C — Dashboard' },
+            ] as { key: PipelineFilter; label: string }[]).map((tab) => (
+              <button
+                key={tab.key}
+                onClick={() => setPipelineFilter(tab.key)}
+                className={`px-2.5 py-1 rounded-lg text-xs font-medium transition-colors ${
+                  pipelineFilter === tab.key
+                    ? 'bg-truv-blue text-white'
+                    : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                }`}
+              >
+                {tab.label}
+              </button>
+            ))}
+          </div>
           <div className="bg-white border border-gray-200 rounded-xl divide-y divide-gray-100 max-h-[500px] overflow-y-auto">
-            {data!.recentScores.length === 0 ? (
+            {filteredScores.length === 0 ? (
               <div className="p-8 text-center text-gray-400 text-sm">No scored contacts found</div>
             ) : (
-              data!.recentScores.map((c) => (
-                <button key={c.id} onClick={() => setSelectedContact(c)}
-                  className={`w-full text-left px-4 py-3 hover:bg-gray-50 transition-colors ${selectedContact?.id === c.id ? 'bg-blue-50' : ''}`}>
-                  <div className="flex items-center gap-2 mb-1">
-                    {sourceBadge(c.source)}
-                    <span className="text-sm font-medium text-gray-900 truncate flex-1">{c.name}</span>
-                    {tierBadge(c.tier)}
-                  </div>
-                  <div className="flex items-center gap-2 pl-7">
-                    <span className="text-xs text-gray-500 truncate">{c.title ? `${c.title} @ ` : ''}{c.company}</span>
-                    <span className="text-[10px] text-gray-400 ml-auto flex-shrink-0">{timeAgo(c.scoredAt)}</span>
-                  </div>
-                  {c.score !== null && (
-                    <div className="pl-7 mt-1">
-                      <div className="flex items-center gap-2">
-                        <div className="flex-1 h-1.5 bg-gray-100 rounded-full overflow-hidden">
-                          <div className="h-full rounded-full bg-blue-600 transition-all" style={{ width: `${c.score}%` }} />
-                        </div>
-                        <span className="text-xs font-semibold text-gray-700 w-6 text-right">{c.score}</span>
-                      </div>
+              filteredScores.map((c) => (
+                <div key={c.id}
+                  className={`flex items-start gap-2 px-4 py-3 hover:bg-gray-50 transition-colors ${selectedContact?.id === c.id ? 'bg-blue-50' : ''}`}>
+                  <button className="flex-1 text-left min-w-0" onClick={() => setSelectedContact(c)}>
+                    <div className="flex items-center gap-2 mb-1">
+                      {sourceBadge(c.source)}
+                      <span className="text-sm font-medium text-gray-900 truncate flex-1">{c.name}</span>
+                      {tierBadge(c.tier)}
                     </div>
-                  )}
-                </button>
+                    <div className="flex items-center gap-2 pl-7">
+                      <span className="text-xs text-gray-500 truncate">{c.title ? `${c.title} @ ` : ''}{c.company}</span>
+                      <span className="text-[10px] text-gray-400 ml-auto flex-shrink-0">{timeAgo(c.scoredAt)}</span>
+                    </div>
+                    {c.score !== null && (
+                      <div className="pl-7 mt-1">
+                        <div className="flex items-center gap-2">
+                          <div className="flex-1 h-1.5 bg-gray-100 rounded-full overflow-hidden">
+                            <div className="h-full rounded-full bg-blue-600 transition-all" style={{ width: `${c.score}%` }} />
+                          </div>
+                          <span className="text-xs font-semibold text-gray-700 w-6 text-right">{c.score}</span>
+                        </div>
+                      </div>
+                    )}
+                  </button>
+                  <button
+                    onClick={() => handleRescore(c)}
+                    disabled={rescoringId === c.id}
+                    className="flex-shrink-0 mt-0.5 px-2 py-1 text-[10px] font-medium rounded-lg border border-gray-200 text-gray-500 hover:border-blue-300 hover:text-blue-600 hover:bg-blue-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                    title="Re-run Scout pipeline for this contact"
+                  >
+                    {rescoringId === c.id ? '...' : '↻ Re-score'}
+                  </button>
+                </div>
               ))
             )}
           </div>

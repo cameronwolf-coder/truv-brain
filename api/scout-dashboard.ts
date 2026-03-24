@@ -3,6 +3,7 @@ import type { VercelRequest, VercelResponse } from '@vercel/node';
 const HUBSPOT_API_TOKEN = process.env.HUBSPOT_API_TOKEN;
 const HUBSPOT_BASE_URL = 'https://api.hubapi.com';
 const SCOUT_API_URL = process.env.SCOUT_API_URL || 'https://8svutjrjpz.us-east-1.awsapprunner.com';
+const APOLLO_API_KEY = process.env.APOLLO_API_KEY;
 
 async function hubspotSearch(filters: any[], properties: string[], limit = 50, sorts?: any[]) {
   const body: any = {
@@ -123,10 +124,35 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       }
     };
 
-    const [scoutHealth, hubspotHealth, slackHealth] = await Promise.all([
+    // Apollo probe — use people/match with a clearly-bogus email (no match = 0 credits consumed)
+    // to capture per-minute rate-limit headers
+    const checkApollo = async (): Promise<{
+      status: 'healthy' | 'degraded' | 'unreachable';
+      rateLimit?: { used: number; remaining: number; limit: number };
+    }> => {
+      if (!APOLLO_API_KEY) return { status: 'unreachable' };
+      try {
+        const r = await fetch('https://api.apollo.io/v1/people/match', {
+          method: 'POST',
+          headers: { 'X-Api-Key': APOLLO_API_KEY, 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email: 'healthcheck@probe.truv.internal' }),
+          signal: AbortSignal.timeout(5000),
+        });
+        const used = parseInt(r.headers.get('x-minute-usage') || '0', 10);
+        const remaining = parseInt(r.headers.get('x-minute-requests-left') || '0', 10);
+        const limit = parseInt(r.headers.get('x-rate-limit-minute') || '1000', 10);
+        return {
+          status: (r.ok || r.status === 404 || r.status === 422) ? 'healthy' : 'degraded',
+          rateLimit: { used, remaining, limit },
+        };
+      } catch {
+        return { status: 'unreachable' };
+      }
+    };
+
+    const [scoutHealth, hubspotHealth, slackHealth, apolloResult] = await Promise.all([
       checkHealth(`${SCOUT_API_URL}/health`),
-      checkHealth(`${HUBSPOT_BASE_URL}/crm/v3/objects/contacts?limit=1`, 5000).then(async () => {
-        // Actually test with auth
+      (async () => {
         try {
           const r = await fetch(`${HUBSPOT_BASE_URL}/crm/v3/objects/contacts?limit=1`, {
             headers: { 'Authorization': `Bearer ${HUBSPOT_API_TOKEN}` },
@@ -134,9 +160,9 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
           });
           return r.ok ? 'healthy' as const : 'degraded' as const;
         } catch { return 'unreachable' as const; }
-      }),
-      // Slack webhook — can't test without posting, so just check if configured
+      })(),
       Promise.resolve(process.env.SLACK_WEBHOOK_URL ? 'healthy' as const : 'unreachable' as const),
+      checkApollo(),
     ]);
 
     const services = {
@@ -144,7 +170,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       hubspot: { status: hubspotHealth, name: 'HubSpot CRM', url: 'https://app.hubspot.com/contacts/19933594', console: 'https://app.hubspot.com/contacts/19933594', type: 'CRM' },
       pipedream: { status: 'healthy' as const, name: 'Pipedream', url: 'https://pipedream.com/@truvhq/projects/proj_BgsYmjp/tree', console: 'https://pipedream.com/@truvhq/projects/proj_BgsYmjp/tree', type: 'Orchestration' },
       slack: { status: slackHealth, name: 'Slack', url: 'https://truv.slack.com/archives/C0A9Y5HLQAF', console: 'https://truv.slack.com/archives/C0A9Y5HLQAF', type: 'Alerts (#outreach-intelligence)' },
-      apollo: { status: process.env.APOLLO_API_KEY ? 'healthy' as const : 'unreachable' as const, name: 'Apollo.io', url: 'https://app.apollo.io', console: 'https://app.apollo.io', type: 'Enrichment' },
+      apollo: { status: apolloResult.status, name: 'Apollo.io', url: 'https://app.apollo.io', console: 'https://app.apollo.io', type: 'Enrichment', rateLimit: apolloResult.rateLimit },
       gemini: { status: process.env.GOOGLE_API_KEY ? 'healthy' as const : 'unreachable' as const, name: 'Gemini 2.0 Flash', url: 'https://aistudio.google.com', console: 'https://aistudio.google.com', type: 'AI Agent (via Agno)' },
       ecr: { status: scoutHealth, name: 'AWS ECR', url: 'https://us-east-1.console.aws.amazon.com/ecr/repositories/private/968062515708/truv-scout', console: 'https://us-east-1.console.aws.amazon.com/ecr/repositories/private/968062515708/truv-scout', type: 'Container Registry' },
       vercel: { status: 'healthy' as const, name: 'Vercel', url: 'https://truv-brain.vercel.app', console: 'https://vercel.com/truvhq/truv-brain', type: 'Frontend + API Routes' },
