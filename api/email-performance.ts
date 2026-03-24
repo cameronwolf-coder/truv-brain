@@ -3,7 +3,7 @@ import { Redis } from '@upstash/redis';
 
 const SENDGRID_API_KEY = process.env.SENDGRID_API_KEY;
 const SENDGRID_BASE = 'https://api.sendgrid.com/v3';
-const KNOCK_API_KEY = process.env.KNOCK_API_KEY;
+const KNOCK_API_KEY = process.env.KNOCK_SERVICE_TOKEN || process.env.KNOCK_API_KEY;
 const KNOCK_BASE = 'https://api.knock.app/v1';
 
 /* ---- Redis cache ---- */

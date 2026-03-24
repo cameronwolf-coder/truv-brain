@@ -505,6 +505,129 @@ export function ScoutDashboard() {
                   </div>
                 </div>
 
+                {/* Scoring Waterfall */}
+                <div className="mb-5">
+                  <p className="text-xs font-medium text-gray-400 uppercase tracking-wide mb-3">Score Waterfall</p>
+                  <div className="flex items-stretch gap-0">
+
+                    {/* Step 1: Form Signals */}
+                    <div className="flex-1 min-w-0 rounded-l-lg border border-r-0 border-gray-200 bg-gray-50 p-3">
+                      <div className="flex items-center gap-1.5 mb-2">
+                        <span className="w-4 h-4 rounded-full bg-blue-100 text-blue-700 text-[9px] font-bold flex items-center justify-center">1</span>
+                        <p className="text-[10px] font-semibold text-gray-600 uppercase tracking-wide">Form Signals</p>
+                      </div>
+                      <div className="space-y-1">
+                        {c.useCase && <div className="flex justify-between text-[10px]"><span className="text-gray-400">Use case</span><span className="text-gray-700 font-medium truncate ml-1 max-w-[60%]">{c.useCase}</span></div>}
+                        {c.roleLevel && <div className="flex justify-between text-[10px]"><span className="text-gray-400">Role</span><span className="text-gray-700 capitalize truncate ml-1 max-w-[60%]">{c.roleLevel}</span></div>}
+                        {c.loanVolume && <div className="flex justify-between text-[10px]"><span className="text-gray-400">Loans/yr</span><span className="text-gray-700">{c.loanVolume}</span></div>}
+                        {c.appVolume && <div className="flex justify-between text-[10px]"><span className="text-gray-400">Apps/yr</span><span className="text-gray-700">{c.appVolume}</span></div>}
+                        {!c.useCase && !c.roleLevel && !c.loanVolume && !c.appVolume && (
+                          <p className="text-[10px] text-gray-400 italic">No form data captured</p>
+                        )}
+                      </div>
+                      {c.howCanWeHelp && (
+                        <div className="mt-2 pt-1.5 border-t border-gray-200">
+                          <p className="text-[9px] text-gray-400 mb-0.5">How can we help?</p>
+                          <p className="text-[10px] text-gray-600 italic line-clamp-2">"{c.howCanWeHelp}"</p>
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Connector */}
+                    <div className="flex items-center px-1 text-gray-300 text-xs flex-shrink-0">→</div>
+
+                    {/* Step 2: Base Score */}
+                    <div className={`flex-1 min-w-0 border border-r-0 p-3 ${c.steps?.scorer?.status === 'complete' ? 'bg-blue-50 border-blue-200' : 'bg-gray-50 border-gray-200'}`}>
+                      <div className="flex items-center gap-1.5 mb-2">
+                        <span className="w-4 h-4 rounded-full bg-blue-100 text-blue-700 text-[9px] font-bold flex items-center justify-center">2</span>
+                        <p className="text-[10px] font-semibold text-gray-600 uppercase tracking-wide">Base Scorer</p>
+                      </div>
+                      <div className="space-y-1">
+                        <div className="flex justify-between text-[10px]">
+                          <span className="text-gray-400">Score</span>
+                          <span className={`font-bold text-sm ${c.score !== null ? (c.score >= 70 ? 'text-red-600' : c.score >= 50 ? 'text-amber-600' : 'text-blue-600') : 'text-gray-400'}`}>
+                            {c.score ?? '—'}
+                          </span>
+                        </div>
+                        <div className="flex justify-between text-[10px]">
+                          <span className="text-gray-400">Status</span>
+                          <span className={c.steps?.scorer?.status === 'complete' ? 'text-green-700' : 'text-gray-400'}>
+                            {c.steps?.scorer?.status === 'complete' ? 'Scored' : 'Not scored'}
+                          </span>
+                        </div>
+                      </div>
+                      {c.score !== null && (
+                        <div className="mt-2 pt-1.5 border-t border-blue-100">
+                          <div className="w-full bg-gray-200 rounded-full h-1.5">
+                            <div className={`h-1.5 rounded-full ${c.score >= 70 ? 'bg-red-500' : c.score >= 50 ? 'bg-amber-500' : 'bg-blue-500'}`}
+                              style={{ width: `${Math.min(c.score, 100)}%` }} />
+                          </div>
+                          <p className="text-[9px] text-gray-400 mt-0.5">{c.score}/100</p>
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Connector */}
+                    <div className="flex items-center px-1 text-gray-300 text-xs flex-shrink-0">→</div>
+
+                    {/* Step 3: Apollo Research */}
+                    <div className={`flex-1 min-w-0 border border-r-0 p-3 ${c.steps?.apollo?.status === 'complete' ? 'bg-purple-50 border-purple-200' : 'bg-gray-50 border-gray-200'}`}>
+                      <div className="flex items-center gap-1.5 mb-2">
+                        <span className="w-4 h-4 rounded-full bg-purple-100 text-purple-700 text-[9px] font-bold flex items-center justify-center">3</span>
+                        <p className="text-[10px] font-semibold text-gray-600 uppercase tracking-wide">Apollo Intel</p>
+                      </div>
+                      {c.techMatches ? (
+                        <div className="space-y-1">
+                          <p className="text-[9px] text-gray-400 mb-1">Tech matches</p>
+                          <div className="flex flex-wrap gap-1">
+                            {c.techMatches.split(',').slice(0, 4).map((t, i) => (
+                              <span key={i} className="px-1.5 py-0.5 bg-purple-100 text-purple-700 rounded text-[9px] font-medium">{t.trim()}</span>
+                            ))}
+                            {c.techMatches.split(',').length > 4 && (
+                              <span className="px-1.5 py-0.5 bg-gray-100 text-gray-500 rounded text-[9px]">+{c.techMatches.split(',').length - 4} more</span>
+                            )}
+                          </div>
+                        </div>
+                      ) : (
+                        <p className="text-[10px] text-gray-400 italic">
+                          {c.steps?.apollo?.status === 'no-data' ? 'No tech data found' : 'Apollo not run'}
+                        </p>
+                      )}
+                    </div>
+
+                    {/* Connector */}
+                    <div className="flex items-center px-1 text-gray-300 text-xs flex-shrink-0">→</div>
+
+                    {/* Step 4: AI Agent */}
+                    <div className={`flex-1 min-w-0 rounded-r-lg border p-3 ${c.steps?.agent?.status === 'complete' ? 'bg-green-50 border-green-200' : c.steps?.agent?.status === 'fallback' ? 'bg-amber-50 border-amber-200' : 'bg-gray-50 border-gray-200'}`}>
+                      <div className="flex items-center gap-1.5 mb-2">
+                        <span className={`w-4 h-4 rounded-full text-[9px] font-bold flex items-center justify-center ${c.steps?.agent?.status === 'complete' ? 'bg-green-100 text-green-700' : 'bg-amber-100 text-amber-700'}`}>4</span>
+                        <p className="text-[10px] font-semibold text-gray-600 uppercase tracking-wide">AI Agent</p>
+                        {c.confidence && (
+                          <span className={`ml-auto px-1.5 py-0.5 rounded text-[9px] font-medium ${c.confidence === 'high' ? 'bg-green-100 text-green-700' : c.confidence === 'medium' ? 'bg-amber-100 text-amber-700' : 'bg-gray-100 text-gray-500'}`}>
+                            {c.confidence}
+                          </span>
+                        )}
+                      </div>
+                      {c.reasoning && c.reasoning !== 'Deterministic score only.' ? (
+                        <p className="text-[10px] text-gray-600 italic line-clamp-4">"{c.reasoning}"</p>
+                      ) : (
+                        <div>
+                          <p className="text-[10px] text-amber-700">Deterministic fallback — no agent research</p>
+                          <p className="text-[9px] text-gray-400 mt-0.5">Score based on form signals only</p>
+                        </div>
+                      )}
+                      <div className="mt-2 pt-1.5 border-t border-gray-200 flex items-center gap-2">
+                        {tierBadge(c.tier)}
+                        {c.routing && (
+                          <span className="text-[9px] text-gray-500 capitalize">{c.routing}</span>
+                        )}
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+
                 <div className="grid grid-cols-4 gap-5">
                   {/* Col 1: Scoring */}
                   <div>
