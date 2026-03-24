@@ -3,7 +3,6 @@ import type { VercelRequest, VercelResponse } from '@vercel/node';
 const HUBSPOT_API_TOKEN = process.env.HUBSPOT_API_TOKEN;
 const HUBSPOT_BASE_URL = 'https://api.hubapi.com';
 const SCOUT_API_URL = process.env.SCOUT_API_URL || 'https://8svutjrjpz.us-east-1.awsapprunner.com';
-const SCOUT_DASHBOARD_KEY = process.env.SCOUT_DASHBOARD_KEY;
 
 async function hubspotSearch(filters: any[], properties: string[], limit = 50, sorts?: any[]) {
   const body: any = {
@@ -31,16 +30,10 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   const corsOrigin = allowedOrigins.includes(origin) ? origin : allowedOrigins[0];
   res.setHeader('Access-Control-Allow-Origin', corsOrigin);
   res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, X-Dashboard-Key');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
   if (req.method === 'OPTIONS') return res.status(200).end();
   if (req.method !== 'GET') return res.status(405).json({ error: 'Method not allowed' });
-
-  // Auth: require X-Dashboard-Key header matching SCOUT_DASHBOARD_KEY env var
-  const dashboardKey = req.headers['x-dashboard-key'] as string | undefined;
-  if (!SCOUT_DASHBOARD_KEY || dashboardKey !== SCOUT_DASHBOARD_KEY) {
-    return res.status(401).json({ error: 'Unauthorized' });
-  }
 
   if (!HUBSPOT_API_TOKEN) return res.status(500).json({ error: 'HubSpot API token not configured' });
 

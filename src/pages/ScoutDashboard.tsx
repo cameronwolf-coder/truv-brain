@@ -133,11 +133,7 @@ export function ScoutDashboard() {
 
   const fetchData = useCallback(async () => {
     try {
-      const resp = await fetch('/api/scout-dashboard', {
-        headers: {
-          'X-Dashboard-Key': import.meta.env.VITE_SCOUT_DASHBOARD_KEY || '',
-        },
-      });
+      const resp = await fetch('/api/scout-dashboard');
       if (!resp.ok) throw new Error(`API error: ${resp.status}`);
       const json = await resp.json();
       setData(json);
@@ -169,12 +165,18 @@ export function ScoutDashboard() {
   }
 
   if (error && !data) {
+    const isProxyError = error.includes('500') || error.includes('502') || error.includes('503');
     return (
       <div className="p-8">
         <h1 className="text-3xl font-bold text-gray-900 mb-4">Scout Dashboard</h1>
         <div className="bg-red-50 border border-red-200 rounded-xl p-5">
           <p className="text-red-800 font-medium">Failed to load dashboard data</p>
           <p className="text-red-600 text-sm mt-1">{error}</p>
+          {isProxyError && (
+            <p className="text-red-500 text-xs mt-2 font-mono bg-red-100 rounded px-2 py-1">
+              Local dev: run <strong>npm run dev:local</strong> to start the API server alongside Vite
+            </p>
+          )}
           <button onClick={fetchData} className="mt-3 px-4 py-2 bg-red-600 text-white rounded-lg text-sm hover:bg-red-700">Retry</button>
         </div>
       </div>

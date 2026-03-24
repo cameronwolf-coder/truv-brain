@@ -64,6 +64,13 @@ AI-powered company enrichment (OpenAI + Firecrawl). 4 agents, SSE streaming, CSV
 
 ## CLI Commands
 
+### Web App (React + API)
+```bash
+npm run dev:local   # Starts BOTH the API server (port 3001) and Vite (port 5173) — use this, not npm run dev
+npm run dev         # Vite only — API routes will 500 since port 3001 won't be running
+```
+
+### Python (Outreach Intelligence)
 ```bash
 source venv/bin/activate
 
