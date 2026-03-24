@@ -57,20 +57,69 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       'num_associated_deals', 'hs_analytics_source',
     ];
 
-    // 1. Recently scored contacts (last 7 days) — sorted by scored_at desc
-    const recentlyScored = await hubspotSearch(
-      [{ propertyName: 'scout_scored_at', operator: 'HAS_PROPERTY' }],
-      scoreProps,
-      30,
-      [{ propertyName: 'scout_scored_at', direction: 'DESCENDING' }],
-    );
+    // 1. Recently scored — query each pipeline separately so a batch run on B/C
+    //    can't crowd out real-time Pipeline A inbound leads.
+    //
+    //    Pipeline A fallback: some inbound contacts get form_fit_score written by a
+    //    HubSpot Workflow scorer but never get scout_scored_at (writeback gap).
+    //    We surface those via a createdate + form_fit_score query so the board can
+    //    see all inbound leads, not just Scout-confirmed ones.
+    // HubSpot search API requires Unix millisecond timestamps (as strings) for date
+    // property filters like createdate. ISO strings are rejected and return 0 results.
+    const sevenDaysAgoMs = String(Date.now() - 7 * 24 * 60 * 60 * 1000);
+    const sortByScoredAt = [{ propertyName: 'scout_scored_at', direction: 'DESCENDING' }];
+    const [pipelineAScout, pipelineAFallback, pipelineB, pipelineC] = await Promise.all([
+      // A — Scout-confirmed (scout_source + scout_scored_at both set)
+      hubspotSearch(
+        [{ propertyName: 'scout_scored_at', operator: 'HAS_PROPERTY' }, { propertyName: 'scout_source', operator: 'EQ', value: 'form_submission' }],
+        scoreProps, 15, sortByScoredAt,
+      ),
+      // A — fallback: recently created with form_fit_score but no scout_scored_at
+      hubspotSearch(
+        [
+          { propertyName: 'form_fit_score', operator: 'HAS_PROPERTY' },
+          { propertyName: 'createdate', operator: 'GTE', value: sevenDaysAgoMs },
+          { propertyName: 'scout_scored_at', operator: 'NOT_HAS_PROPERTY' },
+        ],
+        scoreProps, 15,
+        [{ propertyName: 'createdate', direction: 'DESCENDING' }],
+      ),
+      // B — closed-lost re-engagement
+      hubspotSearch(
+        [{ propertyName: 'scout_scored_at', operator: 'HAS_PROPERTY' }, { propertyName: 'scout_source', operator: 'EQ', value: 'closed_lost_reengagement' }],
+        scoreProps, 15, sortByScoredAt,
+      ),
+      // C — dashboard signups
+      hubspotSearch(
+        [{ propertyName: 'scout_scored_at', operator: 'HAS_PROPERTY' }, { propertyName: 'scout_source', operator: 'EQ', value: 'dashboard_signup' }],
+        scoreProps, 15, sortByScoredAt,
+      ),
+    ]);
+
+    // Tag fallback Pipeline A contacts with inferred source so the frontend filter works
+    pipelineAFallback.forEach((c: any) => {
+      if (!c.properties.scout_source) {
+        c.properties = { ...c.properties, scout_source: 'form_submission' };
+      }
+    });
+
+    // Merge all, dedupe by ID, sort by best available timestamp
+    const scoredMap = new Map<string, any>();
+    [...pipelineAScout, ...pipelineAFallback, ...pipelineB, ...pipelineC].forEach((c: any) => {
+      if (!scoredMap.has(c.id)) scoredMap.set(c.id, c);
+    });
+    const recentlyScored = Array.from(scoredMap.values()).sort((a: any, b: any) => {
+      const aTime = new Date(a.properties?.scout_scored_at || a.properties?.createdate || 0).getTime();
+      const bTime = new Date(b.properties?.scout_scored_at || b.properties?.createdate || 0).getTime();
+      return bTime - aTime;
+    });
 
     // 2. Closed-lost contacts with recent web engagement (engagement heatmap)
-    const thirtyDaysAgo = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString();
+    const thirtyDaysAgoMs = String(Date.now() - 30 * 24 * 60 * 60 * 1000);
     const engagedClosedLost = await hubspotSearch(
       [
         { propertyName: 'lifecyclestage', operator: 'EQ', value: '268636563' },
-        { propertyName: 'hs_analytics_last_visit_timestamp', operator: 'GTE', value: thirtyDaysAgo },
+        { propertyName: 'hs_analytics_last_visit_timestamp', operator: 'GTE', value: thirtyDaysAgoMs },
       ],
       scoreProps,
       20,
@@ -81,7 +130,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     const engagedEmail = await hubspotSearch(
       [
         { propertyName: 'lifecyclestage', operator: 'EQ', value: '268636563' },
-        { propertyName: 'hs_email_last_open_date', operator: 'GTE', value: thirtyDaysAgo },
+        { propertyName: 'hs_email_last_open_date', operator: 'GTE', value: thirtyDaysAgoMs },
       ],
       scoreProps,
       20,
@@ -202,7 +251,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         reasoning: p.scout_reasoning || null,
         confidence: p.scout_confidence || null,
         source,
-        scoredAt: p.scout_scored_at || null,
+        scoredAt: p.scout_scored_at || p.createdate || null,
         techMatches: p.scout_tech_stack_matches || null,
         lastVisit: p.hs_analytics_last_visit_timestamp || null,
         lastVisitUrl: p.hs_analytics_last_url || null,
