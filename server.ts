@@ -27,50 +27,82 @@ app.use(express.json({ limit: '10mb' }));
 
 // ---------------------------------------------------------------------------
 // Auto-discover and mount all api/*.ts handlers
+// Supports:
+//   - Nested directories (any depth)
+//   - Vercel [param] segments → Express :param dynamic routes
+//   - req.params merged into req.query so Vercel handlers can read them
+//   - Static routes mounted before dynamic ones to avoid shadowing
 // ---------------------------------------------------------------------------
 
 const apiDir = path.resolve(__dirname, 'api');
 
+/** Convert Vercel [param] filename segments to Express :param syntax */
+function toExpressSegment(segment: string): string {
+  return segment.replace(/\[([^\]]+)\]/g, ':$1');
+}
+
 function makeVercelAdapter(handler: Function) {
   return async (req: express.Request, res: express.Response) => {
+    // Merge dynamic path params into req.query so Vercel handlers can read
+    // them via req.query (e.g. const { id } = req.query).
+    // req.query is a getter in Express, so use defineProperty to override it.
+    Object.defineProperty(req, 'query', {
+      value: { ...req.params, ...req.query },
+      writable: true,
+      configurable: true,
+    });
     await handler(req, res);
   };
 }
 
-async function mountRoutes() {
-  const entries = fs.readdirSync(apiDir, { withFileTypes: true });
+interface RouteEntry {
+  expressPath: string;
+  filePath: string;
+  isDynamic: boolean; // true if any segment is a :param
+}
+
+function collectRoutes(dir: string, prefix: string): RouteEntry[] {
+  const routes: RouteEntry[] = [];
+  const entries = fs.readdirSync(dir, { withFileTypes: true });
 
   for (const entry of entries) {
+    const fullPath = path.join(dir, entry.name);
+
     if (entry.isDirectory()) {
-      // Mount sub-directory routes: api/foo/bar.ts → /api/foo/bar
-      const subDir = path.join(apiDir, entry.name);
-      const subEntries = fs.readdirSync(subDir, { withFileTypes: true });
-      for (const sub of subEntries) {
-        if (!sub.isFile() || !sub.name.endsWith('.ts')) continue;
-        const routeName = sub.name.replace(/\.ts$/, '');
-        const routePath = `/api/${entry.name}/${routeName === 'index' ? '' : routeName}`;
-        try {
-          const mod = await import(path.join(subDir, sub.name));
-          if (mod.default) {
-            app.all(routePath, makeVercelAdapter(mod.default));
-            console.log(`  ✓ /api/${entry.name}/${routeName}`);
-          }
-        } catch {
-          // skip routes that fail to import (missing deps, etc.)
-        }
-      }
+      const segment = toExpressSegment(entry.name);
+      const isDynamic = entry.name.startsWith('[');
+      const subRoutes = collectRoutes(fullPath, `${prefix}/${segment}`);
+      // Mark all sub-routes as dynamic if the directory itself is dynamic
+      if (isDynamic) subRoutes.forEach(r => { r.isDynamic = true; });
+      routes.push(...subRoutes);
     } else if (entry.isFile() && entry.name.endsWith('.ts')) {
-      const routeName = entry.name.replace(/\.ts$/, '');
-      const routePath = `/api/${routeName}`;
-      try {
-        const mod = await import(path.join(apiDir, entry.name));
-        if (mod.default) {
-          app.all(routePath, makeVercelAdapter(mod.default));
-          console.log(`  ✓ /api/${routeName}`);
-        }
-      } catch {
-        // skip
+      const baseName = entry.name.replace(/\.ts$/, '');
+      const segment = baseName === 'index' ? '' : toExpressSegment(baseName);
+      const expressPath = segment ? `${prefix}/${segment}` : prefix;
+      const isDynamic = baseName.startsWith('[');
+      routes.push({ expressPath, filePath: fullPath, isDynamic });
+    }
+  }
+
+  return routes;
+}
+
+async function mountRoutes() {
+  const routes = collectRoutes(apiDir, '/api');
+
+  // Mount static routes first so they are not shadowed by dynamic :param routes
+  const staticRoutes = routes.filter(r => !r.isDynamic);
+  const dynamicRoutes = routes.filter(r => r.isDynamic);
+
+  for (const route of [...staticRoutes, ...dynamicRoutes]) {
+    try {
+      const mod = await import(route.filePath);
+      if (mod.default) {
+        app.all(route.expressPath, makeVercelAdapter(mod.default));
+        console.log(`  ✓ ${route.expressPath}`);
       }
+    } catch {
+      // skip routes that fail to import (missing deps etc.)
     }
   }
 }
