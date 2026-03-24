@@ -15,8 +15,9 @@ import { fileURLToPath } from 'url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-// Load .env then .env.local (local overrides)
-dotenv.config({ path: path.resolve(__dirname, '.env') });
+// Load .env then .env.local (local overrides).
+// Use override: true on both so .env file values win over any stale shell env vars.
+dotenv.config({ path: path.resolve(__dirname, '.env'), override: true });
 dotenv.config({ path: path.resolve(__dirname, '.env.local'), override: true });
 
 const app = express();
