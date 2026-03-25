@@ -114,7 +114,89 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       return bTime - aTime;
     });
 
-    // 2. Closed-lost contacts with recent web engagement (engagement heatmap)
+    // 2. Enterprise prospects — dashboard_signup contacts with enterprise signals
+    const enterpriseProps = [
+      ...scoreProps,
+      'associatedcompanyid',
+    ];
+    // Two queries: high form_fit_score OR enterprise routing (union)
+    const [entByScore, entByRouting] = await Promise.all([
+      hubspotSearch(
+        [
+          { propertyName: 'scout_source', operator: 'EQ', value: 'dashboard_signup' },
+          { propertyName: 'scout_scored_at', operator: 'HAS_PROPERTY' },
+          { propertyName: 'form_fit_score', operator: 'GTE', value: '70' },
+        ],
+        enterpriseProps, 50,
+        [{ propertyName: 'form_fit_score', direction: 'DESCENDING' }],
+      ),
+      hubspotSearch(
+        [
+          { propertyName: 'scout_source', operator: 'EQ', value: 'dashboard_signup' },
+          { propertyName: 'scout_scored_at', operator: 'HAS_PROPERTY' },
+          { propertyName: 'lead_routing', operator: 'EQ', value: 'enterprise' },
+        ],
+        enterpriseProps, 50,
+        [{ propertyName: 'form_fit_score', direction: 'DESCENDING' }],
+      ),
+    ]);
+
+    // Dedupe and merge
+    const entMap = new Map<string, any>();
+    [...entByScore, ...entByRouting].forEach((c: any) => {
+      if (!entMap.has(c.id)) entMap.set(c.id, c);
+    });
+
+    // Fetch company data for enterprise prospects (employee count, revenue, industry)
+    const entContacts = Array.from(entMap.values());
+    const companyIds = new Set<string>();
+    entContacts.forEach((c: any) => {
+      if (c.properties?.associatedcompanyid) companyIds.add(c.properties.associatedcompanyid);
+    });
+
+    const companyData: Record<string, any> = {};
+    if (companyIds.size > 0) {
+      const companyBatches: string[][] = [];
+      const ids = Array.from(companyIds);
+      for (let i = 0; i < ids.length; i += 50) {
+        companyBatches.push(ids.slice(i, i + 50));
+      }
+      await Promise.all(companyBatches.map(async (batch) => {
+        try {
+          const resp = await fetch(`${HUBSPOT_BASE_URL}/crm/v3/objects/companies/batch/read`, {
+            method: 'POST',
+            headers: {
+              'Authorization': `Bearer ${HUBSPOT_API_TOKEN}`,
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              properties: ['name', 'numberofemployees', 'annualrevenue', 'industry', 'domain'],
+              inputs: batch.map(id => ({ id })),
+            }),
+          });
+          if (resp.ok) {
+            const data = await resp.json();
+            (data.results || []).forEach((co: any) => {
+              companyData[co.id] = co.properties || {};
+            });
+          }
+        } catch { /* company fetch failed, continue without */ }
+      }));
+    }
+
+    // Sort enterprise prospects by score descending
+    const enterpriseProspects = entContacts
+      .map((c: any) => {
+        const coData = companyData[c.properties?.associatedcompanyid] || {};
+        return { ...c, companyData: coData };
+      })
+      .sort((a: any, b: any) => {
+        const aScore = Number(a.properties?.form_fit_score || 0);
+        const bScore = Number(b.properties?.form_fit_score || 0);
+        return bScore - aScore;
+      });
+
+    // 3. Closed-lost contacts with recent web engagement (engagement heatmap)
     const thirtyDaysAgoMs = String(Date.now() - 30 * 24 * 60 * 60 * 1000);
     const engagedClosedLost = await hubspotSearch(
       [
@@ -219,7 +301,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       hubspot: { status: hubspotHealth, name: 'HubSpot CRM', url: 'https://app.hubspot.com/contacts/19933594', console: 'https://app.hubspot.com/contacts/19933594', type: 'CRM' },
       pipedream: { status: 'healthy' as const, name: 'Pipedream', url: 'https://pipedream.com/@truvhq/projects/proj_BgsYmjp/tree', console: 'https://pipedream.com/@truvhq/projects/proj_BgsYmjp/tree', type: 'Orchestration' },
       slack: { status: slackHealth, name: 'Slack', url: 'https://truv.slack.com/archives/C0A9Y5HLQAF', console: 'https://truv.slack.com/archives/C0A9Y5HLQAF', type: 'Alerts (#outreach-intelligence)' },
-      apollo: { status: apolloResult.status, name: 'Apollo.io', url: 'https://app.apollo.io', console: 'https://app.apollo.io', type: 'Enrichment', rateLimit: apolloResult.rateLimit },
+      apollo: { status: apolloResult.status, name: 'LOS/POS Bot', url: 'https://app.apollo.io', console: 'https://app.apollo.io', type: 'Tech Detection (Apollo fallback)', rateLimit: apolloResult.rateLimit },
       gemini: { status: process.env.GOOGLE_API_KEY ? 'healthy' as const : 'unreachable' as const, name: 'Gemini 2.0 Flash', url: 'https://aistudio.google.com', console: 'https://aistudio.google.com', type: 'AI Agent (via Agno)' },
       ecr: { status: scoutHealth, name: 'AWS ECR', url: 'https://us-east-1.console.aws.amazon.com/ecr/repositories/private/968062515708/truv-scout', console: 'https://us-east-1.console.aws.amazon.com/ecr/repositories/private/968062515708/truv-scout', type: 'Container Registry' },
       vercel: { status: 'healthy' as const, name: 'Vercel', url: 'https://truv-brain.vercel.app', console: 'https://vercel.com/truvhq/truv-brain', type: 'Frontend + API Routes' },
@@ -273,6 +355,20 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       };
     };
 
+    // Format enterprise prospects with company data
+    const formatEnterprise = (c: any) => {
+      const base = formatContact(c);
+      const co = c.companyData || {};
+      return {
+        ...base,
+        employeeCount: co.numberofemployees ? Number(co.numberofemployees) : null,
+        annualRevenue: co.annualrevenue ? Number(co.annualrevenue) : null,
+        industry: co.industry || null,
+        companyDomain: co.domain || null,
+        companyName: co.name || base.company,
+      };
+    };
+
     return res.status(200).json({
       timestamp: new Date().toISOString(),
       scoutHealth,
@@ -280,6 +376,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       stats,
       recentScores: allScored.map(formatContact),
       engagedClosedLost: engagedContacts.map(formatContact),
+      enterpriseProspects: enterpriseProspects.map(formatEnterprise),
     });
 
   } catch (error: any) {

@@ -58,6 +58,14 @@ interface ServiceStatus {
   rateLimit?: { used: number; remaining: number; limit: number };
 }
 
+interface EnterpriseProspect extends ScoredContact {
+  employeeCount: number | null;
+  annualRevenue: number | null;
+  industry: string | null;
+  companyDomain: string | null;
+  companyName: string;
+}
+
 interface DashboardData {
   timestamp: string;
   scoutHealth: string;
@@ -70,6 +78,7 @@ interface DashboardData {
   };
   recentScores: ScoredContact[];
   engagedClosedLost: ScoredContact[];
+  enterpriseProspects: EnterpriseProspect[];
 }
 
 /* ===========================================
@@ -126,6 +135,23 @@ function healthDot(status: string) {
    PAGE
    =========================================== */
 type PipelineFilter = 'all' | 'form_submission' | 'closed_lost_reengagement' | 'dashboard_signup';
+type DashboardTab = 'scores' | 'enterprise';
+type EmployeeFilter = 'all' | '50+' | '200+' | '1000+';
+type TierFilter = 'all' | 'hot' | 'warm' | 'cold';
+
+function formatRevenue(revenue: number | null): string {
+  if (revenue === null) return '--';
+  if (revenue >= 1_000_000_000) return `$${(revenue / 1_000_000_000).toFixed(1)}B`;
+  if (revenue >= 1_000_000) return `$${(revenue / 1_000_000).toFixed(0)}M`;
+  if (revenue >= 1_000) return `$${(revenue / 1_000).toFixed(0)}K`;
+  return `$${revenue}`;
+}
+
+function formatEmployees(count: number | null): string {
+  if (count === null) return '--';
+  if (count >= 1_000) return `${(count / 1_000).toFixed(1)}K`;
+  return String(count);
+}
 
 export function ScoutDashboard() {
   const [data, setData] = useState<DashboardData | null>(null);
@@ -135,6 +161,32 @@ export function ScoutDashboard() {
   const [selectedContact, setSelectedContact] = useState<ScoredContact | null>(null);
   const [pipelineFilter, setPipelineFilter] = useState<PipelineFilter>('all');
   const [rescoringId, setRescoringId] = useState<string | null>(null);
+  const [traceData, setTraceData] = useState<Record<string, any> | null>(null);
+  const [traceLoading, setTraceLoading] = useState(false);
+  const [traceLayer, setTraceLayer] = useState<string | null>(null);
+
+  // Enterprise tab state
+  const [activeTab, setActiveTab] = useState<DashboardTab>('scores');
+  const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
+  const [empFilter, setEmpFilter] = useState<EmployeeFilter>('all');
+  const [tierFilter, setTierFilter] = useState<TierFilter>('all');
+  const [listModalOpen, setListModalOpen] = useState(false);
+  const [listName, setListName] = useState('');
+  const [listCreating, setListCreating] = useState(false);
+  const [listResult, setListResult] = useState<{ url: string; count: number } | null>(null);
+
+  const fetchTrace = useCallback(async (contactId: string) => {
+    setTraceLoading(true);
+    setTraceData(null);
+    try {
+      const resp = await fetch(`/api/scout-trace?contactId=${contactId}`);
+      if (resp.ok) {
+        setTraceData(await resp.json());
+      }
+    } catch { /* trace unavailable */ } finally {
+      setTraceLoading(false);
+    }
+  }, []);
 
   const fetchData = useCallback(async () => {
     try {
@@ -212,7 +264,7 @@ export function ScoutDashboard() {
     <div className="p-8 max-w-6xl">
 
       {/* ── HEADER ──────────────────────────── */}
-      <div className="flex items-center justify-between mb-6">
+      <div className="flex items-center justify-between mb-4">
         <div>
           <div className="flex items-center gap-3 mb-1">
             <h1 className="text-3xl font-bold text-gray-900">Scout Dashboard</h1>
@@ -225,6 +277,282 @@ export function ScoutDashboard() {
           <button onClick={fetchData} className="text-xs text-blue-600 hover:text-blue-800 mt-0.5">Refresh now</button>
         </div>
       </div>
+
+      {/* ── TOP-LEVEL TABS ─────────────────── */}
+      <div className="flex gap-1 mb-6 border-b border-gray-200">
+        {([
+          { key: 'scores' as DashboardTab, label: 'Pipeline Scores' },
+          { key: 'enterprise' as DashboardTab, label: `Enterprise Prospects${data!.enterpriseProspects?.length ? ` (${data!.enterpriseProspects.length})` : ''}` },
+        ]).map((tab) => (
+          <button
+            key={tab.key}
+            onClick={() => setActiveTab(tab.key)}
+            className={`px-4 py-2 text-sm font-medium border-b-2 transition-colors -mb-px ${
+              activeTab === tab.key
+                ? 'border-truv-blue text-truv-blue'
+                : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+            }`}
+          >
+            {tab.label}
+          </button>
+        ))}
+      </div>
+
+      {/* ── ENTERPRISE PROSPECTS TAB ──────────── */}
+      {activeTab === 'enterprise' && (() => {
+        const prospects = data!.enterpriseProspects || [];
+        const filtered = prospects.filter((p) => {
+          if (empFilter !== 'all') {
+            const min = empFilter === '50+' ? 50 : empFilter === '200+' ? 200 : 1000;
+            if (!p.employeeCount || p.employeeCount < min) return false;
+          }
+          if (tierFilter !== 'all' && p.tier !== tierFilter) return false;
+          return true;
+        });
+
+        const allSelected = filtered.length > 0 && filtered.every((p) => selectedIds.has(p.id));
+        const toggleAll = () => {
+          if (allSelected) {
+            setSelectedIds(new Set());
+          } else {
+            setSelectedIds(new Set(filtered.map((p) => p.id)));
+          }
+        };
+        const toggleOne = (id: string) => {
+          const next = new Set(selectedIds);
+          if (next.has(id)) next.delete(id);
+          else next.add(id);
+          setSelectedIds(next);
+        };
+
+        const handleCreateList = async () => {
+          if (!listName.trim()) return;
+          setListCreating(true);
+          try {
+            const resp = await fetch('/api/list-builder/create', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                name: listName.trim(),
+                recordIds: Array.from(selectedIds),
+                objectType: 'contacts',
+                listType: 'static',
+              }),
+            });
+            const result = await resp.json();
+            if (result.success) {
+              setListResult({ url: result.listUrl, count: selectedIds.size });
+              setSelectedIds(new Set());
+            }
+          } finally {
+            setListCreating(false);
+          }
+        };
+
+        return (
+          <div className="mb-6">
+            {/* Toolbar: filters + action */}
+            <div className="flex items-center justify-between mb-3">
+              <div className="flex items-center gap-2">
+                <span className="text-xs text-gray-500 mr-1">Filters:</span>
+                <select
+                  value={empFilter}
+                  onChange={(e) => setEmpFilter(e.target.value as EmployeeFilter)}
+                  className="px-2 py-1 rounded-lg border border-gray-200 text-xs bg-white"
+                >
+                  <option value="all">All sizes</option>
+                  <option value="50+">50+ employees</option>
+                  <option value="200+">200+ employees</option>
+                  <option value="1000+">1,000+ employees</option>
+                </select>
+                <select
+                  value={tierFilter}
+                  onChange={(e) => setTierFilter(e.target.value as TierFilter)}
+                  className="px-2 py-1 rounded-lg border border-gray-200 text-xs bg-white"
+                >
+                  <option value="all">All tiers</option>
+                  <option value="hot">Hot</option>
+                  <option value="warm">Warm</option>
+                  <option value="cold">Cold</option>
+                </select>
+                <span className="text-xs text-gray-400 ml-2">{filtered.length} prospects</span>
+              </div>
+              <div className="flex items-center gap-2">
+                {selectedIds.size > 0 && (
+                  <button
+                    onClick={() => { setListModalOpen(true); setListResult(null); setListName(`Scout Enterprise — ${new Date().toLocaleDateString()}`); }}
+                    className="px-3 py-1.5 rounded-lg text-xs font-medium bg-truv-blue text-white hover:bg-blue-700 transition-colors"
+                  >
+                    Add {selectedIds.size} to HubSpot List
+                  </button>
+                )}
+              </div>
+            </div>
+
+            {/* Table */}
+            <div className="bg-white border border-gray-200 rounded-xl overflow-hidden">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="border-b border-gray-100 bg-gray-50">
+                    <th className="w-10 px-3 py-2">
+                      <input type="checkbox" checked={allSelected} onChange={toggleAll} className="rounded border-gray-300" />
+                    </th>
+                    <th className="text-left px-3 py-2 text-xs font-medium text-gray-500">Contact</th>
+                    <th className="text-left px-3 py-2 text-xs font-medium text-gray-500">Company</th>
+                    <th className="text-right px-3 py-2 text-xs font-medium text-gray-500">Employees</th>
+                    <th className="text-right px-3 py-2 text-xs font-medium text-gray-500">Revenue</th>
+                    <th className="text-left px-3 py-2 text-xs font-medium text-gray-500">Industry</th>
+                    <th className="text-center px-3 py-2 text-xs font-medium text-gray-500">Tier</th>
+                    <th className="text-center px-3 py-2 text-xs font-medium text-gray-500">Routing</th>
+                    <th className="text-right px-3 py-2 text-xs font-medium text-gray-500">Score</th>
+                    <th className="text-left px-3 py-2 text-xs font-medium text-gray-500">Tech</th>
+                    <th className="text-right px-3 py-2 text-xs font-medium text-gray-500">Scored</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-gray-50">
+                  {filtered.length === 0 ? (
+                    <tr><td colSpan={11} className="px-4 py-8 text-center text-gray-400 text-sm">No enterprise prospects match current filters</td></tr>
+                  ) : (
+                    filtered.map((p) => (
+                      <tr key={p.id} className={`hover:bg-gray-50 transition-colors ${selectedIds.has(p.id) ? 'bg-blue-50' : ''}`}>
+                        <td className="px-3 py-2">
+                          <input type="checkbox" checked={selectedIds.has(p.id)} onChange={() => toggleOne(p.id)} className="rounded border-gray-300" />
+                        </td>
+                        <td className="px-3 py-2">
+                          <button
+                            onClick={() => { setSelectedContact(p); setTraceLayer(null); fetchTrace(p.id); }}
+                            className="text-left"
+                          >
+                            <p className="text-sm font-medium text-gray-900 truncate max-w-[160px]">{p.name}</p>
+                            <p className="text-[10px] text-gray-500 truncate max-w-[160px]">{p.title}</p>
+                          </button>
+                        </td>
+                        <td className="px-3 py-2">
+                          <p className="text-sm text-gray-900 truncate max-w-[140px]">{p.companyName || p.company}</p>
+                          {p.companyDomain && <p className="text-[10px] text-gray-400 truncate max-w-[140px]">{p.companyDomain}</p>}
+                        </td>
+                        <td className="px-3 py-2 text-right">
+                          <span className={`text-sm font-medium ${p.employeeCount && p.employeeCount >= 200 ? 'text-green-700' : 'text-gray-700'}`}>
+                            {formatEmployees(p.employeeCount)}
+                          </span>
+                        </td>
+                        <td className="px-3 py-2 text-right">
+                          <span className={`text-sm font-medium ${p.annualRevenue && p.annualRevenue >= 50_000_000 ? 'text-green-700' : 'text-gray-700'}`}>
+                            {formatRevenue(p.annualRevenue)}
+                          </span>
+                        </td>
+                        <td className="px-3 py-2">
+                          <span className="text-xs text-gray-600 truncate block max-w-[100px]">{p.industry || '--'}</span>
+                        </td>
+                        <td className="px-3 py-2 text-center">{tierBadge(p.tier)}</td>
+                        <td className="px-3 py-2 text-center">
+                          <span className={`px-1.5 py-0.5 rounded text-[10px] font-medium ${p.routing === 'enterprise' ? 'bg-purple-100 text-purple-700' : 'bg-gray-100 text-gray-500'}`}>
+                            {p.routing || '--'}
+                          </span>
+                        </td>
+                        <td className="px-3 py-2 text-right">
+                          <span className={`text-sm font-bold ${p.score !== null ? (p.score >= 70 ? 'text-red-600' : p.score >= 50 ? 'text-amber-600' : 'text-blue-600') : 'text-gray-400'}`}>
+                            {p.score ?? '--'}
+                          </span>
+                        </td>
+                        <td className="px-3 py-2">
+                          {p.techMatches ? (
+                            <div className="flex flex-wrap gap-0.5 max-w-[120px]">
+                              {p.techMatches.split(',').slice(0, 2).map((t, i) => (
+                                <span key={i} className="px-1 py-0.5 bg-purple-50 text-purple-700 rounded text-[9px]">{t.trim()}</span>
+                              ))}
+                              {p.techMatches.split(',').length > 2 && (
+                                <span className="text-[9px] text-gray-400">+{p.techMatches.split(',').length - 2}</span>
+                              )}
+                            </div>
+                          ) : (
+                            <span className="text-[10px] text-gray-400">--</span>
+                          )}
+                        </td>
+                        <td className="px-3 py-2 text-right">
+                          <span className="text-[10px] text-gray-400">{timeAgo(p.scoredAt)}</span>
+                        </td>
+                      </tr>
+                    ))
+                  )}
+                </tbody>
+              </table>
+            </div>
+
+            {/* Add to List Modal */}
+            <AnimatePresence>
+              {listModalOpen && (
+                <motion.div
+                  initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+                  className="fixed inset-0 bg-black/30 flex items-center justify-center z-50"
+                  onClick={() => { if (!listCreating) setListModalOpen(false); }}
+                >
+                  <motion.div
+                    initial={{ scale: 0.95, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.95, opacity: 0 }}
+                    className="bg-white rounded-xl shadow-xl p-6 w-full max-w-md"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    {listResult ? (
+                      <div>
+                        <p className="text-lg font-semibold text-gray-900 mb-2">List Created</p>
+                        <p className="text-sm text-gray-600 mb-4">{listResult.count} contacts added to HubSpot list.</p>
+                        <div className="flex gap-2">
+                          <a
+                            href={listResult.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex-1 px-4 py-2 rounded-lg text-sm font-medium bg-orange-50 text-orange-700 border border-orange-200 hover:bg-orange-100 text-center"
+                          >
+                            Open in HubSpot
+                          </a>
+                          <button
+                            onClick={() => setListModalOpen(false)}
+                            className="px-4 py-2 rounded-lg text-sm font-medium bg-gray-100 text-gray-700 hover:bg-gray-200"
+                          >
+                            Close
+                          </button>
+                        </div>
+                      </div>
+                    ) : (
+                      <div>
+                        <p className="text-lg font-semibold text-gray-900 mb-1">Add to HubSpot List</p>
+                        <p className="text-sm text-gray-500 mb-4">{selectedIds.size} contacts selected</p>
+                        <input
+                          type="text"
+                          value={listName}
+                          onChange={(e) => setListName(e.target.value)}
+                          placeholder="List name..."
+                          className="w-full px-3 py-2 rounded-lg border border-gray-200 text-sm mb-4 focus:outline-none focus:ring-2 focus:ring-truv-blue focus:border-transparent"
+                          autoFocus
+                        />
+                        <div className="flex gap-2">
+                          <button
+                            onClick={handleCreateList}
+                            disabled={listCreating || !listName.trim()}
+                            className="flex-1 px-4 py-2 rounded-lg text-sm font-medium bg-truv-blue text-white hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"
+                          >
+                            {listCreating ? 'Creating...' : 'Create List'}
+                          </button>
+                          <button
+                            onClick={() => setListModalOpen(false)}
+                            disabled={listCreating}
+                            className="px-4 py-2 rounded-lg text-sm font-medium bg-gray-100 text-gray-700 hover:bg-gray-200"
+                          >
+                            Cancel
+                          </button>
+                        </div>
+                      </div>
+                    )}
+                  </motion.div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+        );
+      })()}
+
+      {/* ── SCORES TAB CONTENT ────────────────── */}
+      {activeTab === 'scores' && <>
 
       {/* ── PIPELINE HEALTH CARDS ───────────── */}
       <div className="grid grid-cols-4 gap-4 mb-6">
@@ -364,7 +692,7 @@ export function ScoutDashboard() {
               filteredScores.map((c) => (
                 <div key={c.id}
                   className={`flex items-start gap-2 px-4 py-3 hover:bg-gray-50 transition-colors ${selectedContact?.id === c.id ? 'bg-blue-50' : ''}`}>
-                  <button className="flex-1 text-left min-w-0" onClick={() => setSelectedContact(c)}>
+                  <button className="flex-1 text-left min-w-0" onClick={() => { setSelectedContact(c); setTraceLayer(null); fetchTrace(c.id); }}>
                     <div className="flex items-center gap-2 mb-1">
                       {sourceBadge(c.source)}
                       <span className="text-sm font-medium text-gray-900 truncate flex-1">{c.name}</span>
@@ -415,7 +743,7 @@ export function ScoutDashboard() {
                 if (c.lastEmailClick) signals.push(`Clicked ${timeAgo(c.lastEmailClick)}`);
 
                 return (
-                  <button key={c.id} onClick={() => setSelectedContact(c)}
+                  <button key={c.id} onClick={() => { setSelectedContact(c); setTraceLayer(null); fetchTrace(c.id); }}
                     className={`w-full text-left px-4 py-3 hover:bg-gray-50 transition-colors ${selectedContact?.id === c.id ? 'bg-amber-50' : ''}`}>
                     <div className="flex items-center gap-2 mb-1">
                       <span className="text-sm font-medium text-gray-900 truncate flex-1">{c.name || 'Unknown'}</span>
@@ -435,6 +763,8 @@ export function ScoutDashboard() {
         </div>
       </div>
 
+      </>}
+
       {/* ── CONTACT DETAIL DRAWER ──────────── */}
       <AnimatePresence>
         {selectedContact && (() => {
@@ -444,7 +774,7 @@ export function ScoutDashboard() {
             { key: 'trigger' as const, icon: '📡', label: 'Trigger' },
             { key: 'hubspot' as const, icon: '🔗', label: 'HubSpot' },
             { key: 'scorer' as const, icon: '📊', label: 'Scorer' },
-            { key: 'apollo' as const, icon: '🔍', label: 'Apollo' },
+            { key: 'apollo' as const, icon: '🔍', label: 'LOS/POS Bot' },
             { key: 'agent' as const, icon: '🧠', label: 'Agno Agent' },
             { key: 'writeback' as const, icon: '✅', label: 'Write-back' },
           ];
@@ -492,17 +822,71 @@ export function ScoutDashboard() {
                     {stepLabels.map((s, i) => {
                       const step = c.steps?.[s.key];
                       const status = step?.status || 'pending';
+                      const traceKey = s.key === 'scorer' ? 'deterministic_scorer' : s.key === 'apollo' ? 'apollo_enrichment' : s.key === 'agent' ? 'scout_agent' : null;
+                      const hasTrace = traceKey && traceData?.layers?.[traceKey];
                       return (
                         <div key={s.key} className="flex items-center gap-1.5 flex-1">
-                          <div className={`flex-1 px-2.5 py-2 rounded-lg border text-center ${stepStatusStyle(status)}`}>
+                          <button
+                            onClick={() => traceKey && setTraceLayer(traceLayer === traceKey ? null : traceKey)}
+                            disabled={!traceKey}
+                            className={`flex-1 px-2.5 py-2 rounded-lg border text-center transition-all ${stepStatusStyle(status)} ${hasTrace ? 'cursor-pointer hover:ring-2 hover:ring-blue-300' : traceKey ? 'cursor-default' : 'cursor-default'} ${traceLayer === traceKey ? 'ring-2 ring-blue-500' : ''}`}
+                          >
                             <p className="text-[10px] font-medium">{s.icon} {s.label}</p>
                             <p className="text-[9px] mt-0.5 opacity-80 truncate">{step?.detail || ''}</p>
-                          </div>
+                            {hasTrace && <p className="text-[8px] mt-0.5 text-blue-500 font-medium">Click for trace</p>}
+                          </button>
                           {i < stepLabels.length - 1 && <span className="text-gray-300 text-[10px] flex-shrink-0">→</span>}
                         </div>
                       );
                     })}
                   </div>
+
+                  {/* Trace Detail Panel */}
+                  {traceLayer && traceData?.layers?.[traceLayer] && (() => {
+                    const layer = traceData.layers[traceLayer];
+                    return (
+                      <motion.div
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: 'auto' }}
+                        exit={{ opacity: 0, height: 0 }}
+                        className="mt-3 bg-gray-900 rounded-lg overflow-hidden"
+                      >
+                        <div className="flex items-center justify-between px-4 py-2 bg-gray-800">
+                          <div className="flex items-center gap-2">
+                            <span className={`w-2 h-2 rounded-full ${layer.status === 'complete' ? 'bg-green-400' : layer.status === 'failed' ? 'bg-red-400' : 'bg-gray-400'}`} />
+                            <span className="text-xs font-medium text-gray-200">{traceLayer.replace(/_/g, ' ').replace(/\b\w/g, (c: string) => c.toUpperCase())}</span>
+                            {layer.duration_ms != null && (
+                              <span className="text-[10px] text-gray-400">{layer.duration_ms}ms</span>
+                            )}
+                          </div>
+                          <button onClick={() => setTraceLayer(null)} className="text-gray-400 hover:text-white text-xs">Close</button>
+                        </div>
+                        <div className="px-4 py-3 grid grid-cols-2 gap-4">
+                          <div>
+                            <p className="text-[10px] font-medium text-gray-400 uppercase mb-1">Input</p>
+                            <pre className="text-[10px] text-green-300 whitespace-pre-wrap break-all max-h-48 overflow-y-auto font-mono">
+                              {JSON.stringify(layer.input_summary, null, 2)}
+                            </pre>
+                          </div>
+                          <div>
+                            <p className="text-[10px] font-medium text-gray-400 uppercase mb-1">{layer.error ? 'Error' : 'Output'}</p>
+                            <pre className={`text-[10px] whitespace-pre-wrap break-all max-h-48 overflow-y-auto font-mono ${layer.error ? 'text-red-300' : 'text-blue-300'}`}>
+                              {layer.error ? layer.error : JSON.stringify(layer.output_summary, null, 2)}
+                            </pre>
+                          </div>
+                        </div>
+                        {traceData.total_duration_ms != null && (
+                          <div className="px-4 py-1.5 border-t border-gray-700 flex items-center gap-4">
+                            <span className="text-[9px] text-gray-500">Pipeline total: {traceData.total_duration_ms}ms</span>
+                            <span className="text-[9px] text-gray-500">Source: {traceData.source}</span>
+                          </div>
+                        )}
+                      </motion.div>
+                    );
+                  })()}
+                  {traceLoading && (
+                    <div className="mt-2 text-[10px] text-gray-400 animate-pulse">Loading trace data...</div>
+                  )}
                 </div>
 
                 {/* Scoring Waterfall */}
@@ -570,11 +954,11 @@ export function ScoutDashboard() {
                     {/* Connector */}
                     <div className="flex items-center px-1 text-gray-300 text-xs flex-shrink-0">→</div>
 
-                    {/* Step 3: Apollo Research */}
+                    {/* Step 3: LOS/POS Bot */}
                     <div className={`flex-1 min-w-0 border border-r-0 p-3 ${c.steps?.apollo?.status === 'complete' ? 'bg-purple-50 border-purple-200' : 'bg-gray-50 border-gray-200'}`}>
                       <div className="flex items-center gap-1.5 mb-2">
                         <span className="w-4 h-4 rounded-full bg-purple-100 text-purple-700 text-[9px] font-bold flex items-center justify-center">3</span>
-                        <p className="text-[10px] font-semibold text-gray-600 uppercase tracking-wide">Apollo Intel</p>
+                        <p className="text-[10px] font-semibold text-gray-600 uppercase tracking-wide">LOS/POS Bot</p>
                       </div>
                       {c.techMatches ? (
                         <div className="space-y-1">
@@ -590,7 +974,7 @@ export function ScoutDashboard() {
                         </div>
                       ) : (
                         <p className="text-[10px] text-gray-400 italic">
-                          {c.steps?.apollo?.status === 'no-data' ? 'No tech data found' : 'Apollo not run'}
+                          {c.steps?.apollo?.status === 'no-data' ? 'No tech data found' : 'Bot not run'}
                         </p>
                       )}
                     </div>
