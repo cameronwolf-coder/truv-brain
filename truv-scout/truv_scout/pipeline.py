@@ -50,7 +50,12 @@ def run_pipeline(
     contact = _resolve_contact(contact_id, email, first_name, last_name, company)
     cid = contact.get("id", contact_id or email or "unknown")
 
-    result = PipelineResult(contact_id=cid)
+    props = contact.get("properties", {})
+    result = PipelineResult(
+        contact_id=cid,
+        contact_name=f"{props.get('firstname', '')} {props.get('lastname', '')}".strip(),
+        company_name=props.get("company", ""),
+    )
 
     # --- Layer 1: Deterministic Scorer ---
     scored, routing, tier = score_and_route(contact)

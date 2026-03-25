@@ -55,11 +55,15 @@ def notify_slack(result: PipelineResult) -> bool:
         {
             "type": "section",
             "fields": [
-                {"type": "mrkdwn", "text": f"*Contact:*\n{result.contact_id}"},
+                {"type": "mrkdwn", "text": f"*Contact:*\n<https://app.hubspot.com/contacts/19933594/contact/{result.contact_id}|{result.contact_name or result.contact_id}>"},
+                {"type": "mrkdwn", "text": f"*Company:*\n{result.company_name or 'Unknown'}"},
                 {"type": "mrkdwn", "text": f"*Routing:*\n{result.final_routing}"},
                 {"type": "mrkdwn", "text": f"*Confidence:*\n{result.confidence}"},
-                {"type": "mrkdwn", "text": f"*Score Breakdown:*\nForm: {result.form_fit_score:.0f} | Eng: {result.engagement_score:.0f} | Time: {result.timing_score:.0f} | Deal: {result.deal_context_score:.0f} | Ext: {result.external_trigger_score:.0f}"},
             ],
+        },
+        {
+            "type": "section",
+            "text": {"type": "mrkdwn", "text": f"*Score Breakdown:*\nForm: {result.form_fit_score:.0f} | Eng: {result.engagement_score:.0f} | Time: {result.timing_score:.0f} | Deal: {result.deal_context_score:.0f} | Ext: {result.external_trigger_score:.0f}"},
         },
     ]
 

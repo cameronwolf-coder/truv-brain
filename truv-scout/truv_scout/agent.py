@@ -245,12 +245,17 @@ def _parse_decision(
             "voi_voe": enrichment.voi_voe_matches,
         }
 
+    reasoning = str(data.get("reasoning", ""))
+    if not reasoning.strip():
+        # Agent returned JSON but no reasoning — treat as fallback
+        return _fallback_decision(scored, enrichment, routing, tier)
+
     from truv_scout.scorer import classify_tier
     return ScoutDecision(
         adjusted_score=adjusted,
         tier=classify_tier(adjusted),
         routing=data.get("routing", routing),
-        reasoning=str(data.get("reasoning", "")),
+        reasoning=reasoning,
         recommended_action=str(data.get("recommended_action", "")),
         confidence=str(data.get("confidence", "medium")),
         tech_matches=tech_matches,

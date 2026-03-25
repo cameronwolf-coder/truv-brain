@@ -8,6 +8,7 @@ from datetime import datetime, timedelta
 from typing import Optional
 
 from outreach_intel.hubspot_client import HubSpotClient
+from truv_scout.completion_callback import fire_completion_webhook
 from truv_scout.hubspot_writer import write_scores_to_hubspot
 from truv_scout.models import PipelineResult
 from truv_scout.pipeline import run_pipeline
@@ -189,6 +190,7 @@ def run_closed_lost_batch(limit: int = 50, dry_run: bool = False) -> list[Pipeli
             )
             if not dry_run:
                 write_scores_to_hubspot(result, source="closed_lost_reengagement")
+                fire_completion_webhook(result, source="closed_lost_reengagement")
             results.append(result)
 
             tier_emoji = {"hot": "🔥", "warm": "🟡", "cold": "🔵"}.get(result.final_tier, "⚪")

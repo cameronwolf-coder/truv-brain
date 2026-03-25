@@ -102,6 +102,8 @@ class PipelineResult:
     """Combined output from all pipeline layers."""
 
     contact_id: str
+    contact_name: str = ""
+    company_name: str = ""
     # Layer 1: Deterministic
     base_score: float = 0.0
     form_fit_score: float = 0.0

@@ -134,10 +134,23 @@ async def score_closed_lost_batch(
     return {"status": "accepted", "limit": limit}
 
 
+@app.post("/webhook/smartlead-event")
+async def webhook_smartlead_event(
+    request: dict,
+    background_tasks: BackgroundTasks,
+    x_scout_token: Optional[str] = Header(None),
+):
+    """Receive SmartLead event webhooks (reply, completion, bounce, unsubscribe)."""
+    _check_token(x_scout_token)
+    background_tasks.add_task(_process_smartlead_event, request)
+    return {"status": "accepted", "event_type": request.get("event_type", "")}
+
+
 # ── Background tasks ──────────────────────────────────────────────────
 
 
 def _process_webhook(payload: WebhookPayload) -> None:
+    from truv_scout.completion_callback import fire_completion_webhook
     from truv_scout.hubspot_writer import write_scores_to_hubspot
     from truv_scout.pipeline import run_pipeline
     from truv_scout.slack import notify_slack
@@ -149,6 +162,7 @@ def _process_webhook(payload: WebhookPayload) -> None:
         return
 
     write_scores_to_hubspot(result)
+    fire_completion_webhook(result, source=payload.event_type)
 
     if result.final_tier == "hot" or result.final_routing == "enterprise":
         notify_slack(result)
@@ -184,3 +198,16 @@ def _process_closed_lost_batch(limit: int) -> None:
         post_closed_lost_digest(results)
     except Exception as e:
         print(f"[closed-lost-batch] Error during batch run: {e}")
+
+
+def _process_smartlead_event(event: dict) -> None:
+    from truv_scout.smartlead_events import handle_smartlead_event
+
+    try:
+        result = handle_smartlead_event(event)
+        if result.get("skipped"):
+            print(f"[smartlead-event] Skipped: {result.get('reason')}")
+        else:
+            print(f"[smartlead-event] Processed {result.get('event_type')} for {result.get('contact_id')}")
+    except Exception as e:
+        print(f"[smartlead-event] Error: {e}")

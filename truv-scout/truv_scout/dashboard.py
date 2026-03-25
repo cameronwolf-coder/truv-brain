@@ -149,6 +149,7 @@ def process_dashboard_signup(payload: DashboardSignupPayload) -> Optional[Pipeli
     Returns:
         PipelineResult if scored, None if skipped.
     """
+    from truv_scout.completion_callback import fire_completion_webhook
     from truv_scout.hubspot_writer import write_scores_to_hubspot
     from truv_scout.pipeline import run_pipeline
     from truv_scout.slack import notify_slack
@@ -185,6 +186,7 @@ def process_dashboard_signup(payload: DashboardSignupPayload) -> Optional[Pipeli
 
     # Write back with source tag
     write_scores_to_hubspot(result, source="dashboard_signup")
+    fire_completion_webhook(result, source="dashboard_signup")
 
     # Slack notify — hot/enterprise only, skip personal emails
     if result.final_tier == "hot" or result.final_routing == "enterprise":
@@ -273,6 +275,7 @@ def run_dashboard_backlog_batch(
     Returns:
         List of PipelineResult for scored contacts.
     """
+    from truv_scout.completion_callback import fire_completion_webhook
     from truv_scout.hubspot_writer import write_scores_to_hubspot
     from truv_scout.pipeline import run_pipeline
 
@@ -304,6 +307,7 @@ def run_dashboard_backlog_batch(
             result = run_pipeline(contact_id=contact_id, source="dashboard_signup")
             if not dry_run:
                 write_scores_to_hubspot(result, source="dashboard_signup")
+                fire_completion_webhook(result, source="dashboard_signup")
             results.append(result)
 
             tier_emoji = {"hot": "🔥", "warm": "🟡", "cold": "🔵"}.get(result.final_tier, "⚪")

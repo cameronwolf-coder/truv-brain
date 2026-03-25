@@ -15,6 +15,7 @@ class Settings(BaseSettings):
     environment: str = "development"
     webhook_secret: str = Field(default="", alias="SCOUT_WEBHOOK_SECRET")
     slack_bot_token: str = ""
+    completion_webhook_url: str = ""
 
     model_config = {"env_file": ".env", "extra": "ignore", "populate_by_name": True}
 
