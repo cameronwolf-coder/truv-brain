@@ -138,10 +138,12 @@ async def score_closed_lost_batch(
 async def webhook_smartlead_event(
     request: dict,
     background_tasks: BackgroundTasks,
-    x_scout_token: Optional[str] = Header(None),
 ):
-    """Receive SmartLead event webhooks (reply, completion, bounce, unsubscribe)."""
-    _check_token(x_scout_token)
+    """Receive SmartLead event webhooks (reply, completion, bounce, unsubscribe).
+
+    No auth required — SmartLead webhooks cannot send custom headers.
+    Endpoint only processes inbound event data (no destructive ops).
+    """
     background_tasks.add_task(_process_smartlead_event, request)
     return {"status": "accepted", "event_type": request.get("event_type", "")}
 
