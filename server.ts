@@ -109,7 +109,17 @@ async function mountRoutes() {
 }
 
 mountRoutes().then(() => {
-  createServer(app).listen(PORT, () => {
+  const server = createServer(app);
+  server.on('error', (err: NodeJS.ErrnoException) => {
+    if (err.code === 'EADDRINUSE') {
+      console.error(`\n[API] ERROR: Port ${PORT} is already in use.`);
+      console.error(`[API] Run this to free it:  lsof -ti:${PORT} | xargs kill -9\n`);
+    } else {
+      console.error('[API] Server error:', err);
+    }
+    process.exit(1);
+  });
+  server.listen(PORT, () => {
     console.log(`\nAPI server running at http://localhost:${PORT}`);
     console.log('Vite frontend should be at http://localhost:5173\n');
   });
