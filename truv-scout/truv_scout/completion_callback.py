@@ -17,8 +17,8 @@ def fire_completion_webhook(result: PipelineResult, source: str = "form_submissi
 
     Returns True if the contact was routed, False if skipped or failed.
     """
-    # Only route contacts that came through self-service flows
-    if source not in ("form_submission", "dashboard_signup"):
+    # Only route Pipeline C (dashboard signup) contacts to SmartLead
+    if source != "dashboard_signup":
         return False
 
     # Fetch fresh HubSpot props for routing decisions
