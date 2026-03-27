@@ -62,11 +62,10 @@ export function generateROIReport(
             line-height: 1.5;
             box-sizing: border-box;
             position: relative;
-            overflow: hidden;
         }
 
         .header-art {
-            height: 80mm;
+            height: 70mm;
             width: 100%;
             background: linear-gradient(135deg, #0F172A 0%, #1E3A8A 100%);
             border-radius: 0 0 24px 24px;
@@ -86,10 +85,10 @@ export function generateROIReport(
         }
 
         .main-content {
-            padding: 32px 56px 50px 56px;
+            padding: 24px 56px 40px 56px;
             display: grid;
             grid-template-columns: 1fr 1.3fr;
-            gap: 40px;
+            gap: 32px;
         }
 
         .col-left {
@@ -99,33 +98,33 @@ export function generateROIReport(
 
         h1 {
             font-family: 'Gilroy', sans-serif;
-            font-size: 42px;
+            font-size: 38px;
             font-weight: 700;
             color: #2C64E3;
-            margin: 0 0 32px 0;
+            margin: 0 0 24px 0;
             line-height: 1.1;
             letter-spacing: -0.02em;
         }
 
         .highlight-text {
             font-family: 'Gilroy', sans-serif;
-            font-size: 18px;
-            line-height: 1.6;
+            font-size: 16px;
+            line-height: 1.5;
             color: #0B0F19;
-            margin-bottom: 24px;
+            margin-bottom: 20px;
             padding-left: 20px;
             border-left: 3px solid #2C64E3;
         }
 
         .narrative-p {
-            font-size: 14px;
+            font-size: 13px;
             color: #64748B;
-            line-height: 1.8;
-            margin-bottom: 24px;
+            line-height: 1.7;
+            margin-bottom: 16px;
         }
 
         .stat-block {
-            margin-top: 40px;
+            margin-top: 24px;
         }
 
         .stat-row {
@@ -501,7 +500,8 @@ export function generateROIReport(
             unit: 'mm' as const,
             format: 'a4' as const,
             orientation: 'portrait' as const
-        }
+        },
+        pagebreak: { mode: ['css'] }
     };
 
     html2pdf()

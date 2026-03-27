@@ -18,6 +18,7 @@ function App() {
   const [isGated, setIsGated] = useState(true);
   const [showLeadModal, setShowLeadModal] = useState(false);
   const [companyName, setCompanyName] = useState('');
+  const [userEmail, setUserEmail] = useState('');
 
   const [formData, setFormData] = useState<FormData>({
     fundedLoans: 0,
@@ -93,6 +94,7 @@ function App() {
   const handleLeadSubmit = (leadData: LeadFormData) => {
     console.log('Lead submitted:', leadData);
     setCompanyName(leadData.companyName);
+    setUserEmail(leadData.email);
     setShowLeadModal(false);
     setIsGated(false);
   };
@@ -144,6 +146,7 @@ function App() {
                 advancedInputs={advancedInputs}
                 onAdvancedInputsChange={handleAdvancedInputsChange}
                 companyName={companyName}
+                userEmail={userEmail}
               />
             )}
           </AnimatePresence>
@@ -172,6 +175,11 @@ function App() {
             isOpen={showLeadModal}
             onClose={() => setShowLeadModal(false)}
             onSubmit={handleLeadSubmit}
+            roiContext={results ? {
+              results,
+              fundedLoans: formData.fundedLoans,
+              industry: formData.industry,
+            } : undefined}
           />
         )}
       </AnimatePresence>

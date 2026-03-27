@@ -1,12 +1,19 @@
 import { motion } from 'framer-motion';
 import { useState } from 'react';
-import type { LeadFormData } from '../types';
+import type { LeadFormData, CalculationResults } from '../types';
 import { Analytics } from '../utils/analytics';
+
+interface ROIContext {
+    results: CalculationResults;
+    fundedLoans: number;
+    industry: string;
+}
 
 interface LeadModalProps {
     isOpen: boolean;
     onClose: () => void;
     onSubmit: (data: LeadFormData) => void;
+    roiContext?: ROIContext;
 }
 
 // Role options matching Truv's contact form
@@ -48,7 +55,7 @@ const POS_NAMES: Record<string, string> = {
     ncino: 'nCino'
 };
 
-export function LeadModal({ isOpen, onClose, onSubmit }: LeadModalProps) {
+export function LeadModal({ isOpen, onClose, onSubmit, roiContext }: LeadModalProps) {
     const [formData, setFormData] = useState<LeadFormData>({
         firstName: '',
         lastName: '',
@@ -71,8 +78,8 @@ export function LeadModal({ isOpen, onClose, onSubmit }: LeadModalProps) {
         setError(null);
 
         // HubSpot Configuration - REPLACE THESE WITH YOUR ACTUAL IDS
-        const PORTAL_ID = 'YOUR_PORTAL_ID';
-        const FORM_GUID = 'YOUR_FORM_GUID';
+        const PORTAL_ID = '19933594';
+        const FORM_GUID = 'b4be8619-c0ae-4d63-876d-d69e0ab61a15';
 
         try {
             const response = await fetch(`https://api.hsforms.com/submissions/v3/integration/submit/${PORTAL_ID}/${FORM_GUID}`, {
@@ -88,7 +95,19 @@ export function LeadModal({ isOpen, onClose, onSubmit }: LeadModalProps) {
                         { name: 'phone', value: formData.phone },
                         { name: 'role', value: formData.role },
                         { name: 'job_function', value: formData.jobFunction },
-                        { name: 'message', value: formData.comments }
+                        { name: 'message', value: formData.comments },
+                        // ROI calculator data (sent as strings to match HubSpot property types)
+                        ...(roiContext ? [
+                            { name: 'roi_funded_loans', value: String(roiContext.fundedLoans) },
+                            { name: 'roi_annual_savings', value: String(Math.round(roiContext.results.annualSavings)) },
+                            { name: 'roi_savings_per_loan', value: String(Math.round(roiContext.results.savingsPerLoan)) },
+                            { name: 'roi_current_cost', value: String(Math.round(roiContext.results.currentCost)) },
+                            { name: 'roi_truv_cost', value: String(Math.round(roiContext.results.futureCost)) },
+                            { name: 'roi_manual_reduction_pct', value: String(Math.round(roiContext.results.manualReduction)) },
+                            { name: 'roi_los_system', value: formData.losSystem },
+                            { name: 'roi_pos_system', value: formData.posSystem },
+                            { name: 'roi_use_case', value: roiContext.industry },
+                        ] : []),
                     ],
                     context: {
                         pageUri: window.location.href,
@@ -100,6 +119,28 @@ export function LeadModal({ isOpen, onClose, onSubmit }: LeadModalProps) {
             if (!response.ok) {
                 // Fallback for development/if IDs are invalid (don't block the user)
                 console.warn('HubSpot submission failed (likely due to placeholder IDs):', response.status);
+            }
+
+            // Fire Scout scoring (non-blocking — don't let Scout failures block the user)
+            if (roiContext) {
+                fetch('https://8svutjrjpz.us-east-1.awsapprunner.com/webhook/roi-calculator', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        contact_id: '',
+                        email: formData.email,
+                        first_name: formData.firstName,
+                        last_name: formData.lastName,
+                        company: formData.companyName,
+                        funded_loans: roiContext.fundedLoans,
+                        annual_savings: Math.round(roiContext.results.annualSavings),
+                        current_cost: Math.round(roiContext.results.currentCost),
+                        truv_cost: Math.round(roiContext.results.futureCost),
+                        los_system: formData.losSystem,
+                        pos_system: formData.posSystem,
+                        use_case: roiContext.industry,
+                    }),
+                }).catch(() => {}); // fire-and-forget
             }
 
             // Track the successful conversion event

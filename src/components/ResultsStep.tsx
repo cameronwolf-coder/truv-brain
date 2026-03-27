@@ -14,6 +14,7 @@ interface ResultsStepProps {
     advancedInputs: AdvancedInputs;
     onAdvancedInputsChange: (inputs: AdvancedInputs) => void;
     companyName: string;
+    userEmail?: string;
 }
 
 export function ResultsStep({
@@ -24,7 +25,8 @@ export function ResultsStep({
     onBack,
     advancedInputs,
     onAdvancedInputsChange,
-    companyName
+    companyName,
+    userEmail
 }: ResultsStepProps) {
     const [showAdvanced, setShowAdvanced] = useState(false);
     const [showCalculationDetails, setShowCalculationDetails] = useState(false);
@@ -488,7 +490,23 @@ export function ResultsStep({
 
                     <div className="pt-4 space-y-3">
                         <button
-                            onClick={() => generateROIReport(results, fundedLoans, advancedInputs, companyName)}
+                            onClick={() => {
+                                generateROIReport(results, fundedLoans, advancedInputs, companyName);
+                                // Track PDF download in HubSpot
+                                if (userEmail) {
+                                    fetch(`https://api.hsforms.com/submissions/v3/integration/submit/19933594/b4be8619-c0ae-4d63-876d-d69e0ab61a15`, {
+                                        method: 'POST',
+                                        headers: { 'Content-Type': 'application/json' },
+                                        body: JSON.stringify({
+                                            fields: [
+                                                { name: 'email', value: userEmail },
+                                                { name: 'roi_pdf_downloaded', value: 'true' },
+                                            ],
+                                            context: { pageUri: window.location.href, pageName: 'ROI Calculator — PDF Download' },
+                                        }),
+                                    }).catch(() => {});
+                                }
+                            }}
                             className="w-full bg-truv-blue text-white font-semibold py-4 rounded-full shadow-lg hover:bg-truv-blue-dark transition-all transform hover:scale-[1.02]"
                         >
                             Download Full Report
