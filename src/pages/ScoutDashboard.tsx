@@ -66,6 +66,50 @@ interface EnterpriseProspect extends ScoredContact {
   companyName: string;
 }
 
+interface SelfServiceUser {
+  id: string;
+  name: string;
+  email: string;
+  company: string;
+  title: string;
+  createdAt: string | null;
+  lifecycle: string | null;
+  leadStatus: string | null;
+  tier: string | null;
+  routing: string | null;
+  score: number | null;
+  source: string | null;
+  scoredAt: string | null;
+  useCase: string | null;
+  loanVolume: string | null;
+  appVolume: string | null;
+  roleLevel: string | null;
+  deals: number;
+  analyticsSource: string | null;
+  numVisits: number;
+  lastVisit: string | null;
+  lastEmailOpen: string | null;
+  lastEmailClick: string | null;
+  employeeCount: number | null;
+  annualRevenue: number | null;
+  industry: string | null;
+  companyDomain: string | null;
+  companyLocation: string | null;
+}
+
+interface SelfServiceData {
+  timestamp: string;
+  total: number;
+  stats: {
+    total: number;
+    byTier: { hot: number; warm: number; cold: number };
+    byRouting: Record<string, number>;
+    byLifecycle: Record<string, number>;
+    byIndustry: Record<string, number>;
+  };
+  users: SelfServiceUser[];
+}
+
 interface DashboardData {
   timestamp: string;
   scoutHealth: string;
@@ -135,7 +179,10 @@ function healthDot(status: string) {
    PAGE
    =========================================== */
 type PipelineFilter = 'all' | 'form_submission' | 'closed_lost_reengagement' | 'dashboard_signup';
-type DashboardTab = 'scores' | 'enterprise';
+type DashboardTab = 'scores' | 'enterprise' | 'self-service';
+type DateFilter = 'all' | '7d' | '30d' | '90d';
+type SizeFilter = 'all' | '50+' | '200+' | '1000+';
+type RoutingFilter = 'all' | 'enterprise' | 'self-service' | 'government';
 type EmployeeFilter = 'all' | '50+' | '200+' | '1000+';
 type TierFilter = 'all' | 'hot' | 'warm' | 'cold';
 
@@ -175,6 +222,20 @@ export function ScoutDashboard() {
   const [listCreating, setListCreating] = useState(false);
   const [listResult, setListResult] = useState<{ url: string; count: number } | null>(null);
 
+  // Self-service tab state
+  const [ssData, setSsData] = useState<SelfServiceData | null>(null);
+  const [ssLoading, setSsLoading] = useState(false);
+  const [ssError, setSsError] = useState<string | null>(null);
+  const [ssDateFilter, setSsDateFilter] = useState<DateFilter>('all');
+  const [ssSizeFilter, setSsSizeFilter] = useState<SizeFilter>('all');
+  const [ssRoutingFilter, setSsRoutingFilter] = useState<RoutingFilter>('all');
+  const [ssTierFilter, setSsTierFilter] = useState<TierFilter>('all');
+  const [ssSelectedIds, setSsSelectedIds] = useState<Set<string>>(new Set());
+  const [ssListModalOpen, setSsListModalOpen] = useState(false);
+  const [ssListName, setSsListName] = useState('');
+  const [ssListCreating, setSsListCreating] = useState(false);
+  const [ssListResult, setSsListResult] = useState<{ url: string; count: number } | null>(null);
+
   const fetchTrace = useCallback(async (contactId: string) => {
     setTraceLoading(true);
     setTraceData(null);
@@ -203,11 +264,32 @@ export function ScoutDashboard() {
     }
   }, []);
 
+  const fetchSelfServiceData = useCallback(async () => {
+    setSsLoading(true);
+    setSsError(null);
+    try {
+      const resp = await fetch('/api/self-service-users');
+      if (!resp.ok) throw new Error(`API error: ${resp.status}`);
+      setSsData(await resp.json());
+    } catch (e: any) {
+      setSsError(e.message);
+    } finally {
+      setSsLoading(false);
+    }
+  }, []);
+
   useEffect(() => {
     fetchData();
     const interval = setInterval(fetchData, 30000); // Refresh every 30s
     return () => clearInterval(interval);
   }, [fetchData]);
+
+  // Fetch self-service data when tab is activated
+  useEffect(() => {
+    if (activeTab === 'self-service' && !ssData && !ssLoading) {
+      fetchSelfServiceData();
+    }
+  }, [activeTab, ssData, ssLoading, fetchSelfServiceData]);
 
   const handleRescore = useCallback(async (c: ScoredContact) => {
     setRescoringId(c.id);
@@ -283,6 +365,7 @@ export function ScoutDashboard() {
         {([
           { key: 'scores' as DashboardTab, label: 'Pipeline Scores' },
           { key: 'enterprise' as DashboardTab, label: `Enterprise Prospects${data!.enterpriseProspects?.length ? ` (${data!.enterpriseProspects.length})` : ''}` },
+          { key: 'self-service' as DashboardTab, label: `Self-Service Users${ssData?.total ? ` (${ssData.total})` : ''}` },
         ]).map((tab) => (
           <button
             key={tab.key}
@@ -297,6 +380,316 @@ export function ScoutDashboard() {
           </button>
         ))}
       </div>
+
+      {/* ── SELF-SERVICE USERS TAB ──────────── */}
+      {activeTab === 'self-service' && (() => {
+        if (ssLoading && !ssData) {
+          return (
+            <div className="animate-pulse space-y-4">
+              <div className="grid grid-cols-4 gap-4">{[...Array(4)].map((_, i) => <div key={i} className="h-20 bg-gray-200 rounded-xl" />)}</div>
+              <div className="h-96 bg-gray-200 rounded-xl" />
+            </div>
+          );
+        }
+        if (ssError && !ssData) {
+          return (
+            <div className="bg-red-50 border border-red-200 rounded-xl p-5">
+              <p className="text-red-800 font-medium">Failed to load self-service users</p>
+              <p className="text-red-600 text-sm mt-1">{ssError}</p>
+              <button onClick={fetchSelfServiceData} className="mt-3 px-4 py-2 bg-red-600 text-white rounded-lg text-sm hover:bg-red-700">Retry</button>
+            </div>
+          );
+        }
+        if (!ssData) return null;
+
+        const now = Date.now();
+        const filtered = ssData.users.filter((u) => {
+          // Date filter
+          if (ssDateFilter !== 'all' && u.createdAt) {
+            const days = ssDateFilter === '7d' ? 7 : ssDateFilter === '30d' ? 30 : 90;
+            if (now - new Date(u.createdAt).getTime() > days * 24 * 60 * 60 * 1000) return false;
+          }
+          // Company size filter
+          if (ssSizeFilter !== 'all') {
+            const min = ssSizeFilter === '50+' ? 50 : ssSizeFilter === '200+' ? 200 : 1000;
+            if (!u.employeeCount || u.employeeCount < min) return false;
+          }
+          // Routing filter
+          if (ssRoutingFilter !== 'all' && u.routing !== ssRoutingFilter) return false;
+          // Tier filter
+          if (ssTierFilter !== 'all' && u.tier !== ssTierFilter) return false;
+          return true;
+        });
+
+        const ssAllSelected = filtered.length > 0 && filtered.every((u) => ssSelectedIds.has(u.id));
+        const ssToggleAll = () => {
+          if (ssAllSelected) {
+            setSsSelectedIds(new Set());
+          } else {
+            setSsSelectedIds(new Set(filtered.map((u) => u.id)));
+          }
+        };
+        const ssToggleOne = (id: string) => {
+          const next = new Set(ssSelectedIds);
+          if (next.has(id)) next.delete(id);
+          else next.add(id);
+          setSsSelectedIds(next);
+        };
+
+        const handleSsCreateList = async () => {
+          if (!ssListName.trim()) return;
+          setSsListCreating(true);
+          try {
+            const resp = await fetch('/api/list-builder/create', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                name: ssListName.trim(),
+                recordIds: Array.from(ssSelectedIds),
+                objectType: 'contacts',
+                listType: 'static',
+              }),
+            });
+            const result = await resp.json();
+            if (result.success) {
+              setSsListResult({ url: result.listUrl, count: ssSelectedIds.size });
+              setSsSelectedIds(new Set());
+            }
+          } finally {
+            setSsListCreating(false);
+          }
+        };
+
+        return (
+          <div className="mb-6">
+            {/* Summary cards */}
+            <div className="grid grid-cols-4 gap-4 mb-4">
+              <div className="p-4 bg-green-600 rounded-xl text-white">
+                <p className="text-2xl font-bold">{ssData.total}</p>
+                <p className="text-xs opacity-80 mt-1">Total Self-Service Users</p>
+              </div>
+              <div className="p-4 bg-white border border-gray-200 rounded-xl">
+                <p className="text-2xl font-bold text-red-600">{ssData.stats.byTier.hot}</p>
+                <p className="text-xs text-gray-500 mt-1">Hot Tier</p>
+              </div>
+              <div className="p-4 bg-white border border-gray-200 rounded-xl">
+                <p className="text-2xl font-bold text-amber-600">{ssData.stats.byTier.warm}</p>
+                <p className="text-xs text-gray-500 mt-1">Warm Tier</p>
+              </div>
+              <div className="p-4 bg-white border border-gray-200 rounded-xl">
+                <p className="text-2xl font-bold text-blue-600">{ssData.stats.byTier.cold}</p>
+                <p className="text-xs text-gray-500 mt-1">Cold Tier</p>
+              </div>
+            </div>
+
+            {/* Toolbar: filters + actions */}
+            <div className="flex items-center justify-between mb-3">
+              <div className="flex items-center gap-2 flex-wrap">
+                <span className="text-xs text-gray-500 mr-1">Filters:</span>
+                <select
+                  value={ssDateFilter}
+                  onChange={(e) => setSsDateFilter(e.target.value as DateFilter)}
+                  className="px-2 py-1 rounded-lg border border-gray-200 text-xs bg-white"
+                >
+                  <option value="all">All time</option>
+                  <option value="7d">Last 7 days</option>
+                  <option value="30d">Last 30 days</option>
+                  <option value="90d">Last 90 days</option>
+                </select>
+                <select
+                  value={ssSizeFilter}
+                  onChange={(e) => setSsSizeFilter(e.target.value as SizeFilter)}
+                  className="px-2 py-1 rounded-lg border border-gray-200 text-xs bg-white"
+                >
+                  <option value="all">All sizes</option>
+                  <option value="50+">50+ employees</option>
+                  <option value="200+">200+ employees</option>
+                  <option value="1000+">1,000+ employees</option>
+                </select>
+                <select
+                  value={ssRoutingFilter}
+                  onChange={(e) => setSsRoutingFilter(e.target.value as RoutingFilter)}
+                  className="px-2 py-1 rounded-lg border border-gray-200 text-xs bg-white"
+                >
+                  <option value="all">All routing</option>
+                  <option value="enterprise">Enterprise</option>
+                  <option value="self-service">Self-Service</option>
+                  <option value="government">Government</option>
+                </select>
+                <select
+                  value={ssTierFilter}
+                  onChange={(e) => setSsTierFilter(e.target.value as TierFilter)}
+                  className="px-2 py-1 rounded-lg border border-gray-200 text-xs bg-white"
+                >
+                  <option value="all">All tiers</option>
+                  <option value="hot">Hot</option>
+                  <option value="warm">Warm</option>
+                  <option value="cold">Cold</option>
+                </select>
+                <span className="text-xs text-gray-400 ml-2">{filtered.length} users</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={fetchSelfServiceData}
+                  className="px-3 py-1.5 rounded-lg text-xs font-medium bg-gray-100 text-gray-700 hover:bg-gray-200"
+                >
+                  Refresh
+                </button>
+                {ssSelectedIds.size > 0 && (
+                  <button
+                    onClick={() => { setSsListModalOpen(true); setSsListResult(null); setSsListName(`Self-Service Users — ${new Date().toLocaleDateString()}`); }}
+                    className="px-3 py-1.5 rounded-lg text-xs font-medium bg-truv-blue text-white hover:bg-blue-700 transition-colors"
+                  >
+                    Add {ssSelectedIds.size} to HubSpot List
+                  </button>
+                )}
+              </div>
+            </div>
+
+            {/* Table */}
+            <div className="bg-white border border-gray-200 rounded-xl overflow-hidden">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="border-b border-gray-100 bg-gray-50">
+                    <th className="w-10 px-3 py-2">
+                      <input type="checkbox" checked={ssAllSelected} onChange={ssToggleAll} className="rounded border-gray-300" />
+                    </th>
+                    <th className="text-left px-3 py-2 text-xs font-medium text-gray-500">Contact</th>
+                    <th className="text-left px-3 py-2 text-xs font-medium text-gray-500">Company</th>
+                    <th className="text-right px-3 py-2 text-xs font-medium text-gray-500">Employees</th>
+                    <th className="text-left px-3 py-2 text-xs font-medium text-gray-500">Industry</th>
+                    <th className="text-center px-3 py-2 text-xs font-medium text-gray-500">Tier</th>
+                    <th className="text-center px-3 py-2 text-xs font-medium text-gray-500">Routing</th>
+                    <th className="text-right px-3 py-2 text-xs font-medium text-gray-500">Score</th>
+                    <th className="text-left px-3 py-2 text-xs font-medium text-gray-500">Use Case</th>
+                    <th className="text-right px-3 py-2 text-xs font-medium text-gray-500">Deals</th>
+                    <th className="text-right px-3 py-2 text-xs font-medium text-gray-500">Signed Up</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-gray-50">
+                  {filtered.length === 0 ? (
+                    <tr><td colSpan={11} className="px-4 py-8 text-center text-gray-400 text-sm">No self-service users match current filters</td></tr>
+                  ) : (
+                    filtered.map((u) => (
+                      <tr key={u.id} className={`hover:bg-gray-50 transition-colors ${ssSelectedIds.has(u.id) ? 'bg-blue-50' : ''}`}>
+                        <td className="px-3 py-2">
+                          <input type="checkbox" checked={ssSelectedIds.has(u.id)} onChange={() => ssToggleOne(u.id)} className="rounded border-gray-300" />
+                        </td>
+                        <td className="px-3 py-2">
+                          <a
+                            href={`https://app.hubspot.com/contacts/19933594/contact/${u.id}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-left block"
+                          >
+                            <p className="text-sm font-medium text-gray-900 truncate max-w-[160px] hover:text-truv-blue">{u.name}</p>
+                            <p className="text-[10px] text-gray-500 truncate max-w-[160px]">{u.title || u.email}</p>
+                          </a>
+                        </td>
+                        <td className="px-3 py-2">
+                          <p className="text-sm text-gray-900 truncate max-w-[140px]">{u.company}</p>
+                          {u.companyLocation && <p className="text-[10px] text-gray-400 truncate max-w-[140px]">{u.companyLocation}</p>}
+                        </td>
+                        <td className="px-3 py-2 text-right">
+                          <span className={`text-sm font-medium ${u.employeeCount && u.employeeCount >= 200 ? 'text-green-700' : 'text-gray-700'}`}>
+                            {formatEmployees(u.employeeCount)}
+                          </span>
+                        </td>
+                        <td className="px-3 py-2">
+                          <span className="text-xs text-gray-600 truncate block max-w-[100px]">{u.industry || '--'}</span>
+                        </td>
+                        <td className="px-3 py-2 text-center">{tierBadge(u.tier)}</td>
+                        <td className="px-3 py-2 text-center">
+                          <span className={`px-1.5 py-0.5 rounded text-[10px] font-medium ${
+                            u.routing === 'enterprise' ? 'bg-purple-100 text-purple-700' :
+                            u.routing === 'government' ? 'bg-teal-100 text-teal-700' :
+                            'bg-gray-100 text-gray-500'
+                          }`}>
+                            {u.routing || '--'}
+                          </span>
+                        </td>
+                        <td className="px-3 py-2 text-right">
+                          <span className={`text-sm font-bold ${u.score !== null ? (u.score >= 70 ? 'text-red-600' : u.score >= 50 ? 'text-amber-600' : 'text-blue-600') : 'text-gray-400'}`}>
+                            {u.score ?? '--'}
+                          </span>
+                        </td>
+                        <td className="px-3 py-2">
+                          <span className="text-xs text-gray-600 truncate block max-w-[120px]">{u.useCase || '--'}</span>
+                        </td>
+                        <td className="px-3 py-2 text-right">
+                          <span className={`text-sm font-medium ${u.deals > 0 ? 'text-green-700' : 'text-gray-400'}`}>
+                            {u.deals || '--'}
+                          </span>
+                        </td>
+                        <td className="px-3 py-2 text-right">
+                          <span className="text-[10px] text-gray-400">{timeAgo(u.createdAt)}</span>
+                        </td>
+                      </tr>
+                    ))
+                  )}
+                </tbody>
+              </table>
+            </div>
+
+            {/* Add to List Modal */}
+            <AnimatePresence>
+              {ssListModalOpen && (
+                <motion.div
+                  initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+                  className="fixed inset-0 bg-black/30 flex items-center justify-center z-50"
+                  onClick={() => { if (!ssListCreating) setSsListModalOpen(false); }}
+                >
+                  <motion.div
+                    initial={{ scale: 0.95, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.95, opacity: 0 }}
+                    className="bg-white rounded-xl shadow-xl p-6 w-full max-w-md"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    {ssListResult ? (
+                      <div>
+                        <p className="text-lg font-semibold text-gray-900 mb-2">List Created</p>
+                        <p className="text-sm text-gray-600 mb-4">{ssListResult.count} contacts added to HubSpot list.</p>
+                        <div className="flex gap-2">
+                          <a href={ssListResult.url} target="_blank" rel="noopener noreferrer"
+                            className="flex-1 px-4 py-2 rounded-lg text-sm font-medium bg-orange-50 text-orange-700 border border-orange-200 hover:bg-orange-100 text-center">
+                            Open in HubSpot
+                          </a>
+                          <button onClick={() => setSsListModalOpen(false)}
+                            className="px-4 py-2 rounded-lg text-sm font-medium bg-gray-100 text-gray-700 hover:bg-gray-200">
+                            Close
+                          </button>
+                        </div>
+                      </div>
+                    ) : (
+                      <div>
+                        <p className="text-lg font-semibold text-gray-900 mb-1">Add to HubSpot List</p>
+                        <p className="text-sm text-gray-500 mb-4">{ssSelectedIds.size} contacts selected</p>
+                        <input
+                          type="text"
+                          value={ssListName}
+                          onChange={(e) => setSsListName(e.target.value)}
+                          placeholder="List name..."
+                          className="w-full px-3 py-2 rounded-lg border border-gray-200 text-sm mb-4 focus:outline-none focus:ring-2 focus:ring-truv-blue focus:border-transparent"
+                          autoFocus
+                        />
+                        <div className="flex gap-2">
+                          <button onClick={handleSsCreateList} disabled={ssListCreating || !ssListName.trim()}
+                            className="flex-1 px-4 py-2 rounded-lg text-sm font-medium bg-truv-blue text-white hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed">
+                            {ssListCreating ? 'Creating...' : 'Create List'}
+                          </button>
+                          <button onClick={() => setSsListModalOpen(false)} disabled={ssListCreating}
+                            className="px-4 py-2 rounded-lg text-sm font-medium bg-gray-100 text-gray-700 hover:bg-gray-200">
+                            Cancel
+                          </button>
+                        </div>
+                      </div>
+                    )}
+                  </motion.div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+        );
+      })()}
 
       {/* ── ENTERPRISE PROSPECTS TAB ──────────── */}
       {activeTab === 'enterprise' && (() => {
