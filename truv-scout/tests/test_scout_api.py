@@ -5,10 +5,28 @@ from unittest.mock import patch
 import pytest
 from fastapi.testclient import TestClient
 
+import truv_scout.app as app_module
 from truv_scout.app import app
 from truv_scout.models import PipelineResult, ScoutDecision
 
 client = TestClient(app)
+
+# Use a known test secret and ensure it's set
+TEST_SECRET = "test-scout-secret"
+
+
+@pytest.fixture(autouse=True)
+def _set_test_secret():
+    """Ensure a known webhook secret is set for all API tests."""
+    original = app_module.settings.webhook_secret
+    app_module.settings.webhook_secret = TEST_SECRET
+    yield
+    app_module.settings.webhook_secret = original
+
+
+def _auth_headers() -> dict:
+    """Return headers with valid auth token for testing."""
+    return {"x-scout-token": TEST_SECRET}
 
 
 def _make_pipeline_result(contact_id: str = "c-123") -> PipelineResult:
@@ -54,7 +72,7 @@ def test_health():
 
 def test_score_no_params():
     """POST /score with empty body returns 400."""
-    resp = client.post("/score", json={})
+    resp = client.post("/score", json={}, headers=_auth_headers())
     assert resp.status_code == 400
     body = resp.json()
     assert "contact_id" in body["detail"].lower() or "email" in body["detail"].lower()
@@ -65,7 +83,7 @@ def test_score_with_contact_id(mock_run):
     """POST /score with contact_id returns a valid ScoreResponse."""
     mock_run.return_value = _make_pipeline_result("c-456")
 
-    resp = client.post("/score", json={"contact_id": "c-456", "skip_enrichment": True})
+    resp = client.post("/score", json={"contact_id": "c-456", "skip_enrichment": True}, headers=_auth_headers())
     assert resp.status_code == 200
 
     data = resp.json()
@@ -92,7 +110,7 @@ def test_webhook():
         "event_type": "form_submission",
         "properties": {"firstname": "Jane", "lastname": "Doe"},
     }
-    resp = client.post("/webhook", json=payload)
+    resp = client.post("/webhook", json=payload, headers=_auth_headers())
     assert resp.status_code == 200
 
     data = resp.json()
@@ -102,14 +120,13 @@ def test_webhook():
 
 def test_webhook_wrong_token():
     """POST /webhook with wrong x-scout-token returns 401 when secret is configured."""
-    import truv_scout.app as app_module
+    payload = {"contact_id": "wh-999", "event_type": "form_submission", "properties": {}}
+    resp = client.post("/webhook", json=payload, headers={"x-scout-token": "wrong-secret"})
+    assert resp.status_code == 401
 
-    original_secret = app_module.settings.webhook_secret
-    app_module.settings.webhook_secret = "correct-secret"
 
-    try:
-        payload = {"contact_id": "wh-999", "event_type": "form_submission", "properties": {}}
-        resp = client.post("/webhook", json=payload, headers={"x-scout-token": "wrong-secret"})
-        assert resp.status_code == 401
-    finally:
-        app_module.settings.webhook_secret = original_secret
+def test_webhook_no_token():
+    """POST /webhook with no x-scout-token returns 401 when secret is configured."""
+    payload = {"contact_id": "wh-999", "event_type": "form_submission", "properties": {}}
+    resp = client.post("/webhook", json=payload)
+    assert resp.status_code == 401

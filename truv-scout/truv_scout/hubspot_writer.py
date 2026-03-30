@@ -1,9 +1,12 @@
 """Write Scout scoring results back to HubSpot contact properties."""
 
+import logging
 from datetime import datetime, timezone
 
 from outreach_intel.hubspot_client import HubSpotClient
 from truv_scout.models import PipelineResult
+
+logger = logging.getLogger(__name__)
 
 
 def write_scores_to_hubspot(result: PipelineResult, source: str = "form_submission") -> bool:
@@ -55,5 +58,5 @@ def write_scores_to_hubspot(result: PipelineResult, source: str = "form_submissi
         client.update_contact(result.contact_id, properties)
         return True
     except Exception as e:
-        print(f"[hubspot_writer] Failed to write scores for {result.contact_id}: {e}")
+        logger.exception(f"[hubspot_writer] Failed to write scores for {result.contact_id}")
         return False

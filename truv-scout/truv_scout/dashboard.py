@@ -1,19 +1,17 @@
 """Pipeline C — Dashboard signup scoring and processing."""
 
 import logging
-import os
 import re
 from datetime import datetime, timezone
 from typing import Optional
 
 import requests
-from dotenv import load_dotenv
 
 from outreach_intel.hubspot_client import HubSpotClient
 from truv_scout.models import DashboardSignupPayload, PipelineResult
 from truv_scout.pipeline import SCORE_PROPERTIES
+from truv_scout.settings import get_settings
 
-load_dotenv()
 logger = logging.getLogger(__name__)
 
 # DashBot bot_id in #dashboard-signups
@@ -214,7 +212,7 @@ def get_dashboard_signups_from_slack(
     Returns:
         List of dicts with email, full_name, company, slack_ts.
     """
-    token = os.getenv("SLACK_BOT_TOKEN") or os.getenv("SLACK_TOKEN")
+    token = get_settings().slack_bot_token
     if not token:
         logger.error("[dashboard] No SLACK_BOT_TOKEN env var set")
         return []
@@ -301,7 +299,7 @@ def run_dashboard_backlog_batch(
 
             should_score, reason = should_score_contact(contact)
             if not should_score:
-                print(f"  [{i}/{len(signups)}] ⏭ Skipped: {reason} ({email})")
+                logger.info(f"[{i}/{len(signups)}] Skipped: {reason} ({email})")
                 continue
 
             result = run_pipeline(contact_id=contact_id, source="dashboard_signup")
@@ -311,9 +309,9 @@ def run_dashboard_backlog_batch(
             results.append(result)
 
             tier_emoji = {"hot": "🔥", "warm": "🟡", "cold": "🔵"}.get(result.final_tier, "⚪")
-            print(f"  [{i}/{len(signups)}] {tier_emoji} {result.final_score:.0f} {result.final_tier:5s} {result.final_routing:15s} {email}")
+            logger.info(f"[{i}/{len(signups)}] {tier_emoji} {result.final_score:.0f} {result.final_tier:5s} {result.final_routing:15s} {email}")
 
         except Exception as e:
-            print(f"  [{i}/{len(signups)}] ❌ Error: {e} ({email})")
+            logger.error(f"[{i}/{len(signups)}] Error scoring {email}: {e}")
 
     return results

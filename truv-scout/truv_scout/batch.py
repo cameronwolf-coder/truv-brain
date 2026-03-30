@@ -4,6 +4,7 @@ Prioritizes contacts showing recent buying signals — web visits, email
 engagement, content clicks — over contacts with no recent activity.
 """
 
+import logging
 from datetime import datetime, timedelta
 from typing import Optional
 
@@ -12,6 +13,8 @@ from truv_scout.completion_callback import fire_completion_webhook
 from truv_scout.hubspot_writer import write_scores_to_hubspot
 from truv_scout.models import PipelineResult
 from truv_scout.pipeline import run_pipeline
+
+logger = logging.getLogger(__name__)
 
 CLOSED_LOST_STAGE = "268636563"
 STALE_DAYS = 90
@@ -146,7 +149,8 @@ def get_stale_closed_lost_contacts(limit: int = 50) -> list[dict]:
                     cd = deal.get("properties", {}).get("closedate")
                     if cd:
                         close_dates.append(cd)
-                except Exception:
+                except Exception as e:
+                    logger.warning(f"Failed to fetch deal {deal_id}: {e}")
                     continue
 
             if not close_dates:
@@ -194,12 +198,12 @@ def run_closed_lost_batch(limit: int = 50, dry_run: bool = False) -> list[Pipeli
             results.append(result)
 
             tier_emoji = {"hot": "🔥", "warm": "🟡", "cold": "🔵"}.get(result.final_tier, "⚪")
-            rank_label = f" ★ ENGAGED (rank {rank:.0f})" if rank > 0 else ""
-            print(
-                f"  [{i}/{len(contacts)}] {tier_emoji} {result.final_score:.0f} "
+            rank_label = f" ENGAGED (rank {rank:.0f})" if rank > 0 else ""
+            logger.info(
+                f"[{i}/{len(contacts)}] {tier_emoji} {result.final_score:.0f} "
                 f"{result.final_tier:5s} {result.final_routing:15s} {email}{rank_label}"
             )
         except Exception as e:
-            print(f"  [{i}/{len(contacts)}] ❌ Error: {e} ({email})")
+            logger.error(f"[{i}/{len(contacts)}] Error scoring {email}: {e}")
 
     return results

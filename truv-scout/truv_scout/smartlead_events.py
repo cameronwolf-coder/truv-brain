@@ -4,9 +4,11 @@ Replaces the Pipedream smartlead-event-handler workflow.
 """
 
 import logging
-import os
 
 import requests
+from tenacity import retry, stop_after_attempt, wait_exponential, retry_if_exception_type
+
+from truv_scout.settings import get_settings
 
 logger = logging.getLogger(__name__)
 
@@ -84,7 +86,7 @@ def handle_smartlead_event(event: dict) -> dict:
 
 def _find_hubspot_contact(email: str) -> tuple[str | None, dict]:
     """Search HubSpot for a contact by email. Returns (id, properties)."""
-    token = os.getenv("HUBSPOT_API_TOKEN")
+    token = get_settings().hubspot_api_token
     if not token:
         return None, {}
 
@@ -115,7 +117,7 @@ def _find_hubspot_contact(email: str) -> tuple[str | None, dict]:
 
 def _update_hubspot_contact(contact_id: str, properties: dict) -> None:
     """PATCH contact properties on HubSpot."""
-    token = os.getenv("HUBSPOT_API_TOKEN")
+    token = get_settings().hubspot_api_token
     if not token:
         return
     try:
@@ -129,9 +131,15 @@ def _update_hubspot_contact(contact_id: str, properties: dict) -> None:
         logger.error(f"HubSpot update failed for {contact_id}: {e}")
 
 
+@retry(
+    stop=stop_after_attempt(3),
+    wait=wait_exponential(multiplier=1, min=2, max=10),
+    retry=retry_if_exception_type((requests.exceptions.ConnectionError, requests.exceptions.Timeout)),
+    reraise=True,
+)
 def _pause_smartlead_sequence(campaign_id: str, email: str) -> bool:
-    """Pause a lead's sequence in SmartLead."""
-    api_key = os.getenv("SMARTLEAD_API_KEY")
+    """Pause a lead's sequence in SmartLead. Retries on transient errors."""
+    api_key = get_settings().smartlead_api_key
     if not api_key:
         logger.error("SMARTLEAD_API_KEY not set — cannot pause sequence")
         return False
@@ -147,6 +155,8 @@ def _pause_smartlead_sequence(campaign_id: str, email: str) -> bool:
             logger.info(f"SmartLead sequence paused for {email} in campaign {campaign_id}")
             return True
         logger.error(f"SmartLead pause failed: {resp.status_code} {resp.text}")
+    except (requests.exceptions.ConnectionError, requests.exceptions.Timeout):
+        raise  # Let tenacity retry
     except Exception as e:
         logger.error(f"SmartLead pause error for {email}: {e}")
     return False
@@ -165,11 +175,12 @@ def _notify_slack(
     reply_text: str,
 ) -> None:
     """Post event notification to Slack."""
-    webhook_url = os.getenv("SLACK_WEBHOOK_URL")
+    s = get_settings()
+    webhook_url = s.slack_webhook_url
     if not webhook_url:
         return
 
-    hubspot_url = f"https://app.hubspot.com/contacts/19933594/contact/{contact_id}"
+    hubspot_url = f"https://app.hubspot.com/contacts/{s.hubspot_portal_id}/contact/{contact_id}"
     display_name = contact_name or contact_email
 
     if event_type == "REPLY":

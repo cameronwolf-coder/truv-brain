@@ -44,8 +44,16 @@ def _parse_revenue(revenue_str: str | None) -> float:
     multipliers = {"B": 1_000_000_000, "M": 1_000_000, "K": 1_000}
 
     # Match patterns like "$50M", "$1.5B", "$100M-$200M", "$1B+"
-    numbers = re.findall(r"\$?([\d.]+)\s*([BMK])?", cleaned)
+    # Require suffix for multi-digit numbers to avoid matching bare numbers
+    numbers = re.findall(r"\$?([\d.]+)\s*([BMK])", cleaned)
     if not numbers:
+        # Fallback: try matching plain numbers (no suffix)
+        plain = re.findall(r"\$?([\d.]+)", cleaned)
+        if plain:
+            try:
+                return float(plain[0])
+            except ValueError:
+                return 0.0
         return 0.0
 
     values = []

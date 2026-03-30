@@ -1,26 +1,79 @@
 """Slack notification for scored leads."""
 
-import os
+import logging
 from datetime import datetime
 
 import requests
-from dotenv import load_dotenv
 
 from truv_scout.models import PipelineResult
+from truv_scout.settings import get_settings
 
-load_dotenv()
+logger = logging.getLogger(__name__)
+
+ROI_PROPERTIES = [
+    "roi_funded_loans", "roi_annual_savings", "roi_savings_per_loan",
+    "roi_current_cost", "roi_truv_cost", "roi_manual_reduction_pct",
+    "roi_los_system", "roi_pos_system", "roi_use_case", "roi_pdf_downloaded",
+]
 
 
-def notify_slack(result: PipelineResult) -> bool:
-    """Post a scored lead notification to #outreach-intelligence.
+def _fetch_roi_data(contact_id: str) -> dict:
+    """Fetch ROI calculator properties from HubSpot for a contact."""
+    try:
+        from outreach_intel.hubspot_client import HubSpotClient
+        hs = HubSpotClient()
+        resp = hs.get(f"/crm/v3/objects/contacts/{contact_id}", params={"properties": ",".join(ROI_PROPERTIES)})
+        return resp.get("properties", {})
+    except Exception:
+        return {}
+
+
+def _fmt_dollar(val: str | None) -> str:
+    """Format a string number as $X,XXX."""
+    if not val:
+        return "—"
+    try:
+        return f"${int(float(val)):,}"
+    except (ValueError, TypeError):
+        return val
+
+
+def _fmt_num(val: str | None) -> str:
+    """Format a string number with commas."""
+    if not val:
+        return "—"
+    try:
+        return f"{int(float(val)):,}"
+    except (ValueError, TypeError):
+        return val
+
+
+# Webhook URLs by source pipeline
+WEBHOOK_BY_SOURCE = {
+    "roi_calculator": "SLACK_ROI_WEBHOOK_URL",  # #roi-calculator
+}
+
+
+def notify_slack(result: PipelineResult, source: str = "") -> bool:
+    """Post a scored lead notification to the appropriate Slack channel.
+
+    Routes to source-specific webhook if configured,
+    falls back to default SLACK_WEBHOOK_URL (#outreach-intelligence).
 
     Args:
         result: Pipeline result with all scoring data.
+        source: Pipeline source for webhook routing.
 
     Returns:
         True if message posted successfully, False otherwise.
     """
-    webhook_url = os.getenv("SLACK_WEBHOOK_URL", "")
+    # Pick webhook: source-specific if available, otherwise default
+    s = get_settings()
+    if source == "roi_calculator" and s.slack_roi_webhook_url:
+        webhook_url = s.slack_roi_webhook_url
+    else:
+        webhook_url = s.slack_webhook_url
+
     if not webhook_url:
         return False
 
@@ -55,17 +108,49 @@ def notify_slack(result: PipelineResult) -> bool:
         {
             "type": "section",
             "fields": [
-                {"type": "mrkdwn", "text": f"*Contact:*\n<https://app.hubspot.com/contacts/19933594/contact/{result.contact_id}|{result.contact_name or result.contact_id}>"},
+                {"type": "mrkdwn", "text": f"*Contact:*\n<https://app.hubspot.com/contacts/{s.hubspot_portal_id}/contact/{result.contact_id}|{result.contact_name or result.contact_id}>"},
                 {"type": "mrkdwn", "text": f"*Company:*\n{result.company_name or 'Unknown'}"},
                 {"type": "mrkdwn", "text": f"*Routing:*\n{result.final_routing}"},
                 {"type": "mrkdwn", "text": f"*Confidence:*\n{result.confidence}"},
             ],
         },
-        {
-            "type": "section",
-            "text": {"type": "mrkdwn", "text": f"*Score Breakdown:*\nForm: {result.form_fit_score:.0f} | Eng: {result.engagement_score:.0f} | Time: {result.timing_score:.0f} | Deal: {result.deal_context_score:.0f} | Ext: {result.external_trigger_score:.0f}"},
-        },
     ]
+
+    # Add ROI calculator data if this is an ROI lead
+    if source == "roi_calculator":
+        roi_data = _fetch_roi_data(result.contact_id)
+        if roi_data:
+            blocks.append({"type": "divider"})
+            blocks.append({
+                "type": "section",
+                "text": {"type": "mrkdwn", "text": "*📊 ROI Calculator Inputs*"},
+            })
+            blocks.append({
+                "type": "section",
+                "fields": [
+                    {"type": "mrkdwn", "text": f"*Funded Loans:*\n{_fmt_num(roi_data.get('roi_funded_loans'))}/yr"},
+                    {"type": "mrkdwn", "text": f"*Current Cost:*\n{_fmt_dollar(roi_data.get('roi_current_cost'))}"},
+                    {"type": "mrkdwn", "text": f"*Truv Cost:*\n{_fmt_dollar(roi_data.get('roi_truv_cost'))}"},
+                    {"type": "mrkdwn", "text": f"*Annual Savings:*\n{_fmt_dollar(roi_data.get('roi_annual_savings'))}"},
+                ],
+            })
+            pdf_downloaded = roi_data.get('roi_pdf_downloaded', 'false')
+            pdf_icon = "✅" if pdf_downloaded == "true" else "❌"
+            blocks.append({
+                "type": "section",
+                "fields": [
+                    {"type": "mrkdwn", "text": f"*Savings/Loan:*\n{_fmt_dollar(roi_data.get('roi_savings_per_loan'))}"},
+                    {"type": "mrkdwn", "text": f"*TWN Reduction:*\n{roi_data.get('roi_manual_reduction_pct', '—')}%"},
+                    {"type": "mrkdwn", "text": f"*LOS:*\n{roi_data.get('roi_los_system', '—')}"},
+                    {"type": "mrkdwn", "text": f"*PDF Downloaded:*\n{pdf_icon} {pdf_downloaded}"},
+                ],
+            })
+            blocks.append({"type": "divider"})
+
+    blocks.append({
+        "type": "section",
+        "text": {"type": "mrkdwn", "text": f"*Score Breakdown:*\nForm: {result.form_fit_score:.0f} | Eng: {result.engagement_score:.0f} | Time: {result.timing_score:.0f} | Deal: {result.deal_context_score:.0f} | Ext: {result.external_trigger_score:.0f}"},
+    })
 
     if enrichment_line:
         blocks.append({
@@ -91,12 +176,11 @@ def notify_slack(result: PipelineResult) -> bool:
             "text": {"type": "mrkdwn", "text": f"*Recommended Action:*\n{result.recommended_action}"},
         })
 
-    payload = {"blocks": blocks}
-
     try:
-        resp = requests.post(webhook_url, json=payload, timeout=10)
+        resp = requests.post(webhook_url, json={"blocks": blocks}, timeout=10)
         return resp.status_code == 200
     except Exception:
+        logger.exception(f"[slack] Failed to post notification for {result.contact_id}")
         return False
 
 
@@ -112,7 +196,8 @@ def post_closed_lost_digest(results: list[PipelineResult]) -> bool:
     Returns:
         True if message posted successfully, False otherwise.
     """
-    webhook_url = os.getenv("SLACK_WEBHOOK_URL", "")
+    s = get_settings()
+    webhook_url = s.slack_webhook_url
     if not webhook_url:
         return False
 
@@ -147,7 +232,7 @@ def post_closed_lost_digest(results: list[PipelineResult]) -> bool:
 
     for i, result in enumerate(actionable[:20], 1):
         emoji = tier_emoji.get(result.final_tier, "⚪")
-        hubspot_url = f"https://app.hubspot.com/contacts/19933594/contact/{result.contact_id}"
+        hubspot_url = f"https://app.hubspot.com/contacts/{s.hubspot_portal_id}/contact/{result.contact_id}"
 
         tech = ""
         if result.decision and result.decision.tech_matches:
@@ -184,4 +269,5 @@ def post_closed_lost_digest(results: list[PipelineResult]) -> bool:
         resp = requests.post(webhook_url, json={"blocks": blocks}, timeout=10)
         return resp.status_code == 200
     except Exception:
+        logger.exception("[slack] Failed to post closed-lost digest")
         return False

@@ -60,6 +60,36 @@ class DashboardSignupPayload(BaseModel):
     event_type: str = "dashboard_signup"
 
 
+class ROICalculatorPayload(BaseModel):
+    """ROI Calculator form submission."""
+
+    contact_id: str
+    email: str = ""
+    first_name: str = ""
+    last_name: str = ""
+    company: str = ""
+    funded_loans: int = 0
+    annual_savings: float = 0.0
+    current_cost: float = 0.0
+    truv_cost: float = 0.0
+    los_system: str = ""
+    pos_system: str = ""
+    use_case: str = "mortgage"
+    event_type: str = "roi_calculator"
+
+
+class SmartLeadEventPayload(BaseModel):
+    """SmartLead webhook event payload."""
+
+    event_type: str = ""
+    lead_email: str = ""
+    email: str = ""  # Alternate field name SmartLead sometimes uses
+    campaign_id: str = ""
+    campaign_name: str = ""
+    sequence_number: int = 0
+    reply_text: str = ""
+
+
 # ── Internal Dataclasses ─────────────────────────────────────────────
 
 
@@ -98,6 +128,32 @@ class ScoutDecision:
 
 
 @dataclass
+class LayerTrace:
+    """Trace data for a single pipeline layer."""
+
+    name: str = ""
+    status: str = "skipped"  # complete, failed, skipped
+    started_at: Optional[str] = None
+    finished_at: Optional[str] = None
+    duration_ms: Optional[int] = None
+    input_summary: dict[str, Any] = field(default_factory=dict)
+    output_summary: dict[str, Any] = field(default_factory=dict)
+    error: Optional[str] = None
+
+
+@dataclass
+class PipelineTrace:
+    """Full trace across all pipeline layers."""
+
+    contact_id: str = ""
+    started_at: Optional[str] = None
+    finished_at: Optional[str] = None
+    total_duration_ms: Optional[int] = None
+    source: str = ""
+    layers: dict[str, LayerTrace] = field(default_factory=dict)
+
+
+@dataclass
 class PipelineResult:
     """Combined output from all pipeline layers."""
 
@@ -125,6 +181,8 @@ class PipelineResult:
     reasoning: str = ""
     recommended_action: str = ""
     confidence: str = "low"
+    # Trace
+    trace: Optional[PipelineTrace] = None
 
     @property
     def agent_adjustment(self) -> float:

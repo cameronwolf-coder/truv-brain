@@ -5,9 +5,9 @@ Called after write_scores_to_hubspot() in all pipeline paths.
 """
 
 import logging
-import os
 
 from truv_scout.models import PipelineResult
+from truv_scout.settings import get_settings
 
 logger = logging.getLogger(__name__)
 
@@ -33,7 +33,7 @@ def fire_completion_webhook(result: PipelineResult, source: str = "form_submissi
 
 def _fetch_hubspot_props(contact_id: str) -> dict:
     """Fetch contact properties needed for routing."""
-    token = os.getenv("HUBSPOT_API_TOKEN")
+    token = get_settings().hubspot_api_token
     if not token:
         return {}
 

@@ -14,6 +14,10 @@ COPY truv-scout/truv_scout/config/ ./truv-scout/truv_scout/config/
 # Make outreach_intel importable as a sibling package
 ENV PYTHONPATH=/app
 
+# Run as non-root user
+RUN adduser --disabled-password --gecos "" appuser && chown -R appuser:appuser /app
+USER appuser
+
 WORKDIR /app/truv-scout
 
 CMD ["sh", "-c", "uvicorn truv_scout.app:app --host 0.0.0.0 --port ${PORT:-8000}"]

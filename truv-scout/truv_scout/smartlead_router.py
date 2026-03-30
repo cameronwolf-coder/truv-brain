@@ -5,11 +5,12 @@ after scoring — no external webhook hop needed.
 """
 
 import logging
-import os
 
 import requests
+from tenacity import retry, stop_after_attempt, wait_exponential, retry_if_exception_type
 
 from truv_scout.models import PipelineResult
+from truv_scout.settings import get_settings
 
 logger = logging.getLogger(__name__)
 
@@ -51,6 +52,22 @@ TECH_ANGLES = {
 SKIP_STATUSES = {"active", "engaged", "unsubscribed"}
 
 
+@retry(
+    stop=stop_after_attempt(3),
+    wait=wait_exponential(multiplier=1, min=2, max=10),
+    retry=retry_if_exception_type((requests.exceptions.ConnectionError, requests.exceptions.Timeout)),
+    reraise=True,
+)
+def _upload_to_smartlead(campaign_id: str, api_key: str, lead: dict) -> requests.Response:
+    """Upload a lead to SmartLead with retry on transient errors."""
+    return requests.post(
+        f"{SMARTLEAD_API_URL}/campaigns/{campaign_id}/leads",
+        params={"api_key": api_key},
+        json={"lead_list": [lead]},
+        timeout=15,
+    )
+
+
 def route_to_smartlead(result: PipelineResult, hubspot_props: dict) -> bool:
     """Route a scored contact into the correct SmartLead campaign.
 
@@ -61,7 +78,8 @@ def route_to_smartlead(result: PipelineResult, hubspot_props: dict) -> bool:
     Returns:
         True if the lead was uploaded to SmartLead, False if skipped or failed.
     """
-    api_key = os.getenv("SMARTLEAD_API_KEY")
+    s = get_settings()
+    api_key = s.smartlead_api_key
     if not api_key:
         logger.warning("SMARTLEAD_API_KEY not set — skipping SmartLead routing")
         return False
@@ -94,7 +112,7 @@ def route_to_smartlead(result: PipelineResult, hubspot_props: dict) -> bool:
 
     # Pick campaign
     campaign_key, content_track = _select_campaign(result.final_tier, sales_vertical)
-    campaign_id = os.getenv(campaign_key)
+    campaign_id = getattr(s, campaign_key.lower(), "")
     if not campaign_id:
         logger.warning(f"Campaign ID not configured for {campaign_key}")
         return False
@@ -102,14 +120,9 @@ def route_to_smartlead(result: PipelineResult, hubspot_props: dict) -> bool:
     # Compute personalization
     lead = _build_lead_payload(result, hubspot_props, sales_vertical)
 
-    # Upload to SmartLead
+    # Upload to SmartLead (retry on transient failures)
     try:
-        resp = requests.post(
-            f"{SMARTLEAD_API_URL}/campaigns/{campaign_id}/leads",
-            params={"api_key": api_key},
-            json={"lead_list": [lead]},
-            timeout=15,
-        )
+        resp = _upload_to_smartlead(campaign_id, api_key, lead)
         if not resp.ok:
             logger.error(f"SmartLead upload failed ({resp.status_code}): {resp.text}")
             return False
@@ -184,7 +197,7 @@ def _build_lead_payload(result: PipelineResult, props: dict, sales_vertical: str
 
 def _update_hubspot_status(contact_id: str, content_track: str) -> None:
     """Set outreach_status=active and content_track on HubSpot."""
-    token = os.getenv("HUBSPOT_API_TOKEN")
+    token = get_settings().hubspot_api_token
     if not token:
         return
     try:
@@ -206,7 +219,8 @@ def _notify_slack_enrollment(
     result: PipelineResult, props: dict, sales_vertical: str, content_track: str
 ) -> None:
     """Post enrollment notification to Slack."""
-    webhook_url = os.getenv("SLACK_WEBHOOK_URL")
+    s = get_settings()
+    webhook_url = s.slack_webhook_url
     if not webhook_url:
         return
 
@@ -216,7 +230,7 @@ def _notify_slack_enrollment(
     display_name = result.contact_name or props.get("email", "unknown")
     company = result.company_name or props.get("company", "")
     track_label = content_track.replace("_", " ").title()
-    hubspot_url = f"https://app.hubspot.com/contacts/19933594/contact/{result.contact_id}"
+    hubspot_url = f"https://app.hubspot.com/contacts/{s.hubspot_portal_id}/contact/{result.contact_id}"
 
     text = "\n".join([
         f"{tier_emoji} *{display_name}* from *{company}* entered *{track_label}* sequence",

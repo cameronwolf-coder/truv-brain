@@ -2,8 +2,6 @@
 
 import json
 import logging
-import os
-from dataclasses import asdict
 from pathlib import Path
 from typing import Any, Optional
 
@@ -250,14 +248,24 @@ def _parse_decision(
         # Agent returned JSON but no reasoning — treat as fallback
         return _fallback_decision(scored, enrichment, routing, tier)
 
+    # Validate routing against allowlist — reject hallucinated values
+    VALID_ROUTINGS = {"enterprise", "self-service", "government", "not-a-lead"}
+    VALID_CONFIDENCES = {"low", "medium", "high"}
+    agent_routing = str(data.get("routing", routing)).lower().strip()
+    if agent_routing not in VALID_ROUTINGS:
+        agent_routing = routing
+    agent_confidence = str(data.get("confidence", "medium")).lower().strip()
+    if agent_confidence not in VALID_CONFIDENCES:
+        agent_confidence = "medium"
+
     from truv_scout.scorer import classify_tier
     return ScoutDecision(
         adjusted_score=adjusted,
         tier=classify_tier(adjusted),
-        routing=data.get("routing", routing),
+        routing=agent_routing,
         reasoning=reasoning,
         recommended_action=str(data.get("recommended_action", "")),
-        confidence=str(data.get("confidence", "medium")),
+        confidence=agent_confidence,
         tech_matches=tech_matches,
         knowledge_sources_used=data.get("knowledge_sources_used", []),
     )
