@@ -26,7 +26,7 @@ async function cached<T>(key: string, ttl: number | ((v: T) => number), fn: () =
   return value;
 }
 
-const KNOCK_API_KEY = process.env.KNOCK_API_KEY;
+const KNOCK_API_KEY = process.env.KNOCK_SERVICE_TOKEN || process.env.KNOCK_API_KEY;
 const KNOCK_BASE = 'https://api.knock.app/v1';
 const SENDGRID_API_KEY = process.env.SENDGRID_API_KEY;
 const SENDGRID_BASE = 'https://api.sendgrid.com/v3';
@@ -80,11 +80,7 @@ interface SgMessage {
   last_event_time: string;
 }
 
-export default async function handler(req: VercelRequest, res: VercelResponse) {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-  res.setHeader('Cache-Control', 's-maxage=900, stale-while-revalidate=1800');
+export default async function handler(req: VercelRequest, res: VercelResponse) {  res.setHeader('Cache-Control', 's-maxage=900, stale-while-revalidate=1800');
 
   if (req.method === 'OPTIONS') return res.status(200).end();
   if (req.method !== 'GET') return res.status(405).json({ error: 'Method not allowed' });

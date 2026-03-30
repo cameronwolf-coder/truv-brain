@@ -2,11 +2,7 @@ import type { VercelRequest, VercelResponse } from '@vercel/node';
 
 const SENDGRID_API_KEY = process.env.SENDGRID_API_KEY;
 
-function corsHeaders(res: VercelResponse): void {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-}
+function corsHeaders(res: VercelResponse): void {}
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   corsHeaders(res);

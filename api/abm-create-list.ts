@@ -28,10 +28,6 @@ async function hubspotRequest(
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   // CORS headers
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-
   if (req.method === 'OPTIONS') {
     return res.status(200).end();
   }
@@ -74,7 +70,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       listName,
       contactCount: contactIds.length,
       companyName: companyName || 'Unknown',
-      hubspotUrl: `https://app.hubspot.com/contacts/YOUR_PORTAL_ID/lists/${listId}`,
+      hubspotUrl: `https://app.hubspot.com/contacts/19933594/lists/${listId}`,
     });
   } catch (error) {
     console.error('Error creating ABM list:', error);

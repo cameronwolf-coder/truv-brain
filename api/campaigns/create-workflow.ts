@@ -8,11 +8,7 @@ function getRedis(): Redis {
   });
 }
 
-function corsHeaders(res: VercelResponse): void {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-}
+function corsHeaders(res: VercelResponse): void {}
 
 const KNOCK_MGMT_TOKEN = 'knock_st_aBOcA5Q7jS9GprJkW-Iqhq5vl1vYr_Kz6ugFQiyvQI8G4g3w59cDLm0-8tuoVhJV';
 

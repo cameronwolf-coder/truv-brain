@@ -1,10 +1,6 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 
-function corsHeaders(res: VercelResponse): void {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-}
+function corsHeaders(res: VercelResponse): void {}
 
 const KNOCK_API_URL = 'https://api.knock.app/v1';
 const KNOCK_SERVICE_TOKEN = process.env.KNOCK_SERVICE_TOKEN;

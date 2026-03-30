@@ -2,11 +2,7 @@ import type { VercelRequest, VercelResponse } from '@vercel/node';
 
 const HUBSPOT_API_TOKEN = process.env.HUBSPOT_API_TOKEN;
 
-function corsHeaders(res: VercelResponse): void {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-}
+function corsHeaders(res: VercelResponse): void {}
 
 interface HubSpotListItem {
   id: string;

@@ -8,11 +8,7 @@ function getRedis(): Redis {
   return new Redis({ url, token });
 }
 
-function corsHeaders(res: import('@vercel/node').VercelResponse): void {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-}
+function corsHeaders(res: import('@vercel/node').VercelResponse): void {}
 
 const KNOCK_API_URL = 'https://api.knock.app/v1';
 const KNOCK_SERVICE_TOKEN = process.env.KNOCK_SERVICE_TOKEN;

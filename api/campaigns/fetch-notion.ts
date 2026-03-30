@@ -1,11 +1,7 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import crypto from 'crypto';
 
-function corsHeaders(res: VercelResponse): void {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-}
+function corsHeaders(res: VercelResponse): void {}
 
 const NOTION_API_KEY = process.env.NOTION_API_KEY;
 const CLOUDINARY_CLOUD = process.env.CLOUDINARY_CLOUD_NAME || '';

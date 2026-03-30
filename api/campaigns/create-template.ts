@@ -5,11 +5,7 @@ const SENDGRID_API_KEY = process.env.SENDGRID_API_KEY;
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
 const GEMINI_BASE_URL = 'https://generativelanguage.googleapis.com/v1beta/openai/';
 
-function corsHeaders(res: VercelResponse): void {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-}
+function corsHeaders(res: VercelResponse): void {}
 
 const EMAIL_SYSTEM_PROMPT = `You are an email HTML builder for Truv, a consumer permissioned data platform. Generate a complete, production-ready HTML email template using the Truv brand design system.
 

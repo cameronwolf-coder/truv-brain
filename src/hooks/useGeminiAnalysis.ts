@@ -31,12 +31,10 @@ export function useGeminiAnalysis() {
       setUploadProgress(0);
 
       try {
-        // Get API key
-        let apiKey = import.meta.env.VITE_GEMINI_API_KEY;
+        // Get API key from build-time env var
+        const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
         if (!apiKey) {
-          const keyRes = await fetch('/api/video-editor/gemini-key');
-          if (!keyRes.ok) throw new Error('Failed to get Gemini API key');
-          ({ apiKey } = await keyRes.json());
+          throw new Error('Gemini API key not configured. Set VITE_GEMINI_API_KEY at build time.');
         }
 
         const genAI = new GoogleGenerativeAI(apiKey);

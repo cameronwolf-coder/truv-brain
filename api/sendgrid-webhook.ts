@@ -1,4 +1,5 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
+import { createVerify } from 'crypto';
 import { Redis } from '@upstash/redis';
 
 const redis = new Redis({
@@ -25,6 +26,32 @@ interface SendGridEvent {
   [key: string]: unknown;
 }
 
+/**
+ * Verify the SendGrid ECDSA webhook signature.
+ * See: https://docs.sendgrid.com/for-developers/tracking-events/getting-started-event-webhook-security-features
+ *
+ * Set SENDGRID_WEBHOOK_PUBLIC_KEY to the public key from SendGrid's
+ * Mail Settings → Event Notifications → Signature Verification.
+ */
+function verifySignature(
+  publicKey: string,
+  payload: string,
+  signature: string,
+  timestamp: string,
+): boolean {
+  try {
+    const verifier = createVerify('SHA256');
+    verifier.update(timestamp + payload);
+    return verifier.verify(
+      { key: publicKey, format: 'pem', type: 'spki' },
+      signature,
+      'base64',
+    );
+  } catch {
+    return false;
+  }
+}
+
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   if (req.method === 'OPTIONS') {
     return res.status(200).end();
@@ -32,6 +59,22 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
+  }
+
+  // Verify SendGrid ECDSA webhook signature when the public key is configured.
+  const webhookPublicKey = process.env.SENDGRID_WEBHOOK_PUBLIC_KEY;
+  if (webhookPublicKey) {
+    const signature = req.headers['x-twilio-email-event-webhook-signature'] as string;
+    const timestamp = req.headers['x-twilio-email-event-webhook-timestamp'] as string;
+    const rawBody = JSON.stringify(req.body);
+
+    if (!signature || !timestamp) {
+      return res.status(403).json({ error: 'Missing webhook signature headers' });
+    }
+
+    if (!verifySignature(webhookPublicKey, rawBody, signature, timestamp)) {
+      return res.status(403).json({ error: 'Invalid webhook signature' });
+    }
   }
 
   if (!process.env.UPSTASH_REDIS_REST_URL || !process.env.UPSTASH_REDIS_REST_TOKEN) {

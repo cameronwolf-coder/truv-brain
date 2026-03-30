@@ -76,11 +76,7 @@ async function scrapeEvents(): Promise<TruvEvent[]> {
   });
 }
 
-export default async function handler(req: VercelRequest, res: VercelResponse) {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-  // Cache for 1 hour
+export default async function handler(req: VercelRequest, res: VercelResponse) {  // Cache for 1 hour
   res.setHeader('Cache-Control', 's-maxage=3600, stale-while-revalidate=1800');
 
   if (req.method === 'OPTIONS') return res.status(200).end();

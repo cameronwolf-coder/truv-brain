@@ -58,6 +58,9 @@ venv/
 .zencoder/
 .claude-design/
 
+# Exports (ad data, CSVs — contain competitive spend data)
+exports/
+
 # Other
 .worktrees/
 .vercel
@@ -72,6 +75,10 @@ public/tinymce
 roi-calc-internal/
 sendgrid-mcp/
 
+# Browser session auth files (contain live session cookies — never commit)
+*-auth.json
+
 # Claude Code local settings (contains permission history with tokens)
 .claude/settings.local.json
 .claude/projects/
+.gstack/

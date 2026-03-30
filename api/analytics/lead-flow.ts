@@ -18,11 +18,7 @@ const LIFECYCLE_STAGES = ['subscriber', 'lead', 'marketingqualifiedlead', 'sales
 
 export const config = { maxDuration: 30 };
 
-export default async function handler(req: VercelRequest, res: VercelResponse) {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-  res.setHeader('Cache-Control', 's-maxage=1800, stale-while-revalidate=3600');
+export default async function handler(req: VercelRequest, res: VercelResponse) {  res.setHeader('Cache-Control', 's-maxage=1800, stale-while-revalidate=3600');
 
   if (req.method === 'OPTIONS') return res.status(200).end();
   if (req.method !== 'GET') return res.status(405).json({ error: 'Method not allowed' });

@@ -8,11 +8,7 @@ function getRedis(): Redis {
   });
 }
 
-function corsHeaders(res: VercelResponse): void {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-}
+function corsHeaders(res: VercelResponse): void {}
 
 const HUBSPOT_API_TOKEN = process.env.HUBSPOT_API_TOKEN;
 const KNOCK_API_URL = 'https://api.knock.app/v1';

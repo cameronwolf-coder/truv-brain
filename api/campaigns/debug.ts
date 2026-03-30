@@ -1,8 +1,6 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-
   try {
     const { Redis } = await import('@upstash/redis');
     const url = process.env.UPSTASH_REDIS_REST_URL;

@@ -53,11 +53,7 @@ async function sgStats(templateId: string): Promise<{ delivered: number; bounced
   } catch { return { delivered: 0, bounced: 0, uniqueOpens: 0, uniqueClicks: 0 }; }
 }
 
-function corsHeaders(res: import('@vercel/node').VercelResponse): void {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-}
+function corsHeaders(res: import('@vercel/node').VercelResponse): void {}
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   corsHeaders(res);
