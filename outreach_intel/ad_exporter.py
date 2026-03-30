@@ -473,12 +473,13 @@ def browser_export(platform: str, days: int = 30) -> str:
 
     # Attempt to catch the download
     export_path = EXPORTS_DIR / f"{platform}-ads-export.csv"
+    export_path_js = json.dumps(str(export_path))  # safe JS string literal — no injection via path chars
     _run_pw(session, "run-code", f"""async page => {{
         const [download] = await Promise.all([
             page.waitForEvent('download', {{ timeout: 120000 }}),
         ]);
-        await download.saveAs('{export_path}');
-        return 'Downloaded to {export_path}';
+        await download.saveAs({export_path_js});
+        return 'Downloaded to ' + {export_path_js};
     }}""")
 
     # Also save a dated copy

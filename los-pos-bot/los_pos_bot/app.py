@@ -228,8 +228,8 @@ def scan_domain(
     try:
         result = pipeline.run(company_id="adhoc", raw_domain=domain, use_browser=req.use_browser)
     except Exception as e:
-        logger.error(f"Scan error for {domain}: {e}")
-        raise HTTPException(status_code=500, detail=str(e))
+        logger.error(f"Scan error for {domain}: {e}", exc_info=True)
+        raise HTTPException(status_code=500, detail="Scan failed")
 
     return {
         "domain": result.domain,
