@@ -37,6 +37,9 @@ class Settings(BaseSettings):
     # HubSpot portal ID (for constructing URLs)
     hubspot_portal_id: str = "19933594"
 
+    # Enterprise routing: HubSpot owner ID for SDR queue assignment
+    enterprise_sdr_owner_id: str = ""
+
     model_config = {"env_file": ".env", "extra": "ignore", "populate_by_name": True}
 
 

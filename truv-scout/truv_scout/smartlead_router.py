@@ -5,6 +5,7 @@ after scoring — no external webhook hop needed.
 """
 
 import logging
+from datetime import datetime, timezone, timedelta
 
 import requests
 from tenacity import retry, stop_after_attempt, wait_exponential, retry_if_exception_type
@@ -94,6 +95,31 @@ def route_to_smartlead(result: PipelineResult, hubspot_props: dict) -> bool:
     if outreach_status in SKIP_STATUSES:
         logger.info(f"Skipping {result.contact_id}: outreach_status={outreach_status}")
         return False
+
+    # Guard: enterprise and government contacts need manual outreach, not AI BDR
+    lead_routing = (result.final_routing or "").lower()
+    if lead_routing in {"enterprise", "government"}:
+        logger.info(f"Skipping {result.contact_id}: lead_routing={lead_routing} (manual outreach)")
+        return False
+
+    # Guard: 48-hour delay for dashboard signups to let product onboarding emails land first
+    createdate = hubspot_props.get("createdate", "")
+    if createdate:
+        try:
+            # HubSpot returns epoch-ms or ISO string
+            if createdate.isdigit():
+                created_dt = datetime.fromtimestamp(int(createdate) / 1000, tz=timezone.utc)
+            else:
+                created_dt = datetime.fromisoformat(createdate.replace("Z", "+00:00"))
+            age = datetime.now(timezone.utc) - created_dt
+            if age < timedelta(hours=48):
+                logger.info(
+                    f"Skipping {result.contact_id}: contact created {age.total_seconds()/3600:.0f}h ago "
+                    f"(48h delay for product onboarding emails)"
+                )
+                return False
+        except (ValueError, TypeError):
+            pass  # Couldn't parse — proceed with enrollment
 
     # Resolve sales vertical
     sales_vertical = hubspot_props.get("sales_vertical") or ""

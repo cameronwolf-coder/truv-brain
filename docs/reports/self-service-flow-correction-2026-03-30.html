@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Self-Service Flow Correction Report — 2026-03-30</title>
+<style>
+  :root { --blue: #2c64e3; --dark: #0f1c47; --light: #c5d9f7; --bg: #f4f4f2; --red: #dc2626; --green: #16a34a; --amber: #d97706; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background: var(--bg); color: #1a1a1a; line-height: 1.6; }
+  .container { max-width: 900px; margin: 0 auto; padding: 40px 24px; }
+  h1 { color: var(--dark); font-size: 28px; font-weight: 700; margin-bottom: 8px; }
+  .subtitle { color: #666; font-size: 14px; margin-bottom: 32px; }
+  h2 { color: var(--dark); font-size: 20px; font-weight: 600; margin: 32px 0 16px; border-bottom: 2px solid var(--blue); padding-bottom: 8px; }
+  h3 { color: var(--dark); font-size: 16px; font-weight: 600; margin: 20px 0 8px; }
+  p { margin-bottom: 12px; }
+  .badge { display: inline-block; padding: 2px 10px; border-radius: 12px; font-size: 12px; font-weight: 600; }
+  .badge-red { background: #fef2f2; color: var(--red); border: 1px solid #fecaca; }
+  .badge-amber { background: #fffbeb; color: var(--amber); border: 1px solid #fde68a; }
+  .badge-green { background: #f0fdf4; color: var(--green); border: 1px solid #bbf7d0; }
+  .card { background: #fff; border-radius: 12px; padding: 24px; margin-bottom: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
+  .card-red { border-left: 4px solid var(--red); }
+  .card-amber { border-left: 4px solid var(--amber); }
+  .card-green { border-left: 4px solid var(--green); }
+  table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 14px; }
+  th { background: var(--dark); color: #fff; padding: 10px 12px; text-align: left; font-weight: 600; }
+  td { padding: 10px 12px; border-bottom: 1px solid #e5e5e5; }
+  tr:nth-child(even) td { background: #fafafa; }
+  code { background: #f1f5f9; padding: 2px 6px; border-radius: 4px; font-size: 13px; font-family: 'SF Mono', monospace; }
+  .flow-box { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 16px; margin: 12px 0; font-size: 14px; }
+  .flow-arrow { color: var(--blue); font-weight: bold; margin: 0 4px; }
+  .highlight { background: #fef3c7; padding: 2px 4px; border-radius: 2px; }
+  ul { margin: 8px 0 12px 24px; }
+  li { margin-bottom: 4px; }
+  .summary-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin: 20px 0; }
+  .summary-item { background: #fff; border-radius: 8px; padding: 16px; text-align: center; box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
+  .summary-number { font-size: 32px; font-weight: 700; color: var(--dark); }
+  .summary-label { font-size: 12px; color: #666; margin-top: 4px; }
+</style>
+</head>
+<body>
+<div class="container">
+
+<h1>Self-Service Flow Correction Report</h1>
+<p class="subtitle">Case study: Kyle Melvin (kmelvin@acrisuremortgage.com) | March 30, 2026 | CMO Agent</p>
+
+<div class="summary-grid">
+  <div class="summary-item">
+    <div class="summary-number" style="color: var(--red);">3</div>
+    <div class="summary-label">Independent Email Systems</div>
+  </div>
+  <div class="summary-item">
+    <div class="summary-number" style="color: var(--amber);">0</div>
+    <div class="summary-label">Cross-System Coordination</div>
+  </div>
+  <div class="summary-item">
+    <div class="summary-number" style="color: var(--green);">3</div>
+    <div class="summary-label">Code Fixes Applied</div>
+  </div>
+</div>
+
+<h2>Executive Summary</h2>
+<div class="card card-red">
+  <p><strong>Root cause:</strong> Self-service dashboard signups receive emails from <strong>three independent systems</strong> that have zero awareness of each other. No orchestration layer prevents a contact from being emailed by all three simultaneously.</p>
+  <p>For Kyle Melvin specifically: he signed up on March 24, and within 6 days received product emails from the Truv dashboard, HubSpot marketing workflow emails, and is eligible (pending) for SmartLead outreach sequences. The systems overlap without coordination.</p>
+</div>
+
+<h2>Contact Profile: Kyle Melvin</h2>
+<div class="card">
+<table>
+  <tr><th colspan="2">HubSpot Contact 211371737348</th></tr>
+  <tr><td><strong>Email</strong></td><td>kmelvin@acrisuremortgage.com</td></tr>
+  <tr><td><strong>Company</strong></td><td>Acrisure Mortgage (650 employees, IMB vertical)</td></tr>
+  <tr><td><strong>Created</strong></td><td>2026-03-24 (dashboard signup via integration app 1052465)</td></tr>
+  <tr><td><strong>Scout Score</strong></td><td>25/100 (form_fit_score)</td></tr>
+  <tr><td><strong>Tier</strong></td><td><span class="badge badge-amber">warm</span></td></tr>
+  <tr><td><strong>Routing</strong></td><td><span class="badge badge-red">enterprise</span> (650 employees, Encompass LOS match)</td></tr>
+  <tr><td><strong>Tech Stack</strong></td><td>Encompass (greenfield opportunity — no VOE detected)</td></tr>
+  <tr><td><strong>Outreach Status</strong></td><td><em>empty</em> (not in SmartLead)</td></tr>
+  <tr><td><strong>HubSpot Emails Sent</strong></td><td>2 since last engagement</td></tr>
+  <tr><td><strong>Last HubSpot Email</strong></td><td>"Order workflow Activation Campaign - 2nd" (March 30)</td></tr>
+  <tr><td><strong>SmartLead Status</strong></td><td>Not enrolled (searched all 29 campaigns)</td></tr>
+  <tr><td><strong>SendGrid Emails</strong></td><td>0 found</td></tr>
+</table>
+</div>
+
+<h2>The Three Email Systems</h2>
+
+<div class="card card-red">
+<h3>System 1: Truv Product Emails (finley@mytruvhub.com)</h3>
+<p><strong>Trigger:</strong> Automatic on dashboard signup via Truv's internal product system</p>
+<p><strong>Emails sent to Kyle:</strong></p>
+<ul>
+  <li>"Your Truv sandbox is live" (March 24, same day as signup)</li>
+  <li>"RE: Your Truv sandbox is live" (March 27, follow-up)</li>
+</ul>
+<p><strong>Owner:</strong> Product/engineering team (not marketing). These are transactional product emails sent by the Truv dashboard integration (app ID 1052465), logged to HubSpot as FORWARDED_EMAIL type.</p>
+<p><strong>Issue:</strong> <span class="badge badge-amber">Low</span> These are expected product onboarding emails. However, they are NOT suppressed or coordinated with marketing outreach.</p>
+</div>
+
+<div class="card card-red">
+<h3>System 2: HubSpot Marketing Workflows</h3>
+<p><strong>Trigger:</strong> <code>hs_marketable_reason_type: WORKFLOW</code> (workflow ID 1688270128)</p>
+<p><strong>Last email:</strong> "Order workflow Activation Campaign - 2nd" sent March 30, 2026</p>
+<p><strong>Owner:</strong> Marketing (HubSpot workflow automation)</p>
+<p><strong>Issue:</strong> <span class="badge badge-red">Critical</span> This workflow fires independently of Scout scoring. It does NOT check:</p>
+<ul>
+  <li><code>lead_routing</code> (enterprise contacts should not get automated marketing drips)</li>
+  <li><code>inbound_lead_tier</code> (hot contacts need human touch, not automation)</li>
+  <li><code>outreach_status</code> (avoids double-sending with SmartLead)</li>
+  <li><code>scout_scored_at</code> (sends before scoring even completes)</li>
+</ul>
+<p>This means EVERY dashboard signup gets this activation campaign regardless of whether they are an enterprise account, already being worked by sales, or about to enter a SmartLead sequence.</p>
+</div>
+
+<div class="card card-amber">
+<h3>System 3: SmartLead Sequences (AI BDR)</h3>
+<p><strong>Trigger:</strong> <code>fire_completion_webhook()</code> after Scout scoring, only for <code>dashboard_signup</code> source</p>
+<p><strong>Kyle's status:</strong> NOT enrolled (outreach_status is empty)</p>
+<p><strong>Owner:</strong> Marketing automation (Scout pipeline)</p>
+<p><strong>Issue:</strong> <span class="badge badge-red">Critical Bug</span> The SmartLead router at <code>smartlead_router.py:71-140</code> does NOT check <code>lead_routing</code>. The only guard is <code>outreach_status</code>. This means:</p>
+<ul>
+  <li>Enterprise-routed contacts (like Kyle) WILL be enrolled in SmartLead campaigns</li>
+  <li>Government-routed contacts WILL be enrolled in generic nurture sequences</li>
+  <li>Only contacts already in SmartLead (<code>active</code>), replied (<code>engaged</code>), or opted out (<code>unsubscribed</code>) are protected</li>
+</ul>
+<p>Kyle was not enrolled likely because Scout scoring happened today and the SmartLead API key may not have been configured, or the pipeline run did not complete the callback step.</p>
+</div>
+
+<h2>Flow Diagram: Before vs After Fixes</h2>
+
+<h3 style="margin-top: 20px;">Before (broken)</h3>
+<div class="flow-box" style="border-color: #fecaca; background: #fef2f2;">
+<pre style="font-size: 13px; line-height: 1.8;">
+User signs up on Truv Dashboard
+    |
+    +---> [IMMEDIATE] Product email from finley@mytruvhub.com
+    |     (No coordination with marketing)
+    |
+    +---> [IMMEDIATE] HubSpot Workflow fires
+    |     Sends 2+ marketing emails over days
+    |     (No check on Scout score, routing, or SmartLead status)
+    |
+    +---> [DELAYED 5-30 min] Scout Pipeline C scores contact
+          |
+          +---> SmartLead Router
+                (BUG: does NOT check lead_routing)
+                +---> Enrolls in SmartLead: 4-6 more emails
+
+RESULT: 8-10+ emails in 30 days from 3 uncoordinated systems
+</pre>
+</div>
+
+<h3 style="margin-top: 20px;">After (with code fixes applied)</h3>
+<div class="flow-box" style="border-color: #bbf7d0; background: #f0fdf4;">
+<pre style="font-size: 13px; line-height: 1.8;">
+User signs up on Truv Dashboard
+    |
+    +---> [IMMEDIATE] Product email from finley@mytruvhub.com
+    |     "Your Truv sandbox is live"
+    |
+    +---> [IMMEDIATE] HubSpot Workflow fires
+    |     (STILL NEEDS: manual HubSpot workflow gating — Fix #2/#3)
+    |
+    +---> [DELAYED 5-30 min] Scout Pipeline C scores contact
+          |
+          +---> Writes tier/routing/score to HubSpot
+          |     NEW: If enterprise, auto-assigns SDR owner (Fix #5)
+          |
+          +---> SmartLead Router
+                FIXED: Skips enterprise/government contacts (Fix #1)
+                FIXED: 48h delay for new contacts (Fix #4)
+                |
+                +---> Only self-service, cold contacts enrolled after 48h
+</pre>
+</div>
+
+<h2>Bugs Found</h2>
+
+<div class="card card-green">
+<h3>Bug 1: SmartLead Router Missing Enterprise Guard <span class="badge badge-green">FIXED</span></h3>
+<p><strong>File:</strong> <code>truv-scout/truv_scout/smartlead_router.py:98-102</code></p>
+<p><strong>Previous behavior:</strong> Only checked <code>outreach_status</code> before enrollment. Enterprise and government-routed contacts were NOT excluded.</p>
+<p><strong>Fix applied:</strong> Contacts with <code>lead_routing = enterprise</code> or <code>lead_routing = government</code> are now SKIPPED from SmartLead auto-enrollment.</p>
+<pre style="background: #f0fdf4; padding: 12px; border-radius: 6px; font-size: 13px; overflow-x: auto; border: 1px solid #bbf7d0;">
+# In route_to_smartlead(), after outreach_status check:
+lead_routing = (result.final_routing or "").lower()
+if lead_routing in {"enterprise", "government"}:
+    logger.info(f"Skipping {result.contact_id}: lead_routing={lead_routing} (manual outreach)")
+    return False
+</pre>
+</div>
+
+<div class="card card-red">
+<h3>Bug 2: HubSpot Workflow Not Gated on Scout Scoring</h3>
+<p><strong>System:</strong> HubSpot workflow "Order workflow Activation Campaign" (ID: 1688270128)</p>
+<p><strong>Current behavior:</strong> Fires immediately on contact creation, sends marketing emails before Scout has scored or routed the contact.</p>
+<p><strong>Expected behavior:</strong> Should either:</p>
+<ol>
+  <li>Wait for <code>scout_scored_at</code> to be populated before sending, OR</li>
+  <li>Only target contacts where <code>lead_routing = self-service</code>, OR</li>
+  <li>Be replaced entirely by the Scout-to-SmartLead pipeline (since SmartLead sequences serve the same purpose)</li>
+</ol>
+<p><strong>Impact:</strong> Every signup gets duplicate nurture from both HubSpot and SmartLead. Enterprise contacts get automated emails that should be manual SDR touches.</p>
+</div>
+
+<div class="card card-amber">
+<h3>Issue 3: No Suppression Between Product and Marketing Emails</h3>
+<p><strong>Current behavior:</strong> Product emails (finley@mytruvhub.com) and marketing emails (HubSpot workflow + SmartLead) fire independently on the same day.</p>
+<p><strong>Expected behavior:</strong> Marketing emails should have a 24-48 hour delay after product onboarding emails to avoid overwhelming new signups.</p>
+</div>
+
+<h2>Recommended Fixes (Priority Order)</h2>
+
+<table>
+  <tr>
+    <th>#</th>
+    <th>Fix</th>
+    <th>Owner</th>
+    <th>Effort</th>
+    <th>Status</th>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td><strong>Add lead_routing guard to SmartLead router</strong><br>Skip enterprise + government contacts from auto-enrollment</td>
+    <td>CMO / Engineering</td>
+    <td>30 min</td>
+    <td><span class="badge badge-green">Done</span><br><code>smartlead_router.py:98-102</code></td>
+  </tr>
+  <tr>
+    <td>2</td>
+    <td><strong>Gate HubSpot workflow on scout_scored_at</strong><br>Add branch: if lead_routing = self-service AND scout_scored_at is known, proceed. Otherwise, wait or skip.</td>
+    <td>CMO (HubSpot)</td>
+    <td>1 hr</td>
+    <td><span class="badge badge-amber">Manual</span><br>HubSpot workflow config</td>
+  </tr>
+  <tr>
+    <td>3</td>
+    <td><strong>Consolidate to single outreach system per contact</strong><br>If SmartLead handles self-service nurture, disable the HubSpot "Order workflow" for dashboard signups entirely. One system per contact.</td>
+    <td>CMO</td>
+    <td>2 hrs</td>
+    <td><span class="badge badge-amber">Manual</span><br>HubSpot workflow config</td>
+  </tr>
+  <tr>
+    <td>4</td>
+    <td><strong>Add 48-hour marketing email delay</strong><br>SmartLead enrollment waits 48 hours after contact creation to let product onboarding emails land first.</td>
+    <td>Engineering</td>
+    <td>1 hr</td>
+    <td><span class="badge badge-green">Done</span><br><code>smartlead_router.py:104-117</code></td>
+  </tr>
+  <tr>
+    <td>5</td>
+    <td><strong>Enterprise contacts: auto-assign HubSpot owner</strong><br>When lead_routing = enterprise, set hubspot_owner_id to the SDR queue. Requires <code>ENTERPRISE_SDR_OWNER_ID</code> env var.</td>
+    <td>CMO / Engineering</td>
+    <td>1 hr</td>
+    <td><span class="badge badge-green">Done</span><br><code>hubspot_writer.py:57-60</code></td>
+  </tr>
+</table>
+
+<h2>Kyle Melvin: What Should Have Happened</h2>
+<div class="card card-green">
+<h3>Correct Flow for Enterprise-Routed Dashboard Signup</h3>
+<ol style="margin-left: 20px;">
+  <li><strong>Day 0:</strong> Kyle signs up. Product email "Your Truv sandbox is live" sends. (Correct)</li>
+  <li><strong>Day 0 + 15 min:</strong> Scout Pipeline C scores Kyle: warm tier, enterprise routing, Encompass match. (Correct)</li>
+  <li><strong>Day 0:</strong> HubSpot properties written. <code>lead_routing = enterprise</code>. HubSpot owner assigned to SDR queue. (Missing: no owner assigned)</li>
+  <li><strong>Day 0:</strong> SmartLead router checks <code>lead_routing = enterprise</code> and SKIPS. (Missing: no routing check)</li>
+  <li><strong>Day 0:</strong> Slack notification to #outreach-intelligence with Encompass greenfield signal. SDR gets the alert. (Correct, if tier was hot)</li>
+  <li><strong>Day 1-3:</strong> SDR sends personalized outreach referencing Encompass and Acrisure's 650-person org. (Not happening: no owner, no routing to sales)</li>
+  <li><strong>No HubSpot marketing workflow emails.</strong> Enterprise contacts are manually worked.</li>
+</ol>
+</div>
+
+<h2>Enrichment Pipeline Summary</h2>
+<div class="card">
+<h3>How Scout Scores Dashboard Signups (Pipeline C)</h3>
+<table>
+  <tr><th>Layer</th><th>What Happens</th><th>Kyle's Result</th></tr>
+  <tr>
+    <td>1. Deterministic</td>
+    <td>Base score from form data + HubSpot properties. +25pt product intent bonus for dashboard signups. Routing classification.</td>
+    <td>Score: 25, Routing: enterprise (650 employees)</td>
+  </tr>
+  <tr>
+    <td>2. Apollo Enrichment</td>
+    <td>Company data (employees, revenue, industry), tech stack matching (LOS/POS), hiring signals.</td>
+    <td>Encompass LOS match, greenfield intent, IMB vertical</td>
+  </tr>
+  <tr>
+    <td>3. Scout Agent (Gemini)</td>
+    <td>AI reasoning over all signals. Adjusts score, sets final tier and confidence.</td>
+    <td>+10 adjustment, high confidence, warm tier</td>
+  </tr>
+  <tr>
+    <td>4. Learning Engine</td>
+    <td>Planned (needs PgVector). Currently skipped.</td>
+    <td>Skipped</td>
+  </tr>
+</table>
+</div>
+
+<h2>Changes Applied (Code)</h2>
+<div class="card card-green">
+<table>
+  <tr><th>File</th><th>Change</th><th>Lines</th></tr>
+  <tr>
+    <td><code>smartlead_router.py</code></td>
+    <td>Enterprise/government routing guard — skips auto-enrollment for high-value contacts</td>
+    <td>98-102</td>
+  </tr>
+  <tr>
+    <td><code>smartlead_router.py</code></td>
+    <td>48-hour delay guard — new contacts skip SmartLead until product onboarding emails have landed</td>
+    <td>104-117</td>
+  </tr>
+  <tr>
+    <td><code>hubspot_writer.py</code></td>
+    <td>Auto-assign <code>hubspot_owner_id</code> to SDR queue when <code>lead_routing = enterprise</code></td>
+    <td>57-60</td>
+  </tr>
+  <tr>
+    <td><code>settings.py</code></td>
+    <td>New setting: <code>ENTERPRISE_SDR_OWNER_ID</code> for SDR queue assignment</td>
+    <td>41</td>
+  </tr>
+</table>
+</div>
+
+<h2>Remaining Manual Actions</h2>
+<div class="card card-amber">
+<ol style="margin-left: 20px;">
+  <li><strong>Set <code>ENTERPRISE_SDR_OWNER_ID</code></strong> in <code>.env</code> — use the HubSpot owner ID for the SDR queue (e.g., Mat: <code>82538538</code>, Chris: <code>81318698</code>)</li>
+  <li><strong>HubSpot workflow 1688270128</strong> — add branch condition: <code>lead_routing = self-service</code> AND <code>scout_scored_at</code> is known. Or disable entirely for dashboard signups if SmartLead handles all nurture.</li>
+  <li><strong>Deploy Scout changes</strong> — the three code fixes are in the working tree, uncommitted.</li>
+</ol>
+</div>
+
+<p style="margin-top: 40px; color: #999; font-size: 12px; text-align: center;">Generated by CMO Agent | TRU-57 | March 30, 2026 | Updated with fix status</p>
+
+</div>
+</body>
+</html>

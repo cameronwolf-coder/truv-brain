@@ -5,6 +5,7 @@ from datetime import datetime, timezone
 
 from outreach_intel.hubspot_client import HubSpotClient
 from truv_scout.models import PipelineResult
+from truv_scout.settings import get_settings
 
 logger = logging.getLogger(__name__)
 
@@ -52,6 +53,12 @@ def write_scores_to_hubspot(result: PipelineResult, source: str = "form_submissi
 
     if tech_matches_str:
         properties["scout_tech_stack_matches"] = tech_matches_str[:500]
+
+    # Auto-assign enterprise contacts to SDR queue owner
+    if result.final_routing == "enterprise":
+        sdr_owner_id = get_settings().enterprise_sdr_owner_id
+        if sdr_owner_id:
+            properties["hubspot_owner_id"] = sdr_owner_id
 
     try:
         client = HubSpotClient()
