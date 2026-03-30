@@ -803,6 +803,128 @@ function HowItWorks() {
 }
 
 // ---------------------------------------------------------------------------
+// Firecrawl scrape tester
+// ---------------------------------------------------------------------------
+
+function FirecrawlScraper() {
+  const [url, setUrl] = useState('');
+  const [scraping, setScraping] = useState(false);
+  const [result, setResult] = useState<{
+    url: string;
+    markdown: string;
+    title: string;
+    description: string;
+    statusCode: number;
+  } | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  const scrape = useCallback(async () => {
+    let target = url.trim();
+    if (!target) return;
+    if (!/^https?:\/\//i.test(target)) target = `https://${target}`;
+
+    setError(null);
+    setResult(null);
+    setScraping(true);
+
+    try {
+      const resp = await fetch('/api/firecrawl-scrape', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ url: target }),
+      });
+      if (!resp.ok) {
+        const body = await resp.json().catch(() => ({}));
+        throw new Error(body.error || body.detail || `HTTP ${resp.status}`);
+      }
+      setResult(await resp.json());
+    } catch (e: any) {
+      setError(e.message || 'Scrape failed');
+    } finally {
+      setScraping(false);
+    }
+  }, [url]);
+
+  const handleKey = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter' && !scraping) scrape();
+  };
+
+  return (
+    <div className="bg-white rounded-2xl border border-gray-200 p-6">
+      <div className="flex items-center gap-2 mb-1">
+        <h2 className="text-base font-semibold text-truv-blue-dark">Scrape with Firecrawl</h2>
+        <span className="px-1.5 py-0.5 rounded text-[10px] font-medium bg-amber-50 text-amber-700 border border-amber-200">Test Tool</span>
+      </div>
+      <p className="text-xs text-gray-500 mb-4">Enter any URL to see the clean markdown that Firecrawl extracts. Useful for testing detection inputs.</p>
+
+      <div className="flex gap-2 mb-4">
+        <input
+          ref={inputRef}
+          value={url}
+          onChange={(e) => setUrl(e.target.value)}
+          onKeyDown={handleKey}
+          placeholder="e.g. https://crosscountrymortgage.com/apply"
+          disabled={scraping}
+          className="flex-1 px-3 py-2 text-sm rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-amber-400/30 focus:border-amber-400 disabled:opacity-50"
+        />
+        <button
+          onClick={scrape}
+          disabled={scraping || !url.trim()}
+          className="px-4 py-2 rounded-lg bg-amber-500 text-white text-sm font-medium hover:bg-amber-600 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+        >
+          {scraping ? 'Scraping…' : 'Scrape'}
+        </button>
+      </div>
+
+      {error && (
+        <p className="text-xs text-red-500 bg-red-50 rounded-lg px-3 py-2 mb-3">{error}</p>
+      )}
+
+      <AnimatePresence>
+        {result && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            className="overflow-hidden"
+          >
+            {/* Metadata */}
+            <div className="flex items-center gap-3 mb-3 text-xs">
+              <span className="px-2 py-0.5 rounded bg-green-50 text-green-700 font-medium">
+                {result.statusCode}
+              </span>
+              {result.title && (
+                <span className="text-gray-600 font-medium truncate max-w-[300px]">{result.title}</span>
+              )}
+              <span className="text-gray-400 ml-auto">{result.markdown.length.toLocaleString()} chars</span>
+            </div>
+
+            {/* Markdown output */}
+            <div className="rounded-lg bg-gray-950 border border-gray-800 overflow-hidden">
+              <div className="flex items-center justify-between px-3 py-2 border-b border-gray-800">
+                <span className="text-[10px] uppercase tracking-wide text-gray-500 font-medium">Markdown Output</span>
+                <button
+                  onClick={() => {
+                    navigator.clipboard.writeText(result.markdown);
+                  }}
+                  className="text-[10px] text-gray-500 hover:text-gray-300 px-2 py-0.5 rounded hover:bg-gray-800 transition-colors"
+                >
+                  Copy
+                </button>
+              </div>
+              <pre className="p-3 text-[11px] leading-5 text-gray-300 font-mono max-h-80 overflow-y-auto whitespace-pre-wrap break-words">
+                {result.markdown || '(no content returned)'}
+              </pre>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+}
+
+// ---------------------------------------------------------------------------
 // Main page
 // ---------------------------------------------------------------------------
 
@@ -920,6 +1042,9 @@ export function LOSPOSDashboard() {
           )}
         </AnimatePresence>
       </div>
+
+      {/* Firecrawl scrape tester */}
+      <FirecrawlScraper />
 
       {/* Detection donut + method breakdown */}
       {stats && (
