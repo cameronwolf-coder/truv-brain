@@ -36,7 +36,17 @@ const PORT = process.env.PORT || process.env.API_PORT || 3001;
 const ALLOWED_ORIGINS = IS_PRODUCTION
   ? ['https://brdytqha8f.us-east-1.awsapprunner.com']
   : ['http://localhost:5173', 'http://127.0.0.1:5173'];
-app.use(helmet());
+app.use(helmet({
+  contentSecurityPolicy: {
+    directives: {
+      ...helmet.contentSecurityPolicy.getDefaultDirectives(),
+      'script-src': ["'self'", 'https://accounts.google.com/gsi/', "'unsafe-inline'"],
+      'frame-src': ["'self'", 'https://accounts.google.com/gsi/'],
+      'connect-src': ["'self'", 'https://accounts.google.com/'],
+      'style-src': ["'self'", 'https://accounts.google.com/gsi/', "'unsafe-inline'"],
+    },
+  },
+}));
 app.use(cors({ origin: ALLOWED_ORIGINS }));
 app.use(rateLimit({
   windowMs: 15 * 60 * 1000,
