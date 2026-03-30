@@ -469,6 +469,8 @@ export function ScoutDashboard() {
           setSsEnrichingIds(new Set(ids));
           let succeeded = 0;
           let failed = 0;
+          let noData = 0;
+          const errors: string[] = [];
           for (const id of ids) {
             const user = ssData!.users.find((u) => u.id === id);
             if (!user) continue;
@@ -485,22 +487,31 @@ export function ScoutDashboard() {
                   domain: user.companyDomain || undefined,
                 }),
               });
-              if (resp.ok) {
+              const result = await resp.json().catch(() => ({}));
+              if (resp.ok && result.success) {
                 succeeded++;
                 setSsEnrichedIds((prev) => new Set([...prev, id]));
+              } else if (resp.ok && !result.success) {
+                noData++;
+                if (result.error) errors.push(`${user.name}: ${result.error}`);
               } else {
                 failed++;
+                if (result.error) errors.push(`${user.name}: ${result.error}`);
               }
-            } catch {
+            } catch (e: any) {
               failed++;
+              errors.push(`${user.name}: ${e.message || 'Network error'}`);
             }
             setSsEnrichingIds((prev) => { const next = new Set(prev); next.delete(id); return next; });
           }
-          if (failed > 0) {
-            setSsEnrichError(`Enriched ${succeeded}/${ids.length} contacts (${failed} failed)`);
+          const parts: string[] = [];
+          if (succeeded > 0) parts.push(`${succeeded} enriched`);
+          if (noData > 0) parts.push(`${noData} no data found`);
+          if (failed > 0) parts.push(`${failed} failed`);
+          if (failed > 0 || noData > 0) {
+            setSsEnrichError(`${parts.join(', ')} of ${ids.length} total${errors.length > 0 ? '. ' + errors[0] : ''}`);
           }
           setSsSelectedIds(new Set());
-          // Refresh data after enrichment
           fetchSelfServiceData();
         };
 
