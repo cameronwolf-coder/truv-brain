@@ -12,7 +12,7 @@ triggers:
 
 # Clay Enrichment Pipeline
 
-Automates the full Clay enrichment workflow via playwright-cli browser automation:
+Automates the full Clay enrichment workflow via dev-browser browser automation:
 **CSV → Clay table → enrich (Full Name, Company URL, Work Email) → HubSpot sync (Lookup → Update or Create)**
 
 ## Prerequisites
@@ -39,13 +39,13 @@ Optional columns: `State`, `Email` (if already known)
 ### Step 1: Launch Browser & Load Auth
 
 ```bash
-playwright-cli -s=clay open https://app.clay.com/workspaces/276559/home --persistent --browser=chrome --headed
+dev-browser -s=clay open https://app.clay.com/workspaces/276559/home --persistent --browser=chrome --headed
 ```
 
 If login page appears, load saved state:
 ```bash
-playwright-cli -s=clay state-load clay-auth.json
-playwright-cli -s=clay goto https://app.clay.com/workspaces/276559/home
+dev-browser -s=clay state-load clay-auth.json
+dev-browser -s=clay goto https://app.clay.com/workspaces/276559/home
 ```
 
 Verify logged in by checking snapshot for "Cam Wolf" in profile menu.
@@ -54,9 +54,9 @@ Verify logged in by checking snapshot for "Cam Wolf" in profile menu.
 
 1. From the home page, click the **"Import data"** card
 2. Select **"Import CSV"** from the dropdown menu
-3. In the file upload dialog, use playwright-cli `upload` command with the CSV path:
+3. In the file upload dialog, use dev-browser `upload` command with the CSV path:
    ```bash
-   playwright-cli -s=clay upload /path/to/file.csv
+   dev-browser -s=clay upload /path/to/file.csv
    ```
 4. Wait for Clay to parse the CSV and show column mapping preview
 5. Take a snapshot to verify columns were detected correctly
@@ -171,7 +171,7 @@ After all columns complete, summarize:
    ```
 
 ### Clay UI Gotchas
-8. **Contenteditable fields** (like "Only run if") can't be cleared with keyboard shortcuts. Use `playwright-cli run-code` to set `el.innerHTML = ''` and dispatch an input event.
+8. **Contenteditable fields** (like "Only run if") can't be cleared with keyboard shortcuts. Use `dev-browser run-code` to set `el.innerHTML = ''` and dispatch an input event.
 9. **Clay auto-update:** Dependent columns auto-run when upstream columns produce results. This can cause cascading runs before you've finished configuring. Always configure ALL columns before running ANY.
 10. **Column sub-field dropdowns:** Click the parent item to expand, then drill into sub-fields. The "N items" indicator shows how many sub-fields exist.
 

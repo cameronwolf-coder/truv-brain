@@ -2,7 +2,7 @@
 Ad Data Exporter — Hybrid API + Browser CSV export from ad platforms.
 
 API-first: Uses platform API tokens from .env when available.
-Browser fallback: Opens playwright-cli for manual auth when API tokens missing.
+Browser fallback: Opens dev-browser for manual auth when API tokens missing.
 
 Usage:
     python -m outreach_intel.ad_exporter meta --days 30
@@ -237,90 +237,157 @@ def export_google_api(days: int = 30) -> str | None:
 # ---------------------------------------------------------------------------
 
 def export_linkedin_api(days: int = 30) -> str | None:
-    """Export LinkedIn Ads data via Marketing API. Returns CSV path or None."""
+    """Export LinkedIn Ads data via Marketing API. Returns CSV path or None.
+
+    Uses LinkedIn REST API with version 202503.
+    Authentication: LINKEDIN_ADS_ACCESS_TOKEN + LINKEDIN_ADS_ACCOUNT_ID in .env.
+    Token refresh: use LINKEDIN_REFRESH_TOKEN with client credentials if token expires.
+
+    Analytics note: LinkedIn's adAnalyticsV2 requires Marketing Developer Platform (MDP)
+    approval on the app. Without MDP, campaign structure is exported (name, status, budget,
+    bid, objective) and analytics columns are left blank. Apply for MDP at:
+    https://www.linkedin.com/developers -> your app -> Products -> Marketing Developer Platform
+    """
     token = os.getenv("LINKEDIN_ADS_ACCESS_TOKEN")
     account_id = os.getenv("LINKEDIN_ADS_ACCOUNT_ID")
 
     if not token or not account_id:
         return None
 
-    start, end = _date_range(days)
+    _LINKEDIN_VERSION = "202503"
+    _HEADERS = {
+        "Authorization": f"Bearer {token}",
+        "LinkedIn-Version": _LINKEDIN_VERSION,
+        "X-Restli-Protocol-Version": "2.0.0",
+    }
 
-    # Get campaigns first
-    campaigns_url = (
-        f"https://api.linkedin.com/rest/adAccounts/{account_id}/adCampaigns"
-        f"?q=search&search=(status:(values:List(ACTIVE,PAUSED)))"
-    )
-    try:
-        req = Request(campaigns_url)
-        req.add_header("Authorization", f"Bearer {token}")
-        req.add_header("LinkedIn-Version", "202401")
-        req.add_header("X-Restli-Protocol-Version", "2.0.0")
-        with urlopen(req) as resp:
-            campaigns_data = json.loads(resp.read().decode())
-    except HTTPError as e:
-        print(f"LinkedIn API error: {e.code} — {e.read().decode()[:200]}")
-        return None
+    def _li_get(url: str) -> dict | None:
+        req = Request(url)
+        for k, v in _HEADERS.items():
+            req.add_header(k, v)
+        try:
+            with urlopen(req) as resp:
+                return json.loads(resp.read().decode())
+        except HTTPError as e:
+            body = e.read().decode()[:300]
+            print(f"LinkedIn API {e.code} @ {url.split('?')[0].split('/')[-1]}: {body}")
+            return None
 
-    campaigns = campaigns_data.get("elements", [])
-    if not campaigns:
+    # ── 1. Campaigns (paginated) ──────────────────────────────────────────────
+    all_campaigns: list[dict] = []
+    start_idx = 0
+    while True:
+        data = _li_get(
+            f"https://api.linkedin.com/rest/adAccounts/{account_id}/adCampaigns"
+            f"?q=search&count=50&start={start_idx}"
+        )
+        if data is None:
+            break
+        elems = data.get("elements", [])
+        all_campaigns.extend(elems)
+        total = data.get("paging", {}).get("total", len(all_campaigns))
+        if start_idx + len(elems) >= total or not elems:
+            break
+        start_idx += len(elems)
+
+    if not all_campaigns:
         print("LinkedIn API: No campaigns found.")
         return None
 
-    # Get analytics for each campaign
-    campaign_ids = [str(c["id"]) for c in campaigns]
-    campaign_names = {str(c["id"]): c.get("name", "") for c in campaigns}
-
-    # Analytics endpoint
-    start_parts = start.split("-")
-    end_parts = end.split("-")
-    analytics_url = (
-        f"https://api.linkedin.com/rest/adAnalytics"
-        f"?q=analytics"
-        f"&dateRange=(start:(year:{start_parts[0]},month:{start_parts[1]},day:{start_parts[2]}),"
-        f"end:(year:{end_parts[0]},month:{end_parts[1]},day:{end_parts[2]}))"
-        f"&timeGranularity=ALL"
-        f"&campaigns=List({','.join(f'urn:li:sponsoredCampaign:{cid}' for cid in campaign_ids)})"
-        f"&pivot=CAMPAIGN"
-        f"&fields=impressions,clicks,costInLocalCurrency,externalWebsiteConversions"
+    # ── 2. Analytics (requires MDP — gracefully skipped if 403) ──────────────
+    analytics_by_campaign: dict[str, dict] = {}
+    start_date, end_date = _date_range(days)
+    s = start_date.split("-")
+    e = end_date.split("-")
+    date_range_param = (
+        f"(start:(year:{s[0]},month:{int(s[1])},day:{int(s[2])}),"
+        f"end:(year:{e[0]},month:{int(e[1])},day:{int(e[2])}))"
     )
-
+    account_urn = quote(f"urn:li:sponsoredAccount:{account_id}")
+    analytics_url = (
+        f"https://api.linkedin.com/v2/adAnalyticsV2"
+        f"?q=analytics"
+        f"&pivot=CAMPAIGN"
+        f"&dateRange={date_range_param}"
+        f"&timeGranularity=ALL"
+        f"&accounts[0]={account_urn}"
+        f"&fields=impressions,clicks,costInLocalCurrency,externalWebsiteConversions,videoViews,pivotValues"
+    )
+    # Use v2 headers (no LinkedIn-Version header needed for v2)
+    v2_req = Request(analytics_url)
+    v2_req.add_header("Authorization", f"Bearer {token}")
+    v2_req.add_header("X-Restli-Protocol-Version", "2.0.0")
     try:
-        req = Request(analytics_url)
-        req.add_header("Authorization", f"Bearer {token}")
-        req.add_header("LinkedIn-Version", "202401")
-        req.add_header("X-Restli-Protocol-Version", "2.0.0")
-        with urlopen(req) as resp:
+        with urlopen(v2_req) as resp:
             analytics_data = json.loads(resp.read().decode())
+        for elem in analytics_data.get("elements", []):
+            pivots = elem.get("pivotValues", [])
+            camp_id = None
+            for pv in pivots:
+                if "sponsoredCampaign:" in pv:
+                    camp_id = pv.split(":")[-1]
+                    break
+            if camp_id:
+                analytics_by_campaign[camp_id] = elem
     except HTTPError as e:
-        print(f"LinkedIn Analytics API error: {e.code} — {e.read().decode()[:200]}")
-        return None
+        err_body = e.read().decode()
+        if e.code == 403:
+            print(
+                "LinkedIn Analytics: 403 ACCESS_DENIED — Marketing Developer Platform (MDP) "
+                "approval required. Exporting campaign structure only. "
+                "Apply at https://www.linkedin.com/developers -> your app -> Products."
+            )
+        else:
+            print(f"LinkedIn Analytics API error: {e.code} — {err_body[:200]}")
 
+    # ── 3. Build CSV rows ─────────────────────────────────────────────────────
     csv_rows = []
-    for elem in analytics_data.get("elements", []):
-        campaign_urn = elem.get("pivot", "")
-        campaign_id = campaign_urn.split(":")[-1] if ":" in campaign_urn else ""
-        impressions = int(elem.get("impressions", 0))
-        clicks = int(elem.get("clicks", 0))
-        spend = float(elem.get("costInLocalCurrency", 0))
-        conversions = int(elem.get("externalWebsiteConversions", 0))
+    for c in all_campaigns:
+        camp_id = str(c.get("id", ""))
+        analytics = analytics_by_campaign.get(camp_id, {})
 
-        ctr = f"{(clicks / impressions * 100):.2f}%" if impressions > 0 else "0%"
-        cpc = f"{(spend / clicks):.2f}" if clicks > 0 else "0"
+        impressions = int(analytics.get("impressions", 0)) if analytics else None
+        clicks = int(analytics.get("clicks", 0)) if analytics else None
+        spend = float(analytics.get("costInLocalCurrency", 0)) if analytics else None
+        conversions = int(analytics.get("externalWebsiteConversions", 0)) if analytics else None
+        video_views = int(analytics.get("videoViews", 0)) if analytics else None
+
+        ctr = f"{(clicks / impressions * 100):.2f}%" if (impressions and clicks) else ""
+        cpc = f"{(spend / clicks):.2f}" if (spend and clicks) else ""
+
+        # Budget and bid
+        daily_budget = c.get("dailyBudget", {})
+        total_budget = c.get("totalBudget", {})
+        budget_amount = daily_budget.get("amount") or total_budget.get("amount", "")
+        budget_type = "daily" if daily_budget else "total" if total_budget else ""
+        unit_cost = c.get("unitCost", {})
+        bid_amount = unit_cost.get("amount", "")
+        cost_type = c.get("costType", "")
+
+        # Run schedule
+        run_schedule = c.get("runSchedule", {})
+        start_ts = run_schedule.get("start")
+        end_ts = run_schedule.get("end")
+        start_str = datetime.fromtimestamp(start_ts / 1000).strftime("%Y-%m-%d") if start_ts else ""
+        end_str = datetime.fromtimestamp(end_ts / 1000).strftime("%Y-%m-%d") if end_ts else "ongoing"
 
         csv_rows.append({
-            "Campaign Name": campaign_names.get(campaign_id, campaign_id),
-            "Impressions": impressions,
-            "Clicks": clicks,
+            "Campaign Name": c.get("name", ""),
+            "Status": c.get("status", ""),
+            "Objective": c.get("objectiveType", ""),
+            "Budget": f"${float(budget_amount):.2f} {budget_type}" if budget_amount else "",
+            "Bid Type": cost_type,
+            "Bid Amount": f"${float(bid_amount):.2f}" if bid_amount else "",
+            "Start Date": start_str,
+            "End Date": end_str,
+            "Impressions": impressions if impressions is not None else "",
+            "Clicks": clicks if clicks is not None else "",
             "CTR": ctr,
             "Average CPC": cpc,
-            "Conversions": conversions,
-            "Total Spent": f"{spend:.2f}",
+            "Video Views": video_views if video_views is not None else "",
+            "Conversions": conversions if conversions is not None else "",
+            "Total Spent": f"{spend:.2f}" if spend is not None else "",
         })
-
-    if not csv_rows:
-        print("LinkedIn API: No analytics data returned.")
-        return None
 
     latest = EXPORTS_DIR / "linkedin-ads-export.csv"
     dated = EXPORTS_DIR / f"linkedin-ads-{_today()}.csv"
@@ -332,7 +399,8 @@ def export_linkedin_api(days: int = 30) -> str | None:
             writer.writeheader()
             writer.writerows(csv_rows)
 
-    print(f"LinkedIn: Exported {len(csv_rows)} campaigns → {latest}")
+    analytics_note = "with analytics" if analytics_by_campaign else "structure only (MDP access needed for metrics)"
+    print(f"LinkedIn: Exported {len(csv_rows)} campaigns ({analytics_note}) → {latest}")
     return str(latest)
 
 
@@ -354,8 +422,8 @@ PROFILE_DIRS = {
 
 
 def _run_pw(session: str, *args) -> str:
-    """Run a playwright-cli command and return output."""
-    cmd = ["playwright-cli", f"-s={session}"] + list(args)
+    """Run a dev-browser command and return output."""
+    cmd = ["dev-browser", f"-s={session}"] + list(args)
     result = subprocess.run(cmd, capture_output=True, text=True, timeout=30)
     return result.stdout + result.stderr
 

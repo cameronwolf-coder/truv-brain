@@ -75,7 +75,7 @@ def _verify_hubspot_hmac(
         return True
 
     payload = f"{method}{uri}{raw_body.decode('utf-8', errors='replace')}{timestamp_str}"
-    expected = hmac.new(
+    expected = hmac.HMAC(
         settings.webhook_secret.encode(),
         payload.encode(),
         hashlib.sha256,
@@ -166,7 +166,7 @@ async def run_batch(
     EventBridge Scheduler calls this nightly at 2am CST.
     """
     token = req.token or x_scout_token or ""
-    if settings.webhook_secret and token != settings.webhook_secret:
+    if settings.webhook_secret and not hmac.compare_digest(token, settings.webhook_secret):
         raise HTTPException(status_code=401, detail="Unauthorized")
 
     limit = min(req.limit, settings.batch_limit_per_run)
@@ -175,22 +175,58 @@ async def run_batch(
 
 
 # ---------------------------------------------------------------------------
+# List-based batch — scan all companies in a HubSpot list
+# ---------------------------------------------------------------------------
+
+class ListBatchRequest(BaseModel):
+    list_id: str
+    force: bool = False
+    token: Optional[str] = None
+
+
+@app.post("/run-list")
+async def run_list_batch(
+    req: ListBatchRequest,
+    background_tasks: BackgroundTasks,
+    x_scout_token: Optional[str] = Header(None),
+):
+    """Trigger a batch scan for all companies in a HubSpot list.
+
+    Use this to scan a curated list like "Top 250 Lenders".
+    Set force=true to re-scan companies that already have LOS/POS data.
+    """
+    token = req.token or x_scout_token or ""
+    if settings.webhook_secret and not hmac.compare_digest(token, settings.webhook_secret):
+        raise HTTPException(status_code=401, detail="Unauthorized")
+
+    background_tasks.add_task(_run_list_background, req.list_id, req.force)
+    return {"status": "started", "list_id": req.list_id, "force": req.force}
+
+
+# ---------------------------------------------------------------------------
 # Ad-hoc scan — used by the dashboard frontend
 # ---------------------------------------------------------------------------
 
 class ScanRequest(BaseModel):
     domain: str
+    use_browser: bool = False
 
 
 @app.post("/scan")
-def scan_domain(req: ScanRequest):
+def scan_domain(
+    req: ScanRequest,
+    x_scout_token: Optional[str] = Header(None),
+):
     """Scan a single domain for LOS/POS — no HubSpot write, returns result directly."""
+    token = x_scout_token or ""
+    if settings.webhook_secret and not hmac.compare_digest(token, settings.webhook_secret):
+        raise HTTPException(status_code=401, detail="Unauthorized")
     domain = req.domain.strip()
     if not domain:
         raise HTTPException(status_code=400, detail="domain is required")
 
     try:
-        result = pipeline.run(company_id="adhoc", raw_domain=domain)
+        result = pipeline.run(company_id="adhoc", raw_domain=domain, use_browser=req.use_browser)
     except Exception as e:
         logger.error(f"Scan error for {domain}: {e}")
         raise HTTPException(status_code=500, detail=str(e))
@@ -204,6 +240,7 @@ def scan_domain(req: ScanRequest):
         "method": result.detection_method,
         "evidence": result.evidence_lines,
         "errors": result.errors,
+        "browser_log": result.browser_log,
     }
 
 
@@ -279,3 +316,75 @@ def _run_batch_background(limit: int) -> None:
                 logger.info(f"Batch progress: {completed}/{len(companies)}")
 
     logger.info(f"Batch run complete: {len(companies)} companies processed")
+
+
+def _run_list_background(list_id: str, force: bool = False) -> None:
+    """Fetch all companies in a HubSpot list and run the detection pipeline."""
+    client = _get_client()
+    from los_pos_bot.hubspot_companies import COMPANY_PROPERTIES
+
+    # Fetch list memberships
+    company_ids: list[str] = []
+    after = None
+    while True:
+        params: dict = {"limit": 100}
+        if after:
+            params["after"] = after
+        try:
+            resp = client.get(f"/crm/v3/lists/{list_id}/memberships", params=params)
+        except Exception as e:
+            logger.error(f"Failed to fetch list {list_id} memberships: {e}")
+            return
+        results = resp.get("results", [])
+        for r in results:
+            rid = str(r) if isinstance(r, (str, int)) else str(r.get("recordId", r.get("vid", "")))
+            if rid:
+                company_ids.append(rid)
+        after = resp.get("paging", {}).get("next", {}).get("after")
+        if not after or not results:
+            break
+
+    logger.info(f"List {list_id}: {len(company_ids)} companies to process (force={force})")
+
+    found = unknown = skipped = 0
+    for i, cid in enumerate(company_ids, 1):
+        try:
+            company = client.get_company(cid, properties=COMPANY_PROPERTIES)
+        except Exception as e:
+            logger.error(f"[{cid}] Failed to fetch company: {e}")
+            skipped += 1
+            continue
+
+        if client.is_manually_corrected(company):
+            skipped += 1
+            continue
+
+        props = company.get("properties", {})
+        if not force and props.get("los_platform") and props["los_platform"] != "Unknown":
+            skipped += 1
+            continue
+
+        raw_domain = client.get_domain_from_company(company)
+        if not raw_domain:
+            skipped += 1
+            continue
+
+        result = pipeline.run(company_id=cid, raw_domain=raw_domain)
+        if result.found:
+            found += 1
+        else:
+            unknown += 1
+
+        writer.write_result(
+            client=client,
+            result=result,
+            review_list_id=settings.hubspot_review_list_id,
+        )
+
+        if i % 25 == 0:
+            logger.info(f"List {list_id} progress: {i}/{len(company_ids)}")
+
+    logger.info(
+        f"List {list_id} complete: {found} found | {unknown} unknown | "
+        f"{skipped} skipped | {len(company_ids)} total"
+    )

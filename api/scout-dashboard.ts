@@ -2,8 +2,9 @@ import type { VercelRequest, VercelResponse } from '@vercel/node';
 
 const HUBSPOT_API_TOKEN = process.env.HUBSPOT_API_TOKEN;
 const HUBSPOT_BASE_URL = 'https://api.hubapi.com';
-const SCOUT_API_URL = process.env.SCOUT_API_URL || 'https://8svutjrjpz.us-east-1.awsapprunner.com';
+const SCOUT_API_URL = process.env.SCOUT_API_URL || (process.env.NODE_ENV === 'production' ? 'http://localhost:8001' : 'https://brdytqha8f.us-east-1.awsapprunner.com/scout');
 const APOLLO_API_KEY = process.env.APOLLO_API_KEY;
+const ECR_CONSOLE_URL = process.env.ECR_CONSOLE_URL || '';
 
 async function hubspotSearch(filters: any[], properties: string[], limit = 50, sorts?: any[]) {
   const body: any = {
@@ -26,10 +27,11 @@ async function hubspotSearch(filters: any[], properties: string[], limit = 50, s
 }
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
-  const allowedOrigins = ['https://truv-brain.vercel.app', 'http://localhost:5173', 'http://127.0.0.1:5173'];
+  const allowedOrigins = ['https://brdytqha8f.us-east-1.awsapprunner.com', 'https://truv-brain.vercel.app', 'http://localhost:5173', 'http://127.0.0.1:5173'];
   const origin = req.headers.origin || '';
-  const corsOrigin = allowedOrigins.includes(origin) ? origin : allowedOrigins[0];
-  res.setHeader('Access-Control-Allow-Origin', corsOrigin);
+  if (allowedOrigins.includes(origin)) {
+    res.setHeader('Access-Control-Allow-Origin', origin);
+  }
   res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
@@ -53,7 +55,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       'how_many_loans_do_you_close_per_year',
       'how_many_applications_do_you_see_per_year_',
       'which_of_these_best_describes_your_job_title_',
-      'how_can_we_help', 'createdate',
+      'how_can_we_help', 'createdate', 'recent_conversion_date',
       'num_associated_deals', 'hs_analytics_source',
     ];
 
@@ -68,11 +70,11 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     // property filters like createdate. ISO strings are rejected and return 0 results.
     const sevenDaysAgoMs = String(Date.now() - 7 * 24 * 60 * 60 * 1000);
     const sortByScoredAt = [{ propertyName: 'scout_scored_at', direction: 'DESCENDING' }];
-    const [pipelineAScout, pipelineAFallback, pipelineB, pipelineC] = await Promise.all([
+    const [pipelineAScout, pipelineAFallback, pipelineARecent, pipelineB, pipelineC, pipelineD] = await Promise.all([
       // A — Scout-confirmed (scout_source + scout_scored_at both set)
       hubspotSearch(
         [{ propertyName: 'scout_scored_at', operator: 'HAS_PROPERTY' }, { propertyName: 'scout_source', operator: 'EQ', value: 'form_submission' }],
-        scoreProps, 15, sortByScoredAt,
+        scoreProps, 25, sortByScoredAt,
       ),
       // A — fallback: recently created with form_fit_score but no scout_scored_at
       hubspotSearch(
@@ -81,23 +83,40 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
           { propertyName: 'createdate', operator: 'GTE', value: sevenDaysAgoMs },
           { propertyName: 'scout_scored_at', operator: 'NOT_HAS_PROPERTY' },
         ],
-        scoreProps, 15,
+        scoreProps, 25,
         [{ propertyName: 'createdate', direction: 'DESCENDING' }],
+      ),
+      // A — catch-all: recent form submissions not yet scored by Scout or HubSpot Workflow.
+      //     Uses recent_conversion_date (form submission timestamp) so leads appear on the
+      //     dashboard immediately, even before the Pipedream→Scout relay processes them.
+      hubspotSearch(
+        [
+          { propertyName: 'recent_conversion_date', operator: 'GTE', value: sevenDaysAgoMs },
+          { propertyName: 'scout_scored_at', operator: 'NOT_HAS_PROPERTY' },
+          { propertyName: 'form_fit_score', operator: 'NOT_HAS_PROPERTY' },
+        ],
+        scoreProps, 15,
+        [{ propertyName: 'recent_conversion_date', direction: 'DESCENDING' }],
       ),
       // B — closed-lost re-engagement
       hubspotSearch(
         [{ propertyName: 'scout_scored_at', operator: 'HAS_PROPERTY' }, { propertyName: 'scout_source', operator: 'EQ', value: 'closed_lost_reengagement' }],
-        scoreProps, 15, sortByScoredAt,
+        scoreProps, 25, sortByScoredAt,
       ),
       // C — dashboard signups
       hubspotSearch(
         [{ propertyName: 'scout_scored_at', operator: 'HAS_PROPERTY' }, { propertyName: 'scout_source', operator: 'EQ', value: 'dashboard_signup' }],
-        scoreProps, 15, sortByScoredAt,
+        scoreProps, 25, sortByScoredAt,
+      ),
+      // D — ROI calculator
+      hubspotSearch(
+        [{ propertyName: 'scout_scored_at', operator: 'HAS_PROPERTY' }, { propertyName: 'scout_source', operator: 'EQ', value: 'roi_calculator' }],
+        scoreProps, 25, sortByScoredAt,
       ),
     ]);
 
-    // Tag fallback Pipeline A contacts with inferred source so the frontend filter works
-    pipelineAFallback.forEach((c: any) => {
+    // Tag fallback and catch-all Pipeline A contacts with inferred source so the frontend filter works
+    [...pipelineAFallback, ...pipelineARecent].forEach((c: any) => {
       if (!c.properties.scout_source) {
         c.properties = { ...c.properties, scout_source: 'form_submission' };
       }
@@ -105,12 +124,12 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
     // Merge all, dedupe by ID, sort by best available timestamp
     const scoredMap = new Map<string, any>();
-    [...pipelineAScout, ...pipelineAFallback, ...pipelineB, ...pipelineC].forEach((c: any) => {
+    [...pipelineAScout, ...pipelineAFallback, ...pipelineARecent, ...pipelineB, ...pipelineC, ...pipelineD].forEach((c: any) => {
       if (!scoredMap.has(c.id)) scoredMap.set(c.id, c);
     });
     const recentlyScored = Array.from(scoredMap.values()).sort((a: any, b: any) => {
-      const aTime = new Date(a.properties?.scout_scored_at || a.properties?.createdate || 0).getTime();
-      const bTime = new Date(b.properties?.scout_scored_at || b.properties?.createdate || 0).getTime();
+      const aTime = new Date(a.properties?.scout_scored_at || a.properties?.recent_conversion_date || a.properties?.createdate || 0).getTime();
+      const bTime = new Date(b.properties?.scout_scored_at || b.properties?.recent_conversion_date || b.properties?.createdate || 0).getTime();
       return bTime - aTime;
     });
 
@@ -303,8 +322,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       slack: { status: slackHealth, name: 'Slack', url: 'https://truv.slack.com/archives/C0A9Y5HLQAF', console: 'https://truv.slack.com/archives/C0A9Y5HLQAF', type: 'Alerts (#outreach-intelligence)' },
       apollo: { status: apolloResult.status, name: 'LOS/POS Bot', url: 'https://app.apollo.io', console: 'https://app.apollo.io', type: 'Tech Detection (Apollo fallback)', rateLimit: apolloResult.rateLimit },
       gemini: { status: process.env.GOOGLE_API_KEY ? 'healthy' as const : 'unreachable' as const, name: 'Gemini 2.0 Flash', url: 'https://aistudio.google.com', console: 'https://aistudio.google.com', type: 'AI Agent (via Agno)' },
-      ecr: { status: scoutHealth, name: 'AWS ECR', url: 'https://us-east-1.console.aws.amazon.com/ecr/repositories/private/968062515708/truv-scout', console: 'https://us-east-1.console.aws.amazon.com/ecr/repositories/private/968062515708/truv-scout', type: 'Container Registry' },
-      vercel: { status: 'healthy' as const, name: 'Vercel', url: 'https://truv-brain.vercel.app', console: 'https://vercel.com/truvhq/truv-brain', type: 'Frontend + API Routes' },
+      ecr: { status: scoutHealth, name: 'AWS ECR', url: ECR_CONSOLE_URL, console: ECR_CONSOLE_URL, type: 'Container Registry' },
+      apprunner: { status: 'healthy' as const, name: 'App Runner', url: 'https://brdytqha8f.us-east-1.awsapprunner.com', console: 'https://us-east-1.console.aws.amazon.com/apprunner/home?region=us-east-1', type: 'Frontend + API + Scout' },
     };
 
     // Format contacts for the feed
@@ -333,7 +352,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         reasoning: p.scout_reasoning || null,
         confidence: p.scout_confidence || null,
         source,
-        scoredAt: p.scout_scored_at || p.createdate || null,
+        scoredAt: p.scout_scored_at || p.recent_conversion_date || p.createdate || null,
         techMatches: p.scout_tech_stack_matches || null,
         lastVisit: p.hs_analytics_last_visit_timestamp || null,
         lastVisitUrl: p.hs_analytics_last_url || null,

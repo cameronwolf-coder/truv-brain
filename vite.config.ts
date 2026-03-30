@@ -11,14 +11,19 @@ export default defineConfig({
     },
   },
   define: {
-    __GIT_COMMIT_SHA__: JSON.stringify(process.env.VERCEL_GIT_COMMIT_SHA || 'dev'),
-    __GIT_COMMIT_MESSAGE__: JSON.stringify(process.env.VERCEL_GIT_COMMIT_MESSAGE || ''),
+    __GIT_COMMIT_SHA__: JSON.stringify(process.env.GIT_SHA || process.env.VERCEL_GIT_COMMIT_SHA || 'dev'),
+    __GIT_COMMIT_MESSAGE__: JSON.stringify(process.env.GIT_COMMIT_MESSAGE || process.env.VERCEL_GIT_COMMIT_MESSAGE || ''),
   },
   server: {
     proxy: {
       '/api': {
         target: 'http://localhost:3001',
         changeOrigin: true,
+      },
+      '/los-pos': {
+        target: 'https://em8y3yp3qk.us-east-1.awsapprunner.com',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/los-pos/, ''),
       },
     },
   },

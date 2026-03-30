@@ -193,6 +193,21 @@ export function Layout() {
             </li>
             <li>
               <NavLink
+                to="/presentations"
+                className={({ isActive }) =>
+                  `flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
+                    isActive
+                      ? 'bg-blue-50 text-blue-700'
+                      : 'text-gray-700 hover:bg-gray-100'
+                  }`
+                }
+              >
+                <span className="text-lg">📽️</span>
+                Presentations
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
                 to="/data-enrichment"
                 className={({ isActive }) =>
                   `flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
@@ -251,18 +266,6 @@ export function Layout() {
                 Video Editor
               </NavLink>
             </li>
-            <li>
-              <a
-                href="https://github.com/cameronwolf-coder/truv-brain"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-100 transition-colors"
-              >
-                <span className="text-lg">📁</span>
-                GitHub
-                <span className="text-xs text-gray-400 ml-auto">↗</span>
-              </a>
-            </li>
           </ul>
 
           {/* Showcase */}
@@ -309,21 +312,6 @@ export function Layout() {
           </NavLink>
         </div>
 
-        {/* Git Status */}
-        {__GIT_COMMIT_SHA__ !== 'dev' && (
-          <div className="px-4 pb-3">
-            <a
-              href={`https://github.com/cameronwolf-coder/truv-brain/commit/${__GIT_COMMIT_SHA__}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 px-3 py-2 rounded-lg text-xs text-gray-400 hover:text-gray-600 hover:bg-gray-50 transition-colors"
-              title={__GIT_COMMIT_MESSAGE__ || 'View commit on GitHub'}
-            >
-              <span className="w-2 h-2 rounded-full bg-green-400" />
-              <span className="font-mono">{__GIT_COMMIT_SHA__.slice(0, 7)}</span>
-            </a>
-          </div>
-        )}
       </aside>
 
       {/* Main Content */}

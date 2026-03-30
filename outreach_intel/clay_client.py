@@ -3,7 +3,7 @@
 Clay has no official public API. This client hits Clay's internal endpoints
 using a session cookie for authentication. The cookie expires every few days;
 refresh it from browser DevTools → Application → Cookies → claysession,
-or re-save playwright state: `playwright-cli -s=clay state-save clay-auth.json`
+or re-save playwright state: `dev-browser -s=clay state-save clay-auth.json`
 
 Cookie resolution order:
 1. Explicit session_cookie argument
@@ -84,7 +84,7 @@ class ClayClient:
             raise ValueError(
                 "Session cookie required. Options:\n"
                 "  1. Set CLAY_SESSION_COOKIE in .env\n"
-                "  2. Save playwright state: playwright-cli -s=clay state-save clay-auth.json\n"
+                "  2. Save playwright state: dev-browser -s=clay state-save clay-auth.json\n"
                 "  3. Pass session_cookie= directly"
             )
         self.workspace_id = workspace_id
@@ -238,7 +238,7 @@ class ClayClient:
     # ── Enrichment ────────────────────────────────────────────────────
     # NOTE: Clay's v3 REST API does not expose a trigger-enrichment endpoint.
     # Enrichment columns must be triggered via the Clay UI or browser automation
-    # (playwright-cli). The clay-enrichment skill handles this via the UI.
+    # (dev-browser). The clay-enrichment skill handles this via the UI.
     # If Clay adds this endpoint in the future, uncomment and adjust below.
     #
     # def trigger_enrichment(self, table_id, field_ids, record_ids):

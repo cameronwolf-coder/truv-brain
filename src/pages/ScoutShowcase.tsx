@@ -20,7 +20,7 @@ const PIPELINES = {
     details: [
       'Triggers on any "Get Started" form submission in HubSpot',
       'Pipedream relays the contactId to Scout with x-scout-token auth',
-      'Full 4-layer pipeline: deterministic score → Apollo → Agno agent → write-back',
+      'Full 4-layer pipeline: deterministic score → LOS/POS Bot → Agno agent → write-back',
       'Hot or enterprise leads post to #outreach-intelligence in Slack',
       'Scoring weights: Form Fit 35%, Deal Context 20%, External 20%, Engagement 15%, Timing 10%',
     ],
@@ -279,7 +279,7 @@ export function ScoutShowcase() {
           <div className="space-y-2">
             {[
               { n: '1', title: 'Deterministic Scorer', desc: 'Form fit, engagement, timing, deal context, external triggers', color: 'bg-blue-100 text-blue-700' },
-              { n: '2', title: 'Apollo Enrichment', desc: 'Firmographics, tech stack (LOS/POS + VOI/VOE), hiring signals', color: 'bg-cyan-100 text-cyan-700' },
+              { n: '2', title: 'LOS/POS Bot', desc: 'Tech stack detection (LOS/POS + VOI/VOE), Apollo fallback for firmographics', color: 'bg-cyan-100 text-cyan-700' },
               { n: '3', title: 'Agno Agent (Gemini 2.0)', desc: '5 tools, ICP rules, ±15pt adjustment with reasoning', color: 'bg-purple-100 text-purple-700' },
               { n: '4', title: 'Write-back + Alerts', desc: '8 HubSpot properties + Slack #outreach-intelligence', color: 'bg-green-100 text-green-700' },
             ].map((l) => (
@@ -341,7 +341,7 @@ export function ScoutShowcase() {
             <div className="flex justify-center text-gray-300 text-xs mb-2">↓ ↓ ↓</div>
             <div className="p-3 rounded-lg border-2 border-blue-200 bg-blue-50 text-center mb-2">
               <p className="text-xs font-bold text-gray-900">Scout Scoring Engine (FastAPI on AWS App Runner)</p>
-              <p className="text-[10px] text-gray-500">Deterministic → Apollo.io → Agno/Gemini → Write-back</p>
+              <p className="text-[10px] text-gray-500">Deterministic → LOS/POS Bot → Agno/Gemini → Write-back</p>
             </div>
             <div className="flex justify-center text-gray-300 text-xs mb-2">↓</div>
             <div className="grid grid-cols-2 gap-3">

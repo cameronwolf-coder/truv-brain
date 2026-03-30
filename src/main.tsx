@@ -14,6 +14,7 @@ import { EmailBuilder } from './pages/EmailBuilder';
 import { ListBuilder } from './pages/ListBuilder';
 import { SmartListBuilder } from './pages/SmartListBuilder';
 import { ROIGenerator } from './pages/ROIGenerator';
+import { Presentations } from './pages/Presentations';
 import { ABMBuilder } from './pages/ABMBuilder';
 import { DataEnrichment } from './pages/DataEnrichment';
 import { ExpertReview } from './pages/ExpertReview';
@@ -77,6 +78,10 @@ const router = createBrowserRouter([
       {
         path: 'roi-generator',
         element: <ROIGenerator />,
+      },
+      {
+        path: 'presentations',
+        element: <Presentations />,
       },
       {
         path: 'abm-builder',

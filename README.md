@@ -1,250 +1,229 @@
 # Truv Brain
 
-The central knowledge base and automation hub for Truv's go-to-market teams.
+Truv's GTM automation platform. Houses marketing intelligence, lead scoring, campaign orchestration, and internal dashboards in one monorepo.
 
-**What's inside:** Brand guidelines, customer proof points, competitive positioning, campaign frameworks, and automation tools.
-
----
-
-## What You'll Find Here
-
-### For Sales
-| Resource | What It Does | Location |
-|----------|--------------|----------|
-| **Customer Proof Points** | Verified metrics and quotes from 15 customer stories, organized by vertical | `docs/content-reference.md` |
-| **Pain Point → Feature Mapping** | Objection handling with specific data points | `docs/plans/2026-01-22-cold-email-framework-design.md` |
-| **Competitive Positioning** | Key differentiators vs TWN and other providers | `docs/brand-guidelines.md` |
-| **Vertical Messaging** | Tailored value props for Mortgage, Consumer Lending, Auto, etc. | `docs/brand-guidelines.md` |
-
-### For Marketing
-| Resource | What It Does | Location |
-|----------|--------------|----------|
-| **Brand Voice Guidelines** | Tone, style, do's and don'ts for all content | `docs/brand-guidelines.md` |
-| **Email Templates** | 3-touch cold outreach framework with proven structure | `docs/plans/2026-01-22-cold-email-framework-design.md` |
-| **Segmentation Matrix** | Vertical × Objection × Persona targeting framework | `docs/plans/2026-01-22-cold-email-framework-design.md` |
-| **Visual Identity** | Colors, typography, logo usage | `docs/brand-guidelines.md` |
-
-### For RevOps
-| Resource | What It Does | Location |
-|----------|--------------|----------|
-| **Contact Scoring Tool** | Identifies high-potential dormant contacts in HubSpot | `outreach_intel/` |
-| **Automated Outreach Lists** | Weekly scored contact lists delivered to Slack | Pipedream workflow |
-| **Campaign Segmentation** | Framework for tagging and routing contacts | `docs/plans/2026-01-22-cold-email-framework-design.md` |
+**Stack:** React 19 + TypeScript + Vite | Express API | Python (outreach + agents) | AWS App Runner + Vercel
 
 ---
 
-## Knowledge Base Contents
+## Architecture
 
-### Brand & Messaging
-
-**`docs/brand-guidelines.md`** — The source of truth for how Truv communicates.
-
-- **Voice:** Confident, clear, professional but approachable
-- **Messaging Pillars:** Cost savings, speed, data quality, conversion, all-in-one platform
-- **Visual Identity:** Truv Blue (`#2C64E3`), Gilroy font, design patterns
-- **Email Structure:** REASON + PROBLEM → VALUE + PROOF → CTA
-- **Terminology:** Preferred terms, acronyms, product naming
-- **Competitive Language:** How to position against TWN and instant databases
-
-### Customer Proof Points
-
-**`docs/content-reference.md`** — 15 customer stories with verified, quotable metrics.
-
-| Customer | Vertical | Key Metric | Quote Available |
-|----------|----------|------------|-----------------|
-| CrossCountry Mortgage | Mortgage | $10M/year savings | Yes |
-| AmeriSave | Mortgage | 80% savings vs TWN | Yes |
-| First Continental | Mortgage | 4-hour support response | Yes |
-| MortgageRight | Mortgage | 80% cost savings | Yes |
-| Compass Mortgage | Mortgage | 60-80% savings | Yes |
-| AFCU | Credit Union | 80% savings, 65% conversion | Yes |
-| HFS Financial | Consumer Lending | +15% fraud detection | Yes |
-| TurboPass | Auto Lending | 1.5 days faster funding | Yes |
-| Piedmont | Payment Services | 90% reduction in manual tasks | Yes |
-| B9 | Fintech | +12% funds deposited | Yes |
-
-**Use these for:** Sales decks, case study references, email proof points, competitive objection handling.
-
-### Campaign Frameworks
-
-**`docs/plans/2026-01-22-cold-email-framework-design.md`** — Complete playbook for closed-lost re-engagement.
-
-**Segmentation Matrix:**
 ```
-Vertical (5)          ×    Objection (5)         ×    Persona (4)
-─────────────────────────────────────────────────────────────────
-Mortgage                   Price/Budget               VP/Director Ops
-Consumer Lending           Timing/Roadmap             CTO/VP Engineering
-Auto Lending               Competitor Chosen          CFO/Finance
-Background Screening       Internal Bandwidth         CEO/Founder
-Tenant Screening           No Decision
+truv-brain/
+├── src/                        # React web app (dashboards, tools, builders)
+├── api/                        # Express API routes (HubSpot, Scout, email, ads)
+├── server.ts                   # Express server (port 3001)
+│
+├── truv-scout/                 # AI lead scoring agent (AWS App Runner)
+│   └── truv_scout/             # Python package — pipeline, scoring, HubSpot sync
+│
+├── outreach_intel/             # Python outreach tools
+│   ├── hubspot_client.py       # HubSpot API client (contacts, deals, companies)
+│   ├── scorer.py               # Dormant/closed-lost contact scoring
+│   ├── ad_exporter.py          # Meta/Google/LinkedIn ad data export
+│   ├── clay_client.py          # Clay enrichment integration
+│   ├── smartlead_uploader.py   # Cold outreach lead upload
+│   └── cli.py                  # CLI interface
+│
+├── los-pos-bot/                # LOS/POS tech stack detector (Apollo-powered)
+│   └── los_pos_bot/            # Python package — pipeline, normalizer, HubSpot writer
+│
+├── docs/
+│   ├── email-templates/        # SendGrid HTML templates
+│   ├── landing-pages/          # Gated landing pages
+│   ├── customer-stories/       # Case study PDFs and pages
+│   ├── ad-creative/            # LinkedIn and Meta ad mockups
+│   ├── knowledge-base/         # Products, personas, proof points, voice guide
+│   ├── plans/                  # Implementation plans
+│   ├── reports/                # Weekly reports
+│   └── presentations/          # Decks and documents
+│
+├── branding/                   # Logos, fonts, color specs
+├── pipedream/                  # Pipedream workflow code (HubSpot events, SmartLead)
+├── scripts/                    # One-off scripts (HubSpot snapshot, badge upload)
+├── agents/                     # AI agent configs (CMO, etc.)
+├── exports/                    # Ad platform CSV exports
+├── figma-plugin/               # Truv Ad Generator Figma plugin
+├── sendgrid-mcp/               # SendGrid MCP server
+├── tests/                      # Python test suite
+└── public/                     # Static assets (Gilroy fonts, logos)
 ```
-
-**Pain Point Mapping:** Each objection type maps to specific Truv features with verified proof points.
-
-**Email Templates:** 3-touch sequence (Day 1, 4, 9) with Clay personalization zones.
 
 ---
 
-## Data Sources
+## Quick Start
 
-All content is scraped and verified from primary sources.
+### Web App (Dashboards + API)
 
-### Website Scraping (Firecrawl)
-
-Extracted from truv.com using [Firecrawl](https://firecrawl.dev):
-
-| Source | Pages | Data Extracted |
-|--------|-------|----------------|
-| Product pages | ~15 | Value props, feature descriptions, messaging |
-| Customer stories | 15 | Metrics, quotes, use cases by vertical |
-| Blog posts | 10 | Product updates, thought leadership |
-| Pricing page | 1 | Tier structure, feature comparison |
-
-**Process:**
-```
-firecrawl_map (discover URLs) → firecrawl_scrape (extract markdown) → manual curation → docs/
-```
-
-### HubSpot Integration
-
-Contact and deal data for outreach automation:
-- Lifecycle stage and deal history
-- Email engagement (opens, clicks)
-- "Why deal fell through" for objection tagging
-
----
-
-## Automation Tools
-
-### Outreach Intelligence
-
-Python tool that scores dormant HubSpot contacts for re-engagement.
-
-**Scoring Model:**
-| Signal | Weight | What It Measures |
-|--------|--------|------------------|
-| Engagement | 25% | Email opens/clicks recency |
-| Timing | 25% | Days since last activity |
-| Deal Context | 30% | Lifecycle stage, deal outcome |
-| External Triggers | 20% | Job changes, company news |
-
-**CLI Usage:**
 ```bash
-source venv/bin/activate
-
-# Get top dormant contacts
-python -m outreach_intel.cli dormant --limit 25
-
-# Get closed-lost contacts
-python -m outreach_intel.cli closed-lost --limit 25
-
-# Create HubSpot list
-python -m outreach_intel.cli create-list dormant "Campaign Name" --limit 50
+npm install
+npm run dev:local    # Starts Express (3001) + Vite (5173) concurrently
 ```
 
-**Automated Workflow:**
-- Runs every Friday 7:30 AM CST via Pipedream
-- Posts top contacts to `#outreach-intelligence` Slack channel
-- Creates HubSpot list for campaign execution
+> `npm run dev` starts Vite only. API routes require `dev:local`.
+
+### Python Tools
+
+```bash
+python -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+
+# Outreach Intelligence
+python -m outreach_intel.cli dormant --limit 25
+python -m outreach_intel.cli closed-lost --limit 25
+python -m outreach_intel.cli create-list dormant "Campaign Name" --limit 50
+
+# Tests
+pytest tests/ -v
+```
+
+### Truv Scout (standalone)
+
+```bash
+cd truv-scout
+pip install -r requirements.txt
+python -m truv_scout.app       # FastAPI on port 8000
+```
+
+Production: deployed to AWS App Runner via `deploy.sh`.
 
 ---
 
-## Quick Reference
+## Core Systems
 
-### Key Stats to Know
+### Truv Scout — AI Lead Scoring Agent
 
-| Stat | Context |
-|------|---------|
-| **80%** | Cost savings vs The Work Number |
-| **96%** | US workforce coverage |
-| **$350** | Savings per closed loan |
-| **65-70%** | Typical conversion rates |
-| **<1 month** | Implementation time |
-| **4 hours** | Support response time |
+Scores self-service dashboard signups, closed-lost re-engagements, and form submissions through a multi-layer enrichment pipeline.
 
-### Product Names (Correct Capitalization)
+| Layer | What It Does |
+|-------|-------------|
+| HubSpot lookup | Pull existing CRM data, deal history |
+| Company enrichment | Firmographics, tech stack, industry |
+| AI scoring (Gemini) | ICP fit score, buying signals, recommended action |
+| HubSpot write-back | Update contact properties, create tasks |
+| Slack notification | Alert sales in #sales-dashboard-signups |
+| SmartLead routing | Route qualified leads to cold outreach sequences |
 
-- Truv (not TRUV or truv)
-- Truv Bridge (SDK/widget)
-- Truv Dashboard (admin portal)
-- Truv Waterfall (multi-method verification)
-- Fannie Mae / Freddie Mac (two words each)
-- Encompass® (with ® first mention)
+**Pipelines:** `form_submission`, `closed_lost_reengagement`, `dashboard_signup`
 
-### Verticals We Serve
+**Deployed at:** AWS App Runner (ECR image)
 
-1. **Mortgage Lending** — Most case studies, strongest proof points
-2. **Consumer Lending** — HFS, Piedmont stories
-3. **Auto Lending** — TurboPass story
-4. **Background Screening** — Use general stats
-5. **Tenant Screening** — Use general stats
-6. **Retail Banking** — DDS focus
+### Outreach Intelligence — Contact Scoring
+
+Scores dormant HubSpot contacts for re-engagement campaigns.
+
+| Signal | Weight |
+|--------|--------|
+| Engagement (opens/clicks) | 25% |
+| Timing (days since activity) | 25% |
+| Deal Context (lifecycle, outcome) | 30% |
+| External Triggers (job changes) | 20% |
+
+Runs weekly via Pipedream, posts to `#outreach-intelligence` Slack channel.
+
+### Ad Performance Loop
+
+Export -> Analyze -> Generate -> Launch -> Measure -> Repeat.
+
+```bash
+# Export ad data (Meta API, Google/LinkedIn via browser)
+python -m outreach_intel.ad_exporter meta --days 30
+python -m outreach_intel.ad_exporter all --days 30
+```
+
+CSVs land in `exports/`. Analysis and copy generation run through Claude Code skills.
+
+### LOS/POS Bot — Lender Tech Stack Detection
+
+Detects loan origination and point-of-sale systems at mortgage companies using Apollo data, then writes findings back to HubSpot company records.
+
+```bash
+cd los-pos-bot
+python -m los_pos_bot.cli scan --limit 50
+```
+
+---
+
+## Web App Pages
+
+| Route | Page | Purpose |
+|-------|------|---------|
+| `/` | Home | Navigation hub |
+| `/scout-dashboard` | Scout Dashboard | Real-time Truv Scout pipeline monitoring |
+| `/showcase/scout` | Scout Showcase | Card-based pipeline navigation |
+| `/los-pos-dashboard` | LOS/POS Dashboard | Lender tech stack data |
+| `/data-enrichment` | Data Enrichment | AI company enrichment (4 agents, SSE) |
+| `/list-builder` | List Builder | HubSpot list creation |
+| `/smart-list-builder` | Smart List Builder | Advanced segmented lists |
+| `/email-builder` | Email Builder | Template editor |
+| `/email-performance` | Email Performance | SendGrid analytics |
+| `/hub` | Marketing Hub | Campaign management |
+| `/brand` | Brand | Guidelines and assets |
+| `/products` | Products | Product reference |
+| `/personas` | Personas | Buyer persona library |
+| `/proof-points` | Proof Points | Customer metrics |
+| `/campaigns` | Campaigns | Campaign tracker |
+| `/roi-generator` | ROI Generator | Sales enablement calculator |
+| `/video-editor` | Video Editor | Webinar clip tool |
 
 ---
 
 ## Integrations
 
-| Service | Purpose |
-|---------|---------|
-| **Firecrawl** | Website scraping for content extraction |
-| **HubSpot** | Contact/deal data, list management |
-| **Slack** | Notifications and alerts |
-| **Pipedream** | Workflow automation |
-| **Clay** | Email personalization at scale |
-| **Knock/Sendgrid** | Email delivery and tracking |
+| Service | Role | Config |
+|---------|------|--------|
+| **HubSpot** | CRM — contacts, deals, companies, lists | `outreach_intel/hubspot_client.py` |
+| **SendGrid** | Email delivery, templates | `sendgrid-mcp/` |
+| **Knock** | Workflow orchestration, email triggers | MCP + Management API |
+| **Smartlead** | Cold outreach sequences | `outreach_intel/smartlead_uploader.py` |
+| **Clay** | CSV enrichment, work email lookup | `outreach_intel/clay_client.py` |
+| **Pipedream** | Event-driven workflow automation | `pipedream/` |
+| **Slack** | Notifications, alerts | Scout + Outreach Intel |
+| **Apollo** | Company/people data for LOS/POS bot | `los-pos-bot/` |
+| **Meta Ads API** | Ad performance export | `outreach_intel/ad_exporter.py` |
+| **Firecrawl** | Website scraping for content | AI enrichment agents |
+| **Cloudinary** | Email image hosting | Authenticated uploads |
 
 ---
 
-## Project Structure
+## Email Two-Lane Architecture
 
-```
-truv-brain/
-├── docs/
-│   ├── brand-guidelines.md      # Voice, visual identity, messaging
-│   ├── content-reference.md     # Customer stories and proof points
-│   └── plans/                   # Campaign and feature designs
-├── outreach_intel/              # Contact scoring automation
-│   ├── cli.py                   # Command line interface
-│   ├── service.py               # Query interface
-│   ├── scorer.py                # Scoring engine
-│   └── hubspot_client.py        # HubSpot API client
-├── branding/                    # Brand assets and images
-└── tests/                       # Test suite
-```
+Contacts are never in both lanes simultaneously. The `outreach_status` HubSpot property controls routing:
+
+| Status | Lane | System |
+|--------|------|--------|
+| *(empty)* | Cold outreach eligible | Smartlead |
+| `active` | In cold sequence | Smartlead |
+| `exhausted` | Marketing nurture | Knock/SendGrid |
+| `engaged` | Sales working | Neither (manual) |
 
 ---
 
-## Setup
+## Key Reference Files
 
-```bash
-git clone https://github.com/cameronwolf-coder/truv-brain.git
-cd truv-brain
-python -m venv venv
-source venv/bin/activate
-pip install -r requirements.txt
-export HUBSPOT_ACCESS_TOKEN=your_token
-```
+| File | Purpose |
+|------|---------|
+| `CLAUDE.md` | AI assistant instructions, CLI commands, design tokens |
+| `docs/knowledge-base/` | Products, personas, proof points, voice guide |
+| `docs/email-templates/` | SendGrid HTML templates |
+| `docs/plans/` | Campaign and feature implementation plans |
+| `branding/` | Logos, Gilroy fonts, color palette |
 
 ---
 
-## Contributing
+## Deployment
 
-To update content:
-1. **New customer story** → Add to `docs/content-reference.md`
-2. **Brand changes** → Update `docs/brand-guidelines.md`
-3. **New campaign framework** → Add to `docs/plans/`
-
-To refresh from truv.com:
-```bash
-# Use Firecrawl MCP in Claude Code
-firecrawl_scrape(url="https://truv.com/customers/new-story", formats=["markdown"])
-```
+| Component | Platform | Details |
+|-----------|----------|---------|
+| Web app + API | Vercel | Auto-deploy from main |
+| Truv Scout | AWS App Runner | ECR container, `deploy.sh` |
+| Pipedream workflows | Pipedream | GTM Automation project |
 
 ---
 
 ## Owner
 
-**Cameron Wolf** — Sr. Marketing Manager
+**Cameron Wolf** — Sr. Marketing Manager, Truv
 
-Questions? Slack `#marketing` or email cameron@truv.com
+Slack: `#marketing` | Email: cameron@truv.com
