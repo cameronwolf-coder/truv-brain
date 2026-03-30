@@ -235,6 +235,9 @@ export function ScoutDashboard() {
   const [ssListName, setSsListName] = useState('');
   const [ssListCreating, setSsListCreating] = useState(false);
   const [ssListResult, setSsListResult] = useState<{ url: string; count: number } | null>(null);
+  const [ssEnrichingIds, setSsEnrichingIds] = useState<Set<string>>(new Set());
+  const [ssEnrichedIds, setSsEnrichedIds] = useState<Set<string>>(new Set());
+  const [ssEnrichError, setSsEnrichError] = useState<string | null>(null);
 
   const fetchTrace = useCallback(async (contactId: string) => {
     setTraceLoading(true);
@@ -460,6 +463,47 @@ export function ScoutDashboard() {
           }
         };
 
+        const handleSsEnrich = async () => {
+          setSsEnrichError(null);
+          const ids = Array.from(ssSelectedIds);
+          setSsEnrichingIds(new Set(ids));
+          let succeeded = 0;
+          let failed = 0;
+          for (const id of ids) {
+            const user = ssData!.users.find((u) => u.id === id);
+            if (!user) continue;
+            try {
+              const resp = await fetch('/api/enrich-contact', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                  contactId: id,
+                  email: user.email || undefined,
+                  firstname: user.name.split(' ')[0] || undefined,
+                  lastname: user.name.split(' ').slice(1).join(' ') || undefined,
+                  company: user.company || undefined,
+                  domain: user.companyDomain || undefined,
+                }),
+              });
+              if (resp.ok) {
+                succeeded++;
+                setSsEnrichedIds((prev) => new Set([...prev, id]));
+              } else {
+                failed++;
+              }
+            } catch {
+              failed++;
+            }
+            setSsEnrichingIds((prev) => { const next = new Set(prev); next.delete(id); return next; });
+          }
+          if (failed > 0) {
+            setSsEnrichError(`Enriched ${succeeded}/${ids.length} contacts (${failed} failed)`);
+          }
+          setSsSelectedIds(new Set());
+          // Refresh data after enrichment
+          fetchSelfServiceData();
+        };
+
         return (
           <div className="mb-6">
             {/* Summary cards */}
@@ -527,8 +571,10 @@ export function ScoutDashboard() {
                   <option value="cold">Cold</option>
                 </select>
                 <span className="text-xs text-gray-400 ml-2">{filtered.length} users</span>
+                {ssEnrichError && <span className="text-xs text-amber-600 ml-2">{ssEnrichError} <button onClick={() => setSsEnrichError(null)} className="underline">dismiss</button></span>}
               </div>
               <div className="flex items-center gap-2">
+                {ssEnrichingIds.size > 0 && <span className="text-xs text-blue-600 animate-pulse">Enriching {ssEnrichingIds.size} left...</span>}
                 <button
                   onClick={fetchSelfServiceData}
                   className="px-3 py-1.5 rounded-lg text-xs font-medium bg-gray-100 text-gray-700 hover:bg-gray-200"
@@ -536,12 +582,21 @@ export function ScoutDashboard() {
                   Refresh
                 </button>
                 {ssSelectedIds.size > 0 && (
-                  <button
-                    onClick={() => { setSsListModalOpen(true); setSsListResult(null); setSsListName(`Self-Service Users — ${new Date().toLocaleDateString()}`); }}
-                    className="px-3 py-1.5 rounded-lg text-xs font-medium bg-truv-blue text-white hover:bg-blue-700 transition-colors"
-                  >
-                    Add {ssSelectedIds.size} to HubSpot List
-                  </button>
+                  <>
+                    <button
+                      onClick={handleSsEnrich}
+                      disabled={ssEnrichingIds.size > 0}
+                      className="px-3 py-1.5 rounded-lg text-xs font-medium bg-amber-500 text-white hover:bg-amber-600 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                    >
+                      {ssEnrichingIds.size > 0 ? `Enriching (${ssEnrichingIds.size} left)...` : `Enrich ${ssSelectedIds.size} via Apollo`}
+                    </button>
+                    <button
+                      onClick={() => { setSsListModalOpen(true); setSsListResult(null); setSsListName(`Self-Service Users — ${new Date().toLocaleDateString()}`); }}
+                      className="px-3 py-1.5 rounded-lg text-xs font-medium bg-truv-blue text-white hover:bg-blue-700 transition-colors"
+                    >
+                      Add {ssSelectedIds.size} to HubSpot List
+                    </button>
+                  </>
                 )}
               </div>
             </div>
@@ -571,7 +626,7 @@ export function ScoutDashboard() {
                     <tr><td colSpan={11} className="px-4 py-8 text-center text-gray-400 text-sm">No self-service users match current filters</td></tr>
                   ) : (
                     filtered.map((u) => (
-                      <tr key={u.id} className={`hover:bg-gray-50 transition-colors ${ssSelectedIds.has(u.id) ? 'bg-blue-50' : ''}`}>
+                      <tr key={u.id} className={`hover:bg-gray-50 transition-colors ${ssEnrichingIds.has(u.id) ? 'bg-amber-50 animate-pulse' : ssEnrichedIds.has(u.id) ? 'bg-green-50' : ssSelectedIds.has(u.id) ? 'bg-blue-50' : ''}`}>
                         <td className="px-3 py-2">
                           <input type="checkbox" checked={ssSelectedIds.has(u.id)} onChange={() => ssToggleOne(u.id)} className="rounded border-gray-300" />
                         </td>

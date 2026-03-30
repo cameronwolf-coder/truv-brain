@@ -66,7 +66,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     const allResults: any[] = [];
     let after: string | undefined;
     let pages = 0;
-    const maxPages = 5; // Cap at 500 contacts
+    const maxPages = 100; // HubSpot search returns max 10,000 results
 
     do {
       const { results, paging } = await hubspotSearch(
