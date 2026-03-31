@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TRU-60 — LOS/POS Detector Refactor Validation</title>
+    <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=clash-display@400;500;600;700&f[]=satoshi@400;500;700&display=swap">
+    <style>
+        /* ===========================================
+           THEME
+           =========================================== */
+        :root {
+            --bg-primary: #0a0f1c;
+            --bg-secondary: #111827;
+            --bg-card: #1a2236;
+            --text-primary: #f0f4f8;
+            --text-secondary: #8b9cc0;
+            --accent: #00e5a0;
+            --accent-glow: rgba(0, 229, 160, 0.15);
+            --accent-2: #3b82f6;
+            --accent-2-glow: rgba(59, 130, 246, 0.15);
+            --red: #f87171;
+            --amber: #fbbf24;
+            --font-display: 'Clash Display', sans-serif;
+            --font-body: 'Satoshi', sans-serif;
+            --title-size: clamp(1.5rem, 5vw, 4rem);
+            --h2-size: clamp(1.25rem, 3.5vw, 2.5rem);
+            --h3-size: clamp(1rem, 2.5vw, 1.5rem);
+            --body-size: clamp(0.75rem, 1.5vw, 1.125rem);
+            --small-size: clamp(0.65rem, 1vw, 0.875rem);
+            --slide-padding: clamp(1rem, 4vw, 4rem);
+            --content-gap: clamp(0.5rem, 2vw, 2rem);
+            --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-snap-type: y mandatory;
+            height: 100%;
+            overflow-x: hidden;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            height: 100%;
+        }
+
+        .slide {
+            width: 100vw;
+            height: 100vh;
+            height: 100dvh;
+            overflow: hidden;
+            scroll-snap-align: start;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            padding: var(--slide-padding);
+        }
+
+        .slide-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            max-height: 100%;
+            overflow: hidden;
+        }
+
+        /* ===========================================
+           PROGRESS BAR
+           =========================================== */
+        .progress-bar {
+            position: fixed;
+            top: 0; left: 0;
+            height: 3px;
+            background: var(--accent);
+            z-index: 100;
+            transition: width 0.3s ease;
+            box-shadow: 0 0 12px var(--accent-glow);
+        }
+
+        /* ===========================================
+           NAV DOTS
+           =========================================== */
+        .nav-dots {
+            position: fixed;
+            right: clamp(0.5rem, 2vw, 1.5rem);
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            z-index: 100;
+        }
+
+        .nav-dot {
+            width: 8px; height: 8px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.15);
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            padding: 0;
+        }
+
+        .nav-dot.active {
+            background: var(--accent);
+            box-shadow: 0 0 8px var(--accent-glow);
+            transform: scale(1.3);
+        }
+
+        /* ===========================================
+           TYPOGRAPHY
+           =========================================== */
+        h1 {
+            font-family: var(--font-display);
+            font-size: var(--title-size);
+            font-weight: 700;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+        }
+
+        h2 {
+            font-family: var(--font-display);
+            font-size: var(--h2-size);
+            font-weight: 600;
+            line-height: 1.2;
+            letter-spacing: -0.01em;
+        }
+
+        h3 {
+            font-family: var(--font-display);
+            font-size: var(--h3-size);
+            font-weight: 600;
+        }
+
+        p, li {
+            font-size: var(--body-size);
+            line-height: 1.5;
+            color: var(--text-secondary);
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 0.2em 0.7em;
+            border-radius: 999px;
+            font-size: var(--small-size);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .tag-green { background: rgba(0,229,160,0.15); color: var(--accent); }
+        .tag-blue { background: rgba(59,130,246,0.15); color: var(--accent-2); }
+        .tag-amber { background: rgba(251,191,36,0.15); color: var(--amber); }
+
+        /* ===========================================
+           ANIMATIONS
+           =========================================== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.6s var(--ease-out-expo),
+                        transform 0.6s var(--ease-out-expo);
+        }
+
+        .slide.visible .reveal {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .reveal:nth-child(1) { transition-delay: 0.05s; }
+        .reveal:nth-child(2) { transition-delay: 0.15s; }
+        .reveal:nth-child(3) { transition-delay: 0.25s; }
+        .reveal:nth-child(4) { transition-delay: 0.35s; }
+        .reveal:nth-child(5) { transition-delay: 0.45s; }
+        .reveal:nth-child(6) { transition-delay: 0.55s; }
+
+        .reveal-scale {
+            opacity: 0;
+            transform: scale(0.92);
+            transition: opacity 0.6s var(--ease-out-expo),
+                        transform 0.6s var(--ease-out-expo);
+        }
+
+        .slide.visible .reveal-scale {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* ===========================================
+           GRID PATTERN BACKGROUND
+           =========================================== */
+        .grid-bg::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+            background-size: 40px 40px;
+            pointer-events: none;
+        }
+
+        /* ===========================================
+           SLIDE 1: TITLE
+           =========================================== */
+        .title-slide {
+            background:
+                radial-gradient(ellipse at 25% 85%, rgba(0,229,160,0.12) 0%, transparent 50%),
+                radial-gradient(ellipse at 75% 15%, rgba(59,130,246,0.08) 0%, transparent 50%),
+                var(--bg-primary);
+        }
+
+        .title-slide .identifier {
+            font-family: var(--font-body);
+            font-size: var(--small-size);
+            font-weight: 700;
+            color: var(--accent);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-bottom: clamp(0.5rem, 1.5vw, 1rem);
+        }
+
+        .title-slide .subtitle {
+            font-size: clamp(0.85rem, 1.8vw, 1.25rem);
+            color: var(--text-secondary);
+            max-width: 50ch;
+            margin-top: clamp(0.5rem, 1.5vw, 1.5rem);
+        }
+
+        .title-slide .meta {
+            display: flex;
+            gap: clamp(0.5rem, 1.5vw, 1rem);
+            margin-top: clamp(1rem, 2vw, 2rem);
+            flex-wrap: wrap;
+        }
+
+        /* ===========================================
+           SLIDE 2: ARCHITECTURE
+           =========================================== */
+        .pipeline {
+            display: flex;
+            align-items: stretch;
+            gap: clamp(0.3rem, 1vw, 0.75rem);
+            margin-top: var(--content-gap);
+            flex-wrap: nowrap;
+        }
+
+        .pipeline-step {
+            flex: 1;
+            background: var(--bg-card);
+            border-radius: 12px;
+            padding: clamp(0.6rem, 1.5vw, 1.25rem);
+            border: 1px solid rgba(255,255,255,0.06);
+            display: flex;
+            flex-direction: column;
+            gap: clamp(0.3rem, 0.8vw, 0.5rem);
+            min-width: 0;
+        }
+
+        .pipeline-step.old {
+            border-color: rgba(248,113,113,0.3);
+            opacity: 0.5;
+            position: relative;
+        }
+
+        .pipeline-step.old::after {
+            content: '';
+            position: absolute;
+            top: 45%; left: 5%; right: 5%;
+            height: 2px;
+            background: var(--red);
+            transform: rotate(-2deg);
+        }
+
+        .pipeline-step.new {
+            border-color: rgba(0,229,160,0.3);
+            background: linear-gradient(135deg, var(--bg-card) 0%, rgba(0,229,160,0.05) 100%);
+        }
+
+        .step-num {
+            font-family: var(--font-display);
+            font-size: var(--small-size);
+            color: var(--text-secondary);
+            font-weight: 600;
+        }
+
+        .step-name {
+            font-family: var(--font-display);
+            font-size: clamp(0.8rem, 1.3vw, 1.1rem);
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .step-desc {
+            font-size: var(--small-size);
+            color: var(--text-secondary);
+            line-height: 1.4;
+        }
+
+        .arrow {
+            display: flex;
+            align-items: center;
+            font-size: clamp(0.8rem, 1.5vw, 1.2rem);
+            color: rgba(255,255,255,0.15);
+            flex-shrink: 0;
+        }
+
+        /* ===========================================
+           SLIDE 3: RESULTS
+           =========================================== */
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: clamp(0.5rem, 1.5vw, 1rem);
+            margin-top: var(--content-gap);
+        }
+
+        .stat-card {
+            background: var(--bg-card);
+            border-radius: 12px;
+            padding: clamp(0.8rem, 2vw, 1.5rem);
+            border: 1px solid rgba(255,255,255,0.06);
+            text-align: center;
+        }
+
+        .stat-value {
+            font-family: var(--font-display);
+            font-size: clamp(1.5rem, 4vw, 3.5rem);
+            font-weight: 700;
+            line-height: 1;
+        }
+
+        .stat-value.green { color: var(--accent); }
+        .stat-value.blue { color: var(--accent-2); }
+        .stat-value.amber { color: var(--amber); }
+
+        .stat-label {
+            font-size: var(--small-size);
+            color: var(--text-secondary);
+            margin-top: clamp(0.25rem, 0.5vw, 0.5rem);
+        }
+
+        /* ===========================================
+           SLIDE 4: DETECTION TABLE
+           =========================================== */
+        .detection-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: var(--content-gap);
+            font-size: var(--small-size);
+        }
+
+        .detection-table th {
+            text-align: left;
+            padding: clamp(0.3rem, 0.8vw, 0.6rem) clamp(0.4rem, 1vw, 0.8rem);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            color: var(--text-secondary);
+            font-weight: 600;
+            font-size: var(--small-size);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .detection-table td {
+            padding: clamp(0.25rem, 0.6vw, 0.5rem) clamp(0.4rem, 1vw, 0.8rem);
+            border-bottom: 1px solid rgba(255,255,255,0.04);
+            color: var(--text-secondary);
+            font-size: var(--small-size);
+        }
+
+        .detection-table tr:hover td {
+            background: rgba(255,255,255,0.02);
+        }
+
+        .detection-table .domain-name {
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        .dot { display: inline-block; width: 6px; height: 6px; border-radius: 50%; margin-right: 4px; }
+        .dot-green { background: var(--accent); }
+        .dot-blue { background: var(--accent-2); }
+        .dot-gray { background: rgba(255,255,255,0.15); }
+
+        .check { color: var(--accent); }
+        .new-badge {
+            font-size: 0.65em;
+            background: rgba(0,229,160,0.15);
+            color: var(--accent);
+            padding: 0.1em 0.4em;
+            border-radius: 4px;
+            font-weight: 600;
+            margin-left: 4px;
+        }
+
+        /* ===========================================
+           SLIDE 5: CONCLUSION
+           =========================================== */
+        .conclusion-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: clamp(0.5rem, 1.5vw, 1rem);
+            margin-top: var(--content-gap);
+        }
+
+        .conclusion-card {
+            background: var(--bg-card);
+            border-radius: 12px;
+            padding: clamp(0.8rem, 2vw, 1.5rem);
+            border: 1px solid rgba(255,255,255,0.06);
+        }
+
+        .conclusion-card h3 {
+            margin-bottom: clamp(0.3rem, 0.8vw, 0.5rem);
+        }
+
+        .conclusion-card p {
+            font-size: var(--small-size);
+        }
+
+        .conclusion-card.highlight {
+            border-color: rgba(0,229,160,0.25);
+            background: linear-gradient(135deg, var(--bg-card) 0%, rgba(0,229,160,0.06) 100%);
+        }
+
+        /* ===========================================
+           RESPONSIVE
+           =========================================== */
+        @media (max-height: 700px) {
+            :root {
+                --slide-padding: clamp(0.75rem, 3vw, 2rem);
+                --content-gap: clamp(0.4rem, 1.5vw, 1rem);
+                --title-size: clamp(1.25rem, 4.5vw, 2.5rem);
+                --h2-size: clamp(1rem, 3vw, 1.75rem);
+            }
+        }
+
+        @media (max-height: 600px) {
+            :root {
+                --slide-padding: clamp(0.5rem, 2.5vw, 1.5rem);
+                --content-gap: clamp(0.3rem, 1vw, 0.75rem);
+                --title-size: clamp(1.1rem, 4vw, 2rem);
+                --body-size: clamp(0.7rem, 1.2vw, 0.95rem);
+            }
+            .nav-dots { display: none; }
+        }
+
+        @media (max-height: 500px) {
+            :root {
+                --slide-padding: clamp(0.4rem, 2vw, 1rem);
+                --title-size: clamp(1rem, 3.5vw, 1.5rem);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .pipeline { flex-direction: column; }
+            .arrow { transform: rotate(90deg); justify-content: center; }
+            .stats-row { grid-template-columns: 1fr; }
+            .conclusion-grid { grid-template-columns: 1fr; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                transition-duration: 0.2s !important;
+            }
+            html { scroll-behavior: auto; }
+        }
+    </style>
+</head>
+<body>
+    <div class="progress-bar" id="progressBar"></div>
+
+    <nav class="nav-dots" id="navDots"></nav>
+
+    <!-- ===========================================
+         SLIDE 1: TITLE
+         =========================================== -->
+    <section class="slide title-slide grid-bg">
+        <div class="slide-content">
+            <div class="identifier reveal">TRU-60 &mdash; Validation Report</div>
+            <h1 class="reveal">LOS/POS Detector<br>Refactor Results</h1>
+            <p class="subtitle reveal">
+                Added Firecrawl scrape + rawHtml as new detection layers. All existing layers kept.
+                Only Playwright removed. 15 domains tested. Zero false positives.
+            </p>
+            <div class="meta reveal">
+                <span class="tag tag-green">Validated</span>
+                <span class="tag tag-blue">15 domains</span>
+                <span class="tag tag-amber">2 test runs</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===========================================
+         SLIDE 2: ARCHITECTURE — Additive Pipeline
+         =========================================== -->
+    <section class="slide grid-bg">
+        <div class="slide-content">
+            <h2 class="reveal">Detection Pipeline</h2>
+            <p class="reveal" style="color: var(--text-secondary); margin-top: 0.3em;">
+                All existing layers kept. Firecrawl added as new layers on top. Only Playwright removed.
+            </p>
+
+            <div class="pipeline reveal-scale" style="transition-delay: 0.2s;">
+                <div class="pipeline-step">
+                    <span class="step-num">Layer 1</span>
+                    <span class="step-name">DNS CNAME</span>
+                    <span class="step-desc">Portal subdomain CNAME records</span>
+                </div>
+                <span class="arrow">&rarr;</span>
+                <div class="pipeline-step">
+                    <span class="step-num">Layer 2</span>
+                    <span class="step-name">Redirects</span>
+                    <span class="step-desc">HTTP redirect chain following</span>
+                </div>
+                <span class="arrow">&rarr;</span>
+                <div class="pipeline-step">
+                    <span class="step-num">Layer 3</span>
+                    <span class="step-name">HTML Regex</span>
+                    <span class="step-desc">200+ vendor fingerprint patterns</span>
+                </div>
+                <span class="arrow">&rarr;</span>
+                <div class="pipeline-step">
+                    <span class="step-num">Layer 4</span>
+                    <span class="step-name">SSL Certs</span>
+                    <span class="step-desc">Certificate CN/SAN inspection</span>
+                </div>
+            </div>
+
+            <div class="pipeline reveal-scale" style="transition-delay: 0.35s; margin-top: clamp(0.5rem, 1.2vw, 1rem);">
+                <div class="pipeline-step new">
+                    <span class="step-num">Layer 5 <span class="new-badge">new</span></span>
+                    <span class="step-name">Firecrawl Map</span>
+                    <span class="step-desc">Discover portal/apply URLs</span>
+                </div>
+                <span class="arrow">&rarr;</span>
+                <div class="pipeline-step new">
+                    <span class="step-num">Layer 6 <span class="new-badge">new</span></span>
+                    <span class="step-name">Firecrawl Scrape</span>
+                    <span class="step-desc">rawHtml + regex fingerprint</span>
+                </div>
+                <span class="arrow">&rarr;</span>
+                <div class="pipeline-step new">
+                    <span class="step-num">Layer 7 <span class="new-badge">new</span></span>
+                    <span class="step-name">Search Fallback</span>
+                    <span class="step-desc">White-label portal discovery</span>
+                </div>
+                <span class="arrow" style="opacity: 0.3;">&rarr;</span>
+                <div class="pipeline-step old">
+                    <span class="step-num" style="color:var(--red);">Removed</span>
+                    <span class="step-name">Playwright</span>
+                    <span class="step-desc">Redundant with Firecrawl JS rendering</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===========================================
+         SLIDE 3: KEY METRICS
+         =========================================== -->
+    <section class="slide grid-bg">
+        <div class="slide-content">
+            <h2 class="reveal">Validation Metrics</h2>
+            <p class="reveal" style="color: var(--text-secondary); margin-top: 0.3em;">
+                15 domains tested across 2 runs &mdash; old pipeline vs. new pipeline
+            </p>
+
+            <div class="stats-row">
+                <div class="stat-card reveal">
+                    <div class="stat-value green" data-count="5">0</div>
+                    <div class="stat-label">Domains with<br>Positive Detections</div>
+                </div>
+                <div class="stat-card reveal">
+                    <div class="stat-value blue" data-count="0">0</div>
+                    <div class="stat-label">False<br>Positives</div>
+                </div>
+                <div class="stat-card reveal">
+                    <div class="stat-value amber" data-count="100">0</div>
+                    <div class="stat-label">Expected Vendors<br>Detected (%)</div>
+                </div>
+            </div>
+
+            <div class="stats-row" style="margin-top: clamp(0.4rem, 1vw, 0.75rem);">
+                <div class="stat-card reveal">
+                    <div class="stat-value green">+1</div>
+                    <div class="stat-label">Incremental Detections<br>from Firecrawl Layer</div>
+                </div>
+                <div class="stat-card reveal">
+                    <div class="stat-value blue">~2</div>
+                    <div class="stat-label">Firecrawl Credits<br>per Domain</div>
+                </div>
+                <div class="stat-card reveal">
+                    <div class="stat-value amber">0</div>
+                    <div class="stat-label">Playwright<br>Dependencies</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===========================================
+         SLIDE 4: DETECTION TABLE
+         =========================================== -->
+    <section class="slide grid-bg">
+        <div class="slide-content">
+            <h2 class="reveal">Detection Breakdown</h2>
+            <p class="reveal" style="color: var(--text-secondary); margin-top: 0.3em;">
+                Vendors found per domain &mdash; methods and confidence levels
+            </p>
+
+            <div class="reveal-scale" style="transition-delay: 0.2s; overflow-x: auto;">
+                <table class="detection-table">
+                    <thead>
+                        <tr>
+                            <th>Domain</th>
+                            <th>POS</th>
+                            <th>LOS</th>
+                            <th>Method</th>
+                            <th>Confidence</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="domain-name">flagstar.com</td>
+                            <td><span class="dot dot-green"></span>Blend</td>
+                            <td>&mdash;</td>
+                            <td>DNS</td>
+                            <td><span class="tag tag-green" style="font-size:0.7em;">High</span></td>
+                        </tr>
+                        <tr>
+                            <td class="domain-name">pennymac.com</td>
+                            <td><span class="dot dot-green"></span>Blend</td>
+                            <td>&mdash;</td>
+                            <td>DNS</td>
+                            <td><span class="tag tag-green" style="font-size:0.7em;">High</span></td>
+                        </tr>
+                        <tr>
+                            <td class="domain-name">movement.com</td>
+                            <td><span class="dot dot-green"></span>Blend</td>
+                            <td>&mdash;</td>
+                            <td>Firecrawl rawHtml<span class="new-badge">new</span></td>
+                            <td><span class="tag tag-green" style="font-size:0.7em;">High</span></td>
+                        </tr>
+                        <tr>
+                            <td class="domain-name">loandepot.com</td>
+                            <td><span class="dot dot-green"></span>mello</td>
+                            <td>&mdash;</td>
+                            <td>DNS / Redirect</td>
+                            <td><span class="tag tag-green" style="font-size:0.7em;">High</span></td>
+                        </tr>
+                        <tr>
+                            <td class="domain-name">mrcooper.com</td>
+                            <td>&mdash;</td>
+                            <td><span class="dot dot-blue"></span>LoanSphere</td>
+                            <td>DNS</td>
+                            <td><span class="tag tag-green" style="font-size:0.7em;">High</span></td>
+                        </tr>
+                        <tr>
+                            <td class="domain-name">uwm.com</td>
+                            <td>&mdash;</td>
+                            <td>&mdash;</td>
+                            <td>&mdash;</td>
+                            <td><span class="dot dot-gray"></span></td>
+                        </tr>
+                        <tr>
+                            <td class="domain-name">rfredericks.com</td>
+                            <td>&mdash;</td>
+                            <td>&mdash;</td>
+                            <td>&mdash;</td>
+                            <td><span class="dot dot-gray"></span></td>
+                        </tr>
+                        <tr>
+                            <td class="domain-name">caliberhomeloans.com</td>
+                            <td>&mdash;</td>
+                            <td>&mdash;</td>
+                            <td>&mdash;</td>
+                            <td><span class="dot dot-gray"></span></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p style="font-size: var(--small-size); color: var(--text-secondary); margin-top: 0.5em; opacity: 0.6;">
+                    Showing 8 of 15 tested domains. Remaining 7 had no detections (expected for non-mortgage or white-labeled sites).
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===========================================
+         SLIDE 5: CONCLUSION
+         =========================================== -->
+    <section class="slide grid-bg">
+        <div class="slide-content">
+            <h2 class="reveal">Outcome</h2>
+
+            <div class="conclusion-grid">
+                <div class="conclusion-card highlight reveal">
+                    <h3 style="color: var(--accent);">7 Layers Deep</h3>
+                    <p>All 4 original layers kept (DNS, Redirect, HTML Regex, SSL). 3 new Firecrawl layers added. Only Playwright removed (redundant).</p>
+                </div>
+                <div class="conclusion-card reveal">
+                    <h3>Incremental Coverage</h3>
+                    <p>Firecrawl rawHtml layer detected Blend on movement.com &mdash; a domain the existing layers missed entirely.</p>
+                </div>
+                <div class="conclusion-card reveal">
+                    <h3>Zero Regressions</h3>
+                    <p>All vendors previously detected by DNS/Redirect/SSL still detected. No false positives introduced.</p>
+                </div>
+                <div class="conclusion-card reveal">
+                    <h3>Cost Efficient</h3>
+                    <p>~2 Firecrawl credits per domain. 400 domains/month = ~800 credits. Well within Standard plan limits.</p>
+                </div>
+            </div>
+
+            <div class="reveal" style="margin-top: var(--content-gap); text-align: center;">
+                <span class="tag tag-green" style="font-size: var(--body-size);">Ready for Production</span>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        /* ===========================================
+           SLIDE PRESENTATION CONTROLLER
+           =========================================== */
+        class SlidePresentation {
+            constructor() {
+                this.slides = document.querySelectorAll('.slide');
+                this.progressBar = document.getElementById('progressBar');
+                this.navDotsContainer = document.getElementById('navDots');
+                this.currentSlide = 0;
+
+                this.createNavDots();
+                this.setupIntersectionObserver();
+                this.setupKeyboardNav();
+                this.setupCounterAnimation();
+            }
+
+            createNavDots() {
+                this.slides.forEach((_, i) => {
+                    const dot = document.createElement('button');
+                    dot.className = 'nav-dot' + (i === 0 ? ' active' : '');
+                    dot.setAttribute('aria-label', `Go to slide ${i + 1}`);
+                    dot.addEventListener('click', () => {
+                        this.slides[i].scrollIntoView({ behavior: 'smooth' });
+                    });
+                    this.navDotsContainer.appendChild(dot);
+                });
+            }
+
+            setupIntersectionObserver() {
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('visible');
+                            const index = Array.from(this.slides).indexOf(entry.target);
+                            this.currentSlide = index;
+                            this.updateProgress(index);
+                            this.updateNavDots(index);
+                            this.animateCounters(entry.target);
+                        }
+                    });
+                }, { threshold: 0.5 });
+
+                this.slides.forEach(slide => observer.observe(slide));
+            }
+
+            updateProgress(index) {
+                const progress = ((index + 1) / this.slides.length) * 100;
+                this.progressBar.style.width = `${progress}%`;
+            }
+
+            updateNavDots(index) {
+                this.navDotsContainer.querySelectorAll('.nav-dot').forEach((dot, i) => {
+                    dot.classList.toggle('active', i === index);
+                });
+            }
+
+            setupKeyboardNav() {
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'ArrowDown' || e.key === 'ArrowRight' || e.key === ' ') {
+                        e.preventDefault();
+                        const next = Math.min(this.currentSlide + 1, this.slides.length - 1);
+                        this.slides[next].scrollIntoView({ behavior: 'smooth' });
+                    } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
+                        e.preventDefault();
+                        const prev = Math.max(this.currentSlide - 1, 0);
+                        this.slides[prev].scrollIntoView({ behavior: 'smooth' });
+                    }
+                });
+            }
+
+            setupCounterAnimation() {
+                this.countersAnimated = new Set();
+            }
+
+            animateCounters(slide) {
+                if (this.countersAnimated.has(slide)) return;
+
+                const counters = slide.querySelectorAll('[data-count]');
+                if (counters.length === 0) return;
+
+                this.countersAnimated.add(slide);
+
+                counters.forEach(counter => {
+                    const target = parseInt(counter.dataset.count);
+                    const duration = 1200;
+                    const start = performance.now();
+
+                    const animate = (now) => {
+                        const elapsed = now - start;
+                        const progress = Math.min(elapsed / duration, 1);
+                        const eased = 1 - Math.pow(1 - progress, 3);
+                        const current = Math.round(eased * target);
+
+                        counter.textContent = target === 100 ? `${current}%` : current;
+
+                        if (progress < 1) {
+                            requestAnimationFrame(animate);
+                        }
+                    };
+
+                    requestAnimationFrame(animate);
+                });
+            }
+        }
+
+        new SlidePresentation();
+    </script>
+</body>
+</html>
