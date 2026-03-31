@@ -8,9 +8,11 @@ interface FieldSelectorProps {
   nameColumn?: string | null;
   companyColumn?: string | null;
   findEmailMode?: boolean;
+  customInstructions?: string;
+  onCustomInstructionsChange?: (instructions: string) => void;
 }
 
-export function FieldSelector({ selectedFields, onFieldsChange, nameColumn, companyColumn, findEmailMode }: FieldSelectorProps) {
+export function FieldSelector({ selectedFields, onFieldsChange, nameColumn, companyColumn, findEmailMode, customInstructions, onCustomInstructionsChange }: FieldSelectorProps) {
   const canUseEmailFinder = findEmailMode || (!!nameColumn && !!companyColumn);
   const [activeBundle, setActiveBundle] = useState<FieldBundle | null>(null);
 
@@ -134,6 +136,28 @@ export function FieldSelector({ selectedFields, onFieldsChange, nameColumn, comp
           </div>
         ))}
       </div>
+
+      {onCustomInstructionsChange && (
+        <div className="pt-4 border-t">
+          <button
+            type="button"
+            onClick={() => onCustomInstructionsChange(customInstructions ? '' : ' ')}
+            className="flex items-center gap-1 text-sm text-gray-600 hover:text-gray-800 mb-2"
+          >
+            <span className="text-xs">{customInstructions ? '\u25BC' : '\u25B6'}</span>
+            Custom extraction instructions (optional)
+          </button>
+          {customInstructions !== undefined && customInstructions !== '' && (
+            <textarea
+              value={customInstructions}
+              onChange={(e) => onCustomInstructionsChange(e.target.value)}
+              placeholder="e.g., Also find their LOS/POS system, number of branches, and recent acquisitions..."
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 resize-y"
+              rows={3}
+            />
+          )}
+        </div>
+      )}
 
       <div className="flex items-center justify-between pt-4 border-t">
         <div className="text-sm text-gray-600">

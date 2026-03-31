@@ -36,6 +36,7 @@ interface EnrichmentRequest {
     [key: string]: any;
   }>;
   fields: string[];
+  customInstructions?: string;
 }
 
 interface AgentResult {
@@ -456,6 +457,76 @@ async function findDomainFromCompany(companyName: string, firecrawlKey: string):
   return null;
 }
 
+async function customExtractionAgent(
+  domain: string,
+  instructions: string,
+  geminiKey: string,
+  firecrawlKey: string
+): Promise<AgentResult[]> {
+  const client = new OpenAI({ apiKey: geminiKey, baseURL: GEMINI_BASE_URL });
+  const results: AgentResult[] = [];
+
+  try {
+    const searchQuery = `${domain} ${instructions.slice(0, 100)}`;
+    const searchResults = await searchWithFirecrawl(searchQuery, firecrawlKey);
+
+    if (searchResults.length === 0) {
+      results.push({
+        field: 'custom_extraction',
+        value: null,
+        source_url: '',
+        confidence: 'low',
+        agent: 'Custom Extraction',
+      });
+      return results;
+    }
+
+    const content = searchResults.map(r => r.markdown || '').join('\n\n');
+    const sourceUrl = searchResults[0].url;
+
+    const response = await client.chat.completions.create({
+      model: GEMINI_MODEL,
+      messages: [
+        {
+          role: 'system',
+          content: 'Extract custom data points as instructed. Return a JSON object with descriptive keys for each data point. Use null for data you cannot find.',
+        },
+        {
+          role: 'user',
+          content: `Instructions: ${instructions}\n\nCompany domain: ${domain}\n\nContent:\n${content}\n\nReturn JSON with a key for each requested data point.`,
+        },
+      ],
+      response_format: { type: 'json_object' },
+      temperature: 0.3,
+    });
+
+    const result = response.choices[0]?.message?.content;
+    if (result) {
+      const extracted = JSON.parse(result);
+      for (const [key, value] of Object.entries(extracted)) {
+        results.push({
+          field: `custom_${key}`,
+          value: value as string | number | null,
+          source_url: sourceUrl,
+          confidence: value ? 'medium' : 'low',
+          agent: 'Custom Extraction',
+        });
+      }
+    }
+  } catch (error) {
+    console.error('Custom extraction agent error:', error);
+    results.push({
+      field: 'custom_extraction',
+      value: null,
+      source_url: '',
+      confidence: 'low',
+      agent: 'Custom Extraction',
+    });
+  }
+
+  return results;
+}
+
 function getContactName(contact: Record<string, any>): string {
   return contact.name || contact.first_name || contact.firstname || contact.full_name || contact.fullname || contact.contact_name || contact['First Name'] || contact['Name'] || contact['Full Name'] || contact['Contact'] || contact['Lead Name'] || '';
 }
@@ -473,7 +544,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     return res.status(500).json({ error: 'API keys not configured' });
   }
 
-  const { contacts, fields } = req.body as EnrichmentRequest;
+  const { contacts, fields, customInstructions } = req.body as EnrichmentRequest;
 
   if (!contacts || !Array.isArray(contacts) || contacts.length === 0) {
     return res.status(400).json({ error: 'Contacts array required' });
@@ -575,6 +646,13 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
             );
           });
         }
+      }
+
+      // Custom extraction agent when instructions provided
+      if (customInstructions) {
+        agentPromises.push(
+          customExtractionAgent(domain, customInstructions, GEMINI_API_KEY, FIRECRAWL_API_KEY)
+        );
       }
 
       const agentResults = await Promise.all(agentPromises);

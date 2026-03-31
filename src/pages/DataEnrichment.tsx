@@ -9,6 +9,7 @@ import { SourceModal } from '../components/enrichment/SourceModal';
 import { parseFile } from '../utils/csvParser';
 import { exportToCSV, downloadCSV, copyToClipboard } from '../utils/csvExporter';
 import { EnrichmentClient } from '../services/enrichmentClient';
+import { FIELD_BUNDLES } from '../types/enrichment';
 import type { EnrichmentResult, StreamEventType } from '../types/enrichment';
 
 export function DataEnrichment() {
@@ -26,6 +27,7 @@ export function DataEnrichment() {
   const [sourceModalUrl, setSourceModalUrl] = useState<string | null>(null);
   const [hubspotMatches, setHubspotMatches] = useState<Record<string, { lifecycleStage: string; firstName: string; lastName: string; company: string }>>({});
   const [isCheckingHubSpot, setIsCheckingHubSpot] = useState(false);
+  const [customInstructions, setCustomInstructions] = useState('');
   const enrichmentClientRef = useRef<EnrichmentClient | null>(null);
 
   const findEmailMode = !emailColumn && !!(nameColumn && companyColumn);
@@ -54,6 +56,24 @@ export function DataEnrichment() {
     } finally {
       setIsCheckingHubSpot(false);
     }
+  };
+
+  const handleUrlSubmit = (url: string) => {
+    // Normalize: strip protocol, www, trailing slash
+    let domain = url.replace(/^https?:\/\//, '').replace(/^www\./, '').replace(/\/.*$/, '');
+    // Create a synthetic single-row CSV with the domain as email-like identifier
+    const syntheticRow = { company_domain: domain, email: `info@${domain}` };
+    setHeaders(['company_domain', 'email']);
+    setCsvData([syntheticRow]);
+    setEmailColumn('email');
+    setNameColumn(null);
+    setLastNameColumn(null);
+    setCompanyColumn(null);
+    setResults([]);
+    setStats({ completed: 0, successful: 0, failed: 0 });
+    setHubspotMatches({});
+    // Auto-select full enrichment for single-URL mode
+    setSelectedFields([...FIELD_BUNDLES.full].filter(f => f !== 'work_email'));
   };
 
   const handleFileUpload = async (file: File) => {
@@ -136,8 +156,12 @@ export function DataEnrichment() {
     const client = new EnrichmentClient();
     enrichmentClientRef.current = client;
 
+    const request: any = { contacts, fields: selectedFields, source: 'csv' };
+    if (customInstructions.trim()) {
+      request.customInstructions = customInstructions.trim();
+    }
     await client.startEnrichment(
-      { contacts, fields: selectedFields, source: 'csv' },
+      request,
       (event: StreamEventType) => {
         handleStreamEvent(event);
       },
@@ -265,12 +289,12 @@ export function DataEnrichment() {
       <div className="mb-8">
         <h1 className="text-3xl font-bold text-gray-900">Data Enrichment</h1>
         <p className="mt-2 text-gray-600">
-          Upload a CSV or Excel file with contacts and enrich with AI-powered company data
+          Upload a CSV, paste a URL, or enrich any list with AI-powered company intelligence
         </p>
       </div>
 
       {csvData.length === 0 ? (
-        <UploadZone onFileUpload={handleFileUpload} />
+        <UploadZone onFileUpload={handleFileUpload} onUrlSubmit={handleUrlSubmit} />
       ) : (
         <div className="space-y-6">
           {/* File preview + column mapping */}
@@ -314,6 +338,8 @@ export function DataEnrichment() {
                   nameColumn={nameColumn}
                   companyColumn={companyColumn}
                   findEmailMode={findEmailMode}
+                  customInstructions={customInstructions}
+                  onCustomInstructionsChange={setCustomInstructions}
                 />
               </div>
 
