@@ -13,6 +13,51 @@ Truv's marketing knowledge base and automation toolkit.
 
 ---
 
+## Output Linking (Required)
+
+When you create any output file (report, presentation, email template, diagram, document), you **must** add an entry to [`OUTPUT_INDEX.md`](OUTPUT_INDEX.md) in the appropriate section. Include the relative path, a one-line description, and your agent name or role. This is a board-level requirement — no exceptions.
+
+---
+
+## Truv Plans, Pricing & User Segments
+
+**"Dashboard"** = the Truv Dashboard product (`dashboard.truv.com`), not a plan. **"PAYGO"** and **"Self-Service"** are the same tier (different internal names). Two main segments:
+
+### User Segments
+- **One-Off** — Single verification via SEO pages, no dashboard, Stripe per-order
+- **PAYGO / Self-Service (Individual Dashboard)** — No commitment, credit card, self-serve onboarding (Auth0 passwordless), Orb + Stripe billing
+- **Enterprise (Company Dashboard)** — Annual contract, ACH Net-15, dedicated CS, custom pricing
+
+### Pricing Plans (May 2025)
+| Plan | Price | Credits | Expiration |
+|------|-------|---------|------------|
+| Launch | $300 auto-charged when balance < $10 | $300 | 12 months |
+| Growth | $500+/month | Monthly allotment | End of 30-day cycle |
+| Professional | Higher tier | Monthly allotment | End of 30-day cycle |
+| Enterprise | Custom (sales-led) | Custom | Custom |
+
+### Sign-Up Flows
+- **One-Off → PAYGO:** SEO page → order → dashboard invite email → passwordless login → plan selection → activated
+- **Direct Self-Service:** `dashboard.truv.com/signup` → Auth0 → `#self-serve-registration` Slack → TSE outreach + prod API keys → optional walkthrough
+- **Enterprise:** Sales-led → contract → admin sets up company → team invited
+- **Consumer (Gov):** Static link → form + phone OTP → Truv Order Page
+
+### Key Differentiators
+| | Self-Service | Enterprise |
+|---|---|---|
+| Payment | Credit card | ACH Net-15 |
+| API keys | At signup | After contract |
+| Re-verifications | Free 90 days | Up to 365 days |
+| Non-payment | Keys disabled instantly | Keys disabled after 15 days |
+| Data sources | Fixed/smart waterfall | Configurable per product |
+
+### Blacklisted Domains
+Enterprise clients can block their domain from PAYGO dashboard creation. Non-blacklisted = dashboard invite; blacklisted = report via email + enterprise admin notified.
+
+Full reference: [Notion page](https://www.notion.so/3349144f13a681ffa2fbdc65c47a0fe0)
+
+---
+
 ## Key Integrations
 
 ### HubSpot

@@ -25,7 +25,14 @@ def _get_tools() -> list:
     """Import and return all agent tools."""
     from truv_scout.tools.search import search_knowledge_base
     from truv_scout.tools.awareness import list_sources, get_source_metadata
-    from truv_scout.tools.firecrawl import search_company_news, check_job_changes
+    from truv_scout.tools.firecrawl import (
+        search_company_news,
+        check_job_changes,
+        scrape_company_website,
+        crawl_company_site,
+        map_company_urls,
+        extract_article_content,
+    )
 
     return [
         search_knowledge_base,
@@ -33,6 +40,10 @@ def _get_tools() -> list:
         get_source_metadata,
         search_company_news,
         check_job_changes,
+        scrape_company_website,
+        crawl_company_site,
+        map_company_urls,
+        extract_article_content,
     ]
 
 

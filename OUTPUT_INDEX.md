@@ -38,6 +38,9 @@ Central registry of all deliverables. Every agent and employee must add a link h
 
 | Link | Description |
 |------|-------------|
+| [Notion: Truv.com Lead Capture Audit](https://www.notion.so/3349144f13a6811dacb2efab5c70708d) | Full site lead capture audit with findings, issues, and ranked opportunities |
+| [docs/reports/truv-website-total-audit-2026-03-31.html](docs/reports/truv-website-total-audit-2026-03-31.html) | Combined website audit: forms + lead capture + implementation plan |
+| [docs/reports/truv-inbound-form-audit-2026-03-31.html](docs/reports/truv-inbound-form-audit-2026-03-31.html) | Inbound form audit: pull-through, self-qualification, and conversion optimization |
 | [docs/reports/self-service-flow-correction-2026-03-30.html](docs/reports/self-service-flow-correction-2026-03-30.html) | Self-service flow correction audit (TRU-57) — CMO |
 | [docs/reports/LANDING-PAGE-REPORT.md](docs/reports/LANDING-PAGE-REPORT.md) | Landing page audit |
 | [docs/reports/clay-workspace-audit.md](docs/reports/clay-workspace-audit.md) | Clay workspace audit |
@@ -89,6 +92,13 @@ Central registry of all deliverables. Every agent and employee must add a link h
 | [docs/email-templates/sendgrid-hr1-public-sector.html](docs/email-templates/sendgrid-hr1-public-sector.html) | HR1 public sector |
 | [docs/email-templates/sendgrid-mn-dcyf-pilot-reengagement.html](docs/email-templates/sendgrid-mn-dcyf-pilot-reengagement.html) | MN DCYF pilot reengagement |
 | [docs/email-templates/sendgrid-campaign-launcher-demo.html](docs/email-templates/sendgrid-campaign-launcher-demo.html) | Campaign launcher demo |
+
+## Landing Pages
+
+| Date | Link | Description | Author |
+|------|------|-------------|--------|
+| 2026-03-31 | [public/lp/start-verifying-v4.html](public/lp/start-verifying-v4.html) | Start Verifying v4 — bento grid, marquee ticker, scroll reveals, blue-tinted shadows | Claude Code |
+| — | [public/lp/start-verifying-v3.html](public/lp/start-verifying-v3.html) | Start Verifying v3 — split hero, pain/gain, 3-col features | — |
 
 ## Knowledge Base
 

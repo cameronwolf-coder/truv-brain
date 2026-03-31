@@ -37,6 +37,168 @@ def _firecrawl_search(query: str, limit: int = 5) -> list[dict]:
     return [{"title": f"Search failed ({resp.status_code})", "url": ""}]
 
 
+def scrape_company_website(company_domain: str, paths: str = "") -> str:
+    """Scrape a company website for content analysis.
+
+    Use this tool to extract clean text from a company's website when you
+    need to analyze their tech stack, team structure, or business model.
+    Much more reliable than HTML regex for detecting LOS/POS systems,
+    partnerships, and product offerings.
+
+    Args:
+        company_domain: Company domain (e.g. acmefinancial.com).
+        paths: Comma-separated paths to scrape (e.g. "/about,/team,/technology").
+               If empty, scrapes the homepage only.
+
+    Returns:
+        Markdown content from the scraped pages.
+    """
+    from outreach_intel.firecrawl_client import FirecrawlClient
+
+    client = FirecrawlClient()
+    if not client.available:
+        return "Firecrawl API key not configured. Cannot scrape website."
+
+    url = f"https://{company_domain}" if not company_domain.startswith("http") else company_domain
+
+    if paths:
+        path_list = [p.strip() for p in paths.split(",") if p.strip()]
+        sections = []
+        for path in path_list[:5]:
+            page_url = f"{url.rstrip('/')}{path}"
+            result = client.scrape(page_url)
+            if result.error:
+                sections.append(f"## {path}\nError: {result.error}")
+            elif result.markdown:
+                sections.append(f"## {result.title or path}\n{result.markdown[:2000]}")
+            else:
+                sections.append(f"## {path}\nNo content extracted.")
+        return f"Website content for {company_domain}:\n\n" + "\n\n---\n\n".join(sections)
+    else:
+        result = client.scrape(url)
+        if result.error:
+            return f"Failed to scrape {company_domain}: {result.error}"
+        if not result.markdown:
+            return f"No content extracted from {company_domain}."
+        return f"Homepage content for {company_domain} ({result.title}):\n\n{result.markdown[:3000]}"
+
+
+def crawl_company_site(company_domain: str, max_pages: int = 10, include_patterns: str = "") -> str:
+    """Crawl multiple pages of a company website.
+
+    Use this tool when you need to analyze a company's full web presence,
+    not just a single page. Good for detecting tech stack across the site,
+    finding team/about/technology pages, and building a comprehensive
+    profile of the company's offerings.
+
+    Args:
+        company_domain: Company domain (e.g. acmefinancial.com).
+        max_pages: Maximum pages to crawl (1-25).
+        include_patterns: Comma-separated URL patterns to include
+                         (e.g. "/about/*,/team/*,/technology/*").
+
+    Returns:
+        Summary of crawled pages with key content excerpts.
+    """
+    from outreach_intel.firecrawl_client import FirecrawlClient
+
+    client = FirecrawlClient()
+    if not client.available:
+        return "Firecrawl API key not configured. Cannot crawl website."
+
+    url = f"https://{company_domain}" if not company_domain.startswith("http") else company_domain
+    include_paths = [p.strip() for p in include_patterns.split(",") if p.strip()] if include_patterns else None
+
+    result = client.crawl(url, max_pages=min(max_pages, 25), include_paths=include_paths)
+    if result.error:
+        return f"Crawl failed for {company_domain}: {result.error}"
+    if not result.pages:
+        return f"No pages found for {company_domain}."
+
+    sections = [f"Crawled {len(result.pages)} pages from {company_domain} ({result.credits_used} credits used):\n"]
+    for page in result.pages:
+        title = page.title or page.url
+        excerpt = page.markdown[:500] if page.markdown else "(no content)"
+        sections.append(f"### {title}\nURL: {page.url}\n{excerpt}\n")
+
+    return "\n---\n".join(sections)
+
+
+def map_company_urls(company_domain: str) -> str:
+    """Discover all URLs on a company's website.
+
+    Use this tool to get a site map before deciding which specific pages
+    to scrape. Helps identify technology pages, team pages, careers pages,
+    partner directories, and other high-value content areas.
+
+    Args:
+        company_domain: Company domain (e.g. acmefinancial.com).
+
+    Returns:
+        List of discovered URLs, grouped by path pattern.
+    """
+    from outreach_intel.firecrawl_client import FirecrawlClient
+
+    client = FirecrawlClient()
+    if not client.available:
+        return "Firecrawl API key not configured. Cannot map website."
+
+    url = f"https://{company_domain}" if not company_domain.startswith("http") else company_domain
+
+    result = client.map(url, limit=100)
+    if result.error:
+        return f"Map failed for {company_domain}: {result.error}"
+    if not result.urls:
+        return f"No URLs discovered for {company_domain}."
+
+    # Group by first path segment
+    groups: dict[str, list[str]] = {}
+    for u in result.urls:
+        # Extract path from URL
+        path = u.split(company_domain, 1)[-1] if company_domain in u else u
+        segment = path.split("/")[1] if "/" in path and len(path.split("/")) > 1 else "root"
+        groups.setdefault(segment, []).append(u)
+
+    lines = [f"Site map for {company_domain} ({result.total} URLs found):\n"]
+    for group, urls in sorted(groups.items(), key=lambda x: -len(x[1])):
+        lines.append(f"/{group}/ ({len(urls)} pages)")
+        for u in urls[:5]:
+            lines.append(f"  - {u}")
+        if len(urls) > 5:
+            lines.append(f"  ... and {len(urls) - 5} more")
+
+    return "\n".join(lines)
+
+
+def extract_article_content(url: str) -> str:
+    """Extract full article content from a news URL.
+
+    Use this tool when search_company_news finds a relevant article
+    and you need the full content for scoring external trigger signals.
+    Extracts clean markdown from news articles, press releases, and
+    blog posts.
+
+    Args:
+        url: Full URL of the article to extract.
+
+    Returns:
+        Article title and full markdown content.
+    """
+    from outreach_intel.firecrawl_client import FirecrawlClient
+
+    client = FirecrawlClient()
+    if not client.available:
+        return "Firecrawl API key not configured. Cannot extract article."
+
+    result = client.scrape(url, only_main_content=True)
+    if result.error:
+        return f"Failed to extract article: {result.error}"
+    if not result.markdown:
+        return f"No content extracted from {url}."
+
+    return f"# {result.title}\n\n{result.markdown[:4000]}"
+
+
 def search_company_news(company_name: str) -> str:
     """Search for recent news about a company.
 
