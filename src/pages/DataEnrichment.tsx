@@ -58,6 +58,73 @@ export function DataEnrichment() {
     }
   };
 
+  const handleManualSubmit = (entries: Record<string, string>[]) => {
+    // Build headers from all keys present in entries
+    const allKeys = new Set<string>();
+    entries.forEach(e => Object.keys(e).forEach(k => allKeys.add(k)));
+    const hdrs = Array.from(allKeys);
+
+    // Normalize rows to have all headers
+    const rows = entries.map(e => {
+      const row: Record<string, string> = {};
+      hdrs.forEach(h => { row[h] = e[h] || ''; });
+      return row;
+    });
+
+    setHeaders(hdrs);
+    setCsvData(rows);
+    setEmailColumn(hdrs.includes('email') ? 'email' : null);
+    setNameColumn(hdrs.includes('first_name') ? 'first_name' : null);
+    setLastNameColumn(hdrs.includes('last_name') ? 'last_name' : null);
+    setCompanyColumn(hdrs.includes('company') ? 'company' : null);
+    setResults([]);
+    setStats({ completed: 0, successful: 0, failed: 0 });
+    setHubspotMatches({});
+
+    // Auto-select work_email when no email provided
+    if (!hdrs.includes('email') && hdrs.includes('first_name') && hdrs.includes('company')) {
+      setSelectedFields(prev =>
+        prev.includes('work_email') ? prev : [...prev, 'work_email']
+      );
+    }
+
+    // Auto HubSpot check if we have emails
+    if (hdrs.includes('email')) {
+      const emails = rows.map(r => r.email).filter(Boolean);
+      if (emails.length > 0) runHubSpotCheck(emails);
+    }
+  };
+
+  const handleHubSpotImport = (contacts: Record<string, string>[]) => {
+    // HubSpot contacts come with email, first_name, last_name, company, etc.
+    const allKeys = new Set<string>();
+    contacts.forEach(c => Object.keys(c).forEach(k => allKeys.add(k)));
+    // Remove lifecycle_stage and job_title from headers (metadata, not enrichment input)
+    const hdrs = Array.from(allKeys).filter(k => k !== 'lifecycle_stage' && k !== 'job_title');
+
+    const rows = contacts.map(c => {
+      const row: Record<string, string> = {};
+      hdrs.forEach(h => { row[h] = c[h] || ''; });
+      return row;
+    });
+
+    setHeaders(hdrs);
+    setCsvData(rows);
+    setEmailColumn(hdrs.includes('email') ? 'email' : null);
+    setNameColumn(hdrs.includes('first_name') ? 'first_name' : null);
+    setLastNameColumn(hdrs.includes('last_name') ? 'last_name' : null);
+    setCompanyColumn(hdrs.includes('company') ? 'company' : null);
+    setResults([]);
+    setStats({ completed: 0, successful: 0, failed: 0 });
+    setHubspotMatches({});
+
+    // Auto HubSpot check
+    if (hdrs.includes('email')) {
+      const emails = rows.map(r => r.email).filter(Boolean);
+      if (emails.length > 0) runHubSpotCheck(emails);
+    }
+  };
+
   const handleUrlSubmit = (url: string) => {
     // Normalize: strip protocol, www, trailing slash
     let domain = url.replace(/^https?:\/\//, '').replace(/^www\./, '').replace(/\/.*$/, '');
@@ -289,12 +356,17 @@ export function DataEnrichment() {
       <div className="mb-8">
         <h1 className="text-3xl font-bold text-gray-900">Data Enrichment</h1>
         <p className="mt-2 text-gray-600">
-          Upload a CSV, paste a URL, or enrich any list with AI-powered company intelligence
+          Upload a spreadsheet, enter info manually, search HubSpot, or paste a URL to enrich with AI-powered intelligence
         </p>
       </div>
 
       {csvData.length === 0 ? (
-        <UploadZone onFileUpload={handleFileUpload} onUrlSubmit={handleUrlSubmit} />
+        <UploadZone
+          onFileUpload={handleFileUpload}
+          onUrlSubmit={handleUrlSubmit}
+          onManualSubmit={handleManualSubmit}
+          onHubSpotImport={handleHubSpotImport}
+        />
       ) : (
         <div className="space-y-6">
           {/* File preview + column mapping */}
